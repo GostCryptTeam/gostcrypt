@@ -1,0 +1,109 @@
+\hypertarget{class_gost_crypt_1_1_memory_stream}{}\section{Gost\+Crypt\+:\+:Memory\+Stream Class Reference}
+\label{class_gost_crypt_1_1_memory_stream}\index{Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}}
+
+
+Inheritance diagram for Gost\+Crypt\+:\+:Memory\+Stream\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{class_gost_crypt_1_1_memory_stream__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gost\+Crypt\+:\+:Memory\+Stream\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{class_gost_crypt_1_1_memory_stream__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_aca2c9d0247f2f4628688312e5b7b9dad}\label{class_gost_crypt_1_1_memory_stream_aca2c9d0247f2f4628688312e5b7b9dad}} 
+{\bfseries Memory\+Stream} (const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&data)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_a81ffb032c78c6dd6186d65f931ed4b80}\label{class_gost_crypt_1_1_memory_stream_a81ffb032c78c6dd6186d65f931ed4b80}} 
+{\bfseries operator Const\+Buffer\+Ptr} () const
+\item 
+virtual uint64 \hyperlink{class_gost_crypt_1_1_memory_stream_aa20e02242bcd364e8cdfb07a3f764e75}{Read} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer)
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_memory_stream_a30c43526f22ef1ab2c46659111044f2a}{Read\+Complete\+Buffer} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer)
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_memory_stream_a5dca009f45e062287cae775a0b2e4bff}{Write} (const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&data)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_a7e179a42aa04670ca009dfd664dc53e6}\label{class_gost_crypt_1_1_memory_stream_a7e179a42aa04670ca009dfd664dc53e6}} 
+vector$<$ byte $>$ {\bfseries Data}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_a7b2df30d431a4255706117c6b0754561}\label{class_gost_crypt_1_1_memory_stream_a7b2df30d431a4255706117c6b0754561}} 
+size\+\_\+t {\bfseries Read\+Position}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_aa20e02242bcd364e8cdfb07a3f764e75}\label{class_gost_crypt_1_1_memory_stream_aa20e02242bcd364e8cdfb07a3f764e75}} 
+\index{Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}!Read@{Read}}
+\index{Read@{Read}!Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}}
+\subsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily uint64 Gost\+Crypt\+::\+Memory\+Stream\+::\+Read (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_gost_crypt_1_1_stream}{Gost\+Crypt\+::\+Stream}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_a30c43526f22ef1ab2c46659111044f2a}\label{class_gost_crypt_1_1_memory_stream_a30c43526f22ef1ab2c46659111044f2a}} 
+\index{Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}!Read\+Complete\+Buffer@{Read\+Complete\+Buffer}}
+\index{Read\+Complete\+Buffer@{Read\+Complete\+Buffer}!Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}}
+\subsubsection{\texorpdfstring{Read\+Complete\+Buffer()}{ReadCompleteBuffer()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Memory\+Stream\+::\+Read\+Complete\+Buffer (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_gost_crypt_1_1_stream}{Gost\+Crypt\+::\+Stream}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_memory_stream_a5dca009f45e062287cae775a0b2e4bff}\label{class_gost_crypt_1_1_memory_stream_a5dca009f45e062287cae775a0b2e4bff}} 
+\index{Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}!Write@{Write}}
+\index{Write@{Write}!Gost\+Crypt\+::\+Memory\+Stream@{Gost\+Crypt\+::\+Memory\+Stream}}
+\subsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Memory\+Stream\+::\+Write (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_gost_crypt_1_1_stream}{Gost\+Crypt\+::\+Stream}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform/Memory\+Stream.\+h\item 
+Platform/\hyperlink{_memory_stream_8cpp}{Memory\+Stream.\+cpp}\end{DoxyCompactItemize}

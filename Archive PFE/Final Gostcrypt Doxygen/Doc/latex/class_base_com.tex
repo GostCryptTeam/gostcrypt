@@ -1,0 +1,330 @@
+\hypertarget{class_base_com}{}\section{Base\+Com Class Reference}
+\label{class_base_com}\index{Base\+Com@{Base\+Com}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a975a72a5b377ede1d3106189b25f858b}{Call\+Driver} (D\+W\+O\+RD ioctl, B\+S\+TR input, B\+S\+TR $\ast$output)
+\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a27d575ad1ef51cac9f0167583db6ae06}{Copy\+File} (B\+S\+TR source\+File, B\+S\+TR destination\+File)
+\begin{DoxyCompactList}\small\item\em Copy a file. \end{DoxyCompactList}\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a52133219ed5ad54607a6c417de0ba666}{Delete\+File} (B\+S\+TR file)
+\begin{DoxyCompactList}\small\item\em Delete a file. \end{DoxyCompactList}\item 
+static B\+O\+OL \hyperlink{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea}{Is\+Paging\+File\+Active} (B\+O\+OL check\+Non\+Windows\+Partitions\+Only)
+\begin{DoxyCompactList}\small\item\em Check if the paging file is active. \end{DoxyCompactList}\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a86bbb8fc7490090226ed6a27456271e4}{Read\+Write\+File} (B\+O\+OL write, B\+O\+OL device, B\+S\+TR file\+Path, B\+S\+TR $\ast$buffer\+Bstr, unsigned \+\_\+\+\_\+int64 offset, unsigned \+\_\+\+\_\+int32 size, D\+W\+O\+RD $\ast$size\+Done)
+\begin{DoxyCompactList}\small\item\em Read Write file. \end{DoxyCompactList}\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1}{Register\+Filter\+Driver} (B\+O\+OL register\+Driver, int filter\+Type)
+\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb}{Register\+System\+Favorites\+Service} (B\+O\+OL register\+Service)
+\begin{DoxyCompactList}\small\item\em Register the system favorite service. \end{DoxyCompactList}\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7}{Set\+Driver\+Service\+Start\+Type} (D\+W\+O\+RD start\+Type)
+\begin{DoxyCompactList}\small\item\em Set the driver service strarting type. \end{DoxyCompactList}\item 
+static D\+W\+O\+RD \hyperlink{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00}{Write\+Local\+Machine\+Registry\+Dword\+Value} (B\+S\+TR key\+Path, B\+S\+TR value\+Name, D\+W\+O\+RD value)
+\begin{DoxyCompactList}\small\item\em Write D\+W\+O\+RD value on local machine registry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_base_com_a975a72a5b377ede1d3106189b25f858b}\label{class_base_com_a975a72a5b377ede1d3106189b25f858b}} 
+\index{Base\+Com@{Base\+Com}!Call\+Driver@{Call\+Driver}}
+\index{Call\+Driver@{Call\+Driver}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Call\+Driver()}{CallDriver()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Call\+Driver (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{ioctl,  }\item[{B\+S\+TR}]{input,  }\item[{B\+S\+TR $\ast$}]{output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & $\ast$ output \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & input \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & ioctl \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Get\+Last\+Error() catch (System\+Exception \&) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (Exception \&e) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (...) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a975a72a5b377ede1d3106189b25f858b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a975a72a5b377ede1d3106189b25f858b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a27d575ad1ef51cac9f0167583db6ae06}\label{class_base_com_a27d575ad1ef51cac9f0167583db6ae06}} 
+\index{Base\+Com@{Base\+Com}!Copy\+File@{Copy\+File}}
+\index{Copy\+File@{Copy\+File}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Copy\+File()}{CopyFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Copy\+File (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{source\+File,  }\item[{B\+S\+TR}]{destination\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Copy a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & destination\+File \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & source\+File \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD Get\+Last\+Error() if (!\+::\+Copy\+File (C\+W2A (source\+File), C\+W2A (destination\+File), F\+A\+L\+SE)) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a27d575ad1ef51cac9f0167583db6ae06_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a52133219ed5ad54607a6c417de0ba666}\label{class_base_com_a52133219ed5ad54607a6c417de0ba666}} 
+\index{Base\+Com@{Base\+Com}!Delete\+File@{Delete\+File}}
+\index{Delete\+File@{Delete\+File}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Delete\+File()}{DeleteFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Delete\+File (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Delete a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Get\+Last\+Error() if (!\+::\+Delete\+File (C\+W2A (file))) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a52133219ed5ad54607a6c417de0ba666_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea}\label{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea}} 
+\index{Base\+Com@{Base\+Com}!Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}}
+\index{Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Is\+Paging\+File\+Active()}{IsPagingFileActive()}}
+{\footnotesize\ttfamily B\+O\+OL Base\+Com\+::\+Is\+Paging\+File\+Active (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{check\+Non\+Windows\+Partitions\+Only }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Check if the paging file is active. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & check\+Non\+Windows\+Partitions\+Only \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL \hyperlink{_dlgcode_8c_a4683f63544f31aee5130df039402b772}{Is\+Paging\+File\+Active} (check\+Non\+Windows\+Partitions\+Only) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a86bbb8fc7490090226ed6a27456271e4}\label{class_base_com_a86bbb8fc7490090226ed6a27456271e4}} 
+\index{Base\+Com@{Base\+Com}!Read\+Write\+File@{Read\+Write\+File}}
+\index{Read\+Write\+File@{Read\+Write\+File}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Read\+Write\+File()}{ReadWriteFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Read\+Write\+File (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{write,  }\item[{B\+O\+OL}]{device,  }\item[{B\+S\+TR}]{file\+Path,  }\item[{B\+S\+TR $\ast$}]{buffer\+Bstr,  }\item[{unsigned \+\_\+\+\_\+int64}]{offset,  }\item[{unsigned \+\_\+\+\_\+int32}]{size,  }\item[{D\+W\+O\+RD $\ast$}]{size\+Done }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Read Write file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size\+Done \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int32 \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & $\ast$ buffer\+Bstr \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & file\+Path \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & device \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD Get\+Last\+Error() catch (System\+Exception \&) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (Exception \&e) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (...) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a86bbb8fc7490090226ed6a27456271e4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1}\label{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1}} 
+\index{Base\+Com@{Base\+Com}!Register\+Filter\+Driver@{Register\+Filter\+Driver}}
+\index{Register\+Filter\+Driver@{Register\+Filter\+Driver}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Register\+Filter\+Driver()}{RegisterFilterDriver()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Register\+Filter\+Driver (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Driver,  }\item[{int}]{filter\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & filter\+Type \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Driver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Get\+Last\+Error() catch (System\+Exception \&) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (Exception \&e) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (...) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb}\label{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb}} 
+\index{Base\+Com@{Base\+Com}!Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}}
+\index{Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Register\+System\+Favorites\+Service()}{RegisterSystemFavoritesService()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Register\+System\+Favorites\+Service (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Service }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Register the system favorite service. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Service \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD Get\+Last\+Error() catch (System\+Exception \&) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (Exception \&e) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (...) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7}\label{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7}} 
+\index{Base\+Com@{Base\+Com}!Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}}
+\index{Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Set\+Driver\+Service\+Start\+Type()}{SetDriverServiceStartType()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Set\+Driver\+Service\+Start\+Type (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{start\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the driver service strarting type. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & start\+Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD Get\+Last\+Error() catch (System\+Exception \&) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (Exception \&e) E\+R\+R\+O\+R\+\_\+\+E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+I\+N\+\_\+\+S\+E\+R\+V\+I\+CE catch (...) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00}\label{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00}} 
+\index{Base\+Com@{Base\+Com}!Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}}
+\index{Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}!Base\+Com@{Base\+Com}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Dword\+Value()}{WriteLocalMachineRegistryDwordValue()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Base\+Com\+::\+Write\+Local\+Machine\+Registry\+Dword\+Value (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{key\+Path,  }\item[{B\+S\+TR}]{value\+Name,  }\item[{D\+W\+O\+RD}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Write D\+W\+O\+RD value on local machine registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & value \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & value\+Name \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & key\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Get\+Last\+Error() if (!\hyperlink{_registry_8c_a1b863382e407fb7468d82c4e4c51ab13}{Write\+Local\+Machine\+Registry\+Dword} (C\+W2A (key\+Path), C\+W2A (value\+Name), value)) E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/Base\+Com.\+h\item 
+Common/\hyperlink{_base_com_8cpp}{Base\+Com.\+cpp}\end{DoxyCompactItemize}

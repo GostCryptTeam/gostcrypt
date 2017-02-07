@@ -1,0 +1,5 @@
+<map id="MountSelectedVolume" name="MountSelectedVolume">
+<area shape="rect" id="node2" href="$_mount_8c.html#aa1a9cbda78f607cc5c31a9c2f57efcc2" title="Returns TRUE if the last partition/drive selected via the Select Device dialog box was the system par..." alt="" coords="209,5,327,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a483dd167ebefb47959bcea57bda138f7" title="Draw warning as string id in Unicode. " alt="" coords="233,56,303,83"/>
+<area shape="rect" id="node4" href="$_mount_8c.html#a9bbae756414dfd0a162d086464626271" title="Get the selected &quot;Tree&quot; that is a listview. " alt="" coords="207,107,329,133"/>
+</map>

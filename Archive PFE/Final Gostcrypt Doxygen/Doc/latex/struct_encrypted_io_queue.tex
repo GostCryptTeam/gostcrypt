@@ -1,0 +1,173 @@
+\hypertarget{struct_encrypted_io_queue}{}\section{Encrypted\+Io\+Queue Struct Reference}
+\label{struct_encrypted_io_queue}\index{Encrypted\+Io\+Queue@{Encrypted\+Io\+Queue}}
+
+
+Collaboration diagram for Encrypted\+Io\+Queue\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_encrypted_io_queue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ad3d978e461f7fd15272c45b3ffce5264}\label{struct_encrypted_io_queue_ad3d978e461f7fd15272c45b3ffce5264}} 
+P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT {\bfseries Device\+Object}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_acaa423f2ecd2c6614d7b66d6a5261ba5}\label{struct_encrypted_io_queue_acaa423f2ecd2c6614d7b66d6a5261ba5}} 
+K\+M\+U\+T\+EX {\bfseries Buffer\+Pool\+Mutex}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a6fe8e61e93e3c417f5d02fcc67176f7b}\label{struct_encrypted_io_queue_a6fe8e61e93e3c417f5d02fcc67176f7b}} 
+\hyperlink{struct_encrypted_io_queue_buffer_struct}{Encrypted\+Io\+Queue\+Buffer} $\ast$ {\bfseries First\+Pool\+Buffer}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a002068b6ff6acf126b519a8fc80f970c}\label{struct_encrypted_io_queue_a002068b6ff6acf126b519a8fc80f970c}} 
+\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ {\bfseries Crypto\+Info}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a8866eb4dd4f987ffc9f637f7bfe71003}\label{struct_encrypted_io_queue_a8866eb4dd4f987ffc9f637f7bfe71003}} 
+H\+A\+N\+D\+LE {\bfseries Host\+File\+Handle}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a646476115475c9cde7d4b8712cedc8ff}\label{struct_encrypted_io_queue_a646476115475c9cde7d4b8712cedc8ff}} 
+int64 {\bfseries Virtual\+Device\+Length}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a79876d69cad37854b290e0b46bf9ef25}\label{struct_encrypted_io_queue_a79876d69cad37854b290e0b46bf9ef25}} 
+S\+E\+C\+U\+R\+I\+T\+Y\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+T\+E\+XT $\ast$ {\bfseries Security\+Client\+Context}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a5cef5dab979749a39cb63dfbf4da2c6f}\label{struct_encrypted_io_queue_a5cef5dab979749a39cb63dfbf4da2c6f}} 
+B\+O\+OL {\bfseries Is\+Filter\+Device}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ac4cfdd5c7ab8677d34988661150cc59c}\label{struct_encrypted_io_queue_ac4cfdd5c7ab8677d34988661150cc59c}} 
+P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT {\bfseries Lower\+Device\+Object}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a501b74d79b9b03155bb6bf85002ae90d}\label{struct_encrypted_io_queue_a501b74d79b9b03155bb6bf85002ae90d}} 
+int64 {\bfseries Encrypted\+Area\+Start}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a62ff1718115152d537c7688c292a1387}\label{struct_encrypted_io_queue_a62ff1718115152d537c7688c292a1387}} 
+volatile int64 {\bfseries Encrypted\+Area\+End}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a99d075a42d7c0ccd3c2d4336bbee9750}\label{struct_encrypted_io_queue_a99d075a42d7c0ccd3c2d4336bbee9750}} 
+volatile B\+O\+OL {\bfseries Encrypted\+Area\+End\+Update\+Pending}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_acf5604ec4621bde4c2bf96a01dc6d6aa}\label{struct_encrypted_io_queue_acf5604ec4621bde4c2bf96a01dc6d6aa}} 
+B\+O\+OL {\bfseries Remap\+Encrypted\+Area}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a59983fc0adcf2ecaba7c1b6aa7637428}\label{struct_encrypted_io_queue_a59983fc0adcf2ecaba7c1b6aa7637428}} 
+int64 {\bfseries Remapped\+Area\+Offset}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a969510e4a614cadf8efb69a107daf403}\label{struct_encrypted_io_queue_a969510e4a614cadf8efb69a107daf403}} 
+int64 {\bfseries Remapped\+Area\+Data\+Unit\+Offset}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a33839dcabad1fcce38435a96789b7531}\label{struct_encrypted_io_queue_a33839dcabad1fcce38435a96789b7531}} 
+I\+O\+\_\+\+R\+E\+M\+O\+V\+E\+\_\+\+L\+O\+CK {\bfseries Remove\+Lock}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a366c43e406f6cccdaefae539c01eb2bd}\label{struct_encrypted_io_queue_a366c43e406f6cccdaefae539c01eb2bd}} 
+P\+K\+T\+H\+R\+E\+AD {\bfseries Main\+Thread}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ab84dac0bf6124005e3a019378af0d600}\label{struct_encrypted_io_queue_ab84dac0bf6124005e3a019378af0d600}} 
+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY {\bfseries Main\+Thread\+Queue}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a29dac44ab48d5dd4237a4ab06f063435}\label{struct_encrypted_io_queue_a29dac44ab48d5dd4237a4ab06f063435}} 
+K\+S\+P\+I\+N\+\_\+\+L\+O\+CK {\bfseries Main\+Thread\+Queue\+Lock}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a6781cbc734f993da5b5c9efa8a4b2066}\label{struct_encrypted_io_queue_a6781cbc734f993da5b5c9efa8a4b2066}} 
+K\+E\+V\+E\+NT {\bfseries Main\+Thread\+Queue\+Not\+Empty\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a7028ed7665f93b68879f6f5dff26deb1}\label{struct_encrypted_io_queue_a7028ed7665f93b68879f6f5dff26deb1}} 
+P\+K\+T\+H\+R\+E\+AD {\bfseries Io\+Thread}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a0f5ec8457f0a923edb9e751d80e8fc49}\label{struct_encrypted_io_queue_a0f5ec8457f0a923edb9e751d80e8fc49}} 
+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY {\bfseries Io\+Thread\+Queue}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a82ec5a9ae44baddfb39225d04e059731}\label{struct_encrypted_io_queue_a82ec5a9ae44baddfb39225d04e059731}} 
+K\+S\+P\+I\+N\+\_\+\+L\+O\+CK {\bfseries Io\+Thread\+Queue\+Lock}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a581eb1146d99eed63e59e4ceac0f4a4c}\label{struct_encrypted_io_queue_a581eb1146d99eed63e59e4ceac0f4a4c}} 
+K\+E\+V\+E\+NT {\bfseries Io\+Thread\+Queue\+Not\+Empty\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_afe11ec802ece7ecf9b84544972eea6e3}\label{struct_encrypted_io_queue_afe11ec802ece7ecf9b84544972eea6e3}} 
+P\+K\+T\+H\+R\+E\+AD {\bfseries Completion\+Thread}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a840b95e9ee0f0738fda62cc6a41e791c}\label{struct_encrypted_io_queue_a840b95e9ee0f0738fda62cc6a41e791c}} 
+L\+I\+S\+T\+\_\+\+E\+N\+T\+RY {\bfseries Completion\+Thread\+Queue}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a472c2fe1ec14212bb231b2f4ab99240b}\label{struct_encrypted_io_queue_a472c2fe1ec14212bb231b2f4ab99240b}} 
+K\+S\+P\+I\+N\+\_\+\+L\+O\+CK {\bfseries Completion\+Thread\+Queue\+Lock}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a821ad8b3e79d5b3694f7e2af8a05b0e6}\label{struct_encrypted_io_queue_a821ad8b3e79d5b3694f7e2af8a05b0e6}} 
+K\+E\+V\+E\+NT {\bfseries Completion\+Thread\+Queue\+Not\+Empty\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a66550aa6a4873778ec6cc1d2bdb40841}\label{struct_encrypted_io_queue_a66550aa6a4873778ec6cc1d2bdb40841}} 
+byte $\ast$ {\bfseries Fragment\+BufferA}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_aac0d869d6473a8e0777060be28d6cbec}\label{struct_encrypted_io_queue_aac0d869d6473a8e0777060be28d6cbec}} 
+byte $\ast$ {\bfseries Fragment\+BufferB}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ad9be98d14066d978c4c7f5445e79305e}\label{struct_encrypted_io_queue_ad9be98d14066d978c4c7f5445e79305e}} 
+K\+E\+V\+E\+NT {\bfseries Fragment\+Buffer\+A\+Free\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a084797ef574b35297b8405970d0c0d82}\label{struct_encrypted_io_queue_a084797ef574b35297b8405970d0c0d82}} 
+K\+E\+V\+E\+NT {\bfseries Fragment\+Buffer\+B\+Free\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ab6fbb1fbad96d3ef91828ea5a089626d}\label{struct_encrypted_io_queue_ab6fbb1fbad96d3ef91828ea5a089626d}} 
+B\+O\+OL {\bfseries Read\+Ahead\+Buffer\+Valid}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ab563610ed6ea36f41801b80bc9d33693}\label{struct_encrypted_io_queue_ab563610ed6ea36f41801b80bc9d33693}} 
+L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER {\bfseries Last\+Read\+Offset}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a1f0e512c0577b84f82e0d9183f367b74}\label{struct_encrypted_io_queue_a1f0e512c0577b84f82e0d9183f367b74}} 
+U\+L\+O\+NG {\bfseries Last\+Read\+Length}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_afb705d567a4d65b7110769b45524b6ca}\label{struct_encrypted_io_queue_afb705d567a4d65b7110769b45524b6ca}} 
+L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER {\bfseries Read\+Ahead\+Offset}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a22d3f467e24b7acbb6dd590937b64bdb}\label{struct_encrypted_io_queue_a22d3f467e24b7acbb6dd590937b64bdb}} 
+U\+L\+O\+NG {\bfseries Read\+Ahead\+Length}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a9cff34ddd15c737e4c1261fffc837149}\label{struct_encrypted_io_queue_a9cff34ddd15c737e4c1261fffc837149}} 
+byte $\ast$ {\bfseries Read\+Ahead\+Buffer}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ae474a4e5166aefbc1d1f11c41df60b8d}\label{struct_encrypted_io_queue_ae474a4e5166aefbc1d1f11c41df60b8d}} 
+L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER {\bfseries Max\+Read\+Ahead\+Offset}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a64e95a2550b92f3e9958e1dc68c17e47}\label{struct_encrypted_io_queue_a64e95a2550b92f3e9958e1dc68c17e47}} 
+L\+O\+NG {\bfseries Outstanding\+Io\+Count}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ad33dab271969045d815beda6b04fae42}\label{struct_encrypted_io_queue_ad33dab271969045d815beda6b04fae42}} 
+K\+E\+V\+E\+NT {\bfseries No\+Outstanding\+Io\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ae4d8eed19f20be23d740d1d9d9cdc4f0}\label{struct_encrypted_io_queue_ae4d8eed19f20be23d740d1d9d9cdc4f0}} 
+L\+O\+NG {\bfseries Io\+Thread\+Pending\+Request\+Count}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a776ed50a87bf10d617922785530cb512}\label{struct_encrypted_io_queue_a776ed50a87bf10d617922785530cb512}} 
+K\+E\+V\+E\+NT {\bfseries Pool\+Buffer\+Free\+Event}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_affd51a971b0376f3b245064e8b1ce35e}\label{struct_encrypted_io_queue_affd51a971b0376f3b245064e8b1ce35e}} 
+\+\_\+\+\_\+int64 {\bfseries Total\+Bytes\+Read}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a2e77b024fe5cefcaea1b6ea46a019632}\label{struct_encrypted_io_queue_a2e77b024fe5cefcaea1b6ea46a019632}} 
+\+\_\+\+\_\+int64 {\bfseries Total\+Bytes\+Written}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_ae501264186a1b93d5bdef11cf554b401}\label{struct_encrypted_io_queue_ae501264186a1b93d5bdef11cf554b401}} 
+volatile B\+O\+OL {\bfseries Start\+Pending}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_adc179424b02925c670f50a74965d5ee6}\label{struct_encrypted_io_queue_adc179424b02925c670f50a74965d5ee6}} 
+volatile B\+O\+OL {\bfseries Thread\+Exit\+Requested}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a2513b12af6ae3887fc0cfa689a05fa91}\label{struct_encrypted_io_queue_a2513b12af6ae3887fc0cfa689a05fa91}} 
+volatile B\+O\+OL {\bfseries Suspended}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_aeb41e4516c245d04ae93a05cc762d028}\label{struct_encrypted_io_queue_aeb41e4516c245d04ae93a05cc762d028}} 
+volatile B\+O\+OL {\bfseries Suspend\+Pending}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_aa17899931bf0cb4417f449f0bcc4403b}\label{struct_encrypted_io_queue_aa17899931bf0cb4417f449f0bcc4403b}} 
+volatile B\+O\+OL {\bfseries Stop\+Pending}
+\item 
+\mbox{\Hypertarget{struct_encrypted_io_queue_a5bb117283183d4119280c66a7b2f77b6}\label{struct_encrypted_io_queue_a5bb117283183d4119280c66a7b2f77b6}} 
+K\+E\+V\+E\+NT {\bfseries Queue\+Resumed\+Event}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Driver/Encrypted\+Io\+Queue.\+h\end{DoxyCompactItemize}

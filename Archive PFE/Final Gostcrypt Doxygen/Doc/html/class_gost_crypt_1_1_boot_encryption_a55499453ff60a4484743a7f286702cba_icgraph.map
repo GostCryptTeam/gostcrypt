@@ -1,0 +1,9 @@
+<map id="GostCrypt::BootEncryption::GetStatus" name="GostCrypt::BootEncryption::GetStatus">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#ab59c76cffa448f8d818aa2189340045a" title="Create the rescue iso image. " alt="" coords="232,5,411,47"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a43e9a83c907891f63e2f5b2a891471be" title="For asynchronous operations use AbortSetup() " alt="" coords="232,71,411,112"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="232,136,411,177"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#a9cce66955923f808f4dd297c7041ac5b" title="Change the password. " alt="" coords="232,201,411,243"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#afae7ad7d8fb9fb9137395cb5e378a849" title="Install. " alt="" coords="232,267,411,308"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#a1397fa6ebb63da2ca0a636cfa8262858" title="Start the decryption. " alt="" coords="232,332,411,373"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#a4dd591bdb27968b702694bcd7664e010" title="Start the encryption. " alt="" coords="232,397,411,439"/>
+</map>

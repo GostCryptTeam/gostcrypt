@@ -1,0 +1,4 @@
+<map id="IsUacSupported" name="IsUacSupported">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="168,5,264,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="312,5,452,32"/>
+</map>

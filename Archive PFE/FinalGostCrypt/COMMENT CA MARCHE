@@ -1,0 +1,6 @@
+COMMENT CA MARCHE:
+
+Le projet Setup s'occupe de créer un exécutable pour installer GostCrypt.
+
+Le projet Mount sert (après avoir lancé GostCrypt) à l'affichage et à l'exécution des fonctionnalités dans le menu: certaines fonctions servent à l'affichage des encadrés du menu et leur remplissage. plus particulièrement c'est mount.c qui s'occupe de l'interface graphique.
+

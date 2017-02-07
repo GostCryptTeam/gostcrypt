@@ -1,0 +1,5 @@
+<map id="GetDictionaryValue" name="GetDictionaryValue">
+<area shape="rect" id="node2" href="$_language_8c.html#ac8aef4c54c46ab1af51207045d9ce429" title="Getter for the string in the dictionnary. " alt="" coords="188,5,265,32"/>
+<area shape="rect" id="node3" href="$_language_8c.html#a3dc557e9cba8b64e6fba56b14858bac1" title="Getter for the font. " alt="" coords="192,56,261,83"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a9106ff873b0729b34ae1a50ad5272911" title="InitDialog &#45; initialize the applications main dialog, this function should be called only once in the..." alt="" coords="313,56,388,83"/>
+</map>

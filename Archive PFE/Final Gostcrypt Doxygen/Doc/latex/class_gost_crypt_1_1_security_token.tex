@@ -1,0 +1,412 @@
+\hypertarget{class_gost_crypt_1_1_security_token}{}\section{Gost\+Crypt\+:\+:Security\+Token Class Reference}
+\label{class_gost_crypt_1_1_security_token}\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_af12b0d8a2113b5bf9fc542089c22251e}{Close\+All\+Sessions} ()  throw ()
+\begin{DoxyCompactList}\small\item\em Close all sessions. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a70bb91f6128eef7fff77cf8cd32b456d}{Close\+Library} ()
+\begin{DoxyCompactList}\small\item\em Close library. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a72731ca68789319a814ecb16194bfb2c}{Create\+Keyfile} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id, vector$<$ byte $>$ \&keyfile\+Data, const string \&name)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a3cd1116119da022125c2d94a55a74a53}{Delete\+Keyfile} (const \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \&keyfile)
+\begin{DoxyCompactList}\small\item\em Delete a key file. \end{DoxyCompactList}\item 
+static vector$<$ \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} $>$ \hyperlink{class_gost_crypt_1_1_security_token_af193cf5d9f44f9639a44b6b74bec9758}{Get\+Available\+Keyfiles} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID $\ast$slot\+Id\+Filter=nullptr, const wstring keyfile\+Id\+Filter=wstring())
+\begin{DoxyCompactList}\small\item\em Get the available key files. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_adca032375ce7732c88a38e03560f5c4e}{Get\+Keyfile\+Data} (const \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \&keyfile, vector$<$ byte $>$ \&keyfile\+Data)
+\item 
+static list$<$ \hyperlink{struct_gost_crypt_1_1_security_token_info}{Security\+Token\+Info} $>$ \hyperlink{class_gost_crypt_1_1_security_token_adf8eafa80d4547093a22100ccf1beb00}{Get\+Available\+Tokens} ()
+\begin{DoxyCompactList}\small\item\em Get available tokens. \end{DoxyCompactList}\item 
+static \hyperlink{struct_gost_crypt_1_1_security_token_info}{Security\+Token\+Info} \hyperlink{class_gost_crypt_1_1_security_token_a61ed08d98ce1809e0a4e917ee4b07563}{Get\+Token\+Info} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id)
+\begin{DoxyCompactList}\small\item\em Get info on token. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a49a6110830e19cf95cecdf554a6ca449}{Init\+Library} (const string \&pkcs11\+Library\+Path, auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_get_pin_functor}{Get\+Pin\+Functor} $>$ pin\+Callback, auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_send_exception_functor}{Send\+Exception\+Functor} $>$ warning\+Callback)
+\begin{DoxyCompactList}\small\item\em Initialize the library. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a3479573efcc79847e207e4079b487f5c}\label{class_gost_crypt_1_1_security_token_a3479573efcc79847e207e4079b487f5c}} 
+static bool {\bfseries Is\+Initialized} ()
+\item 
+static bool \hyperlink{class_gost_crypt_1_1_security_token_aeb380c24c37eeafb7a7550008b5d131c}{Is\+Keyfile\+Path\+Valid} (const wstring \&security\+Token\+Keyfile\+Path)
+\begin{DoxyCompactList}\small\item\em Check if the path of key file is valid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_ad5643217909f2309fdc05efb54f5d16b}\label{class_gost_crypt_1_1_security_token_ad5643217909f2309fdc05efb54f5d16b}} 
+static const size\+\_\+t {\bfseries Max\+Password\+Length} = 128
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a1fbc1972f699b9629d408ed5db81e6ee}{Close\+Session} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id)
+\begin{DoxyCompactList}\small\item\em Close one session. \end{DoxyCompactList}\item 
+static vector$<$ C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+LE $>$ \hyperlink{class_gost_crypt_1_1_security_token_ad14168a89d109f8dc364d4d23719d0d3}{Get\+Objects} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id, C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE object\+Class)
+\begin{DoxyCompactList}\small\item\em Get Objects. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_af60684ab25839dacd13821d878c82e14}{Get\+Object\+Attribute} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id, C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+LE token\+Object, C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE attribute\+Type, vector$<$ byte $>$ \&attribute\+Value)
+\begin{DoxyCompactList}\small\item\em Get object attribut. \end{DoxyCompactList}\item 
+static list$<$ C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID $>$ \hyperlink{class_gost_crypt_1_1_security_token_a44e6be1a8c3ddad54acbe4a76488d0f7}{Get\+Token\+Slots} ()
+\begin{DoxyCompactList}\small\item\em Get all token slots. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a5c0504635e7fe36ef755c84f58744921}{Login} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id, const string \&pin)
+\begin{DoxyCompactList}\small\item\em Manage log in. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a90d9d58238c02864ef65b0db824f63d3}{Login\+User\+If\+Required} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id)
+\begin{DoxyCompactList}\small\item\em Log the user if it is Required. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_a259db94c79db5c606ff74676b0941b12}{Open\+Session} (C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID slot\+Id)
+\begin{DoxyCompactList}\small\item\em Open a session. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_security_token_aacb372a5fbd24dfc169ca855bf19230c}{Check\+Library\+Status} ()
+\begin{DoxyCompactList}\small\item\em Check library status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a7470559b6841a63985e8b3e0c9831be1}\label{class_gost_crypt_1_1_security_token_a7470559b6841a63985e8b3e0c9831be1}} 
+static bool {\bfseries Initialized}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a4482ae2fcd832a84d63f46a615b97329}\label{class_gost_crypt_1_1_security_token_a4482ae2fcd832a84d63f46a615b97329}} 
+static auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_get_pin_functor}{Get\+Pin\+Functor} $>$ {\bfseries Pin\+Callback}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a8e348c4ac04afcc9cfae4052006dbb66}\label{class_gost_crypt_1_1_security_token_a8e348c4ac04afcc9cfae4052006dbb66}} 
+static C\+K\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+L\+I\+S\+T\+\_\+\+P\+TR {\bfseries Pkcs11\+Functions}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a80df030aafa3c53a75fb37deb74037aa}\label{class_gost_crypt_1_1_security_token_a80df030aafa3c53a75fb37deb74037aa}} 
+static void $\ast$ {\bfseries Pkcs11\+Library\+Handle}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_af62865d84049d668e759d82945743b3e}\label{class_gost_crypt_1_1_security_token_af62865d84049d668e759d82945743b3e}} 
+static map$<$ C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID, \hyperlink{struct_gost_crypt_1_1_pkcs11_session}{Pkcs11\+Session} $>$ {\bfseries Sessions}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a889f74bf24b9e92394a3f11597e6b4d7}\label{class_gost_crypt_1_1_security_token_a889f74bf24b9e92394a3f11597e6b4d7}} 
+static auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_send_exception_functor}{Send\+Exception\+Functor} $>$ {\bfseries Warning\+Callback}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_aacb372a5fbd24dfc169ca855bf19230c}\label{class_gost_crypt_1_1_security_token_aacb372a5fbd24dfc169ca855bf19230c}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Check\+Library\+Status@{Check\+Library\+Status}}
+\index{Check\+Library\+Status@{Check\+Library\+Status}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Check\+Library\+Status()}{CheckLibraryStatus()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Check\+Library\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Check library status. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_af12b0d8a2113b5bf9fc542089c22251e}\label{class_gost_crypt_1_1_security_token_af12b0d8a2113b5bf9fc542089c22251e}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Close\+All\+Sessions@{Close\+All\+Sessions}}
+\index{Close\+All\+Sessions@{Close\+All\+Sessions}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Close\+All\+Sessions()}{CloseAllSessions()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Close\+All\+Sessions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) throw  ) \hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Close all sessions. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a70bb91f6128eef7fff77cf8cd32b456d}\label{class_gost_crypt_1_1_security_token_a70bb91f6128eef7fff77cf8cd32b456d}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Close\+Library@{Close\+Library}}
+\index{Close\+Library@{Close\+Library}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Close\+Library()}{CloseLibrary()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Close\+Library (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Close library. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a1fbc1972f699b9629d408ed5db81e6ee}\label{class_gost_crypt_1_1_security_token_a1fbc1972f699b9629d408ed5db81e6ee}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Close\+Session@{Close\+Session}}
+\index{Close\+Session@{Close\+Session}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Close\+Session()}{CloseSession()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Close\+Session (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Close one session. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a72731ca68789319a814ecb16194bfb2c}\label{class_gost_crypt_1_1_security_token_a72731ca68789319a814ecb16194bfb2c}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Create\+Keyfile@{Create\+Keyfile}}
+\index{Create\+Keyfile@{Create\+Keyfile}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Create\+Keyfile()}{CreateKeyfile()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Create\+Keyfile (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id,  }\item[{vector$<$ byte $>$ \&}]{keyfile\+Data,  }\item[{const string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& name \\
+\hline
+\mbox{\tt in}  & {\em vector} & $<$byte$>$ \& keyfile\+Data \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a3cd1116119da022125c2d94a55a74a53}\label{class_gost_crypt_1_1_security_token_a3cd1116119da022125c2d94a55a74a53}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Delete\+Keyfile@{Delete\+Keyfile}}
+\index{Delete\+Keyfile@{Delete\+Keyfile}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Delete\+Keyfile()}{DeleteKeyfile()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Delete\+Keyfile (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \&}]{keyfile }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Delete a key file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_af193cf5d9f44f9639a44b6b74bec9758}\label{class_gost_crypt_1_1_security_token_af193cf5d9f44f9639a44b6b74bec9758}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Available\+Keyfiles@{Get\+Available\+Keyfiles}}
+\index{Get\+Available\+Keyfiles@{Get\+Available\+Keyfiles}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Available\+Keyfiles()}{GetAvailableKeyfiles()}}
+{\footnotesize\ttfamily vector$<$ \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} $>$ Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Available\+Keyfiles (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID $\ast$}]{slot\+Id\+Filter = {\ttfamily nullptr},  }\item[{const wstring}]{keyfile\+Id\+Filter = {\ttfamily wstring()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the available key files. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & wstring keyfile\+Id\+Filter \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & $\ast$ slot\+Id\+Filter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector $<$\+Security\+Token\+Keyfile$>$ keyfiles 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_security_token_af193cf5d9f44f9639a44b6b74bec9758_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_adf8eafa80d4547093a22100ccf1beb00}\label{class_gost_crypt_1_1_security_token_adf8eafa80d4547093a22100ccf1beb00}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Available\+Tokens@{Get\+Available\+Tokens}}
+\index{Get\+Available\+Tokens@{Get\+Available\+Tokens}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Available\+Tokens()}{GetAvailableTokens()}}
+{\footnotesize\ttfamily list$<$ \hyperlink{struct_gost_crypt_1_1_security_token_info}{Security\+Token\+Info} $>$ Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Available\+Tokens (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get available tokens. 
+
+\begin{DoxyReturn}{Returns}
+list $<$\+Security\+Token\+Info$>$ tokens 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_adca032375ce7732c88a38e03560f5c4e}\label{class_gost_crypt_1_1_security_token_adca032375ce7732c88a38e03560f5c4e}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Keyfile\+Data@{Get\+Keyfile\+Data}}
+\index{Get\+Keyfile\+Data@{Get\+Keyfile\+Data}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Keyfile\+Data()}{GetKeyfileData()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Keyfile\+Data (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \&}]{keyfile,  }\item[{vector$<$ byte $>$ \&}]{keyfile\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em vector} & $<$byte$>$ \& keyfile\+Data \\
+\hline
+\mbox{\tt in}  & {\em const} & \hyperlink{struct_gost_crypt_1_1_security_token_keyfile}{Security\+Token\+Keyfile} \& keyfile \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_af60684ab25839dacd13821d878c82e14}\label{class_gost_crypt_1_1_security_token_af60684ab25839dacd13821d878c82e14}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Object\+Attribute@{Get\+Object\+Attribute}}
+\index{Get\+Object\+Attribute@{Get\+Object\+Attribute}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Object\+Attribute()}{GetObjectAttribute()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Object\+Attribute (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id,  }\item[{C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+LE}]{token\+Object,  }\item[{C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE}]{attribute\+Type,  }\item[{vector$<$ byte $>$ \&}]{attribute\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Get object attribut. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em vector} & $<$byte$>$ \& attribute\+Value \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE} & attribute\+Type \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+LE} & token\+Object \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_ad14168a89d109f8dc364d4d23719d0d3}\label{class_gost_crypt_1_1_security_token_ad14168a89d109f8dc364d4d23719d0d3}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Objects@{Get\+Objects}}
+\index{Get\+Objects@{Get\+Objects}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Objects()}{GetObjects()}}
+{\footnotesize\ttfamily vector$<$ C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+LE $>$ Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Objects (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id,  }\item[{C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE}]{object\+Class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Get Objects. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+K\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+\_\+\+T\+Y\+PE} & object\+Class \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector $<$\+C\+K\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+H\+A\+N\+D\+L\+E$>$ objects 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a61ed08d98ce1809e0a4e917ee4b07563}\label{class_gost_crypt_1_1_security_token_a61ed08d98ce1809e0a4e917ee4b07563}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Token\+Info@{Get\+Token\+Info}}
+\index{Get\+Token\+Info@{Get\+Token\+Info}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Token\+Info()}{GetTokenInfo()}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_security_token_info}{Security\+Token\+Info} Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Token\+Info (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get info on token. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_gost_crypt_1_1_security_token_info}{Security\+Token\+Info} 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{class_gost_crypt_1_1_security_token_a61ed08d98ce1809e0a4e917ee4b07563_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a44e6be1a8c3ddad54acbe4a76488d0f7}\label{class_gost_crypt_1_1_security_token_a44e6be1a8c3ddad54acbe4a76488d0f7}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Get\+Token\+Slots@{Get\+Token\+Slots}}
+\index{Get\+Token\+Slots@{Get\+Token\+Slots}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Get\+Token\+Slots()}{GetTokenSlots()}}
+{\footnotesize\ttfamily list$<$ C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID $>$ Gost\+Crypt\+::\+Security\+Token\+::\+Get\+Token\+Slots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Get all token slots. 
+
+\begin{DoxyReturn}{Returns}
+list $<$\+C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+I\+D$>$ slots 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a49a6110830e19cf95cecdf554a6ca449}\label{class_gost_crypt_1_1_security_token_a49a6110830e19cf95cecdf554a6ca449}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Init\+Library@{Init\+Library}}
+\index{Init\+Library@{Init\+Library}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Init\+Library()}{InitLibrary()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Init\+Library (\begin{DoxyParamCaption}\item[{const string \&}]{pkcs11\+Library\+Path,  }\item[{auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_get_pin_functor}{Get\+Pin\+Functor} $>$}]{pin\+Callback,  }\item[{auto\+\_\+ptr$<$ \hyperlink{struct_gost_crypt_1_1_send_exception_functor}{Send\+Exception\+Functor} $>$}]{warning\+Callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initialize the library. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em auto\+\_\+ptr} & $<$\+Send\+Exception\+Functor$>$ warning\+Callback \\
+\hline
+\mbox{\tt in}  & {\em auto\+\_\+ptr} & $<$\+Get\+Pin\+Functor$>$ pin\+Callback \\
+\hline
+\mbox{\tt in}  & {\em const} & string \& pkcs11\+Library\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_aeb380c24c37eeafb7a7550008b5d131c}\label{class_gost_crypt_1_1_security_token_aeb380c24c37eeafb7a7550008b5d131c}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Is\+Keyfile\+Path\+Valid@{Is\+Keyfile\+Path\+Valid}}
+\index{Is\+Keyfile\+Path\+Valid@{Is\+Keyfile\+Path\+Valid}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Is\+Keyfile\+Path\+Valid()}{IsKeyfilePathValid()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Security\+Token\+::\+Is\+Keyfile\+Path\+Valid (\begin{DoxyParamCaption}\item[{const wstring \&}]{security\+Token\+Keyfile\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Check if the path of key file is valid. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & wstring \& security\+Token\+Keyfile\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+security\+Token\+Keyfile\+Path.\+find (G\+S\+T\+\_\+\+S\+E\+C\+U\+R\+I\+T\+Y\+\_\+\+T\+O\+K\+E\+N\+\_\+\+K\+E\+Y\+F\+I\+L\+E\+\_\+\+U\+R\+L\+\_\+\+P\+R\+E\+F\+IX) == 0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a5c0504635e7fe36ef755c84f58744921}\label{class_gost_crypt_1_1_security_token_a5c0504635e7fe36ef755c84f58744921}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Login@{Login}}
+\index{Login@{Login}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Login()}{Login()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Login (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id,  }\item[{const string \&}]{pin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Manage log in. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& pin \\
+\hline
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a90d9d58238c02864ef65b0db824f63d3}\label{class_gost_crypt_1_1_security_token_a90d9d58238c02864ef65b0db824f63d3}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Login\+User\+If\+Required@{Login\+User\+If\+Required}}
+\index{Login\+User\+If\+Required@{Login\+User\+If\+Required}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Login\+User\+If\+Required()}{LoginUserIfRequired()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Login\+User\+If\+Required (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Log the user if it is Required. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_security_token_a259db94c79db5c606ff74676b0941b12}\label{class_gost_crypt_1_1_security_token_a259db94c79db5c606ff74676b0941b12}} 
+\index{Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}!Open\+Session@{Open\+Session}}
+\index{Open\+Session@{Open\+Session}!Gost\+Crypt\+::\+Security\+Token@{Gost\+Crypt\+::\+Security\+Token}}
+\subsubsection{\texorpdfstring{Open\+Session()}{OpenSession()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Security\+Token\+::\+Open\+Session (\begin{DoxyParamCaption}\item[{C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID}]{slot\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Open a session. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+K\+\_\+\+S\+L\+O\+T\+\_\+\+ID} & slot\+Id) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/Security\+Token.\+h\item 
+Common/\hyperlink{_security_token_8cpp}{Security\+Token.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,177 @@
+\hypertarget{_int_filter_8cpp}{}\section{Boot/\+Windows/\+Int\+Filter.cpp File Reference}
+\label{_int_filter_8cpp}\index{Boot/\+Windows/\+Int\+Filter.\+cpp@{Boot/\+Windows/\+Int\+Filter.\+cpp}}
+
+
+Manage filters.  
+
+
+{\ttfamily \#include \char`\"{}Platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Console\+Io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Defs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Disk\+Io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Encrypted\+Io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Strings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Int\+Filter.\+h\char`\"{}}\newline
+Include dependency graph for Int\+Filter.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_int_filter_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_int_filter_8cpp_ad38d3e472435e6438372256b064e9bb1}\label{_int_filter_8cpp_ad38d3e472435e6438372256b064e9bb1}} 
+\#define {\bfseries G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+P\+\_\+\+S\+I\+ZE}~80
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{_int_filter_8cpp_a53b20950b8c8930b97a81b1f57ffb438}{Int13\+Filter} ()
+\begin{DoxyCompactList}\small\item\em Filter int 13. \end{DoxyCompactList}\item 
+bool \hyperlink{_int_filter_8cpp_ae1774e81b8d6f1a85dcec3cd81c10d9c}{Int15\+Filter} ()
+\begin{DoxyCompactList}\small\item\em Filter int 15. \end{DoxyCompactList}\item 
+void \hyperlink{_int_filter_8cpp_a200f6485001d2db667b2f694836f4046}{Int\+Filter\+Entry} ()
+\begin{DoxyCompactList}\small\item\em Filter an int request. \end{DoxyCompactList}\item 
+void \hyperlink{_int_filter_8cpp_abb38ac5e493570f901e57e6fc09d5701}{Int13\+Filter\+Entry} ()
+\begin{DoxyCompactList}\small\item\em Intall filter an int13 request. \end{DoxyCompactList}\item 
+bool \hyperlink{_int_filter_8cpp_a69c3a04fb0ab473da0813aaaac2bfc62}{Install\+Interrupt\+Filters} ()
+\begin{DoxyCompactList}\small\item\em Install or interrupt filters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_int_filter_8cpp_ab85b32e24614aa324265093654db9f9c}\label{_int_filter_8cpp_ab85b32e24614aa324265093654db9f9c}} 
+\hyperlink{struct_bios_memory_map_entry}{Bios\+Memory\+Map\+Entry} {\bfseries Bios\+Memory\+Map} \mbox{[}G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+P\+\_\+\+S\+I\+ZE\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage filters. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_int_filter_8cpp_a69c3a04fb0ab473da0813aaaac2bfc62}\label{_int_filter_8cpp_a69c3a04fb0ab473da0813aaaac2bfc62}} 
+\index{Int\+Filter.\+cpp@{Int\+Filter.\+cpp}!Install\+Interrupt\+Filters@{Install\+Interrupt\+Filters}}
+\index{Install\+Interrupt\+Filters@{Install\+Interrupt\+Filters}!Int\+Filter.\+cpp@{Int\+Filter.\+cpp}}
+\subsubsection{\texorpdfstring{Install\+Interrupt\+Filters()}{InstallInterruptFilters()}}
+{\footnotesize\ttfamily bool Install\+Interrupt\+Filters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Install or interrupt filters. 
+
+\begin{DoxyReturn}{Returns}
+bool false if cant create new bios memory map true if current\+Int13\+Handler == (uint32) Int13\+Filter\+Entry true else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_int_filter_8cpp_a69c3a04fb0ab473da0813aaaac2bfc62_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_int_filter_8cpp_a53b20950b8c8930b97a81b1f57ffb438}\label{_int_filter_8cpp_a53b20950b8c8930b97a81b1f57ffb438}} 
+\index{Int\+Filter.\+cpp@{Int\+Filter.\+cpp}!Int13\+Filter@{Int13\+Filter}}
+\index{Int13\+Filter@{Int13\+Filter}!Int\+Filter.\+cpp@{Int\+Filter.\+cpp}}
+\subsubsection{\texorpdfstring{Int13\+Filter()}{Int13Filter()}}
+{\footnotesize\ttfamily bool Int13\+Filter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Filter int 13. 
+
+\begin{DoxyReturn}{Returns}
+bool pass\+Original\+Request 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_int_filter_8cpp_a53b20950b8c8930b97a81b1f57ffb438_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_int_filter_8cpp_abb38ac5e493570f901e57e6fc09d5701}\label{_int_filter_8cpp_abb38ac5e493570f901e57e6fc09d5701}} 
+\index{Int\+Filter.\+cpp@{Int\+Filter.\+cpp}!Int13\+Filter\+Entry@{Int13\+Filter\+Entry}}
+\index{Int13\+Filter\+Entry@{Int13\+Filter\+Entry}!Int\+Filter.\+cpp@{Int\+Filter.\+cpp}}
+\subsubsection{\texorpdfstring{Int13\+Filter\+Entry()}{Int13FilterEntry()}}
+{\footnotesize\ttfamily void Int13\+Filter\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Intall filter an int13 request. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{_int_filter_8cpp_abb38ac5e493570f901e57e6fc09d5701_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{_int_filter_8cpp_abb38ac5e493570f901e57e6fc09d5701_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_int_filter_8cpp_ae1774e81b8d6f1a85dcec3cd81c10d9c}\label{_int_filter_8cpp_ae1774e81b8d6f1a85dcec3cd81c10d9c}} 
+\index{Int\+Filter.\+cpp@{Int\+Filter.\+cpp}!Int15\+Filter@{Int15\+Filter}}
+\index{Int15\+Filter@{Int15\+Filter}!Int\+Filter.\+cpp@{Int\+Filter.\+cpp}}
+\subsubsection{\texorpdfstring{Int15\+Filter()}{Int15Filter()}}
+{\footnotesize\ttfamily bool Int15\+Filter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Filter int 15. 
+
+\begin{DoxyReturn}{Returns}
+bool false 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_int_filter_8cpp_ae1774e81b8d6f1a85dcec3cd81c10d9c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_int_filter_8cpp_a200f6485001d2db667b2f694836f4046}\label{_int_filter_8cpp_a200f6485001d2db667b2f694836f4046}} 
+\index{Int\+Filter.\+cpp@{Int\+Filter.\+cpp}!Int\+Filter\+Entry@{Int\+Filter\+Entry}}
+\index{Int\+Filter\+Entry@{Int\+Filter\+Entry}!Int\+Filter.\+cpp@{Int\+Filter.\+cpp}}
+\subsubsection{\texorpdfstring{Int\+Filter\+Entry()}{IntFilterEntry()}}
+{\footnotesize\ttfamily void Int\+Filter\+Entry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Filter an int request. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_int_filter_8cpp_a200f6485001d2db667b2f694836f4046_icgraph}
+\end{center}
+\end{figure}

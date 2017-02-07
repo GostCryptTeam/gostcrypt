@@ -1,0 +1,363 @@
+\hypertarget{_wizard_8c}{}\section{Setup/\+Wizard.c File Reference}
+\label{_wizard_8c}\index{Setup/\+Wizard.\+c@{Setup/\+Wizard.\+c}}
+
+
+Manage the window.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Shlobj.\+h$>$}\newline
+{\ttfamily \#include $<$io.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Self\+Extract.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wizard.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Language.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Common/\+Resource.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Resource.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Setup.\+h\char`\"{}}\newline
+Include dependency graph for Wizard.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_wizard_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_wizard_8c_a490fafca982f8213b708a06020bacbd9}\label{_wizard_8c_a490fafca982f8213b708a06020bacbd9}} 
+enum {\bfseries wizard\+\_\+pages} \{ \newline
+{\bfseries I\+N\+T\+R\+O\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+O\+S\+\_\+\+R\+E\+Q\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+S\+P\+A\+N\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+P\+R\+E\+\_\+\+D\+R\+I\+V\+E\+\_\+\+A\+N\+A\+L\+Y\+S\+I\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+D\+R\+I\+V\+E\+\_\+\+A\+N\+A\+L\+Y\+S\+I\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+S\+Y\+S\+\_\+\+E\+Q\+\_\+\+B\+O\+O\+T\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+N\+B\+R\+\_\+\+S\+Y\+S\+\_\+\+D\+R\+I\+V\+E\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+\_\+\+S\+Y\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+N\+O\+N\+W\+I\+N\+\_\+\+B\+O\+O\+T\+\_\+\+L\+O\+A\+D\+E\+R\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+M\+U\+L\+T\+I\+\_\+\+B\+O\+O\+T\+\_\+\+O\+U\+T\+C\+O\+M\+E\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries V\+O\+L\+U\+M\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+\_\+\+W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries V\+O\+L\+U\+M\+E\+\_\+\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+A\+GE}, 
+{\bfseries D\+E\+V\+I\+C\+E\+\_\+\+T\+R\+A\+N\+S\+F\+O\+R\+M\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+\_\+\+H\+O\+S\+T\+\_\+\+P\+R\+E\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+P\+A\+GE}, 
+{\bfseries H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+\_\+\+P\+R\+E\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+P\+A\+GE}, 
+{\bfseries C\+I\+P\+H\+E\+R\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+I\+Z\+E\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+\_\+\+H\+O\+S\+T\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+P\+A\+GE}, 
+{\bfseries P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+P\+A\+GE}, 
+{\bfseries F\+I\+L\+E\+S\+Y\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+C\+O\+L\+L\+E\+C\+T\+I\+N\+G\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+D\+A\+T\+A\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+\_\+\+G\+E\+N\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+R\+E\+S\+C\+U\+E\+\_\+\+D\+I\+S\+K\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+R\+E\+S\+C\+U\+E\+\_\+\+D\+I\+S\+K\+\_\+\+B\+U\+R\+N\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+R\+E\+S\+C\+U\+E\+\_\+\+D\+I\+S\+K\+\_\+\+V\+E\+R\+I\+F\+I\+E\+D\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+W\+I\+P\+E\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+P\+R\+E\+T\+E\+S\+T\+\_\+\+I\+N\+F\+O\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+P\+R\+E\+T\+E\+S\+T\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+R\+E\+S\+U\+M\+E\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+P\+A\+GE}, 
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+R\+E\+S\+U\+M\+E\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+N\+\_\+\+S\+E\+L\+\_\+\+P\+A\+GE}, 
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+R\+A\+N\+D\+\_\+\+D\+A\+T\+A\+\_\+\+P\+A\+GE}, 
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+W\+I\+P\+E\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+P\+A\+GE}, 
+{\bfseries N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D\+\_\+\+P\+A\+GE}, 
+{\bfseries F\+O\+R\+M\+A\+T\+\_\+\+P\+A\+GE}, 
+{\bfseries F\+O\+R\+M\+A\+T\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+O\+S\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+A\+GE}, 
+{\bfseries S\+Y\+S\+E\+N\+C\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+O\+S\+\_\+\+W\+I\+P\+E\+\_\+\+I\+N\+F\+O\+\_\+\+P\+A\+GE}, 
+{\bfseries D\+E\+V\+I\+C\+E\+\_\+\+W\+I\+P\+E\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries D\+E\+V\+I\+C\+E\+\_\+\+W\+I\+P\+E\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries I\+N\+T\+R\+O\+\_\+\+P\+A\+GE}, 
+{\bfseries W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE}, 
+{\bfseries I\+N\+S\+T\+A\+L\+L\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries I\+N\+S\+T\+A\+L\+L\+\_\+\+P\+R\+O\+G\+R\+E\+S\+S\+\_\+\+P\+A\+GE}, 
+\newline
+{\bfseries E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+P\+R\+O\+G\+R\+E\+S\+S\+\_\+\+P\+A\+GE}, 
+{\bfseries D\+O\+N\+A\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_wizard_8c_aa95b8192f81e55f490808c22e1f0ccce}{localcleanupwiz} (void)
+\begin{DoxyCompactList}\small\item\em Clean up local allocations (bitmaps...) \end{DoxyCompactList}\item 
+void \hyperlink{_wizard_8c_a4bcb2df398c2f1bede93327ae5131858}{Load\+Page} (H\+W\+ND hwnd\+Dlg, int n\+Page\+No)
+\begin{DoxyCompactList}\small\item\em Load a page. \end{DoxyCompactList}\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \hyperlink{_wizard_8c_ad579826bd66d706a12376a803813a4de}{Page\+Dialog\+Proc} (H\+W\+ND hwnd\+Dlg, U\+I\+NT u\+Msg, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)
+\begin{DoxyCompactList}\small\item\em Draw the page in Gost\+Crypt Volume Creation Wizard Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG message, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc. \end{DoxyCompactList}\item 
+void \hyperlink{_wizard_8c_aa5f7f7a2ff6af3c172608eec3c65a70d}{Init\+Progress\+Bar} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the progress bar. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_wizard_8c_a454cf174b46c0181294e01389066c9e4}{Update\+Progress\+Bar\+Proc} (int n\+Percent)
+\begin{DoxyCompactList}\small\item\em Update the Proc progress bar This function must always return T\+R\+UE. \end{DoxyCompactList}\item 
+void \hyperlink{_wizard_8c_ad0a89b2720cb6b22222256710051391c}{Refresh\+U\+I\+G\+FX} (void)
+\begin{DoxyCompactList}\small\item\em Refresh x. \end{DoxyCompactList}\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \hyperlink{_wizard_8c_a438e0e318d99fd62aeb54ddec29b706c}{Main\+Dialog\+Proc} (H\+W\+ND hwnd\+Dlg, U\+I\+NT u\+Msg, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)
+\begin{DoxyCompactList}\small\item\em Main dialog proc is the main function that manage Volume Creation page window display and connections with G\+UI and execution Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG and W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON messages, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_wizard_8c_a9f580e86a0ca226f8cb47847b8058ad4}\label{_wizard_8c_a9f580e86a0ca226f8cb47847b8058ad4}} 
+H\+W\+ND {\bfseries h\+Cur\+Page} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{_wizard_8c_aada9517245418bbf0ff6f6dbe2e9f717}\label{_wizard_8c_aada9517245418bbf0ff6f6dbe2e9f717}} 
+int {\bfseries n\+Cur\+Page\+No} = -\/1
+\item 
+\mbox{\Hypertarget{_wizard_8c_abbe9f4adf26686d7a1401e74b8078718}\label{_wizard_8c_abbe9f4adf26686d7a1401e74b8078718}} 
+char {\bfseries Wizard\+Dest\+Install\+Path} \mbox{[}G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH\mbox{]}
+\item 
+\mbox{\Hypertarget{_wizard_8c_ac220d8669f2fbcf517029e2b122e5f33}\label{_wizard_8c_ac220d8669f2fbcf517029e2b122e5f33}} 
+char {\bfseries Wizard\+Dest\+Extract\+Path} \mbox{[}G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH\mbox{]}
+\item 
+\mbox{\Hypertarget{_wizard_8c_abd34bd26c4d96b7bf3c2009c27a27c59}\label{_wizard_8c_abd34bd26c4d96b7bf3c2009c27a27c59}} 
+char {\bfseries Self\+File} \mbox{[}G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH\mbox{]}
+\item 
+\mbox{\Hypertarget{_wizard_8c_a7addf141d1ecc096cdf10e188484a0e4}\label{_wizard_8c_a7addf141d1ecc096cdf10e188484a0e4}} 
+H\+B\+I\+T\+M\+AP {\bfseries hbm\+Wizard\+Bitmap\+Rescaled} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{_wizard_8c_ae9fbd00f8fb552bedda68a94b0ae2215}\label{_wizard_8c_ae9fbd00f8fb552bedda68a94b0ae2215}} 
+B\+O\+OL {\bfseries b\+Extract\+Only} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_aaf14bfedd8fd6cc08164faded13382ff}\label{_wizard_8c_aaf14bfedd8fd6cc08164faded13382ff}} 
+B\+O\+OL {\bfseries b\+License\+Accepted} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a154d90ac6f944d543cd398b876064cc5}\label{_wizard_8c_a154d90ac6f944d543cd398b876064cc5}} 
+B\+O\+OL {\bfseries b\+Open\+Containing\+Folder} = T\+R\+UE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a12e5c2416fa0f4e5d329f6a269cfbcc4}\label{_wizard_8c_a12e5c2416fa0f4e5d329f6a269cfbcc4}} 
+B\+O\+OL {\bfseries b\+Extraction\+Successful} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_ade07707b26a7a0a67d7c9b086fd58b8c}\label{_wizard_8c_ade07707b26a7a0a67d7c9b086fd58b8c}} 
+B\+O\+OL {\bfseries b\+Start\+Install} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a5235813ab7fd443354a7e0107836dcd5}\label{_wizard_8c_a5235813ab7fd443354a7e0107836dcd5}} 
+B\+O\+OL {\bfseries b\+Start\+Extraction} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a090dde2614e76e7cdd969cd4bfdd4dee}\label{_wizard_8c_a090dde2614e76e7cdd969cd4bfdd4dee}} 
+B\+O\+OL {\bfseries b\+In\+Progress} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a7371e03c60746dd47c342682dbefcbb1}\label{_wizard_8c_a7371e03c60746dd47c342682dbefcbb1}} 
+B\+O\+OL {\bfseries b\+Prompt\+Tutorial} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_a14dfbf0dcd964eeb2bd18964b6e2b53d}\label{_wizard_8c_a14dfbf0dcd964eeb2bd18964b6e2b53d}} 
+B\+O\+OL {\bfseries b\+Prompt\+Release\+Notes} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_wizard_8c_ad9fccef7db618b05dbbe99edc6d8b4d4}\label{_wizard_8c_ad9fccef7db618b05dbbe99edc6d8b4d4}} 
+int {\bfseries n\+Pbar} = 0
+\item 
+\mbox{\Hypertarget{_wizard_8c_ae768e883d3162529274cd878a3f72562}\label{_wizard_8c_ae768e883d3162529274cd878a3f72562}} 
+wstring {\bfseries Don\+Text} = \hyperlink{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0}{L}\char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the window. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_wizard_8c_aa5f7f7a2ff6af3c172608eec3c65a70d}\label{_wizard_8c_aa5f7f7a2ff6af3c172608eec3c65a70d}} 
+\index{Wizard.\+c@{Wizard.\+c}!Init\+Progress\+Bar@{Init\+Progress\+Bar}}
+\index{Init\+Progress\+Bar@{Init\+Progress\+Bar}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Init\+Progress\+Bar()}{InitProgressBar()}}
+{\footnotesize\ttfamily void Init\+Progress\+Bar (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the progress bar. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_wizard_8c_a4bcb2df398c2f1bede93327ae5131858}\label{_wizard_8c_a4bcb2df398c2f1bede93327ae5131858}} 
+\index{Wizard.\+c@{Wizard.\+c}!Load\+Page@{Load\+Page}}
+\index{Load\+Page@{Load\+Page}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Load\+Page()}{LoadPage()}}
+{\footnotesize\ttfamily void Load\+Page (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{int}]{n\+Page\+No }\end{DoxyParamCaption})}
+
+
+
+Load a page. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & n\+Page\+No \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_wizard_8c_aa95b8192f81e55f490808c22e1f0ccce}\label{_wizard_8c_aa95b8192f81e55f490808c22e1f0ccce}} 
+\index{Wizard.\+c@{Wizard.\+c}!localcleanupwiz@{localcleanupwiz}}
+\index{localcleanupwiz@{localcleanupwiz}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{localcleanupwiz()}{localcleanupwiz()}}
+{\footnotesize\ttfamily void localcleanupwiz (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Clean up local allocations (bitmaps...) 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_wizard_8c_aa95b8192f81e55f490808c22e1f0ccce_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_wizard_8c_a438e0e318d99fd62aeb54ddec29b706c}\label{_wizard_8c_a438e0e318d99fd62aeb54ddec29b706c}} 
+\index{Wizard.\+c@{Wizard.\+c}!Main\+Dialog\+Proc@{Main\+Dialog\+Proc}}
+\index{Main\+Dialog\+Proc@{Main\+Dialog\+Proc}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Main\+Dialog\+Proc()}{MainDialogProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Main\+Dialog\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{U\+I\+NT}]{u\+Msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Main dialog proc is the main function that manage Volume Creation page window display and connections with G\+UI and execution Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG and W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON messages, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc. 
+
+Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG message, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc C\+A\+L\+L\+B\+A\+CK \+: window management, called when a button is pressed or the window receives some directive from the program (example \+: extraction finished)
+
+Main dialog proc is the main function that manage first page window display and connections with G\+UI and execution Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG and W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON messages, the dialog box procedure should return nonzero if it processes a message, and zero if it does not.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & u\+Msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 0 catch (Exception \&e) 0 else (lw == I\+D\+C\+\_\+\+A\+B\+O\+UT) 1 case T\+I\+M\+E\+R\+\_\+\+I\+D\+\_\+\+W\+I\+P\+E\+\_\+\+P\+R\+O\+G\+R\+E\+SS if event is catch 0 otherwise 1 in switch (u\+Msg) when event is caught 0 switch (u\+Msg) W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON 0 if not catch in switch (u\+Msg)
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & u\+Msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 1 switch (u\+Msg) case W\+M\+\_\+\+H\+O\+T\+K\+EY 0 switch (u\+Msg) case W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG Handle\+Drive\+List\+Mouse\+Wheel\+Event (u\+Msg, w\+Param, l\+Param, F\+A\+L\+SE) switch (u\+Msg) case W\+M\+\_\+\+M\+O\+U\+S\+E\+W\+H\+E\+EL 0 switch (u\+Msg) case W\+M\+\_\+\+W\+I\+N\+D\+O\+W\+P\+O\+S\+C\+H\+A\+N\+G\+I\+NG if (Main\+Window\+Hidden) 1 switch (u\+Msg) case W\+M\+\_\+\+W\+I\+N\+D\+O\+W\+P\+O\+S\+C\+H\+A\+N\+G\+I\+NG 1 switch (u\+Msg) case W\+M\+\_\+\+S\+Y\+S\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+A\+B\+O\+UT) 0 switch (u\+Msg) case W\+M\+\_\+\+S\+Y\+S\+C\+O\+M\+M\+A\+ND 1 switch (u\+Msg) case W\+M\+\_\+\+H\+E\+L\+Ps 0 switch (u\+Msg) case W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON 1 switch (u\+Msg) case W\+M\+\_\+\+T\+I\+M\+ER 1 switch (l\+Param) case W\+M\+\_\+\+L\+B\+U\+T\+T\+O\+N\+D\+O\+WN 1 switch (l\+Param) case W\+M\+\_\+\+R\+B\+U\+T\+T\+O\+N\+UP 1 switch (l\+Param) case W\+M\+\_\+\+T\+I\+M\+ER 0 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+T\+A\+S\+K\+B\+A\+R\+\_\+\+I\+C\+ON if switch (l\+Param) dont return 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+C\+L\+O\+S\+E\+\_\+\+B\+K\+G\+\_\+\+T\+A\+SK 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+C\+O\+N\+F\+I\+G\+\_\+\+U\+P\+D\+A\+TE 1 switch (u\+Msg) case W\+M\+\_\+\+D\+E\+V\+I\+C\+E\+C\+H\+A\+N\+GE if (!\+Ignore\+Wm\+Device\+Change \&\& w\+Param != D\+B\+T\+\_\+\+D\+E\+V\+I\+C\+E\+A\+R\+R\+I\+V\+AL) 0 switch (u\+Msg) case W\+M\+\_\+\+D\+E\+V\+I\+C\+E\+C\+H\+A\+N\+GE else 0 switch (u\+Msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (((L\+P\+N\+M\+H\+DR)l\+Param)-\/$>$code == N\+M\+\_\+\+C\+U\+S\+T\+O\+M\+D\+R\+AW) 1 switch (u\+Msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (((L\+P\+N\+M\+H\+DR) l\+Param)-\/$>$code == L\+V\+N\+\_\+\+I\+T\+E\+M\+C\+H\+A\+N\+G\+ED \&\& (((L\+P\+N\+M\+L\+I\+S\+T\+V\+I\+EW) l\+Param)-\/$>$u\+New\+State \& L\+V\+I\+S\+\_\+\+F\+O\+C\+U\+S\+ED )) 1 switch (u\+Msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (((L\+P\+N\+M\+H\+DR)l\+Param)-\/$>$code == L\+V\+N\+\_\+\+I\+T\+E\+M\+A\+C\+T\+I\+V\+A\+TE) 1 switch (menu\+Item) 0 switch (u\+Msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY else 0 switch (u\+Msg) case W\+M\+\_\+\+E\+R\+A\+S\+E\+B\+K\+G\+ND 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+U\+N\+M\+O\+U\+N\+T\+\_\+\+V\+O\+L\+U\+ME \&\& L\+O\+W\+O\+RD(Get\+Selected\+Long(\+Get\+Dlg\+Item(hwnd\+Dlg, I\+D\+C\+\_\+\+D\+R\+I\+V\+E\+L\+I\+S\+T))) != G\+S\+T\+\_\+\+M\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+V\+OL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+A\+B\+O\+UT $\vert$$\vert$ lw == I\+D\+C\+\_\+\+L\+O\+GO) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+A\+B\+O\+UT $\vert$$\vert$ lw == I\+D\+C\+\_\+\+L\+O\+GO) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+H\+E\+LP $\vert$$\vert$ lw == I\+D\+M\+\_\+\+H\+E\+LP) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+A\+N\+C\+EL $\vert$$\vert$ lw == I\+D\+C\+\_\+\+E\+X\+IT) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+D\+E\+V\+I\+CE $\vert$$\vert$ lw == I\+D\+M\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+D\+E\+V\+I\+CE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+F\+I\+LE $\vert$$\vert$ lw == I\+D\+M\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+F\+I\+LE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+M\+O\+U\+N\+T\+A\+LL $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+A\+LL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+U\+N\+M\+O\+U\+N\+T\+A\+LL $\vert$$\vert$ lw == I\+D\+M\+\_\+\+U\+N\+M\+O\+U\+N\+T\+A\+LL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if ((lw == I\+D\+OK $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+\_\+\+V\+O\+L\+U\+ME $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+O\+P\+T\+I\+O\+NS)) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if ((lw == I\+D\+OK $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+\_\+\+V\+O\+L\+U\+ME $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+O\+P\+T\+I\+O\+NS $\vert$$\vert$ lw == I\+D\+C\+\_\+\+M\+O\+U\+N\+T\+A\+LL $\vert$$\vert$ lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+A\+LL) \&\& L\+O\+W\+O\+RD(Get\+Selected\+Long(\+Get\+Dlg\+Item(hwnd\+Dlg, I\+D\+C\+\_\+\+D\+R\+I\+V\+E\+L\+I\+S\+T))) == 0xffff) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (Check\+Mount\+List()) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+T\+O\+O\+LS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+P\+A\+S\+S\+W\+O\+RD) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+K\+E\+Y\+\_\+\+D\+E\+R\+I\+V\+\_\+\+A\+L\+GO) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+W\+I\+P\+E\+\_\+\+C\+A\+C\+HE $\vert$$\vert$ lw == I\+D\+M\+\_\+\+W\+I\+P\+E\+\_\+\+C\+A\+C\+HE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+C\+L\+E\+A\+R\+\_\+\+H\+I\+S\+T\+O\+RY) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+V\+O\+L\+U\+ME $\vert$$\vert$ lw == I\+D\+M\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+V\+O\+L\+U\+ME $\vert$$\vert$ lw == I\+D\+M\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+W\+I\+Z\+A\+RD) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+A\+D\+D\+\_\+\+R\+E\+M\+O\+V\+E\+\_\+\+V\+O\+L\+\_\+\+K\+E\+Y\+F\+I\+L\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+M\+A\+N\+A\+G\+E\+\_\+\+T\+O\+K\+E\+N\+\_\+\+K\+E\+Y\+F\+I\+L\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+R\+E\+M\+O\+V\+E\+\_\+\+A\+L\+L\+\_\+\+K\+E\+Y\+F\+I\+L\+E\+S\+\_\+\+F\+R\+O\+M\+\_\+\+V\+OL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+C\+L\+O\+S\+E\+\_\+\+A\+L\+L\+\_\+\+T\+O\+K\+E\+N\+\_\+\+S\+E\+S\+S\+I\+O\+NS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+K\+E\+Y\+F\+I\+L\+E\+\_\+\+G\+E\+N\+E\+R\+A\+T\+OR) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+L\+I\+C\+E\+N\+SE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+W\+E\+B\+S\+I\+TE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+H\+O\+M\+E\+P\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+T\+U\+T\+O\+R\+I\+AL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+O\+N\+L\+I\+N\+E\+\_\+\+H\+E\+LP) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+F\+AQ) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+G\+S\+T\+\_\+\+D\+O\+W\+N\+L\+O\+A\+DS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+N\+E\+WS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+H\+I\+S\+T\+O\+RY) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+A\+N\+A\+L\+Y\+Z\+E\+\_\+\+S\+Y\+S\+T\+E\+M\+\_\+\+C\+R\+A\+SH) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+C\+O\+N\+T\+A\+CT) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+P\+R\+E\+F\+E\+R\+E\+N\+C\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+S\+E\+T\+T\+I\+N\+GS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+P\+E\+R\+F\+O\+R\+M\+A\+N\+C\+E\+\_\+\+S\+E\+T\+T\+I\+N\+GS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+E\+Y\+F\+I\+L\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (L\+O\+W\+O\+R\+D(selected\+Drive) != G\+S\+T\+\_\+\+M\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+V\+OL \&\& !(Volume\+Selected(hwnd\+Dlg) \&\& Is\+Mounted\+Volume(vol\+Path\+Lower))) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (!\+Device\+Io\+Control (h\+Driver, G\+S\+T\+\_\+\+I\+O\+C\+T\+L\+\_\+\+G\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+ES, \&prop, sizeof (prop), \&prop, sizeof (prop), \&dw\+Result, N\+U\+LL) $\vert$$\vert$ dw\+Result == 0) 1 switch (Ask\+Multi\+Choice ((void $\ast$$\ast$) tmp, F\+A\+L\+SE)) default 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+A\+D\+D\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+T\+O\+\_\+\+F\+A\+V\+O\+R\+I\+T\+ES $\vert$$\vert$ lw == I\+D\+M\+\_\+\+A\+D\+D\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+T\+O\+\_\+\+S\+Y\+S\+T\+E\+M\+\_\+\+F\+A\+V\+O\+R\+I\+T\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+O\+R\+G\+A\+N\+I\+Z\+E\+\_\+\+F\+A\+V\+O\+R\+I\+T\+ES $\vert$$\vert$ lw == I\+D\+M\+\_\+\+O\+R\+G\+A\+N\+I\+Z\+E\+\_\+\+S\+Y\+S\+T\+E\+M\+\_\+\+F\+A\+V\+O\+R\+I\+T\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+T\+O\+K\+E\+N\+\_\+\+P\+R\+E\+F\+E\+R\+E\+N\+C\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+S\+E\+T\+T\+I\+N\+GS $\vert$$\vert$ lw == I\+D\+M\+\_\+\+S\+Y\+S\+\_\+\+E\+N\+C\+\_\+\+S\+E\+T\+T\+I\+N\+GS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+S\+Y\+S\+\_\+\+F\+A\+V\+O\+R\+I\+T\+E\+S\+\_\+\+S\+E\+T\+T\+I\+N\+GS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+B\+E\+N\+C\+H\+M\+A\+RK) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+T\+R\+A\+V\+E\+L\+ER) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+V\+O\+L\+\_\+\+H\+E\+A\+D\+ER) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+R\+E\+S\+T\+O\+R\+E\+\_\+\+V\+O\+L\+\_\+\+H\+E\+A\+D\+ER) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+L\+A\+N\+G\+U\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+T\+E\+S\+T\+\_\+\+V\+E\+C\+T\+O\+RS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+R\+E\+F\+R\+E\+S\+H\+\_\+\+D\+R\+I\+V\+E\+\_\+\+L\+E\+T\+T\+E\+RS) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+V\+O\+R\+I\+T\+E\+\_\+\+V\+O\+L\+U\+M\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+R\+E\+S\+U\+M\+E\+\_\+\+I\+N\+T\+E\+R\+R\+U\+P\+T\+E\+D\+\_\+\+P\+R\+OC) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+ES $\vert$$\vert$ lw == I\+D\+M\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+ES) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+V\+O\+L\+U\+ME \&\& hw == C\+B\+N\+\_\+\+E\+D\+I\+T\+C\+H\+A\+N\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+V\+O\+L\+U\+ME \&\& hw == C\+B\+N\+\_\+\+S\+E\+L\+C\+H\+A\+N\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+N\+O\+\_\+\+H\+I\+S\+T\+O\+RY) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw $>$= G\+S\+T\+\_\+\+F\+A\+V\+O\+R\+I\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+C\+M\+D\+\_\+\+I\+D\+\_\+\+O\+F\+F\+S\+ET \&\& lw $<$ G\+S\+T\+\_\+\+F\+A\+V\+O\+R\+I\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+C\+M\+D\+\_\+\+I\+D\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+ND) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+L\+A\+N\+G\+U\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+M\+\_\+\+L\+A\+N\+G\+U\+A\+GE) 0 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND else 1 switch (u\+Msg) case W\+M\+\_\+\+D\+R\+O\+P\+F\+I\+L\+ES 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+M\+O\+U\+N\+T\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+C\+O\+N\+T\+R\+O\+LS 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+M\+O\+U\+N\+T\+\_\+\+S\+H\+O\+W\+\_\+\+W\+I\+N\+D\+OW 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+P\+Y\+D\+A\+TA 1 switch (u\+Msg) case W\+M\+\_\+\+C\+L\+O\+SE 1 switch (u\+Msg) default 0 else
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & u\+Msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 0 switch (u\+Msg) case W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG 1 switch (u\+Msg) case W\+M\+\_\+\+S\+Y\+S\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+A\+B\+O\+UT) 0 switch (u\+Msg) case W\+M\+\_\+\+S\+Y\+S\+C\+O\+M\+M\+A\+ND else 1 switch (u\+Msg) case W\+M\+\_\+\+H\+E\+LP 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+H\+E\+LP) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+A\+N\+C\+EL) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+\_\+\+N\+E\+XT) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+P\+R\+EV) 0 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND else 0 switch (u\+Msg) case W\+M\+\_\+\+P\+A\+I\+NT ((L\+O\+NG) (H\+B\+R\+U\+SH) (Get\+Stock\+Object (N\+U\+L\+L\+\_\+\+B\+R\+U\+SH))) switch (u\+Msg) case W\+M\+\_\+\+C\+T\+L\+C\+O\+L\+O\+R\+S\+T\+A\+T\+IC if ((H\+W\+ND) l\+Param != Get\+Dlg\+Item (Main\+Dlg, I\+D\+C\+\_\+\+M\+A\+I\+N\+\_\+\+C\+O\+N\+T\+E\+N\+T\+\_\+\+C\+A\+N\+V\+AS)) 0 switch (u\+Msg) case W\+M\+\_\+\+E\+R\+A\+S\+E\+B\+K\+G\+ND 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+S\+U\+C\+C\+E\+SS 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+I\+N\+S\+T\+A\+L\+L\+\_\+\+F\+A\+I\+L\+U\+RE 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+S\+U\+C\+C\+E\+SS 1 switch (u\+Msg) case G\+S\+T\+\_\+\+A\+P\+P\+M\+S\+G\+\_\+\+E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+F\+A\+I\+L\+U\+RE 1 switch (u\+Msg) case W\+M\+\_\+\+C\+L\+O\+SE if (!b\+Devm) 0 switch (u\+Msg) case W\+M\+\_\+\+C\+L\+O\+SE else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_wizard_8c_ad579826bd66d706a12376a803813a4de}\label{_wizard_8c_ad579826bd66d706a12376a803813a4de}} 
+\index{Wizard.\+c@{Wizard.\+c}!Page\+Dialog\+Proc@{Page\+Dialog\+Proc}}
+\index{Page\+Dialog\+Proc@{Page\+Dialog\+Proc}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Page\+Dialog\+Proc()}{PageDialogProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Page\+Dialog\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{U\+I\+NT}]{u\+Msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Draw the page in Gost\+Crypt Volume Creation Wizard Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG message, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc. 
+
+Except in response to the W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG message, the dialog box procedure should return nonzero if it processes the message, and zero if it does not. -\/ see Dialog\+Proc.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & u\+Msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 0 switch (Ask\+Multi\+Choice ((void $\ast$$\ast$) tmp\+Str, F\+A\+L\+SE)) case 1 0 switch (Ask\+Multi\+Choice ((void $\ast$$\ast$) tmp\+Str, F\+A\+L\+SE)) case default 0 catch (Exception \&e) 0 switch (u\+Msg) case S\+Y\+S\+E\+N\+C\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+P\+A\+GE 1 on many events caught in switch (u\+Msg) 0 if no event returned 1 before
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & u\+Msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 1 switch (n\+Cur\+Page\+No) case I\+N\+T\+R\+O\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+P\+R\+O\+G\+R\+E\+S\+S\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case I\+N\+S\+T\+A\+L\+L\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case I\+N\+S\+T\+A\+L\+L\+\_\+\+P\+R\+O\+G\+R\+E\+S\+S\+\_\+\+P\+A\+GE 1 switch (n\+Cur\+Page\+No) case D\+O\+N\+A\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE 0 switch (u\+Msg) case W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG if switch (n\+Cur\+Page\+No) didnt return 1 1 switch (u\+Msg) case W\+M\+\_\+\+H\+E\+LP 0 switch (u\+Msg) case W\+M\+\_\+\+E\+N\+D\+S\+E\+S\+S\+I\+ON 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+A\+G\+R\+EE \&\& n\+Cur\+Page\+No == I\+N\+T\+R\+O\+\_\+\+P\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+E\+X\+T\+R\+A\+C\+T\+\_\+\+O\+N\+LY \&\& n\+Cur\+Page\+No == W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+S\+T\+A\+LL \&\& n\+Cur\+Page\+No == W\+I\+Z\+A\+R\+D\+\_\+\+M\+O\+D\+E\+\_\+\+P\+A\+GE) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if ( n\+Cur\+Page\+No == E\+X\+T\+R\+A\+C\+T\+I\+O\+N\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE \&\& hw == E\+N\+\_\+\+C\+H\+A\+N\+GE ) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if ( n\+Cur\+Page\+No == I\+N\+S\+T\+A\+L\+L\+\_\+\+O\+P\+T\+I\+O\+N\+S\+\_\+\+P\+A\+GE \&\& hw == E\+N\+\_\+\+C\+H\+A\+N\+GE ) 1 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND switch (lw) 0 switch (u\+Msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if switch (lw) didnt return 1 0 switch (u\+Msg) case W\+M\+\_\+\+P\+A\+I\+NT ((L\+O\+NG)(H\+B\+R\+U\+SH)(Get\+Stock\+Object(\+N\+U\+L\+L\+\_\+\+B\+R\+U\+S\+H))) switch (i\+Msg) case W\+M\+\_\+\+C\+T\+L\+C\+O\+L\+O\+R\+S\+T\+A\+T\+IC 0 switch (u\+Msg) case W\+M\+\_\+\+E\+R\+A\+S\+E\+B\+K\+G\+ND 0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_wizard_8c_ad0a89b2720cb6b22222256710051391c}\label{_wizard_8c_ad0a89b2720cb6b22222256710051391c}} 
+\index{Wizard.\+c@{Wizard.\+c}!Refresh\+U\+I\+G\+FX@{Refresh\+U\+I\+G\+FX}}
+\index{Refresh\+U\+I\+G\+FX@{Refresh\+U\+I\+G\+FX}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Refresh\+U\+I\+G\+F\+X()}{RefreshUIGFX()}}
+{\footnotesize\ttfamily void Refresh\+U\+I\+G\+FX (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Refresh x. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_wizard_8c_a454cf174b46c0181294e01389066c9e4}\label{_wizard_8c_a454cf174b46c0181294e01389066c9e4}} 
+\index{Wizard.\+c@{Wizard.\+c}!Update\+Progress\+Bar\+Proc@{Update\+Progress\+Bar\+Proc}}
+\index{Update\+Progress\+Bar\+Proc@{Update\+Progress\+Bar\+Proc}!Wizard.\+c@{Wizard.\+c}}
+\subsubsection{\texorpdfstring{Update\+Progress\+Bar\+Proc()}{UpdateProgressBarProc()}}
+{\footnotesize\ttfamily B\+O\+OL Update\+Progress\+Bar\+Proc (\begin{DoxyParamCaption}\item[{int}]{n\+Percent }\end{DoxyParamCaption})}
+
+
+
+Update the Proc progress bar This function must always return T\+R\+UE. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & n\+Percent) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL T\+R\+UE 
+\end{DoxyReturn}

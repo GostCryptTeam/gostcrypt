@@ -1,0 +1,4 @@
+<map id="EscKeyPressed" name="EscKeyPressed">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#adf789d9f8854a299c5213f1ac31c03a3" title="Check if keyboard char is available. " alt="" coords="169,5,335,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a6cf636994938a58fc26cc46d14be7722" title="Get keyboard char in ascii. " alt="" coords="189,56,315,83"/>
+</map>

@@ -1,0 +1,526 @@
+\hypertarget{class_gost_crypt_main_com}{}\section{Gost\+Crypt\+Main\+Com Class Reference}
+\label{class_gost_crypt_main_com}\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+
+
+Inheritance diagram for Gost\+Crypt\+Main\+Com\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{class_gost_crypt_main_com__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gost\+Crypt\+Main\+Com\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{class_gost_crypt_main_com__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_main_com_1_1_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com}
+\item 
+interface \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{I\+Gost\+Crypt\+Main\+Com}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_main_com_a22a1300ceea90a9593b09c4430a64c1e}\label{class_gost_crypt_main_com_a22a1300ceea90a9593b09c4430a64c1e}} 
+{\bfseries Gost\+Crypt\+Main\+Com} (D\+W\+O\+RD message\+Thread\+Id)
+\item 
+virtual U\+L\+O\+NG S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_af8eb4e335bb852b40cb6d24a43fa92f3}{Add\+Ref} ()
+\begin{DoxyCompactList}\small\item\em Add a reference. \end{DoxyCompactList}\item 
+virtual U\+L\+O\+NG S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_ae0b2e0989537d56b294a5bf34f46f7b4}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release a reference. \end{DoxyCompactList}\item 
+virtual H\+R\+E\+S\+U\+LT S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a9bebb998c60ef2b24d0d4fcc9e514db3}{Query\+Interface} (R\+E\+F\+I\+ID riid, void $\ast$$\ast$ppv\+Object)
+\begin{DoxyCompactList}\small\item\em Associate this object with the ppv\+Object if riid is unknow or main\+Com. \end{DoxyCompactList}\item 
+virtual void S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_aaf1b9fb1912523bdca4f2304839445c0}{Analyze\+Kernel\+Mini\+Dump} (L\+O\+N\+G\+\_\+\+P\+TR hwnd\+Dlg)
+\begin{DoxyCompactList}\small\item\em Analyse the memory dump. \end{DoxyCompactList}\item 
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_ad9de9533d9079189d3452f27b4c50735}{Backup\+Volume\+Header} (L\+O\+N\+G\+\_\+\+P\+TR hwnd\+Dlg, B\+O\+OL b\+Require\+Confirmation, B\+S\+TR lpsz\+Volume)
+\begin{DoxyCompactList}\small\item\em Create a backup of the volume header. \end{DoxyCompactList}\item 
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a6f067d2501bc469f75bdbb4bf0f55528}{Restore\+Volume\+Header} (L\+O\+N\+G\+\_\+\+P\+TR hwnd\+Dlg, B\+S\+TR lpsz\+Volume)
+\begin{DoxyCompactList}\small\item\em Restore the volume header. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a40c3bde83c1ef6da049cdc3456d20e90}{Call\+Driver} (D\+W\+O\+RD ioctl, B\+S\+TR input, B\+S\+TR $\ast$output)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}call\+Driver\char`\"{} of the Basecom object and return it. virtual and S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+Pe handles event like mouse click ... \end{DoxyCompactList}\item 
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a53112a48e8627021a2fad6b4f5538ecf}{Change\+Password} (B\+S\+TR volume\+Path, \hyperlink{struct_password}{Password} $\ast$old\+Password, \hyperlink{struct_password}{Password} $\ast$new\+Password, int pkcs5, L\+O\+N\+G\+\_\+\+P\+TR h\+Wnd)
+\begin{DoxyCompactList}\small\item\em Change the password. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a26612218a78b7d17858708849b561782}{Copy\+File} (B\+S\+TR source\+File, B\+S\+TR destination\+File)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}copyfile\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_aaad0924cbc040f56ef0dfeb7f1998be0}{Delete\+File} (B\+S\+TR file)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}deletefile\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual B\+O\+OL S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_afd2c6c9964abf54b5eed75e2fda9ce7b}{Is\+Paging\+File\+Active} (B\+O\+OL check\+Non\+Windows\+Partitions\+Only)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Is\+Paging\+File\+Active\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a19037918711489223448c63e6b5371b6}{Read\+Write\+File} (B\+O\+OL write, B\+O\+OL device, B\+S\+TR file\+Path, B\+S\+TR $\ast$buffer\+Bstr, unsigned \+\_\+\+\_\+int64 offset, unsigned \+\_\+\+\_\+int32 size, D\+W\+O\+RD $\ast$size\+Done)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Read\+Write\+File\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_ab18d50220b4f5fae0a442c7723a8c0f3}{Register\+Filter\+Driver} (B\+O\+OL register\+Driver, int filter\+Type)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Register\+Filter\+Driver\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a25487f06b5cd4f49bc4e214f453fbc9d}{Register\+System\+Favorites\+Service} (B\+O\+OL register\+Service)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Register\+System\+Favorites\+Service\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a565cd48981c15a30f7c52227e414e61d}{Set\+Driver\+Service\+Start\+Type} (D\+W\+O\+RD start\+Type)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Set\+Driver\+Service\+Start\+Type\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\item 
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_gost_crypt_main_com_a8dedf36bf770d0929d14bc611743ac07}{Write\+Local\+Machine\+Registry\+Dword\+Value} (B\+S\+TR key\+Path, B\+S\+TR value\+Name, D\+W\+O\+RD value)
+\begin{DoxyCompactList}\small\item\em Call the \char`\"{}\+Write\+Local\+Machine\+Registry\+Dword\+Value\char`\"{} of the Basecom object and return it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_main_com_a5a0fa541263d384562046a0c8cfc4a86}\label{class_gost_crypt_main_com_a5a0fa541263d384562046a0c8cfc4a86}} 
+D\+W\+O\+RD {\bfseries Message\+Thread\+Id}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_main_com_a789a9d9704ba7e9b014d6f99a69a6b2e}\label{class_gost_crypt_main_com_a789a9d9704ba7e9b014d6f99a69a6b2e}} 
+L\+O\+NG {\bfseries Ref\+Count}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_main_com_af8eb4e335bb852b40cb6d24a43fa92f3}\label{class_gost_crypt_main_com_af8eb4e335bb852b40cb6d24a43fa92f3}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Add\+Ref@{Add\+Ref}}
+\index{Add\+Ref@{Add\+Ref}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Add\+Ref()}{AddRef()}}
+{\footnotesize\ttfamily U\+L\+O\+NG S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Add\+Ref (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Add a reference. 
+
+\begin{DoxyReturn}{Returns}
+virtual U\+L\+O\+NG Interlocked\+Increment (\&Ref\+Count) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_main_com_aaf1b9fb1912523bdca4f2304839445c0}\label{class_gost_crypt_main_com_aaf1b9fb1912523bdca4f2304839445c0}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Analyze\+Kernel\+Mini\+Dump@{Analyze\+Kernel\+Mini\+Dump}}
+\index{Analyze\+Kernel\+Mini\+Dump@{Analyze\+Kernel\+Mini\+Dump}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Analyze\+Kernel\+Mini\+Dump()}{AnalyzeKernelMiniDump()}}
+{\footnotesize\ttfamily void S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Analyze\+Kernel\+Mini\+Dump (\begin{DoxyParamCaption}\item[{L\+O\+N\+G\+\_\+\+P\+TR}]{hwnd\+Dlg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Analyse the memory dump. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+O\+N\+G\+\_\+\+P\+TR} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual void S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+\mbox{\Hypertarget{class_gost_crypt_main_com_ad9de9533d9079189d3452f27b4c50735}\label{class_gost_crypt_main_com_ad9de9533d9079189d3452f27b4c50735}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Backup\+Volume\+Header@{Backup\+Volume\+Header}}
+\index{Backup\+Volume\+Header@{Backup\+Volume\+Header}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Backup\+Volume\+Header()}{BackupVolumeHeader()}}
+{\footnotesize\ttfamily int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Backup\+Volume\+Header (\begin{DoxyParamCaption}\item[{L\+O\+N\+G\+\_\+\+P\+TR}]{hwnd\+Dlg,  }\item[{B\+O\+OL}]{b\+Require\+Confirmation,  }\item[{B\+S\+TR}]{lpsz\+Volume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Create a backup of the volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & lpsz\+Volume \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Require\+Confirmation \\
+\hline
+\mbox{\tt in}  & {\em L\+O\+N\+G\+\_\+\+P\+TR} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{_mount_8c_a80e2191b50f9e6ba9b4b26db9c2f36b7}{Backup\+Volume\+Header} ((H\+W\+ND) hwnd\+Dlg, b\+Require\+Confirmation, C\+W2A (lpsz\+Volume)) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+\mbox{\Hypertarget{class_gost_crypt_main_com_a40c3bde83c1ef6da049cdc3456d20e90}\label{class_gost_crypt_main_com_a40c3bde83c1ef6da049cdc3456d20e90}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Call\+Driver@{Call\+Driver}}
+\index{Call\+Driver@{Call\+Driver}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Call\+Driver()}{CallDriver()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Call\+Driver (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{ioctl,  }\item[{B\+S\+TR}]{input,  }\item[{B\+S\+TR $\ast$}]{output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}call\+Driver\char`\"{} of the Basecom object and return it. virtual and S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+Pe handles event like mouse click ... 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & $\ast$ output \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & input \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & ioctl \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a975a72a5b377ede1d3106189b25f858b}{Base\+Com\+::\+Call\+Driver} (ioctl, input, output 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a40c3bde83c1ef6da049cdc3456d20e90_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a53112a48e8627021a2fad6b4f5538ecf}\label{class_gost_crypt_main_com_a53112a48e8627021a2fad6b4f5538ecf}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Change\+Password@{Change\+Password}}
+\index{Change\+Password@{Change\+Password}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Change\+Password()}{ChangePassword()}}
+{\footnotesize\ttfamily int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Change\+Password (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{volume\+Path,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{old\+Password,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{new\+Password,  }\item[{int}]{pkcs5,  }\item[{L\+O\+N\+G\+\_\+\+P\+TR}]{h\+Wnd }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Change the password. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+O\+N\+G\+\_\+\+P\+TR} & h\+Wnd \\
+\hline
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ new\+Password \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ old\+Password \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & volume\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{_password_8c_a572e279b7fade7cdb66f93c09102bb99}{Change\+Pwd} (C\+W2A (volume\+Path), old\+Password, new\+Password, pkcs5, (H\+W\+ND) h\+Wnd) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+\mbox{\Hypertarget{class_gost_crypt_main_com_a26612218a78b7d17858708849b561782}\label{class_gost_crypt_main_com_a26612218a78b7d17858708849b561782}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Copy\+File@{Copy\+File}}
+\index{Copy\+File@{Copy\+File}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Copy\+File()}{CopyFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Copy\+File (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{source\+File,  }\item[{B\+S\+TR}]{destination\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}copyfile\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & destination\+File \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & source\+File \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a27d575ad1ef51cac9f0167583db6ae06}{Base\+Com\+::\+Copy\+File} (source\+File, destination\+File) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a26612218a78b7d17858708849b561782_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_aaad0924cbc040f56ef0dfeb7f1998be0}\label{class_gost_crypt_main_com_aaad0924cbc040f56ef0dfeb7f1998be0}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Delete\+File@{Delete\+File}}
+\index{Delete\+File@{Delete\+File}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Delete\+File()}{DeleteFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Delete\+File (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}deletefile\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a52133219ed5ad54607a6c417de0ba666}{Base\+Com\+::\+Delete\+File} (file) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_aaad0924cbc040f56ef0dfeb7f1998be0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_afd2c6c9964abf54b5eed75e2fda9ce7b}\label{class_gost_crypt_main_com_afd2c6c9964abf54b5eed75e2fda9ce7b}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}}
+\index{Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Is\+Paging\+File\+Active()}{IsPagingFileActive()}}
+{\footnotesize\ttfamily B\+O\+OL S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Is\+Paging\+File\+Active (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{check\+Non\+Windows\+Partitions\+Only }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Is\+Paging\+File\+Active\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & check\+Non\+Windows\+Partitions\+Only \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual B\+O\+OL S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a41aa000a52c4c44d20b142c8868ef4ea}{Base\+Com\+::\+Is\+Paging\+File\+Active} (check\+Non\+Windows\+Partitions\+Only) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_afd2c6c9964abf54b5eed75e2fda9ce7b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a9bebb998c60ef2b24d0d4fcc9e514db3}\label{class_gost_crypt_main_com_a9bebb998c60ef2b24d0d4fcc9e514db3}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Query\+Interface@{Query\+Interface}}
+\index{Query\+Interface@{Query\+Interface}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Query\+Interface()}{QueryInterface()}}
+{\footnotesize\ttfamily H\+R\+E\+S\+U\+LT S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Query\+Interface (\begin{DoxyParamCaption}\item[{R\+E\+F\+I\+ID}]{riid,  }\item[{void $\ast$$\ast$}]{ppv\+Object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Associate this object with the ppv\+Object if riid is unknow or main\+Com. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em void} & $\ast$$\ast$ ppv\+Object \\
+\hline
+\mbox{\tt in}  & {\em R\+E\+F\+I\+ID} & riid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual H\+R\+E\+S\+U\+LT E\+\_\+\+N\+O\+I\+N\+T\+E\+R\+F\+A\+CE if !(riid == I\+I\+D\+\_\+\+I\+Unknown $\vert$$\vert$ riid == I\+I\+D\+\_\+\+I\+Gost\+Crypt\+Main\+Com) S\+\_\+\+OK else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a19037918711489223448c63e6b5371b6}\label{class_gost_crypt_main_com_a19037918711489223448c63e6b5371b6}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Read\+Write\+File@{Read\+Write\+File}}
+\index{Read\+Write\+File@{Read\+Write\+File}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Read\+Write\+File()}{ReadWriteFile()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Read\+Write\+File (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{write,  }\item[{B\+O\+OL}]{device,  }\item[{B\+S\+TR}]{file\+Path,  }\item[{B\+S\+TR $\ast$}]{buffer\+Bstr,  }\item[{unsigned \+\_\+\+\_\+int64}]{offset,  }\item[{unsigned \+\_\+\+\_\+int32}]{size,  }\item[{D\+W\+O\+RD $\ast$}]{size\+Done }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Read\+Write\+File\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size\+Done \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int32 \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & $\ast$ buffer\+Bstr \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & file\+Path \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & device \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a86bbb8fc7490090226ed6a27456271e4}{Base\+Com\+::\+Read\+Write\+File} (write, device, file\+Path, buffer\+Bstr, offset, size, size\+Done) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a19037918711489223448c63e6b5371b6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_ab18d50220b4f5fae0a442c7723a8c0f3}\label{class_gost_crypt_main_com_ab18d50220b4f5fae0a442c7723a8c0f3}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Register\+Filter\+Driver@{Register\+Filter\+Driver}}
+\index{Register\+Filter\+Driver@{Register\+Filter\+Driver}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Register\+Filter\+Driver()}{RegisterFilterDriver()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Register\+Filter\+Driver (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Driver,  }\item[{int}]{filter\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Register\+Filter\+Driver\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & filter\+Type \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Driver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a42fbcfca1fecd24c6aeed62d5e86e6b1}{Base\+Com\+::\+Register\+Filter\+Driver} (register\+Driver, filter\+Type) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_ab18d50220b4f5fae0a442c7723a8c0f3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a25487f06b5cd4f49bc4e214f453fbc9d}\label{class_gost_crypt_main_com_a25487f06b5cd4f49bc4e214f453fbc9d}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}}
+\index{Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Register\+System\+Favorites\+Service()}{RegisterSystemFavoritesService()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Register\+System\+Favorites\+Service (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Service }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Register\+System\+Favorites\+Service\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Service \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_aa5bd0c7ed2b559f9be436622febb3dfb}{Base\+Com\+::\+Register\+System\+Favorites\+Service} (register\+Service) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a25487f06b5cd4f49bc4e214f453fbc9d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_ae0b2e0989537d56b294a5bf34f46f7b4}\label{class_gost_crypt_main_com_ae0b2e0989537d56b294a5bf34f46f7b4}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Release@{Release}}
+\index{Release@{Release}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Release()}{Release()}}
+{\footnotesize\ttfamily U\+L\+O\+NG S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Release a reference. 
+
+\begin{DoxyReturn}{Returns}
+virtual U\+L\+O\+NG 0 if (!\+Interlocked\+Decrement (\&Ref\+Count)) Ref\+Count else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a6f067d2501bc469f75bdbb4bf0f55528}\label{class_gost_crypt_main_com_a6f067d2501bc469f75bdbb4bf0f55528}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Restore\+Volume\+Header@{Restore\+Volume\+Header}}
+\index{Restore\+Volume\+Header@{Restore\+Volume\+Header}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Restore\+Volume\+Header()}{RestoreVolumeHeader()}}
+{\footnotesize\ttfamily int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Restore\+Volume\+Header (\begin{DoxyParamCaption}\item[{L\+O\+N\+G\+\_\+\+P\+TR}]{hwnd\+Dlg,  }\item[{B\+S\+TR}]{lpsz\+Volume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Restore the volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+S\+TR} & lpsz\+Volume \\
+\hline
+\mbox{\tt in}  & {\em L\+O\+N\+G\+\_\+\+P\+TR} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual int S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+YP \hyperlink{_mount_8c_a6d8d4c146bfd307abfb93dfb9b03c335}{Restore\+Volume\+Header} ((H\+W\+ND) hwnd\+Dlg, C\+W2A (lpsz\+Volume)) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+\mbox{\Hypertarget{class_gost_crypt_main_com_a565cd48981c15a30f7c52227e414e61d}\label{class_gost_crypt_main_com_a565cd48981c15a30f7c52227e414e61d}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}}
+\index{Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Set\+Driver\+Service\+Start\+Type()}{SetDriverServiceStartType()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Set\+Driver\+Service\+Start\+Type (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{start\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Set\+Driver\+Service\+Start\+Type\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & start\+Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_a4c4f6cb8a6560a8a44fa7053d1747ea7}{Base\+Com\+::\+Set\+Driver\+Service\+Start\+Type} (start\+Type) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a565cd48981c15a30f7c52227e414e61d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_main_com_a8dedf36bf770d0929d14bc611743ac07}\label{class_gost_crypt_main_com_a8dedf36bf770d0929d14bc611743ac07}} 
+\index{Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}!Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}}
+\index{Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}!Gost\+Crypt\+Main\+Com@{Gost\+Crypt\+Main\+Com}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Dword\+Value()}{WriteLocalMachineRegistryDwordValue()}}
+{\footnotesize\ttfamily D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE Gost\+Crypt\+Main\+Com\+::\+Write\+Local\+Machine\+Registry\+Dword\+Value (\begin{DoxyParamCaption}\item[{B\+S\+TR}]{key\+Path,  }\item[{B\+S\+TR}]{value\+Name,  }\item[{D\+W\+O\+RD}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Call the \char`\"{}\+Write\+Local\+Machine\+Registry\+Dword\+Value\char`\"{} of the Basecom object and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & value \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & value\+Name \\
+\hline
+\mbox{\tt in}  & {\em B\+S\+TR} & key\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+virtual D\+W\+O\+RD S\+T\+D\+M\+E\+T\+H\+O\+D\+C\+A\+L\+L\+T\+Y\+PE \hyperlink{class_base_com_ae0f1340ab68f4c9bb0369afb6bbafa00}{Base\+Com\+::\+Write\+Local\+Machine\+Registry\+Dword\+Value} (key\+Path, value\+Name, value) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interface_gost_crypt_main_com_1_1_i_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com\+::\+I\+Gost\+Crypt\+Main\+Com}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_main_com_a8dedf36bf770d0929d14bc611743ac07_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Mount/\hyperlink{_main_com_8cpp}{Main\+Com.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,354 @@
+\hypertarget{_volumes_8c}{}\section{Common/\+Volumes.c File Reference}
+\label{_volumes_8c}\index{Common/\+Volumes.\+c@{Common/\+Volumes.\+c}}
+
+
+Manage the generation and use of header of volumes.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Encryption\+Thread\+Pool.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$io.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Random.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crypto.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Endian.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volumes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Pkcs5.\+h\char`\"{}}\newline
+Include dependency graph for Volumes.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_key_derivation_work_item}{Key\+Derivation\+Work\+Item}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16 \hyperlink{_volumes_8c_a28fc4bf9ef4c56293aa4b387541cfe5e}{Get\+Header\+Field16} (byte $\ast$header, int offset)
+\begin{DoxyCompactList}\small\item\em Getter for 16 bits value in a header, starting at the offset. \end{DoxyCompactList}\item 
+uint32 \hyperlink{_volumes_8c_aeb33f14ce64d22f64717b2b2a92da656}{Get\+Header\+Field32} (byte $\ast$header, int offset)
+\begin{DoxyCompactList}\small\item\em Getter for 32 bits value in a header, starting at the offset. \end{DoxyCompactList}\item 
+\hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{U\+I\+N\+T64\+\_\+\+S\+T\+R\+U\+CT} \hyperlink{_volumes_8c_ab4f7e46232fce9725756858d64edbf1b}{Get\+Header\+Field64} (byte $\ast$header, int offset)
+\begin{DoxyCompactList}\small\item\em Getter for 64 bits value in a header, starting at the offset. \end{DoxyCompactList}\item 
+int \hyperlink{_volumes_8c_afa713bf1fa27171e0cc0aa16218fe10e}{Read\+Volume\+Header} (B\+O\+OL b\+Boot, char $\ast$encrypted\+Header, \hyperlink{struct_password}{Password} $\ast$password, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Info, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Header\+Crypto\+Info)
+\begin{DoxyCompactList}\small\item\em Read the volume header using getter from 16 to 64 bits. It permits to load the volume with its parameters. \end{DoxyCompactList}\item 
+int \hyperlink{_volumes_8c_a25b0d6177527d33b06d34623e4f2800b}{Create\+Volume\+Header\+In\+Memory} (B\+O\+OL b\+Boot, char $\ast$header, int ea, int mode, \hyperlink{struct_password}{Password} $\ast$password, int pkcs5\+\_\+prf, char $\ast$master\+Keydata, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Info, unsigned \+\_\+\+\_\+int64 volume\+Size, unsigned \+\_\+\+\_\+int64 hidden\+Volume\+Size, unsigned \+\_\+\+\_\+int64 encrypted\+Area\+Start, unsigned \+\_\+\+\_\+int64 encrypted\+Area\+Length, uint16 required\+Program\+Version, uint32 header\+Flags, uint32 sector\+Size, B\+O\+OL b\+Wipe\+Mode)
+\begin{DoxyCompactList}\small\item\em Creates a volume header in memory. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_volumes_8c_a2b546c4c9777de888c3b561cceb5a575}{Read\+Effective\+Volume\+Header} (B\+O\+OL device, H\+A\+N\+D\+LE file\+Handle, byte $\ast$header, D\+W\+O\+RD $\ast$bytes\+Read)
+\begin{DoxyCompactList}\small\item\em Read the effective volume header. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_volumes_8c_adb5d71c2f16d860d9bd17856804a309e}{Write\+Effective\+Volume\+Header} (B\+O\+OL device, H\+A\+N\+D\+LE file\+Handle, byte $\ast$header)
+\begin{DoxyCompactList}\small\item\em Write the header on the device passed in parameter. \end{DoxyCompactList}\item 
+int \hyperlink{_volumes_8c_a31bc369dec32aaee5793685da60c640b}{Write\+Random\+Data\+To\+Reserved\+Header\+Areas} (H\+A\+N\+D\+LE dev, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$crypto\+Info, \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} data\+Area\+Size, B\+O\+OL b\+Primary\+Only, B\+O\+OL b\+Backup\+Only)
+\begin{DoxyCompactList}\small\item\em Writes randomly generated data to unused/reserved header areas. When b\+Primary\+Only is T\+R\+UE, then only the primary header area (not the backup header area) is filled with random data. When b\+Backup\+Only is T\+R\+UE, only the backup header area (not the primary header area) is filled with random data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_volumes_8c_a0e14f347f231fbddd0c003145f9dde6e}\label{_volumes_8c_a0e14f347f231fbddd0c003145f9dde6e}} 
+B\+O\+OL {\bfseries Read\+Volume\+Header\+Recovery\+Mode} = F\+A\+L\+SE
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the generation and use of header of volumes. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20/01/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_volumes_8c_a25b0d6177527d33b06d34623e4f2800b}\label{_volumes_8c_a25b0d6177527d33b06d34623e4f2800b}} 
+\index{Volumes.\+c@{Volumes.\+c}!Create\+Volume\+Header\+In\+Memory@{Create\+Volume\+Header\+In\+Memory}}
+\index{Create\+Volume\+Header\+In\+Memory@{Create\+Volume\+Header\+In\+Memory}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Create\+Volume\+Header\+In\+Memory()}{CreateVolumeHeaderInMemory()}}
+{\footnotesize\ttfamily int Create\+Volume\+Header\+In\+Memory (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{b\+Boot,  }\item[{char $\ast$}]{header,  }\item[{int}]{ea,  }\item[{int}]{mode,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{password,  }\item[{int}]{pkcs5\+\_\+prf,  }\item[{char $\ast$}]{master\+Keydata,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Info,  }\item[{unsigned \+\_\+\+\_\+int64}]{volume\+Size,  }\item[{unsigned \+\_\+\+\_\+int64}]{hidden\+Volume\+Size,  }\item[{unsigned \+\_\+\+\_\+int64}]{encrypted\+Area\+Start,  }\item[{unsigned \+\_\+\+\_\+int64}]{encrypted\+Area\+Length,  }\item[{uint16}]{required\+Program\+Version,  }\item[{uint32}]{header\+Flags,  }\item[{uint32}]{sector\+Size,  }\item[{B\+O\+OL}]{b\+Wipe\+Mode }\end{DoxyParamCaption})}
+
+
+
+Creates a volume header in memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Boot \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ header \\
+\hline
+\mbox{\tt in}  & {\em int} & ea \\
+\hline
+\mbox{\tt in}  & {\em int} & mode \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ password \\
+\hline
+\mbox{\tt in}  & {\em int} & pkcs5\+\_\+prf \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ master\+Keydata \\
+\hline
+\mbox{\tt in}  & {\em P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ ret\+Info \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 volume\+Size \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 hidden\+Volume\+Size \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 encrypted\+Area\+Start \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & \+\_\+\+\_\+int64 encrypted\+Area\+Length \\
+\hline
+\mbox{\tt in}  & {\em uint16} & required\+Program\+Version \\
+\hline
+\mbox{\tt in}  & {\em uint32} & header\+Flags \\
+\hline
+\mbox{\tt in}  & {\em uint32} & sector\+Size \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Wipe\+Mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY if (crypto\+Info == N\+U\+LL) retval if (ret\+Val != E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS) E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY if (!\+Randget\+Bytes (key\+Info.\+salt, P\+K\+C\+S5\+\_\+\+S\+A\+L\+T\+\_\+\+S\+I\+ZE, !b\+Wipe\+Mode)) E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY if (!\+Randget\+Bytes (key\+Info.\+master\+\_\+keydata, bytes\+Needed, T\+R\+UE)) E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY if (!\+E\+A\+Init\+Mode (crypto\+Info)) 0 else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_a25b0d6177527d33b06d34623e4f2800b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_volumes_8c_a28fc4bf9ef4c56293aa4b387541cfe5e}\label{_volumes_8c_a28fc4bf9ef4c56293aa4b387541cfe5e}} 
+\index{Volumes.\+c@{Volumes.\+c}!Get\+Header\+Field16@{Get\+Header\+Field16}}
+\index{Get\+Header\+Field16@{Get\+Header\+Field16}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field16()}{GetHeaderField16()}}
+{\footnotesize\ttfamily uint16 Get\+Header\+Field16 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+
+
+Getter for 16 bits value in a header, starting at the offset. 
+
+Legal Notice\+: Some portions of the source code contained in this file were derived from the source code of Encryption for the Masses 2.\+02a, which is Copyright (c) 1998-\/2000 Paul Le Roux and which is governed by the \textquotesingle{}License Agreement for Encryption for the Masses\textquotesingle{}. Modifications and additions to the original source code (contained in this file) and all other portions of this file are Copyright (c) 2003-\/2010 True\+Crypt Developers Association and are governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages.
+
+Volume header v5 structure (used since Gost\+Crypt 7.\+0)\+:
+
+\subsubsection*{Offset Length Description }
+
+Unencrypted\+: 0 64 Salt Encrypted\+: 64 4 A\+S\+C\+II string \textquotesingle{}T\+R\+UE\textquotesingle{} 68 2 Header version 70 2 Required program version 72 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 256-\/511 76 16 Reserved (must contain zeroes) 92 8 Size of hidden volume in bytes (0 = normal volume) 100 8 Size of the volume in bytes (identical with field 92 for hidden volumes, valid if field 70 $>$= 0x600 or flag bit 0 == 1) 108 8 Byte offset of the start of the master key scope (valid if field 70 $>$= 0x600 or flag bit 0 == 1) 116 8 Size of the encrypted area within the master key scope (valid if field 70 $>$= 0x600 or flag bit 0 == 1) 124 4 Flags\+: bit 0 set = system encryption; bit 1 set = non-\/system in-\/place encryption, bits 2-\/31 are reserved (set to zero) 128 4 Sector size in bytes 132 120 Reserved (must contain zeroes) 252 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 64-\/251 256 256 Concatenated primary master key(s) and secondary master key(s) (X\+TS mode)
+
+Deprecated/legacy volume header v4 structure (used by Gost\+Crypt 6.\+x)\+:
+
+\subsubsection*{Offset Length Description }
+
+Unencrypted\+: 0 64 Salt Encrypted\+: 64 4 A\+S\+C\+II string \textquotesingle{}T\+R\+UE\textquotesingle{} 68 2 Header version 70 2 Required program version 72 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 256-\/511 76 16 Reserved (must contain zeroes) 92 8 Size of hidden volume in bytes (0 = normal volume) 100 8 Size of the volume in bytes (identical with field 92 for hidden volumes, valid if field 70 $>$= 0x600 or flag bit 0 == 1) 108 8 Byte offset of the start of the master key scope (valid if field 70 $>$= 0x600 or flag bit 0 == 1) 116 8 Size of the encrypted area within the master key scope (valid if field 70 $>$= 0x600 or flag bit 0 == 1) 124 4 Flags\+: bit 0 set = system encryption; bit 1 set = non-\/system in-\/place encryption, bits 2-\/31 are reserved 128 124 Reserved (must contain zeroes) 252 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 64-\/251 256 256 Concatenated primary master key(s) and secondary master key(s) (X\+TS mode)
+
+Deprecated/legacy volume header v3 structure (used by Gost\+Crypt 5.\+x)\+:
+
+\subsubsection*{Offset Length Description }
+
+Unencrypted\+: 0 64 Salt Encrypted\+: 64 4 A\+S\+C\+II string \textquotesingle{}T\+R\+UE\textquotesingle{} 68 2 Header version 70 2 Required program version 72 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 256-\/511 76 8 Volume creation time 84 8 Header creation time 92 8 Size of hidden volume in bytes (0 = normal volume) 100 8 Size of the volume in bytes (identical with field 92 for hidden volumes) 108 8 Start byte offset of the encrypted area of the volume 116 8 Size of the encrypted area of the volume in bytes 124 132 Reserved (must contain zeroes) 256 256 Concatenated primary master key(s) and secondary master key(s) (X\+TS mode)
+
+Deprecated/legacy volume header v2 structure (used before Gost\+Crypt 5.\+0)\+:
+
+\subsubsection*{Offset Length Description }
+
+Unencrypted\+: 0 64 Salt Encrypted\+: 64 4 A\+S\+C\+II string \textquotesingle{}T\+R\+UE\textquotesingle{} 68 2 Header version 70 2 Required program version 72 4 C\+R\+C-\/32 checksum of the (decrypted) bytes 256-\/511 76 8 Volume creation time 84 8 Header creation time 92 8 Size of hidden volume in bytes (0 = normal volume) 100 156 Reserved (must contain zeroes) 256 32 For L\+RW (deprecated/legacy), secondary key For C\+BC (deprecated/legacy), data used to generate IV and whitening values 288 224 Master key(s)
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & offset \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ header \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16 B\+E16 ($\ast$(uint16 $\ast$) (header + offset)) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_a28fc4bf9ef4c56293aa4b387541cfe5e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_volumes_8c_aeb33f14ce64d22f64717b2b2a92da656}\label{_volumes_8c_aeb33f14ce64d22f64717b2b2a92da656}} 
+\index{Volumes.\+c@{Volumes.\+c}!Get\+Header\+Field32@{Get\+Header\+Field32}}
+\index{Get\+Header\+Field32@{Get\+Header\+Field32}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field32()}{GetHeaderField32()}}
+{\footnotesize\ttfamily uint32 Get\+Header\+Field32 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+
+
+Getter for 32 bits value in a header, starting at the offset. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & offset \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ header \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+E32 ($\ast$(uint32 $\ast$) (header + offset)) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_aeb33f14ce64d22f64717b2b2a92da656_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_volumes_8c_ab4f7e46232fce9725756858d64edbf1b}\label{_volumes_8c_ab4f7e46232fce9725756858d64edbf1b}} 
+\index{Volumes.\+c@{Volumes.\+c}!Get\+Header\+Field64@{Get\+Header\+Field64}}
+\index{Get\+Header\+Field64@{Get\+Header\+Field64}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field64()}{GetHeaderField64()}}
+{\footnotesize\ttfamily \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{U\+I\+N\+T64\+\_\+\+S\+T\+R\+U\+CT} Get\+Header\+Field64 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+
+
+Getter for 64 bits value in a header, starting at the offset. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & offset \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ header \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{U\+I\+N\+T64\+\_\+\+S\+T\+R\+U\+CT} uint64\+Struct 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_volumes_8c_a2b546c4c9777de888c3b561cceb5a575}\label{_volumes_8c_a2b546c4c9777de888c3b561cceb5a575}} 
+\index{Volumes.\+c@{Volumes.\+c}!Read\+Effective\+Volume\+Header@{Read\+Effective\+Volume\+Header}}
+\index{Read\+Effective\+Volume\+Header@{Read\+Effective\+Volume\+Header}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Read\+Effective\+Volume\+Header()}{ReadEffectiveVolumeHeader()}}
+{\footnotesize\ttfamily B\+O\+OL Read\+Effective\+Volume\+Header (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{device,  }\item[{H\+A\+N\+D\+LE}]{file\+Handle,  }\item[{byte $\ast$}]{header,  }\item[{D\+W\+O\+RD $\ast$}]{bytes\+Read }\end{DoxyParamCaption})}
+
+
+
+Read the effective volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ bytes\+Read \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ header \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & file\+Handle \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & device \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (!\+Device\+Io\+Control (file\+Handle, I\+O\+C\+T\+L\+\_\+\+D\+I\+S\+K\+\_\+\+G\+E\+T\+\_\+\+D\+R\+I\+V\+E\+\_\+\+G\+E\+O\+M\+E\+T\+RY, N\+U\+LL, 0, \&geometry, sizeof (geometry), bytes\+Read, N\+U\+LL)) F\+A\+L\+SE if (geometry.\+Bytes\+Per\+Sector $>$ sizeof (sector\+Buffer) $\vert$$\vert$ geometry.\+Bytes\+Per\+Sector $<$ G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE) F\+A\+L\+SE if (!\+Read\+File (file\+Handle, sector\+Buffer, max (G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE, geometry.\+Bytes\+Per\+Sector), bytes\+Read, N\+U\+LL)) T\+R\+UE else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_volumes_8c_afa713bf1fa27171e0cc0aa16218fe10e}\label{_volumes_8c_afa713bf1fa27171e0cc0aa16218fe10e}} 
+\index{Volumes.\+c@{Volumes.\+c}!Read\+Volume\+Header@{Read\+Volume\+Header}}
+\index{Read\+Volume\+Header@{Read\+Volume\+Header}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Read\+Volume\+Header()}{ReadVolumeHeader()}}
+{\footnotesize\ttfamily int Read\+Volume\+Header (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{b\+Boot,  }\item[{char $\ast$}]{encrypted\+Header,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{password,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Info,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Header\+Crypto\+Info }\end{DoxyParamCaption})}
+
+
+
+Read the volume header using getter from 16 to 64 bits. It permits to load the volume with its parameters. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ ret\+Header\+Crypto\+Info \\
+\hline
+\mbox{\tt in}  & {\em P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ ret\+Info \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ password \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ encrypted\+Header \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Boot \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY if (encryption\+Thread\+Count $>$ 1) E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY else (ret\+Header\+Crypto\+Info != N\+U\+LL) E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY if (!key\+Derivation\+Completed\+Event) E\+R\+R\+\_\+\+O\+U\+R\+O\+F\+M\+E\+M\+O\+RY if (!no\+Outstanding\+Work\+Item\+Event) E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT if (crypto\+Info-\/$>$Sector\+Size $<$ G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE $\vert$$\vert$ crypto\+Info-\/$>$Sector\+Size $>$ G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE $\vert$$\vert$ crypto\+Info-\/$>$Sector\+Size \% E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+D\+A\+T\+A\+\_\+\+U\+N\+I\+T\+\_\+\+S\+I\+ZE != 0) E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED if (!\+E\+A\+Init\+Mode (crypto\+Info)) E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED if (header\+Version $>$ V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON) E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED if (crypto\+Info-\/$>$Required\+Program\+Version $>$ V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM) E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE if (status == E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE) E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED if (!\+E\+A\+Init\+Mode (crypto\+Info)) status else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_afa713bf1fa27171e0cc0aa16218fe10e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_afa713bf1fa27171e0cc0aa16218fe10e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_volumes_8c_adb5d71c2f16d860d9bd17856804a309e}\label{_volumes_8c_adb5d71c2f16d860d9bd17856804a309e}} 
+\index{Volumes.\+c@{Volumes.\+c}!Write\+Effective\+Volume\+Header@{Write\+Effective\+Volume\+Header}}
+\index{Write\+Effective\+Volume\+Header@{Write\+Effective\+Volume\+Header}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Write\+Effective\+Volume\+Header()}{WriteEffectiveVolumeHeader()}}
+{\footnotesize\ttfamily B\+O\+OL Write\+Effective\+Volume\+Header (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{device,  }\item[{H\+A\+N\+D\+LE}]{file\+Handle,  }\item[{byte $\ast$}]{header }\end{DoxyParamCaption})}
+
+
+
+Write the header on the device passed in parameter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & $\ast$ header \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & file\+Handle \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & device \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL T\+R\+UE if (!device) F\+A\+L\+SE if (!\+Write\+File (file\+Handle, header, G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE, \&bytes\+Done, N\+U\+LL)) F\+A\+L\+SE if (bytes\+Done != G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE) F\+A\+L\+SE if (!\+Device\+Io\+Control (file\+Handle, I\+O\+C\+T\+L\+\_\+\+D\+I\+S\+K\+\_\+\+G\+E\+T\+\_\+\+D\+R\+I\+V\+E\+\_\+\+G\+E\+O\+M\+E\+T\+RY, N\+U\+LL, 0, \&geometry, sizeof (geometry), \&bytes\+Done, N\+U\+LL)) F\+A\+L\+SE if (geometry.\+Bytes\+Per\+Sector $>$ sizeof (sector\+Buffer) $\vert$$\vert$ geometry.\+Bytes\+Per\+Sector $<$ G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE) F\+A\+L\+SE if (!\+Read\+File (file\+Handle, sector\+Buffer, geometry.\+Bytes\+Per\+Sector, \&bytes\+Done, N\+U\+LL) \&\& (geometry.\+Bytes\+Per\+Sector != G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE)) F\+A\+L\+SE if (bytes\+Done != geometry.\+Bytes\+Per\+Sector \&\& (geometry.\+Bytes\+Per\+Sector != G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE)) F\+A\+L\+SE if (!\+Set\+File\+Pointer\+Ex (file\+Handle, seek\+Offset, N\+U\+LL, F\+I\+L\+E\+\_\+\+C\+U\+R\+R\+E\+NT) \&\& (geometry.\+Bytes\+Per\+Sector != G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE)) F\+A\+L\+SE if (!\+Write\+File (file\+Handle, sector\+Buffer, geometry.\+Bytes\+Per\+Sector, \&bytes\+Done, N\+U\+LL) \&\& (geometry.\+Bytes\+Per\+Sector != G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE)) F\+A\+L\+SE if (bytes\+Done != geometry.\+Bytes\+Per\+Sector) T\+R\+UE else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_volumes_8c_a31bc369dec32aaee5793685da60c640b}\label{_volumes_8c_a31bc369dec32aaee5793685da60c640b}} 
+\index{Volumes.\+c@{Volumes.\+c}!Write\+Random\+Data\+To\+Reserved\+Header\+Areas@{Write\+Random\+Data\+To\+Reserved\+Header\+Areas}}
+\index{Write\+Random\+Data\+To\+Reserved\+Header\+Areas@{Write\+Random\+Data\+To\+Reserved\+Header\+Areas}!Volumes.\+c@{Volumes.\+c}}
+\subsubsection{\texorpdfstring{Write\+Random\+Data\+To\+Reserved\+Header\+Areas()}{WriteRandomDataToReservedHeaderAreas()}}
+{\footnotesize\ttfamily int Write\+Random\+Data\+To\+Reserved\+Header\+Areas (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{dev,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{crypto\+Info,  }\item[{\hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64}}]{data\+Area\+Size,  }\item[{B\+O\+OL}]{b\+Primary\+Only,  }\item[{B\+O\+OL}]{b\+Backup\+Only }\end{DoxyParamCaption})}
+
+
+
+Writes randomly generated data to unused/reserved header areas. When b\+Primary\+Only is T\+R\+UE, then only the primary header area (not the backup header area) is filled with random data. When b\+Backup\+Only is T\+R\+UE, only the backup header area (not the primary header area) is filled with random data. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Backup\+Only \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Primary\+Only \\
+\hline
+\mbox{\tt in}  & {\em uint64} & data\+Area\+Size \\
+\hline
+\mbox{\tt in}  & {\em C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ crypto\+Info \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & dev \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT if (!\+Randget\+Bytes (temporary\+Key, E\+A\+Get\+Key\+Size (crypto\+Info-\/$>$ea), F\+A\+L\+SE) $\vert$$\vert$ !\+Randget\+Bytes (crypto\+Info-\/$>$k2, sizeof (crypto\+Info-\/$>$k2), F\+A\+L\+SE)) E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED if (!\+E\+A\+Init\+Mode (crypto\+Info)) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (!\+Read\+File (dev, buf, sizeof (buf), \&bytes\+Done, N\+U\+LL)) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (!\+Set\+File\+Pointer\+Ex (dev, offset, N\+U\+LL, F\+I\+L\+E\+\_\+\+B\+E\+G\+IN)) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (bytes\+Done $<$ G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (!\+Set\+File\+Pointer\+Ex (dev, offset, N\+U\+LL, F\+I\+L\+E\+\_\+\+B\+E\+G\+IN)) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (bytes\+Done $<$ G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE) E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT if (bytes\+Done != sizeof (buf)) E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED if (!\+E\+A\+Init\+Mode (crypto\+Info)) n\+Status else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_volumes_8c_a31bc369dec32aaee5793685da60c640b_cgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,10 @@
+<map id="GostCrypt::Elevator::WriteLocalMachineRegistryDwordValue" name="GostCrypt::Elevator::WriteLocalMachineRegistryDwordValue">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a3c129c6a89e38d3fd55b0a0df37bdead" title="Write the DWORD value on local machine registry. " alt="" coords="243,101,501,143"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a2a42d620e603b2dfe451fd34a361be35" title="Set the driver configuration flag. " alt="" coords="549,101,732,143"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#a7a5ba170d216844b9ff5db5b6368a0e5" title="Register the system favorites service. " alt="" coords="780,72,997,113"/>
+<area shape="rect" id="node9" href="$_mount_8c.html#a0e4953d69f60e3e9d8597bd9151a0853" title="Set driver state and flag to the parameters sent. " alt="" coords="801,138,976,165"/>
+<area shape="rect" id="node5" href="$class_base_com.html#aa5bd0c7ed2b559f9be436622febb3dfb" title="Register the system favorite service. " alt="" coords="1045,39,1277,80"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="1072,104,1251,145"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_format_com.html#a0ecf79dfffe668439df4ad209095ab9c" title="Call RegisterSystemFavoritesService in basecom object. " alt="" coords="1325,5,1543,47"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_main_com.html#a25487f06b5cd4f49bc4e214f453fbc9d" title="Call the &quot;RegisterSystemFavoritesService&quot; of the Basecom object and return it. " alt="" coords="1338,71,1530,112"/>
+</map>

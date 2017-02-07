@@ -1,0 +1,7 @@
+<map id="PrintDiskError" name="PrintDiskError">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a218773774aaa01e4368c444a4fdb4a4e" title="Print the end of line. " alt="" coords="156,5,231,32"/>
+<area shape="rect" id="node5" href="$_boot_disk_io_8cpp.html#a9e4942793e52c15f522b631903b1de4a" title="Print a ChsAddress. " alt="" coords="279,56,328,83"/>
+<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#a26f50e4eb3544de269fffd2cf13ced86" title="Make a beep. " alt="" coords="167,107,219,133"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="279,5,328,32"/>
+<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="376,56,452,83"/>
+</map>

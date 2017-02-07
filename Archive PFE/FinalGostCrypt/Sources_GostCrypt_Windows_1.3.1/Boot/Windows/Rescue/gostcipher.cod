@@ -1,0 +1,1863 @@
+;	Static Name Aliases
+;
+;	$S154_GostR3411_94_CryptoProParamSet	EQU	GostR3411_94_CryptoProParamSet
+	TITLE   ..\..\..\crypto\gostcipher.c
+	.MODEL  SMALL
+	.386p
+	.387
+_TEXT	SEGMENT  WORD USE16 PUBLIC 'CODE'
+_TEXT	ENDS
+_DATA	SEGMENT  WORD USE16 PUBLIC 'DATA'
+_DATA	ENDS
+CONST	SEGMENT  WORD USE16 PUBLIC 'CONST'
+CONST	ENDS
+_BSS	SEGMENT  WORD USE16 PUBLIC 'BSS'
+_BSS	ENDS
+DGROUP	GROUP	CONST, _BSS, _DATA
+	ASSUME DS: DGROUP, SS: DGROUP
+EXTRN	_STRIBOG_init:NEAR
+EXTRN	_STRIBOG_add:NEAR
+EXTRN	_STRIBOG_finalize:NEAR
+EXTRN	__aNulshr:NEAR
+EXTRN	__aNlshl:NEAR
+_DATA      SEGMENT
+$S154_GostR3411_94_CryptoProParamSet	DD	01H
+	DD	03H
+	DD	0aH
+	DD	09H
+	DD	05H
+	DD	0bH
+	DD	04H
+	DD	0fH
+	DD	08H
+	DD	06H
+	DD	07H
+	DD	0eH
+	DD	0dH
+	DD	00H
+	DD	02H
+	DD	0cH
+	DD	0dH
+	DD	0eH
+	DD	04H
+	DD	01H
+	DD	07H
+	DD	00H
+	DD	05H
+	DD	0aH
+	DD	03H
+	DD	0cH
+	DD	08H
+	DD	0fH
+	DD	06H
+	DD	02H
+	DD	09H
+	DD	0bH
+	DD	07H
+	DD	06H
+	DD	02H
+	DD	04H
+	DD	0dH
+	DD	09H
+	DD	0fH
+	DD	00H
+	DD	0aH
+	DD	01H
+	DD	05H
+	DD	0bH
+	DD	08H
+	DD	0eH
+	DD	0cH
+	DD	03H
+	DD	07H
+	DD	06H
+	DD	04H
+	DD	0bH
+	DD	09H
+	DD	0cH
+	DD	02H
+	DD	0aH
+	DD	01H
+	DD	08H
+	DD	00H
+	DD	0eH
+	DD	0fH
+	DD	0dH
+	DD	03H
+	DD	05H
+	DD	04H
+	DD	0aH
+	DD	07H
+	DD	0cH
+	DD	00H
+	DD	0fH
+	DD	02H
+	DD	08H
+	DD	0eH
+	DD	01H
+	DD	06H
+	DD	05H
+	DD	0dH
+	DD	0bH
+	DD	09H
+	DD	03H
+	DD	07H
+	DD	0fH
+	DD	0cH
+	DD	0eH
+	DD	09H
+	DD	04H
+	DD	01H
+	DD	00H
+	DD	03H
+	DD	0bH
+	DD	05H
+	DD	02H
+	DD	06H
+	DD	0aH
+	DD	08H
+	DD	0dH
+	DD	05H
+	DD	0fH
+	DD	04H
+	DD	00H
+	DD	02H
+	DD	0dH
+	DD	0bH
+	DD	09H
+	DD	01H
+	DD	07H
+	DD	06H
+	DD	03H
+	DD	0cH
+	DD	0eH
+	DD	0aH
+	DD	08H
+	DD	0aH
+	DD	04H
+	DD	05H
+	DD	06H
+	DD	08H
+	DD	01H
+	DD	03H
+	DD	07H
+	DD	0dH
+	DD	0cH
+	DD	0eH
+	DD	00H
+	DD	09H
+	DD	02H
+	DD	0bH
+	DD	0fH
+_DATA      ENDS
+_TEXT      SEGMENT
+	ASSUME	CS: _TEXT
+
+xor_s_box	PROC NEAR	;  COMDAT
+;|*** /**
+;|***  *
+;|***  *	\file GostCipher.c
+;|***  *	\brief Gost encryption and decryption
+;|***  *	\version 1.3.1
+;|***  *	\date 13/12/2016
+;|***  *
+;|***  */
+;|*** 
+;|*** /**
+;|***  *	
+;|***  *	Copyright (c) 2008-2011 TrueCrypt Developers Association. All rights reserved.
+;|***  *	
+;|***  *	Governed by the TrueCrypt License 3.0 the full text of which is contained in
+;|***  *	the file License.txt included in TrueCrypt binary and source code distribution
+;|***  *	packages.
+;|***  *	
+;|***  */
+;|*** 
+;|*** #include "GostCipher.h"
+;|*** #include "Stribog.h"
+;|*** 
+;|*** static gost_s_box GostR3411_94_CryptoProParamSet = {
+;|*** 	{0x1,0x3,0xA,0x9,0x5,0xB,0x4,0xF,0x8,0x6,0x7,0xE,0xD,0x0,0x2,0xC},
+;|*** 	{0xD,0xE,0x4,0x1,0x7,0x0,0x5,0xA,0x3,0xC,0x8,0xF,0x6,0x2,0x9,0xB},
+;|*** 	{0x7,0x6,0x2,0x4,0xD,0x9,0xF,0x0,0xA,0x1,0x5,0xB,0x8,0xE,0xC,0x3},
+;|*** 	{0x7,0x6,0x4,0xB,0x9,0xC,0x2,0xA,0x1,0x8,0x0,0xE,0xF,0xD,0x3,0x5},
+;|*** 	{0x4,0xA,0x7,0xC,0x0,0xF,0x2,0x8,0xE,0x1,0x6,0x5,0xD,0xB,0x9,0x3},
+;|*** 	{0x7,0xF,0xC,0xE,0x9,0x4,0x1,0x0,0x3,0xB,0x5,0x2,0x6,0xA,0x8,0xD},
+;|*** 	{0x5,0xF,0x4,0x0,0x2,0xD,0xB,0x9,0x1,0x7,0x6,0x3,0xC,0xE,0xA,0x8},
+;|*** 	{0xA,0x4,0x5,0x6,0x8,0x1,0x3,0x7,0xD,0xC,0xE,0x0,0x9,0x2,0xB,0xF}
+;|*** 	};
+;|*** 
+;|*** #ifdef GOST_DYNAMIC_SBOXES
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void xor_s_box(gost_s_box *s_box, byte *seed)
+;|***  *	\brief xor between gost_s_box and seed
+;|***  *	\param[in] byte * seed
+;|***  *	\param[in] ost_s_box * s_box
+;|***  *	\return static void 
+;|***  *
+;|***  */
+;|*** static void xor_s_box(gost_s_box *s_box, byte *seed)
+;|*** {
+; Line 46
+	*** 000000	c8 0c 00 00 		enter	12,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	s_box = 4
+;	seed = 6
+;	register si = i
+;|***    int i;
+;|***    for (i = 0; i < 16; i++)
+; Line 48
+	*** 000006	33 f6 			xor	si,si
+	*** 000008	8b 7e 06 		mov	di,WORD PTR [bp+6]	;seed
+	*** 00000b	8b 4e 04 		mov	cx,WORD PTR [bp+4]	;s_box
+	*** 00000e	e9 bd 00 		jmp	$L232
+					$F162:
+;|***    {
+;|***       s_box->k1[i] ^= (seed[ (i * 4) + 0 ]   ) & 0xF;
+; Line 50
+	*** 000011	8b de 			mov	bx,si
+	*** 000013	c1 e3 02 		shl	bx,2
+	*** 000016	8a 01 			mov	al,BYTE PTR [bx][di]
+	*** 000018	25 0f 00 		and	ax,15	;000fH
+	*** 00001b	2b d2 			sub	dx,dx
+	*** 00001d	89 5e fe 		mov	WORD PTR [bp-2],bx
+	*** 000020	03 d9 			add	bx,cx
+	*** 000022	31 87 c0 01 		xor	WORD PTR [bx+448],ax
+	*** 000026	31 97 c2 01 		xor	WORD PTR [bx+450],dx
+;|***       s_box->k2[i] ^= (seed[ (i * 4) + 0 ]>>4) & 0xF;
+; Line 51
+	*** 00002a	8b c3 			mov	ax,bx
+	*** 00002c	8b 5e fe 		mov	bx,WORD PTR [bp-2]
+	*** 00002f	8a 11 			mov	dl,BYTE PTR [bx][di]
+	*** 000031	c0 ea 04 		shr	dl,4
+	*** 000034	2b db 			sub	bx,bx
+	*** 000036	89 46 f8 		mov	WORD PTR [bp-8],ax
+	*** 000039	8b c3 			mov	ax,bx
+	*** 00003b	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 00003e	31 97 80 01 		xor	WORD PTR [bx+384],dx
+	*** 000042	31 87 82 01 		xor	WORD PTR [bx+386],ax
+;|***       s_box->k3[i] ^= (seed[ (i * 4) + 1 ]   ) & 0xF;
+; Line 52
+	*** 000046	8b 5e fe 		mov	bx,WORD PTR [bp-2]
+	*** 000049	03 df 			add	bx,di
+	*** 00004b	8a 47 01 		mov	al,BYTE PTR [bx+1]
+	*** 00004e	25 0f 00 		and	ax,15	;000fH
+	*** 000051	2b d2 			sub	dx,dx
+	*** 000053	50 			push	ax
+	*** 000054	8d 47 01 		lea	ax,WORD PTR [bx+1]
+	*** 000057	89 46 f6 		mov	WORD PTR [bp-10],ax
+	*** 00005a	58 			pop	ax
+	*** 00005b	89 5e f4 		mov	WORD PTR [bp-12],bx
+	*** 00005e	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 000061	31 87 40 01 		xor	WORD PTR [bx+320],ax
+	*** 000065	31 97 42 01 		xor	WORD PTR [bx+322],dx
+;|***       s_box->k4[i] ^= (seed[ (i * 4) + 1 ]>>4) & 0xF;
+; Line 53
+	*** 000069	8b 5e f6 		mov	bx,WORD PTR [bp-10]
+	*** 00006c	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00006e	c0 e8 04 		shr	al,4
+	*** 000071	2a e4 			sub	ah,ah
+	*** 000073	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 000076	31 87 00 01 		xor	WORD PTR [bx+256],ax
+	*** 00007a	31 97 02 01 		xor	WORD PTR [bx+258],dx
+;|***       s_box->k5[i] ^= (seed[ (i * 4) + 2 ]   ) & 0xF;
+; Line 54
+	*** 00007e	8b 5e f4 		mov	bx,WORD PTR [bp-12]
+	*** 000081	8a 47 02 		mov	al,BYTE PTR [bx+2]
+	*** 000084	25 0f 00 		and	ax,15	;000fH
+	*** 000087	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 00008a	31 87 c0 00 		xor	WORD PTR [bx+192],ax
+	*** 00008e	31 97 c2 00 		xor	WORD PTR [bx+194],dx
+;|***       s_box->k6[i] ^= (seed[ (i * 4) + 2 ]>>4) & 0xF;
+; Line 55
+	*** 000092	8b 5e f4 		mov	bx,WORD PTR [bp-12]
+	*** 000095	8a 47 02 		mov	al,BYTE PTR [bx+2]
+	*** 000098	c0 e8 04 		shr	al,4
+	*** 00009b	2a e4 			sub	ah,ah
+	*** 00009d	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 0000a0	31 87 80 00 		xor	WORD PTR [bx+128],ax
+	*** 0000a4	31 97 82 00 		xor	WORD PTR [bx+130],dx
+;|***       s_box->k7[i] ^= (seed[ (i * 4) + 3 ]   ) & 0xF;
+; Line 56
+	*** 0000a8	8b 5e f4 		mov	bx,WORD PTR [bp-12]
+	*** 0000ab	8a 47 03 		mov	al,BYTE PTR [bx+3]
+	*** 0000ae	25 0f 00 		and	ax,15	;000fH
+	*** 0000b1	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 0000b4	31 47 40 		xor	WORD PTR [bx+64],ax
+	*** 0000b7	31 57 42 		xor	WORD PTR [bx+66],dx
+;|***       s_box->k8[i] ^= (seed[ (i * 4) + 3 ]>>4) & 0xF;
+; Line 57
+	*** 0000ba	8b 5e f4 		mov	bx,WORD PTR [bp-12]
+	*** 0000bd	8a 47 03 		mov	al,BYTE PTR [bx+3]
+	*** 0000c0	c0 e8 04 		shr	al,4
+	*** 0000c3	2a e4 			sub	ah,ah
+	*** 0000c5	8b 5e f8 		mov	bx,WORD PTR [bp-8]
+	*** 0000c8	31 07 			xor	WORD PTR [bx],ax
+	*** 0000ca	31 57 02 		xor	WORD PTR [bx+2],dx
+;|***    for (i = 0; i < 16; i++)
+; Line 48
+	*** 0000cd	46 			inc	si
+					$L232:
+	*** 0000ce	83 fe 10 		cmp	si,16	;0010H
+	*** 0000d1	0f 8c 3c ff 		jl	$F162
+;|***    {
+;|***       s_box->k1[i] ^= (seed[ (i * 4) + 0 ]   ) & 0xF;
+;|***       s_box->k2[i] ^= (seed[ (i * 4) + 0 ]>>4) & 0xF;
+;|***       s_box->k3[i] ^= (seed[ (i * 4) + 1 ]   ) & 0xF;
+;|***       s_box->k4[i] ^= (seed[ (i * 4) + 1 ]>>4) & 0xF;
+;|***       s_box->k5[i] ^= (seed[ (i * 4) + 2 ]   ) & 0xF;
+;|***       s_box->k6[i] ^= (seed[ (i * 4) + 2 ]>>4) & 0xF;
+;|***       s_box->k7[i] ^= (seed[ (i * 4) + 3 ]   ) & 0xF;
+;|***       s_box->k8[i] ^= (seed[ (i * 4) + 3 ]>>4) & 0xF;
+;|***    }
+;|*** }
+; Line 59
+	*** 0000d5	5e 			pop	si
+	*** 0000d6	5f 			pop	di
+	*** 0000d7	c9 			leave	
+	*** 0000d8	c3 			ret	
+
+xor_s_box	ENDP
+
+r	PROC NEAR	;  COMDAT
+;|*** #endif
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox)
+;|***  *	\brief Perform an encryption or a decryption round
+;|***  *	\param[in] gost_s_box * sbox
+;|***  *	\param[in] gst_udword X
+;|***  *	\param[in] gst_udword n2
+;|***  *	\param[in] gst_udword n1
+;|***  *	\return static gst_udword n2
+;|***  *
+;|***  */
+;|*** static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox)
+;|*** {
+; Line 74
+	*** 000000	c8 14 00 00 		enter	20,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	n1 = 4
+;	n2 = 8
+;	X = 12
+;	sbox = 16
+	*** 000006	8b 76 10 		mov	si,WORD PTR [bp+16]	;sbox
+;|*** 	n1 += X;
+; Line 75
+	*** 000009	66 8b 46 0c 		mov	eax,DWORD PTR [bp+12]	;X
+	*** 00000d	66 01 46 04 		add	DWORD PTR [bp+4],eax	;n1
+;|*** #ifdef GOST_DYNAMIC_SBOXES
+;|*** 	n1 =  sbox->k8[(n1>>28)&0xF] | sbox->k7[(n1>>24)&0xF]
+;|*** 				| sbox->k6[(n1>>20)&0xF] | sbox->k5[(n1>>16)&0xF]
+;|*** 				| sbox->k4[(n1>>12)&0xF] | sbox->k3[(n1>>8)&0xF]
+;|*** 				| sbox->k2[(n1>>4)&0xF] | sbox->k1[n1&0xF];
+; Line 80
+	*** 000011	8b 46 06 		mov	ax,WORD PTR [bp+6]
+	*** 000014	c1 e8 04 		shr	ax,4
+	*** 000017	8b d8 			mov	bx,ax
+	*** 000019	83 e3 0f 		and	bx,15	;000fH
+	*** 00001c	c1 e3 02 		shl	bx,2
+	*** 00001f	8a 46 07 		mov	al,BYTE PTR [bp+7]
+	*** 000022	2a e4 			sub	ah,ah
+	*** 000024	8b cb 			mov	cx,bx
+	*** 000026	8b d8 			mov	bx,ax
+	*** 000028	83 e3 0f 		and	bx,15	;000fH
+	*** 00002b	c1 e3 02 		shl	bx,2
+	*** 00002e	8b 40 40 		mov	ax,WORD PTR [bx+64][si]
+	*** 000031	8b 50 42 		mov	dx,WORD PTR [bx+66][si]
+	*** 000034	8b d9 			mov	bx,cx
+	*** 000036	0b 80 80 00 		or	ax,WORD PTR [bx+128][si]
+	*** 00003a	0b 90 82 00 		or	dx,WORD PTR [bx+130][si]
+	*** 00003e	8a 5e 06 		mov	bl,BYTE PTR [bp+6]
+	*** 000041	83 e3 0f 		and	bx,15	;000fH
+	*** 000044	c1 e3 02 		shl	bx,2
+	*** 000047	0b 80 c0 00 		or	ax,WORD PTR [bx+192][si]
+	*** 00004b	0b 90 c2 00 		or	dx,WORD PTR [bx+194][si]
+	*** 00004f	8b c8 			mov	cx,ax
+	*** 000051	8b fa 			mov	di,dx
+	*** 000053	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 000056	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 000059	8b d8 			mov	bx,ax
+	*** 00005b	83 e3 0f 		and	bx,15	;000fH
+	*** 00005e	c1 e3 02 		shl	bx,2
+	*** 000061	c1 ea 0c 		shr	dx,12	;000cH
+	*** 000064	8b c1 			mov	ax,cx
+	*** 000066	2b c9 			sub	cx,cx
+	*** 000068	50 			push	ax
+	*** 000069	8b 80 c0 01 		mov	ax,WORD PTR [bx+448][si]
+	*** 00006d	89 46 fc 		mov	WORD PTR [bp-4],ax
+	*** 000070	8b 80 c2 01 		mov	ax,WORD PTR [bx+450][si]
+	*** 000074	89 46 fe 		mov	WORD PTR [bp-2],ax
+	*** 000077	58 			pop	ax
+	*** 000078	8b da 			mov	bx,dx
+	*** 00007a	83 e3 0f 		and	bx,15	;000fH
+	*** 00007d	c1 e3 02 		shl	bx,2
+	*** 000080	89 46 f8 		mov	WORD PTR [bp-8],ax
+	*** 000083	89 7e fa 		mov	WORD PTR [bp-6],di
+	*** 000086	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 000089	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 00008c	b1 0c 			mov	cl,12	;000cH
+	*** 00008e	8b 38 			mov	di,WORD PTR [bx][si]
+	*** 000090	89 7e f4 		mov	WORD PTR [bp-12],di
+	*** 000093	8b 78 02 		mov	di,WORD PTR [bx+2][si]
+	*** 000096	89 7e f6 		mov	WORD PTR [bp-10],di
+	*** 000099	e8 00 00 		call	__aNulshr
+	*** 00009c	8b d8 			mov	bx,ax
+	*** 00009e	83 e3 0f 		and	bx,15	;000fH
+	*** 0000a1	c1 e3 02 		shl	bx,2
+	*** 0000a4	8b 46 f8 		mov	ax,WORD PTR [bp-8]
+	*** 0000a7	8b 56 fa 		mov	dx,WORD PTR [bp-6]
+	*** 0000aa	0b 80 00 01 		or	ax,WORD PTR [bx+256][si]
+	*** 0000ae	0b 90 02 01 		or	dx,WORD PTR [bx+258][si]
+	*** 0000b2	8b c8 			mov	cx,ax
+	*** 0000b4	8b da 			mov	bx,dx
+	*** 0000b6	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 0000b9	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 0000bc	8b f9 			mov	di,cx
+	*** 0000be	b1 08 			mov	cl,8
+	*** 0000c0	89 7e f0 		mov	WORD PTR [bp-16],di
+	*** 0000c3	89 5e f2 		mov	WORD PTR [bp-14],bx
+	*** 0000c6	e8 00 00 		call	__aNulshr
+	*** 0000c9	8b d8 			mov	bx,ax
+	*** 0000cb	83 e3 0f 		and	bx,15	;000fH
+	*** 0000ce	c1 e3 02 		shl	bx,2
+	*** 0000d1	8b 46 f0 		mov	ax,WORD PTR [bp-16]
+	*** 0000d4	8b 56 f2 		mov	dx,WORD PTR [bp-14]
+	*** 0000d7	0b 80 40 01 		or	ax,WORD PTR [bx+320][si]
+	*** 0000db	0b 90 42 01 		or	dx,WORD PTR [bx+322][si]
+	*** 0000df	8b c8 			mov	cx,ax
+	*** 0000e1	8b da 			mov	bx,dx
+	*** 0000e3	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 0000e6	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 0000e9	8b f9 			mov	di,cx
+	*** 0000eb	b1 04 			mov	cl,4
+	*** 0000ed	89 7e ec 		mov	WORD PTR [bp-20],di
+	*** 0000f0	89 5e ee 		mov	WORD PTR [bp-18],bx
+	*** 0000f3	e8 00 00 		call	__aNulshr
+	*** 0000f6	8b d8 			mov	bx,ax
+	*** 0000f8	83 e3 0f 		and	bx,15	;000fH
+	*** 0000fb	c1 e3 02 		shl	bx,2
+	*** 0000fe	66 8b 46 ec 		mov	eax,DWORD PTR [bp-20]
+	*** 000102	66 0b 80 80 01 		or	eax,DWORD PTR [bx+384][si]
+	*** 000107	66 0b 46 f4 		or	eax,DWORD PTR [bp-12]
+	*** 00010b	66 0b 46 fc 		or	eax,DWORD PTR [bp-4]
+	*** 00010f	66 89 46 04 		mov	DWORD PTR [bp+4],eax	;n1
+;|*** #else
+;|*** 	n1 =  (gst_udword)sbox->k8[(n1>>28)&0xF]<<28 | (gst_udword)sbox->k7[(n1>>24)&0xF]<<24
+;|*** 				| (gst_udword)sbox->k6[(n1>>20)&0xF]<<20 | (gst_udword)sbox->k5[(n1>>16)&0xF]<<16
+;|*** 				| (gst_udword)sbox->k4[(n1>>12)&0xF]<<12 | (gst_udword)sbox->k3[(n1>>8)&0xF]<<8
+;|*** 				| (gst_udword)sbox->k2[(n1>>4)&0xF]<<4 | (gst_udword)sbox->k1[n1&0xF];
+;|*** #endif
+;|*** 	n1 = rotl32(n1, 11);
+;|*** 	n2 ^= n1;
+;|*** 	return n2;
+; Line 89
+	*** 000113	66 c1 e0 0b 		shl	eax,11	;0000000bH
+	*** 000117	66 8b d0 		mov	edx,eax
+	*** 00011a	66 c1 ea 10 		shr	edx,16	;00000010H
+	*** 00011e	8b 4e 06 		mov	cx,WORD PTR [bp+6]
+	*** 000121	c1 e9 05 		shr	cx,5
+	*** 000124	0b c1 			or	ax,cx
+	*** 000126	89 46 04 		mov	WORD PTR [bp+4],ax	;n1
+	*** 000129	89 56 06 		mov	WORD PTR [bp+6],dx
+	*** 00012c	33 46 08 		xor	ax,WORD PTR [bp+8]	;n2
+	*** 00012f	33 56 0a 		xor	dx,WORD PTR [bp+10]
+;|*** }
+; Line 90
+	*** 000132	5e 			pop	si
+	*** 000133	5f 			pop	di
+	*** 000134	c9 			leave	
+	*** 000135	c3 			ret	
+
+r	ENDP
+	PUBLIC	_gost_encrypt
+_gost_encrypt	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void gost_encrypt(byte *in, byte *out, gost_kds *ks)
+;|***  *	\brief Encrypt with gost algorithm
+;|***  *	\param[in] gost_kds * ks
+;|***  *	\param[in] byte * out
+;|***  *	\param[in] byte * in
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void gost_encrypt(byte *in, byte *out, gost_kds *ks)
+;|*** {
+; Line 103
+	*** 000000	c8 10 00 00 		enter	16,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	in = 4
+;	out = 6
+;	ks = 8
+;	n1 = -4
+;	n2 = -8
+;	sbox = -10
+	*** 000006	8b 7e 04 		mov	di,WORD PTR [bp+4]	;in
+	*** 000009	8b 76 08 		mov	si,WORD PTR [bp+8]	;ks
+;|*** 	gst_udword n1, n2;
+;|*** 	gost_s_box *sbox;
+;|*** 	n1 = 0;
+;|*** 	n2 = 0;
+;|*** 
+;|*** 	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
+; Line 109
+	*** 00000c	8a 45 01 		mov	al,BYTE PTR [di+1]
+	*** 00000f	2a e4 			sub	ah,ah
+	*** 000011	8a 4d 03 		mov	cl,BYTE PTR [di+3]
+	*** 000014	2a ed 			sub	ch,ch
+	*** 000016	8b d1 			mov	dx,cx
+	*** 000018	b1 08 			mov	cl,8
+	*** 00001a	e8 00 00 		call	__aNlshl
+	*** 00001d	8a 4d 02 		mov	cl,BYTE PTR [di+2]
+	*** 000020	8a 1d 			mov	bl,BYTE PTR [di]
+	*** 000022	2a ff 			sub	bh,bh
+	*** 000024	2a ed 			sub	ch,ch
+	*** 000026	89 56 f6 		mov	WORD PTR [bp-10],dx	;sbox
+	*** 000029	8b d1 			mov	dx,cx
+	*** 00002b	0b 56 f6 		or	dx,WORD PTR [bp-10]	;sbox
+	*** 00002e	0b c3 			or	ax,bx
+	*** 000030	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000033	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+; Line 110
+	*** 000036	8a 45 07 		mov	al,BYTE PTR [di+7]
+	*** 000039	2a e4 			sub	ah,ah
+	*** 00003b	8b c8 			mov	cx,ax
+	*** 00003d	8b d0 			mov	dx,ax
+	*** 00003f	8a 4d 05 		mov	cl,BYTE PTR [di+5]
+	*** 000042	8b c1 			mov	ax,cx
+	*** 000044	b1 08 			mov	cl,8
+	*** 000046	e8 00 00 		call	__aNlshl
+	*** 000049	8a 4d 06 		mov	cl,BYTE PTR [di+6]
+	*** 00004c	2a ed 			sub	ch,ch
+	*** 00004e	89 46 f0 		mov	WORD PTR [bp-16],ax
+	*** 000051	8b c1 			mov	ax,cx
+	*** 000053	8b 5e f0 		mov	bx,WORD PTR [bp-16]
+	*** 000056	0b c2 			or	ax,dx
+	*** 000058	8a 4d 04 		mov	cl,BYTE PTR [di+4]
+	*** 00005b	0b d9 			or	bx,cx
+	*** 00005d	89 46 fa 		mov	WORD PTR [bp-6],ax
+;|*** #ifdef GOST_DYNAMIC_SBOXES
+;|*** 	sbox = &ks->sbox;
+;|*** #else
+;|*** 	sbox = ks->sbox;
+;|*** #endif
+;|*** 
+;|*** 	//Rounds 1-24
+;|*** 	n2 = r(n1, n2, ks->X0, sbox);
+; Line 118
+	*** 000060	8d 44 20 		lea	ax,WORD PTR [si+32]
+	*** 000063	50 			push	ax
+	*** 000064	66 ff 34 		push	DWORD PTR [si]
+	*** 000067	ff 76 fa 		push	WORD PTR [bp-6]
+	*** 00006a	53 			push	bx
+	*** 00006b	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00006f	8b f8 			mov	di,ax
+	*** 000071	e8 00 00 		call	r
+	*** 000074	83 c4 0e 		add	sp,14	;000eH
+	*** 000077	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00007a	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X1, sbox);
+; Line 119
+	*** 00007d	57 			push	di
+	*** 00007e	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 000082	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000086	52 			push	dx
+	*** 000087	50 			push	ax
+	*** 000088	e8 00 00 		call	r
+	*** 00008b	83 c4 0e 		add	sp,14	;000eH
+	*** 00008e	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000091	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X2, sbox);
+; Line 120
+	*** 000094	57 			push	di
+	*** 000095	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000099	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00009d	52 			push	dx
+	*** 00009e	50 			push	ax
+	*** 00009f	e8 00 00 		call	r
+	*** 0000a2	83 c4 0e 		add	sp,14	;000eH
+	*** 0000a5	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0000a8	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X3, sbox);
+; Line 121
+	*** 0000ab	57 			push	di
+	*** 0000ac	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 0000b0	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0000b4	52 			push	dx
+	*** 0000b5	50 			push	ax
+	*** 0000b6	e8 00 00 		call	r
+	*** 0000b9	83 c4 0e 		add	sp,14	;000eH
+	*** 0000bc	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0000bf	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X4, sbox);
+; Line 122
+	*** 0000c2	57 			push	di
+	*** 0000c3	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 0000c7	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0000cb	52 			push	dx
+	*** 0000cc	50 			push	ax
+	*** 0000cd	e8 00 00 		call	r
+	*** 0000d0	83 c4 0e 		add	sp,14	;000eH
+	*** 0000d3	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0000d6	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X5, sbox);
+; Line 123
+	*** 0000d9	57 			push	di
+	*** 0000da	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 0000de	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0000e2	52 			push	dx
+	*** 0000e3	50 			push	ax
+	*** 0000e4	e8 00 00 		call	r
+	*** 0000e7	83 c4 0e 		add	sp,14	;000eH
+	*** 0000ea	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0000ed	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X6, sbox);
+; Line 124
+	*** 0000f0	57 			push	di
+	*** 0000f1	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0000f5	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0000f9	52 			push	dx
+	*** 0000fa	50 			push	ax
+	*** 0000fb	e8 00 00 		call	r
+	*** 0000fe	83 c4 0e 		add	sp,14	;000eH
+	*** 000101	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000104	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X7, sbox);
+; Line 125
+	*** 000107	57 			push	di
+	*** 000108	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 00010c	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000110	52 			push	dx
+	*** 000111	50 			push	ax
+	*** 000112	e8 00 00 		call	r
+	*** 000115	83 c4 0e 		add	sp,14	;000eH
+	*** 000118	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00011b	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	n2 = r(n1, n2, ks->X0, sbox);
+; Line 127
+	*** 00011e	57 			push	di
+	*** 00011f	66 ff 34 		push	DWORD PTR [si]
+	*** 000122	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000126	52 			push	dx
+	*** 000127	50 			push	ax
+	*** 000128	e8 00 00 		call	r
+	*** 00012b	83 c4 0e 		add	sp,14	;000eH
+	*** 00012e	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000131	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X1, sbox);
+; Line 128
+	*** 000134	57 			push	di
+	*** 000135	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 000139	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00013d	52 			push	dx
+	*** 00013e	50 			push	ax
+	*** 00013f	e8 00 00 		call	r
+	*** 000142	83 c4 0e 		add	sp,14	;000eH
+	*** 000145	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000148	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X2, sbox);
+; Line 129
+	*** 00014b	57 			push	di
+	*** 00014c	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000150	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000154	52 			push	dx
+	*** 000155	50 			push	ax
+	*** 000156	e8 00 00 		call	r
+	*** 000159	83 c4 0e 		add	sp,14	;000eH
+	*** 00015c	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00015f	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X3, sbox);
+; Line 130
+	*** 000162	57 			push	di
+	*** 000163	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 000167	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00016b	52 			push	dx
+	*** 00016c	50 			push	ax
+	*** 00016d	e8 00 00 		call	r
+	*** 000170	83 c4 0e 		add	sp,14	;000eH
+	*** 000173	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000176	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X4, sbox);
+; Line 131
+	*** 000179	57 			push	di
+	*** 00017a	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 00017e	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000182	52 			push	dx
+	*** 000183	50 			push	ax
+	*** 000184	e8 00 00 		call	r
+	*** 000187	83 c4 0e 		add	sp,14	;000eH
+	*** 00018a	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00018d	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X5, sbox);
+; Line 132
+	*** 000190	57 			push	di
+	*** 000191	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 000195	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000199	52 			push	dx
+	*** 00019a	50 			push	ax
+	*** 00019b	e8 00 00 		call	r
+	*** 00019e	83 c4 0e 		add	sp,14	;000eH
+	*** 0001a1	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0001a4	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X6, sbox);
+; Line 133
+	*** 0001a7	57 			push	di
+	*** 0001a8	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0001ac	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0001b0	52 			push	dx
+	*** 0001b1	50 			push	ax
+	*** 0001b2	e8 00 00 		call	r
+	*** 0001b5	83 c4 0e 		add	sp,14	;000eH
+	*** 0001b8	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0001bb	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X7, sbox);
+; Line 134
+	*** 0001be	57 			push	di
+	*** 0001bf	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 0001c3	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0001c7	52 			push	dx
+	*** 0001c8	50 			push	ax
+	*** 0001c9	e8 00 00 		call	r
+	*** 0001cc	83 c4 0e 		add	sp,14	;000eH
+	*** 0001cf	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0001d2	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	n2 = r(n1, n2, ks->X0, sbox);
+; Line 136
+	*** 0001d5	57 			push	di
+	*** 0001d6	66 ff 34 		push	DWORD PTR [si]
+	*** 0001d9	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0001dd	52 			push	dx
+	*** 0001de	50 			push	ax
+	*** 0001df	e8 00 00 		call	r
+	*** 0001e2	83 c4 0e 		add	sp,14	;000eH
+	*** 0001e5	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0001e8	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X1, sbox);
+; Line 137
+	*** 0001eb	57 			push	di
+	*** 0001ec	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 0001f0	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0001f4	52 			push	dx
+	*** 0001f5	50 			push	ax
+	*** 0001f6	e8 00 00 		call	r
+	*** 0001f9	83 c4 0e 		add	sp,14	;000eH
+	*** 0001fc	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0001ff	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X2, sbox);
+; Line 138
+	*** 000202	57 			push	di
+	*** 000203	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000207	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00020b	52 			push	dx
+	*** 00020c	50 			push	ax
+	*** 00020d	e8 00 00 		call	r
+	*** 000210	83 c4 0e 		add	sp,14	;000eH
+	*** 000213	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000216	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X3, sbox);
+; Line 139
+	*** 000219	57 			push	di
+	*** 00021a	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 00021e	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000222	52 			push	dx
+	*** 000223	50 			push	ax
+	*** 000224	e8 00 00 		call	r
+	*** 000227	83 c4 0e 		add	sp,14	;000eH
+	*** 00022a	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00022d	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X4, sbox);
+; Line 140
+	*** 000230	57 			push	di
+	*** 000231	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 000235	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000239	52 			push	dx
+	*** 00023a	50 			push	ax
+	*** 00023b	e8 00 00 		call	r
+	*** 00023e	83 c4 0e 		add	sp,14	;000eH
+	*** 000241	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000244	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X5, sbox);
+; Line 141
+	*** 000247	57 			push	di
+	*** 000248	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 00024c	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000250	52 			push	dx
+	*** 000251	50 			push	ax
+	*** 000252	e8 00 00 		call	r
+	*** 000255	83 c4 0e 		add	sp,14	;000eH
+	*** 000258	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00025b	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X6, sbox);
+; Line 142
+	*** 00025e	57 			push	di
+	*** 00025f	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 000263	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000267	52 			push	dx
+	*** 000268	50 			push	ax
+	*** 000269	e8 00 00 		call	r
+	*** 00026c	83 c4 0e 		add	sp,14	;000eH
+	*** 00026f	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000272	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X7, sbox);
+; Line 143
+	*** 000275	57 			push	di
+	*** 000276	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 00027a	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00027e	52 			push	dx
+	*** 00027f	50 			push	ax
+	*** 000280	e8 00 00 		call	r
+	*** 000283	83 c4 0e 		add	sp,14	;000eH
+	*** 000286	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000289	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	//Rounds 25-32
+;|*** 	n2 = r(n1, n2, ks->X7, sbox);
+; Line 146
+	*** 00028c	57 			push	di
+	*** 00028d	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 000291	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000295	52 			push	dx
+	*** 000296	50 			push	ax
+	*** 000297	e8 00 00 		call	r
+	*** 00029a	83 c4 0e 		add	sp,14	;000eH
+	*** 00029d	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002a0	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X6, sbox);
+; Line 147
+	*** 0002a3	57 			push	di
+	*** 0002a4	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0002a8	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0002ac	52 			push	dx
+	*** 0002ad	50 			push	ax
+	*** 0002ae	e8 00 00 		call	r
+	*** 0002b1	83 c4 0e 		add	sp,14	;000eH
+	*** 0002b4	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0002b7	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X5, sbox);
+; Line 148
+	*** 0002ba	57 			push	di
+	*** 0002bb	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 0002bf	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0002c3	52 			push	dx
+	*** 0002c4	50 			push	ax
+	*** 0002c5	e8 00 00 		call	r
+	*** 0002c8	83 c4 0e 		add	sp,14	;000eH
+	*** 0002cb	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002ce	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X4, sbox);
+; Line 149
+	*** 0002d1	57 			push	di
+	*** 0002d2	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 0002d6	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0002da	52 			push	dx
+	*** 0002db	50 			push	ax
+	*** 0002dc	e8 00 00 		call	r
+	*** 0002df	83 c4 0e 		add	sp,14	;000eH
+	*** 0002e2	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0002e5	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X3, sbox);
+; Line 150
+	*** 0002e8	57 			push	di
+	*** 0002e9	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 0002ed	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0002f1	52 			push	dx
+	*** 0002f2	50 			push	ax
+	*** 0002f3	e8 00 00 		call	r
+	*** 0002f6	83 c4 0e 		add	sp,14	;000eH
+	*** 0002f9	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002fc	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X2, sbox);
+; Line 151
+	*** 0002ff	57 			push	di
+	*** 000300	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000304	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000308	52 			push	dx
+	*** 000309	50 			push	ax
+	*** 00030a	e8 00 00 		call	r
+	*** 00030d	83 c4 0e 		add	sp,14	;000eH
+	*** 000310	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000313	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X1, sbox);
+; Line 152
+	*** 000316	57 			push	di
+	*** 000317	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 00031b	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00031f	52 			push	dx
+	*** 000320	50 			push	ax
+	*** 000321	e8 00 00 		call	r
+	*** 000324	83 c4 0e 		add	sp,14	;000eH
+	*** 000327	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00032a	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X0, sbox);
+; Line 153
+	*** 00032d	57 			push	di
+	*** 00032e	66 ff 34 		push	DWORD PTR [si]
+	*** 000331	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000335	52 			push	dx
+	*** 000336	50 			push	ax
+	*** 000337	e8 00 00 		call	r
+	*** 00033a	83 c4 0e 		add	sp,14	;000eH
+	*** 00033d	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000340	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	out[0] = (byte)(n2 & 0xFF); out[1] = (byte)((n2 >> 8) & 0xFF); out[2] = (byte)((n2 >> 16) & 0xFF); out[3] = (byte)((n2 >> 24) & 0xFF);
+; Line 155
+	*** 000343	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 000346	8a 46 f8 		mov	al,BYTE PTR [bp-8]	;n2
+	*** 000349	88 07 			mov	BYTE PTR [bx],al
+	*** 00034b	8b 46 f8 		mov	ax,WORD PTR [bp-8]	;n2
+	*** 00034e	8b 56 fa 		mov	dx,WORD PTR [bp-6]
+	*** 000351	b1 08 			mov	cl,8
+	*** 000353	e8 00 00 		call	__aNulshr
+	*** 000356	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 000359	88 47 01 		mov	BYTE PTR [bx+1],al
+	*** 00035c	8a 46 fa 		mov	al,BYTE PTR [bp-6]
+	*** 00035f	88 47 02 		mov	BYTE PTR [bx+2],al
+	*** 000362	8a 46 fb 		mov	al,BYTE PTR [bp-5]
+	*** 000365	2a e4 			sub	ah,ah
+	*** 000367	88 47 03 		mov	BYTE PTR [bx+3],al
+;|*** 	out[4] = (byte)(n1 & 0xFF); out[5] = (byte)((n1 >> 8) & 0xFF); out[6] = (byte)((n1 >> 16) & 0xFF); out[7] = (byte)((n1 >> 24) & 0xFF);
+; Line 156
+	*** 00036a	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;n1
+	*** 00036d	88 47 04 		mov	BYTE PTR [bx+4],al
+	*** 000370	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;n1
+	*** 000373	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+	*** 000376	b1 08 			mov	cl,8
+	*** 000378	e8 00 00 		call	__aNulshr
+	*** 00037b	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 00037e	88 47 05 		mov	BYTE PTR [bx+5],al
+	*** 000381	8a 46 fe 		mov	al,BYTE PTR [bp-2]
+	*** 000384	88 47 06 		mov	BYTE PTR [bx+6],al
+	*** 000387	8a 46 ff 		mov	al,BYTE PTR [bp-1]
+	*** 00038a	88 47 07 		mov	BYTE PTR [bx+7],al
+;|*** }
+; Line 157
+	*** 00038d	5e 			pop	si
+	*** 00038e	5f 			pop	di
+	*** 00038f	c9 			leave	
+	*** 000390	c3 			ret	
+
+_gost_encrypt	ENDP
+	PUBLIC	_gost_decrypt
+_gost_decrypt	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void gost_decrypt(byte *in, byte *out, gost_kds *ks)
+;|***  *	\brief Decrypt with gost algorithm
+;|***  *	\param[in] gost_kds * ks
+;|***  *	\param[in] byte * out
+;|***  *	\param[in] byte * in
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void gost_decrypt(byte *in, byte *out, gost_kds *ks)
+;|*** {
+; Line 170
+	*** 000000	c8 10 00 00 		enter	16,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	n1 = -4
+;	n2 = -8
+;	sbox = -10
+;	in = 4
+;	out = 6
+;	ks = 8
+	*** 000006	8b 7e 04 		mov	di,WORD PTR [bp+4]	;in
+	*** 000009	8b 76 08 		mov	si,WORD PTR [bp+8]	;ks
+;|*** 	gst_udword n1, n2;
+;|*** 	gost_s_box *sbox;
+;|*** 	n1 = 0;
+;|*** 	n2 = 0;
+;|*** 
+;|*** 	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
+; Line 176
+	*** 00000c	8a 45 01 		mov	al,BYTE PTR [di+1]
+	*** 00000f	2a e4 			sub	ah,ah
+	*** 000011	8a 4d 03 		mov	cl,BYTE PTR [di+3]
+	*** 000014	2a ed 			sub	ch,ch
+	*** 000016	8b d1 			mov	dx,cx
+	*** 000018	b1 08 			mov	cl,8
+	*** 00001a	e8 00 00 		call	__aNlshl
+	*** 00001d	8a 4d 02 		mov	cl,BYTE PTR [di+2]
+	*** 000020	8a 1d 			mov	bl,BYTE PTR [di]
+	*** 000022	2a ff 			sub	bh,bh
+	*** 000024	2a ed 			sub	ch,ch
+	*** 000026	89 56 f6 		mov	WORD PTR [bp-10],dx	;sbox
+	*** 000029	8b d1 			mov	dx,cx
+	*** 00002b	0b 56 f6 		or	dx,WORD PTR [bp-10]	;sbox
+	*** 00002e	0b c3 			or	ax,bx
+	*** 000030	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000033	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+; Line 177
+	*** 000036	8a 45 07 		mov	al,BYTE PTR [di+7]
+	*** 000039	2a e4 			sub	ah,ah
+	*** 00003b	8b c8 			mov	cx,ax
+	*** 00003d	8b d0 			mov	dx,ax
+	*** 00003f	8a 4d 05 		mov	cl,BYTE PTR [di+5]
+	*** 000042	8b c1 			mov	ax,cx
+	*** 000044	b1 08 			mov	cl,8
+	*** 000046	e8 00 00 		call	__aNlshl
+	*** 000049	8a 4d 06 		mov	cl,BYTE PTR [di+6]
+	*** 00004c	2a ed 			sub	ch,ch
+	*** 00004e	89 46 f0 		mov	WORD PTR [bp-16],ax
+	*** 000051	8b c1 			mov	ax,cx
+	*** 000053	8b 5e f0 		mov	bx,WORD PTR [bp-16]
+	*** 000056	0b c2 			or	ax,dx
+	*** 000058	8a 4d 04 		mov	cl,BYTE PTR [di+4]
+	*** 00005b	0b d9 			or	bx,cx
+	*** 00005d	89 46 fa 		mov	WORD PTR [bp-6],ax
+;|*** #ifdef GOST_DYNAMIC_SBOXES
+;|*** 	sbox = &ks->sbox;
+;|*** #else
+;|*** 	sbox = ks->sbox;
+;|*** #endif
+;|*** 
+;|*** 	//Rounds 1-8
+;|*** 	n2 = r(n1, n2, ks->X0, sbox);
+; Line 185
+	*** 000060	8d 44 20 		lea	ax,WORD PTR [si+32]
+	*** 000063	50 			push	ax
+	*** 000064	66 ff 34 		push	DWORD PTR [si]
+	*** 000067	ff 76 fa 		push	WORD PTR [bp-6]
+	*** 00006a	53 			push	bx
+	*** 00006b	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00006f	8b f8 			mov	di,ax
+	*** 000071	e8 00 00 		call	r
+	*** 000074	83 c4 0e 		add	sp,14	;000eH
+	*** 000077	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00007a	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X1, sbox);
+; Line 186
+	*** 00007d	57 			push	di
+	*** 00007e	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 000082	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000086	52 			push	dx
+	*** 000087	50 			push	ax
+	*** 000088	e8 00 00 		call	r
+	*** 00008b	83 c4 0e 		add	sp,14	;000eH
+	*** 00008e	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000091	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X2, sbox);
+; Line 187
+	*** 000094	57 			push	di
+	*** 000095	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000099	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00009d	52 			push	dx
+	*** 00009e	50 			push	ax
+	*** 00009f	e8 00 00 		call	r
+	*** 0000a2	83 c4 0e 		add	sp,14	;000eH
+	*** 0000a5	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0000a8	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X3, sbox);
+; Line 188
+	*** 0000ab	57 			push	di
+	*** 0000ac	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 0000b0	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0000b4	52 			push	dx
+	*** 0000b5	50 			push	ax
+	*** 0000b6	e8 00 00 		call	r
+	*** 0000b9	83 c4 0e 		add	sp,14	;000eH
+	*** 0000bc	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0000bf	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X4, sbox);
+; Line 189
+	*** 0000c2	57 			push	di
+	*** 0000c3	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 0000c7	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0000cb	52 			push	dx
+	*** 0000cc	50 			push	ax
+	*** 0000cd	e8 00 00 		call	r
+	*** 0000d0	83 c4 0e 		add	sp,14	;000eH
+	*** 0000d3	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0000d6	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X5, sbox);
+; Line 190
+	*** 0000d9	57 			push	di
+	*** 0000da	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 0000de	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0000e2	52 			push	dx
+	*** 0000e3	50 			push	ax
+	*** 0000e4	e8 00 00 		call	r
+	*** 0000e7	83 c4 0e 		add	sp,14	;000eH
+	*** 0000ea	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0000ed	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X6, sbox);
+; Line 191
+	*** 0000f0	57 			push	di
+	*** 0000f1	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0000f5	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0000f9	52 			push	dx
+	*** 0000fa	50 			push	ax
+	*** 0000fb	e8 00 00 		call	r
+	*** 0000fe	83 c4 0e 		add	sp,14	;000eH
+	*** 000101	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000104	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X7, sbox);
+; Line 192
+	*** 000107	57 			push	di
+	*** 000108	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 00010c	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000110	52 			push	dx
+	*** 000111	50 			push	ax
+	*** 000112	e8 00 00 		call	r
+	*** 000115	83 c4 0e 		add	sp,14	;000eH
+	*** 000118	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00011b	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	//Rounds 9-32
+;|*** 	n2 = r(n1, n2, ks->X7, sbox);
+; Line 195
+	*** 00011e	57 			push	di
+	*** 00011f	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 000123	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000127	52 			push	dx
+	*** 000128	50 			push	ax
+	*** 000129	e8 00 00 		call	r
+	*** 00012c	83 c4 0e 		add	sp,14	;000eH
+	*** 00012f	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000132	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X6, sbox);
+; Line 196
+	*** 000135	57 			push	di
+	*** 000136	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 00013a	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00013e	52 			push	dx
+	*** 00013f	50 			push	ax
+	*** 000140	e8 00 00 		call	r
+	*** 000143	83 c4 0e 		add	sp,14	;000eH
+	*** 000146	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000149	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X5, sbox);
+; Line 197
+	*** 00014c	57 			push	di
+	*** 00014d	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 000151	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000155	52 			push	dx
+	*** 000156	50 			push	ax
+	*** 000157	e8 00 00 		call	r
+	*** 00015a	83 c4 0e 		add	sp,14	;000eH
+	*** 00015d	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000160	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X4, sbox);
+; Line 198
+	*** 000163	57 			push	di
+	*** 000164	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 000168	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00016c	52 			push	dx
+	*** 00016d	50 			push	ax
+	*** 00016e	e8 00 00 		call	r
+	*** 000171	83 c4 0e 		add	sp,14	;000eH
+	*** 000174	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000177	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X3, sbox);
+; Line 199
+	*** 00017a	57 			push	di
+	*** 00017b	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 00017f	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000183	52 			push	dx
+	*** 000184	50 			push	ax
+	*** 000185	e8 00 00 		call	r
+	*** 000188	83 c4 0e 		add	sp,14	;000eH
+	*** 00018b	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00018e	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X2, sbox);
+; Line 200
+	*** 000191	57 			push	di
+	*** 000192	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000196	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00019a	52 			push	dx
+	*** 00019b	50 			push	ax
+	*** 00019c	e8 00 00 		call	r
+	*** 00019f	83 c4 0e 		add	sp,14	;000eH
+	*** 0001a2	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0001a5	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X1, sbox);
+; Line 201
+	*** 0001a8	57 			push	di
+	*** 0001a9	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 0001ad	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0001b1	52 			push	dx
+	*** 0001b2	50 			push	ax
+	*** 0001b3	e8 00 00 		call	r
+	*** 0001b6	83 c4 0e 		add	sp,14	;000eH
+	*** 0001b9	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0001bc	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X0, sbox);
+; Line 202
+	*** 0001bf	57 			push	di
+	*** 0001c0	66 ff 34 		push	DWORD PTR [si]
+	*** 0001c3	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0001c7	52 			push	dx
+	*** 0001c8	50 			push	ax
+	*** 0001c9	e8 00 00 		call	r
+	*** 0001cc	83 c4 0e 		add	sp,14	;000eH
+	*** 0001cf	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0001d2	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	n2 = r(n1, n2, ks->X7, sbox);
+; Line 204
+	*** 0001d5	57 			push	di
+	*** 0001d6	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 0001da	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0001de	52 			push	dx
+	*** 0001df	50 			push	ax
+	*** 0001e0	e8 00 00 		call	r
+	*** 0001e3	83 c4 0e 		add	sp,14	;000eH
+	*** 0001e6	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0001e9	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X6, sbox);
+; Line 205
+	*** 0001ec	57 			push	di
+	*** 0001ed	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0001f1	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0001f5	52 			push	dx
+	*** 0001f6	50 			push	ax
+	*** 0001f7	e8 00 00 		call	r
+	*** 0001fa	83 c4 0e 		add	sp,14	;000eH
+	*** 0001fd	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000200	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X5, sbox);
+; Line 206
+	*** 000203	57 			push	di
+	*** 000204	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 000208	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00020c	52 			push	dx
+	*** 00020d	50 			push	ax
+	*** 00020e	e8 00 00 		call	r
+	*** 000211	83 c4 0e 		add	sp,14	;000eH
+	*** 000214	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000217	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X4, sbox);
+; Line 207
+	*** 00021a	57 			push	di
+	*** 00021b	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 00021f	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000223	52 			push	dx
+	*** 000224	50 			push	ax
+	*** 000225	e8 00 00 		call	r
+	*** 000228	83 c4 0e 		add	sp,14	;000eH
+	*** 00022b	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00022e	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X3, sbox);
+; Line 208
+	*** 000231	57 			push	di
+	*** 000232	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 000236	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00023a	52 			push	dx
+	*** 00023b	50 			push	ax
+	*** 00023c	e8 00 00 		call	r
+	*** 00023f	83 c4 0e 		add	sp,14	;000eH
+	*** 000242	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000245	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X2, sbox);
+; Line 209
+	*** 000248	57 			push	di
+	*** 000249	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 00024d	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000251	52 			push	dx
+	*** 000252	50 			push	ax
+	*** 000253	e8 00 00 		call	r
+	*** 000256	83 c4 0e 		add	sp,14	;000eH
+	*** 000259	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 00025c	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X1, sbox);
+; Line 210
+	*** 00025f	57 			push	di
+	*** 000260	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 000264	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000268	52 			push	dx
+	*** 000269	50 			push	ax
+	*** 00026a	e8 00 00 		call	r
+	*** 00026d	83 c4 0e 		add	sp,14	;000eH
+	*** 000270	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 000273	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X0, sbox);
+; Line 211
+	*** 000276	57 			push	di
+	*** 000277	66 ff 34 		push	DWORD PTR [si]
+	*** 00027a	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 00027e	52 			push	dx
+	*** 00027f	50 			push	ax
+	*** 000280	e8 00 00 		call	r
+	*** 000283	83 c4 0e 		add	sp,14	;000eH
+	*** 000286	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000289	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 
+;|*** 	n2 = r(n1, n2, ks->X7, sbox);
+; Line 213
+	*** 00028c	57 			push	di
+	*** 00028d	66 ff 74 1c 		push	DWORD PTR [si+28]
+	*** 000291	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 000295	52 			push	dx
+	*** 000296	50 			push	ax
+	*** 000297	e8 00 00 		call	r
+	*** 00029a	83 c4 0e 		add	sp,14	;000eH
+	*** 00029d	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002a0	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X6, sbox);
+; Line 214
+	*** 0002a3	57 			push	di
+	*** 0002a4	66 ff 74 18 		push	DWORD PTR [si+24]
+	*** 0002a8	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0002ac	52 			push	dx
+	*** 0002ad	50 			push	ax
+	*** 0002ae	e8 00 00 		call	r
+	*** 0002b1	83 c4 0e 		add	sp,14	;000eH
+	*** 0002b4	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0002b7	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X5, sbox);
+; Line 215
+	*** 0002ba	57 			push	di
+	*** 0002bb	66 ff 74 14 		push	DWORD PTR [si+20]
+	*** 0002bf	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0002c3	52 			push	dx
+	*** 0002c4	50 			push	ax
+	*** 0002c5	e8 00 00 		call	r
+	*** 0002c8	83 c4 0e 		add	sp,14	;000eH
+	*** 0002cb	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002ce	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X4, sbox);
+; Line 216
+	*** 0002d1	57 			push	di
+	*** 0002d2	66 ff 74 10 		push	DWORD PTR [si+16]
+	*** 0002d6	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 0002da	52 			push	dx
+	*** 0002db	50 			push	ax
+	*** 0002dc	e8 00 00 		call	r
+	*** 0002df	83 c4 0e 		add	sp,14	;000eH
+	*** 0002e2	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 0002e5	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X3, sbox);
+; Line 217
+	*** 0002e8	57 			push	di
+	*** 0002e9	66 ff 74 0c 		push	DWORD PTR [si+12]
+	*** 0002ed	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 0002f1	52 			push	dx
+	*** 0002f2	50 			push	ax
+	*** 0002f3	e8 00 00 		call	r
+	*** 0002f6	83 c4 0e 		add	sp,14	;000eH
+	*** 0002f9	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 0002fc	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X2, sbox);
+; Line 218
+	*** 0002ff	57 			push	di
+	*** 000300	66 ff 74 08 		push	DWORD PTR [si+8]
+	*** 000304	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000308	52 			push	dx
+	*** 000309	50 			push	ax
+	*** 00030a	e8 00 00 		call	r
+	*** 00030d	83 c4 0e 		add	sp,14	;000eH
+	*** 000310	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000313	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	n2 = r(n1, n2, ks->X1, sbox);
+; Line 219
+	*** 000316	57 			push	di
+	*** 000317	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 00031b	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n2
+	*** 00031f	52 			push	dx
+	*** 000320	50 			push	ax
+	*** 000321	e8 00 00 		call	r
+	*** 000324	83 c4 0e 		add	sp,14	;000eH
+	*** 000327	89 46 f8 		mov	WORD PTR [bp-8],ax	;n2
+	*** 00032a	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n1 = r(n2, n1, ks->X0, sbox);
+; Line 220
+	*** 00032d	57 			push	di
+	*** 00032e	66 ff 34 		push	DWORD PTR [si]
+	*** 000331	66 ff 76 fc 		push	DWORD PTR [bp-4]	;n1
+	*** 000335	52 			push	dx
+	*** 000336	50 			push	ax
+	*** 000337	e8 00 00 		call	r
+	*** 00033a	83 c4 0e 		add	sp,14	;000eH
+	*** 00033d	89 46 fc 		mov	WORD PTR [bp-4],ax	;n1
+	*** 000340	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	
+;|*** 	out[0] = (byte)(n2 & 0xFF); out[1] = (byte)((n2 >> 8) & 0xFF); out[2] = (byte)((n2 >> 16) & 0xFF); out[3] = (byte)((n2 >> 24) & 0xFF);
+; Line 222
+	*** 000343	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 000346	8a 46 f8 		mov	al,BYTE PTR [bp-8]	;n2
+	*** 000349	88 07 			mov	BYTE PTR [bx],al
+	*** 00034b	8b 46 f8 		mov	ax,WORD PTR [bp-8]	;n2
+	*** 00034e	8b 56 fa 		mov	dx,WORD PTR [bp-6]
+	*** 000351	b1 08 			mov	cl,8
+	*** 000353	e8 00 00 		call	__aNulshr
+	*** 000356	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 000359	88 47 01 		mov	BYTE PTR [bx+1],al
+	*** 00035c	8a 46 fa 		mov	al,BYTE PTR [bp-6]
+	*** 00035f	88 47 02 		mov	BYTE PTR [bx+2],al
+	*** 000362	8a 46 fb 		mov	al,BYTE PTR [bp-5]
+	*** 000365	2a e4 			sub	ah,ah
+	*** 000367	88 47 03 		mov	BYTE PTR [bx+3],al
+;|*** 	out[4] = (byte)(n1 & 0xFF); out[5] = (byte)((n1 >> 8) & 0xFF); out[6] = (byte)((n1 >> 16) & 0xFF); out[7] = (byte)((n1 >> 24) & 0xFF);
+; Line 223
+	*** 00036a	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;n1
+	*** 00036d	88 47 04 		mov	BYTE PTR [bx+4],al
+	*** 000370	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;n1
+	*** 000373	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+	*** 000376	b1 08 			mov	cl,8
+	*** 000378	e8 00 00 		call	__aNulshr
+	*** 00037b	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;out
+	*** 00037e	88 47 05 		mov	BYTE PTR [bx+5],al
+	*** 000381	8a 46 fe 		mov	al,BYTE PTR [bp-2]
+	*** 000384	88 47 06 		mov	BYTE PTR [bx+6],al
+	*** 000387	8a 46 ff 		mov	al,BYTE PTR [bp-1]
+	*** 00038a	88 47 07 		mov	BYTE PTR [bx+7],al
+;|*** }
+; Line 224
+	*** 00038d	5e 			pop	si
+	*** 00038e	5f 			pop	di
+	*** 00038f	c9 			leave	
+	*** 000390	c3 			ret	
+
+_gost_decrypt	ENDP
+	PUBLIC	_gost_set_key
+_gost_set_key	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void gost_set_key(byte *key, gost_kds *ks)
+;|***  *	\brief Set the gost key
+;|***  *			Generate a pseudo random data (based on the key) and set the key
+;|***  *	\param[in] gost_kds * ks
+;|***  *	\param[in] byte * key
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void gost_set_key(byte *key, gost_kds *ks)
+;|*** {
+; Line 237
+	*** 000000	c8 ca 01 00 		enter	458,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	key = 4
+;	ks = 6
+;	i = -4
+;	sctx = -454
+;	sbox_seed = -68
+;|***     gst_udword i;
+;|*** 
+;|*** #ifdef GOST_DYNAMIC_SBOXES
+;|*** 	STRIBOG_CTX sctx;
+;|*** 	byte sbox_seed[64];
+;|*** 
+;|*** 	ks->sbox = GostR3411_94_CryptoProParamSet;
+; Line 244
+	*** 000006	8b 46 06 		mov	ax,WORD PTR [bp+6]	;ks
+	*** 000009	05 20 00 		add	ax,32	;0020H
+	*** 00000c	8b f8 			mov	di,ax
+	*** 00000e	be 00 00 		mov	si,OFFSET DGROUP:$S154_GostR3411_94_CryptoProParamSet
+	*** 000011	1e 			push	ds
+	*** 000012	07 			pop	es
+	*** 000013	b9 00 01 		mov	cx,256	;0100H
+	*** 000016	f3 			rep
+	*** 000017	a5 			movsw
+;|*** 
+;|*** 	//Generate pseudorandom data based on the key
+;|*** 	STRIBOG_init(&sctx);
+; Line 247
+	*** 000018	8d 8e 3a fe 		lea	cx,WORD PTR [bp-454]	;sctx
+	*** 00001c	51 			push	cx
+	*** 00001d	8b f0 			mov	si,ax
+	*** 00001f	e8 00 00 		call	_STRIBOG_init
+	*** 000022	5b 			pop	bx
+;|*** 	STRIBOG_add(&sctx, key, 32);
+; Line 248
+	*** 000023	6a 00 			push	0
+	*** 000025	6a 20 			push	32	;0020H
+	*** 000027	ff 76 04 		push	WORD PTR [bp+4]	;key
+	*** 00002a	8d 86 3a fe 		lea	ax,WORD PTR [bp-454]	;sctx
+	*** 00002e	50 			push	ax
+	*** 00002f	e8 00 00 		call	_STRIBOG_add
+	*** 000032	83 c4 08 		add	sp,8
+;|*** 	STRIBOG_finalize(&sctx, sbox_seed);
+; Line 249
+	*** 000035	8d 46 bc 		lea	ax,WORD PTR [bp-68]	;sbox_seed
+	*** 000038	50 			push	ax
+	*** 000039	8d 8e 3a fe 		lea	cx,WORD PTR [bp-454]	;sctx
+	*** 00003d	51 			push	cx
+	*** 00003e	e8 00 00 		call	_STRIBOG_finalize
+	*** 000041	83 c4 04 		add	sp,4
+;|*** 
+;|*** 	xor_s_box(&ks->sbox, sbox_seed);
+; Line 251
+	*** 000044	8d 46 bc 		lea	ax,WORD PTR [bp-68]	;sbox_seed
+	*** 000047	50 			push	ax
+	*** 000048	56 			push	si
+	*** 000049	e8 00 00 		call	xor_s_box
+	*** 00004c	83 c4 04 		add	sp,4
+;|*** 
+;|*** 	/* In order to avoid 7 bitshift operations on each pass through the S-Box,
+;|*** 	* this step is pre-processed once during the set_key phase. If memory contraints
+;|*** 	* become a problem, this step can be skipped and the sbox struct can change its
+;|*** 	* unsigned int arrays to unsigned char arrays, going from 512 unsigned chars to 128.
+;|*** 	*/
+;|*** 	for (i = 0; i < GOST_SBOX_SIZE; i++)
+; Line 258
+	*** 00004f	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+	*** 000057	8b 76 06 		mov	si,WORD PTR [bp+6]	;ks
+					$F203:
+	*** 00005a	66 83 7e fc 10 		cmp	DWORD PTR [bp-4],16	;00000010H	;i
+	*** 00005f	73 75 			jae	SHORT $FB205
+;|*** 	{
+;|*** 		ks->sbox.k8[i] <<= 28;
+; Line 260
+	*** 000061	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000064	c1 e3 02 		shl	bx,2
+	*** 000067	03 de 			add	bx,si
+	*** 000069	8b 47 20 		mov	ax,WORD PTR [bx+32]
+	*** 00006c	c1 e0 0c 		shl	ax,12	;000cH
+	*** 00006f	c7 47 20 00 00 		mov	WORD PTR [bx+32],0
+	*** 000074	89 47 22 		mov	WORD PTR [bx+34],ax
+;|*** 		ks->sbox.k7[i] <<= 24;
+; Line 261
+	*** 000077	8a 67 60 		mov	ah,BYTE PTR [bx+96]
+	*** 00007a	2a c0 			sub	al,al
+	*** 00007c	c7 47 60 00 00 		mov	WORD PTR [bx+96],0
+	*** 000081	89 47 62 		mov	WORD PTR [bx+98],ax
+;|*** 		ks->sbox.k6[i] <<= 20;
+; Line 262
+	*** 000084	8b 87 a0 00 		mov	ax,WORD PTR [bx+160]
+	*** 000088	c1 e0 04 		shl	ax,4
+	*** 00008b	c7 87 a0 00 00 00 	mov	WORD PTR [bx+160],0
+	*** 000091	89 87 a2 00 		mov	WORD PTR [bx+162],ax
+;|*** 		ks->sbox.k5[i] <<= 16;
+; Line 263
+	*** 000095	8b 87 e0 00 		mov	ax,WORD PTR [bx+224]
+	*** 000099	c7 87 e0 00 00 00 	mov	WORD PTR [bx+224],0
+	*** 00009f	89 87 e2 00 		mov	WORD PTR [bx+226],ax
+;|*** 		ks->sbox.k4[i] <<= 12;
+; Line 264
+	*** 0000a3	66 8b 87 20 01 		mov	eax,DWORD PTR [bx+288]
+	*** 0000a8	b1 0c 			mov	cl,12	;000cH
+	*** 0000aa	8b fb 			mov	di,bx
+	*** 0000ac	66 d3 e0 		shl	eax,cl
+	*** 0000af	66 89 85 20 01 		mov	DWORD PTR [di+288],eax
+;|*** 		ks->sbox.k3[i] <<= 8;
+; Line 265
+	*** 0000b4	66 8b 85 60 01 		mov	eax,DWORD PTR [di+352]
+	*** 0000b9	66 c1 e0 08 		shl	eax,8
+	*** 0000bd	66 89 85 60 01 		mov	DWORD PTR [di+352],eax
+;|*** 		ks->sbox.k2[i] <<= 4;
+; Line 266
+	*** 0000c2	66 8b 85 a0 01 		mov	eax,DWORD PTR [di+416]
+	*** 0000c7	66 c1 e0 04 		shl	eax,4
+	*** 0000cb	66 89 85 a0 01 		mov	DWORD PTR [di+416],eax
+;|*** 	for (i = 0; i < GOST_SBOX_SIZE; i++)
+; Line 258
+	*** 0000d0	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 0000d4	eb 84 			jmp	SHORT $F203
+;|*** 	{
+;|*** 		ks->sbox.k8[i] <<= 28;
+;|*** 		ks->sbox.k7[i] <<= 24;
+;|*** 		ks->sbox.k6[i] <<= 20;
+;|*** 		ks->sbox.k5[i] <<= 16;
+;|*** 		ks->sbox.k4[i] <<= 12;
+;|*** 		ks->sbox.k3[i] <<= 8;
+;|*** 		ks->sbox.k2[i] <<= 4;
+;|*** 	}
+; Line 267
+					$FB205:
+;|*** #else
+;|*** 	ks->sbox = &GostR3411_94_CryptoProParamSet;
+;|*** #endif
+;|*** 
+;|*** 	ks->X0 = 0;
+; Line 272
+	*** 0000d6	66 2b c0 		sub	eax,eax
+	*** 0000d9	66 89 04 		mov	DWORD PTR [si],eax
+;|*** 	ks->X1 = 0;
+; Line 273
+	*** 0000dc	66 89 44 04 		mov	DWORD PTR [si+4],eax
+;|*** 	ks->X2 = 0;
+; Line 274
+	*** 0000e0	66 89 44 08 		mov	DWORD PTR [si+8],eax
+;|*** 	ks->X3 = 0;
+; Line 275
+	*** 0000e4	66 89 44 0c 		mov	DWORD PTR [si+12],eax
+;|*** 	ks->X4 = 0;
+; Line 276
+	*** 0000e8	66 89 44 10 		mov	DWORD PTR [si+16],eax
+;|*** 	ks->X5 = 0;
+; Line 277
+	*** 0000ec	66 89 44 14 		mov	DWORD PTR [si+20],eax
+;|*** 	ks->X6 = 0;
+; Line 278
+	*** 0000f0	66 89 44 18 		mov	DWORD PTR [si+24],eax
+;|*** 	ks->X7 = 0;
+; Line 279
+	*** 0000f4	66 89 44 1c 		mov	DWORD PTR [si+28],eax
+;|*** 
+;|*** 	//Set the key
+;|*** 	for (i = 0; i < GOST_KEYSIZE / 8; i++)
+; Line 282
+	*** 0000f8	66 89 46 fc 		mov	DWORD PTR [bp-4],eax	;i
+	*** 0000fc	8b 7e 04 		mov	di,WORD PTR [bp+4]	;key
+					$F206:
+	*** 0000ff	66 83 7e fc 04 		cmp	DWORD PTR [bp-4],4	;i
+	*** 000104	0f 83 ce 00 		jae	$EX199
+;|*** 	{
+;|*** 		ks->X0 |= (gst_udword)key[i + 0] << (i * 8);
+; Line 284
+	*** 000108	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 00010b	2a e4 			sub	ah,ah
+	*** 00010d	8a 01 			mov	al,BYTE PTR [bx][di]
+	*** 00010f	2b d2 			sub	dx,dx
+	*** 000111	8b cb 			mov	cx,bx
+	*** 000113	c0 e1 03 		shl	cl,3
+	*** 000116	89 8e 38 fe 		mov	WORD PTR [bp-456],cx
+	*** 00011a	e8 00 00 		call	__aNlshl
+	*** 00011d	09 04 			or	WORD PTR [si],ax
+	*** 00011f	09 54 02 		or	WORD PTR [si+2],dx
+;|*** 		ks->X1 |= (gst_udword)key[i + 4] << (i * 8);
+; Line 285
+	*** 000122	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000125	03 df 			add	bx,di
+	*** 000127	2a e4 			sub	ah,ah
+	*** 000129	8a 47 04 		mov	al,BYTE PTR [bx+4]
+	*** 00012c	2b d2 			sub	dx,dx
+	*** 00012e	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 000132	89 9e 36 fe 		mov	WORD PTR [bp-458],bx
+	*** 000136	e8 00 00 		call	__aNlshl
+	*** 000139	09 44 04 		or	WORD PTR [si+4],ax
+	*** 00013c	09 54 06 		or	WORD PTR [si+6],dx
+;|*** 		ks->X2 |= (gst_udword)key[i + 8] << (i * 8);
+; Line 286
+	*** 00013f	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 000143	2a e4 			sub	ah,ah
+	*** 000145	8a 47 08 		mov	al,BYTE PTR [bx+8]
+	*** 000148	2b d2 			sub	dx,dx
+	*** 00014a	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 00014e	e8 00 00 		call	__aNlshl
+	*** 000151	09 44 08 		or	WORD PTR [si+8],ax
+	*** 000154	09 54 0a 		or	WORD PTR [si+10],dx
+;|*** 		ks->X3 |= (gst_udword)key[i + 12] << (i * 8);
+; Line 287
+	*** 000157	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 00015b	2a e4 			sub	ah,ah
+	*** 00015d	8a 47 0c 		mov	al,BYTE PTR [bx+12]
+	*** 000160	2b d2 			sub	dx,dx
+	*** 000162	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 000166	e8 00 00 		call	__aNlshl
+	*** 000169	09 44 0c 		or	WORD PTR [si+12],ax
+	*** 00016c	09 54 0e 		or	WORD PTR [si+14],dx
+;|*** 		ks->X4 |= (gst_udword)key[i + 16] << (i * 8);
+; Line 288
+	*** 00016f	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 000173	2a e4 			sub	ah,ah
+	*** 000175	8a 47 10 		mov	al,BYTE PTR [bx+16]
+	*** 000178	2b d2 			sub	dx,dx
+	*** 00017a	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 00017e	e8 00 00 		call	__aNlshl
+	*** 000181	09 44 10 		or	WORD PTR [si+16],ax
+	*** 000184	09 54 12 		or	WORD PTR [si+18],dx
+;|*** 		ks->X5 |= (gst_udword)key[i + 20] << (i * 8);
+; Line 289
+	*** 000187	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 00018b	2a e4 			sub	ah,ah
+	*** 00018d	8a 47 14 		mov	al,BYTE PTR [bx+20]
+	*** 000190	2b d2 			sub	dx,dx
+	*** 000192	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 000196	e8 00 00 		call	__aNlshl
+	*** 000199	09 44 14 		or	WORD PTR [si+20],ax
+	*** 00019c	09 54 16 		or	WORD PTR [si+22],dx
+;|*** 		ks->X6 |= (gst_udword)key[i + 24] << (i * 8);
+; Line 290
+	*** 00019f	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 0001a3	2a e4 			sub	ah,ah
+	*** 0001a5	8a 47 18 		mov	al,BYTE PTR [bx+24]
+	*** 0001a8	2b d2 			sub	dx,dx
+	*** 0001aa	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 0001ae	e8 00 00 		call	__aNlshl
+	*** 0001b1	09 44 18 		or	WORD PTR [si+24],ax
+	*** 0001b4	09 54 1a 		or	WORD PTR [si+26],dx
+;|*** 		ks->X7 |= (gst_udword)key[i + 28] << (i * 8);
+; Line 291
+	*** 0001b7	8b 9e 36 fe 		mov	bx,WORD PTR [bp-458]
+	*** 0001bb	2a e4 			sub	ah,ah
+	*** 0001bd	8a 47 1c 		mov	al,BYTE PTR [bx+28]
+	*** 0001c0	2b d2 			sub	dx,dx
+	*** 0001c2	8a 8e 38 fe 		mov	cl,BYTE PTR [bp-456]
+	*** 0001c6	e8 00 00 		call	__aNlshl
+	*** 0001c9	09 44 1c 		or	WORD PTR [si+28],ax
+	*** 0001cc	09 54 1e 		or	WORD PTR [si+30],dx
+;|*** 	for (i = 0; i < GOST_KEYSIZE / 8; i++)
+; Line 282
+	*** 0001cf	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 0001d3	e9 29 ff 		jmp	$F206
+;|*** 	{
+;|*** 		ks->X0 |= (gst_udword)key[i + 0] << (i * 8);
+;|*** 		ks->X1 |= (gst_udword)key[i + 4] << (i * 8);
+;|*** 		ks->X2 |= (gst_udword)key[i + 8] << (i * 8);
+;|*** 		ks->X3 |= (gst_udword)key[i + 12] << (i * 8);
+;|*** 		ks->X4 |= (gst_udword)key[i + 16] << (i * 8);
+;|*** 		ks->X5 |= (gst_udword)key[i + 20] << (i * 8);
+;|*** 		ks->X6 |= (gst_udword)key[i + 24] << (i * 8);
+;|*** 		ks->X7 |= (gst_udword)key[i + 28] << (i * 8);
+;|*** 	}
+;|*** }
+; Line 293
+					$EX199:
+	*** 0001d6	5e 			pop	si
+	*** 0001d7	5f 			pop	di
+	*** 0001d8	c9 			leave	
+	*** 0001d9	c3 			ret	
+
+_gost_set_key	ENDP
+	PUBLIC	_gost_xor_ks
+_gost_xor_ks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, gst_udword *in, gst_dword len)
+;|***  *	\brief Xor between gost_kds and gst_udword
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] gst_udword * in
+;|***  *	\param[in] gost_kds * out_ks
+;|***  *	\param[in] gost_kds * ks
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, gst_udword *in, gst_dword len)
+;|*** {
+; Line 307
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	ks = 4
+;	out_ks = 6
+;	in = 8
+;	len = 10
+;	i = -4
+;|*** 	gst_dword i;
+;|*** 	if (!len)
+; Line 309
+	*** 000006	66 83 7e 0a 00 		cmp	DWORD PTR [bp+10],0	;len
+	*** 00000b	0f 84 b6 00 		je	$EX217
+	*** 00000f	8b 4e 04 		mov	cx,WORD PTR [bp+4]	;ks
+	*** 000012	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;in
+	*** 000015	8b f1 			mov	si,cx
+	*** 000017	8b 7e 06 		mov	di,WORD PTR [bp+6]	;out_ks
+;|*** 		return;
+;|*** 
+;|*** 	out_ks->X0 = ks->X0 ^ in[0];
+; Line 312
+	*** 00001a	66 8b 04 		mov	eax,DWORD PTR [si]
+	*** 00001d	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 000020	66 89 05 		mov	DWORD PTR [di],eax
+;|*** 	out_ks->X1 = ks->X1 ^ in[0];
+; Line 313
+	*** 000023	66 8b 44 04 		mov	eax,DWORD PTR [si+4]
+	*** 000027	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 00002a	66 89 45 04 		mov	DWORD PTR [di+4],eax
+;|*** 	out_ks->X2 = ks->X2 ^ in[0];
+; Line 314
+	*** 00002e	66 8b 44 08 		mov	eax,DWORD PTR [si+8]
+	*** 000032	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 000035	66 89 45 08 		mov	DWORD PTR [di+8],eax
+;|*** 	out_ks->X3 = ks->X3 ^ in[0];
+; Line 315
+	*** 000039	66 8b 44 0c 		mov	eax,DWORD PTR [si+12]
+	*** 00003d	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 000040	66 89 45 0c 		mov	DWORD PTR [di+12],eax
+;|*** 	out_ks->X4 = ks->X4 ^ in[0];
+; Line 316
+	*** 000044	66 8b 44 10 		mov	eax,DWORD PTR [si+16]
+	*** 000048	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 00004b	66 89 45 10 		mov	DWORD PTR [di+16],eax
+;|*** 	out_ks->X5 = ks->X5 ^ in[0];
+; Line 317
+	*** 00004f	66 8b 44 14 		mov	eax,DWORD PTR [si+20]
+	*** 000053	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 000056	66 89 45 14 		mov	DWORD PTR [di+20],eax
+;|*** 	out_ks->X6 = ks->X6 ^ in[0];
+; Line 318
+	*** 00005a	66 8b 44 18 		mov	eax,DWORD PTR [si+24]
+	*** 00005e	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 000061	66 89 45 18 		mov	DWORD PTR [di+24],eax
+;|*** 	out_ks->X7 = ks->X7 ^ in[0];
+; Line 319
+	*** 000065	66 8b 44 1c 		mov	eax,DWORD PTR [si+28]
+	*** 000069	66 33 07 		xor	eax,DWORD PTR [bx]
+	*** 00006c	66 89 45 1c 		mov	DWORD PTR [di+28],eax
+;|*** 
+;|*** 	for (i = 1; i < len; i++)
+; Line 321
+	*** 000070	66 c7 46 fc 01 00 00 00 mov	DWORD PTR [bp-4],1	;i
+					$F220:
+	*** 000078	66 8b 46 0a 		mov	eax,DWORD PTR [bp+10]	;len
+	*** 00007c	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 000080	7d 43 			jge	SHORT $EX217
+					$L231:
+;|*** 	{
+;|*** 		out_ks->X0 ^= in[i];
+; Line 323
+	*** 000082	8b 76 fc 		mov	si,WORD PTR [bp-4]	;i
+	*** 000085	c1 e6 02 		shl	si,2
+	*** 000088	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 00008b	66 31 05 		xor	DWORD PTR [di],eax
+;|*** 		out_ks->X1 ^= in[i];
+; Line 324
+	*** 00008e	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 000091	66 31 45 04 		xor	DWORD PTR [di+4],eax
+;|*** 		out_ks->X2 ^= in[i];
+; Line 325
+	*** 000095	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 000098	66 31 45 08 		xor	DWORD PTR [di+8],eax
+;|*** 		out_ks->X3 ^= in[i];
+; Line 326
+	*** 00009c	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 00009f	66 31 45 0c 		xor	DWORD PTR [di+12],eax
+;|*** 		out_ks->X4 ^= in[i];
+; Line 327
+	*** 0000a3	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 0000a6	66 31 45 10 		xor	DWORD PTR [di+16],eax
+;|*** 		out_ks->X5 ^= in[i];
+; Line 328
+	*** 0000aa	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 0000ad	66 31 45 14 		xor	DWORD PTR [di+20],eax
+;|*** 		out_ks->X6 ^= in[i];
+; Line 329
+	*** 0000b1	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 0000b4	66 31 45 18 		xor	DWORD PTR [di+24],eax
+;|*** 		out_ks->X7 ^= in[i];
+; Line 330
+	*** 0000b8	66 8b 00 		mov	eax,DWORD PTR [bx][si]
+	*** 0000bb	66 31 45 1c 		xor	DWORD PTR [di+28],eax
+;|*** 	for (i = 1; i < len; i++)
+; Line 321
+	*** 0000bf	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 0000c3	eb b3 			jmp	SHORT $F220
+;|*** 	{
+;|*** 		out_ks->X0 ^= in[i];
+;|*** 		out_ks->X1 ^= in[i];
+;|*** 		out_ks->X2 ^= in[i];
+;|*** 		out_ks->X3 ^= in[i];
+;|*** 		out_ks->X4 ^= in[i];
+;|*** 		out_ks->X5 ^= in[i];
+;|*** 		out_ks->X6 ^= in[i];
+;|*** 		out_ks->X7 ^= in[i];
+;|*** 	}
+;|*** }
+; Line 332
+					$EX217:
+	*** 0000c5	5e 			pop	si
+	*** 0000c6	5f 			pop	di
+	*** 0000c7	c9 			leave	
+	*** 0000c8	c3 			ret	
+
+_gost_xor_ks	ENDP
+_TEXT	ENDS
+END

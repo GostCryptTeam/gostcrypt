@@ -1,0 +1,9 @@
+<map id="main" name="main">
+<area shape="rect" id="node2" href="$_decompressor_8c.html#af23433d9d58fb31d4a1ac224e3bc46e8" title="Get needed bits. " alt="" coords="118,5,161,32"/>
+<area shape="rect" id="node6" href="$_decompressor_8c.html#a2c157e80e65abde8e3f64853a41bfecc" title="Store a block. " alt="" coords="110,56,169,83"/>
+<area shape="rect" id="node7" href="$_decompressor_8c.html#af3340594bb80768552b17efb18581c98" title="Build fixed huffman tables if first call. " alt="" coords="115,107,164,133"/>
+<area shape="rect" id="node8" href="$_decompressor_8c.html#a5f81f35c5fef404a03c7059b39ab45f1" title="Read code lenght, build huffman tables and decode data until end&#45;of&#45;block code. " alt="" coords="104,157,175,184"/>
+<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="223,5,261,32"/>
+<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="309,5,348,32"/>
+<area shape="rect" id="node5" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="396,5,435,32"/>
+</map>

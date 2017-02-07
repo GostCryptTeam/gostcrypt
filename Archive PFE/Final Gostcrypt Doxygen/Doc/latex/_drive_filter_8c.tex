@@ -1,0 +1,649 @@
+\hypertarget{_drive_filter_8c}{}\section{Driver/\+Drive\+Filter.c File Reference}
+\label{_drive_filter_8c}\index{Driver/\+Drive\+Filter.\+c@{Driver/\+Drive\+Filter.\+c}}
+
+
+Manage the link between the application, the driver, and the device.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$ntddk.\+h$>$}\newline
+{\ttfamily \#include $<$ntddvol.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Cache.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crypto.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Apidrvr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Encrypted\+Io\+Queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Common/\+Endian.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Ntdriver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Ntvol.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volumes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume\+Filter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wipe.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Drive\+Filter.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot/\+Windows/\+Boot\+Common.\+h\char`\"{}}\newline
+Include dependency graph for Drive\+Filter.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_hiber_driver_context}{Hiber\+Driver\+Context}
+\item 
+struct \hyperlink{struct_module_table_item}{Module\+Table\+Item}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a5d1289a503f5de446dd24d649c7c93b7}\label{_drive_filter_8c_a5d1289a503f5de446dd24d649c7c93b7}} 
+\#define {\bfseries G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+B\+E\+R\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+C\+O\+U\+NT}~3
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a5f13ce08b1ea478e57103e7b81272e74}\label{_drive_filter_8c_a5f13ce08b1ea478e57103e7b81272e74}} 
+typedef N\+T\+S\+T\+A\+T\+US($\ast$ {\bfseries Hiber\+Driver\+Write\+FunctionA}) (U\+L\+O\+NG arg0, P\+L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER write\+Offset, P\+M\+DL data\+Mdl, P\+V\+O\+ID arg3)
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a1408eda9188f5e1b4a7ee493a06229a1}\label{_drive_filter_8c_a1408eda9188f5e1b4a7ee493a06229a1}} 
+typedef N\+T\+S\+T\+A\+T\+US($\ast$ {\bfseries Hiber\+Driver\+Write\+FunctionB}) (P\+L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER write\+Offset, P\+M\+DL data\+Mdl)
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a30e3580e62442986ed7a4fcee436abad}\label{_drive_filter_8c_a30e3580e62442986ed7a4fcee436abad}} 
+typedef N\+T\+S\+T\+A\+T\+US($\ast$ {\bfseries Hiber\+Driver\+Entry}) (P\+V\+O\+ID arg0, \hyperlink{struct_hiber_driver_context}{Hiber\+Driver\+Context} $\ast$hiber\+Driver\+Context)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_aea2e8fbefa4e00dfc523629905da1a87}{Load\+Boot\+Arguments} ()
+\begin{DoxyCompactList}\small\item\em Read the boot part segment by segment and set the parameters for the cryptology, where the partition starts ... \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_aee250d36a6e99592811951c6ba3613e5}{Drive\+Filter\+Add\+Device} (P\+D\+R\+I\+V\+E\+R\+\_\+\+O\+B\+J\+E\+CT driver\+Object, P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT pdo)
+\begin{DoxyCompactList}\small\item\em Add to the drive\+Filter a device and initialise it\textquotesingle{}s value of encryptment. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_a76687d443d2ff9f691b7e55750ab2383}{Drive\+Filter\+Dispatch\+Irp} (P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT Device\+Object, P\+I\+RP Irp)
+\begin{DoxyCompactList}\small\item\em Read the irp major function and use the right function to manage the type of irp sent. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_ad42833fd28a6390d2b165aaea9ea2ca6}{Reopen\+Boot\+Volume\+Header} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Send a request to open the boot volume header and read if accepted. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_a8ebd09edb9be16fddaef3e602fa3f38a}{Start\+Legacy\+Hibernation\+Driver\+Filter} ()
+\begin{DoxyCompactList}\small\item\em Start the hibernation of the driver filter. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_ad15951e30bfa20df4b054535755575a1}{Start\+Boot\+Encryption\+Setup} (P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT Device\+Object, P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Send to the device the packet that will ask to encrypt. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_a980e6ff2cd34d815a42715b35cbd62a9}{Get\+Boot\+Drive\+Volume\+Properties} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Get the boot properties of the volume. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_aeecf7fc1f7ef05a5a58c30b4353b822a}{Get\+Boot\+Encryption\+Status} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Get the boot encryption status and put into the structure boot\+Enc\+Status. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_ace107a33c76ea5d3e65f3db54bc0ad11}{Get\+Boot\+Loader\+Version} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Get the boot loader version by sending a packet to the driver. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_a34bfdfb556e32d0efc8f71e1b270e52b}{Get\+Boot\+Encryption\+Algorithm\+Name} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Send a packet to the driver to know the algorithm used. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_a7a66ec73d373e8c5f922e8d04f78181a}{Get\+Setup\+Result} ()
+\begin{DoxyCompactList}\small\item\em Getter for Setupd Result. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_drive_filter_8c_a5eb5c8d246416f300effd75a49592ce1}{Is\+Boot\+Drive\+Mounted} ()
+\begin{DoxyCompactList}\small\item\em Getter to know if a drive is mounted. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_drive_filter_8c_a5db0013af3d31cf4fb4494a8a40d0794}{Is\+Boot\+Encryption\+Setup\+In\+Progress} ()
+\begin{DoxyCompactList}\small\item\em Getter for Setud in progress variable. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_drive_filter_8c_aed90fff4a3656574fe8e1640cfa14abb}{Is\+Hidden\+System\+Running} ()
+\begin{DoxyCompactList}\small\item\em Getter to know if the system is running. \end{DoxyCompactList}\item 
+\hyperlink{struct___drive_filter_extension}{Drive\+Filter\+Extension} $\ast$ \hyperlink{_drive_filter_8c_aec7421ddc80e74c0eaf6550400be1492}{Get\+Boot\+Drive\+Filter\+Extension} ()
+\begin{DoxyCompactList}\small\item\em Getter for the boot drive filter extension. \end{DoxyCompactList}\item 
+\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ \hyperlink{_drive_filter_8c_a215c1ab6b69620a1886260386c32499d}{Get\+System\+Drive\+Crypto\+Info} ()
+\begin{DoxyCompactList}\small\item\em Getter for the cryptologic information about the system drive. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_aa89dd2943d023eccaf488a5e75ecbf8c}{Abort\+Boot\+Encryption\+Setup} ()
+\begin{DoxyCompactList}\small\item\em Stop the encryption setup for the boot. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_a17e83551909aead4bda4e1c1b87ee0bf}{Start\+Decoy\+System\+Wipe} (P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT Device\+Object, P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Launch the abort of the decoy encrypting system. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_drive_filter_8c_a4ff40c543ee494742d77389f9bb1ac5c}{Is\+Decoy\+System\+Wipe\+In\+Progress} ()
+\begin{DoxyCompactList}\small\item\em Getter for the decoy wipe system is running or not. \end{DoxyCompactList}\item 
+void \hyperlink{_drive_filter_8c_a09f3131778c9e760bc08a93000b5f47c}{Get\+Decoy\+System\+Wipe\+Status} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Getter for the decoy wipe system status. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_a7e688304a7b5792ea69e0b348599bb18}{Get\+Decoy\+System\+Wipe\+Result} ()
+\begin{DoxyCompactList}\small\item\em Getter for the decoy system wipe result. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_acee33d06a6aba5fade24ece52f631283}{Abort\+Decoy\+System\+Wipe} ()
+\begin{DoxyCompactList}\small\item\em Abort decoy system wipe. \end{DoxyCompactList}\item 
+\hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} \hyperlink{_drive_filter_8c_a75bc15010a09649b65079ac5ea651cb3}{Get\+Boot\+Drive\+Length} ()
+\begin{DoxyCompactList}\small\item\em Getter for the boot drive length. \end{DoxyCompactList}\item 
+N\+T\+S\+T\+A\+T\+US \hyperlink{_drive_filter_8c_a23b86125ef582cb2fb62bbe6bfd099c5}{Write\+Boot\+Drive\+Sector} (P\+I\+RP irp, P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON irp\+Sp)
+\begin{DoxyCompactList}\small\item\em Write into a soctor of the boot drive. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a02c320842179cad6b9deba8cc3d0bf09}\label{_drive_filter_8c_a02c320842179cad6b9deba8cc3d0bf09}} 
+B\+O\+OL {\bfseries Boot\+Args\+Valid} = F\+A\+L\+SE
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_a241d9e83bf92d99bf1486dff3b733356}\label{_drive_filter_8c_a241d9e83bf92d99bf1486dff3b733356}} 
+\hyperlink{struct_boot_arguments}{Boot\+Arguments} {\bfseries Boot\+Args}
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_aa0d6d713cfdf4f60bcd00b89f3c34771}\label{_drive_filter_8c_aa0d6d713cfdf4f60bcd00b89f3c34771}} 
+P\+K\+T\+H\+R\+E\+AD {\bfseries Encryption\+Setup\+Thread} = N\+U\+LL
+\item 
+\mbox{\Hypertarget{_drive_filter_8c_ad8e0f11a9003d82179087f54bf1465d6}\label{_drive_filter_8c_ad8e0f11a9003d82179087f54bf1465d6}} 
+P\+K\+T\+H\+R\+E\+AD {\bfseries Decoy\+System\+Wipe\+Thread} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the link between the application, the driver, and the device. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_drive_filter_8c_aa89dd2943d023eccaf488a5e75ecbf8c}\label{_drive_filter_8c_aa89dd2943d023eccaf488a5e75ecbf8c}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Abort\+Boot\+Encryption\+Setup@{Abort\+Boot\+Encryption\+Setup}}
+\index{Abort\+Boot\+Encryption\+Setup@{Abort\+Boot\+Encryption\+Setup}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Abort\+Boot\+Encryption\+Setup()}{AbortBootEncryptionSetup()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Abort\+Boot\+Encryption\+Setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Stop the encryption setup for the boot. 
+
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US S\+T\+A\+T\+U\+S\+\_\+\+S\+U\+C\+C\+E\+SS if success S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED if not 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_aa89dd2943d023eccaf488a5e75ecbf8c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_acee33d06a6aba5fade24ece52f631283}\label{_drive_filter_8c_acee33d06a6aba5fade24ece52f631283}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Abort\+Decoy\+System\+Wipe@{Abort\+Decoy\+System\+Wipe}}
+\index{Abort\+Decoy\+System\+Wipe@{Abort\+Decoy\+System\+Wipe}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Abort\+Decoy\+System\+Wipe()}{AbortDecoySystemWipe()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Abort\+Decoy\+System\+Wipe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Abort decoy system wipe. 
+
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US S\+T\+A\+T\+U\+S\+\_\+\+S\+U\+C\+C\+E\+SS if success S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED if not 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_acee33d06a6aba5fade24ece52f631283_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_aee250d36a6e99592811951c6ba3613e5}\label{_drive_filter_8c_aee250d36a6e99592811951c6ba3613e5}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Drive\+Filter\+Add\+Device@{Drive\+Filter\+Add\+Device}}
+\index{Drive\+Filter\+Add\+Device@{Drive\+Filter\+Add\+Device}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Drive\+Filter\+Add\+Device()}{DriveFilterAddDevice()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Drive\+Filter\+Add\+Device (\begin{DoxyParamCaption}\item[{P\+D\+R\+I\+V\+E\+R\+\_\+\+O\+B\+J\+E\+CT}]{driver\+Object,  }\item[{P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT}]{pdo }\end{DoxyParamCaption})}
+
+
+
+Add to the drive\+Filter a device and initialise it\textquotesingle{}s value of encryptment. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT} & pdo \\
+\hline
+\mbox{\tt in}  & {\em P\+D\+R\+I\+V\+E\+R\+\_\+\+O\+B\+J\+E\+CT} & driver\+Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a76687d443d2ff9f691b7e55750ab2383}\label{_drive_filter_8c_a76687d443d2ff9f691b7e55750ab2383}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Drive\+Filter\+Dispatch\+Irp@{Drive\+Filter\+Dispatch\+Irp}}
+\index{Drive\+Filter\+Dispatch\+Irp@{Drive\+Filter\+Dispatch\+Irp}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Drive\+Filter\+Dispatch\+Irp()}{DriveFilterDispatchIrp()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Drive\+Filter\+Dispatch\+Irp (\begin{DoxyParamCaption}\item[{P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT}]{Device\+Object,  }\item[{P\+I\+RP}]{Irp }\end{DoxyParamCaption})}
+
+
+
+Read the irp major function and use the right function to manage the type of irp sent. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+RP} & Irp \\
+\hline
+\mbox{\tt in}  & {\em P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT} & Device\+Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a76687d443d2ff9f691b7e55750ab2383_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{_drive_filter_8c_a76687d443d2ff9f691b7e55750ab2383_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_aec7421ddc80e74c0eaf6550400be1492}\label{_drive_filter_8c_aec7421ddc80e74c0eaf6550400be1492}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Drive\+Filter\+Extension@{Get\+Boot\+Drive\+Filter\+Extension}}
+\index{Get\+Boot\+Drive\+Filter\+Extension@{Get\+Boot\+Drive\+Filter\+Extension}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Drive\+Filter\+Extension()}{GetBootDriveFilterExtension()}}
+{\footnotesize\ttfamily \hyperlink{struct___drive_filter_extension}{Drive\+Filter\+Extension} $\ast$ Get\+Boot\+Drive\+Filter\+Extension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the boot drive filter extension. 
+
+\begin{DoxyReturn}{Returns}
+Drive\+Filter\+Extension $\ast$ Boot\+Drive\+Filter\+Extension 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a75bc15010a09649b65079ac5ea651cb3}\label{_drive_filter_8c_a75bc15010a09649b65079ac5ea651cb3}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Drive\+Length@{Get\+Boot\+Drive\+Length}}
+\index{Get\+Boot\+Drive\+Length@{Get\+Boot\+Drive\+Length}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Drive\+Length()}{GetBootDriveLength()}}
+{\footnotesize\ttfamily \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} Get\+Boot\+Drive\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the boot drive length. 
+
+\begin{DoxyReturn}{Returns}
+uint64 Boot\+Drive\+Length.\+Quad\+Part 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a980e6ff2cd34d815a42715b35cbd62a9}\label{_drive_filter_8c_a980e6ff2cd34d815a42715b35cbd62a9}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Drive\+Volume\+Properties@{Get\+Boot\+Drive\+Volume\+Properties}}
+\index{Get\+Boot\+Drive\+Volume\+Properties@{Get\+Boot\+Drive\+Volume\+Properties}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Drive\+Volume\+Properties()}{GetBootDriveVolumeProperties()}}
+{\footnotesize\ttfamily void Get\+Boot\+Drive\+Volume\+Properties (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Get the boot properties of the volume. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a980e6ff2cd34d815a42715b35cbd62a9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a34bfdfb556e32d0efc8f71e1b270e52b}\label{_drive_filter_8c_a34bfdfb556e32d0efc8f71e1b270e52b}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Encryption\+Algorithm\+Name@{Get\+Boot\+Encryption\+Algorithm\+Name}}
+\index{Get\+Boot\+Encryption\+Algorithm\+Name@{Get\+Boot\+Encryption\+Algorithm\+Name}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Encryption\+Algorithm\+Name()}{GetBootEncryptionAlgorithmName()}}
+{\footnotesize\ttfamily void Get\+Boot\+Encryption\+Algorithm\+Name (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Send a packet to the driver to know the algorithm used. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a34bfdfb556e32d0efc8f71e1b270e52b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_aeecf7fc1f7ef05a5a58c30b4353b822a}\label{_drive_filter_8c_aeecf7fc1f7ef05a5a58c30b4353b822a}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Encryption\+Status@{Get\+Boot\+Encryption\+Status}}
+\index{Get\+Boot\+Encryption\+Status@{Get\+Boot\+Encryption\+Status}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Encryption\+Status()}{GetBootEncryptionStatus()}}
+{\footnotesize\ttfamily void Get\+Boot\+Encryption\+Status (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Get the boot encryption status and put into the structure boot\+Enc\+Status. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_aeecf7fc1f7ef05a5a58c30b4353b822a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_ace107a33c76ea5d3e65f3db54bc0ad11}\label{_drive_filter_8c_ace107a33c76ea5d3e65f3db54bc0ad11}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Boot\+Loader\+Version@{Get\+Boot\+Loader\+Version}}
+\index{Get\+Boot\+Loader\+Version@{Get\+Boot\+Loader\+Version}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Boot\+Loader\+Version()}{GetBootLoaderVersion()}}
+{\footnotesize\ttfamily void Get\+Boot\+Loader\+Version (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Get the boot loader version by sending a packet to the driver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{_drive_filter_8c_ace107a33c76ea5d3e65f3db54bc0ad11_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a7e688304a7b5792ea69e0b348599bb18}\label{_drive_filter_8c_a7e688304a7b5792ea69e0b348599bb18}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Decoy\+System\+Wipe\+Result@{Get\+Decoy\+System\+Wipe\+Result}}
+\index{Get\+Decoy\+System\+Wipe\+Result@{Get\+Decoy\+System\+Wipe\+Result}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Decoy\+System\+Wipe\+Result()}{GetDecoySystemWipeResult()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Get\+Decoy\+System\+Wipe\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the decoy system wipe result. 
+
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US Decoy\+System\+Wipe\+Result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a09f3131778c9e760bc08a93000b5f47c}\label{_drive_filter_8c_a09f3131778c9e760bc08a93000b5f47c}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Decoy\+System\+Wipe\+Status@{Get\+Decoy\+System\+Wipe\+Status}}
+\index{Get\+Decoy\+System\+Wipe\+Status@{Get\+Decoy\+System\+Wipe\+Status}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Decoy\+System\+Wipe\+Status()}{GetDecoySystemWipeStatus()}}
+{\footnotesize\ttfamily void Get\+Decoy\+System\+Wipe\+Status (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Getter for the decoy wipe system status. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a09f3131778c9e760bc08a93000b5f47c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a7a66ec73d373e8c5f922e8d04f78181a}\label{_drive_filter_8c_a7a66ec73d373e8c5f922e8d04f78181a}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+Setup\+Result@{Get\+Setup\+Result}}
+\index{Get\+Setup\+Result@{Get\+Setup\+Result}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+Setup\+Result()}{GetSetupResult()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Get\+Setup\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for Setupd Result. 
+
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US Setup\+Result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a215c1ab6b69620a1886260386c32499d}\label{_drive_filter_8c_a215c1ab6b69620a1886260386c32499d}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Get\+System\+Drive\+Crypto\+Info@{Get\+System\+Drive\+Crypto\+Info}}
+\index{Get\+System\+Drive\+Crypto\+Info@{Get\+System\+Drive\+Crypto\+Info}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Get\+System\+Drive\+Crypto\+Info()}{GetSystemDriveCryptoInfo()}}
+{\footnotesize\ttfamily \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ Get\+System\+Drive\+Crypto\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the cryptologic information about the system drive. 
+
+\begin{DoxyReturn}{Returns}
+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO $\ast$ Boot\+Drive\+Filter\+Extension-\/$>$Queue.\+Crypto\+Info 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a5eb5c8d246416f300effd75a49592ce1}\label{_drive_filter_8c_a5eb5c8d246416f300effd75a49592ce1}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Is\+Boot\+Drive\+Mounted@{Is\+Boot\+Drive\+Mounted}}
+\index{Is\+Boot\+Drive\+Mounted@{Is\+Boot\+Drive\+Mounted}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Is\+Boot\+Drive\+Mounted()}{IsBootDriveMounted()}}
+{\footnotesize\ttfamily B\+O\+OL Is\+Boot\+Drive\+Mounted (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter to know if a drive is mounted. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Boot\+Drive\+Filter\+Extension \&\& Boot\+Drive\+Filter\+Extension-\/$>$Drive\+Mounted 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{_drive_filter_8c_a5eb5c8d246416f300effd75a49592ce1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a5db0013af3d31cf4fb4494a8a40d0794}\label{_drive_filter_8c_a5db0013af3d31cf4fb4494a8a40d0794}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Is\+Boot\+Encryption\+Setup\+In\+Progress@{Is\+Boot\+Encryption\+Setup\+In\+Progress}}
+\index{Is\+Boot\+Encryption\+Setup\+In\+Progress@{Is\+Boot\+Encryption\+Setup\+In\+Progress}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Is\+Boot\+Encryption\+Setup\+In\+Progress()}{IsBootEncryptionSetupInProgress()}}
+{\footnotesize\ttfamily B\+O\+OL Is\+Boot\+Encryption\+Setup\+In\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for Setud in progress variable. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Setup\+In\+Progress 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_a4ff40c543ee494742d77389f9bb1ac5c}\label{_drive_filter_8c_a4ff40c543ee494742d77389f9bb1ac5c}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Is\+Decoy\+System\+Wipe\+In\+Progress@{Is\+Decoy\+System\+Wipe\+In\+Progress}}
+\index{Is\+Decoy\+System\+Wipe\+In\+Progress@{Is\+Decoy\+System\+Wipe\+In\+Progress}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Is\+Decoy\+System\+Wipe\+In\+Progress()}{IsDecoySystemWipeInProgress()}}
+{\footnotesize\ttfamily B\+O\+OL Is\+Decoy\+System\+Wipe\+In\+Progress (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the decoy wipe system is running or not. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Decoy\+System\+Wipe\+In\+Progress 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_aed90fff4a3656574fe8e1640cfa14abb}\label{_drive_filter_8c_aed90fff4a3656574fe8e1640cfa14abb}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Is\+Hidden\+System\+Running@{Is\+Hidden\+System\+Running}}
+\index{Is\+Hidden\+System\+Running@{Is\+Hidden\+System\+Running}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Is\+Hidden\+System\+Running()}{IsHiddenSystemRunning()}}
+{\footnotesize\ttfamily B\+O\+OL Is\+Hidden\+System\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter to know if the system is running. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Boot\+Drive\+Filter\+Extension \&\& Boot\+Drive\+Filter\+Extension-\/$>$Hidden\+System 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_aed90fff4a3656574fe8e1640cfa14abb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_aea2e8fbefa4e00dfc523629905da1a87}\label{_drive_filter_8c_aea2e8fbefa4e00dfc523629905da1a87}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Load\+Boot\+Arguments@{Load\+Boot\+Arguments}}
+\index{Load\+Boot\+Arguments@{Load\+Boot\+Arguments}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Load\+Boot\+Arguments()}{LoadBootArguments()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Load\+Boot\+Arguments (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the boot part segment by segment and set the parameters for the cryptology, where the partition starts ... 
+
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_ad42833fd28a6390d2b165aaea9ea2ca6}\label{_drive_filter_8c_ad42833fd28a6390d2b165aaea9ea2ca6}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Reopen\+Boot\+Volume\+Header@{Reopen\+Boot\+Volume\+Header}}
+\index{Reopen\+Boot\+Volume\+Header@{Reopen\+Boot\+Volume\+Header}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Reopen\+Boot\+Volume\+Header()}{ReopenBootVolumeHeader()}}
+{\footnotesize\ttfamily void Reopen\+Boot\+Volume\+Header (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Send a request to open the boot volume header and read if accepted. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_drive_filter_8c_ad15951e30bfa20df4b054535755575a1}\label{_drive_filter_8c_ad15951e30bfa20df4b054535755575a1}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Start\+Boot\+Encryption\+Setup@{Start\+Boot\+Encryption\+Setup}}
+\index{Start\+Boot\+Encryption\+Setup@{Start\+Boot\+Encryption\+Setup}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Start\+Boot\+Encryption\+Setup()}{StartBootEncryptionSetup()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Start\+Boot\+Encryption\+Setup (\begin{DoxyParamCaption}\item[{P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT}]{Device\+Object,  }\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Send to the device the packet that will ask to encrypt. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\mbox{\tt in}  & {\em P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT} & Device\+Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_ad15951e30bfa20df4b054535755575a1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a17e83551909aead4bda4e1c1b87ee0bf}\label{_drive_filter_8c_a17e83551909aead4bda4e1c1b87ee0bf}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Start\+Decoy\+System\+Wipe@{Start\+Decoy\+System\+Wipe}}
+\index{Start\+Decoy\+System\+Wipe@{Start\+Decoy\+System\+Wipe}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Start\+Decoy\+System\+Wipe()}{StartDecoySystemWipe()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Start\+Decoy\+System\+Wipe (\begin{DoxyParamCaption}\item[{P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT}]{Device\+Object,  }\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Launch the abort of the decoy encrypting system. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\mbox{\tt in}  & {\em P\+D\+E\+V\+I\+C\+E\+\_\+\+O\+B\+J\+E\+CT} & Device\+Object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a17e83551909aead4bda4e1c1b87ee0bf_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a8ebd09edb9be16fddaef3e602fa3f38a}\label{_drive_filter_8c_a8ebd09edb9be16fddaef3e602fa3f38a}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Start\+Legacy\+Hibernation\+Driver\+Filter@{Start\+Legacy\+Hibernation\+Driver\+Filter}}
+\index{Start\+Legacy\+Hibernation\+Driver\+Filter@{Start\+Legacy\+Hibernation\+Driver\+Filter}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Start\+Legacy\+Hibernation\+Driver\+Filter()}{StartLegacyHibernationDriverFilter()}}
+{\footnotesize\ttfamily void Start\+Legacy\+Hibernation\+Driver\+Filter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Start the hibernation of the driver filter. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a8ebd09edb9be16fddaef3e602fa3f38a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_drive_filter_8c_a23b86125ef582cb2fb62bbe6bfd099c5}\label{_drive_filter_8c_a23b86125ef582cb2fb62bbe6bfd099c5}} 
+\index{Drive\+Filter.\+c@{Drive\+Filter.\+c}!Write\+Boot\+Drive\+Sector@{Write\+Boot\+Drive\+Sector}}
+\index{Write\+Boot\+Drive\+Sector@{Write\+Boot\+Drive\+Sector}!Drive\+Filter.\+c@{Drive\+Filter.\+c}}
+\subsubsection{\texorpdfstring{Write\+Boot\+Drive\+Sector()}{WriteBootDriveSector()}}
+{\footnotesize\ttfamily N\+T\+S\+T\+A\+T\+US Write\+Boot\+Drive\+Sector (\begin{DoxyParamCaption}\item[{P\+I\+RP}]{irp,  }\item[{P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON}]{irp\+Sp }\end{DoxyParamCaption})}
+
+
+
+Write into a soctor of the boot drive. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+I\+O\+\_\+\+S\+T\+A\+C\+K\+\_\+\+L\+O\+C\+A\+T\+I\+ON} & irp\+Sp \\
+\hline
+\mbox{\tt in}  & {\em P\+I\+RP} & irp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+T\+S\+T\+A\+T\+US S\+T\+A\+T\+U\+S\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED S\+T\+A\+T\+U\+S\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+P\+A\+R\+A\+M\+E\+T\+ER 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_drive_filter_8c_a23b86125ef582cb2fb62bbe6bfd099c5_cgraph}
+\end{center}
+\end{figure}

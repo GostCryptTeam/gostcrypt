@@ -1,0 +1,4 @@
+<map id="ThrowFatalException" name="ThrowFatalException">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="293,5,369,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="196,31,245,57"/>
+</map>

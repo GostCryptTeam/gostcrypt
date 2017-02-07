@@ -1,0 +1,7 @@
+<map id="WriteSectors" name="WriteSectors">
+<area shape="rect" id="node2" href="$_boot_disk_io_8cpp.html#ae802749641f6e316dd845d44798f3fdf" title="Read and write MBR. " alt="" coords="152,56,264,83"/>
+<area shape="rect" id="node3" href="$_boot_config_8cpp.html#a4ec19b2ea446c315530ca19ab2b4092f" title="Read the boot sector of user configuration. " alt="" coords="312,5,531,32"/>
+<area shape="rect" id="node4" href="$_boot_config_8cpp.html#a6e9a133ae5429bffabe3ae43b377cd53" title="Update boot sector configuration. " alt="" coords="320,56,523,83"/>
+<area shape="rect" id="node5" href="$_boot_disk_io_8cpp.html#a82efc8114d02c190715eec1f580c409d" title="Get drive partitions. " alt="" coords="358,107,485,133"/>
+<area shape="rect" id="node6" href="$_boot_disk_io_8cpp.html#a85f26533c5b3138b22fb8f3d2f378d2b" title="Get the active partition. " alt="" coords="579,107,705,133"/>
+</map>

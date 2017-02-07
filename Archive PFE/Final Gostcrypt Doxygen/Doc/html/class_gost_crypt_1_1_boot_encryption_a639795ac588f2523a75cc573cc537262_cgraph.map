@@ -1,0 +1,12 @@
+<map id="GostCrypt::BootEncryption::SystemDriveIsDynamic" name="GostCrypt::BootEncryption::SystemDriveIsDynamic">
+<area shape="rect" id="node2" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="985,35,1024,62"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#ab325c58a9939344bdfe056d20df0f5ff" title="Get the system drive configuration. " alt="" coords="232,95,431,136"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#a7f8882a862c69d803f2af4d021329e97" title="Call the driver. " alt="" coords="705,225,884,267"/>
+<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="1125,35,1164,62"/>
+<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="1212,35,1251,62"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a2faa08fabf7bd37b8ebd9e0b6b437274" title="Get windows directory. " alt="" coords="479,61,657,103"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#a3043ae06af0b4d63e45806ddc1458006" title="Get the drive partitions. " alt="" coords="479,127,657,168"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#a80616b5324b470ef41e166bdd5923668" title="Convert string to upper case. " alt="" coords="518,193,618,219"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#af678fa10d3bbe8c424ad511817c3d9b3" title="Returns drive letter number assigned to device (&#45;1 if none) " alt="" coords="711,111,879,138"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#a298a94adf70e2908284827f565560429" title="Resolv all symbolic link. " alt="" coords="932,137,1077,163"/>
+</map>

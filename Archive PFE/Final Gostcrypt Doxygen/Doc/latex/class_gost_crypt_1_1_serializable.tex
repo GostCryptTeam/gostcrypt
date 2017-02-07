@@ -1,0 +1,132 @@
+\hypertarget{class_gost_crypt_1_1_serializable}{}\section{Gost\+Crypt\+:\+:Serializable Class Reference}
+\label{class_gost_crypt_1_1_serializable}\index{Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}}
+
+
+Inheritance diagram for Gost\+Crypt\+:\+:Serializable\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_ab49828f6674fc0a0da833bc2a31267d6}\label{class_gost_crypt_1_1_serializable_ab49828f6674fc0a0da833bc2a31267d6}} 
+virtual void {\bfseries Deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream)=0
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_a714dab70c126b478eb83d1637e49e4fc}\label{class_gost_crypt_1_1_serializable_a714dab70c126b478eb83d1637e49e4fc}} 
+virtual void {\bfseries Serialize} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static string \hyperlink{class_gost_crypt_1_1_serializable_a7f36a9d2ec09e05dee375b802fa13ab1}{Deserialize\+Header} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream)
+\item 
+static \hyperlink{class_gost_crypt_1_1_serializable}{Serializable} $\ast$ \hyperlink{class_gost_crypt_1_1_serializable_a2a1a45654e086d8b894d027bb781627a}{Deserialize\+New} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_a2a49042b4bc28f0e83dda746fbc49da3}\label{class_gost_crypt_1_1_serializable_a2a49042b4bc28f0e83dda746fbc49da3}} 
+{\footnotesize template$<$class T $>$ }\\static shared\+\_\+ptr$<$ \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} $>$ {\bfseries Deserialize\+New} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_abe7223b009bab2b7537191e153bb03ee}\label{class_gost_crypt_1_1_serializable_abe7223b009bab2b7537191e153bb03ee}} 
+{\footnotesize template$<$class T $>$ }\\static void {\bfseries Deserialize\+List} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream, list$<$ shared\+\_\+ptr$<$ \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} $>$ $>$ \&data\+List)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_ab1e531dba17476da959bdbc53ef4b137}\label{class_gost_crypt_1_1_serializable_ab1e531dba17476da959bdbc53ef4b137}} 
+{\footnotesize template$<$class T $>$ }\\static void {\bfseries Serialize\+List} (shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$ stream, const list$<$ shared\+\_\+ptr$<$ \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} $>$ $>$ \&data\+List)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_serializable_a6228b7fc3bb16947ea6b39aa3f20aca1}{Serialize\+Header} (\hyperlink{class_gost_crypt_1_1_serializer}{Serializer} \&serializer, const string \&name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_a7f36a9d2ec09e05dee375b802fa13ab1}\label{class_gost_crypt_1_1_serializable_a7f36a9d2ec09e05dee375b802fa13ab1}} 
+\index{Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}!Deserialize\+Header@{Deserialize\+Header}}
+\index{Deserialize\+Header@{Deserialize\+Header}!Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}}
+\subsubsection{\texorpdfstring{Deserialize\+Header()}{DeserializeHeader()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+Serializable\+::\+Deserialize\+Header (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$}]{stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em shared\+\_\+ptr} & $<$\+Stream$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable_a7f36a9d2ec09e05dee375b802fa13ab1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable_a7f36a9d2ec09e05dee375b802fa13ab1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_a2a1a45654e086d8b894d027bb781627a}\label{class_gost_crypt_1_1_serializable_a2a1a45654e086d8b894d027bb781627a}} 
+\index{Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}!Deserialize\+New@{Deserialize\+New}}
+\index{Deserialize\+New@{Deserialize\+New}!Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}}
+\subsubsection{\texorpdfstring{Deserialize\+New()}{DeserializeNew()}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_serializable}{Serializable} $\ast$ Gost\+Crypt\+::\+Serializable\+::\+Deserialize\+New (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \hyperlink{class_gost_crypt_1_1_stream}{Stream} $>$}]{stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em shared\+\_\+ptr} & $<$\+Stream$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable_a2a1a45654e086d8b894d027bb781627a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_serializable_a6228b7fc3bb16947ea6b39aa3f20aca1}\label{class_gost_crypt_1_1_serializable_a6228b7fc3bb16947ea6b39aa3f20aca1}} 
+\index{Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}!Serialize\+Header@{Serialize\+Header}}
+\index{Serialize\+Header@{Serialize\+Header}!Gost\+Crypt\+::\+Serializable@{Gost\+Crypt\+::\+Serializable}}
+\subsubsection{\texorpdfstring{Serialize\+Header()}{SerializeHeader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Serializable\+::\+Serialize\+Header (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_serializer}{Serializer} \&}]{serializer,  }\item[{const string \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{class_gost_crypt_1_1_serializer}{Serializer}} & \&serializer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable_a6228b7fc3bb16947ea6b39aa3f20aca1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_serializable_a6228b7fc3bb16947ea6b39aa3f20aca1_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform/Serializable.\+h\item 
+Platform/\hyperlink{_serializable_8cpp}{Serializable.\+cpp}\end{DoxyCompactItemize}

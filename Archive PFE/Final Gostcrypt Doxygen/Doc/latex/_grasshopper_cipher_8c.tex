@@ -1,0 +1,545 @@
+\hypertarget{_grasshopper_cipher_8c}{}\section{Crypto/\+Grasshopper\+Cipher.c File Reference}
+\label{_grasshopper_cipher_8c}\index{Crypto/\+Grasshopper\+Cipher.\+c@{Crypto/\+Grasshopper\+Cipher.\+c}}
+
+
+Key setup, encryption and decryption procedure.  
+
+
+{\ttfamily \#include \char`\"{}Grasshopper\+Cipher.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for Grasshopper\+Cipher.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{_grasshopper_cipher_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a56efe30edac1e0cce6167cb840c2e470}{S} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Apply S conversion. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_a46436dc8b92d9ad643ef443af3392e27}{S\+\_\+inv} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Inverse of S conversion. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_a6cbf3c8e29c4398a3dc1fa13e979da17}{ll} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Get conversion value. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_abb3e0356548dd4a7ddefbb57b5255eb6}{R} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Apply R conversion. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_ae7db41b7c51c2721085637dd810dd257}{R\+\_\+inv} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Inverse of R conversion. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0}{L} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em L conversion (16 iteration of R) \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_a6ea6ff18be6c29236c40ab2b0818c18e}{L\+\_\+inv} (unsigned long $\ast$block)
+\begin{DoxyCompactList}\small\item\em Inverse of L conversion (16 iteration of R\+\_\+inv) \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_acea73ea2211a8c6ff219e586d742d99f}{F} (unsigned long $\ast$k, unsigned long $\ast$block1, unsigned long $\ast$block0)
+\begin{DoxyCompactList}\small\item\em F conversion (used in key setup) \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_a6b136aade799131cab66db1d5d4df8b0}{grasshopper\+\_\+set\+\_\+key} (unsigned long $\ast$master\+\_\+key, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys)
+\begin{DoxyCompactList}\small\item\em Key setup procedure. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_a8a03545392da4eb01f3fcd5197d42444}{grasshopper\+\_\+encrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long $\ast$plaintext, unsigned long $\ast$ciphertext)
+\begin{DoxyCompactList}\small\item\em Encryption procedure. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_aaaba43e85bfee3b0522a31774f6072c5}{grasshopper\+\_\+decrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long $\ast$ciphertext, unsigned long $\ast$plaintext)
+\begin{DoxyCompactList}\small\item\em Decryption procedure. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_ad8cf60c4110f955b04bd81336abcd5fe}{grasshopper\+\_\+xor\+\_\+ks} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$ks, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$out\+\_\+ks, unsigned long $\ast$in, unsigned int len)
+\begin{DoxyCompactList}\small\item\em Apply grasshopper algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{_grasshopper_cipher_8c_a6107e1c52141eb86bb87182173247783}{change\+Endian} (unsigned long $\ast$ret)
+\begin{DoxyCompactList}\small\item\em Switch opposed bytes (lower byte to upper byte, ...) of unsigned long. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}{pi} \mbox{[}256\mbox{]}
+\item 
+unsigned char {\bfseries pi\+\_\+inv} \mbox{[}256\mbox{]}
+\item 
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ae8fbefad811c724c4b3a6128eaca4880}\label{_grasshopper_cipher_8c_ae8fbefad811c724c4b3a6128eaca4880}} 
+unsigned char {\bfseries mult\+\_\+mod\+\_\+poly} \mbox{[}8\mbox{]}\mbox{[}256\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Key setup, encryption and decryption procedure. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a6107e1c52141eb86bb87182173247783}\label{_grasshopper_cipher_8c_a6107e1c52141eb86bb87182173247783}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!change\+Endian@{change\+Endian}}
+\index{change\+Endian@{change\+Endian}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{change\+Endian()}{changeEndian()}}
+{\footnotesize\ttfamily void change\+Endian (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{ret }\end{DoxyParamCaption})}
+
+
+
+Switch opposed bytes (lower byte to upper byte, ...) of unsigned long. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ ret \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6107e1c52141eb86bb87182173247783_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6107e1c52141eb86bb87182173247783_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_acea73ea2211a8c6ff219e586d742d99f}\label{_grasshopper_cipher_8c_acea73ea2211a8c6ff219e586d742d99f}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!F@{F}}
+\index{F@{F}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{F()}{F()}}
+{\footnotesize\ttfamily void F (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{k,  }\item[{unsigned long $\ast$}]{block1,  }\item[{unsigned long $\ast$}]{block0 }\end{DoxyParamCaption})}
+
+
+
+F conversion (used in key setup) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block0 \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block1 \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ k \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_acea73ea2211a8c6ff219e586d742d99f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_aaaba43e85bfee3b0522a31774f6072c5}\label{_grasshopper_cipher_8c_aaaba43e85bfee3b0522a31774f6072c5}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}}
+\index{grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+decrypt()}{grasshopper\_decrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+decrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long $\ast$}]{ciphertext,  }\item[{unsigned long $\ast$}]{plaintext }\end{DoxyParamCaption})}
+
+
+
+Decryption procedure. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ plaintext \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ ciphertext \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}} & $\ast$ subkeys \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_aaaba43e85bfee3b0522a31774f6072c5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_aaaba43e85bfee3b0522a31774f6072c5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a8a03545392da4eb01f3fcd5197d42444}\label{_grasshopper_cipher_8c_a8a03545392da4eb01f3fcd5197d42444}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}}
+\index{grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+encrypt()}{grasshopper\_encrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+encrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long $\ast$}]{plaintext,  }\item[{unsigned long $\ast$}]{ciphertext }\end{DoxyParamCaption})}
+
+
+
+Encryption procedure. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ ciphertext \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ plaintext \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}} & $\ast$ subkeys \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a8a03545392da4eb01f3fcd5197d42444_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a8a03545392da4eb01f3fcd5197d42444_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a6b136aade799131cab66db1d5d4df8b0}\label{_grasshopper_cipher_8c_a6b136aade799131cab66db1d5d4df8b0}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}}
+\index{grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+set\+\_\+key()}{grasshopper\_set\_key()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+set\+\_\+key (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{master\+\_\+key,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys }\end{DoxyParamCaption})}
+
+
+
+Key setup procedure. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ subkeys \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ master\+\_\+key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6b136aade799131cab66db1d5d4df8b0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6b136aade799131cab66db1d5d4df8b0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ad8cf60c4110f955b04bd81336abcd5fe}\label{_grasshopper_cipher_8c_ad8cf60c4110f955b04bd81336abcd5fe}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}}
+\index{grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+xor\+\_\+ks()}{grasshopper\_xor\_ks()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+xor\+\_\+ks (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{ks,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{out\+\_\+ks,  }\item[{unsigned long $\ast$}]{in,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Apply grasshopper algorithm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & int len \\
+\hline
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ in \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}} & $\ast$ out\+\_\+ks \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}} & $\ast$ ks \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{_grasshopper_cipher_8c_ad8cf60c4110f955b04bd81336abcd5fe_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0}\label{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!L@{L}}
+\index{L@{L}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{L()}{L()}}
+{\footnotesize\ttfamily void L (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+L conversion (16 iteration of R) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{_grasshopper_cipher_8c_ad7ac77c93d4d2a4f28cf4f053605bef0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a6ea6ff18be6c29236c40ab2b0818c18e}\label{_grasshopper_cipher_8c_a6ea6ff18be6c29236c40ab2b0818c18e}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!L\+\_\+inv@{L\+\_\+inv}}
+\index{L\+\_\+inv@{L\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{L\+\_\+inv()}{L\_inv()}}
+{\footnotesize\ttfamily void L\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Inverse of L conversion (16 iteration of R\+\_\+inv) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6ea6ff18be6c29236c40ab2b0818c18e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a6ea6ff18be6c29236c40ab2b0818c18e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a6cbf3c8e29c4398a3dc1fa13e979da17}\label{_grasshopper_cipher_8c_a6cbf3c8e29c4398a3dc1fa13e979da17}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!ll@{ll}}
+\index{ll@{ll}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{ll()}{ll()}}
+{\footnotesize\ttfamily unsigned char ll (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Get conversion value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned char val 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{_grasshopper_cipher_8c_a6cbf3c8e29c4398a3dc1fa13e979da17_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_abb3e0356548dd4a7ddefbb57b5255eb6}\label{_grasshopper_cipher_8c_abb3e0356548dd4a7ddefbb57b5255eb6}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!R@{R}}
+\index{R@{R}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{R()}{R()}}
+{\footnotesize\ttfamily void R (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Apply R conversion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{_grasshopper_cipher_8c_abb3e0356548dd4a7ddefbb57b5255eb6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{_grasshopper_cipher_8c_abb3e0356548dd4a7ddefbb57b5255eb6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ae7db41b7c51c2721085637dd810dd257}\label{_grasshopper_cipher_8c_ae7db41b7c51c2721085637dd810dd257}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!R\+\_\+inv@{R\+\_\+inv}}
+\index{R\+\_\+inv@{R\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+inv()}{R\_inv()}}
+{\footnotesize\ttfamily void R\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Inverse of R conversion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{_grasshopper_cipher_8c_ae7db41b7c51c2721085637dd810dd257_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_ae7db41b7c51c2721085637dd810dd257_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a56efe30edac1e0cce6167cb840c2e470}\label{_grasshopper_cipher_8c_a56efe30edac1e0cce6167cb840c2e470}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!S@{S}}
+\index{S@{S}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{S()}{S()}}
+{\footnotesize\ttfamily void S (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Apply S conversion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a56efe30edac1e0cce6167cb840c2e470_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a46436dc8b92d9ad643ef443af3392e27}\label{_grasshopper_cipher_8c_a46436dc8b92d9ad643ef443af3392e27}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!S\+\_\+inv@{S\+\_\+inv}}
+\index{S\+\_\+inv@{S\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{S\+\_\+inv()}{S\_inv()}}
+{\footnotesize\ttfamily void S\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Inverse of S conversion. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & long $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_grasshopper_cipher_8c_a46436dc8b92d9ad643ef443af3392e27_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}\label{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!pi@{pi}}
+\index{pi@{pi}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{pi}{pi}}
+{\footnotesize\ttfamily unsigned char pi\mbox{[}256\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{252, 238, 221,  17, 207, 110,  49,  22, 251, 196, 250, 218,  35, 197,   4,  77, 
+    233, 119, 240, 219, 147,  46, 153, 186,  23,  54, 241, 187,  20, 205,  95, 193, 
+    249,  24, 101,  90, 226,  92, 239,  33, 129,  28,  60,  66, 139,   1, 142,  79, 
+    5, 132,   2, 174, 227, 106, 143, 160,   6,  11, 237, 152, 127, 212, 211,  31, 
+    235,  52,  44,  81, 234, 200,  72, 171, 242,  42, 104, 162, 253,  58, 206, 204, 
+    181, 112,  14,  86,   8,  12, 118,  18, 191, 114,  19,  71, 156, 183,  93, 135, 
+    21, 161, 150,  41,  16, 123, 154, 199, 243, 145, 120, 111, 157, 158, 178, 177, 
+    50, 117,  25,  61, 255,  53, 138, 126, 109,  84, 198, 128, 195, 189,  13,  87, 
+    223, 245,  36, 169,  62, 168,  67, 201, 215, 121, 214, 246, 124,  34, 185,   3, 
+    224,  15, 236, 222, 122, 148, 176, 188, 220, 232,  40,  80,  78,  51,  10,  74, 
+    167, 151,  96, 115,  30,   0,  98,  68,  26, 184,  56, 130, 100, 159,  38,  65, 
+    173,  69,  70, 146,  39,  94,  85,  47, 140, 163, 165, 125, 105, 213, 149,  59, 
+    7,  88, 179,  64, 134, 172,  29, 247,  48,  55, 107, 228, 136, 217, 231, 137, 
+    225,  27, 131,  73,  76,  63, 248, 254, 141,  83, 170, 144, 202, 216, 133,  97, 
+    32, 113, 103, 164,  45,  43,   9,  91, 203, 155,  37, 208, 190, 229, 108,  82, 
+    89, 166, 116, 210, 230, 244, 180, 192, 209, 102, 175, 194,  57,  75,  99, 182\}
+\end{DoxyCode}
+Implementation of Gost Grasshopper Encryption Algorithm This program implements the test vectors set provided in the reference document provided by the Standartinform, Moscow, Russian Federation. Author\+: Eric Filiol This program is protected by the G\+P\+Lv3 \mbox{\Hypertarget{_grasshopper_cipher_8c_ad2729324856b46f52dfc823a09836076}\label{_grasshopper_cipher_8c_ad2729324856b46f52dfc823a09836076}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!pi\+\_\+inv@{pi\+\_\+inv}}
+\index{pi\+\_\+inv@{pi\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{pi\+\_\+inv}{pi\_inv}}
+{\footnotesize\ttfamily unsigned char pi\+\_\+inv\mbox{[}256\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{165,  45,  50, 143,  14,  48,  56, 192,  84, 230, 158,  57,  85, 126,  82, 145,
+    100,   3,  87,  90,  28,  96,   7,  24,  33, 114, 168, 209,  41, 198, 164,  63,
+    224,  39, 141,  12, 130, 234, 174, 180, 154,  99,  73, 229,  66, 228,  21, 183,
+    200,   6, 112, 157,  65, 117,  25, 201, 170, 252,  77, 191,  42, 115, 132, 213,
+    195, 175,  43, 134, 167, 177, 178,  91,  70, 211, 159, 253, 212,  15, 156,  47,
+    155,  67, 239, 217, 121, 182,  83, 127, 193, 240,  35, 231,  37,  94, 181,  30,
+    162, 223, 166, 254, 172,  34, 249, 226,  74, 188,  53, 202, 238, 120,   5, 107,
+    81, 225,  89, 163, 242, 113,  86,  17, 106, 137, 148, 101, 140, 187, 119,  60,
+    123,  40, 171, 210,  49, 222, 196,  95, 204, 207, 118,  44, 184, 216,  46,  54,
+    219, 105, 179,  20, 149, 190,  98, 161,  59,  22, 102, 233,  92, 108, 109, 173,
+    55,  97,  75, 185, 227, 186, 241, 160, 133, 131, 218,  71, 197, 176,  51, 250,
+    150, 111, 110, 194, 246,  80, 255,  93, 169, 142,  23,  27, 151, 125, 236,  88,
+    247,  31, 251, 124,   9,  13, 122, 103,  69, 135, 220, 232,  79,  29,  78,   4,
+    235, 248, 243,  62,  61, 189, 138, 136, 221, 205,  11,  19, 152,   2, 147, 128,
+    144, 208,  36,  52, 203, 237, 244, 206, 153,  16,  68,  64, 146,  58,   1,  38,
+    18,  26,  72, 104, 245, 129, 139, 199, 214,  32,  10,   8,   0,  76, 215, 116\}
+\end{DoxyCode}

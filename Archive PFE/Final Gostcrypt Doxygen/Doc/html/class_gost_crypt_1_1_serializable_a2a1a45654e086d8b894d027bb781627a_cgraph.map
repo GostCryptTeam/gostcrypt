@@ -1,0 +1,12 @@
+<map id="GostCrypt::Serializable::DeserializeNew" name="GostCrypt::Serializable::DeserializeNew">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_serializable.html#a7f36a9d2ec09e05dee375b802fa13ab1" title="GostCrypt::Serializable\l::DeserializeHeader" alt="" coords="225,35,381,76"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_serializer_factory.html#aa7486ab2f62a5966ceefc529d659fa47" title="GostCrypt::SerializerFactory\l::GetNewSerializable" alt="" coords="209,100,396,141"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_serializable.html#a6228b7fc3bb16947ea6b39aa3f20aca1" title="GostCrypt::Serializable\l::SerializeHeader" alt="" coords="225,165,381,207"/>
+<area shape="rect" id="node10" href="$class_gost_crypt_1_1_serializer_factory.html#a01d730c850465ebe1d4d08351f755d31" title="GostCrypt::SerializerFactory\l::GetName" alt="" coords="209,231,396,272"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_serializer.html#afc4e689cfaf89809fd729c1ec2a8ec8a" title="GostCrypt::Serializer\l::DeserializeString" alt="" coords="461,35,604,76"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_serializer.html#ae0fef965dbfaeade8efd26bf7062a889" title="GostCrypt::Serializer\l::ValidateName" alt="" coords="669,5,812,47"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_serializer.html#ae242985e8f3361a362ef2068768727e2" title="GostCrypt::Serializer\l::DeserializeString" alt="" coords="860,35,1003,76"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_serializer.html#aad94f636ca751f12da1efd4926e11453" title="GostCrypt::Serializer\l::Serialize" alt="" coords="461,165,604,207"/>
+<area shape="rect" id="node9" href="$class_gost_crypt_1_1_serializer.html#a0ff9e46389512da69d19ca7bb27b5993" title="GostCrypt::Serializer\l::SerializeString" alt="" coords="669,165,812,207"/>
+<area shape="rect" id="node11" href="$class_gost_crypt_1_1_string_converter.html#a8f57ff107fac8c923470014d26b9681b" title="GostCrypt::StringConverter\l::GetTypeName" alt="" coords="444,231,621,272"/>
+</map>

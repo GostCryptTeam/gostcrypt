@@ -1,0 +1,51 @@
+<map id="GostCrypt::BootEncryption::Deinstall" name="GostCrypt::BootEncryption::Deinstall">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a55499453ff60a4484743a7f286702cba" title="Get status. " alt="" coords="251,194,430,236"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#ab325c58a9939344bdfe056d20df0f5ff" title="Get the system drive configuration. " alt="" coords="793,301,991,342"/>
+<area shape="rect" id="node13" href="$class_gost_crypt_1_1_file.html#abfbb1c586ef29c31a905d1478d323bdd" title="Seek at on file. " alt="" coords="811,468,973,495"/>
+<area shape="rect" id="node14" href="$class_gost_crypt_1_1_file.html#a633fa1572500c241ddb5b9272bb70600" title="Read a file. " alt="" coords="818,418,966,444"/>
+<area shape="rect" id="node15" href="$_crc_8c.html#a359742950ae18a48e43f92753970c936" title="Get the Crc, there are bit shift in a while loop. " alt="" coords="302,1062,379,1088"/>
+<area shape="rect" id="node16" href="$class_gost_crypt_1_1_boot_encryption.html#a10d9792ca3396b62332ec244cee983eb" title="Register the filter driver. " alt="" coords="803,1032,981,1073"/>
+<area shape="rect" id="node28" href="$class_gost_crypt_1_1_boot_encryption.html#ad66126952d3c90239d15fe53b98d98be" title="Set the driver service start type. " alt="" coords="802,636,982,677"/>
+<area shape="rect" id="node31" href="$class_gost_crypt_1_1_boot_encryption.html#ab800499c17495d75aecfd93cd0942690" title="Register the boot drive. " alt="" coords="517,645,695,686"/>
+<area shape="rect" id="node32" href="$class_gost_crypt_1_1_boot_encryption.html#a41ca434ce3526f63bc083f7dab6a1532" title="Checks if the hidden system is running. " alt="" coords="251,82,430,124"/>
+<area shape="rect" id="node33" href="$class_gost_crypt_1_1_boot_encryption.html#a06e9ef71b195c22837580dc678bb1e3f" title="Set hidden OS creation page. " alt="" coords="243,360,438,401"/>
+<area shape="rect" id="node36" href="$class_gost_crypt_1_1_boot_encryption.html#a7a5ba170d216844b9ff5db5b6368a0e5" title="Register the system favorites service. " alt="" coords="232,845,449,886"/>
+<area shape="rect" id="node47" href="$_dlgcode_8c.html#a96aab35ea4926b9ee0d9fc3d863320cd" title="Opens a dialog window saying &quot;Please wait...&quot; which is not modal and does not need any GUI refresh af..." alt="" coords="240,1112,441,1139"/>
+<area shape="rect" id="node48" href="$_dlgcode_8c.html#aac6c68db8282466f9d91ad4231b984e4" title="Close the dialog window. " alt="" coords="245,1163,436,1190"/>
+<area shape="rect" id="node49" href="$class_gost_crypt_1_1_boot_encryption.html#aadfca881f52d27e0f6bf271702194da3" title="Restore the system loader. " alt="" coords="517,477,695,518"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a7f8882a862c69d803f2af4d021329e97" title="Call the driver. " alt="" coords="1307,17,1485,58"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#a2faa08fabf7bd37b8ebd9e0b6b437274" title="Get windows directory. " alt="" coords="1075,366,1253,408"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a3043ae06af0b4d63e45806ddc1458006" title="Get the drive partitions. " alt="" coords="1075,148,1253,189"/>
+<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="1587,210,1625,236"/>
+<area shape="rect" id="node12" href="$_dlgcode_8c.html#a80616b5324b470ef41e166bdd5923668" title="Convert string to upper case. " alt="" coords="1114,264,1214,291"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#af678fa10d3bbe8c424ad511817c3d9b3" title="Returns drive letter number assigned to device (&#45;1 if none) " alt="" coords="1312,134,1480,160"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#a298a94adf70e2908284827f565560429" title="Resolv all symbolic link. " alt="" coords="1533,108,1679,135"/>
+<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="1727,210,1765,236"/>
+<area shape="rect" id="node9" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="1813,210,1852,236"/>
+<area shape="rect" id="node17" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="1571,898,1641,924"/>
+<area shape="rect" id="node18" href="$_dlgcode_8c.html#a067ed0c600bf924b6621ee79892384d3" title="Check if Uac is supported. " alt="" coords="1107,767,1221,794"/>
+<area shape="rect" id="node21" href="$class_gost_crypt_1_1_elevator.html#abef1824127048f32bb751dd1418d93d7" title="Register the filter driver. " alt="" coords="1095,1065,1233,1106"/>
+<area shape="rect" id="node24" href="$class_gost_crypt_1_1_boot_encryption.html#a6644cab53713a12bfe4998605894dd8b" title="Register the filter. " alt="" coords="1075,1000,1253,1041"/>
+<area shape="rect" id="node19" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="1348,767,1444,794"/>
+<area shape="rect" id="node20" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="1536,767,1676,794"/>
+<area shape="rect" id="node22" href="$class_gost_crypt_1_1_elevator.html#a0b5a981fa1fa7f2b93f39c55a5ba20e1" title="Elevate the instance. " alt="" coords="1329,832,1463,873"/>
+<area shape="rect" id="node23" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="1535,839,1677,866"/>
+<area shape="rect" id="node25" href="$class_gost_crypt_1_1_boot_encryption.html#ad7d1c3f18b8e3bc9133a1f8cabeb8f4d" title="Get the temp path. " alt="" coords="1307,974,1485,1016"/>
+<area shape="rect" id="node26" href="$class_gost_crypt_1_1_file.html#a994d0e6bff285330edea0f5daaa17da1" title="Write on a file. " alt="" coords="1321,483,1471,510"/>
+<area shape="rect" id="node27" href="$class_gost_crypt_1_1_file.html#aec5740eb69e5ec15d77818aadeaf5001" title="Close a file. " alt="" coords="1321,1040,1471,1067"/>
+<area shape="rect" id="node29" href="$class_gost_crypt_1_1_elevator.html#a7756cd9baaf29a8375bf42210961504d" title="the driver services start type " alt="" coords="1074,636,1254,677"/>
+<area shape="rect" id="node30" href="$_registry_8c.html#a1b863382e407fb7468d82c4e4c51ab13" title="Write a Dword in the local machine registry. " alt="" coords="1073,701,1255,742"/>
+<area shape="rect" id="node34" href="$class_gost_crypt_1_1_boot_encryption.html#a42fee6a10920d6e44487ee8a3ac2b17d" title="Read the boot sector configurations. " alt="" coords="517,224,695,265"/>
+<area shape="rect" id="node35" href="$class_gost_crypt_1_1_boot_encryption.html#ac161b91655c0ee99d72b5b7f68ca04a3" title="Write on boot sector configuration. " alt="" coords="517,360,695,401"/>
+<area shape="rect" id="node37" href="$class_gost_crypt_1_1_elevator.html#a9289f57f90900b6b46a8e930d84b24ad" title="Register the system favorites service. " alt="" coords="497,996,715,1037"/>
+<area shape="rect" id="node38" href="$_dlgcode_8c.html#a256995e04312c10bf559725542d340d6" title="Get the service configuration path. " alt="" coords="532,762,680,788"/>
+<area shape="rect" id="node40" href="$_registry_8c.html#a397be04d2c991a2c2d796d4b81afdb5c" title="Write a whole string in the local machine resgistry. " alt="" coords="515,878,697,920"/>
+<area shape="rect" id="node41" href="$class_gost_crypt_1_1_boot_encryption.html#a2a42d620e603b2dfe451fd34a361be35" title="Set the driver configuration flag. " alt="" coords="515,813,697,854"/>
+<area shape="rect" id="node46" href="$_registry_8c.html#a8939aa58e84d0ae28c0d8883b883bd4f" title="Delete the local machine registry key. " alt="" coords="501,944,711,971"/>
+<area shape="rect" id="node39" href="$_dlgcode_8c.html#a9340c14ff3b48d9363b67cf6b535c1ac" title="Check if the os is 64 bit. " alt="" coords="853,762,931,788"/>
+<area shape="rect" id="node42" href="$class_gost_crypt_1_1_boot_encryption.html#a948419f4d72d1da1943632761b47de08" title="Read the driver configuration flags. " alt="" coords="793,1140,991,1181"/>
+<area shape="rect" id="node44" href="$class_gost_crypt_1_1_boot_encryption.html#a3c129c6a89e38d3fd55b0a0df37bdead" title="Write the DWORD value on local machine registry. " alt="" coords="763,813,1021,854"/>
+<area shape="rect" id="node43" href="$_registry_8c.html#a07aec80ae3cc47115a6dcfff6a592ce7" title="Query the registery and read it. " alt="" coords="1074,1182,1254,1224"/>
+<area shape="rect" id="node45" href="$class_gost_crypt_1_1_elevator.html#a4715568a6dfa5d681642b3ef420be6de" title="Write the DWORD value in the local machine registry. " alt="" coords="1069,818,1259,874"/>
+<area shape="rect" id="node50" href="$class_gost_crypt_1_1_boot_encryption.html#a0c4d3572b0222989e55734f6f939748e" title="Get system loader backup path. " alt="" coords="789,570,995,612"/>
+</map>

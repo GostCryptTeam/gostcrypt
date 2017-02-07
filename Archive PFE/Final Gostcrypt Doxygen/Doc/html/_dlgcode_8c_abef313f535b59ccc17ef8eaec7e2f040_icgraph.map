@@ -1,0 +1,17 @@
+<map id="LocalizeDialog" name="LocalizeDialog">
+<area shape="rect" id="node2" href="$_cmdline_8c.html#aeeb76497ec11b52a4318182af7d47025" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="187,5,341,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#ab207e16568d835e2c9414efbde8884d4" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="213,56,315,83"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#ae0bc219f236e0be2c72c3d3f8fb2615b" title="Manage every case of text info diallog proc. " alt="" coords="178,107,350,133"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="195,157,333,184"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#aa0cc81b896765a80f1308d003a6769f1" title="Benchmark dialog proc. " alt="" coords="197,208,331,235"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#abcd5a3aff95c2f0f508667bdfe8ea03b" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="191,259,337,285"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a45999f1ad08160c2210d34975393a993" title="Dialog proc to manage multi choice. " alt="" coords="187,309,341,336"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#a7d5532dd1c5732a87fa48966b1219dd6" title="Manage the security token paswword dilog proc. " alt="" coords="160,360,368,387"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#a6c5d55f53c2d06719da2c8572f0a747b" title="SecurityTokenKeyfileDlgProc" alt="" coords="169,411,359,437"/>
+<area shape="rect" id="node11" href="$_keyfiles_8c.html#a126a83d7761ba5434270d476f7b0a623" title="manage theGUI interface for the keyFiles " alt="" coords="205,461,323,488"/>
+<area shape="rect" id="node12" href="$_language_8c.html#abc420e36c5cb8584bb35faf41c82e3e4" title="Manage the window for the language options. display every language that it can find in the xml and di..." alt="" coords="202,512,326,539"/>
+<area shape="rect" id="node13" href="$_mount_8c.html#abf632c050d3fb79c9e0b8648e84c049b" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="179,563,349,589"/>
+<area shape="rect" id="node14" href="$_mount_8c.html#a85e858e75b732cbd35bc8f7d1837cf97" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="201,613,327,640"/>
+<area shape="rect" id="node15" href="$_mount_8c.html#a769ad01892342e4e74679e7b12e98627" title="Send to the window handled the values to display and manage when a user click on some menu object..." alt="" coords="195,664,333,691"/>
+<area shape="rect" id="node16" href="$_mount_8c.html#a4173dd5f017cfa266617c841f4006c6a" title="Handle dialogues on the window handled. manage buttons like create that will copy the wizard..." alt="" coords="208,715,320,741"/>
+</map>

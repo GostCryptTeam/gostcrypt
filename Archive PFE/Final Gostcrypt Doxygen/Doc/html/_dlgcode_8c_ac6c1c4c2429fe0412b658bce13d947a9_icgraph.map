@@ -1,0 +1,28 @@
+<map id="AbortProcess" name="AbortProcess">
+<area shape="rect" id="node2" href="$_cmdline_8c.html#a080e58dc12a5b1be2d80de6159fcaa4e" title="Manage win32 command line. " alt="" coords="155,147,297,174"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#aefa9c53c379eec378fe6c84d734a44f7" title="Apply malloc managing errors. " alt="" coords="185,198,267,225"/>
+<area shape="rect" id="node20" href="$_dlgcode_8c.html#a585c1bade7a23ffba2dfae4047566f28" title="Modify the global nCurrent windows OS to the actual OS used, if the OS is unknown, return WIN_UNKOWN. " alt="" coords="165,258,287,285"/>
+<area shape="rect" id="node21" href="$_dlgcode_8c.html#a4683f63544f31aee5130df039402b772" title="Check if the paging file is active. " alt="" coords="162,325,290,351"/>
+<area shape="rect" id="node27" href="$_setup_8c.html#a747704da0f3dfd2319c6a52e7400f830" title="Unload the driver. " alt="" coords="171,375,281,402"/>
+<area shape="rect" id="node4" href="$_cmdline_8c.html#aeeb76497ec11b52a4318182af7d47025" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="372,46,525,73"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#aec903427120c109aed045787b0cd9a40" title="Apply a memmove on a string managing errors. " alt="" coords="409,97,489,123"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#af335404c61e5ba57fea6ee10dbb0a944" title="converts a unicode string to Single Byte Character String (SBCS). " alt="" coords="413,147,485,174"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#ab3655f2e62bb87018fd690bc610fe8e0" title="converts a SBCS string to a UNICODE string. " alt="" coords="401,198,496,225"/>
+<area shape="rect" id="node19" href="$_mount_8c.html#a1bcc477f6cb5da8da83e42a06fb1888a" title="Get information about the program like the version and update the parameter by pointer. " alt="" coords="345,249,552,275"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#a448f5e8fc2f4463a8147f702c2e2d217" title="Check if bootloader is on drive* Note that this does not require admin rights (it just requires the d..." alt="" coords="626,5,805,47"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#af13f814019d2568e369a7b4bbbbd347c" title="Open a device. " alt="" coords="670,71,761,98"/>
+<area shape="rect" id="node14" href="$_dlgcode_8c.html#a60bf71dab6ded8634ccfc074cf8968bf" title="Check if the volume is mouted. " alt="" coords="903,122,1029,149"/>
+<area shape="rect" id="node15" href="$_dlgcode_8c.html#a58dff92ecdca5178fc74064075514ada" title="Get the number of the mounted volume. " alt="" coords="625,173,806,199"/>
+<area shape="rect" id="node16" href="$_dlgcode_8c.html#ad44f93dbe63415c37b5225e40354171c" title="Returns the free space on the specified partition (volume) in bytes. If the &#39;occupiedBytes&#39; pointer i..." alt="" coords="614,223,817,250"/>
+<area shape="rect" id="node18" href="$_dlgcode_8c.html#aac361cfb33571b6dcab063787ec773f2" title="Dismount a drive. " alt="" coords="663,274,768,301"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#aa5c4db9e777aa77275e7ec4cb59f55ec" title="Get available host devices. " alt="" coords="883,21,1049,47"/>
+<area shape="rect" id="node12" href="$_dlgcode_8c.html#ac53eb315fbb81bd650c633578252616e" title="VolumePathExists" alt="" coords="901,71,1031,98"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="1107,21,1246,47"/>
+<area shape="rect" id="node13" href="$_mount_8c.html#a80e2191b50f9e6ba9b4b26db9c2f36b7" title="Keep a backup of the volume header to recover it when required. The header contains essential informa..." alt="" coords="1101,97,1252,123"/>
+<area shape="rect" id="node17" href="$_dlgcode_8c.html#a5f2f2aa01eacb732ab52fccc4447cb4e" title="WARNING: This function does NOT provide 100% reliable results – do NOT use it for critical/dangerous..." alt="" coords="879,223,1053,250"/>
+<area shape="rect" id="node22" href="$class_base_com.html#a41aa000a52c4c44d20b142c8868ef4ea" title="Check if the paging file is active. " alt="" coords="352,333,545,359"/>
+<area shape="rect" id="node25" href="$class_gost_crypt_1_1_boot_encryption.html#a60f1f2b0d4b4ada0e8e42eef381f515b" title="Checks if the paging file is active. " alt="" coords="359,420,538,461"/>
+<area shape="rect" id="node23" href="$class_gost_crypt_format_com.html#a267f14ce211adc772463ff5249da4bdc" title="Call BaseCom IsPagingFileActive in basecom object. " alt="" coords="641,325,790,367"/>
+<area shape="rect" id="node24" href="$class_gost_crypt_main_com.html#afd2c6c9964abf54b5eed75e2fda9ce7b" title="Call the &quot;IsPagingFileActive&quot; of the Basecom object and return it. " alt="" coords="618,391,813,432"/>
+<area shape="rect" id="node26" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="600,456,831,497"/>
+</map>

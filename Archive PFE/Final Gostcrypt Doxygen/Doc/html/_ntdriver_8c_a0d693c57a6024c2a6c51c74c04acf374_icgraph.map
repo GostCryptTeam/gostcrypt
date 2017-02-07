@@ -1,0 +1,8 @@
+<map id="UserCanAccessDriveDevice" name="UserCanAccessDriveDevice">
+<area shape="rect" id="node2" href="$_drive_filter_8c.html#ad15951e30bfa20df4b054535755575a1" title="Send to the device the packet that will ask to encrypt. " alt="" coords="262,5,435,32"/>
+<area shape="rect" id="node3" href="$_drive_filter_8c.html#aa89dd2943d023eccaf488a5e75ecbf8c" title="Stop the encryption setup for the boot. " alt="" coords="261,56,437,83"/>
+<area shape="rect" id="node4" href="$_drive_filter_8c.html#a17e83551909aead4bda4e1c1b87ee0bf" title="Launch the abort of the decoy encrypting system. " alt="" coords="267,107,430,133"/>
+<area shape="rect" id="node5" href="$_drive_filter_8c.html#acee33d06a6aba5fade24ece52f631283" title="Abort decoy system wipe. " alt="" coords="266,157,431,184"/>
+<area shape="rect" id="node6" href="$_drive_filter_8c.html#a23b86125ef582cb2fb62bbe6bfd099c5" title="Write into a soctor of the boot drive. " alt="" coords="275,208,422,235"/>
+<area shape="rect" id="node7" href="$_ntdriver_8c.html#abf10fc1ae5d4df3a894e883073dde32c" title="Getter to know if the user can access the volume. " alt="" coords="236,259,461,285"/>
+</map>

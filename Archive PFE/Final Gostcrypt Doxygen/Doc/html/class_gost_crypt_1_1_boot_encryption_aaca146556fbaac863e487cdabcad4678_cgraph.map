@@ -1,0 +1,6 @@
+<map id="GostCrypt::BootEncryption::GetRemarksOnHiddenOS" name="GostCrypt::BootEncryption::GetRemarksOnHiddenOS">
+<area shape="rect" id="node2" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="251,5,290,32"/>
+<area shape="rect" id="node5" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="232,56,309,83"/>
+<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="357,5,396,32"/>
+<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="444,5,483,32"/>
+</map>

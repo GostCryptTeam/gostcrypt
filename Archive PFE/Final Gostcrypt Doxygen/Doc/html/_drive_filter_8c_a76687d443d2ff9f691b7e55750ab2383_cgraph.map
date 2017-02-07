@@ -1,0 +1,5 @@
+<map id="DriveFilterDispatchIrp" name="DriveFilterDispatchIrp">
+<area shape="rect" id="node2" href="$_encrypted_io_queue_8c.html#a6ad0720d3b1044c4b1d08a45e24e5399" title="Remove the lock on the queue and add the irp to the main queue then lock it. " alt="" coords="197,5,364,32"/>
+<area shape="rect" id="node4" href="$_ntdriver_8c.html#a56a4eeed0b0ce7d4d77ff4cdd72679a3" title="Complete a drisk irp packet. " alt="" coords="209,56,352,83"/>
+<area shape="rect" id="node3" href="$_ntdriver_8c.html#a711c6dc81aaafd64a4e3a23fb5760c2f" title="Returns elapsed time in microseconds since last call. " alt="" coords="412,5,531,32"/>
+</map>

@@ -1,0 +1,15 @@
+CODE INUTILE:
+COMMON -> crypto.c "int EAGetFirst ()" (l.344)
+COMMON -> crypto.c "EAGetFirst ()" (l.1341)
+COMMON -> crypto.c "EAGetNext (int previousEA)" (l.1346)
+
+MOUNT -> mount.c "burn(c, strlen (c));" (l.165)
+
+GESION D'ERREUR:
+COMMON -> crypto.c "EAGetFirstCipher (int ea)" (l.679)
+COMMON -> crypto.c "EAGetLastCipher (int ea)" (l.692)
+COMMON -> crypto.c "HashGetName (int hashId)" (l.824)
+COMMON -> crypto.c "HashIsDeprecated (int hashId)" (l.830)
+
+CODE A CHANGER:
+COMMON -> DlgCode.c "while (!CreateDriverSetupMutex ())" (l.4286)

@@ -1,0 +1,224 @@
+\hypertarget{_language_8c}{}\section{Common/\+Language.c File Reference}
+\label{_language_8c}\index{Common/\+Language.\+c@{Common/\+Language.\+c}}
+
+
+Display the language option window. Find the language preferred over the file existing and display the windows in this language. Check if the language and gostcrypt version are corresponding.  
+
+
+{\ttfamily \#include \char`\"{}Language.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dictionary.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Xml.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Common/\+Resource.\+h\char`\"{}}\newline
+Include dependency graph for Language.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_language_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_language_8c_af666b317fb2e10f044557c724f09072d}{Load\+Language\+File} ()
+\begin{DoxyCompactList}\small\item\em Find the preferred language and check if the version fits the gostcrypt version. Create the font for displaying the text Add the control buttons into the dictionnary to change the strings. Globally, load and set all the text on the window. \end{DoxyCompactList}\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \hyperlink{_language_8c_abc420e36c5cb8584bb35faf41c82e3e4}{Language\+Dlg\+Proc} (H\+W\+ND hwnd\+Dlg, U\+I\+NT msg, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)
+\begin{DoxyCompactList}\small\item\em Manage the window for the language options. display every language that it can find in the xml and display the name So the user can chose. l\+Param = 1\+: auto mode. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{_language_8c_a45ecd1cef629db1ec49a75b971f70c8d}{Get\+Preferred\+Lang\+Id} ()
+\begin{DoxyCompactList}\small\item\em Getter for the preferred language. \end{DoxyCompactList}\item 
+void \hyperlink{_language_8c_a658487b537b0203e54d570b67aeb2aa6}{Set\+Preferred\+Lang\+Id} (char $\ast$lang\+Id)
+\begin{DoxyCompactList}\small\item\em Setter for the preferred language. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{_language_8c_ae7400d809f74fa650b82765c97bff5fa}{Get\+Active\+Lang\+Pack\+Version} ()
+\begin{DoxyCompactList}\small\item\em Getter for the language package version. \end{DoxyCompactList}\item 
+wchar\+\_\+t $\ast$ \hyperlink{_language_8c_ac8aef4c54c46ab1af51207045d9ce429}{Get\+String} (const char $\ast$string\+Id)
+\begin{DoxyCompactList}\small\item\em Getter for the string in the dictionnary. \end{DoxyCompactList}\item 
+\hyperlink{struct_font}{Font} $\ast$ \hyperlink{_language_8c_a3dc557e9cba8b64e6fba56b14858bac1}{Get\+Font} (char $\ast$font\+Type)
+\begin{DoxyCompactList}\small\item\em Getter for the font. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_language_8c_a7477faef59b8c0bc5d990f9de785eb52}{Localization\+Active}
+\item 
+\mbox{\Hypertarget{_language_8c_aca4f702d164448eb4ba8c927e077f72e}\label{_language_8c_aca4f702d164448eb4ba8c927e077f72e}} 
+int {\bfseries Localization\+Serial\+No}
+\item 
+\mbox{\Hypertarget{_language_8c_a5a247001e8afb1d7938061af92270e7e}\label{_language_8c_a5a247001e8afb1d7938061af92270e7e}} 
+wchar\+\_\+t {\bfseries Unknown\+String} \mbox{[}1024\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Display the language option window. Find the language preferred over the file existing and display the windows in this language. Check if the language and gostcrypt version are corresponding. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20/01/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_language_8c_ae7400d809f74fa650b82765c97bff5fa}\label{_language_8c_ae7400d809f74fa650b82765c97bff5fa}} 
+\index{Language.\+c@{Language.\+c}!Get\+Active\+Lang\+Pack\+Version@{Get\+Active\+Lang\+Pack\+Version}}
+\index{Get\+Active\+Lang\+Pack\+Version@{Get\+Active\+Lang\+Pack\+Version}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Get\+Active\+Lang\+Pack\+Version()}{GetActiveLangPackVersion()}}
+{\footnotesize\ttfamily char $\ast$ Get\+Active\+Lang\+Pack\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the language package version. 
+
+\begin{DoxyReturn}{Returns}
+char $\ast$ Active\+Lang\+Pack\+Version 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_language_8c_a3dc557e9cba8b64e6fba56b14858bac1}\label{_language_8c_a3dc557e9cba8b64e6fba56b14858bac1}} 
+\index{Language.\+c@{Language.\+c}!Get\+Font@{Get\+Font}}
+\index{Get\+Font@{Get\+Font}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Get\+Font()}{GetFont()}}
+{\footnotesize\ttfamily \hyperlink{struct_font}{Font} $\ast$ Get\+Font (\begin{DoxyParamCaption}\item[{char $\ast$}]{font\+Type }\end{DoxyParamCaption})}
+
+
+
+Getter for the font. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ font\+Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_font}{Font} $\ast$ (\hyperlink{struct_font}{Font} $\ast$) Get\+Dictionary\+Value (font\+Type) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{_language_8c_a3dc557e9cba8b64e6fba56b14858bac1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{_language_8c_a3dc557e9cba8b64e6fba56b14858bac1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_language_8c_a45ecd1cef629db1ec49a75b971f70c8d}\label{_language_8c_a45ecd1cef629db1ec49a75b971f70c8d}} 
+\index{Language.\+c@{Language.\+c}!Get\+Preferred\+Lang\+Id@{Get\+Preferred\+Lang\+Id}}
+\index{Get\+Preferred\+Lang\+Id@{Get\+Preferred\+Lang\+Id}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Get\+Preferred\+Lang\+Id()}{GetPreferredLangId()}}
+{\footnotesize\ttfamily char $\ast$ Get\+Preferred\+Lang\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Getter for the preferred language. 
+
+\begin{DoxyReturn}{Returns}
+char $\ast$ Preferred\+Lang\+Id 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_language_8c_ac8aef4c54c46ab1af51207045d9ce429}\label{_language_8c_ac8aef4c54c46ab1af51207045d9ce429}} 
+\index{Language.\+c@{Language.\+c}!Get\+String@{Get\+String}}
+\index{Get\+String@{Get\+String}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Get\+String()}{GetString()}}
+{\footnotesize\ttfamily wchar\+\_\+t $\ast$ Get\+String (\begin{DoxyParamCaption}\item[{const char $\ast$}]{string\+Id }\end{DoxyParamCaption})}
+
+
+
+Getter for the string in the dictionnary. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & char \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+wchar\+\_\+t $\ast$ Unknown\+String str if (str != N\+U\+LL) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{_language_8c_ac8aef4c54c46ab1af51207045d9ce429_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_language_8c_abc420e36c5cb8584bb35faf41c82e3e4}\label{_language_8c_abc420e36c5cb8584bb35faf41c82e3e4}} 
+\index{Language.\+c@{Language.\+c}!Language\+Dlg\+Proc@{Language\+Dlg\+Proc}}
+\index{Language\+Dlg\+Proc@{Language\+Dlg\+Proc}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Language\+Dlg\+Proc()}{LanguageDlgProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Language\+Dlg\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{U\+I\+NT}]{msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Manage the window for the language options. display every language that it can find in the xml and display the name So the user can chose. l\+Param = 1\+: auto mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL switch (msg) 1 case W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG 0 case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND 1 if (lw == I\+D\+OK $\vert$$\vert$ hw == L\+B\+N\+\_\+\+D\+B\+L\+C\+LK) 1 if (lw == I\+D\+C\+A\+N\+C\+EL) 1 if (lw == I\+D\+C\+\_\+\+G\+E\+T\+\_\+\+L\+A\+N\+G\+\_\+\+P\+A\+C\+KS) 0 else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_language_8c_abc420e36c5cb8584bb35faf41c82e3e4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_language_8c_af666b317fb2e10f044557c724f09072d}\label{_language_8c_af666b317fb2e10f044557c724f09072d}} 
+\index{Language.\+c@{Language.\+c}!Load\+Language\+File@{Load\+Language\+File}}
+\index{Load\+Language\+File@{Load\+Language\+File}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Load\+Language\+File()}{LoadLanguageFile()}}
+{\footnotesize\ttfamily B\+O\+OL Load\+Language\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Find the preferred language and check if the version fits the gostcrypt version. Create the font for displaying the text Add the control buttons into the dictionnary to change the strings. Globally, load and set all the text on the window. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL T\+R\+UE if no errors switch ($\ast$in++) default \+: return F\+A\+L\+SE F\+A\+L\+SE if (len == 0 $\vert$$\vert$ len == E\+R\+R\+O\+R\+\_\+\+N\+O\+\_\+\+U\+N\+I\+C\+O\+D\+E\+\_\+\+T\+R\+A\+N\+S\+L\+A\+T\+I\+ON) F\+A\+L\+SE if (header == N\+U\+LL) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_language_8c_a658487b537b0203e54d570b67aeb2aa6}\label{_language_8c_a658487b537b0203e54d570b67aeb2aa6}} 
+\index{Language.\+c@{Language.\+c}!Set\+Preferred\+Lang\+Id@{Set\+Preferred\+Lang\+Id}}
+\index{Set\+Preferred\+Lang\+Id@{Set\+Preferred\+Lang\+Id}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Set\+Preferred\+Lang\+Id()}{SetPreferredLangId()}}
+{\footnotesize\ttfamily void Set\+Preferred\+Lang\+Id (\begin{DoxyParamCaption}\item[{char $\ast$}]{lang\+Id }\end{DoxyParamCaption})}
+
+
+
+Setter for the preferred language. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ lang\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_language_8c_a7477faef59b8c0bc5d990f9de785eb52}\label{_language_8c_a7477faef59b8c0bc5d990f9de785eb52}} 
+\index{Language.\+c@{Language.\+c}!Localization\+Active@{Localization\+Active}}
+\index{Localization\+Active@{Localization\+Active}!Language.\+c@{Language.\+c}}
+\subsubsection{\texorpdfstring{Localization\+Active}{LocalizationActive}}
+{\footnotesize\ttfamily B\+O\+OL Localization\+Active}
+
+Copyright (c) 2005-\/2009 True\+Crypt Developers Association. All rights reserved.
+
+Governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages. 

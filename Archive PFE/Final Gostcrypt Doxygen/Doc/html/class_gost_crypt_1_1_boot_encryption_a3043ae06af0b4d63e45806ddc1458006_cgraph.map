@@ -1,0 +1,8 @@
+<map id="GostCrypt::BootEncryption::GetDrivePartitions" name="GostCrypt::BootEncryption::GetDrivePartitions">
+<area shape="rect" id="node2" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="512,73,551,99"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#a7f8882a862c69d803f2af4d021329e97" title="Call the driver. " alt="" coords="232,32,411,73"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#af678fa10d3bbe8c424ad511817c3d9b3" title="Returns drive letter number assigned to device (&#45;1 if none) " alt="" coords="237,98,405,125"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a298a94adf70e2908284827f565560429" title="Resolv all symbolic link. " alt="" coords="459,135,604,162"/>
+<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="652,73,691,99"/>
+<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="739,73,777,99"/>
+</map>

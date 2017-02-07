@@ -1,0 +1,465 @@
+\hypertarget{_pkcs5_8c}{}\section{Common/\+Pkcs5.c File Reference}
+\label{_pkcs5_8c}\index{Common/\+Pkcs5.\+c@{Common/\+Pkcs5.\+c}}
+
+
+Define the algorithm functions and iterations.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$memory.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Whirlpool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gost\+Hash.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Stribog.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Pkcs5.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crypto.\+h\char`\"{}}\newline
+Include dependency graph for Pkcs5.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_pkcs5_8c_a154bc783186f27da7921c2fcf86f7db1}{hmac\+\_\+truncate} (char $\ast$d1, char $\ast$d2, int len)
+\begin{DoxyCompactList}\small\item\em Truncate a word to length len. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a7b91e9a8cdacd74fa540bc2644be7cc7}{hmac\+\_\+whirlpool} (char $\ast$k, int lk, char $\ast$d, int ld, char $\ast$out, int t)
+\begin{DoxyCompactList}\small\item\em Encrypt the data thanks to the secret key k, truncate data if bigger than algorithm block size. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_afe6200d8483ab3983a00a960de19db0e}{derive\+\_\+u\+\_\+whirlpool} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\begin{DoxyCompactList}\small\item\em Iterate the hmac\+\_\+whirlpool to encrypt multiples times. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a8ff824bd676357439142d52ce0283c65}{derive\+\_\+key\+\_\+whirlpool} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\begin{DoxyCompactList}\small\item\em Change the blocks of the key iteratively. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a28c13a2daed07c552b96258521cfa359}{hmac\+\_\+gosthash} (char $\ast$k, int32 lk, char $\ast$d, int32 ld, char $\ast$out)
+\begin{DoxyCompactList}\small\item\em Gost hash \+: encrypt the data thanks to the key with gost algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_ad1675864fc7b71be8fec5387536737b7}{derive\+\_\+u\+\_\+gosthash} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\begin{DoxyCompactList}\small\item\em Iterate the gost hash. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a4fdd0af868701442216b4c99cc127087}{derive\+\_\+key\+\_\+gosthash} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\begin{DoxyCompactList}\small\item\em Make the derivative of the key (iterate and change bits in it) \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a7e5365dc742aa6f9caa5b6bf29ef79e2}{hmac\+\_\+stribog} (char $\ast$k, int32 lk, char $\ast$d, int32 ld, char $\ast$out)
+\begin{DoxyCompactList}\small\item\em Make the derivative of the stribog key (iterate and change bits in it) \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_a90622127a49bfba5bf967341ed9adb62}{derive\+\_\+u\+\_\+stribog} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\begin{DoxyCompactList}\small\item\em Iterate the stribog algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{_pkcs5_8c_aac1e0891a72ae792abca9529fbf9ef28}{derive\+\_\+key\+\_\+stribog} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\begin{DoxyCompactList}\small\item\em Derive the stribog key (cahnge the bits iteratively) \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{_pkcs5_8c_a492b21bd4b4d8f48f15b0ecdbfc62d07}{get\+\_\+pkcs5\+\_\+prf\+\_\+name} (int pkcs5\+\_\+prf\+\_\+id)
+\begin{DoxyCompactList}\small\item\em return the name of the algorithm depending on the pkcs5\+\_\+prf\+\_\+id \end{DoxyCompactList}\item 
+int \hyperlink{_pkcs5_8c_aee4d5556601a2d1303f48901e7c16f55}{get\+\_\+pkcs5\+\_\+iteration\+\_\+count} (int pkcs5\+\_\+prf\+\_\+id, B\+O\+OL b\+Boot)
+\begin{DoxyCompactList}\small\item\em Getter for the iteration count of the pksc5. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Define the algorithm functions and iterations. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+16/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_pkcs5_8c_a4fdd0af868701442216b4c99cc127087}\label{_pkcs5_8c_a4fdd0af868701442216b4c99cc127087}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+key\+\_\+gosthash@{derive\+\_\+key\+\_\+gosthash}}
+\index{derive\+\_\+key\+\_\+gosthash@{derive\+\_\+key\+\_\+gosthash}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+gosthash()}{derive\_key\_gosthash()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Make the derivative of the key (iterate and change bits in it) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & dklen \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ dk \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_a4fdd0af868701442216b4c99cc127087_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_aac1e0891a72ae792abca9529fbf9ef28}\label{_pkcs5_8c_aac1e0891a72ae792abca9529fbf9ef28}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+key\+\_\+stribog@{derive\+\_\+key\+\_\+stribog}}
+\index{derive\+\_\+key\+\_\+stribog@{derive\+\_\+key\+\_\+stribog}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+stribog()}{derive\_key\_stribog()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Derive the stribog key (cahnge the bits iteratively) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & dklen \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ dk \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_aac1e0891a72ae792abca9529fbf9ef28_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_a8ff824bd676357439142d52ce0283c65}\label{_pkcs5_8c_a8ff824bd676357439142d52ce0283c65}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+key\+\_\+whirlpool@{derive\+\_\+key\+\_\+whirlpool}}
+\index{derive\+\_\+key\+\_\+whirlpool@{derive\+\_\+key\+\_\+whirlpool}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+whirlpool()}{derive\_key\_whirlpool()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Change the blocks of the key iteratively. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & dklen \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ dk \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_a8ff824bd676357439142d52ce0283c65_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_ad1675864fc7b71be8fec5387536737b7}\label{_pkcs5_8c_ad1675864fc7b71be8fec5387536737b7}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+u\+\_\+gosthash@{derive\+\_\+u\+\_\+gosthash}}
+\index{derive\+\_\+u\+\_\+gosthash@{derive\+\_\+u\+\_\+gosthash}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+gosthash()}{derive\_u\_gosthash()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Iterate the gost hash. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & b \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ u \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_pkcs5_8c_a90622127a49bfba5bf967341ed9adb62}\label{_pkcs5_8c_a90622127a49bfba5bf967341ed9adb62}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+u\+\_\+stribog@{derive\+\_\+u\+\_\+stribog}}
+\index{derive\+\_\+u\+\_\+stribog@{derive\+\_\+u\+\_\+stribog}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+stribog()}{derive\_u\_stribog()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Iterate the stribog algorithm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & b \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ u \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_pkcs5_8c_afe6200d8483ab3983a00a960de19db0e}\label{_pkcs5_8c_afe6200d8483ab3983a00a960de19db0e}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!derive\+\_\+u\+\_\+whirlpool@{derive\+\_\+u\+\_\+whirlpool}}
+\index{derive\+\_\+u\+\_\+whirlpool@{derive\+\_\+u\+\_\+whirlpool}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+whirlpool()}{derive\_u\_whirlpool()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Iterate the hmac\+\_\+whirlpool to encrypt multiples times. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & b \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ u \\
+\hline
+\mbox{\tt in}  & {\em int} & iterations \\
+\hline
+\mbox{\tt in}  & {\em int} & salt\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ salt \\
+\hline
+\mbox{\tt in}  & {\em int} & pwd\+\_\+len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ pwd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_pkcs5_8c_aee4d5556601a2d1303f48901e7c16f55}\label{_pkcs5_8c_aee4d5556601a2d1303f48901e7c16f55}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!get\+\_\+pkcs5\+\_\+iteration\+\_\+count@{get\+\_\+pkcs5\+\_\+iteration\+\_\+count}}
+\index{get\+\_\+pkcs5\+\_\+iteration\+\_\+count@{get\+\_\+pkcs5\+\_\+iteration\+\_\+count}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+pkcs5\+\_\+iteration\+\_\+count()}{get\_pkcs5\_iteration\_count()}}
+{\footnotesize\ttfamily int get\+\_\+pkcs5\+\_\+iteration\+\_\+count (\begin{DoxyParamCaption}\item[{int}]{pkcs5\+\_\+prf\+\_\+id,  }\item[{B\+O\+OL}]{b\+Boot }\end{DoxyParamCaption})}
+
+
+
+Getter for the iteration count of the pksc5. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Boot \\
+\hline
+\mbox{\tt in}  & {\em int} & pkcs5\+\_\+prf\+\_\+id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1000 switch (pkcs5\+\_\+prf\+\_\+id) G\+S\+T\+\_\+\+T\+H\+R\+O\+W\+\_\+\+F\+A\+T\+A\+L\+\_\+\+E\+X\+C\+E\+P\+T\+I\+ON switch (pkcs5\+\_\+prf\+\_\+id) case default 0 otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_aee4d5556601a2d1303f48901e7c16f55_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_a492b21bd4b4d8f48f15b0ecdbfc62d07}\label{_pkcs5_8c_a492b21bd4b4d8f48f15b0ecdbfc62d07}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!get\+\_\+pkcs5\+\_\+prf\+\_\+name@{get\+\_\+pkcs5\+\_\+prf\+\_\+name}}
+\index{get\+\_\+pkcs5\+\_\+prf\+\_\+name@{get\+\_\+pkcs5\+\_\+prf\+\_\+name}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+pkcs5\+\_\+prf\+\_\+name()}{get\_pkcs5\_prf\_name()}}
+{\footnotesize\ttfamily char $\ast$ get\+\_\+pkcs5\+\_\+prf\+\_\+name (\begin{DoxyParamCaption}\item[{int}]{pkcs5\+\_\+prf\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+return the name of the algorithm depending on the pkcs5\+\_\+prf\+\_\+id 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & pkcs5\+\_\+prf\+\_\+id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\char`\"{}\+H\+M\+A\+C-\/\+Whirlpool\char`\"{} switch (pkcs5\+\_\+prf\+\_\+id) case W\+H\+I\+R\+L\+P\+O\+OL \char`\"{}\+H\+M\+A\+C-\/\+G\+O\+S\+T R 34.\+11-\/2012\char`\"{} switch (pkcs5\+\_\+prf\+\_\+id) case S\+T\+R\+I\+B\+OG \char`\"{}\+H\+M\+A\+C-\/\+G\+O\+S\+T R 34.\+11-\/94\char`\"{} switch (pkcs5\+\_\+prf\+\_\+id) case G\+O\+S\+T\+H\+A\+SH \char`\"{}(\+Unknown)\char`\"{} switch (pkcs5\+\_\+prf\+\_\+id) case default 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_pkcs5_8c_a28c13a2daed07c552b96258521cfa359}\label{_pkcs5_8c_a28c13a2daed07c552b96258521cfa359}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!hmac\+\_\+gosthash@{hmac\+\_\+gosthash}}
+\index{hmac\+\_\+gosthash@{hmac\+\_\+gosthash}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{hmac\+\_\+gosthash()}{hmac\_gosthash()}}
+{\footnotesize\ttfamily void hmac\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{int32}]{lk,  }\item[{char $\ast$}]{d,  }\item[{int32}]{ld,  }\item[{char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Gost hash \+: encrypt the data thanks to the key with gost algorithm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ k \\
+\hline
+\mbox{\tt in}  & {\em int32} & lk \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ d \\
+\hline
+\mbox{\tt in}  & {\em int32} & ld \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ out \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{_pkcs5_8c_a28c13a2daed07c552b96258521cfa359_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_a28c13a2daed07c552b96258521cfa359_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_a7e5365dc742aa6f9caa5b6bf29ef79e2}\label{_pkcs5_8c_a7e5365dc742aa6f9caa5b6bf29ef79e2}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!hmac\+\_\+stribog@{hmac\+\_\+stribog}}
+\index{hmac\+\_\+stribog@{hmac\+\_\+stribog}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{hmac\+\_\+stribog()}{hmac\_stribog()}}
+{\footnotesize\ttfamily void hmac\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{int32}]{lk,  }\item[{char $\ast$}]{d,  }\item[{int32}]{ld,  }\item[{char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Make the derivative of the stribog key (iterate and change bits in it) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ k \\
+\hline
+\mbox{\tt in}  & {\em int32} & lk \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ d \\
+\hline
+\mbox{\tt in}  & {\em int32} & ld \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ out \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{_pkcs5_8c_a7e5365dc742aa6f9caa5b6bf29ef79e2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_a7e5365dc742aa6f9caa5b6bf29ef79e2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_a154bc783186f27da7921c2fcf86f7db1}\label{_pkcs5_8c_a154bc783186f27da7921c2fcf86f7db1}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!hmac\+\_\+truncate@{hmac\+\_\+truncate}}
+\index{hmac\+\_\+truncate@{hmac\+\_\+truncate}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{hmac\+\_\+truncate()}{hmac\_truncate()}}
+{\footnotesize\ttfamily void hmac\+\_\+truncate (\begin{DoxyParamCaption}\item[{char $\ast$}]{d1,  }\item[{char $\ast$}]{d2,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Truncate a word to length len. 
+
+Legal Notice\+: Some portions of the source code contained in this file were derived from the source code of Encryption for the Masses 2.\+02a, which is Copyright (c) 1998-\/2000 Paul Le Roux and which is governed by the \textquotesingle{}License Agreement for Encryption for the Masses\textquotesingle{}. Modifications and additions to the original source code (contained in this file) and all other portions of this file are Copyright (c) 2003-\/2009 True\+Crypt Developers Association and are governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ d1 \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ d2 \\
+\hline
+\mbox{\tt in}  & {\em int} & len \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{_pkcs5_8c_a154bc783186f27da7921c2fcf86f7db1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_pkcs5_8c_a7b91e9a8cdacd74fa540bc2644be7cc7}\label{_pkcs5_8c_a7b91e9a8cdacd74fa540bc2644be7cc7}} 
+\index{Pkcs5.\+c@{Pkcs5.\+c}!hmac\+\_\+whirlpool@{hmac\+\_\+whirlpool}}
+\index{hmac\+\_\+whirlpool@{hmac\+\_\+whirlpool}!Pkcs5.\+c@{Pkcs5.\+c}}
+\subsubsection{\texorpdfstring{hmac\+\_\+whirlpool()}{hmac\_whirlpool()}}
+{\footnotesize\ttfamily void hmac\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{int}]{lk,  }\item[{char $\ast$}]{d,  }\item[{int}]{ld,  }\item[{char $\ast$}]{out,  }\item[{int}]{t }\end{DoxyParamCaption})}
+
+
+
+Encrypt the data thanks to the secret key k, truncate data if bigger than algorithm block size. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ k \\
+\hline
+\mbox{\tt in}  & {\em int} & lk \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ d \\
+\hline
+\mbox{\tt in}  & {\em int} & ld \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ out \\
+\hline
+\mbox{\tt in}  & {\em int} & t \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_pkcs5_8c_a7b91e9a8cdacd74fa540bc2644be7cc7_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,6 @@
+<map id="GetPartitionInfo" name="GetPartitionInfo">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a6a253a8a5ffde74f3ee574fce090d45f" title="Returns &#45;1 if there&#39;s an error. " alt="" coords="194,5,301,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#aa5c4db9e777aa77275e7ec4cb59f55ec" title="Get available host devices. " alt="" coords="164,56,331,83"/>
+<area shape="rect" id="node3" href="$_in_place_8c.html#a6370868e40894b842cb36a61b82f3185" title="Gain raw access, shrink the filesystem Create header backup on the partition. Decrypt the backup head..." alt="" coords="379,5,569,32"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="405,56,543,83"/>
+</map>

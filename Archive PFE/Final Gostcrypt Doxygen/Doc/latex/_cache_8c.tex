@@ -1,0 +1,128 @@
+\hypertarget{_cache_8c}{}\section{Common/\+Cache.c File Reference}
+\label{_cache_8c}\index{Common/\+Cache.\+c@{Common/\+Cache.\+c}}
+
+
+Manage the cached password the decrypt.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crypto.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Fat.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volumes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Apidrvr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Common.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Cache.\+h\char`\"{}}\newline
+Include dependency graph for Cache.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_cache_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_cache_8c_adf059051b371da0777591dc451201226}{Read\+Volume\+Header\+W\+Cache} (B\+O\+OL b\+Boot, B\+O\+OL b\+Cache, char $\ast$header, \hyperlink{struct_password}{Password} $\ast$password, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Info)
+\begin{DoxyCompactList}\small\item\em Attempt to recognize volume using the mount password. \end{DoxyCompactList}\item 
+void \hyperlink{_cache_8c_af1263475cd1b982d4cfa0cb6f9cca01b}{Add\+Password\+To\+Cache} (\hyperlink{struct_password}{Password} $\ast$password)
+\begin{DoxyCompactList}\small\item\em Add the password to the cache. \end{DoxyCompactList}\item 
+void \hyperlink{_cache_8c_afd07b7fefd513de901282e4b6e002fd1}{Wipe\+Cache} ()
+\begin{DoxyCompactList}\small\item\em destroy the cache (containing passwords) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_password}{Password} \hyperlink{_cache_8c_a5b38488c0af53b256cc87f2488f05474}{Cached\+Passwords} \mbox{[}C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE\mbox{]}
+\item 
+\mbox{\Hypertarget{_cache_8c_aa791a230be176138352376e210c52101}\label{_cache_8c_aa791a230be176138352376e210c52101}} 
+int {\bfseries cache\+Empty} = 1
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the cached password the decrypt. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+15/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_cache_8c_af1263475cd1b982d4cfa0cb6f9cca01b}\label{_cache_8c_af1263475cd1b982d4cfa0cb6f9cca01b}} 
+\index{Cache.\+c@{Cache.\+c}!Add\+Password\+To\+Cache@{Add\+Password\+To\+Cache}}
+\index{Add\+Password\+To\+Cache@{Add\+Password\+To\+Cache}!Cache.\+c@{Cache.\+c}}
+\subsubsection{\texorpdfstring{Add\+Password\+To\+Cache()}{AddPasswordToCache()}}
+{\footnotesize\ttfamily void Add\+Password\+To\+Cache (\begin{DoxyParamCaption}\item[{\hyperlink{struct_password}{Password} $\ast$}]{password }\end{DoxyParamCaption})}
+
+
+
+Add the password to the cache. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ password \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_cache_8c_adf059051b371da0777591dc451201226}\label{_cache_8c_adf059051b371da0777591dc451201226}} 
+\index{Cache.\+c@{Cache.\+c}!Read\+Volume\+Header\+W\+Cache@{Read\+Volume\+Header\+W\+Cache}}
+\index{Read\+Volume\+Header\+W\+Cache@{Read\+Volume\+Header\+W\+Cache}!Cache.\+c@{Cache.\+c}}
+\subsubsection{\texorpdfstring{Read\+Volume\+Header\+W\+Cache()}{ReadVolumeHeaderWCache()}}
+{\footnotesize\ttfamily int Read\+Volume\+Header\+W\+Cache (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{b\+Boot,  }\item[{B\+O\+OL}]{b\+Cache,  }\item[{char $\ast$}]{header,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{password,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Info }\end{DoxyParamCaption})}
+
+
+
+Attempt to recognize volume using the mount password. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ ret\+Info \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ password \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ header \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Cache \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Boot \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int n\+Return\+Code E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG if password is wrong Read\+Volume\+Header (b\+Boot, header, password, ret\+Info, N\+U\+LL) if using cached password Read\+Volume\+Header (b\+Boot, header, \&Cached\+Passwords\mbox{[}i\mbox{]}, ret\+Info, N\+U\+LL) using password typed. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_cache_8c_adf059051b371da0777591dc451201226_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_cache_8c_afd07b7fefd513de901282e4b6e002fd1}\label{_cache_8c_afd07b7fefd513de901282e4b6e002fd1}} 
+\index{Cache.\+c@{Cache.\+c}!Wipe\+Cache@{Wipe\+Cache}}
+\index{Wipe\+Cache@{Wipe\+Cache}!Cache.\+c@{Cache.\+c}}
+\subsubsection{\texorpdfstring{Wipe\+Cache()}{WipeCache()}}
+{\footnotesize\ttfamily void Wipe\+Cache (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+destroy the cache (containing passwords) 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_cache_8c_a5b38488c0af53b256cc87f2488f05474}\label{_cache_8c_a5b38488c0af53b256cc87f2488f05474}} 
+\index{Cache.\+c@{Cache.\+c}!Cached\+Passwords@{Cached\+Passwords}}
+\index{Cached\+Passwords@{Cached\+Passwords}!Cache.\+c@{Cache.\+c}}
+\subsubsection{\texorpdfstring{Cached\+Passwords}{CachedPasswords}}
+{\footnotesize\ttfamily \hyperlink{struct_password}{Password} Cached\+Passwords\mbox{[}C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE\mbox{]}}
+
+Legal Notice\+: Some portions of the source code contained in this file were derived from the source code of Encryption for the Masses 2.\+02a, which is Copyright (c) 1998-\/2000 Paul Le Roux and which is governed by the \textquotesingle{}License Agreement for Encryption for the Masses\textquotesingle{}. Modifications and additions to the original source code (contained in this file) and all other portions of this file are Copyright (c) 2003-\/2008 True\+Crypt Developers Association and are governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages. 

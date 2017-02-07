@@ -1,0 +1,18 @@
+<map id="DoServiceUninstall" name="DoServiceUninstall">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#ae710a86e41ba731cf231fad660dc16a9" title="Get the driver service start type. " alt="" coords="184,71,365,112"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#a10d9792ca3396b62332ec244cee983eb" title="Register the filter driver. " alt="" coords="185,165,364,207"/>
+<area shape="rect" id="node16" href="$_setup_8c.html#a18e2996580e48d28f95c736bdee7f947" title="Send a message giving information about the status of the window status. " alt="" coords="218,231,331,258"/>
+<area shape="rect" id="node17" href="$_setup_8c.html#aa40bfdfb78c7e6f8151ea9ac0308a07e" title="Send a message to a item of the window. " alt="" coords="199,282,350,309"/>
+<area shape="rect" id="node3" href="$_registry_8c.html#a07aec80ae3cc47115a6dcfff6a592ce7" title="Query the registery and read it. " alt="" coords="413,41,593,83"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="904,227,973,254"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a067ed0c600bf924b6621ee79892384d3" title="Check if Uac is supported. " alt="" coords="446,173,561,199"/>
+<area shape="rect" id="node9" href="$class_gost_crypt_1_1_elevator.html#abef1824127048f32bb751dd1418d93d7" title="Register the filter driver. " alt="" coords="434,275,573,316"/>
+<area shape="rect" id="node12" href="$class_gost_crypt_1_1_boot_encryption.html#a6644cab53713a12bfe4998605894dd8b" title="Register the filter. " alt="" coords="414,107,593,148"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="683,173,779,199"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="869,173,1009,199"/>
+<area shape="rect" id="node10" href="$class_gost_crypt_1_1_elevator.html#a0b5a981fa1fa7f2b93f39c55a5ba20e1" title="Elevate the instance. " alt="" coords="663,275,798,316"/>
+<area shape="rect" id="node11" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="868,282,1009,309"/>
+<area shape="rect" id="node13" href="$class_gost_crypt_1_1_boot_encryption.html#ad7d1c3f18b8e3bc9133a1f8cabeb8f4d" title="Get the temp path. " alt="" coords="641,5,820,47"/>
+<area shape="rect" id="node14" href="$class_gost_crypt_1_1_file.html#a994d0e6bff285330edea0f5daaa17da1" title="Write on a file. " alt="" coords="656,71,805,98"/>
+<area shape="rect" id="node15" href="$class_gost_crypt_1_1_file.html#aec5740eb69e5ec15d77818aadeaf5001" title="Close a file. " alt="" coords="655,122,806,149"/>
+</map>

@@ -1,0 +1,134 @@
+\hypertarget{_dictionary_8c}{}\section{Common/\+Dictionary.c File Reference}
+\label{_dictionary_8c}\index{Common/\+Dictionary.\+c@{Common/\+Dictionary.\+c}}
+{\ttfamily \#include \char`\"{}../\+Common/\+Dictionary.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for Dictionary.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_dictionary_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_dictionary_8c_a94f2ea561725af0916cc6eb45159b7a8}{Add\+Dictionary\+Entry} (char $\ast$key, int int\+Key, void $\ast$value)
+\begin{DoxyCompactList}\small\item\em Add a dictionnary entry. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{_dictionary_8c_ae45336aeb59a3149cdf4f9b615ce72d1}{Get\+Dictionary\+Value} (const char $\ast$key)
+\begin{DoxyCompactList}\small\item\em Get the dictionnary value with String\+Key\+Map. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{_dictionary_8c_a126439e3465d5514e7a9a5af60a38f96}{Get\+Dictionary\+Value\+By\+Int} (int int\+Key)
+\item 
+void $\ast$ \hyperlink{_dictionary_8c_a6cffbe8e3d9f86ee0cbfd6293bfbe703}{Add\+Pool\+Data} (void $\ast$data, size\+\_\+t data\+Size)
+\begin{DoxyCompactList}\small\item\em Add data to a data pool. \end{DoxyCompactList}\item 
+void \hyperlink{_dictionary_8c_ac711b493c664657cbabf1e3268265f32}{Clear\+Dictionary\+Pool} ()
+\begin{DoxyCompactList}\small\item\em clear a dictionnary pool \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+functions on dictionnary \begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20/01/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_dictionary_8c_a94f2ea561725af0916cc6eb45159b7a8}\label{_dictionary_8c_a94f2ea561725af0916cc6eb45159b7a8}} 
+\index{Dictionary.\+c@{Dictionary.\+c}!Add\+Dictionary\+Entry@{Add\+Dictionary\+Entry}}
+\index{Add\+Dictionary\+Entry@{Add\+Dictionary\+Entry}!Dictionary.\+c@{Dictionary.\+c}}
+\subsubsection{\texorpdfstring{Add\+Dictionary\+Entry()}{AddDictionaryEntry()}}
+{\footnotesize\ttfamily void Add\+Dictionary\+Entry (\begin{DoxyParamCaption}\item[{char $\ast$}]{key,  }\item[{int}]{int\+Key,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Add a dictionnary entry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em void} & $\ast$ value \\
+\hline
+\mbox{\tt in}  & {\em int} & int\+Key \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_dictionary_8c_a6cffbe8e3d9f86ee0cbfd6293bfbe703}\label{_dictionary_8c_a6cffbe8e3d9f86ee0cbfd6293bfbe703}} 
+\index{Dictionary.\+c@{Dictionary.\+c}!Add\+Pool\+Data@{Add\+Pool\+Data}}
+\index{Add\+Pool\+Data@{Add\+Pool\+Data}!Dictionary.\+c@{Dictionary.\+c}}
+\subsubsection{\texorpdfstring{Add\+Pool\+Data()}{AddPoolData()}}
+{\footnotesize\ttfamily void $\ast$ Add\+Pool\+Data (\begin{DoxyParamCaption}\item[{void $\ast$}]{data,  }\item[{size\+\_\+t}]{data\+Size }\end{DoxyParamCaption})}
+
+
+
+Add data to a data pool. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size\+\_\+t} & data\+Size \\
+\hline
+\mbox{\tt in}  & {\em void} & $\ast$ data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void $\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_dictionary_8c_ac711b493c664657cbabf1e3268265f32}\label{_dictionary_8c_ac711b493c664657cbabf1e3268265f32}} 
+\index{Dictionary.\+c@{Dictionary.\+c}!Clear\+Dictionary\+Pool@{Clear\+Dictionary\+Pool}}
+\index{Clear\+Dictionary\+Pool@{Clear\+Dictionary\+Pool}!Dictionary.\+c@{Dictionary.\+c}}
+\subsubsection{\texorpdfstring{Clear\+Dictionary\+Pool()}{ClearDictionaryPool()}}
+{\footnotesize\ttfamily void Clear\+Dictionary\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+clear a dictionnary pool 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_dictionary_8c_ae45336aeb59a3149cdf4f9b615ce72d1}\label{_dictionary_8c_ae45336aeb59a3149cdf4f9b615ce72d1}} 
+\index{Dictionary.\+c@{Dictionary.\+c}!Get\+Dictionary\+Value@{Get\+Dictionary\+Value}}
+\index{Get\+Dictionary\+Value@{Get\+Dictionary\+Value}!Dictionary.\+c@{Dictionary.\+c}}
+\subsubsection{\texorpdfstring{Get\+Dictionary\+Value()}{GetDictionaryValue()}}
+{\footnotesize\ttfamily void $\ast$ Get\+Dictionary\+Value (\begin{DoxyParamCaption}\item[{const char $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Get the dictionnary value with String\+Key\+Map. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & char $\ast$ key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void $\ast$ 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_dictionary_8c_ae45336aeb59a3149cdf4f9b615ce72d1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_dictionary_8c_a126439e3465d5514e7a9a5af60a38f96}\label{_dictionary_8c_a126439e3465d5514e7a9a5af60a38f96}} 
+\index{Dictionary.\+c@{Dictionary.\+c}!Get\+Dictionary\+Value\+By\+Int@{Get\+Dictionary\+Value\+By\+Int}}
+\index{Get\+Dictionary\+Value\+By\+Int@{Get\+Dictionary\+Value\+By\+Int}!Dictionary.\+c@{Dictionary.\+c}}
+\subsubsection{\texorpdfstring{Get\+Dictionary\+Value\+By\+Int()}{GetDictionaryValueByInt()}}
+{\footnotesize\ttfamily void $\ast$ Get\+Dictionary\+Value\+By\+Int (\begin{DoxyParamCaption}\item[{int}]{int\+Key }\end{DoxyParamCaption})}
+
+the dictionnary value with Int\+Key\+Map 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & int\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void $\ast$ 
+\end{DoxyReturn}

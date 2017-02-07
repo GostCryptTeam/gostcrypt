@@ -1,0 +1,5 @@
+<map id="DoRegUninstall" name="DoRegUninstall">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="191,5,287,32"/>
+<area shape="rect" id="node4" href="$_com_setup_8cpp.html#ac3b4acd2dc2d56833956bb7eb87a3fc7" title="Unregister GostCryptMainCom and GostCryptFormatCom, it seems calling them to create GostCrypt..." alt="" coords="164,56,315,83"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="363,5,503,32"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="DumpCombo" name="DumpCombo">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="164,31,271,57"/>
+<area shape="rect" id="node5" href="$_xml_8c.html#ab408e251ac3b1e0546fc914ed2cd6280" title="Write xml header. " alt="" coords="160,81,275,108"/>
+<area shape="rect" id="node6" href="$_combo_8c.html#af0edd58d95e47e48b9947ffc1011fc5e" title="Get the combo highest id or return err if failed. " alt="" coords="151,132,284,159"/>
+<area shape="rect" id="node7" href="$_xml_8c.html#afc73778ac9299fde5c19caf08e51d740" title="Quote xml text. " alt="" coords="166,183,269,209"/>
+<area shape="rect" id="node8" href="$_xml_8c.html#aab5286cf37cd2a2830192a19a79d1294" title="Write xml footer. " alt="" coords="162,233,273,260"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="332,5,453,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="345,56,440,83"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="WaitCursor" name="WaitCursor">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a9cce66955923f808f4dd297c7041ac5b" title="Change the password. " alt="" coords="148,5,327,47"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="168,71,307,98"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#ab0df2ec62c9a7dfafeecfe9deea9041b" title="Prints a UTF&#45;16 text (note that this involves a real printer, not a screen). textByteLen &#45; length of ..." alt="" coords="153,122,322,149"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a6c5d55f53c2d06719da2c8572f0a747b" title="SecurityTokenKeyfileDlgProc" alt="" coords="142,173,333,199"/>
+<area shape="rect" id="node7" href="$_gstformat_8c.html#ab6d916ca0ac2eba75038f37f48a9aa5f" title="This functions is to be used when the wizard mode needs to be changed to WIZARD_MODE_SYS_DEVICE. If the function fails to switch the mode, it returns FALSE (otherwise TRUE). " alt="" coords="140,223,335,250"/>
+<area shape="rect" id="node9" href="$_mount_8c.html#af27f8f8119b85832f09481e3480c54b1" title="Save the settings in a file. " alt="" coords="188,274,287,301"/>
+<area shape="rect" id="node10" href="$_mount_8c.html#a80e2191b50f9e6ba9b4b26db9c2f36b7" title="Keep a backup of the volume header to recover it when required. The header contains essential informa..." alt="" coords="162,325,313,351"/>
+<area shape="rect" id="node11" href="$_mount_8c.html#a7bfdb38641976f9d9a484b63d5845f86" title="Analyse the memory dump, send error to user when a problem is encountered. " alt="" coords="155,375,319,402"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#ae0bc219f236e0be2c72c3d3f8fb2615b" title="Manage every case of text info diallog proc. " alt="" coords="400,122,572,149"/>
+<area shape="rect" id="node8" href="$_gstformat_8c.html#a2fd6df763c094f2f33f9aeca71b4271d" title="Switch wizard to Hidden OS Mode. " alt="" coords="383,223,589,250"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="DoShortcutsUninstall" name="DoShortcutsUninstall">
+<area shape="rect" id="node2" href="$_setup_8c.html#a54d41690f486a4e31c65995393c6fa8a" title="Remove txt from the display. " alt="" coords="209,5,330,32"/>
+<area shape="rect" id="node3" href="$_setup_8c.html#acaa2ec8636f04b8dda6b61c0860bab8a" title="Delete the lpszFile (maybe only if empty) " alt="" coords="217,56,321,83"/>
+<area shape="rect" id="node4" href="$_setup_8c.html#a64052226c61187709bd1f0adbfdfff57" title="Delete the lpszDir. " alt="" coords="197,107,341,133"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="207,157,332,184"/>
+</map>

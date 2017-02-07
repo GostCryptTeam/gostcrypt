@@ -1,0 +1,15 @@
+<map id="TravelerDlgProc" name="TravelerDlgProc">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#abef313f535b59ccc17ef8eaec7e2f040" title="Localize a Dialog. " alt="" coords="173,5,279,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="561,81,638,108"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a3a1bf3cd030aaf7b3b7f9f1f9cc4b4d4" title="Is the button checked ? " alt="" coords="165,107,287,133"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a483dd167ebefb47959bcea57bda138f7" title="Draw warning as string id in Unicode. " alt="" coords="191,157,261,184"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a4200737a61fd9ee41717bc4f6acc99b9" title="Browse files in a directory. " alt="" coords="167,208,285,235"/>
+<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="390,259,429,285"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#a84448aa5e465301510b24ae2b70dd11f" title="Delete the last used Windows file selector path for GostCrypt from the registry. " alt="" coords="335,183,484,209"/>
+<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="580,284,619,311"/>
+<area shape="rect" id="node9" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="765,284,804,311"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="551,183,647,209"/>
+<area shape="rect" id="node13" href="$_registry_8c.html#a4b6d586c107c576a4ded6e5bd67d1f1d" title="Read bytes in the registry. " alt="" coords="532,233,667,260"/>
+<area shape="rect" id="node14" href="$_registry_8c.html#a3f278da99f6819a15902f4cdf7bbba81" title="Write bytes in the registry. " alt="" coords="532,132,667,159"/>
+<area shape="rect" id="node12" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="715,183,855,209"/>
+</map>

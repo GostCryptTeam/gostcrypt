@@ -1,0 +1,5 @@
+<map id="ToCustHyperlink" name="ToCustHyperlink">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#abbdfb902227f1be08cbcf85f37fb92a6" title="Make a Hyper link. " alt="" coords="171,31,261,57"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#ab207e16568d835e2c9414efbde8884d4" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="320,5,423,32"/>
+<area shape="rect" id="node4" href="$_language_8c.html#abc420e36c5cb8584bb35faf41c82e3e4" title="Manage the window for the language options. display every language that it can find in the xml and di..." alt="" coords="309,56,433,83"/>
+</map>

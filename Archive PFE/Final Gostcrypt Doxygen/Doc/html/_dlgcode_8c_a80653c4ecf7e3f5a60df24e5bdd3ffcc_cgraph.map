@@ -1,0 +1,7 @@
+<map id="LoadSysEncSettings" name="LoadSysEncSettings">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a4ffbe57c23617a63122d4a7009ddc63d" title="Load a file and returns NULL if there&#39;s any error. Although the buffer can contain binary data..." alt="" coords="215,5,286,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="197,56,304,83"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a34c34fd84e82b5e8d667bd36376db452" title="Returns TRUE if the file or directory exists (both may be enclosed in quotation marks). " alt="" coords="211,107,291,133"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="352,31,473,57"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="365,81,460,108"/>
+</map>

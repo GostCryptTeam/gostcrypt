@@ -1,0 +1,17 @@
+<map id="Platform/Exception.cpp" name="Platform/Exception.cpp">
+<area shape="rect" id="node2" href="$_platform_2_exception_8h_source.html" title="Exception.h" alt="" coords="554,80,645,107"/>
+<area shape="rect" id="node28" href="$_serializer_factory_8h_source.html" title="SerializerFactory.h" alt="" coords="210,229,341,256"/>
+<area shape="rect" id="node4" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="488,528,599,555"/>
+<area shape="rect" id="node13" href="$_serializable_8h_source.html" title="Serializable.h" alt="" coords="493,155,593,181"/>
+<area shape="rect" id="node15" href="$_for_each_8h_source.html" title="ForEach.h" alt="" coords="611,229,694,256"/>
+<area shape="rect" id="node16" href="$_serializer_8h_source.html" title="Serializer.h" alt="" coords="500,229,587,256"/>
+<area shape="rect" id="node17" href="$_buffer_8h_source.html" title="Buffer.h" alt="" coords="638,379,705,405"/>
+<area shape="rect" id="node23" href="$_shared_ptr_8h_source.html" title="SharedPtr.h" alt="" coords="415,304,506,331"/>
+<area shape="rect" id="node27" href="$_stream_8h_source.html" title="Stream.h" alt="" coords="581,304,655,331"/>
+<area shape="rect" id="node18" href="$_memory_8h_source.html" title="Memory.h" alt="" coords="831,453,911,480"/>
+<area shape="rect" id="node20" href="$_endian_8h_source.html" title="endian.h" alt="" coords="836,528,907,555"/>
+<area shape="rect" id="node21" href="$_gstdefs_8h_source.html" title="Common/Gstdefs.h" alt="" coords="815,603,949,629"/>
+<area shape="rect" id="node24" href="$_shared_val_8h_source.html" title="SharedVal.h" alt="" coords="413,379,506,405"/>
+<area shape="rect" id="node25" href="$_mutex_8h_source.html" title="Mutex.h" alt="" coords="9,453,78,480"/>
+<area shape="rect" id="node30" href="$_string_converter_8h_source.html" title="StringConverter.h" alt="" coords="77,304,199,331"/>
+</map>

@@ -1,0 +1,270 @@
+\hypertarget{_favorites_8cpp}{}\section{Mount/\+Favorites.cpp File Reference}
+\label{_favorites_8cpp}\index{Mount/\+Favorites.\+cpp@{Mount/\+Favorites.\+cpp}}
+
+
+Manage favorite volume.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Platform/\+Finally.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Platform/\+For\+Each.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Encryption.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Language.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Mount.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Resource.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Xml.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Favorites.\+h\char`\"{}}\newline
+Include dependency graph for Favorites.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_favorites_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_favorites_8cpp_a09ffbc452f6336542c202a5d491c9725}{Gost\+Crypt\+::\+Add\+Mounted\+Volume\+To\+Favorites} (H\+W\+ND hwnd\+Dlg, int drive\+No, bool system\+Favorites)
+\begin{DoxyCompactList}\small\item\em Add the selected mounted volume to favorites. \end{DoxyCompactList}\item 
+wstring \hyperlink{_favorites_8cpp_a8f3b9296a8e7eee9055957237397ad70}{Gost\+Crypt\+::\+Get\+Favorite\+Volume\+Label} (const string \&volume\+Path)
+\begin{DoxyCompactList}\small\item\em Return label for each volume that are favorites. \end{DoxyCompactList}\item 
+void \hyperlink{_favorites_8cpp_aea85b6a3d1023e96268595a341e0f4aa}{Gost\+Crypt\+::\+Load\+Favorite\+Volumes} ()
+\begin{DoxyCompactList}\small\item\em Load the favorites volumes. \end{DoxyCompactList}\item 
+void \hyperlink{_favorites_8cpp_aa20ddcab17869710e051829291333fdf}{Gost\+Crypt\+::\+Load\+Favorite\+Volumes} (vector$<$ Favorite\+Volume $>$ \&favorites, bool system\+Favorites, bool no\+Uac\+Elevation)
+\begin{DoxyCompactList}\small\item\em Polymorphe of loadgin favorites volumes sending a special vector of favorties. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_favorites_8cpp_a77575f8e7489c2832577a212fb7e918e}{Gost\+Crypt\+::\+Organize\+Favorite\+Volumes} (H\+W\+ND hwnd\+Dlg, bool system\+Favorites, const Favorite\+Volume \&new\+Favorite)
+\begin{DoxyCompactList}\small\item\em Organise favortie voulmes on the window. \end{DoxyCompactList}\item 
+void \hyperlink{_favorites_8cpp_abedec6ec4ce1ffb04580a43ed4eb6f4c}{Gost\+Crypt\+::\+Update\+Device\+Hosted\+Favorite\+Volumes} ()
+\begin{DoxyCompactList}\small\item\em Load the favorite volumes with function \hyperlink{_favorites_8cpp_aa20ddcab17869710e051829291333fdf}{Load\+Favorite\+Volumes()} and catch if an error appears. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_favorites_8cpp_ac36974d72746d373d4fca1f4cedc2d95}\label{_favorites_8cpp_ac36974d72746d373d4fca1f4cedc2d95}} 
+vector$<$ Favorite\+Volume $>$ {\bfseries Gost\+Crypt\+::\+Favorite\+Volumes}
+\item 
+\mbox{\Hypertarget{_favorites_8cpp_abebbe1e0e24fec2270c716beb28dfaf0}\label{_favorites_8cpp_abebbe1e0e24fec2270c716beb28dfaf0}} 
+vector$<$ Favorite\+Volume $>$ {\bfseries Gost\+Crypt\+::\+System\+Favorite\+Volumes}
+\item 
+\mbox{\Hypertarget{_favorites_8cpp_ae7b6f954a051c63e40a7fb7a73352805}\label{_favorites_8cpp_ae7b6f954a051c63e40a7fb7a73352805}} 
+list$<$ Favorite\+Volume $>$ {\bfseries Gost\+Crypt\+::\+Favorites\+On\+Arrival\+Mount\+Required}
+\item 
+\mbox{\Hypertarget{_favorites_8cpp_a9c0c5caaf3d7ae854052fb4557b79b16}\label{_favorites_8cpp_a9c0c5caaf3d7ae854052fb4557b79b16}} 
+list$<$ Favorite\+Volume $>$ {\bfseries Gost\+Crypt\+::\+Favorites\+Mounted\+On\+Arrival\+Still\+Connected}
+\item 
+\mbox{\Hypertarget{_favorites_8cpp_aaca24cecbf369ba5eb07b1be50d17487}\label{_favorites_8cpp_aaca24cecbf369ba5eb07b1be50d17487}} 
+H\+M\+E\+NU {\bfseries Gost\+Crypt\+::\+Favorite\+Volumes\+Menu}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage favorite volume. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_favorites_8cpp_file_a09ffbc452f6336542c202a5d491c9725}\label{_favorites_8cpp_file_a09ffbc452f6336542c202a5d491c9725}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Add\+Mounted\+Volume\+To\+Favorites@{Add\+Mounted\+Volume\+To\+Favorites}}
+\index{Add\+Mounted\+Volume\+To\+Favorites@{Add\+Mounted\+Volume\+To\+Favorites}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Add\+Mounted\+Volume\+To\+Favorites()}{AddMountedVolumeToFavorites()}}
+{\footnotesize\ttfamily B\+O\+OL Gost\+Crypt\+::\+Add\+Mounted\+Volume\+To\+Favorites (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{int}]{drive\+No,  }\item[{bool}]{system\+Favorites }\end{DoxyParamCaption})}
+
+
+
+Add the selected mounted volume to favorites. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & system\+Favorites \\
+\hline
+\mbox{\tt in}  & {\em int} & drive\+No \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Organize\+Favorite\+Volumes (hwnd\+Dlg, system\+Favorites, favorite) F\+A\+L\+SE if error 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{_favorites_8cpp_a09ffbc452f6336542c202a5d491c9725_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{_favorites_8cpp_a09ffbc452f6336542c202a5d491c9725_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_favorites_8cpp_file_a8f3b9296a8e7eee9055957237397ad70}\label{_favorites_8cpp_file_a8f3b9296a8e7eee9055957237397ad70}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Get\+Favorite\+Volume\+Label@{Get\+Favorite\+Volume\+Label}}
+\index{Get\+Favorite\+Volume\+Label@{Get\+Favorite\+Volume\+Label}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+Favorite\+Volume\+Label()}{GetFavoriteVolumeLabel()}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+Get\+Favorite\+Volume\+Label (\begin{DoxyParamCaption}\item[{const string \&}]{volume\+Path }\end{DoxyParamCaption})}
+
+
+
+Return label for each volume that are favorites. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \&volume\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+wstring wstring() 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{_favorites_8cpp_a8f3b9296a8e7eee9055957237397ad70_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_favorites_8cpp_a8f3b9296a8e7eee9055957237397ad70_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_favorites_8cpp_file_aea85b6a3d1023e96268595a341e0f4aa}\label{_favorites_8cpp_file_aea85b6a3d1023e96268595a341e0f4aa}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Load\+Favorite\+Volumes@{Load\+Favorite\+Volumes}}
+\index{Load\+Favorite\+Volumes@{Load\+Favorite\+Volumes}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Load\+Favorite\+Volumes()}{LoadFavoriteVolumes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Load\+Favorite\+Volumes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Load the favorites volumes. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{_favorites_8cpp_aea85b6a3d1023e96268595a341e0f4aa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_favorites_8cpp_aea85b6a3d1023e96268595a341e0f4aa_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_favorites_8cpp_file_aa20ddcab17869710e051829291333fdf}\label{_favorites_8cpp_file_aa20ddcab17869710e051829291333fdf}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Load\+Favorite\+Volumes@{Load\+Favorite\+Volumes}}
+\index{Load\+Favorite\+Volumes@{Load\+Favorite\+Volumes}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Load\+Favorite\+Volumes()}{LoadFavoriteVolumes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Load\+Favorite\+Volumes (\begin{DoxyParamCaption}\item[{vector$<$ \hyperlink{struct_gost_crypt_1_1_favorite_volume}{Favorite\+Volume} $>$ \&}]{favorites,  }\item[{bool}]{system\+Favorites,  }\item[{bool}]{no\+Uac\+Elevation }\end{DoxyParamCaption})}
+
+
+
+Polymorphe of loadgin favorites volumes sending a special vector of favorties. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & no\+Uac\+Elevation \\
+\hline
+\mbox{\tt in}  & {\em bool} & system\+Favorites \\
+\hline
+\mbox{\tt in}  & {\em vector} & $<$\+Favorite\+Volume$>$ \&favorites \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_favorites_8cpp_aa20ddcab17869710e051829291333fdf_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_favorites_8cpp_file_a77575f8e7489c2832577a212fb7e918e}\label{_favorites_8cpp_file_a77575f8e7489c2832577a212fb7e918e}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Organize\+Favorite\+Volumes@{Organize\+Favorite\+Volumes}}
+\index{Organize\+Favorite\+Volumes@{Organize\+Favorite\+Volumes}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Organize\+Favorite\+Volumes()}{OrganizeFavoriteVolumes()}}
+{\footnotesize\ttfamily B\+O\+OL Gost\+Crypt\+::\+Organize\+Favorite\+Volumes (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{bool}]{system\+Favorites,  }\item[{const \hyperlink{struct_gost_crypt_1_1_favorite_volume}{Favorite\+Volume} \&}]{new\+Favorite }\end{DoxyParamCaption})}
+
+
+
+Organise favortie voulmes on the window. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & Favorite\+Volume \&new\+Favorite \\
+\hline
+\mbox{\tt in}  & {\em bool} & system\+Favorites \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Dialog\+Box\+ParamW (h\+Inst, M\+A\+K\+E\+I\+N\+T\+R\+E\+S\+O\+U\+R\+C\+EW (I\+D\+D\+\_\+\+F\+A\+V\+O\+R\+I\+T\+E\+\_\+\+V\+O\+L\+U\+M\+ES), hwnd\+Dlg, (D\+L\+G\+P\+R\+OC) Favorite\+Volumes\+Dlg\+Proc, (L\+P\+A\+R\+AM) \&args) == I\+D\+OK 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{_favorites_8cpp_a77575f8e7489c2832577a212fb7e918e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{_favorites_8cpp_a77575f8e7489c2832577a212fb7e918e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_favorites_8cpp_file_abedec6ec4ce1ffb04580a43ed4eb6f4c}\label{_favorites_8cpp_file_abedec6ec4ce1ffb04580a43ed4eb6f4c}} 
+\index{Favorites.\+cpp@{Favorites.\+cpp}!Update\+Device\+Hosted\+Favorite\+Volumes@{Update\+Device\+Hosted\+Favorite\+Volumes}}
+\index{Update\+Device\+Hosted\+Favorite\+Volumes@{Update\+Device\+Hosted\+Favorite\+Volumes}!Favorites.\+cpp@{Favorites.\+cpp}}
+\subsubsection{\texorpdfstring{Update\+Device\+Hosted\+Favorite\+Volumes()}{UpdateDeviceHostedFavoriteVolumes()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Update\+Device\+Hosted\+Favorite\+Volumes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Load the favorite volumes with function \hyperlink{_favorites_8cpp_aa20ddcab17869710e051829291333fdf}{Load\+Favorite\+Volumes()} and catch if an error appears. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_favorites_8cpp_abedec6ec4ce1ffb04580a43ed4eb6f4c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{_favorites_8cpp_abedec6ec4ce1ffb04580a43ed4eb6f4c_icgraph}
+\end{center}
+\end{figure}

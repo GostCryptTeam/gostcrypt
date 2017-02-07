@@ -1,0 +1,6 @@
+A sécuriser
+Setup -> SelfExtract.c -> "x = strlen (szDestDir);"
+
+A améliorer: creer common pour 
+Mount -> mainCom.cpp
+Format -> formatCom.cpp

@@ -1,0 +1,10 @@
+<map id="GostCrypt::Elevator::RegisterFilterDriver" name="GostCrypt::Elevator::RegisterFilterDriver">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a10d9792ca3396b62332ec244cee983eb" title="Register the filter driver. " alt="" coords="192,159,371,200"/>
+<area shape="rect" id="node3" href="$class_base_com.html#a42fbcfca1fecd24c6aeed62d5e86e6b1" title="BaseCom::RegisterFilterDriver" alt="" coords="419,78,615,105"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="669,136,848,177"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#ab800499c17495d75aecfd93cd0942690" title="Register the boot drive. " alt="" coords="427,188,606,229"/>
+<area shape="rect" id="node9" href="$_setup_8c.html#ae4d73451e4ad46158465c2f3056cd3de" title="Uninstall the service. " alt="" coords="451,254,582,281"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_format_com.html#ab08c33cbaf3e0f8e2c0f1c6b761e5fe1" title="Call RegisterFilterDriver in basecom object. " alt="" coords="684,5,833,47"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_main_com.html#ab18d50220b4f5fae0a442c7723a8c0f3" title="Call the &quot;RegisterFilterDriver&quot; of the Basecom object and return it. " alt="" coords="663,71,855,112"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#afae7ad7d8fb9fb9137395cb5e378a849" title="Install. " alt="" coords="669,201,848,243"/>
+</map>

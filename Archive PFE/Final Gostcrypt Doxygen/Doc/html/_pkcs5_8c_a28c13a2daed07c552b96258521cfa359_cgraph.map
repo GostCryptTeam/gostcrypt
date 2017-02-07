@@ -1,0 +1,5 @@
+<map id="hmac_gosthash" name="hmac_gosthash">
+<area shape="rect" id="node2" href="$_gost_hash_8c.html#a2522137f128b93d83f8e60e98649fbb7" title="initialize GOSTHASH (set blocks) " alt="" coords="179,5,298,32"/>
+<area shape="rect" id="node3" href="$_gost_hash_8c.html#a85ebb98a64431b2eac86f8a5f3ba721f" title="add a gost hash " alt="" coords="177,56,300,83"/>
+<area shape="rect" id="node4" href="$_gost_hash_8c.html#afdcf3fdde11b1abe034ad3a020dbc51d" title="Finalization of the gost hash. " alt="" coords="168,107,309,133"/>
+</map>

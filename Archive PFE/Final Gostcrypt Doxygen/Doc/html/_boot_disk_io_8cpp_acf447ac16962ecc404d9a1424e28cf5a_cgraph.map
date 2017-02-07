@@ -1,0 +1,9 @@
+<map id="ReadWriteSectors" name="ReadWriteSectors">
+<area shape="rect" id="node2" href="$_boot_disk_io_8cpp.html#aed3ca1d96bd33172eb786424afe8dccc" title="Read and write sectors. " alt="" coords="181,56,309,83"/>
+<area shape="rect" id="node3" href="$_boot_disk_io_8cpp.html#a8be7f4a4d8f6ec9b9393233d632c6cc1" title="Print dick errors. " alt="" coords="357,56,460,83"/>
+<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a218773774aaa01e4368c444a4fdb4a4e" title="Print the end of line. " alt="" coords="508,5,583,32"/>
+<area shape="rect" id="node7" href="$_boot_disk_io_8cpp.html#a9e4942793e52c15f522b631903b1de4a" title="Print a ChsAddress. " alt="" coords="631,56,680,83"/>
+<area shape="rect" id="node8" href="$_boot_console_io_8cpp.html#a26f50e4eb3544de269fffd2cf13ced86" title="Make a beep. " alt="" coords="519,107,571,133"/>
+<area shape="rect" id="node5" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="631,5,680,32"/>
+<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="728,56,804,83"/>
+</map>

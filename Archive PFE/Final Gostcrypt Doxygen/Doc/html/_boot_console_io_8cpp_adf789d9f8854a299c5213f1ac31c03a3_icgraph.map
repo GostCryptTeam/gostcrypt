@@ -1,0 +1,4 @@
+<map id="IsKeyboardCharAvailable" name="IsKeyboardCharAvailable">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a44b6659917bdf713e93ab42c5fac1415" title="Get ascii code of keyboard char. " alt="" coords="219,5,344,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#aa1d696ee74314834ace59e29c23c0786" title="Check if escape key is pressed. " alt="" coords="223,56,339,83"/>
+</map>

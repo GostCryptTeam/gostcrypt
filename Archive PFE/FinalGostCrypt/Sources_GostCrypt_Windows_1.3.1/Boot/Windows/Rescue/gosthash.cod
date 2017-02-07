@@ -1,0 +1,2194 @@
+;	Static Name Aliases
+;
+;	$S124_C_3	EQU	C_3
+;	$S125_GostR3411_94_CryptoProParamSet	EQU	GostR3411_94_CryptoProParamSet
+	TITLE   ..\..\..\crypto\gosthash.c
+	.MODEL  SMALL
+	.386p
+	.387
+_TEXT	SEGMENT  WORD USE16 PUBLIC 'CODE'
+_TEXT	ENDS
+_DATA	SEGMENT  WORD USE16 PUBLIC 'DATA'
+_DATA	ENDS
+CONST	SEGMENT  WORD USE16 PUBLIC 'CONST'
+CONST	ENDS
+_BSS	SEGMENT  WORD USE16 PUBLIC 'BSS'
+_BSS	ENDS
+DGROUP	GROUP	CONST, _BSS, _DATA
+	ASSUME DS: DGROUP, SS: DGROUP
+EXTRN	__aNlshr:NEAR
+EXTRN	__aNulshr:NEAR
+EXTRN	__aNlshl:NEAR
+_DATA      SEGMENT
+$S124_C_3	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	00H
+	DB	0ffH
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+	DB	00H
+	DB	00H
+	DB	0ffH
+	DB	0ffH
+	DB	00H
+	DB	00H
+	DB	00H
+	DB	0ffH
+	DB	0ffH
+	DB	00H
+	DB	0ffH
+$S125_GostR3411_94_CryptoProParamSet	DB	01H
+	DB	03H
+	DB	0aH
+	DB	09H
+	DB	05H
+	DB	0bH
+	DB	04H
+	DB	0fH
+	DB	08H
+	DB	06H
+	DB	07H
+	DB	0eH
+	DB	0dH
+	DB	00H
+	DB	02H
+	DB	0cH
+	DB	0dH
+	DB	0eH
+	DB	04H
+	DB	01H
+	DB	07H
+	DB	00H
+	DB	05H
+	DB	0aH
+	DB	03H
+	DB	0cH
+	DB	08H
+	DB	0fH
+	DB	06H
+	DB	02H
+	DB	09H
+	DB	0bH
+	DB	07H
+	DB	06H
+	DB	02H
+	DB	04H
+	DB	0dH
+	DB	09H
+	DB	0fH
+	DB	00H
+	DB	0aH
+	DB	01H
+	DB	05H
+	DB	0bH
+	DB	08H
+	DB	0eH
+	DB	0cH
+	DB	03H
+	DB	07H
+	DB	06H
+	DB	04H
+	DB	0bH
+	DB	09H
+	DB	0cH
+	DB	02H
+	DB	0aH
+	DB	01H
+	DB	08H
+	DB	00H
+	DB	0eH
+	DB	0fH
+	DB	0dH
+	DB	03H
+	DB	05H
+	DB	04H
+	DB	0aH
+	DB	07H
+	DB	0cH
+	DB	00H
+	DB	0fH
+	DB	02H
+	DB	08H
+	DB	0eH
+	DB	01H
+	DB	06H
+	DB	05H
+	DB	0dH
+	DB	0bH
+	DB	09H
+	DB	03H
+	DB	07H
+	DB	0fH
+	DB	0cH
+	DB	0eH
+	DB	09H
+	DB	04H
+	DB	01H
+	DB	00H
+	DB	03H
+	DB	0bH
+	DB	05H
+	DB	02H
+	DB	06H
+	DB	0aH
+	DB	08H
+	DB	0dH
+	DB	05H
+	DB	0fH
+	DB	04H
+	DB	00H
+	DB	02H
+	DB	0dH
+	DB	0bH
+	DB	09H
+	DB	01H
+	DB	07H
+	DB	06H
+	DB	03H
+	DB	0cH
+	DB	0eH
+	DB	0aH
+	DB	08H
+	DB	0aH
+	DB	04H
+	DB	05H
+	DB	06H
+	DB	08H
+	DB	01H
+	DB	03H
+	DB	07H
+	DB	0dH
+	DB	0cH
+	DB	0eH
+	DB	00H
+	DB	09H
+	DB	02H
+	DB	0bH
+	DB	0fH
+_DATA      ENDS
+_TEXT      SEGMENT
+	ASSUME	CS: _TEXT
+
+r	PROC NEAR	;  COMDAT
+;|*** /**
+;|***  *
+;|***  *	\file GostHash.c
+;|***  *	\brief This is an implementation of the GOST R 34.11-94 Hash Function Algorithm.
+;|***  *	\version 1.3.1
+;|***  *	\date 13/12/2016
+;|***  *
+;|***  */
+;|*** 
+;|*** /**
+;|***  *	
+;|***  *	Copyright (c) 2008-2011 TrueCrypt Developers Association. All rights reserved.
+;|***  *	
+;|***  *	Governed by the TrueCrypt License 3.0 the full text of which is contained in
+;|***  *	the file License.txt included in TrueCrypt binary and source code distribution
+;|***  *	packages.
+;|***  *	
+;|***  */
+;|*** 
+;|*** #include "GostHash.h"
+;|*** 
+;|*** static byte C_3[32] =
+;|*** {
+;|*** 	0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
+;|*** 	0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00,
+;|*** 	0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0xFF,
+;|*** 	0xFF, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF
+;|*** };
+;|*** 
+;|*** /* A stripped-down GOST 28147-89 encryption algorithm for the use in this hash function */
+;|*** static gosthash_s_box GostR3411_94_CryptoProParamSet = {
+;|*** 	{0x1,0x3,0xA,0x9,0x5,0xB,0x4,0xF,0x8,0x6,0x7,0xE,0xD,0x0,0x2,0xC},
+;|*** 	{0xD,0xE,0x4,0x1,0x7,0x0,0x5,0xA,0x3,0xC,0x8,0xF,0x6,0x2,0x9,0xB},
+;|*** 	{0x7,0x6,0x2,0x4,0xD,0x9,0xF,0x0,0xA,0x1,0x5,0xB,0x8,0xE,0xC,0x3},
+;|*** 	{0x7,0x6,0x4,0xB,0x9,0xC,0x2,0xA,0x1,0x8,0x0,0xE,0xF,0xD,0x3,0x5},
+;|*** 	{0x4,0xA,0x7,0xC,0x0,0xF,0x2,0x8,0xE,0x1,0x6,0x5,0xD,0xB,0x9,0x3},
+;|*** 	{0x7,0xF,0xC,0xE,0x9,0x4,0x1,0x0,0x3,0xB,0x5,0x2,0x6,0xA,0x8,0xD},
+;|*** 	{0x5,0xF,0x4,0x0,0x2,0xD,0xB,0x9,0x1,0x7,0x6,0x3,0xC,0xE,0xA,0x8},
+;|*** 	{0xA,0x4,0x5,0x6,0x8,0x1,0x3,0x7,0xD,0xC,0xE,0x0,0x9,0x2,0xB,0xF}
+;|*** };
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X)
+;|***  *	\brief Perform an encryption or a decryption round
+;|***  *	\param[in] gst_udword X
+;|***  *	\param[in] gst_udword n2
+;|***  *	\param[in] gst_udword n1
+;|***  *	\return static gst_udword n2
+;|***  *
+;|***  */
+;|*** static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X)
+;|*** {
+; Line 53
+	*** 000000	c8 08 00 00 		enter	8,0
+	*** 000004	56 			push	si
+;	n2 = 8
+;	X = 12
+;	sbox = -2
+;	n1 = 4
+;|*** 	gosthash_s_box *sbox = &GostR3411_94_CryptoProParamSet;
+;|*** 	n1 += X;
+; Line 55
+	*** 000005	66 8b 46 0c 		mov	eax,DWORD PTR [bp+12]	;X
+	*** 000009	66 01 46 04 		add	DWORD PTR [bp+4],eax	;n1
+;|*** 	n1 =  (gst_udword)sbox->k8[(n1>>28)&0xF]<<28 | (gst_udword)sbox->k7[(n1>>24)&0xF]<<24
+;|*** 				| (gst_udword)sbox->k6[(n1>>20)&0xF]<<20 | (gst_udword)sbox->k5[(n1>>16)&0xF]<<16
+;|*** 				| (gst_udword)sbox->k4[(n1>>12)&0xF]<<12 | (gst_udword)sbox->k3[(n1>>8)&0xF]<<8
+;|*** 				| (gst_udword)sbox->k2[(n1>>4)&0xF]<<4 | (gst_udword)sbox->k1[n1&0xF];
+; Line 59
+	*** 00000d	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 000010	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 000013	b1 0c 			mov	cl,12	;000cH
+	*** 000015	c1 ea 0c 		shr	dx,12	;000cH
+	*** 000018	8b da 			mov	bx,dx
+	*** 00001a	83 e3 0f 		and	bx,15	;000fH
+	*** 00001d	2a e4 			sub	ah,ah
+	*** 00001f	8a 87 00 00 		mov	al,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx]
+	*** 000023	8b d8 			mov	bx,ax
+	*** 000025	66 8b 46 04 		mov	eax,DWORD PTR [bp+4]	;n1
+	*** 000029	8b f3 			mov	si,bx
+	*** 00002b	66 d3 e8 		shr	eax,cl
+	*** 00002e	8b d8 			mov	bx,ax
+	*** 000030	83 e3 0f 		and	bx,15	;000fH
+	*** 000033	2a e4 			sub	ah,ah
+	*** 000035	8a 87 40 00 		mov	al,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+64]
+	*** 000039	8b c8 			mov	cx,ax
+	*** 00003b	8b d6 			mov	dx,si
+	*** 00003d	b1 04 			mov	cl,4
+	*** 00003f	e8 00 00 		call	__aNlshl
+	*** 000042	8b c8 			mov	cx,ax
+	*** 000044	8b da 			mov	bx,dx
+	*** 000046	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 000049	8a d6 			mov	dl,dh
+	*** 00004b	2a f6 			sub	dh,dh
+	*** 00004d	8b c3 			mov	ax,bx
+	*** 00004f	8b da 			mov	bx,dx
+	*** 000051	83 e3 0f 		and	bx,15	;000fH
+	*** 000054	8a 97 10 00 		mov	dl,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+16]
+	*** 000058	8b f2 			mov	si,dx
+	*** 00005a	2b db 			sub	bx,bx
+	*** 00005c	89 4e fc 		mov	WORD PTR [bp-4],cx
+	*** 00005f	89 46 fe 		mov	WORD PTR [bp-2],ax	;sbox
+	*** 000062	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 000065	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 000068	b1 08 			mov	cl,8
+	*** 00006a	e8 00 00 		call	__aNulshr
+	*** 00006d	8b d8 			mov	bx,ax
+	*** 00006f	83 e3 0f 		and	bx,15	;000fH
+	*** 000072	2a e4 			sub	ah,ah
+	*** 000074	8a 87 50 00 		mov	al,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+80]
+	*** 000078	8b c8 			mov	cx,ax
+	*** 00007a	8b 46 fc 		mov	ax,WORD PTR [bp-4]
+	*** 00007d	8b 56 fe 		mov	dx,WORD PTR [bp-2]	;sbox
+	*** 000080	0b d6 			or	dx,si
+	*** 000082	0b c1 			or	ax,cx
+	*** 000084	b1 04 			mov	cl,4
+	*** 000086	e8 00 00 		call	__aNlshl
+	*** 000089	8b c8 			mov	cx,ax
+	*** 00008b	8b da 			mov	bx,dx
+	*** 00008d	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 000090	c1 ea 04 		shr	dx,4
+	*** 000093	8b c3 			mov	ax,bx
+	*** 000095	8b da 			mov	bx,dx
+	*** 000097	83 e3 0f 		and	bx,15	;000fH
+	*** 00009a	2a f6 			sub	dh,dh
+	*** 00009c	8a 97 20 00 		mov	dl,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+32]
+	*** 0000a0	8b f2 			mov	si,dx
+	*** 0000a2	2b db 			sub	bx,bx
+	*** 0000a4	89 4e f8 		mov	WORD PTR [bp-8],cx
+	*** 0000a7	89 46 fa 		mov	WORD PTR [bp-6],ax
+	*** 0000aa	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n1
+	*** 0000ad	8b 56 06 		mov	dx,WORD PTR [bp+6]
+	*** 0000b0	b1 04 			mov	cl,4
+	*** 0000b2	e8 00 00 		call	__aNulshr
+	*** 0000b5	8b d8 			mov	bx,ax
+	*** 0000b7	83 e3 0f 		and	bx,15	;000fH
+	*** 0000ba	2a e4 			sub	ah,ah
+	*** 0000bc	8a 87 60 00 		mov	al,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+96]
+	*** 0000c0	8b c8 			mov	cx,ax
+	*** 0000c2	8b 46 f8 		mov	ax,WORD PTR [bp-8]
+	*** 0000c5	8b 56 fa 		mov	dx,WORD PTR [bp-6]
+	*** 0000c8	0b d6 			or	dx,si
+	*** 0000ca	0b c1 			or	ax,cx
+	*** 0000cc	b1 04 			mov	cl,4
+	*** 0000ce	e8 00 00 		call	__aNlshl
+	*** 0000d1	8a 5e 06 		mov	bl,BYTE PTR [bp+6]
+	*** 0000d4	83 e3 0f 		and	bx,15	;000fH
+	*** 0000d7	2a ed 			sub	ch,ch
+	*** 0000d9	8a 8f 30 00 		mov	cl,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+48]
+	*** 0000dd	2b db 			sub	bx,bx
+	*** 0000df	0b d1 			or	dx,cx
+	*** 0000e1	8a 5e 04 		mov	bl,BYTE PTR [bp+4]	;n1
+	*** 0000e4	83 e3 0f 		and	bx,15	;000fH
+	*** 0000e7	8a 8f 70 00 		mov	cl,BYTE PTR $S125_GostR3411_94_CryptoProParamSet[bx+112]
+	*** 0000eb	0b c1 			or	ax,cx
+	*** 0000ed	89 46 04 		mov	WORD PTR [bp+4],ax	;n1
+	*** 0000f0	89 56 06 		mov	WORD PTR [bp+6],dx
+;|*** 	n1 = gosthash_rotl32(n1, 11);
+;|*** 	n2 ^= n1;
+;|*** 	return n2;
+; Line 62
+	*** 0000f3	b1 0b 			mov	cl,11	;000bH
+	*** 0000f5	e8 00 00 		call	__aNlshl
+	*** 0000f8	8b 4e 06 		mov	cx,WORD PTR [bp+6]
+	*** 0000fb	c1 e9 05 		shr	cx,5
+	*** 0000fe	0b c1 			or	ax,cx
+	*** 000100	89 46 04 		mov	WORD PTR [bp+4],ax	;n1
+	*** 000103	89 56 06 		mov	WORD PTR [bp+6],dx
+	*** 000106	33 46 08 		xor	ax,WORD PTR [bp+8]	;n2
+	*** 000109	33 56 0a 		xor	dx,WORD PTR [bp+10]
+;|*** }
+; Line 63
+	*** 00010c	5e 			pop	si
+	*** 00010d	c9 			leave	
+	*** 00010e	c3 			ret	
+
+r	ENDP
+
+gost_encrypt_with_key	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void gost_encrypt_with_key(byte *in, byte *out, byte *key)
+;|***  *	\brief Encrypt with gost algorithm and key
+;|***  *	\param[in] byte * key
+;|***  *	\param[in] byte * out
+;|***  *	\param[in] byte * in
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void gost_encrypt_with_key(byte *in, byte *out, byte *key)
+;|*** {
+; Line 76
+	*** 000000	c8 2e 00 00 		enter	46,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	in = 4
+;	out = 6
+;	key = 8
+;	i = -4
+;	n1 = -8
+;	n2 = -12
+;	X0 = -16
+;	X1 = -20
+;	X2 = -24
+;	X3 = -28
+;	X4 = -32
+;	X5 = -36
+;	X6 = -40
+;	X7 = -44
+	*** 000006	8b 76 04 		mov	si,WORD PTR [bp+4]	;in
+;|*** 	gst_dword i;
+;|*** 	gst_udword n1, n2;
+;|*** 	gst_udword X0, X1, X2, X3, X4, X5, X6, X7;
+;|*** 
+;|*** 	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
+; Line 81
+	*** 000009	2a e4 			sub	ah,ah
+	*** 00000b	8a 44 03 		mov	al,BYTE PTR [si+3]
+	*** 00000e	8b c8 			mov	cx,ax
+	*** 000010	8b d0 			mov	dx,ax
+	*** 000012	8a 4c 01 		mov	cl,BYTE PTR [si+1]
+	*** 000015	8b c1 			mov	ax,cx
+	*** 000017	b1 08 			mov	cl,8
+	*** 000019	e8 00 00 		call	__aNlshl
+	*** 00001c	8a 4c 02 		mov	cl,BYTE PTR [si+2]
+	*** 00001f	2a ed 			sub	ch,ch
+	*** 000021	2b db 			sub	bx,bx
+	*** 000023	0b d1 			or	dx,cx
+	*** 000025	8a 0c 			mov	cl,BYTE PTR [si]
+	*** 000027	0b c1 			or	ax,cx
+	*** 000029	89 46 f8 		mov	WORD PTR [bp-8],ax	;n1
+	*** 00002c	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+; Line 82
+	*** 00002f	8a 44 07 		mov	al,BYTE PTR [si+7]
+	*** 000032	2a e4 			sub	ah,ah
+	*** 000034	8b c8 			mov	cx,ax
+	*** 000036	8b d0 			mov	dx,ax
+	*** 000038	8a 4c 05 		mov	cl,BYTE PTR [si+5]
+	*** 00003b	8b c1 			mov	ax,cx
+	*** 00003d	b1 08 			mov	cl,8
+	*** 00003f	e8 00 00 		call	__aNlshl
+	*** 000042	8a 4c 06 		mov	cl,BYTE PTR [si+6]
+	*** 000045	2a ed 			sub	ch,ch
+	*** 000047	2b db 			sub	bx,bx
+	*** 000049	0b d1 			or	dx,cx
+	*** 00004b	8a 4c 04 		mov	cl,BYTE PTR [si+4]
+	*** 00004e	0b c1 			or	ax,cx
+	*** 000050	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 000053	89 56 f6 		mov	WORD PTR [bp-10],dx
+;|*** 
+;|*** 	/* Set the 8 round keys */
+;|*** 	X0 = 0;
+; Line 85
+	*** 000056	66 2b c0 		sub	eax,eax
+	*** 000059	66 89 46 f0 		mov	DWORD PTR [bp-16],eax	;X0
+;|*** 	X1 = 0;
+; Line 86
+	*** 00005d	66 89 46 ec 		mov	DWORD PTR [bp-20],eax	;X1
+;|*** 	X2 = 0;
+; Line 87
+	*** 000061	66 89 46 e8 		mov	DWORD PTR [bp-24],eax	;X2
+;|*** 	X3 = 0;
+; Line 88
+	*** 000065	66 89 46 e4 		mov	DWORD PTR [bp-28],eax	;X3
+;|*** 	X4 = 0;
+; Line 89
+	*** 000069	66 89 46 e0 		mov	DWORD PTR [bp-32],eax	;X4
+;|*** 	X5 = 0;
+; Line 90
+	*** 00006d	66 89 46 dc 		mov	DWORD PTR [bp-36],eax	;X5
+;|*** 	X6 = 0;
+; Line 91
+	*** 000071	66 89 46 d8 		mov	DWORD PTR [bp-40],eax	;X6
+;|*** 	X7 = 0;
+; Line 92
+	*** 000075	66 89 46 d4 		mov	DWORD PTR [bp-44],eax	;X7
+;|*** 	
+;|*** 	for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
+; Line 94
+	*** 000079	66 89 46 fc 		mov	DWORD PTR [bp-4],eax	;i
+	*** 00007d	8b 76 08 		mov	si,WORD PTR [bp+8]	;key
+					$F154:
+	*** 000080	66 83 7e fc 04 		cmp	DWORD PTR [bp-4],4	;i
+	*** 000085	0f 8d ad 00 		jge	$FB156
+					$L316:
+;|*** 	{
+;|*** 		X0 |= (gst_udword)key[i + 0] << (i * 8);
+; Line 96
+	*** 000089	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 00008c	2a e4 			sub	ah,ah
+	*** 00008e	8a 00 			mov	al,BYTE PTR [bx][si]
+	*** 000090	2b d2 			sub	dx,dx
+	*** 000092	8b cb 			mov	cx,bx
+	*** 000094	c0 e1 03 		shl	cl,3
+	*** 000097	89 4e d2 		mov	WORD PTR [bp-46],cx
+	*** 00009a	e8 00 00 		call	__aNlshl
+	*** 00009d	09 46 f0 		or	WORD PTR [bp-16],ax	;X0
+	*** 0000a0	09 56 f2 		or	WORD PTR [bp-14],dx
+;|*** 		X1 |= (gst_udword)key[i + 4] << (i * 8);
+; Line 97
+	*** 0000a3	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 0000a6	03 de 			add	bx,si
+	*** 0000a8	2a e4 			sub	ah,ah
+	*** 0000aa	8a 47 04 		mov	al,BYTE PTR [bx+4]
+	*** 0000ad	2b d2 			sub	dx,dx
+	*** 0000af	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 0000b2	8b fb 			mov	di,bx
+	*** 0000b4	e8 00 00 		call	__aNlshl
+	*** 0000b7	09 46 ec 		or	WORD PTR [bp-20],ax	;X1
+	*** 0000ba	09 56 ee 		or	WORD PTR [bp-18],dx
+;|*** 		X2 |= (gst_udword)key[i + 8] << (i * 8);
+; Line 98
+	*** 0000bd	8a 45 08 		mov	al,BYTE PTR [di+8]
+	*** 0000c0	2a e4 			sub	ah,ah
+	*** 0000c2	2b d2 			sub	dx,dx
+	*** 0000c4	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 0000c7	e8 00 00 		call	__aNlshl
+	*** 0000ca	09 46 e8 		or	WORD PTR [bp-24],ax	;X2
+	*** 0000cd	09 56 ea 		or	WORD PTR [bp-22],dx
+;|*** 		X3 |= (gst_udword)key[i + 12] << (i * 8);
+; Line 99
+	*** 0000d0	8a 45 0c 		mov	al,BYTE PTR [di+12]
+	*** 0000d3	2a e4 			sub	ah,ah
+	*** 0000d5	2b d2 			sub	dx,dx
+	*** 0000d7	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 0000da	e8 00 00 		call	__aNlshl
+	*** 0000dd	09 46 e4 		or	WORD PTR [bp-28],ax	;X3
+	*** 0000e0	09 56 e6 		or	WORD PTR [bp-26],dx
+;|*** 		X4 |= (gst_udword)key[i + 16] << (i * 8);
+; Line 100
+	*** 0000e3	8a 45 10 		mov	al,BYTE PTR [di+16]
+	*** 0000e6	2a e4 			sub	ah,ah
+	*** 0000e8	2b d2 			sub	dx,dx
+	*** 0000ea	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 0000ed	e8 00 00 		call	__aNlshl
+	*** 0000f0	09 46 e0 		or	WORD PTR [bp-32],ax	;X4
+	*** 0000f3	09 56 e2 		or	WORD PTR [bp-30],dx
+;|*** 		X5 |= (gst_udword)key[i + 20] << (i * 8);
+; Line 101
+	*** 0000f6	8a 45 14 		mov	al,BYTE PTR [di+20]
+	*** 0000f9	2a e4 			sub	ah,ah
+	*** 0000fb	2b d2 			sub	dx,dx
+	*** 0000fd	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 000100	e8 00 00 		call	__aNlshl
+	*** 000103	09 46 dc 		or	WORD PTR [bp-36],ax	;X5
+	*** 000106	09 56 de 		or	WORD PTR [bp-34],dx
+;|*** 		X6 |= (gst_udword)key[i + 24] << (i * 8);
+; Line 102
+	*** 000109	8a 45 18 		mov	al,BYTE PTR [di+24]
+	*** 00010c	2a e4 			sub	ah,ah
+	*** 00010e	2b d2 			sub	dx,dx
+	*** 000110	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 000113	e8 00 00 		call	__aNlshl
+	*** 000116	09 46 d8 		or	WORD PTR [bp-40],ax	;X6
+	*** 000119	09 56 da 		or	WORD PTR [bp-38],dx
+;|*** 		X7 |= (gst_udword)key[i + 28] << (i * 8);
+; Line 103
+	*** 00011c	8a 45 1c 		mov	al,BYTE PTR [di+28]
+	*** 00011f	2a e4 			sub	ah,ah
+	*** 000121	2b d2 			sub	dx,dx
+	*** 000123	8a 4e d2 		mov	cl,BYTE PTR [bp-46]
+	*** 000126	e8 00 00 		call	__aNlshl
+	*** 000129	09 46 d4 		or	WORD PTR [bp-44],ax	;X7
+	*** 00012c	09 56 d6 		or	WORD PTR [bp-42],dx
+;|*** 	for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
+; Line 94
+	*** 00012f	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 000133	e9 4a ff 		jmp	$F154
+;|*** 	{
+;|*** 		X0 |= (gst_udword)key[i + 0] << (i * 8);
+;|*** 		X1 |= (gst_udword)key[i + 4] << (i * 8);
+;|*** 		X2 |= (gst_udword)key[i + 8] << (i * 8);
+;|*** 		X3 |= (gst_udword)key[i + 12] << (i * 8);
+;|*** 		X4 |= (gst_udword)key[i + 16] << (i * 8);
+;|*** 		X5 |= (gst_udword)key[i + 20] << (i * 8);
+;|*** 		X6 |= (gst_udword)key[i + 24] << (i * 8);
+;|*** 		X7 |= (gst_udword)key[i + 28] << (i * 8);
+;|*** 	}
+; Line 104
+					$FB156:
+	*** 000136	8b 76 06 		mov	si,WORD PTR [bp+6]	;out
+;|*** 
+;|*** 	/* Encryption rounds 1-24 */
+;|*** 	n2 = r(n1, n2, X0);
+;|*** 	n1 = r(n2, n1, X1);
+; Line 108
+	*** 000139	66 ff 76 ec 		push	DWORD PTR [bp-20]	;X1
+	*** 00013d	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n1
+	*** 000141	66 ff 76 f0 		push	DWORD PTR [bp-16]	;X0
+	*** 000145	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000149	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n1
+	*** 00014d	e8 00 00 		call	r
+	*** 000150	83 c4 0c 		add	sp,12	;000cH
+	*** 000153	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 000156	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000159	52 			push	dx
+	*** 00015a	50 			push	ax
+	*** 00015b	e8 00 00 		call	r
+	*** 00015e	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X2);
+;|*** 	n1 = r(n2, n1, X3);
+; Line 110
+	*** 000161	66 ff 76 e4 		push	DWORD PTR [bp-28]	;X3
+	*** 000165	52 			push	dx
+	*** 000166	50 			push	ax
+	*** 000167	66 ff 76 e8 		push	DWORD PTR [bp-24]	;X2
+	*** 00016b	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 00016f	52 			push	dx
+	*** 000170	50 			push	ax
+	*** 000171	e8 00 00 		call	r
+	*** 000174	83 c4 0c 		add	sp,12	;000cH
+	*** 000177	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00017a	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 00017d	52 			push	dx
+	*** 00017e	50 			push	ax
+	*** 00017f	e8 00 00 		call	r
+	*** 000182	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X4);
+;|*** 	n1 = r(n2, n1, X5);
+; Line 112
+	*** 000185	66 ff 76 dc 		push	DWORD PTR [bp-36]	;X5
+	*** 000189	52 			push	dx
+	*** 00018a	50 			push	ax
+	*** 00018b	66 ff 76 e0 		push	DWORD PTR [bp-32]	;X4
+	*** 00018f	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000193	52 			push	dx
+	*** 000194	50 			push	ax
+	*** 000195	e8 00 00 		call	r
+	*** 000198	83 c4 0c 		add	sp,12	;000cH
+	*** 00019b	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00019e	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0001a1	52 			push	dx
+	*** 0001a2	50 			push	ax
+	*** 0001a3	e8 00 00 		call	r
+	*** 0001a6	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X6);
+;|*** 	n1 = r(n2, n1, X7);
+; Line 114
+	*** 0001a9	66 ff 76 d4 		push	DWORD PTR [bp-44]	;X7
+	*** 0001ad	52 			push	dx
+	*** 0001ae	50 			push	ax
+	*** 0001af	66 ff 76 d8 		push	DWORD PTR [bp-40]	;X6
+	*** 0001b3	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 0001b7	52 			push	dx
+	*** 0001b8	50 			push	ax
+	*** 0001b9	e8 00 00 		call	r
+	*** 0001bc	83 c4 0c 		add	sp,12	;000cH
+	*** 0001bf	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 0001c2	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0001c5	52 			push	dx
+	*** 0001c6	50 			push	ax
+	*** 0001c7	e8 00 00 		call	r
+	*** 0001ca	83 c4 0c 		add	sp,12	;000cH
+;|*** 	
+;|*** 	n2 = r(n1, n2, X0);
+;|*** 	n1 = r(n2, n1, X1);
+; Line 117
+	*** 0001cd	66 ff 76 ec 		push	DWORD PTR [bp-20]	;X1
+	*** 0001d1	52 			push	dx
+	*** 0001d2	50 			push	ax
+	*** 0001d3	66 ff 76 f0 		push	DWORD PTR [bp-16]	;X0
+	*** 0001d7	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 0001db	52 			push	dx
+	*** 0001dc	50 			push	ax
+	*** 0001dd	e8 00 00 		call	r
+	*** 0001e0	83 c4 0c 		add	sp,12	;000cH
+	*** 0001e3	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 0001e6	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0001e9	52 			push	dx
+	*** 0001ea	50 			push	ax
+	*** 0001eb	e8 00 00 		call	r
+	*** 0001ee	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X2);
+;|*** 	n1 = r(n2, n1, X3);
+; Line 119
+	*** 0001f1	66 ff 76 e4 		push	DWORD PTR [bp-28]	;X3
+	*** 0001f5	52 			push	dx
+	*** 0001f6	50 			push	ax
+	*** 0001f7	66 ff 76 e8 		push	DWORD PTR [bp-24]	;X2
+	*** 0001fb	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 0001ff	52 			push	dx
+	*** 000200	50 			push	ax
+	*** 000201	e8 00 00 		call	r
+	*** 000204	83 c4 0c 		add	sp,12	;000cH
+	*** 000207	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00020a	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 00020d	52 			push	dx
+	*** 00020e	50 			push	ax
+	*** 00020f	e8 00 00 		call	r
+	*** 000212	83 c4 0c 		add	sp,12	;000cH
+	*** 000215	89 46 f8 		mov	WORD PTR [bp-8],ax	;n1
+	*** 000218	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n2 = r(n1, n2, X4);
+;|*** 	n1 = r(n2, n1, X5);
+; Line 121
+	*** 00021b	66 ff 76 e0 		push	DWORD PTR [bp-32]	;X4
+	*** 00021f	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000223	52 			push	dx
+	*** 000224	50 			push	ax
+	*** 000225	e8 00 00 		call	r
+	*** 000228	83 c4 0c 		add	sp,12	;000cH
+	*** 00022b	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00022e	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000231	66 ff 76 dc 		push	DWORD PTR [bp-36]	;X5
+	*** 000235	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n1
+	*** 000239	52 			push	dx
+	*** 00023a	50 			push	ax
+	*** 00023b	e8 00 00 		call	r
+	*** 00023e	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X6);
+;|*** 	n1 = r(n2, n1, X7);
+; Line 123
+	*** 000241	66 ff 76 d4 		push	DWORD PTR [bp-44]	;X7
+	*** 000245	52 			push	dx
+	*** 000246	50 			push	ax
+	*** 000247	66 ff 76 d8 		push	DWORD PTR [bp-40]	;X6
+	*** 00024b	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 00024f	52 			push	dx
+	*** 000250	50 			push	ax
+	*** 000251	e8 00 00 		call	r
+	*** 000254	83 c4 0c 		add	sp,12	;000cH
+	*** 000257	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00025a	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 00025d	52 			push	dx
+	*** 00025e	50 			push	ax
+	*** 00025f	e8 00 00 		call	r
+	*** 000262	83 c4 0c 		add	sp,12	;000cH
+;|*** 
+;|*** 	n2 = r(n1, n2, X0);
+;|*** 	n1 = r(n2, n1, X1);
+; Line 126
+	*** 000265	66 ff 76 ec 		push	DWORD PTR [bp-20]	;X1
+	*** 000269	52 			push	dx
+	*** 00026a	50 			push	ax
+	*** 00026b	66 ff 76 f0 		push	DWORD PTR [bp-16]	;X0
+	*** 00026f	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000273	52 			push	dx
+	*** 000274	50 			push	ax
+	*** 000275	e8 00 00 		call	r
+	*** 000278	83 c4 0c 		add	sp,12	;000cH
+	*** 00027b	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00027e	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000281	52 			push	dx
+	*** 000282	50 			push	ax
+	*** 000283	e8 00 00 		call	r
+	*** 000286	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X2);
+;|*** 	n1 = r(n2, n1, X3);
+; Line 128
+	*** 000289	66 ff 76 e4 		push	DWORD PTR [bp-28]	;X3
+	*** 00028d	52 			push	dx
+	*** 00028e	50 			push	ax
+	*** 00028f	66 ff 76 e8 		push	DWORD PTR [bp-24]	;X2
+	*** 000293	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000297	52 			push	dx
+	*** 000298	50 			push	ax
+	*** 000299	e8 00 00 		call	r
+	*** 00029c	83 c4 0c 		add	sp,12	;000cH
+	*** 00029f	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 0002a2	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0002a5	52 			push	dx
+	*** 0002a6	50 			push	ax
+	*** 0002a7	e8 00 00 		call	r
+	*** 0002aa	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X4);
+;|*** 	n1 = r(n2, n1, X5);
+; Line 130
+	*** 0002ad	66 ff 76 dc 		push	DWORD PTR [bp-36]	;X5
+	*** 0002b1	52 			push	dx
+	*** 0002b2	50 			push	ax
+	*** 0002b3	66 ff 76 e0 		push	DWORD PTR [bp-32]	;X4
+	*** 0002b7	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 0002bb	52 			push	dx
+	*** 0002bc	50 			push	ax
+	*** 0002bd	e8 00 00 		call	r
+	*** 0002c0	83 c4 0c 		add	sp,12	;000cH
+	*** 0002c3	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 0002c6	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0002c9	52 			push	dx
+	*** 0002ca	50 			push	ax
+	*** 0002cb	e8 00 00 		call	r
+	*** 0002ce	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X6);
+;|*** 	n1 = r(n2, n1, X7);
+; Line 132
+	*** 0002d1	66 ff 76 d4 		push	DWORD PTR [bp-44]	;X7
+	*** 0002d5	52 			push	dx
+	*** 0002d6	50 			push	ax
+	*** 0002d7	66 ff 76 d8 		push	DWORD PTR [bp-40]	;X6
+	*** 0002db	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 0002df	52 			push	dx
+	*** 0002e0	50 			push	ax
+	*** 0002e1	e8 00 00 		call	r
+	*** 0002e4	83 c4 0c 		add	sp,12	;000cH
+	*** 0002e7	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 0002ea	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 0002ed	52 			push	dx
+	*** 0002ee	50 			push	ax
+	*** 0002ef	e8 00 00 		call	r
+	*** 0002f2	83 c4 0c 		add	sp,12	;000cH
+;|*** 
+;|*** 	/* Encryption rounds 25-32 */
+;|*** 	n2 = r(n1, n2, X7);
+;|*** 	n1 = r(n2, n1, X6);
+; Line 136
+	*** 0002f5	66 ff 76 d8 		push	DWORD PTR [bp-40]	;X6
+	*** 0002f9	52 			push	dx
+	*** 0002fa	50 			push	ax
+	*** 0002fb	66 ff 76 d4 		push	DWORD PTR [bp-44]	;X7
+	*** 0002ff	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000303	52 			push	dx
+	*** 000304	50 			push	ax
+	*** 000305	e8 00 00 		call	r
+	*** 000308	83 c4 0c 		add	sp,12	;000cH
+	*** 00030b	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00030e	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000311	52 			push	dx
+	*** 000312	50 			push	ax
+	*** 000313	e8 00 00 		call	r
+	*** 000316	83 c4 0c 		add	sp,12	;000cH
+	*** 000319	89 46 f8 		mov	WORD PTR [bp-8],ax	;n1
+	*** 00031c	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 	n2 = r(n1, n2, X5);
+;|*** 	n1 = r(n2, n1, X4);
+; Line 138
+	*** 00031f	66 ff 76 dc 		push	DWORD PTR [bp-36]	;X5
+	*** 000323	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000327	52 			push	dx
+	*** 000328	50 			push	ax
+	*** 000329	e8 00 00 		call	r
+	*** 00032c	83 c4 0c 		add	sp,12	;000cH
+	*** 00032f	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 000332	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000335	66 ff 76 e0 		push	DWORD PTR [bp-32]	;X4
+	*** 000339	66 ff 76 f8 		push	DWORD PTR [bp-8]	;n1
+	*** 00033d	52 			push	dx
+	*** 00033e	50 			push	ax
+	*** 00033f	e8 00 00 		call	r
+	*** 000342	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X3);
+;|*** 	n1 = r(n2, n1, X2);
+; Line 140
+	*** 000345	66 ff 76 e8 		push	DWORD PTR [bp-24]	;X2
+	*** 000349	52 			push	dx
+	*** 00034a	50 			push	ax
+	*** 00034b	66 ff 76 e4 		push	DWORD PTR [bp-28]	;X3
+	*** 00034f	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000353	52 			push	dx
+	*** 000354	50 			push	ax
+	*** 000355	e8 00 00 		call	r
+	*** 000358	83 c4 0c 		add	sp,12	;000cH
+	*** 00035b	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 00035e	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000361	52 			push	dx
+	*** 000362	50 			push	ax
+	*** 000363	e8 00 00 		call	r
+	*** 000366	83 c4 0c 		add	sp,12	;000cH
+;|*** 	n2 = r(n1, n2, X1);
+;|*** 	n1 = r(n2, n1, X0);
+; Line 142
+	*** 000369	66 ff 76 f0 		push	DWORD PTR [bp-16]	;X0
+	*** 00036d	52 			push	dx
+	*** 00036e	50 			push	ax
+	*** 00036f	66 ff 76 ec 		push	DWORD PTR [bp-20]	;X1
+	*** 000373	66 ff 76 f4 		push	DWORD PTR [bp-12]	;n2
+	*** 000377	52 			push	dx
+	*** 000378	50 			push	ax
+	*** 000379	e8 00 00 		call	r
+	*** 00037c	83 c4 0c 		add	sp,12	;000cH
+	*** 00037f	89 46 f4 		mov	WORD PTR [bp-12],ax	;n2
+	*** 000382	89 56 f6 		mov	WORD PTR [bp-10],dx
+	*** 000385	52 			push	dx
+	*** 000386	50 			push	ax
+	*** 000387	e8 00 00 		call	r
+	*** 00038a	83 c4 0c 		add	sp,12	;000cH
+	*** 00038d	89 46 f8 		mov	WORD PTR [bp-8],ax	;n1
+	*** 000390	89 56 fa 		mov	WORD PTR [bp-6],dx
+;|*** 
+;|*** 	out[0] = (byte)(n2 & 0xFF); out[1] = (byte)((n2 >> 8) & 0xFF); out[2] = (byte)((n2 >> 16) & 0xFF); out[3] = (byte)((n2 >> 24) & 0xFF);
+; Line 144
+	*** 000393	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;n2
+	*** 000396	88 04 			mov	BYTE PTR [si],al
+	*** 000398	8b 46 f4 		mov	ax,WORD PTR [bp-12]	;n2
+	*** 00039b	8b 56 f6 		mov	dx,WORD PTR [bp-10]
+	*** 00039e	b1 08 			mov	cl,8
+	*** 0003a0	e8 00 00 		call	__aNulshr
+	*** 0003a3	88 44 01 		mov	BYTE PTR [si+1],al
+	*** 0003a6	8a 46 f6 		mov	al,BYTE PTR [bp-10]
+	*** 0003a9	88 44 02 		mov	BYTE PTR [si+2],al
+	*** 0003ac	8a 46 f7 		mov	al,BYTE PTR [bp-9]
+	*** 0003af	2a e4 			sub	ah,ah
+	*** 0003b1	88 44 03 		mov	BYTE PTR [si+3],al
+;|*** 	out[4] = (byte)(n1 & 0xFF); out[5] = (byte)((n1 >> 8) & 0xFF); out[6] = (byte)((n1 >> 16) & 0xFF); out[7] = (byte)((n1 >> 24) & 0xFF);
+; Line 145
+	*** 0003b4	8a 46 f8 		mov	al,BYTE PTR [bp-8]	;n1
+	*** 0003b7	88 44 04 		mov	BYTE PTR [si+4],al
+	*** 0003ba	8b 46 f8 		mov	ax,WORD PTR [bp-8]	;n1
+	*** 0003bd	8b 56 fa 		mov	dx,WORD PTR [bp-6]
+	*** 0003c0	b1 08 			mov	cl,8
+	*** 0003c2	e8 00 00 		call	__aNulshr
+	*** 0003c5	88 44 05 		mov	BYTE PTR [si+5],al
+	*** 0003c8	8a 46 fa 		mov	al,BYTE PTR [bp-6]
+	*** 0003cb	88 44 06 		mov	BYTE PTR [si+6],al
+	*** 0003ce	8a 46 fb 		mov	al,BYTE PTR [bp-5]
+	*** 0003d1	88 44 07 		mov	BYTE PTR [si+7],al
+;|*** }
+; Line 146
+	*** 0003d4	5e 			pop	si
+	*** 0003d5	5f 			pop	di
+	*** 0003d6	c9 			leave	
+	*** 0003d7	c3 			ret	
+
+gost_encrypt_with_key	ENDP
+
+copy_blocks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void copy_blocks(byte *dst, byte *src, gst_dword len)
+;|***  *	\brief Library-neutral memsetn on blocks
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] byte * src
+;|***  *	\param[in] byte * dst
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void copy_blocks(byte *dst, byte *src, gst_dword len)
+;|*** {
+; Line 160
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	dst = 4
+;	src = 6
+;	len = 8
+;	i = -4
+;|*** 	gst_dword i;
+;|*** 	for (i = 0; i < len; i++)
+; Line 162
+	*** 000006	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+	*** 00000e	8b 76 06 		mov	si,WORD PTR [bp+6]	;src
+	*** 000011	8b 7e 04 		mov	di,WORD PTR [bp+4]	;dst
+					$F166:
+	*** 000014	66 8b 46 08 		mov	eax,DWORD PTR [bp+8]	;len
+	*** 000018	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 00001c	7d 0d 			jge	SHORT $EX164
+					$L318:
+;|*** 		dst[i] = src[i];
+; Line 163
+	*** 00001e	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000021	8a 00 			mov	al,BYTE PTR [bx][si]
+	*** 000023	88 01 			mov	BYTE PTR [bx][di],al
+;|*** 	for (i = 0; i < len; i++)
+; Line 162
+	*** 000025	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 000029	eb e9 			jmp	SHORT $F166
+;|*** 		dst[i] = src[i];
+;|*** }
+; Line 164
+					$EX164:
+	*** 00002b	5e 			pop	si
+	*** 00002c	5f 			pop	di
+	*** 00002d	c9 			leave	
+	*** 00002e	c3 			ret	
+
+copy_blocks	ENDP
+
+move_blocks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void move_blocks (byte *to, byte *from, gst_dword len)
+;|***  *	\brief Library-neutral memmove on blocks
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] byte * from
+;|***  *	\param[in] byte * to
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void move_blocks (byte *to, byte *from, gst_dword len)
+;|*** {
+; Line 177
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	to = 4
+;	from = 6
+;	len = 8
+;	i = -4
+	*** 000006	8b 7e 06 		mov	di,WORD PTR [bp+6]	;from
+	*** 000009	8b 76 04 		mov	si,WORD PTR [bp+4]	;to
+;|*** 	gst_dword i;
+;|*** 	if (from < to)
+; Line 179
+	*** 00000c	3b fe 			cmp	di,si
+	*** 00000e	73 1d 			jae	SHORT $I178
+;|*** 		for (i = len-1; i >= 0; i--)
+; Line 180
+	*** 000010	66 8b 46 08 		mov	eax,DWORD PTR [bp+8]	;len
+	*** 000014	66 48 			dec	eax
+	*** 000016	66 89 46 fc 		mov	DWORD PTR [bp-4],eax	;i
+					$F179:
+	*** 00001a	83 7e fe 00 		cmp	WORD PTR [bp-2],0
+	*** 00001e	7c 2c 			jl	SHORT $EX176
+;|*** 			to[i] = from[i];
+; Line 181
+	*** 000020	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000023	8a 01 			mov	al,BYTE PTR [bx][di]
+	*** 000025	88 00 			mov	BYTE PTR [bx][si],al
+;|*** 		for (i = len-1; i >= 0; i--)
+; Line 180
+	*** 000027	66 ff 4e fc 		dec	DWORD PTR [bp-4]	;i
+	*** 00002b	eb ed 			jmp	SHORT $F179
+;|*** 			to[i] = from[i];
+;|*** 	else
+; Line 182
+					$I178:
+;|*** 		for (i = 0; i < len; i++)
+; Line 183
+	*** 00002d	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+					$F183:
+	*** 000035	66 8b 46 08 		mov	eax,DWORD PTR [bp+8]	;len
+	*** 000039	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 00003d	7d 0d 			jge	SHORT $EX176
+					$L321:
+;|*** 			to[i] = from[i];
+; Line 184
+	*** 00003f	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000042	8a 01 			mov	al,BYTE PTR [bx][di]
+	*** 000044	88 00 			mov	BYTE PTR [bx][si],al
+;|*** 		for (i = 0; i < len; i++)
+; Line 183
+	*** 000046	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 00004a	eb e9 			jmp	SHORT $F183
+;|*** 			to[i] = from[i];
+;|*** }
+; Line 185
+					$EX176:
+	*** 00004c	5e 			pop	si
+	*** 00004d	5f 			pop	di
+	*** 00004e	c9 			leave	
+	*** 00004f	c3 			ret	
+
+move_blocks	ENDP
+
+set_blocks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void set_blocks (byte *ptr, byte val, gst_dword len)
+;|***  *	\brief Library-neutral memcpy on blocks
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] byte val
+;|***  *	\param[in] byte * ptr
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void set_blocks (byte *ptr, byte val, gst_dword len)
+;|*** {
+; Line 198
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	56 			push	si
+;	i = -4
+;	ptr = 4
+;	val = 6
+;	len = 8
+;|*** 	gst_dword i;
+;|*** 	for (i = 0; i < len; i++)
+; Line 200
+	*** 000005	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+	*** 00000d	8b 76 04 		mov	si,WORD PTR [bp+4]	;ptr
+					$F195:
+	*** 000010	66 8b 46 08 		mov	eax,DWORD PTR [bp+8]	;len
+	*** 000014	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 000018	7d 0e 			jge	SHORT $EX193
+					$L323:
+;|*** 		ptr[i] = val;
+; Line 201
+	*** 00001a	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 00001d	8a 46 06 		mov	al,BYTE PTR [bp+6]	;val
+	*** 000020	88 00 			mov	BYTE PTR [bx][si],al
+;|*** 	for (i = 0; i < len; i++)
+; Line 200
+	*** 000022	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 000026	eb e8 			jmp	SHORT $F195
+;|*** 		ptr[i] = val;
+;|*** }
+; Line 202
+					$EX193:
+	*** 000028	5e 			pop	si
+	*** 000029	c9 			leave	
+	*** 00002a	c3 			ret	
+
+set_blocks	ENDP
+
+add_blocks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void add_blocks (byte *T, byte *F, gst_dword len)
+;|***  *	\brief Arbitrary-length add on blocks
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] byte * F
+;|***  *	\param[in] byte * T
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void add_blocks (byte *T, byte *F, gst_dword len)
+;|*** {
+; Line 216
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	56 			push	si
+;	T = 4
+;	F = 6
+;	len = 8
+;	i = -4
+;	register cx = carry
+;	register di = sum
+;|*** 	gst_dword i;
+;|*** 	gst_word carry = 0;
+; Line 218
+	*** 000005	33 c9 			xor	cx,cx
+;|*** 	gst_word sum;
+;|*** 	for (i = 0; i < len; i++)
+; Line 220
+	*** 000007	2b c0 			sub	ax,ax
+	*** 000009	89 46 fe 		mov	WORD PTR [bp-2],ax
+	*** 00000c	89 46 fc 		mov	WORD PTR [bp-4],ax	;i
+	*** 00000f	8b 76 04 		mov	si,WORD PTR [bp+4]	;T
+					$F209:
+	*** 000012	66 8b 46 08 		mov	eax,DWORD PTR [bp+8]	;len
+	*** 000016	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 00001a	7d 24 			jge	SHORT $EX205
+					$L325:
+;|*** 	{
+;|*** 		sum = (gst_word)T[i] + (gst_word)F[i] + carry;
+; Line 222
+	*** 00001c	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 00001f	2a e4 			sub	ah,ah
+	*** 000021	8a 00 			mov	al,BYTE PTR [bx][si]
+	*** 000023	03 5e 06 		add	bx,WORD PTR [bp+6]	;F
+	*** 000026	2a f6 			sub	dh,dh
+	*** 000028	8a 17 			mov	dl,BYTE PTR [bx]
+	*** 00002a	03 d0 			add	dx,ax
+	*** 00002c	03 d1 			add	dx,cx
+	*** 00002e	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+;|*** 		T[i] = (byte)sum & 0xFF;
+; Line 223
+	*** 000031	88 10 			mov	BYTE PTR [bx][si],dl
+;|*** 		carry = sum >> 8;
+; Line 224
+	*** 000033	8b c2 			mov	ax,dx
+	*** 000035	8a c4 			mov	al,ah
+	*** 000037	98 			cbw	
+	*** 000038	8b c8 			mov	cx,ax
+;|*** 	for (i = 0; i < len; i++)
+; Line 220
+	*** 00003a	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 00003e	eb d2 			jmp	SHORT $F209
+;|*** 	{
+;|*** 		sum = (gst_word)T[i] + (gst_word)F[i] + carry;
+;|*** 		T[i] = (byte)sum & 0xFF;
+;|*** 		carry = sum >> 8;
+;|*** 	}
+;|*** }
+; Line 226
+					$EX205:
+	*** 000040	5e 			pop	si
+	*** 000041	c9 			leave	
+	*** 000042	c3 			ret	
+
+add_blocks	ENDP
+
+xor_blocks	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void xor_blocks (byte *T, byte *F, byte *S, gst_dword len)
+;|***  *	\brief arbitrary-length xor on blocks
+;|***  *	\param[in] gst_dword len
+;|***  *	\param[in] byte * S
+;|***  *	\param[in] byte * F
+;|***  *	\param[in] byte * T
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void xor_blocks (byte *T, byte *F, byte *S, gst_dword len)
+;|*** {
+; Line 240
+	*** 000000	c8 04 00 00 		enter	4,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	T = 4
+;	F = 6
+;	S = 8
+;	len = 10
+;	i = -4
+;|*** 	gst_dword i;
+;|*** 	for (i = 0; i < len; i++)
+; Line 242
+	*** 000006	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+	*** 00000e	8b 76 06 		mov	si,WORD PTR [bp+6]	;F
+	*** 000011	8b 7e 08 		mov	di,WORD PTR [bp+8]	;S
+	*** 000014	8b 4e 04 		mov	cx,WORD PTR [bp+4]	;T
+					$F223:
+	*** 000017	66 8b 46 0a 		mov	eax,DWORD PTR [bp+10]	;len
+	*** 00001b	66 39 46 fc 		cmp	DWORD PTR [bp-4],eax	;i
+	*** 00001f	7d 11 			jge	SHORT $EX221
+					$L327:
+;|*** 		T[i] = F[i] ^ S[i];
+; Line 243
+	*** 000021	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;i
+	*** 000024	8a 01 			mov	al,BYTE PTR [bx][di]
+	*** 000026	32 00 			xor	al,BYTE PTR [bx][si]
+	*** 000028	03 d9 			add	bx,cx
+	*** 00002a	88 07 			mov	BYTE PTR [bx],al
+;|*** 	for (i = 0; i < len; i++)
+; Line 242
+	*** 00002c	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 000030	eb e5 			jmp	SHORT $F223
+;|*** 		T[i] = F[i] ^ S[i];
+;|*** }
+; Line 244
+					$EX221:
+	*** 000032	5e 			pop	si
+	*** 000033	5f 			pop	di
+	*** 000034	c9 			leave	
+	*** 000035	c3 			ret	
+
+xor_blocks	ENDP
+
+P_transform	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void P_transform (byte *F, byte *T)
+;|***  *	\brief GOST R 34.11-94 mixing functions
+;|***  *			This function maps bytes from F to T in the following way:
+;|***  *			T[0+0] = F[0+0]; T[1+0] = F[8+0]; ...; T[3+0] = F[24+0];
+;|***  *			T[0+4] = F[0+1]; T[1+4] = F[8+1]; ...;
+;|***  *			...; T[2+28] = F[16+7]; T[3+28] = F[24+7];
+;|***  *	\param[in] byte * T)
+;|***  *	\param[in] byte * F
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void P_transform (byte *F, byte *T)
+;|*** {
+; Line 260
+	*** 000000	c8 08 00 00 		enter	8,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	F = 4
+;	T = 6
+;	i = -8
+;	k = -4
+;|*** 	gst_dword i, k;
+;|*** 	for (i = 0; i < 4; i++)
+; Line 262
+	*** 000006	66 c7 46 f8 00 00 00 00 mov	DWORD PTR [bp-8],0	;i
+	*** 00000e	8b 76 04 		mov	si,WORD PTR [bp+4]	;F
+	*** 000011	8b 7e 06 		mov	di,WORD PTR [bp+6]	;T
+					$F234:
+	*** 000014	66 83 7e f8 04 		cmp	DWORD PTR [bp-8],4	;i
+	*** 000019	7d 32 			jge	SHORT $EX231
+					$L330:
+;|*** 		for (k = 0; k < 8; k++)
+; Line 263
+	*** 00001b	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;k
+					$F237:
+	*** 000023	66 83 7e fc 08 		cmp	DWORD PTR [bp-4],8	;k
+	*** 000028	7d 1d 			jge	SHORT $FC235
+					$L331:
+;|*** 			T[i+4*k] = F[8*i+k];
+; Line 264
+	*** 00002a	8b 5e f8 		mov	bx,WORD PTR [bp-8]	;i
+	*** 00002d	c1 e3 03 		shl	bx,3
+	*** 000030	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;k
+	*** 000033	03 d8 			add	bx,ax
+	*** 000035	8a 08 			mov	cl,BYTE PTR [bx][si]
+	*** 000037	8b d8 			mov	bx,ax
+	*** 000039	c1 e3 02 		shl	bx,2
+	*** 00003c	03 5e f8 		add	bx,WORD PTR [bp-8]	;i
+	*** 00003f	88 09 			mov	BYTE PTR [bx][di],cl
+;|*** 		for (k = 0; k < 8; k++)
+; Line 263
+	*** 000041	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;k
+	*** 000045	eb dc 			jmp	SHORT $F237
+;|*** 	for (i = 0; i < 4; i++)
+; Line 262
+					$FC235:
+	*** 000047	66 ff 46 f8 		inc	DWORD PTR [bp-8]	;i
+	*** 00004b	eb c7 			jmp	SHORT $F234
+;|*** 		for (k = 0; k < 8; k++)
+;|*** 			T[i+4*k] = F[8*i+k];
+;|*** }
+; Line 265
+					$EX231:
+	*** 00004d	5e 			pop	si
+	*** 00004e	5f 			pop	di
+	*** 00004f	c9 			leave	
+	*** 000050	c3 			ret	
+
+P_transform	ENDP
+
+A	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void A(byte *F, byte *T)
+;|***  *	\brief This function maps bytes from F to T in the following way:
+;|***  *			T[ 0..23] = F[8..31];
+;|***  *			T[24..31] = F[0..7] XOR F[8..15]
+;|***  *	\param[in] byte * T)
+;|***  *	\param[in] byte * F
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void A(byte *F, byte *T)
+;|*** {
+; Line 279
+	*** 000000	c8 02 00 00 		enter	2,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	F = 4
+;	T = 6
+;	i = -1
+;|*** 	byte i;
+;|*** 	for (i = 0; i < 24; i++)
+; Line 281
+	*** 000006	c6 46 ff 00 		mov	BYTE PTR [bp-1],0	;i
+	*** 00000a	8b 76 04 		mov	si,WORD PTR [bp+4]	;F
+	*** 00000d	8b 7e 06 		mov	di,WORD PTR [bp+6]	;T
+	*** 000010	eb 0d 			jmp	SHORT $L350
+					$F247:
+;|*** 		T[i] = F[i+8];
+; Line 282
+	*** 000012	8a 5e ff 		mov	bl,BYTE PTR [bp-1]	;i
+	*** 000015	2a ff 			sub	bh,bh
+	*** 000017	8a 40 08 		mov	al,BYTE PTR [bx+8][si]
+	*** 00001a	88 01 			mov	BYTE PTR [bx][di],al
+;|*** 	for (i = 0; i < 24; i++)
+; Line 281
+	*** 00001c	fe 46 ff 		inc	BYTE PTR [bp-1]	;i
+					$L350:
+	*** 00001f	80 7e ff 18 		cmp	BYTE PTR [bp-1],24	;0018H	;i
+	*** 000023	72 ed 			jb	SHORT $F247
+;|*** 		T[i] = F[i+8];
+;|*** 	for (i = 0; i < 8; i++)
+; Line 283
+	*** 000025	c6 46 ff 00 		mov	BYTE PTR [bp-1],0	;i
+					$F250:
+;|*** 		T[i+24] = F[i] ^ F[i+8];
+; Line 284
+	*** 000029	8a 5e ff 		mov	bl,BYTE PTR [bp-1]	;i
+	*** 00002c	2a ff 			sub	bh,bh
+	*** 00002e	8b c3 			mov	ax,bx
+	*** 000030	03 de 			add	bx,si
+	*** 000032	8a 4f 08 		mov	cl,BYTE PTR [bx+8]
+	*** 000035	32 0f 			xor	cl,BYTE PTR [bx]
+	*** 000037	8b d8 			mov	bx,ax
+	*** 000039	88 49 18 		mov	BYTE PTR [bx+24][di],cl
+;|*** 	for (i = 0; i < 8; i++)
+; Line 283
+	*** 00003c	fe 46 ff 		inc	BYTE PTR [bp-1]	;i
+	*** 00003f	80 7e ff 08 		cmp	BYTE PTR [bp-1],8	;i
+	*** 000043	72 e4 			jb	SHORT $F250
+;|*** 		T[i+24] = F[i] ^ F[i+8];
+;|*** }
+; Line 285
+	*** 000045	5e 			pop	si
+	*** 000046	5f 			pop	di
+	*** 000047	c9 			leave	
+	*** 000048	c3 			ret	
+
+A	ENDP
+
+PSI	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void PSI (byte *X)
+;|***  *	\brief Use memmove on blocks
+;|***  *	\param[in] byte * X
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void PSI (byte *X)
+;|*** {
+; Line 296
+	*** 000000	55 			push	bp
+	*** 000001	8b ec 			mov	bp,sp
+	*** 000003	57 			push	di
+	*** 000004	56 			push	si
+;	register di = T
+;	X = 4
+	*** 000005	8b 76 04 		mov	si,WORD PTR [bp+4]	;X
+;|*** 	gst_word T;
+;|*** 
+;|*** 	T = (gst_word)(X[0]^X[2]^X[4]^X[6]^X[24]^X[30])|
+;|*** 		((gst_word)(X[1]^X[3]^X[5]^X[7]^X[25]^X[31])<<8);
+; Line 300
+	*** 000008	8a 44 02 		mov	al,BYTE PTR [si+2]
+	*** 00000b	32 44 04 		xor	al,BYTE PTR [si+4]
+	*** 00000e	32 44 06 		xor	al,BYTE PTR [si+6]
+	*** 000011	32 44 18 		xor	al,BYTE PTR [si+24]
+	*** 000014	32 44 1e 		xor	al,BYTE PTR [si+30]
+	*** 000017	32 04 			xor	al,BYTE PTR [si]
+	*** 000019	2a e4 			sub	ah,ah
+	*** 00001b	8a 4c 01 		mov	cl,BYTE PTR [si+1]
+	*** 00001e	32 4c 03 		xor	cl,BYTE PTR [si+3]
+	*** 000021	32 4c 05 		xor	cl,BYTE PTR [si+5]
+	*** 000024	32 4c 07 		xor	cl,BYTE PTR [si+7]
+	*** 000027	32 4c 19 		xor	cl,BYTE PTR [si+25]
+	*** 00002a	32 4c 1f 		xor	cl,BYTE PTR [si+31]
+	*** 00002d	8a e9 			mov	ch,cl
+	*** 00002f	2a c9 			sub	cl,cl
+	*** 000031	8b f9 			mov	di,cx
+	*** 000033	0b f8 			or	di,ax
+;|*** 	move_blocks(X, X+2, 30);
+; Line 301
+	*** 000035	6a 00 			push	0
+	*** 000037	6a 1e 			push	30	;001eH
+	*** 000039	8d 44 02 		lea	ax,WORD PTR [si+2]
+	*** 00003c	50 			push	ax
+	*** 00003d	56 			push	si
+	*** 00003e	e8 00 00 		call	move_blocks
+	*** 000041	83 c4 08 		add	sp,8
+;|*** 	X[30] = (byte)(T&0xFF);
+; Line 302
+	*** 000044	8b c7 			mov	ax,di
+	*** 000046	88 44 1e 		mov	BYTE PTR [si+30],al
+;|*** 	X[31] = (byte)(T>>8);
+; Line 303
+	*** 000049	88 64 1f 		mov	BYTE PTR [si+31],ah
+;|*** }
+; Line 304
+	*** 00004c	5e 			pop	si
+	*** 00004d	5f 			pop	di
+	*** 00004e	c9 			leave	
+	*** 00004f	c3 			ret	
+
+PSI	ENDP
+	PUBLIC	_GOSTHASH_init
+_GOSTHASH_init	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void GOSTHASH_init (gost_hash_ctx *ctx)
+;|***  *	\brief initialize GOSTHASH (set blocks)
+;|***  *	\param[in] gost_hash_ctx * ctx
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void GOSTHASH_init (gost_hash_ctx *ctx)
+;|*** {
+; Line 315
+	*** 000000	55 			push	bp
+	*** 000001	8b ec 			mov	bp,sp
+;	ctx = 4
+;|*** 	set_blocks((byte *)ctx, 0, sizeof(gost_hash_ctx));
+; Line 316
+	*** 000003	6a 00 			push	0
+	*** 000005	6a 68 			push	104	;0068H
+	*** 000007	6a 00 			push	0
+	*** 000009	ff 76 04 		push	WORD PTR [bp+4]	;ctx
+	*** 00000c	e8 00 00 		call	set_blocks
+;|*** }
+; Line 317
+	*** 00000f	c9 			leave	
+	*** 000010	c3 			ret	
+
+_GOSTHASH_init	ENDP
+
+step	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn static void step (byte *H, byte *M, gost_hash_ctx *ctx)
+;|***  *	\brief Create the 4 keys
+;|***  *	\param[in] gost_hash_ctx* ctx
+;|***  *	\param[in] byte * M
+;|***  *	\param[in] byte * H
+;|***  *	\return static void
+;|***  *
+;|***  */
+;|*** static void step (byte *H, byte *M, gost_hash_ctx *ctx)
+;|*** {
+; Line 330
+	*** 000000	c8 04 01 00 		enter	260,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	H = 4
+;	M = 6
+;	ctx = 8
+;	U = -132
+;	W = -68
+;	V = -36
+;	S = -100
+;	K = -260
+;	i = -4
+	*** 000006	8b 7e 06 		mov	di,WORD PTR [bp+6]	;M
+	*** 000009	8b 76 04 		mov	si,WORD PTR [bp+4]	;H
+;|*** 	byte U[32], W[32], V[32], S[32], K[4][32];
+;|*** 	gst_dword i;
+;|*** 	
+;|*** 	xor_blocks(W, H, M, 32);
+; Line 334
+	*** 00000c	6a 00 			push	0
+	*** 00000e	6a 20 			push	32	;0020H
+	*** 000010	57 			push	di
+	*** 000011	56 			push	si
+	*** 000012	8d 46 bc 		lea	ax,WORD PTR [bp-68]	;W
+	*** 000015	50 			push	ax
+	*** 000016	e8 00 00 		call	xor_blocks
+	*** 000019	83 c4 0a 		add	sp,10	;000aH
+;|*** 	P_transform(W, K[0]); //First key
+; Line 335
+	*** 00001c	8d 86 fc fe 		lea	ax,WORD PTR [bp-260]	;K
+	*** 000020	50 			push	ax
+	*** 000021	8d 4e bc 		lea	cx,WORD PTR [bp-68]	;W
+	*** 000024	51 			push	cx
+	*** 000025	e8 00 00 		call	P_transform
+	*** 000028	83 c4 04 		add	sp,4
+;|*** 
+;|*** 	gost_encrypt_with_key (H, S, K[0]);
+; Line 337
+	*** 00002b	8d 86 fc fe 		lea	ax,WORD PTR [bp-260]	;K
+	*** 00002f	50 			push	ax
+	*** 000030	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 000033	50 			push	ax
+	*** 000034	56 			push	si
+	*** 000035	e8 00 00 		call	gost_encrypt_with_key
+	*** 000038	83 c4 06 		add	sp,6
+;|*** 
+;|*** 	A (H, U);
+; Line 339
+	*** 00003b	8d 86 7c ff 		lea	ax,WORD PTR [bp-132]	;U
+	*** 00003f	50 			push	ax
+	*** 000040	56 			push	si
+	*** 000041	e8 00 00 		call	A
+	*** 000044	83 c4 04 		add	sp,4
+;|*** 	A (M, V);
+; Line 340
+	*** 000047	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 00004a	50 			push	ax
+	*** 00004b	57 			push	di
+	*** 00004c	e8 00 00 		call	A
+	*** 00004f	83 c4 04 		add	sp,4
+;|*** 	A (V, V);
+; Line 341
+	*** 000052	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 000055	50 			push	ax
+	*** 000056	50 			push	ax
+	*** 000057	e8 00 00 		call	A
+	*** 00005a	83 c4 04 		add	sp,4
+;|*** 	xor_blocks(W, U, V, 32);
+; Line 342
+	*** 00005d	6a 00 			push	0
+	*** 00005f	6a 20 			push	32	;0020H
+	*** 000061	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 000064	50 			push	ax
+	*** 000065	8d 8e 7c ff 		lea	cx,WORD PTR [bp-132]	;U
+	*** 000069	51 			push	cx
+	*** 00006a	8d 56 bc 		lea	dx,WORD PTR [bp-68]	;W
+	*** 00006d	52 			push	dx
+	*** 00006e	e8 00 00 		call	xor_blocks
+	*** 000071	83 c4 0a 		add	sp,10	;000aH
+;|*** 	P_transform(W, K[1]); //Second key
+; Line 343
+	*** 000074	8d 86 1c ff 		lea	ax,WORD PTR [bp-228]
+	*** 000078	50 			push	ax
+	*** 000079	8d 4e bc 		lea	cx,WORD PTR [bp-68]	;W
+	*** 00007c	51 			push	cx
+	*** 00007d	e8 00 00 		call	P_transform
+	*** 000080	83 c4 04 		add	sp,4
+;|*** 
+;|*** 	gost_encrypt_with_key (H + 8, S + 8, K[1]);
+; Line 345
+	*** 000083	8d 86 1c ff 		lea	ax,WORD PTR [bp-228]
+	*** 000087	50 			push	ax
+	*** 000088	8d 46 a4 		lea	ax,WORD PTR [bp-92]
+	*** 00008b	50 			push	ax
+	*** 00008c	8d 44 08 		lea	ax,WORD PTR [si+8]
+	*** 00008f	50 			push	ax
+	*** 000090	e8 00 00 		call	gost_encrypt_with_key
+	*** 000093	83 c4 06 		add	sp,6
+;|*** 
+;|*** 	A (U, U);
+; Line 347
+	*** 000096	8d 86 7c ff 		lea	ax,WORD PTR [bp-132]	;U
+	*** 00009a	50 			push	ax
+	*** 00009b	50 			push	ax
+	*** 00009c	e8 00 00 		call	A
+	*** 00009f	83 c4 04 		add	sp,4
+;|*** 	/* As the other C values are all 0's, we only need to XOR
+;|***      * with C[3] */
+;|*** 	xor_blocks(U, U, C_3, 32);
+; Line 350
+	*** 0000a2	6a 00 			push	0
+	*** 0000a4	6a 20 			push	32	;0020H
+	*** 0000a6	68 00 00 		push	OFFSET DGROUP:$S124_C_3
+	*** 0000a9	8d 86 7c ff 		lea	ax,WORD PTR [bp-132]	;U
+	*** 0000ad	50 			push	ax
+	*** 0000ae	50 			push	ax
+	*** 0000af	e8 00 00 		call	xor_blocks
+	*** 0000b2	83 c4 0a 		add	sp,10	;000aH
+;|*** 	A (V, V);
+; Line 351
+	*** 0000b5	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 0000b8	50 			push	ax
+	*** 0000b9	50 			push	ax
+	*** 0000ba	e8 00 00 		call	A
+	*** 0000bd	83 c4 04 		add	sp,4
+;|*** 	A (V, V);
+; Line 352
+	*** 0000c0	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 0000c3	50 			push	ax
+	*** 0000c4	50 			push	ax
+	*** 0000c5	e8 00 00 		call	A
+	*** 0000c8	83 c4 04 		add	sp,4
+;|*** 	xor_blocks (W, U, V, 32);
+; Line 353
+	*** 0000cb	6a 00 			push	0
+	*** 0000cd	6a 20 			push	32	;0020H
+	*** 0000cf	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 0000d2	50 			push	ax
+	*** 0000d3	8d 8e 7c ff 		lea	cx,WORD PTR [bp-132]	;U
+	*** 0000d7	51 			push	cx
+	*** 0000d8	8d 56 bc 		lea	dx,WORD PTR [bp-68]	;W
+	*** 0000db	52 			push	dx
+	*** 0000dc	e8 00 00 		call	xor_blocks
+	*** 0000df	83 c4 0a 		add	sp,10	;000aH
+;|*** 	P_transform (W, K[2]); //Third key
+; Line 354
+	*** 0000e2	8d 86 3c ff 		lea	ax,WORD PTR [bp-196]
+	*** 0000e6	50 			push	ax
+	*** 0000e7	8d 4e bc 		lea	cx,WORD PTR [bp-68]	;W
+	*** 0000ea	51 			push	cx
+	*** 0000eb	e8 00 00 		call	P_transform
+	*** 0000ee	83 c4 04 		add	sp,4
+;|*** 	
+;|*** 	gost_encrypt_with_key (H + 16, S + 16, K[2]);
+; Line 356
+	*** 0000f1	8d 86 3c ff 		lea	ax,WORD PTR [bp-196]
+	*** 0000f5	50 			push	ax
+	*** 0000f6	8d 46 ac 		lea	ax,WORD PTR [bp-84]
+	*** 0000f9	50 			push	ax
+	*** 0000fa	8d 44 10 		lea	ax,WORD PTR [si+16]
+	*** 0000fd	50 			push	ax
+	*** 0000fe	e8 00 00 		call	gost_encrypt_with_key
+	*** 000101	83 c4 06 		add	sp,6
+;|*** 	
+;|*** 	A (U, U);
+; Line 358
+	*** 000104	8d 86 7c ff 		lea	ax,WORD PTR [bp-132]	;U
+	*** 000108	50 			push	ax
+	*** 000109	50 			push	ax
+	*** 00010a	e8 00 00 		call	A
+	*** 00010d	83 c4 04 		add	sp,4
+;|*** 	A (V, V);
+; Line 359
+	*** 000110	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 000113	50 			push	ax
+	*** 000114	50 			push	ax
+	*** 000115	e8 00 00 		call	A
+	*** 000118	83 c4 04 		add	sp,4
+;|*** 	A (V, V);
+; Line 360
+	*** 00011b	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 00011e	50 			push	ax
+	*** 00011f	50 			push	ax
+	*** 000120	e8 00 00 		call	A
+	*** 000123	83 c4 04 		add	sp,4
+;|*** 	xor_blocks (W, U, V, 32);
+; Line 361
+	*** 000126	6a 00 			push	0
+	*** 000128	6a 20 			push	32	;0020H
+	*** 00012a	8d 46 dc 		lea	ax,WORD PTR [bp-36]	;V
+	*** 00012d	50 			push	ax
+	*** 00012e	8d 86 7c ff 		lea	ax,WORD PTR [bp-132]	;U
+	*** 000132	50 			push	ax
+	*** 000133	8d 46 bc 		lea	ax,WORD PTR [bp-68]	;W
+	*** 000136	50 			push	ax
+	*** 000137	e8 00 00 		call	xor_blocks
+	*** 00013a	83 c4 0a 		add	sp,10	;000aH
+;|*** 	P_transform (W, K[3]); //Fourth key
+; Line 362
+	*** 00013d	8d 86 5c ff 		lea	ax,WORD PTR [bp-164]
+	*** 000141	50 			push	ax
+	*** 000142	8d 4e bc 		lea	cx,WORD PTR [bp-68]	;W
+	*** 000145	51 			push	cx
+	*** 000146	e8 00 00 		call	P_transform
+	*** 000149	83 c4 04 		add	sp,4
+;|*** 	
+;|*** 	gost_encrypt_with_key (H + 24, S + 24, K[3]);
+; Line 364
+	*** 00014c	8d 86 5c ff 		lea	ax,WORD PTR [bp-164]
+	*** 000150	50 			push	ax
+	*** 000151	8d 46 b4 		lea	ax,WORD PTR [bp-76]
+	*** 000154	50 			push	ax
+	*** 000155	8d 44 18 		lea	ax,WORD PTR [si+24]
+	*** 000158	50 			push	ax
+	*** 000159	e8 00 00 		call	gost_encrypt_with_key
+	*** 00015c	83 c4 06 		add	sp,6
+;|*** 
+;|*** 	for (i = 0; i < 12; i++)
+; Line 366
+	*** 00015f	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+					$F275:
+	*** 000167	66 83 7e fc 0c 		cmp	DWORD PTR [bp-4],12	;0000000cH	;i
+	*** 00016c	7d 0e 			jge	SHORT $FB277
+					$L336:
+;|*** 		PSI (S);
+; Line 367
+	*** 00016e	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 000171	50 			push	ax
+	*** 000172	e8 00 00 		call	PSI
+	*** 000175	5b 			pop	bx
+;|*** 	for (i = 0; i < 12; i++)
+; Line 366
+	*** 000176	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 00017a	eb eb 			jmp	SHORT $F275
+;|*** 		PSI (S);
+; Line 367
+					$FB277:
+;|*** 	xor_blocks (S, S, M, 32);
+; Line 368
+	*** 00017c	6a 00 			push	0
+	*** 00017e	6a 20 			push	32	;0020H
+	*** 000180	57 			push	di
+	*** 000181	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 000184	50 			push	ax
+	*** 000185	50 			push	ax
+	*** 000186	e8 00 00 		call	xor_blocks
+	*** 000189	83 c4 0a 		add	sp,10	;000aH
+;|*** 	PSI (S);
+; Line 369
+	*** 00018c	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 00018f	50 			push	ax
+	*** 000190	e8 00 00 		call	PSI
+	*** 000193	5b 			pop	bx
+;|*** 	xor_blocks (S, S, H, 32);
+; Line 370
+	*** 000194	6a 00 			push	0
+	*** 000196	6a 20 			push	32	;0020H
+	*** 000198	56 			push	si
+	*** 000199	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 00019c	50 			push	ax
+	*** 00019d	50 			push	ax
+	*** 00019e	e8 00 00 		call	xor_blocks
+	*** 0001a1	83 c4 0a 		add	sp,10	;000aH
+;|*** 	for (i = 0; i < 61; i++)
+; Line 371
+	*** 0001a4	66 c7 46 fc 00 00 00 00 mov	DWORD PTR [bp-4],0	;i
+					$F278:
+	*** 0001ac	66 83 7e fc 3d 		cmp	DWORD PTR [bp-4],61	;0000003dH	;i
+	*** 0001b1	7d 0e 			jge	SHORT $FB280
+					$L337:
+;|*** 		PSI (S);
+; Line 372
+	*** 0001b3	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 0001b6	50 			push	ax
+	*** 0001b7	e8 00 00 		call	PSI
+	*** 0001ba	5b 			pop	bx
+;|*** 	for (i = 0; i < 61; i++)
+; Line 371
+	*** 0001bb	66 ff 46 fc 		inc	DWORD PTR [bp-4]	;i
+	*** 0001bf	eb eb 			jmp	SHORT $F278
+;|*** 		PSI (S);
+; Line 372
+					$FB280:
+;|*** 	copy_blocks (H, S, 32);
+; Line 373
+	*** 0001c1	6a 00 			push	0
+	*** 0001c3	6a 20 			push	32	;0020H
+	*** 0001c5	8d 46 9c 		lea	ax,WORD PTR [bp-100]	;S
+	*** 0001c8	50 			push	ax
+	*** 0001c9	56 			push	si
+	*** 0001ca	e8 00 00 		call	copy_blocks
+	*** 0001cd	83 c4 08 		add	sp,8
+;|*** }
+; Line 374
+	*** 0001d0	5e 			pop	si
+	*** 0001d1	5f 			pop	di
+	*** 0001d2	c9 			leave	
+	*** 0001d3	c3 			ret	
+
+step	ENDP
+	PUBLIC	_GOSTHASH_add
+_GOSTHASH_add	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void GOSTHASH_add (byte *block, gst_udword len, gost_hash_ctx *ctx)
+;|***  *	\brief add a gost hash
+;|***  *	\param[in] gost_hash_ctx * ctx
+;|***  *	\param[in] gst_udword len
+;|***  *	\param[in] byte * block
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void GOSTHASH_add (byte *block, gst_udword len, gost_hash_ctx *ctx)
+;|*** {
+; Line 387
+	*** 000000	c8 08 00 00 		enter	8,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	block = 4
+;	len = 6
+;	ctx = 10
+;	add_bytes = -4
+;	curptr = -6
+;	barrier = -8
+	*** 000006	8b 76 04 		mov	si,WORD PTR [bp+4]	;block
+	*** 000009	8b 7e 0a 		mov	di,WORD PTR [bp+10]	;ctx
+;|*** 	gst_udword add_bytes;
+;|*** 
+;|*** 	byte *curptr = block;
+;|*** 	byte *barrier = block + (len - 32); //In order that curptr += 32 won't overshoot len.
+; Line 391
+	*** 00000c	89 76 fa 		mov	WORD PTR [bp-6],si	;curptr
+	*** 00000f	8b c6 			mov	ax,si
+	*** 000011	03 46 06 		add	ax,WORD PTR [bp+6]	;len
+	*** 000014	2d 20 00 		sub	ax,32	;0020H
+	*** 000017	89 46 f8 		mov	WORD PTR [bp-8],ax	;barrier
+;|*** 
+;|*** 	if (ctx->left) //There are unsigned chars left from the last GOSTHASH_add
+; Line 393
+	*** 00001a	66 83 7d 04 00 		cmp	DWORD PTR [di+4],0
+	*** 00001f	0f 84 a8 00 		je	$I291
+;|*** 	{
+;|*** 		add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
+;|*** 		copy_blocks(ctx->remainder + (byte)ctx->left, block, (gst_dword)add_bytes);
+; Line 396
+	*** 000023	66 b8 20 00 00 00 	mov	eax,32	;00000020H
+	*** 000029	66 2b 45 04 		sub	eax,DWORD PTR [di+4]
+	*** 00002d	66 8b d0 		mov	edx,eax
+	*** 000030	66 c1 ea 10 		shr	edx,16	;00000010H
+	*** 000034	66 3b 46 06 		cmp	eax,DWORD PTR [bp+6]	;len
+	*** 000038	76 06 			jbe	SHORT $L343
+					$L344:
+	*** 00003a	8b 46 06 		mov	ax,WORD PTR [bp+6]	;len
+	*** 00003d	8b 56 08 		mov	dx,WORD PTR [bp+8]
+					$L343:
+	*** 000040	89 46 fc 		mov	WORD PTR [bp-4],ax	;add_bytes
+	*** 000043	89 56 fe 		mov	WORD PTR [bp-2],dx
+	*** 000046	52 			push	dx
+	*** 000047	50 			push	ax
+	*** 000048	56 			push	si
+	*** 000049	8a 45 04 		mov	al,BYTE PTR [di+4]
+	*** 00004c	2a e4 			sub	ah,ah
+	*** 00004e	03 c7 			add	ax,di
+	*** 000050	05 48 00 		add	ax,72	;0048H
+	*** 000053	50 			push	ax
+	*** 000054	e8 00 00 		call	copy_blocks
+	*** 000057	83 c4 08 		add	sp,8
+;|*** 		if ((ctx->left + add_bytes) < 32) //This can be finished in the finalize stage if needed
+; Line 397
+	*** 00005a	66 8b 45 04 		mov	eax,DWORD PTR [di+4]
+	*** 00005e	66 03 46 fc 		add	eax,DWORD PTR [bp-4]	;add_bytes
+	*** 000062	66 3d 20 00 00 00 	cmp	eax,32	;00000020H
+	*** 000068	0f 82 b9 00 		jb	$EX287
+					$L345:
+;|*** 		{
+;|*** 			return;
+;|*** 		}
+;|*** 		
+;|*** 		curptr += add_bytes;
+; Line 402
+	*** 00006c	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;add_bytes
+	*** 00006f	01 46 fa 		add	WORD PTR [bp-6],ax	;curptr
+;|*** 		step (ctx->H, ctx->remainder, ctx);
+; Line 403
+	*** 000072	57 			push	di
+	*** 000073	8d 45 48 		lea	ax,WORD PTR [di+72]
+	*** 000076	50 			push	ax
+	*** 000077	8d 4d 08 		lea	cx,WORD PTR [di+8]
+	*** 00007a	51 			push	cx
+	*** 00007b	e8 00 00 		call	step
+	*** 00007e	83 c4 06 		add	sp,6
+;|*** 		add_blocks(ctx->S, ctx->remainder, 32);
+; Line 404
+	*** 000081	6a 00 			push	0
+	*** 000083	6a 20 			push	32	;0020H
+	*** 000085	8d 45 48 		lea	ax,WORD PTR [di+72]
+	*** 000088	50 			push	ax
+	*** 000089	8d 45 28 		lea	ax,WORD PTR [di+40]
+	*** 00008c	50 			push	ax
+	*** 00008d	e8 00 00 		call	add_blocks
+	*** 000090	83 c4 08 		add	sp,8
+;|*** 		ctx->len += 32;
+; Line 405
+	*** 000093	66 83 05 20 		add	DWORD PTR [di],32	;00000020H
+;|*** 		ctx->left = 0;
+; Line 406
+	*** 000097	66 c7 45 04 00 00 00 00 mov	DWORD PTR [di+4],0
+;|*** 	}
+;|*** 	else if (ctx->left + len < 32)
+; Line 408
+					$L338:
+	*** 00009f	8b 76 fa 		mov	si,WORD PTR [bp-6]	;curptr
+;|*** 	{
+;|*** 		copy_blocks(ctx->remainder + (byte)ctx->left, block, (gst_dword)len);
+;|*** 		ctx->left += len;
+;|*** 		return;
+;|*** 	}
+;|*** 
+;|*** 	while (curptr <= barrier) //Add the input block to the hash
+; Line 415
+					$FC296:
+	*** 0000a2	39 76 f8 		cmp	WORD PTR [bp-8],si	;barrier
+	*** 0000a5	72 54 			jb	SHORT $FB297
+;|*** 	{
+;|*** 		step(ctx->H, curptr, ctx);
+; Line 417
+	*** 0000a7	57 			push	di
+	*** 0000a8	56 			push	si
+	*** 0000a9	8d 45 08 		lea	ax,WORD PTR [di+8]
+	*** 0000ac	50 			push	ax
+	*** 0000ad	e8 00 00 		call	step
+	*** 0000b0	83 c4 06 		add	sp,6
+;|*** 		
+;|*** 		add_blocks(ctx->S, curptr, 32); //Add 32 unsigned chars of the message to the encrypted message
+; Line 419
+	*** 0000b3	6a 00 			push	0
+	*** 0000b5	6a 20 			push	32	;0020H
+	*** 0000b7	56 			push	si
+	*** 0000b8	8d 45 28 		lea	ax,WORD PTR [di+40]
+	*** 0000bb	50 			push	ax
+	*** 0000bc	e8 00 00 		call	add_blocks
+	*** 0000bf	83 c4 08 		add	sp,8
+;|*** 		
+;|*** 		ctx->len += 32; //We've processed 32 unsigned chars
+; Line 421
+	*** 0000c2	66 83 05 20 		add	DWORD PTR [di],32	;00000020H
+;|*** 		curptr += 32; //Advance the block-pointer 32 unsigned chars
+; Line 422
+	*** 0000c6	83 c6 20 		add	si,32	;0020H
+;|*** 	}
+; Line 423
+	*** 0000c9	eb d7 			jmp	SHORT $FC296
+					$I291:
+	*** 0000cb	66 8b 45 04 		mov	eax,DWORD PTR [di+4]
+	*** 0000cf	66 03 46 06 		add	eax,DWORD PTR [bp+6]	;len
+	*** 0000d3	66 3d 20 00 00 00 	cmp	eax,32	;00000020H
+	*** 0000d9	73 c4 			jae	SHORT $L338
+;|*** 		copy_blocks(ctx->remainder + (byte)ctx->left, block, (gst_dword)len);
+; Line 410
+	*** 0000db	66 ff 76 06 		push	DWORD PTR [bp+6]	;len
+	*** 0000df	56 			push	si
+	*** 0000e0	8a 45 04 		mov	al,BYTE PTR [di+4]
+	*** 0000e3	2a e4 			sub	ah,ah
+	*** 0000e5	03 c7 			add	ax,di
+	*** 0000e7	05 48 00 		add	ax,72	;0048H
+	*** 0000ea	50 			push	ax
+	*** 0000eb	e8 00 00 		call	copy_blocks
+	*** 0000ee	83 c4 08 		add	sp,8
+;|*** 		ctx->left += len;
+; Line 411
+	*** 0000f1	66 8b 46 06 		mov	eax,DWORD PTR [bp+6]	;len
+	*** 0000f5	66 01 45 04 		add	DWORD PTR [di+4],eax
+;|*** 		return;
+; Line 412
+	*** 0000f9	eb 2a 			jmp	SHORT $EX287
+					$FB297:
+	*** 0000fb	8b 4e 04 		mov	cx,WORD PTR [bp+4]	;block
+;|*** 	}
+;|*** 
+;|*** 	while (curptr <= barrier) //Add the input block to the hash
+;|*** 	{
+;|*** 		step(ctx->H, curptr, ctx);
+;|*** 		
+;|*** 		add_blocks(ctx->S, curptr, 32); //Add 32 unsigned chars of the message to the encrypted message
+;|*** 		
+;|*** 		ctx->len += 32; //We've processed 32 unsigned chars
+;|*** 		curptr += 32; //Advance the block-pointer 32 unsigned chars
+;|*** 	}
+;|*** 
+;|*** 	if (curptr != block + len) //If we have unsigned chars remaining, add them for the next GOSTHASH_add of _finalize
+; Line 425
+	*** 0000fe	8b 46 06 		mov	ax,WORD PTR [bp+6]	;len
+	*** 000101	03 c1 			add	ax,cx
+	*** 000103	3b c6 			cmp	ax,si
+	*** 000105	74 1e 			je	SHORT $EX287
+;|*** 	{
+;|*** 		ctx->left = (gst_udword)(block + len - curptr);
+;|*** 		copy_blocks(ctx->remainder, curptr, (gst_dword)ctx->left);
+; Line 428
+	*** 000107	8b 46 06 		mov	ax,WORD PTR [bp+6]	;len
+	*** 00010a	2b c6 			sub	ax,si
+	*** 00010c	03 c1 			add	ax,cx
+	*** 00010e	99 			cwd	
+	*** 00010f	8b 5e 0a 		mov	bx,WORD PTR [bp+10]	;ctx
+	*** 000112	89 47 04 		mov	WORD PTR [bx+4],ax
+	*** 000115	89 57 06 		mov	WORD PTR [bx+6],dx
+	*** 000118	52 			push	dx
+	*** 000119	50 			push	ax
+	*** 00011a	56 			push	si
+	*** 00011b	8d 47 48 		lea	ax,WORD PTR [bx+72]
+	*** 00011e	50 			push	ax
+	*** 00011f	e8 00 00 		call	copy_blocks
+	*** 000122	83 c4 08 		add	sp,8
+;|*** 	}
+;|*** }
+; Line 430
+					$EX287:
+	*** 000125	5e 			pop	si
+	*** 000126	5f 			pop	di
+	*** 000127	c9 			leave	
+	*** 000128	c3 			ret	
+
+_GOSTHASH_add	ENDP
+	PUBLIC	_GOSTHASH_finalize
+_GOSTHASH_finalize	PROC NEAR	;  COMDAT
+;|*** 
+;|*** /**
+;|***  *
+;|***  *	\fn void GOSTHASH_finalize (gost_hash_ctx *ctx, byte *out)
+;|***  *	\brief Finalization of the gost hash
+;|***  *	\param[in] byte * out
+;|***  *	\param[in] gost_hash_ctx * ctx
+;|***  *	\return void
+;|***  *
+;|***  */
+;|*** void GOSTHASH_finalize (gost_hash_ctx *ctx, byte *out)
+;|*** {
+; Line 442
+	*** 000000	c8 68 00 00 		enter	104,0
+	*** 000004	57 			push	di
+	*** 000005	56 			push	si
+;	ctx = 4
+;	out = 6
+;	buf = -72
+;	H = -40
+;	S = -104
+;	final_len = -4
+;	bptr = -8
+	*** 000006	8b 76 04 		mov	si,WORD PTR [bp+4]	;ctx
+;|*** 	byte buf[32];
+;|*** 	byte H[32];
+;|*** 	byte S[32];
+;|*** 	gst_dword final_len;
+;|*** 	gst_dword bptr;
+;|*** 
+;|*** 	final_len = ctx->len;
+; Line 449
+	*** 000009	66 8b 04 		mov	eax,DWORD PTR [si]
+	*** 00000c	66 89 46 fc 		mov	DWORD PTR [bp-4],eax	;final_len
+;|*** 	
+;|*** 	copy_blocks(H, ctx->H, 32);
+; Line 451
+	*** 000010	6a 00 			push	0
+	*** 000012	6a 20 			push	32	;0020H
+	*** 000014	8d 44 08 		lea	ax,WORD PTR [si+8]
+	*** 000017	50 			push	ax
+	*** 000018	8d 46 d8 		lea	ax,WORD PTR [bp-40]	;H
+	*** 00001b	50 			push	ax
+	*** 00001c	e8 00 00 		call	copy_blocks
+	*** 00001f	83 c4 08 		add	sp,8
+;|*** 	copy_blocks(S, ctx->S, 32);
+; Line 452
+	*** 000022	6a 00 			push	0
+	*** 000024	6a 20 			push	32	;0020H
+	*** 000026	8d 44 28 		lea	ax,WORD PTR [si+40]
+	*** 000029	50 			push	ax
+	*** 00002a	8d 46 98 		lea	ax,WORD PTR [bp-104]	;S
+	*** 00002d	50 			push	ax
+	*** 00002e	e8 00 00 		call	copy_blocks
+	*** 000031	83 c4 08 		add	sp,8
+;|*** 
+;|*** 	if (ctx->left) //Handle any remaining bytes
+; Line 454
+	*** 000034	66 83 7c 04 00 		cmp	DWORD PTR [si+4],0
+	*** 000039	74 4b 			je	SHORT $I309
+;|*** 	{
+;|*** 		set_blocks(buf, 0, 32);
+; Line 456
+	*** 00003b	6a 00 			push	0
+	*** 00003d	6a 20 			push	32	;0020H
+	*** 00003f	6a 00 			push	0
+	*** 000041	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 000044	50 			push	ax
+	*** 000045	e8 00 00 		call	set_blocks
+	*** 000048	83 c4 08 		add	sp,8
+;|*** 		copy_blocks(buf, ctx->remainder, (gst_dword)ctx->left);
+; Line 457
+	*** 00004b	66 ff 74 04 		push	DWORD PTR [si+4]
+	*** 00004f	8d 44 48 		lea	ax,WORD PTR [si+72]
+	*** 000052	50 			push	ax
+	*** 000053	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 000056	50 			push	ax
+	*** 000057	e8 00 00 		call	copy_blocks
+	*** 00005a	83 c4 08 		add	sp,8
+;|*** 		step (H, buf, ctx);
+; Line 458
+	*** 00005d	56 			push	si
+	*** 00005e	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 000061	50 			push	ax
+	*** 000062	8d 4e d8 		lea	cx,WORD PTR [bp-40]	;H
+	*** 000065	51 			push	cx
+	*** 000066	e8 00 00 		call	step
+	*** 000069	83 c4 06 		add	sp,6
+;|*** 		add_blocks (S, buf, 32);
+; Line 459
+	*** 00006c	6a 00 			push	0
+	*** 00006e	6a 20 			push	32	;0020H
+	*** 000070	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 000073	50 			push	ax
+	*** 000074	8d 46 98 		lea	ax,WORD PTR [bp-104]	;S
+	*** 000077	50 			push	ax
+	*** 000078	e8 00 00 		call	add_blocks
+	*** 00007b	83 c4 08 		add	sp,8
+;|*** 		final_len += ctx->left;
+; Line 460
+	*** 00007e	66 8b 44 04 		mov	eax,DWORD PTR [si+4]
+	*** 000082	66 01 46 fc 		add	DWORD PTR [bp-4],eax	;final_len
+;|*** 	}
+;|*** 
+;|*** 	set_blocks(buf, 0, 32);
+; Line 463
+					$I309:
+	*** 000086	6a 00 			push	0
+	*** 000088	6a 20 			push	32	;0020H
+	*** 00008a	6a 00 			push	0
+	*** 00008c	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 00008f	50 			push	ax
+	*** 000090	e8 00 00 		call	set_blocks
+	*** 000093	83 c4 08 		add	sp,8
+;|*** 	bptr = 0;
+; Line 464
+	*** 000096	66 c7 46 f8 00 00 00 00 mov	DWORD PTR [bp-8],0	;bptr
+;|*** 	final_len <<= 3;
+; Line 465
+	*** 00009e	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;final_len
+	*** 0000a1	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+	*** 0000a4	b1 03 			mov	cl,3
+	*** 0000a6	e8 00 00 		call	__aNlshl
+					$L352:
+	*** 0000a9	89 46 fc 		mov	WORD PTR [bp-4],ax	;final_len
+	*** 0000ac	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	while (final_len > 0)
+; Line 466
+	*** 0000af	0b d2 			or	dx,dx
+	*** 0000b1	7c 20 			jl	SHORT $FB312
+	*** 0000b3	7f 04 			jg	SHORT $L348
+	*** 0000b5	0b c0 			or	ax,ax
+	*** 0000b7	74 1a 			je	SHORT $FB312
+					$L348:
+;|*** 	{
+;|*** 		buf[bptr++] = (byte)(final_len & 0xFF);
+; Line 468
+	*** 0000b9	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;final_len
+	*** 0000bc	8b 7e f8 		mov	di,WORD PTR [bp-8]	;bptr
+	*** 0000bf	88 43 b8 		mov	BYTE PTR [bp-72][di],al
+	*** 0000c2	66 ff 46 f8 		inc	DWORD PTR [bp-8]	;bptr
+;|*** 		final_len >>= 8;
+; Line 469
+	*** 0000c6	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;final_len
+	*** 0000c9	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+	*** 0000cc	b1 08 			mov	cl,8
+	*** 0000ce	e8 00 00 		call	__aNlshr
+	*** 0000d1	eb d6 			jmp	SHORT $L352
+					$FB312:
+;|*** 	}
+;|*** 
+;|*** 	step (H, buf, ctx);
+; Line 472
+	*** 0000d3	56 			push	si
+	*** 0000d4	8d 46 b8 		lea	ax,WORD PTR [bp-72]	;buf
+	*** 0000d7	50 			push	ax
+	*** 0000d8	8d 46 d8 		lea	ax,WORD PTR [bp-40]	;H
+	*** 0000db	50 			push	ax
+	*** 0000dc	e8 00 00 		call	step
+	*** 0000df	83 c4 06 		add	sp,6
+;|*** 	step (H, S, ctx);
+; Line 473
+	*** 0000e2	56 			push	si
+	*** 0000e3	8d 46 98 		lea	ax,WORD PTR [bp-104]	;S
+	*** 0000e6	50 			push	ax
+	*** 0000e7	8d 46 d8 		lea	ax,WORD PTR [bp-40]	;H
+	*** 0000ea	50 			push	ax
+	*** 0000eb	e8 00 00 		call	step
+	*** 0000ee	83 c4 06 		add	sp,6
+;|*** 	copy_blocks (out, H, 32);
+; Line 474
+	*** 0000f1	6a 00 			push	0
+	*** 0000f3	6a 20 			push	32	;0020H
+	*** 0000f5	8d 46 d8 		lea	ax,WORD PTR [bp-40]	;H
+	*** 0000f8	50 			push	ax
+	*** 0000f9	ff 76 06 		push	WORD PTR [bp+6]	;out
+	*** 0000fc	e8 00 00 		call	copy_blocks
+	*** 0000ff	83 c4 08 		add	sp,8
+;|*** }; Line 475
+	*** 000102	5e 			pop	si
+	*** 000103	5f 			pop	di
+	*** 000104	c9 			leave	
+	*** 000105	c3 			ret	
+
+_GOSTHASH_finalize	ENDP
+_TEXT	ENDS
+END

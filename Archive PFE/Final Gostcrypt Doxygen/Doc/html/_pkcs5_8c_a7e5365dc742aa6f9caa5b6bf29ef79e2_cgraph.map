@@ -1,0 +1,5 @@
+<map id="hmac_stribog" name="hmac_stribog">
+<area shape="rect" id="node2" href="$_stribog_8c.html#a35dd8d9b4aa0af02ddb28c60bb3c3877" title="Initialize ctx variable (v512 = 0x200 or 512 in decimal) " alt="" coords="165,5,268,32"/>
+<area shape="rect" id="node3" href="$_stribog_8c.html#a0ff21cd42b69ce40de0e62e9b7e3b7fb" title="Perform a round on the now 512&#45;bit large remainder While there is more than 64 bytes available..." alt="" coords="163,56,270,83"/>
+<area shape="rect" id="node4" href="$_stribog_8c.html#a5845b664f371f429107cb502511e9c0e" title="Hash the last (padded) message block Add ctx&#45;&gt;left (max value represented by bitmask 0x3FF) to N This..." alt="" coords="153,107,280,133"/>
+</map>

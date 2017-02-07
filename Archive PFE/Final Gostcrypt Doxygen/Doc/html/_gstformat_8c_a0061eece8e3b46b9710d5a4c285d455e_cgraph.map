@@ -1,0 +1,7 @@
+<map id="WinMain" name="WinMain">
+<area shape="rect" id="node2" href="$_setup_8c.html#a75b8fdda5ffaf47399191068d0526f87" title="Call the cleanup function, that will free and close objects. " alt="" coords="127,56,221,83"/>
+<area shape="rect" id="node3" href="$_wizard_8c.html#aa95b8192f81e55f490808c22e1f0ccce" title="Clean up local allocations (bitmaps...) " alt="" coords="287,5,400,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a4b66d5e31b5dc18b314c8a68163263bd" title="Make a clean up of GDI/dialog and close device driver handle. " alt="" coords="310,56,377,83"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#ae39ff54e70651794c6adf998f20b5b46" title="Close the hAppSetupMutex mutex. " alt="" coords="269,107,417,133"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a00f61b2fcc050309dddf0e21d8807a08" title="Close the specified mutex. " alt="" coords="465,107,583,133"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="SaveNonSysInPlaceEncSettings" name="SaveNonSysInPlaceEncSettings">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#ae6a606cd06400041069c4c90e555c06d" title="Returns the number of partitions where non&#45;system in&#45;place encryption is progress or had been in prog..." alt="" coords="284,107,495,133"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a34c34fd84e82b5e8d667bd36376db452" title="Returns TRUE if the file or directory exists (both may be enclosed in quotation marks). " alt="" coords="585,5,665,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="572,107,679,133"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a4125d1015a6b5494fcebef68b9dcb316" title="Remove encryption notifications. " alt="" coords="264,56,515,83"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#a353c746ce500305b51cbc0478c157c5c" title="If bAppend is TRUE, the buffer is appended to an existing file. If bAppend is FALSE, any existing file is replaced. If an error occurs, the incomplete file is deleted (provided that bAppend is FALSE) and the function returns false. " alt="" coords="330,208,449,235"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a4ffbe57c23617a63122d4a7009ddc63d" title="Load a file and returns NULL if there&#39;s any error. Although the buffer can contain binary data..." alt="" coords="590,157,661,184"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="736,56,857,83"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="749,107,844,133"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="563,208,688,235"/>
+</map>

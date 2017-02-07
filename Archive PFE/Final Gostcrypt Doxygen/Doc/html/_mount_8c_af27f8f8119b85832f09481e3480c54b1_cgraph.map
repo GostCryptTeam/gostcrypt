@@ -1,0 +1,6 @@
+<map id="SaveSettings" name="SaveSettings">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a866bfbe498b0b6a65762fba91ec60006" title="Wait cursor mode. " alt="" coords="170,5,257,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#aae1eb25bef3f8e46416250569e79446a" title="ConfigWriteBegin" alt="" coords="152,56,275,83"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a3ea921023d48c89d8f05ac74bc002d0b" title="Write int int configuration file. " alt="" coords="162,107,265,133"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#af78416bf22db089fef2365dee2caf531" title="Write string in configuration file. " alt="" coords="323,107,445,133"/>
+</map>

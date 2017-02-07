@@ -1,0 +1,12 @@
+﻿cl : Ligne de commande warning D9007: '/Gm' requiert '/Zi ou /ZI' ; option ignorée
+  GostCipher.c
+  GostHash.c
+  GrasshopperCipher.c
+  Stribog.c
+Stribog.c(812): warning C4459: la déclaration de 'T' masque la déclaration globale
+  Stribog.c(24): note: voir la déclaration de 'T'
+Stribog.c(951): warning C4459: la déclaration de 'T' masque la déclaration globale
+  Stribog.c(24): note: voir la déclaration de 'T'
+  Whirlpool.c
+  Génération de code en cours...
+  Crypto.vcxproj -> C:\Users\Alexis\Desktop\Sources_GostCrypt_Windows_1.3.1_COMMENTED\Sources_GostCrypt_Windows_1.3.1é\Sources_GostCrypt_Windows_1.3.1\Crypto\Debug\Crypto.lib

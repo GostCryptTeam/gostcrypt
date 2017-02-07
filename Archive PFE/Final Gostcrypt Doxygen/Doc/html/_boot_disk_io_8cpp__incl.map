@@ -1,0 +1,22 @@
+<map id="Boot/Windows/BootDiskIo.cpp" name="Boot/Windows/BootDiskIo.cpp">
+<area shape="rect" id="node2" href="$_bios_8h_source.html" title="Bios.h" alt="" coords="1011,229,1069,256"/>
+<area shape="rect" id="node18" href="$_boot_console_io_8h_source.html" title="BootConsoleIo.h" alt="" coords="832,304,949,331"/>
+<area shape="rect" id="node19" href="$_boot_config_8h_source.html" title="BootConfig.h" alt="" coords="619,80,715,107"/>
+<area shape="rect" id="node28" href="$_boot_disk_io_8h_source.html" title="BootDiskIo.h" alt="" coords="789,155,885,181"/>
+<area shape="rect" id="node29" href="$_boot_debug_8h_source.html" title="BootDebug.h" alt="" coords="727,229,825,256"/>
+<area shape="rect" id="node30" href="$_boot_defs_8h_source.html" title="BootDefs.h" alt="" coords="849,229,935,256"/>
+<area shape="rect" id="node31" href="$_boot_strings_8h_source.html" title="BootStrings.h" alt="" coords="1061,80,1163,107"/>
+<area shape="rect" id="node3" href="$_boot_2_windows_2_platform_8h_source.html" title="Platform.h" alt="" coords="850,379,931,405"/>
+<area shape="rect" id="node4" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="766,603,845,629"/>
+<area shape="rect" id="node7" href="$_memory_8h_source.html" title="memory.h" alt="" coords="960,453,1040,480"/>
+<area shape="rect" id="node9" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="1117,528,1227,555"/>
+<area shape="rect" id="node17" href="$_endian_8h_source.html" title="endian.h" alt="" coords="998,528,1069,555"/>
+<area shape="rect" id="node20" href="$_crypto_8h_source.html" title="Crypto.h" alt="" coords="517,453,587,480"/>
+<area shape="rect" id="node21" href="$_gost_cipher_8h_source.html" title="GostCipher.h" alt="" coords="5,528,104,555"/>
+<area shape="rect" id="node22" href="$_grasshopper_cipher_8h_source.html" title="GrasshopperCipher.h" alt="" coords="128,528,272,555"/>
+<area shape="rect" id="node23" href="$_stribog_8h_source.html" title="Stribog.h" alt="" coords="296,528,371,555"/>
+<area shape="rect" id="node24" href="$_whirlpool_8h_source.html" title="Whirlpool.h" alt="" coords="395,528,482,555"/>
+<area shape="rect" id="node25" href="$_gost_hash_8h_source.html" title="GostHash.h" alt="" coords="507,528,597,555"/>
+<area shape="rect" id="node26" href="$_gf_mul_8h_source.html" title="GfMul.h" alt="" coords="787,528,853,555"/>
+<area shape="rect" id="node27" href="$_password_8h_source.html" title="Password.h" alt="" coords="621,528,712,555"/>
+</map>

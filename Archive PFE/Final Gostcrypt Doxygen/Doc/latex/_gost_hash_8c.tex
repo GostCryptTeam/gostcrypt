@@ -1,0 +1,123 @@
+\hypertarget{_gost_hash_8c}{}\section{Crypto/\+Gost\+Hash.c File Reference}
+\label{_gost_hash_8c}\index{Crypto/\+Gost\+Hash.\+c@{Crypto/\+Gost\+Hash.\+c}}
+
+
+This is an implementation of the G\+O\+ST R 34.\+11-\/94 \hyperlink{struct_hash}{Hash} Function Algorithm.  
+
+
+{\ttfamily \#include \char`\"{}Gost\+Hash.\+h\char`\"{}}\newline
+Include dependency graph for Gost\+Hash.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{_gost_hash_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init} (\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em initialize G\+O\+S\+T\+H\+A\+SH (set blocks) \end{DoxyCompactList}\item 
+void \hyperlink{_gost_hash_8c_a85ebb98a64431b2eac86f8a5f3ba721f}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add} (byte $\ast$block, gst\+\_\+udword len, \hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em add a gost hash \end{DoxyCompactList}\item 
+void \hyperlink{_gost_hash_8c_afdcf3fdde11b1abe034ad3a020dbc51d}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize} (\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx, byte $\ast$out)
+\begin{DoxyCompactList}\small\item\em Finalization of the gost hash. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is an implementation of the G\+O\+ST R 34.\+11-\/94 \hyperlink{struct_hash}{Hash} Function Algorithm. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_gost_hash_8c_a85ebb98a64431b2eac86f8a5f3ba721f}\label{_gost_hash_8c_a85ebb98a64431b2eac86f8a5f3ba721f}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+add@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add()}{GOSTHASH\_add()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+add (\begin{DoxyParamCaption}\item[{byte $\ast$}]{block,  }\item[{gst\+\_\+udword}]{len,  }\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+add a gost hash 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx}} & $\ast$ ctx \\
+\hline
+\mbox{\tt in}  & {\em gst\+\_\+udword} & len \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ block \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_hash_8c_a85ebb98a64431b2eac86f8a5f3ba721f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_gost_hash_8c_afdcf3fdde11b1abe034ad3a020dbc51d}\label{_gost_hash_8c_afdcf3fdde11b1abe034ad3a020dbc51d}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize()}{GOSTHASH\_finalize()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx,  }\item[{byte $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Finalization of the gost hash. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & $\ast$ out \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx}} & $\ast$ ctx \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_hash_8c_afdcf3fdde11b1abe034ad3a020dbc51d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}\label{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+init@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init()}{GOSTHASH\_init()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+initialize G\+O\+S\+T\+H\+A\+SH (set blocks) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx}} & $\ast$ ctx \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7_icgraph}
+\end{center}
+\end{figure}

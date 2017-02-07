@@ -1,0 +1,11 @@
+<map id="GostCrypt::BootEncryption::SetDriverServiceStartType" name="GostCrypt::BootEncryption::SetDriverServiceStartType">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="681,111,751,137"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a067ed0c600bf924b6621ee79892384d3" title="Check if Uac is supported. " alt="" coords="267,5,381,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="482,56,578,83"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_elevator.html#a7756cd9baaf29a8375bf42210961504d" title="the driver services start type " alt="" coords="234,158,414,199"/>
+<area shape="rect" id="node9" href="$class_gost_crypt_1_1_boot_encryption.html#a2faa08fabf7bd37b8ebd9e0b6b437274" title="Get windows directory. " alt="" coords="235,223,413,265"/>
+<area shape="rect" id="node10" href="$_registry_8c.html#a1b863382e407fb7468d82c4e4c51ab13" title="Write a Dword in the local machine registry. " alt="" coords="233,289,415,330"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="646,56,786,83"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_elevator.html#a0b5a981fa1fa7f2b93f39c55a5ba20e1" title="Elevate the instance. " alt="" coords="463,158,597,199"/>
+<area shape="rect" id="node8" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="645,165,787,192"/>
+</map>

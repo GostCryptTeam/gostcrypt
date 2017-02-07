@@ -1,0 +1,7 @@
+<map id="SendDeviceIoControlRequest" name="SendDeviceIoControlRequest">
+<area shape="rect" id="node2" href="$_dump_filter_8c.html#ab65bb80f061946645cf93774b37d53a8" title="Check the driver version of the main device get his dump configuration. Verify that it is located on ..." alt="" coords="257,5,373,32"/>
+<area shape="rect" id="node3" href="$_ntdriver_8c.html#a02992ce4250a7a592cddf71d4b3b5b74" title="Unmount the root device object and ignore open files also unmount hidden volumes. ..." alt="" coords="244,56,387,83"/>
+<area shape="rect" id="node5" href="$_ntdriver_8c.html#a0833d491275e43dd1669efc77565bba6" title="Get the device sector sizes. " alt="" coords="243,107,388,133"/>
+<area shape="rect" id="node4" href="$_ntdriver_8c.html#a71ecef9939cec3ebe32b53b0dc2fe16b" title="Unload a driver. " alt="" coords="455,56,575,83"/>
+<area shape="rect" id="node6" href="$_ntdriver_8c.html#aa95e0ea1d500cdd5c7195ab9faf6cb79" title="Return the number of sectors unreadable in zeroedSectorCount. " alt="" coords="436,107,593,133"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="GostCrypt::Elevator::Elevate" name="GostCrypt::Elevator::Elevate">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="224,5,293,32"/>
+<area shape="rect" id="node3" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="188,56,329,83"/>
+</map>

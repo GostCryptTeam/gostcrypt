@@ -1,0 +1,271 @@
+\hypertarget{_combo_8c}{}\section{Common/\+Combo.c File Reference}
+\label{_combo_8c}\index{Common/\+Combo.\+c@{Common/\+Combo.\+c}}
+
+
+Manage functions on combo box.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Combo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Xml.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for Combo.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_combo_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_combo_8c_ac953de4520f12f4a661822f8b4de7585}{S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST}~20
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_combo_8c_adea0ba98d3393d59bec4445a37abd526}{Add\+Combo\+Item} (H\+W\+ND h\+Combo\+Box, char $\ast$lpsz\+File\+Name, B\+O\+OL save\+History)
+\begin{DoxyCompactList}\small\item\em Add item to combo box. \end{DoxyCompactList}\item 
+L\+P\+A\+R\+AM \hyperlink{_combo_8c_a14952ae69e413051859ca966a14cb1fd}{Move\+Edit\+To\+Combo} (H\+W\+ND h\+Combo\+Box, B\+O\+OL save\+History)
+\begin{DoxyCompactList}\small\item\em Set edited value in a combo box. \end{DoxyCompactList}\item 
+int \hyperlink{_combo_8c_af0edd58d95e47e48b9947ffc1011fc5e}{Get\+Order\+Combo\+Idx} (H\+W\+ND h\+Combo\+Box, int $\ast$n\+Idx\+List, int n\+Elems)
+\begin{DoxyCompactList}\small\item\em Get the combo highest id or return err if failed. \end{DoxyCompactList}\item 
+L\+P\+A\+R\+AM \hyperlink{_combo_8c_a5630b159ad2c157db315aa6374c046a6}{Update\+Combo\+Order} (H\+W\+ND h\+Combo\+Box)
+\begin{DoxyCompactList}\small\item\em Update the combo order. \end{DoxyCompactList}\item 
+void \hyperlink{_combo_8c_a13984b35e4a13c35da6c624d745df10c}{Load\+Combo} (H\+W\+ND h\+Combo\+Box)
+\begin{DoxyCompactList}\small\item\em Load a combo box. \end{DoxyCompactList}\item 
+void \hyperlink{_combo_8c_a250f8ae239b13cab04f8e7bd80dc60c7}{Dump\+Combo} (H\+W\+ND h\+Combo\+Box, int b\+Clear)
+\begin{DoxyCompactList}\small\item\em Dump a combo box in file as X\+ML. \end{DoxyCompactList}\item 
+void \hyperlink{_combo_8c_afcf8493efed6dadd7799d0246adc83b6}{Clear\+Combo} (H\+W\+ND h\+Combo\+Box)
+\begin{DoxyCompactList}\small\item\em Clear the combo box. \end{DoxyCompactList}\item 
+int \hyperlink{_combo_8c_a4bd87cf4b20b2fb37f87bd4f61781220}{Is\+Combo\+Empty} (H\+W\+ND h\+Combo\+Box)
+\begin{DoxyCompactList}\small\item\em Is the combo box empty ? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage functions on combo box. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20/01/2017 
+\end{DoxyDate}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_combo_8c_ac953de4520f12f4a661822f8b4de7585}\label{_combo_8c_ac953de4520f12f4a661822f8b4de7585}} 
+\index{Combo.\+c@{Combo.\+c}!S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST@{S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST}}
+\index{S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST@{S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST}{SIZEOF\_MRU\_LIST}}
+{\footnotesize\ttfamily \#define S\+I\+Z\+E\+O\+F\+\_\+\+M\+R\+U\+\_\+\+L\+I\+ST~20}
+
+Legal Notice\+: Some portions of the source code contained in this file were derived from the source code of Encryption for the Masses 2.\+02a, which is Copyright (c) 1998-\/2000 Paul Le Roux and which is governed by the \textquotesingle{}License Agreement for Encryption for the Masses\textquotesingle{}. Modifications and additions to the original source code (contained in this file) and all other portions of this file are Copyright (c) 2003-\/2008 True\+Crypt Developers Association and are governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_combo_8c_adea0ba98d3393d59bec4445a37abd526}\label{_combo_8c_adea0ba98d3393d59bec4445a37abd526}} 
+\index{Combo.\+c@{Combo.\+c}!Add\+Combo\+Item@{Add\+Combo\+Item}}
+\index{Add\+Combo\+Item@{Add\+Combo\+Item}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Add\+Combo\+Item()}{AddComboItem()}}
+{\footnotesize\ttfamily void Add\+Combo\+Item (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box,  }\item[{char $\ast$}]{lpsz\+File\+Name,  }\item[{B\+O\+OL}]{save\+History }\end{DoxyParamCaption})}
+
+
+
+Add item to combo box. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & save\+History \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ lpsz\+File\+Name \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{_combo_8c_adea0ba98d3393d59bec4445a37abd526_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_afcf8493efed6dadd7799d0246adc83b6}\label{_combo_8c_afcf8493efed6dadd7799d0246adc83b6}} 
+\index{Combo.\+c@{Combo.\+c}!Clear\+Combo@{Clear\+Combo}}
+\index{Clear\+Combo@{Clear\+Combo}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Clear\+Combo()}{ClearCombo()}}
+{\footnotesize\ttfamily void Clear\+Combo (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box }\end{DoxyParamCaption})}
+
+
+
+Clear the combo box. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_combo_8c_a250f8ae239b13cab04f8e7bd80dc60c7}\label{_combo_8c_a250f8ae239b13cab04f8e7bd80dc60c7}} 
+\index{Combo.\+c@{Combo.\+c}!Dump\+Combo@{Dump\+Combo}}
+\index{Dump\+Combo@{Dump\+Combo}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Dump\+Combo()}{DumpCombo()}}
+{\footnotesize\ttfamily void Dump\+Combo (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box,  }\item[{int}]{b\+Clear }\end{DoxyParamCaption})}
+
+
+
+Dump a combo box in file as X\+ML. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & b\+Clear \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_combo_8c_a250f8ae239b13cab04f8e7bd80dc60c7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_af0edd58d95e47e48b9947ffc1011fc5e}\label{_combo_8c_af0edd58d95e47e48b9947ffc1011fc5e}} 
+\index{Combo.\+c@{Combo.\+c}!Get\+Order\+Combo\+Idx@{Get\+Order\+Combo\+Idx}}
+\index{Get\+Order\+Combo\+Idx@{Get\+Order\+Combo\+Idx}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Get\+Order\+Combo\+Idx()}{GetOrderComboIdx()}}
+{\footnotesize\ttfamily int Get\+Order\+Combo\+Idx (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box,  }\item[{int $\ast$}]{n\+Idx\+List,  }\item[{int}]{n\+Elems }\end{DoxyParamCaption})}
+
+
+
+Get the combo highest id or return err if failed. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & n\+Elems \\
+\hline
+\mbox{\tt in}  & {\em int} & $\ast$ n\+Idx\+List \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int n\+High\+Idx if (x != C\+B\+\_\+\+E\+RR) C\+B\+\_\+\+E\+RR else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{_combo_8c_af0edd58d95e47e48b9947ffc1011fc5e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_a4bd87cf4b20b2fb37f87bd4f61781220}\label{_combo_8c_a4bd87cf4b20b2fb37f87bd4f61781220}} 
+\index{Combo.\+c@{Combo.\+c}!Is\+Combo\+Empty@{Is\+Combo\+Empty}}
+\index{Is\+Combo\+Empty@{Is\+Combo\+Empty}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Is\+Combo\+Empty()}{IsComboEmpty()}}
+{\footnotesize\ttfamily int Is\+Combo\+Empty (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box }\end{DoxyParamCaption})}
+
+
+
+Is the combo box empty ? 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Send\+Message (h\+Combo\+Box, C\+B\+\_\+\+G\+E\+T\+C\+O\+U\+NT, 0, 0) $<$ 1 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{_combo_8c_a4bd87cf4b20b2fb37f87bd4f61781220_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_a13984b35e4a13c35da6c624d745df10c}\label{_combo_8c_a13984b35e4a13c35da6c624d745df10c}} 
+\index{Combo.\+c@{Combo.\+c}!Load\+Combo@{Load\+Combo}}
+\index{Load\+Combo@{Load\+Combo}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Load\+Combo()}{LoadCombo()}}
+{\footnotesize\ttfamily void Load\+Combo (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box }\end{DoxyParamCaption})}
+
+
+
+Load a combo box. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_combo_8c_a13984b35e4a13c35da6c624d745df10c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_a14952ae69e413051859ca966a14cb1fd}\label{_combo_8c_a14952ae69e413051859ca966a14cb1fd}} 
+\index{Combo.\+c@{Combo.\+c}!Move\+Edit\+To\+Combo@{Move\+Edit\+To\+Combo}}
+\index{Move\+Edit\+To\+Combo@{Move\+Edit\+To\+Combo}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Move\+Edit\+To\+Combo()}{MoveEditToCombo()}}
+{\footnotesize\ttfamily L\+P\+A\+R\+AM Move\+Edit\+To\+Combo (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box,  }\item[{B\+O\+OL}]{save\+History }\end{DoxyParamCaption})}
+
+
+
+Set edited value in a combo box. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & save\+History \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\+P\+A\+R\+AM 0 if (!save\+History) n\+Index if (strlen (sz\+Tmp) $>$ 0) Send\+Message (h\+Combo\+Box, C\+B\+\_\+\+G\+E\+T\+C\+U\+R\+S\+EL, 0, 0) else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{_combo_8c_a14952ae69e413051859ca966a14cb1fd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_combo_8c_a5630b159ad2c157db315aa6374c046a6}\label{_combo_8c_a5630b159ad2c157db315aa6374c046a6}} 
+\index{Combo.\+c@{Combo.\+c}!Update\+Combo\+Order@{Update\+Combo\+Order}}
+\index{Update\+Combo\+Order@{Update\+Combo\+Order}!Combo.\+c@{Combo.\+c}}
+\subsubsection{\texorpdfstring{Update\+Combo\+Order()}{UpdateComboOrder()}}
+{\footnotesize\ttfamily L\+P\+A\+R\+AM Update\+Combo\+Order (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Combo\+Box }\end{DoxyParamCaption})}
+
+
+
+Update the combo order. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Combo\+Box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\+P\+A\+R\+AM n\+Index 
+\end{DoxyReturn}

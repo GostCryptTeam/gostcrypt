@@ -1,0 +1,6 @@
+<map id="ExtractAllFilesThread" name="ExtractAllFilesThread">
+<area shape="rect" id="node2" href="$_setup_8c.html#a7eb13c17cc07f37c6a647cb2aa75b6d2" title="Clear the log of the window. " alt="" coords="212,5,331,32"/>
+<area shape="rect" id="node3" href="$_self_extract_8c.html#a971f4b820217d5ad5e2039a4195bfd21" title="Assumes that VerifyPackageIntegrity() has been used. Returns TRUE, if successful (otherwise FALSE)..." alt="" coords="200,56,343,83"/>
+<area shape="rect" id="node4" href="$_dir_8c.html#a2f7585c9827a79eaaf338d54db3c02e0" title="Create full directory tree. returns 0 for success, &#45;1 if failure. " alt="" coords="236,107,307,133"/>
+<area shape="rect" id="node5" href="$_dir_8c.html#a5e7bc3be9c7e0e32539508b88525e431" title="Set the directory in the program for the drives. " alt="" coords="391,107,509,133"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="GSTGetDosNameFromNumber" name="GSTGetDosNameFromNumber">
+<area shape="rect" id="node2" href="$_ntdriver_8c.html#a6b5e439a815cfb0c2d8378cd33bddf29" title="Create device object and return success. " alt="" coords="255,5,417,32"/>
+<area shape="rect" id="node3" href="$_ntdriver_8c.html#a0cc5f231e8ace68008d917ef12509f05" title="Create a link to the drive. " alt="" coords="280,56,392,83"/>
+<area shape="rect" id="node4" href="$_ntdriver_8c.html#aa82b230002079a711b7807bec1a53d87" title="Remove the link from the drive. " alt="" coords="276,107,396,133"/>
+<area shape="rect" id="node5" href="$_ntdriver_8c.html#a5ea310c4e6c8670b8d43b7d819a5bdc9" title="Mount the manager to mount. " alt="" coords="264,157,408,184"/>
+<area shape="rect" id="node6" href="$_ntdriver_8c.html#a5dde1082ce2a10e5ec09516821ef27d0" title="Mount the manager to unmount. " alt="" coords="256,208,416,235"/>
+<area shape="rect" id="node7" href="$_ntdriver_8c.html#a67d70d84dbb62dc6593fcab5b4256a38" title="Getter to know if the letter can be taken (for the drive number) " alt="" coords="264,259,408,285"/>
+<area shape="rect" id="node8" href="$_ntdriver_8c.html#a8affa3709b2c9bf448aaf809aa3a75d9" title="Mount device. " alt="" coords="465,259,561,285"/>
+</map>

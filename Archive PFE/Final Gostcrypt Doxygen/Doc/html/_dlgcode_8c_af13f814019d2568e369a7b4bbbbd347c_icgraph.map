@@ -1,0 +1,6 @@
+<map id="OpenDevice" name="OpenDevice">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#aa5c4db9e777aa77275e7ec4cb59f55ec" title="Get available host devices. " alt="" coords="144,5,311,32"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#ac53eb315fbb81bd650c633578252616e" title="VolumePathExists" alt="" coords="162,56,293,83"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="365,5,503,32"/>
+<area shape="rect" id="node5" href="$_mount_8c.html#a80e2191b50f9e6ba9b4b26db9c2f36b7" title="Keep a backup of the volume header to recover it when required. The header contains essential informa..." alt="" coords="359,56,509,83"/>
+</map>

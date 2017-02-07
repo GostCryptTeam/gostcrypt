@@ -1,0 +1,20 @@
+<map id="Setup/ComSetup.cpp" name="Setup/ComSetup.cpp">
+<area shape="rect" id="node6" href="$_com_setup_8h_source.html" title="ComSetup.h" alt="" coords="551,80,646,107"/>
+<area shape="rect" id="node7" href="$_dlgcode_8h_source.html" title="Dlgcode.h" alt="" coords="671,80,751,107"/>
+<area shape="rect" id="node25" href="$_setup_2_resource_8h_source.html" title="Resource.h" alt="" coords="775,80,863,107"/>
+<area shape="rect" id="node8" href="$_common_8h_source.html" title="Common.h" alt="" coords="451,229,536,256"/>
+<area shape="rect" id="node20" href="$_apidrvr_8h_source.html" title="Apidrvr.h" alt="" coords="737,155,809,181"/>
+<area shape="rect" id="node23" href="$_wipe_8h_source.html" title="Wipe.h" alt="" coords="921,229,983,256"/>
+<area shape="rect" id="node24" href="$_keyfiles_8h_source.html" title="Keyfiles.h" alt="" coords="609,155,687,181"/>
+<area shape="rect" id="node9" href="$_crypto_8h_source.html" title="Crypto.h" alt="" coords="429,304,499,331"/>
+<area shape="rect" id="node10" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="359,453,438,480"/>
+<area shape="rect" id="node13" href="$_gost_cipher_8h_source.html" title="GostCipher.h" alt="" coords="472,379,571,405"/>
+<area shape="rect" id="node14" href="$_grasshopper_cipher_8h_source.html" title="GrasshopperCipher.h" alt="" coords="595,379,739,405"/>
+<area shape="rect" id="node15" href="$_stribog_8h_source.html" title="Stribog.h" alt="" coords="5,379,80,405"/>
+<area shape="rect" id="node16" href="$_whirlpool_8h_source.html" title="Whirlpool.h" alt="" coords="105,379,191,405"/>
+<area shape="rect" id="node17" href="$_gost_hash_8h_source.html" title="GostHash.h" alt="" coords="216,379,307,405"/>
+<area shape="rect" id="node18" href="$_gf_mul_8h_source.html" title="GfMul.h" alt="" coords="331,379,397,405"/>
+<area shape="rect" id="node19" href="$_password_8h_source.html" title="Password.h" alt="" coords="763,379,853,405"/>
+<area shape="rect" id="node21" href="$_boot_defs_8h_source.html" title="Boot/Windows/BootDefs.h" alt="" coords="561,229,735,256"/>
+<area shape="rect" id="node22" href="$_volumes_8h_source.html" title="Volumes.h" alt="" coords="766,304,850,331"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="Platform/StringConverter.cpp" name="Platform/StringConverter.cpp">
+<area shape="rect" id="node4" href="$_buffer_8h_source.html" title="Buffer.h" alt="" coords="330,453,397,480"/>
+<area shape="rect" id="node19" href="$_platform_2_exception_8h_source.html" title="Exception.h" alt="" coords="386,155,477,181"/>
+<area shape="rect" id="node23" href="$_for_each_8h_source.html" title="ForEach.h" alt="" coords="830,304,913,331"/>
+<area shape="rect" id="node31" href="$_string_converter_8h_source.html" title="StringConverter.h" alt="" coords="940,379,1061,405"/>
+<area shape="rect" id="node33" href="$_system_exception_8h_source.html" title="SystemException.h" alt="" coords="274,80,410,107"/>
+<area shape="rect" id="node5" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="433,603,544,629"/>
+<area shape="rect" id="node14" href="$_memory_8h_source.html" title="Memory.h" alt="" coords="101,528,181,555"/>
+<area shape="rect" id="node16" href="$_endian_8h_source.html" title="endian.h" alt="" coords="37,603,108,629"/>
+<area shape="rect" id="node17" href="$_gstdefs_8h_source.html" title="Common/Gstdefs.h" alt="" coords="5,677,140,704"/>
+<area shape="rect" id="node21" href="$_serializable_8h_source.html" title="Serializable.h" alt="" coords="541,229,641,256"/>
+<area shape="rect" id="node24" href="$_serializer_8h_source.html" title="Serializer.h" alt="" coords="419,304,505,331"/>
+<area shape="rect" id="node30" href="$_serializer_factory_8h_source.html" title="SerializerFactory.h" alt="" coords="675,304,806,331"/>
+<area shape="rect" id="node25" href="$_shared_ptr_8h_source.html" title="SharedPtr.h" alt="" coords="581,379,671,405"/>
+<area shape="rect" id="node29" href="$_stream_8h_source.html" title="Stream.h" alt="" coords="381,379,455,405"/>
+<area shape="rect" id="node26" href="$_shared_val_8h_source.html" title="SharedVal.h" alt="" coords="577,453,670,480"/>
+<area shape="rect" id="node27" href="$_mutex_8h_source.html" title="Mutex.h" alt="" coords="627,528,697,555"/>
+</map>

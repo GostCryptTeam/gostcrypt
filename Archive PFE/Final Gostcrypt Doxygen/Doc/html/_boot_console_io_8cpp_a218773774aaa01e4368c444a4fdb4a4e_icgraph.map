@@ -1,0 +1,11 @@
+<map id="PrintEndl" name="PrintEndl">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#aec8c75eeef5d71fa2024d4a4e7d61372" title="Print the end of line cnt times. " alt="" coords="155,5,229,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#aab603d9c78b25cc43686d27a2cc276ea" title="Print error with his message. " alt="" coords="153,56,231,83"/>
+<area shape="rect" id="node5" href="$_boot_disk_io_8cpp.html#a8be7f4a4d8f6ec9b9393233d632c6cc1" title="Print dick errors. " alt="" coords="141,107,243,133"/>
+<area shape="rect" id="node9" href="$_boot_disk_io_8cpp.html#a83356da113027c53b480c8cf80bfd560" title="Get geometry of the drive (cylinders, heads and sectors) " alt="" coords="128,157,256,184"/>
+<area shape="rect" id="node10" href="$_int_filter_8cpp.html#ae1774e81b8d6f1a85dcec3cd81c10d9c" title="Filter int 15. " alt="" coords="153,208,231,235"/>
+<area shape="rect" id="node4" href="$_int_filter_8cpp.html#a69c3a04fb0ab473da0813aaaac2bfc62" title="Install or interrupt filters. " alt="" coords="304,56,443,83"/>
+<area shape="rect" id="node6" href="$_boot_disk_io_8cpp.html#aed3ca1d96bd33172eb786424afe8dccc" title="Read and write sectors. " alt="" coords="309,107,437,133"/>
+<area shape="rect" id="node7" href="$_boot_disk_io_8cpp.html#acf447ac16962ecc404d9a1424e28cf5a" title="Read and write sectors. " alt="" coords="491,81,619,108"/>
+<area shape="rect" id="node8" href="$_boot_disk_io_8cpp.html#a11870b63310ca954d15c40f46a931137" title="Read sectors. " alt="" coords="506,132,603,159"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="PrintHardCopyTextUTF16" name="PrintHardCopyTextUTF16">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a34c34fd84e82b5e8d667bd36376db452" title="Returns TRUE if the file or directory exists (both may be enclosed in quotation marks). " alt="" coords="242,5,322,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="229,56,335,83"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a353c746ce500305b51cbc0478c157c5c" title="If bAppend is TRUE, the buffer is appended to an existing file. If bAppend is FALSE, any existing file is replaced. If an error occurs, the incomplete file is deleted (provided that bAppend is FALSE) and the function returns false. " alt="" coords="223,107,341,133"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a866bfbe498b0b6a65762fba91ec60006" title="Wait cursor mode. " alt="" coords="239,157,325,184"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#a0caa8e8b24b30d89e25a76767c0c5ae4" title="Normal cursor mode. " alt="" coords="231,208,333,235"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="391,5,513,32"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="405,56,499,83"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="389,107,515,133"/>
+</map>

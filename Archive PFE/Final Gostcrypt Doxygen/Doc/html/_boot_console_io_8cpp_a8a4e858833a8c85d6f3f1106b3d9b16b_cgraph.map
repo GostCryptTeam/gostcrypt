@@ -1,0 +1,5 @@
+<map id="PrintErrorNoEndl" name="PrintErrorNoEndl">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="173,5,223,32"/>
+<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a26f50e4eb3544de269fffd2cf13ced86" title="Make a beep. " alt="" coords="172,56,224,83"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="272,31,348,57"/>
+</map>

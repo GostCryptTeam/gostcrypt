@@ -1,0 +1,4 @@
+<map id="GostCrypt::BootEncryption::SystemDriveContainsPartitionType" name="GostCrypt::BootEncryption::SystemDriveContainsPartitionType">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#aa761ac20523a11bf2b2915d4eb53af70" title="Checks if system drive contains extended partition. " alt="" coords="284,5,541,47"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a097627633d56bf5421d836d036f6a0e7" title="Checks if the system drive contains non standard partitions. " alt="" coords="298,71,527,127"/>
+</map>

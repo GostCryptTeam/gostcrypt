@@ -1,0 +1,26 @@
+<map id="Format/InPlace.c" name="Format/InPlace.c">
+<area shape="rect" id="node5" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="844,453,923,480"/>
+<area shape="rect" id="node8" href="$_finally_8h_source.html" title="Platform/Finally.h" alt="" coords="441,80,563,107"/>
+<area shape="rect" id="node16" href="$_endian_8h_source.html" title="Endian.h" alt="" coords="753,304,827,331"/>
+<area shape="rect" id="node17" href="$_common_8h_source.html" title="Common.h" alt="" coords="909,229,994,256"/>
+<area shape="rect" id="node26" href="$_crc_8h_source.html" title="Crc.h" alt="" coords="675,304,729,331"/>
+<area shape="rect" id="node27" href="$_dlgcode_8h_source.html" title="Dlgcode.h" alt="" coords="993,80,1073,107"/>
+<area shape="rect" id="node30" href="$_volumes_8h_source.html" title="Volumes.h" alt="" coords="1411,229,1495,256"/>
+<area shape="rect" id="node33" href="$_language_8h_source.html" title="Language.h" alt="" coords="1168,80,1257,107"/>
+<area shape="rect" id="node35" href="$_gstformat_8h_source.html" title="Gstformat.h" alt="" coords="827,155,918,181"/>
+<area shape="rect" id="node36" href="$_in_place_8h_source.html" title="InPlace.h" alt="" coords="1469,155,1545,181"/>
+<area shape="rect" id="node9" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="404,155,515,181"/>
+<area shape="rect" id="node18" href="$_crypto_8h_source.html" title="Crypto.h" alt="" coords="1163,304,1233,331"/>
+<area shape="rect" id="node19" href="$_gost_cipher_8h_source.html" title="GostCipher.h" alt="" coords="997,379,1095,405"/>
+<area shape="rect" id="node20" href="$_grasshopper_cipher_8h_source.html" title="GrasshopperCipher.h" alt="" coords="1119,379,1263,405"/>
+<area shape="rect" id="node21" href="$_stribog_8h_source.html" title="Stribog.h" alt="" coords="1287,379,1362,405"/>
+<area shape="rect" id="node22" href="$_whirlpool_8h_source.html" title="Whirlpool.h" alt="" coords="1592,379,1679,405"/>
+<area shape="rect" id="node23" href="$_gost_hash_8h_source.html" title="GostHash.h" alt="" coords="1386,379,1477,405"/>
+<area shape="rect" id="node24" href="$_gf_mul_8h_source.html" title="GfMul.h" alt="" coords="1501,379,1567,405"/>
+<area shape="rect" id="node25" href="$_password_8h_source.html" title="Password.h" alt="" coords="1703,379,1794,405"/>
+<area shape="rect" id="node28" href="$_apidrvr_8h_source.html" title="Apidrvr.h" alt="" coords="1147,155,1219,181"/>
+<area shape="rect" id="node31" href="$_wipe_8h_source.html" title="Wipe.h" alt="" coords="1019,229,1081,256"/>
+<area shape="rect" id="node32" href="$_keyfiles_8h_source.html" title="Keyfiles.h" alt="" coords="993,155,1072,181"/>
+<area shape="rect" id="node29" href="$_boot_defs_8h_source.html" title="Boot/Windows/BootDefs.h" alt="" coords="1212,229,1387,256"/>
+<area shape="rect" id="node37" href="$_format_8h_source.html" title="Format.h" alt="" coords="1662,304,1737,331"/>
+</map>

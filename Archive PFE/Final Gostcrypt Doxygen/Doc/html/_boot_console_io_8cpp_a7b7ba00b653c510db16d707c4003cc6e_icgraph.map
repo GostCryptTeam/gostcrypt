@@ -1,0 +1,6 @@
+<map id="PrintHex" name="PrintHex">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#ac649bb03c8dc1048cba4a416c1551837" title="Print a uint64. " alt="" coords="140,5,189,32"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a2e51aacd48980ee90b7e27a0f06dc2e4" title="Print a uint16 as 2 uint8. " alt="" coords="129,56,201,83"/>
+<area shape="rect" id="node4" href="$_int_filter_8cpp.html#a53b20950b8c8930b97a81b1f57ffb438" title="Filter int 13. " alt="" coords="125,107,204,133"/>
+<area shape="rect" id="node5" href="$_int_filter_8cpp.html#ae1774e81b8d6f1a85dcec3cd81c10d9c" title="Filter int 15. " alt="" coords="125,157,204,184"/>
+</map>

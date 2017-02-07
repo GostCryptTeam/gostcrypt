@@ -1,0 +1,4 @@
+<map id="GetStartupRegKeyName" name="GetStartupRegKeyName">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a8a5c71f73e44a93cc97e9171195db5b0" title="Adds or removes GostCrypt.exe to/from the system startup sequence (with appropriate command line argu..." alt="" coords="230,5,363,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a42974cdafcfa2a876d70ba8581bf64cd" title="Adds or removes the GostCrypt Volume Creation Wizard to/from the system startup sequence. " alt="" coords="219,56,375,83"/>
+</map>

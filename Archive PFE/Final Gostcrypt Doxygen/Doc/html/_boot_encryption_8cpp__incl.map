@@ -1,0 +1,30 @@
+<map id="Common/BootEncryption.cpp" name="Common/BootEncryption.cpp">
+<area shape="rect" id="node2" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="761,603,839,629"/>
+<area shape="rect" id="node5" href="$_finally_8h_source.html" title="Platform/Finally.h" alt="" coords="1011,155,1133,181"/>
+<area shape="rect" id="node14" href="$_for_each_8h_source.html" title="Platform/ForEach.h" alt="" coords="1587,80,1722,107"/>
+<area shape="rect" id="node20" href="$_boot_encryption_8h_source.html" title="BootEncryption.h" alt="" coords="827,80,949,107"/>
+<area shape="rect" id="node21" href="$_dlgcode_8h_source.html" title="Dlgcode.h" alt="" coords="547,229,627,256"/>
+<area shape="rect" id="node23" href="$_crypto_8h_source.html" title="Crypto.h" alt="" coords="461,453,531,480"/>
+<area shape="rect" id="node33" href="$_volumes_8h_source.html" title="Volumes.h" alt="" coords="1354,379,1438,405"/>
+<area shape="rect" id="node37" href="$_boot_common_8h_source.html" title="Boot/Windows/BootCommon.h" alt="" coords="1295,304,1495,331"/>
+<area shape="rect" id="node38" href="$_common_2_resource_8h_source.html" title="Common/Resource.h" alt="" coords="2211,80,2355,107"/>
+<area shape="rect" id="node39" href="$_crc_8h_source.html" title="Crc.h" alt="" coords="5,453,59,480"/>
+<area shape="rect" id="node40" href="$_endian_8h_source.html" title="Endian.h" alt="" coords="83,453,157,480"/>
+<area shape="rect" id="node41" href="$_language_8h_source.html" title="Language.h" alt="" coords="2379,80,2469,107"/>
+<area shape="rect" id="node43" href="$_random_8h_source.html" title="Random.h" alt="" coords="209,229,290,256"/>
+<area shape="rect" id="node44" href="$_registry_8h_source.html" title="Registry.h" alt="" coords="2493,80,2574,107"/>
+<area shape="rect" id="node6" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="874,229,985,256"/>
+<area shape="rect" id="node36" href="$_common_2_exception_8h_source.html" title="Exception.h" alt="" coords="801,155,892,181"/>
+<area shape="rect" id="node22" href="$_common_8h_source.html" title="Common.h" alt="" coords="393,379,479,405"/>
+<area shape="rect" id="node31" href="$_apidrvr_8h_source.html" title="Apidrvr.h" alt="" coords="477,304,549,331"/>
+<area shape="rect" id="node34" href="$_wipe_8h_source.html" title="Wipe.h" alt="" coords="967,379,1030,405"/>
+<area shape="rect" id="node35" href="$_keyfiles_8h_source.html" title="Keyfiles.h" alt="" coords="323,304,402,331"/>
+<area shape="rect" id="node24" href="$_gost_cipher_8h_source.html" title="GostCipher.h" alt="" coords="283,528,381,555"/>
+<area shape="rect" id="node25" href="$_grasshopper_cipher_8h_source.html" title="GrasshopperCipher.h" alt="" coords="405,528,549,555"/>
+<area shape="rect" id="node26" href="$_stribog_8h_source.html" title="Stribog.h" alt="" coords="573,528,648,555"/>
+<area shape="rect" id="node27" href="$_whirlpool_8h_source.html" title="Whirlpool.h" alt="" coords="121,528,207,555"/>
+<area shape="rect" id="node28" href="$_gost_hash_8h_source.html" title="GostHash.h" alt="" coords="672,528,763,555"/>
+<area shape="rect" id="node29" href="$_gf_mul_8h_source.html" title="GfMul.h" alt="" coords="837,528,904,555"/>
+<area shape="rect" id="node30" href="$_password_8h_source.html" title="Password.h" alt="" coords="1351,528,1441,555"/>
+<area shape="rect" id="node32" href="$_boot_defs_8h_source.html" title="Boot/Windows/BootDefs.h" alt="" coords="1155,379,1330,405"/>
+</map>

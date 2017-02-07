@@ -1,0 +1,51 @@
+<map id="GetString" name="GetString">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a4af9421f27c8e568add543c8b09602b3" title="Finds the first partition physically located behind the active one and returns its properties..." alt="" coords="418,26,597,68"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#aaca146556fbaac863e487cdabcad4678" title="Get remarks on hidden os. " alt="" coords="157,73,335,114"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="131,138,361,180"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#ac6c1c4c2429fe0412b658bce13d947a9" title="Abort the process with a local clean up at exit. " alt="" coords="195,204,297,231"/>
+<area shape="rect" id="node17" href="$_dlgcode_8c.html#a695fe2264bc0738260b465685e645751" title="Add Wipe mode combo. " alt="" coords="158,255,334,282"/>
+<area shape="rect" id="node18" href="$_dlgcode_8c.html#a211dbacc7559ac542eb30ff3cfd6727c" title="Get the name of the wipe mode. " alt="" coords="177,306,315,332"/>
+<area shape="rect" id="node19" href="$_dlgcode_8c.html#a9486c9f1a85fd9ca86e4c61d864146dc" title="Get the path type (Partition / Volume / Device)(upper / lower) " alt="" coords="197,356,295,383"/>
+<area shape="rect" id="node20" href="$_dlgcode_8c.html#a1c605f2ad5d9600a7bf9c737ec91763a" title="Thread to handle exceptions. " alt="" coords="165,407,327,434"/>
+<area shape="rect" id="node21" href="$_dlgcode_8c.html#a920ebed5095721b60d2fc255ac9a1437" title="Get system encryption info string. " alt="" coords="147,458,345,500"/>
+<area shape="rect" id="node22" href="$_dlgcode_8c.html#ae0bc219f236e0be2c72c3d3f8fb2615b" title="Manage every case of text info diallog proc. " alt="" coords="421,550,593,576"/>
+<area shape="rect" id="node23" href="$_dlgcode_8c.html#ae8671ad5f1690a3b325ad019937ef774" title="Get rescue disk help string. " alt="" coords="159,575,333,602"/>
+<area shape="rect" id="node24" href="$_dlgcode_8c.html#a65730fd5203ce67a15885420c4d8cfa5" title="Get decoy Os instruction string. " alt="" coords="147,626,345,652"/>
+<area shape="rect" id="node25" href="$_dlgcode_8c.html#acb56b15de262260f83fb074a7c2535a9" title="Manage raw devices dialog proc. " alt="" coords="177,676,315,703"/>
+<area shape="rect" id="node26" href="$_dlgcode_8c.html#a4200737a61fd9ee41717bc4f6acc99b9" title="Browse files in a directory. " alt="" coords="448,828,567,855"/>
+<area shape="rect" id="node28" href="$_mount_8c.html#a4173dd5f017cfa266617c841f4006c6a" title="Handle dialogues on the window handled. manage buttons like create that will copy the wizard..." alt="" coords="701,752,813,779"/>
+<area shape="rect" id="node29" href="$_dlgcode_8c.html#ac7495cc311e29a9a1135174a1c1f886b" title="Select multiples files. " alt="" coords="441,980,573,1007"/>
+<area shape="rect" id="node30" href="$_dlgcode_8c.html#a24e7f437cdb9fa2229628162de6b6102" title="GetWrongPasswordErrorMessage" alt="" coords="137,879,355,906"/>
+<area shape="rect" id="node31" href="$_dlgcode_8c.html#ab2065cf612da5ee8667d48267a1cf822" title="Check write errors in file stream. " alt="" coords="152,778,340,804"/>
+<area shape="rect" id="node33" href="$_dlgcode_8c.html#a60d337732bd75648fd435fe1b19331a2" title="Check capslock. " alt="" coords="187,980,305,1007"/>
+<area shape="rect" id="node34" href="$_dlgcode_8c.html#a84448aa5e465301510b24ae2b70dd11f" title="Delete the last used Windows file selector path for GostCrypt from the registry. " alt="" coords="171,930,321,956"/>
+<area shape="rect" id="node35" href="$_dlgcode_8c.html#a49bdd3330d000fa3e1f5dc170c2974ec" title="Resolv inconsistency. " alt="" coords="169,1082,323,1108"/>
+<area shape="rect" id="node36" href="$_dlgcode_8c.html#a5a937872b7abf8d23154fb4505658195" title="Report an unexpected state. " alt="" coords="166,1132,326,1159"/>
+<area shape="rect" id="node37" href="$_dlgcode_8c.html#a7d5532dd1c5732a87fa48966b1219dd6" title="Manage the security token paswword dilog proc. " alt="" coords="142,1183,350,1210"/>
+<area shape="rect" id="node38" href="$_dlgcode_8c.html#a6c5d55f53c2d06719da2c8572f0a747b" title="SecurityTokenKeyfileDlgProc" alt="" coords="151,1234,341,1260"/>
+<area shape="rect" id="node39" href="$_dlgcode_8c.html#a21e638a3f2f07b95457163fab9ed124b" title="Check File system. " alt="" coords="185,1284,307,1311"/>
+<area shape="rect" id="node40" href="$_keyfiles_8c.html#a126a83d7761ba5434270d476f7b0a623" title="manage theGUI interface for the keyFiles " alt="" coords="187,1335,305,1362"/>
+<area shape="rect" id="node41" href="$_password_8c.html#a3aca9dd7f358bffa36046c1709212bea" title="Check the password length. " alt="" coords="169,1386,323,1412"/>
+<area shape="rect" id="node42" href="$_gstformat_8c.html#a192dea119ef436222c08111c308e96b9" title="EA : encryption algorithm. In the volume creation wizard this function manage the algorithm choice wi..." alt="" coords="174,1436,318,1463"/>
+<area shape="rect" id="node43" href="$_gstformat_8c.html#a19fa3285c6349e9a5f8a303a2a6e6e9b" title="Dislay stars to hide the key but it shows that you are writing in the text box. " alt="" coords="168,1487,324,1514"/>
+<area shape="rect" id="node44" href="$_gstformat_8c.html#aa4eb133a06e2dab5eefdf60664f70064" title="Display error. " alt="" coords="169,1538,323,1564"/>
+<area shape="rect" id="node45" href="$_in_place_8c.html#a6d1ee15344595fd5805894c814d35d93" title="Show error or warining. " alt="" coords="151,1589,341,1630"/>
+<area shape="rect" id="node46" href="$_hotkeys_8c.html#a03f9aaf84276380b39f9d492161fac78" title="Returns TRUE if the key is allowed and its name is resolved. " alt="" coords="196,1655,296,1682"/>
+<area shape="rect" id="node47" href="$_mount_8c.html#a76744853114d2478d197855d99fbc5a0" title="Enables some menu options depending on selected drive / partition. " alt="" coords="171,1706,321,1732"/>
+<area shape="rect" id="node48" href="$_mount_8c.html#abf632c050d3fb79c9e0b8648e84c049b" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="161,1756,331,1783"/>
+<area shape="rect" id="node49" href="$_mount_8c.html#a85e858e75b732cbd35bc8f7d1837cf97" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="183,1807,309,1834"/>
+<area shape="rect" id="node50" href="$_mount_8c.html#a1bc6a7b6d20fa2b6f814c428d552d65b" title="Destroy listview column, inialise a LvCol function, set some icons, clean objects and return..." alt="" coords="208,1858,284,1884"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#af8f44624d785fff7ce9e8078d71f03a6" title="Checks the hidden OS requirements. " alt="" coords="653,26,860,68"/>
+<area shape="rect" id="node7" href="$_cmdline_8c.html#a080e58dc12a5b1be2d80de6159fcaa4e" title="Manage win32 command line. " alt="" coords="436,154,579,180"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#aefa9c53c379eec378fe6c84d734a44f7" title="Apply malloc managing errors. " alt="" coords="466,204,549,231"/>
+<area shape="rect" id="node14" href="$_dlgcode_8c.html#a585c1bade7a23ffba2dfae4047566f28" title="Modify the global nCurrent windows OS to the actual OS used, if the OS is unknown, return WIN_UNKOWN. " alt="" coords="446,255,569,282"/>
+<area shape="rect" id="node15" href="$_dlgcode_8c.html#a4683f63544f31aee5130df039402b772" title="Check if the paging file is active. " alt="" coords="443,306,571,332"/>
+<area shape="rect" id="node16" href="$_setup_8c.html#a747704da0f3dfd2319c6a52e7400f830" title="Unload the driver. " alt="" coords="452,103,563,130"/>
+<area shape="rect" id="node9" href="$_cmdline_8c.html#aeeb76497ec11b52a4318182af7d47025" title="Except in response to the WM_INITDIALOG message, the dialog box procedure should return nonzero if it..." alt="" coords="680,255,833,282"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#aec903427120c109aed045787b0cd9a40" title="Apply a memmove on a string managing errors. " alt="" coords="717,306,797,332"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#af335404c61e5ba57fea6ee10dbb0a944" title="converts a unicode string to Single Byte Character String (SBCS). " alt="" coords="721,103,793,130"/>
+<area shape="rect" id="node12" href="$_dlgcode_8c.html#ab3655f2e62bb87018fd690bc610fe8e0" title="converts a SBCS string to a UNICODE string. " alt="" coords="709,154,804,180"/>
+<area shape="rect" id="node13" href="$_mount_8c.html#a1bcc477f6cb5da8da83e42a06fb1888a" title="Get information about the program like the version and update the parameter by pointer. " alt="" coords="653,204,860,231"/>
+<area shape="rect" id="node27" href="$_dlgcode_8c.html#a039bb57c7c1c7e5b2a3bb5c2069d1eed" title="Browse files. " alt="" coords="710,828,803,855"/>
+<area shape="rect" id="node32" href="$_dlgcode_8c.html#a09ae039f5434ded2f04476d3e9e5198d" title="RemoveDeviceWriteProtection" alt="" coords="409,778,605,804"/>
+</map>

@@ -1,0 +1,2105 @@
+\hypertarget{class_gost_crypt_1_1_boot_encryption}{}\section{Gost\+Crypt\+:\+:Boot\+Encryption Class Reference}
+\label{class_gost_crypt_1_1_boot_encryption}\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+
+
+Collaboration diagram for Gost\+Crypt\+:\+:Boot\+Encryption\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_acbc337705c6e849974edc1db0006043c}\label{class_gost_crypt_1_1_boot_encryption_acbc337705c6e849974edc1db0006043c}} 
+enum {\bfseries Filter\+Type} \{ {\bfseries Drive\+Filter}, 
+{\bfseries Volume\+Filter}, 
+{\bfseries Dump\+Filter}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_boot_encryption_a4306025352fbfc8db0d572a0b21b64ff}{Boot\+Encryption} (H\+W\+ND parent)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_gost_crypt_1_1_boot_encryption}{Boot\+Encryption} constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_af5e992547f25234fa1419e16cdefe9cd}\label{class_gost_crypt_1_1_boot_encryption_af5e992547f25234fa1419e16cdefe9cd}} 
+\hyperlink{class_gost_crypt_1_1_boot_encryption_af5e992547f25234fa1419e16cdefe9cd}{$\sim$\+Boot\+Encryption} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_gost_crypt_1_1_boot_encryption}{Boot\+Encryption} destructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a8933f34e2803ba68a3c980cc01519c11}{Abort\+Decoy\+O\+S\+Wipe} ()
+\begin{DoxyCompactList}\small\item\em Abort the decoy OS wipe. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b}{Abort\+Setup} ()
+\begin{DoxyCompactList}\small\item\em For synchronous operations use \hyperlink{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be}{Abort\+Setup\+Wait()} \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be}{Abort\+Setup\+Wait} ()
+\begin{DoxyCompactList}\small\item\em For asynchronous operations use \hyperlink{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b}{Abort\+Setup()} \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a7f8882a862c69d803f2af4d021329e97}{Call\+Driver} (D\+W\+O\+RD ioctl, void $\ast$input=nullptr, D\+W\+O\+RD input\+Size=0, void $\ast$output=nullptr, D\+W\+O\+RD output\+Size=0)
+\begin{DoxyCompactList}\small\item\em Call the driver. \end{DoxyCompactList}\item 
+int \hyperlink{class_gost_crypt_1_1_boot_encryption_a9cce66955923f808f4dd297c7041ac5b}{Change\+Password} (\hyperlink{struct_password}{Password} $\ast$old\+Password, \hyperlink{struct_password}{Password} $\ast$new\+Password, int pkcs5)
+\begin{DoxyCompactList}\small\item\em Change the password. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_aa730c1ebbc354863f3e32b2ff38a16dc}{Check\+Decoy\+O\+S\+Wipe\+Result} ()
+\begin{DoxyCompactList}\small\item\em Checks the OS wipe result. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ac584bf7946ae3ac2d35fb38fcfbb615a}{Check\+Encryption\+Setup\+Result} ()
+\begin{DoxyCompactList}\small\item\em Checks the encryption setup result. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a1c573946faa2ec5b1bcbeae56d8320f9}{Check\+Requirements} ()
+\begin{DoxyCompactList}\small\item\em Checks the requirements. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_af8f44624d785fff7ce9e8078d71f03a6}{Check\+Requirements\+Hidden\+OS} ()
+\begin{DoxyCompactList}\small\item\em Checks the hidden OS requirements. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_af19de97081ce528cd89df39393469b7c}{Copy\+File\+Admin} (const string \&source\+File, const string \&destination\+File)
+\begin{DoxyCompactList}\small\item\em Copy admin file. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ab59c76cffa448f8d818aa2189340045a}{Create\+Rescue\+Iso\+Image} (bool initial\+Setup, const string \&iso\+Image\+Path)
+\begin{DoxyCompactList}\small\item\em Create the rescue iso image. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a9ac6f366c5a3c03ac5891ba22afe769d}{Deinstall} (bool display\+Wait\+Dialog=false)
+\begin{DoxyCompactList}\small\item\em Uninstall This operation may take a long time when an antivirus is installed and its real-\/time protection enabled. Therefore, if calling it without the wizard displayed, it should be called with display\+Wait\+Dialog set to true. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a879bd63fb7a3dd4e66c12787b5808c40}{Delete\+File\+Admin} (const string \&file)
+\begin{DoxyCompactList}\small\item\em Delete the admin file. \end{DoxyCompactList}\item 
+Decoy\+System\+Wipe\+Status \hyperlink{class_gost_crypt_1_1_boot_encryption_a32a8979f6ea15a11e10bc26d19df9cc5}{Get\+Decoy\+O\+S\+Wipe\+Status} ()
+\begin{DoxyCompactList}\small\item\em Get the decoy os wipe status. \end{DoxyCompactList}\item 
+D\+W\+O\+RD \hyperlink{class_gost_crypt_1_1_boot_encryption_ae710a86e41ba731cf231fad660dc16a9}{Get\+Driver\+Service\+Start\+Type} ()
+\begin{DoxyCompactList}\small\item\em Get the driver service start type. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_gost_crypt_1_1_boot_encryption_aa66b29a9ad9bd1aa8b7aece9d9eaca2c}{Get\+Hidden\+O\+S\+Creation\+Phase} ()
+\begin{DoxyCompactList}\small\item\em Get the hidden OS creation phase. \end{DoxyCompactList}\item 
+uint16 \hyperlink{class_gost_crypt_1_1_boot_encryption_a438cec2387d7aab246d986d2a0128b21}{Get\+Installed\+Boot\+Loader\+Version} ()
+\begin{DoxyCompactList}\small\item\em Get the version of the installed boot loader. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_partition}{Partition} \hyperlink{class_gost_crypt_1_1_boot_encryption_a4af9421f27c8e568add543c8b09602b3}{Get\+Partition\+For\+Hidden\+OS} ()
+\begin{DoxyCompactList}\small\item\em Finds the first partition physically located behind the active one and returns its properties. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a448f5e8fc2f4463a8147f702c2e2d217}{Is\+Boot\+Loader\+On\+Drive} (char $\ast$device\+Path)
+\begin{DoxyCompactList}\small\item\em Check if bootloader is on drive$\ast$ Note that this does not require admin rights (it just requires the driver to be running) \end{DoxyCompactList}\item 
+Boot\+Encryption\+Status \hyperlink{class_gost_crypt_1_1_boot_encryption_a55499453ff60a4484743a7f286702cba}{Get\+Status} ()
+\begin{DoxyCompactList}\small\item\em Get status. \end{DoxyCompactList}\item 
+string \hyperlink{class_gost_crypt_1_1_boot_encryption_ad7d1c3f18b8e3bc9133a1f8cabeb8f4d}{Get\+Temp\+Path} ()
+\begin{DoxyCompactList}\small\item\em Get the temp path. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a8113cd3021864fa8bbd421c33925f83d}{Get\+Volume\+Properties} (V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+E\+S\+\_\+\+S\+T\+R\+U\+CT $\ast$properties)
+\begin{DoxyCompactList}\small\item\em Get volume properties. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_system_drive_configuration}{System\+Drive\+Configuration} \hyperlink{class_gost_crypt_1_1_boot_encryption_ab325c58a9939344bdfe056d20df0f5ff}{Get\+System\+Drive\+Configuration} ()
+\begin{DoxyCompactList}\small\item\em Get the system drive configuration. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_afae7ad7d8fb9fb9137395cb5e378a849}{Install} (bool hidden\+System)
+\begin{DoxyCompactList}\small\item\em Install. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_abcddd955b7fa53811e74c7298d34268b}{Install\+Boot\+Loader} (bool preserve\+User\+Config=false, bool hidden\+O\+S\+Creation=false)
+\begin{DoxyCompactList}\small\item\em Install the bootloader. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ae15a4ec32e1605b7dcd5979a4334601f}{Invalidate\+Cached\+Sys\+Drive\+Properties} ()
+\begin{DoxyCompactList}\small\item\em Set invalid drive properties ( invalid size, ...) \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a050dbc6e24852e929a083acfdbe1d43d}{Is\+C\+D\+Drive\+Present} ()
+\begin{DoxyCompactList}\small\item\em Checks if the CD drive is present. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a41ca434ce3526f63bc083f7dab6a1532}{Is\+Hidden\+System\+Running} ()
+\begin{DoxyCompactList}\small\item\em Checks if the hidden system is running. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a60f1f2b0d4b4ada0e8e42eef381f515b}{Is\+Paging\+File\+Active} (B\+O\+OL check\+Non\+Windows\+Partitions\+Only)
+\begin{DoxyCompactList}\small\item\em Checks if the paging file is active. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a4b79045dfc8c9f05b29ebea5d02a4904}{Prepare\+Hidden\+O\+S\+Creation} (int ea, int mode, int pkcs5)
+\begin{DoxyCompactList}\small\item\em Prepare the hidden OS creation. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a0b1d3c4a491fffeed16d48a1f00e1429}{Prepare\+Installation} (bool system\+Partition\+Only, \hyperlink{struct_password}{Password} \&password, int ea, int mode, int pkcs5, const string \&rescue\+Iso\+Image\+Path)
+\begin{DoxyCompactList}\small\item\em Prepare the installation. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a45bbded21c341187133deeeda390f12d}{Probe\+Real\+System\+Drive\+Size} ()
+\begin{DoxyCompactList}\small\item\em Get the real system drive size. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a42fee6a10920d6e44487ee8a3ac2b17d}{Read\+Boot\+Sector\+Config} (byte $\ast$config, size\+\_\+t buf\+Length, byte $\ast$user\+Config=nullptr, string $\ast$custom\+User\+Message=nullptr, uint16 $\ast$boot\+Loader\+Version=nullptr)
+\begin{DoxyCompactList}\small\item\em Read the boot sector configurations. \end{DoxyCompactList}\item 
+uint32 \hyperlink{class_gost_crypt_1_1_boot_encryption_a948419f4d72d1da1943632761b47de08}{Read\+Driver\+Configuration\+Flags} ()
+\begin{DoxyCompactList}\small\item\em Read the driver configuration flags. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ab800499c17495d75aecfd93cd0942690}{Register\+Boot\+Driver} (bool hidden\+System)
+\begin{DoxyCompactList}\small\item\em Register the boot drive. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a10d9792ca3396b62332ec244cee983eb}{Register\+Filter\+Driver} (bool register\+Driver, Filter\+Type filter\+Type)
+\begin{DoxyCompactList}\small\item\em Register the filter driver. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a7a5ba170d216844b9ff5db5b6368a0e5}{Register\+System\+Favorites\+Service} (B\+O\+OL register\+Service)
+\begin{DoxyCompactList}\small\item\em Register the system favorites service. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a2cf9147810cf18732e40ccbae474b7be}{Rename\+Deprecated\+System\+Loader\+Backup} ()
+\begin{DoxyCompactList}\small\item\em Rename the deprecated system loader bacup. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_aa8a362642702d24c487f62cd4a109300}{Restart\+Computer} (void)
+\begin{DoxyCompactList}\small\item\em Restor the computer. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_af434150f29efc685046c3f92502eeb65}{Initial\+Security\+Checks\+For\+Hidden\+OS} ()
+\begin{DoxyCompactList}\small\item\em The initial security checks for hidden OS. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_abb09defd16cb166c11b788d591241571}{Restrict\+Paging\+Files\+To\+System\+Partition} ()
+\begin{DoxyCompactList}\small\item\em Restrict the paging file to system partitions. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a2a42d620e603b2dfe451fd34a361be35}{Set\+Driver\+Configuration\+Flag} (uint32 flag, bool \hyperlink{structstate}{state})
+\begin{DoxyCompactList}\small\item\em Set the driver configuration flag. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ad66126952d3c90239d15fe53b98d98be}{Set\+Driver\+Service\+Start\+Type} (D\+W\+O\+RD start\+Type)
+\begin{DoxyCompactList}\small\item\em Set the driver service start type. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a06e9ef71b195c22837580dc678bb1e3f}{Set\+Hidden\+O\+S\+Creation\+Phase} (unsigned int new\+Phase)
+\begin{DoxyCompactList}\small\item\em Set hidden OS creation page. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a1397fa6ebb63da2ca0a636cfa8262858}{Start\+Decryption} (B\+O\+OL discard\+Unreadable\+Encrypted\+Sectors)
+\begin{DoxyCompactList}\small\item\em Start the decryption. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ae96eefda4ed624bd336f89b4a261b2c1}{Start\+Decoy\+O\+S\+Wipe} (Wipe\+Algorithm\+Id wipe\+Algorithm)
+\begin{DoxyCompactList}\small\item\em Start the decoy OS wipe. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a4dd591bdb27968b702694bcd7664e010}{Start\+Encryption} (Wipe\+Algorithm\+Id wipe\+Algorithm, bool zero\+Unreadable\+Sectors)
+\begin{DoxyCompactList}\small\item\em Start the encryption. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a3638d4139eef90bc7f913fea8290e49e}{System\+Drive\+Contains\+Partition\+Type} (byte type)
+\begin{DoxyCompactList}\small\item\em Checks if the system drive contains partition type. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_aa761ac20523a11bf2b2915d4eb53af70}{System\+Drive\+Contains\+Extended\+Partition} ()
+\begin{DoxyCompactList}\small\item\em Checks if system drive contains extended partition. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a097627633d56bf5421d836d036f6a0e7}{System\+Drive\+Contains\+Non\+Standard\+Partitions} ()
+\begin{DoxyCompactList}\small\item\em Checks if the system drive contains non standard partitions. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a770514730f74d63e147ea3b2510f5e0f}{System\+Partition\+Covers\+Whole\+Drive} ()
+\begin{DoxyCompactList}\small\item\em Checks if the system partition covers the whole drive. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a639795ac588f2523a75cc573cc537262}{System\+Drive\+Is\+Dynamic} ()
+\begin{DoxyCompactList}\small\item\em Checks if the system drive is dynamic. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_boot_encryption_a4792c6e0ed22b531c34152be522c8106}{Verify\+Rescue\+Disk} ()
+\begin{DoxyCompactList}\small\item\em Verify the rescue Disk. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ab87016e42d7f7826282297e50db00742}{Wipe\+Hidden\+O\+S\+Creation\+Config} ()
+\begin{DoxyCompactList}\small\item\em Wipe the fidden OS creation on configuration. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ac55ac2e6869a99099651444e9e1702b9}{Write\+Boot\+Drive\+Sector} (uint64 offset, byte $\ast$data)
+\begin{DoxyCompactList}\small\item\em Write on boot drive sector. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ac161b91655c0ee99d72b5b7f68ca04a3}{Write\+Boot\+Sector\+Config} (const byte new\+Config\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Write on boot sector configuration. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ac87f57dd76b5e427925623539dd34d7c}{Write\+Boot\+Sector\+User\+Config} (byte user\+Config, const string \&custom\+User\+Message)
+\begin{DoxyCompactList}\small\item\em Write on boot sector user configuration. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a3c129c6a89e38d3fd55b0a0df37bdead}{Write\+Local\+Machine\+Registry\+Dword\+Value} (char $\ast$key\+Path, char $\ast$value\+Name, D\+W\+O\+RD value)
+\begin{DoxyCompactList}\small\item\em Write the D\+W\+O\+RD value on local machine registry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a056b478fceb4e43f9492b9af91cc22c9}{Backup\+System\+Loader} ()
+\begin{DoxyCompactList}\small\item\em Backup system loader. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a7cb3765a4f32ccefdf5a49513e321c38}{Create\+Boot\+Loader\+In\+Memory} (byte $\ast$buffer, size\+\_\+t buffer\+Size, bool rescue\+Disk, bool hidden\+O\+S\+Creation=false)
+\begin{DoxyCompactList}\small\item\em Create the bootloader in memory. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_aae1dcc499f3a4d2e1cc6019f5f6f8a69}{Create\+Volume\+Header} (uint64 volume\+Size, uint64 encrypted\+Area\+Start, \hyperlink{struct_password}{Password} $\ast$password, int ea, int mode, int pkcs5)
+\begin{DoxyCompactList}\small\item\em Create the volume header. \end{DoxyCompactList}\item 
+string \hyperlink{class_gost_crypt_1_1_boot_encryption_a0c4d3572b0222989e55734f6f939748e}{Get\+System\+Loader\+Backup\+Path} ()
+\begin{DoxyCompactList}\small\item\em Get system loader backup path. \end{DoxyCompactList}\item 
+uint32 \hyperlink{class_gost_crypt_1_1_boot_encryption_aa56a1b2fa3c5d43089ad74b99804babb}{Get\+Checksum} (byte $\ast$data, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Get the checksum. \end{DoxyCompactList}\item 
+D\+I\+S\+K\+\_\+\+G\+E\+O\+M\+E\+T\+RY \hyperlink{class_gost_crypt_1_1_boot_encryption_aacfb758834e184a992d9f6274d77cc2a}{Get\+Drive\+Geometry} (int drive\+Number)
+\begin{DoxyCompactList}\small\item\em Get the drive geometry. \end{DoxyCompactList}\item 
+Partition\+List \hyperlink{class_gost_crypt_1_1_boot_encryption_a3043ae06af0b4d63e45806ddc1458006}{Get\+Drive\+Partitions} (int drive\+Number)
+\begin{DoxyCompactList}\small\item\em Get the drive partitions. \end{DoxyCompactList}\item 
+wstring \hyperlink{class_gost_crypt_1_1_boot_encryption_aaca146556fbaac863e487cdabcad4678}{Get\+Remarks\+On\+Hidden\+OS} ()
+\begin{DoxyCompactList}\small\item\em Get remarks on hidden os. \end{DoxyCompactList}\item 
+string \hyperlink{class_gost_crypt_1_1_boot_encryption_a2faa08fabf7bd37b8ebd9e0b6b437274}{Get\+Windows\+Directory} ()
+\begin{DoxyCompactList}\small\item\em Get windows directory. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_a6644cab53713a12bfe4998605894dd8b}{Register\+Filter} (bool register\+Filter, Filter\+Type filter\+Type, const G\+U\+ID $\ast$device\+Class\+Guid=nullptr)
+\begin{DoxyCompactList}\small\item\em Register the filter. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_aadfca881f52d27e0f6bf271702194da3}{Restore\+System\+Loader} ()
+\begin{DoxyCompactList}\small\item\em Restore the system loader. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_boot_encryption_ad9957a4693a05ee0e8b4a142a7f5454c}{Install\+Volume\+Header} ()
+\begin{DoxyCompactList}\small\item\em Install the volume header. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae6edc653fe4eb5475bcc5b47712a7b72}\label{class_gost_crypt_1_1_boot_encryption_ae6edc653fe4eb5475bcc5b47712a7b72}} 
+H\+W\+ND {\bfseries Parent\+Window}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a76407c456bd5cdc2608e9e2b8c5dfdc9}\label{class_gost_crypt_1_1_boot_encryption_a76407c456bd5cdc2608e9e2b8c5dfdc9}} 
+\hyperlink{struct_gost_crypt_1_1_system_drive_configuration}{System\+Drive\+Configuration} {\bfseries Drive\+Config}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_adea0a52cca4fcad8a2e4ab130adb5009}\label{class_gost_crypt_1_1_boot_encryption_adea0a52cca4fcad8a2e4ab130adb5009}} 
+int {\bfseries Selected\+Encryption\+Algorithm\+Id}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae133872d6612a2e304396d461438d75e}\label{class_gost_crypt_1_1_boot_encryption_ae133872d6612a2e304396d461438d75e}} 
+\hyperlink{struct_gost_crypt_1_1_partition}{Partition} {\bfseries Hidden\+O\+S\+Candidate\+Partition}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae1d0b4c96ce088d4d557e0defd8d2495}\label{class_gost_crypt_1_1_boot_encryption_ae1d0b4c96ce088d4d557e0defd8d2495}} 
+byte $\ast$ {\bfseries Rescue\+Iso\+Image}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac26525a33e321ff2ebb2680b4bca475f}\label{class_gost_crypt_1_1_boot_encryption_ac26525a33e321ff2ebb2680b4bca475f}} 
+byte {\bfseries Rescue\+Volume\+Header} \mbox{[}G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE\mbox{]}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a2d7636557943017c6c1566eebd721caa}\label{class_gost_crypt_1_1_boot_encryption_a2d7636557943017c6c1566eebd721caa}} 
+byte {\bfseries Volume\+Header} \mbox{[}G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE\mbox{]}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ad8e588342177effdd4f10adb817c1631}\label{class_gost_crypt_1_1_boot_encryption_ad8e588342177effdd4f10adb817c1631}} 
+bool {\bfseries Drive\+Config\+Valid}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a31ddce505b2f01ee66f893091ff916d8}\label{class_gost_crypt_1_1_boot_encryption_a31ddce505b2f01ee66f893091ff916d8}} 
+bool {\bfseries Real\+System\+Drive\+Size\+Valid}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aac8bc4712df432e4dbbedfd6fe177ae1}\label{class_gost_crypt_1_1_boot_encryption_aac8bc4712df432e4dbbedfd6fe177ae1}} 
+bool {\bfseries Rescue\+Volume\+Header\+Valid}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a57b8fe9d7724b15565cf5aeb720823ab}\label{class_gost_crypt_1_1_boot_encryption_a57b8fe9d7724b15565cf5aeb720823ab}} 
+bool {\bfseries Volume\+Header\+Valid}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac01638d345f192eb21a7ebf421031149}\label{class_gost_crypt_1_1_boot_encryption_ac01638d345f192eb21a7ebf421031149}} 
+static const uint32 {\bfseries Rescue\+Iso\+Image\+Size} = 1835008
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a4306025352fbfc8db0d572a0b21b64ff}\label{class_gost_crypt_1_1_boot_encryption_a4306025352fbfc8db0d572a0b21b64ff}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Boot\+Encryption@{Boot\+Encryption}}
+\index{Boot\+Encryption@{Boot\+Encryption}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Boot\+Encryption()}{BootEncryption()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Boot\+Encryption\+::\+Boot\+Encryption (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{parent }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_gost_crypt_1_1_boot_encryption}{Boot\+Encryption} constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & parent)\+: Drive\+Config\+Valid (false) \\
+\hline
+\mbox{\tt in}  & {\em Parent\+Window} & (parent) \\
+\hline
+\mbox{\tt in}  & {\em Real\+System\+Drive\+Size\+Valid} & (false) \\
+\hline
+\mbox{\tt in}  & {\em Rescue\+Iso\+Image} & (nullptr) \\
+\hline
+\mbox{\tt in}  & {\em Rescue\+Volume\+Header\+Valid} & (false) \\
+\hline
+\mbox{\tt in}  & {\em Selected\+Encryption\+Algorithm\+Id} & (0) \\
+\hline
+\mbox{\tt in}  & {\em Volume\+Header\+Valid} & (false) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a4306025352fbfc8db0d572a0b21b64ff_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a8933f34e2803ba68a3c980cc01519c11}\label{class_gost_crypt_1_1_boot_encryption_a8933f34e2803ba68a3c980cc01519c11}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Abort\+Decoy\+O\+S\+Wipe@{Abort\+Decoy\+O\+S\+Wipe}}
+\index{Abort\+Decoy\+O\+S\+Wipe@{Abort\+Decoy\+O\+S\+Wipe}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Abort\+Decoy\+O\+S\+Wipe()}{AbortDecoyOSWipe()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Abort\+Decoy\+O\+S\+Wipe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Abort the decoy OS wipe. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a8933f34e2803ba68a3c980cc01519c11_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b}\label{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Abort\+Setup@{Abort\+Setup}}
+\index{Abort\+Setup@{Abort\+Setup}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Abort\+Setup()}{AbortSetup()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Abort\+Setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+For synchronous operations use \hyperlink{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be}{Abort\+Setup\+Wait()} 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be}\label{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Abort\+Setup\+Wait@{Abort\+Setup\+Wait}}
+\index{Abort\+Setup\+Wait@{Abort\+Setup\+Wait}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Abort\+Setup\+Wait()}{AbortSetupWait()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Abort\+Setup\+Wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+For asynchronous operations use \hyperlink{class_gost_crypt_1_1_boot_encryption_a8396cfba92f8b27ed9456e08ddb7be2b}{Abort\+Setup()} 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a43e9a83c907891f63e2f5b2a891471be_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a056b478fceb4e43f9492b9af91cc22c9}\label{class_gost_crypt_1_1_boot_encryption_a056b478fceb4e43f9492b9af91cc22c9}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Backup\+System\+Loader@{Backup\+System\+Loader}}
+\index{Backup\+System\+Loader@{Backup\+System\+Loader}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Backup\+System\+Loader()}{BackupSystemLoader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Backup\+System\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Backup system loader. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a056b478fceb4e43f9492b9af91cc22c9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a7f8882a862c69d803f2af4d021329e97}\label{class_gost_crypt_1_1_boot_encryption_a7f8882a862c69d803f2af4d021329e97}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Call\+Driver@{Call\+Driver}}
+\index{Call\+Driver@{Call\+Driver}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Call\+Driver()}{CallDriver()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Call\+Driver (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{ioctl,  }\item[{void $\ast$}]{input = {\ttfamily nullptr},  }\item[{D\+W\+O\+RD}]{input\+Size = {\ttfamily 0},  }\item[{void $\ast$}]{output = {\ttfamily nullptr},  }\item[{D\+W\+O\+RD}]{output\+Size = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Call the driver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & output\+Size) \\
+\hline
+\mbox{\tt in}  & {\em void} & $\ast$ output \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & input\+Size \\
+\hline
+\mbox{\tt in}  & {\em void} & $\ast$ input \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & ioctl \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a7f8882a862c69d803f2af4d021329e97_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a9cce66955923f808f4dd297c7041ac5b}\label{class_gost_crypt_1_1_boot_encryption_a9cce66955923f808f4dd297c7041ac5b}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Change\+Password@{Change\+Password}}
+\index{Change\+Password@{Change\+Password}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Change\+Password()}{ChangePassword()}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Boot\+Encryption\+::\+Change\+Password (\begin{DoxyParamCaption}\item[{\hyperlink{struct_password}{Password} $\ast$}]{old\+Password,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{new\+Password,  }\item[{int}]{pkcs5 }\end{DoxyParamCaption})}
+
+
+
+Change the password. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ new\+Password \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ old\+Password \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int status if (status != 0) result else 
+\end{DoxyReturn}
+The header will be re-\/encrypted P\+R\+A\+N\+D\+\_\+\+D\+I\+S\+K\+\_\+\+W\+I\+P\+E\+\_\+\+P\+A\+S\+S\+ES times to prevent adversaries from using techniques such as magnetic force microscopy or magnetic force scanning tunnelling microscopy to recover the overwritten header. According to Peter Gutmann, data should be overwritten 22 times (ideally, 35 times) using non-\/random patterns and pseudorandom data. However, as users might impatiently interupt the process (etc.) we will not use the Gutmann\textquotesingle{}s patterns but will write the valid re-\/encrypted header, i.\+e. pseudorandom data, and there will be many more passes than Guttman recommends. During each pass we will write a valid working header. Each pass will use the same master key, and also the same header key, secondary key (X\+TS), etc., derived from the new password. The only item that will be different for each pass will be the salt. This is sufficient to cause each \char`\"{}version\char`\"{} of the header to differ substantially and in a random manner from the versions written during the other passes.Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a9cce66955923f808f4dd297c7041ac5b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aa730c1ebbc354863f3e32b2ff38a16dc}\label{class_gost_crypt_1_1_boot_encryption_aa730c1ebbc354863f3e32b2ff38a16dc}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Check\+Decoy\+O\+S\+Wipe\+Result@{Check\+Decoy\+O\+S\+Wipe\+Result}}
+\index{Check\+Decoy\+O\+S\+Wipe\+Result@{Check\+Decoy\+O\+S\+Wipe\+Result}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Check\+Decoy\+O\+S\+Wipe\+Result()}{CheckDecoyOSWipeResult()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Check\+Decoy\+O\+S\+Wipe\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks the OS wipe result. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aa730c1ebbc354863f3e32b2ff38a16dc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac584bf7946ae3ac2d35fb38fcfbb615a}\label{class_gost_crypt_1_1_boot_encryption_ac584bf7946ae3ac2d35fb38fcfbb615a}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Check\+Encryption\+Setup\+Result@{Check\+Encryption\+Setup\+Result}}
+\index{Check\+Encryption\+Setup\+Result@{Check\+Encryption\+Setup\+Result}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Check\+Encryption\+Setup\+Result()}{CheckEncryptionSetupResult()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Check\+Encryption\+Setup\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks the encryption setup result. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ac584bf7946ae3ac2d35fb38fcfbb615a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a1c573946faa2ec5b1bcbeae56d8320f9}\label{class_gost_crypt_1_1_boot_encryption_a1c573946faa2ec5b1bcbeae56d8320f9}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Check\+Requirements@{Check\+Requirements}}
+\index{Check\+Requirements@{Check\+Requirements}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Check\+Requirements()}{CheckRequirements()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Check\+Requirements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks the requirements. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_af8f44624d785fff7ce9e8078d71f03a6}\label{class_gost_crypt_1_1_boot_encryption_af8f44624d785fff7ce9e8078d71f03a6}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Check\+Requirements\+Hidden\+OS@{Check\+Requirements\+Hidden\+OS}}
+\index{Check\+Requirements\+Hidden\+OS@{Check\+Requirements\+Hidden\+OS}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Check\+Requirements\+Hidden\+O\+S()}{CheckRequirementsHiddenOS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Check\+Requirements\+Hidden\+OS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks the hidden OS requirements. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_af8f44624d785fff7ce9e8078d71f03a6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_af19de97081ce528cd89df39393469b7c}\label{class_gost_crypt_1_1_boot_encryption_af19de97081ce528cd89df39393469b7c}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Copy\+File\+Admin@{Copy\+File\+Admin}}
+\index{Copy\+File\+Admin@{Copy\+File\+Admin}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Copy\+File\+Admin()}{CopyFileAdmin()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Copy\+File\+Admin (\begin{DoxyParamCaption}\item[{const string \&}]{source\+File,  }\item[{const string \&}]{destination\+File }\end{DoxyParamCaption})}
+
+
+
+Copy admin file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& destination\+File \\
+\hline
+\mbox{\tt in}  & {\em const} & string \& source\+File \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_af19de97081ce528cd89df39393469b7c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a7cb3765a4f32ccefdf5a49513e321c38}\label{class_gost_crypt_1_1_boot_encryption_a7cb3765a4f32ccefdf5a49513e321c38}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Create\+Boot\+Loader\+In\+Memory@{Create\+Boot\+Loader\+In\+Memory}}
+\index{Create\+Boot\+Loader\+In\+Memory@{Create\+Boot\+Loader\+In\+Memory}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Create\+Boot\+Loader\+In\+Memory()}{CreateBootLoaderInMemory()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Create\+Boot\+Loader\+In\+Memory (\begin{DoxyParamCaption}\item[{byte $\ast$}]{buffer,  }\item[{size\+\_\+t}]{buffer\+Size,  }\item[{bool}]{rescue\+Disk,  }\item[{bool}]{hidden\+O\+S\+Creation = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Create the bootloader in memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & hidden\+O\+S\+Creation \\
+\hline
+\mbox{\tt in}  & {\em bool} & rescue\+Disk \\
+\hline
+\mbox{\tt in}  & {\em size\+\_\+t} & buffer\+Size \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a7cb3765a4f32ccefdf5a49513e321c38_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ab59c76cffa448f8d818aa2189340045a}\label{class_gost_crypt_1_1_boot_encryption_ab59c76cffa448f8d818aa2189340045a}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Create\+Rescue\+Iso\+Image@{Create\+Rescue\+Iso\+Image}}
+\index{Create\+Rescue\+Iso\+Image@{Create\+Rescue\+Iso\+Image}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Create\+Rescue\+Iso\+Image()}{CreateRescueIsoImage()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Create\+Rescue\+Iso\+Image (\begin{DoxyParamCaption}\item[{bool}]{initial\+Setup,  }\item[{const string \&}]{iso\+Image\+Path }\end{DoxyParamCaption})}
+
+
+
+Create the rescue iso image. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& iso\+Image\+Path \\
+\hline
+\mbox{\tt in}  & {\em bool} & initial\+Setup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab59c76cffa448f8d818aa2189340045a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aae1dcc499f3a4d2e1cc6019f5f6f8a69}\label{class_gost_crypt_1_1_boot_encryption_aae1dcc499f3a4d2e1cc6019f5f6f8a69}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Create\+Volume\+Header@{Create\+Volume\+Header}}
+\index{Create\+Volume\+Header@{Create\+Volume\+Header}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Create\+Volume\+Header()}{CreateVolumeHeader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Create\+Volume\+Header (\begin{DoxyParamCaption}\item[{uint64}]{volume\+Size,  }\item[{uint64}]{encrypted\+Area\+Start,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{password,  }\item[{int}]{ea,  }\item[{int}]{mode,  }\item[{int}]{pkcs5 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Create the volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em int} & mode \\
+\hline
+\mbox{\tt in}  & {\em int} & ea \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ password \\
+\hline
+\mbox{\tt in}  & {\em uint64} & encrypted\+Area\+Start \\
+\hline
+\mbox{\tt in}  & {\em uint64} & volume\+Size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a9ac6f366c5a3c03ac5891ba22afe769d}\label{class_gost_crypt_1_1_boot_encryption_a9ac6f366c5a3c03ac5891ba22afe769d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Deinstall@{Deinstall}}
+\index{Deinstall@{Deinstall}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Deinstall()}{Deinstall()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Deinstall (\begin{DoxyParamCaption}\item[{bool}]{display\+Wait\+Dialog = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Uninstall This operation may take a long time when an antivirus is installed and its real-\/time protection enabled. Therefore, if calling it without the wizard displayed, it should be called with display\+Wait\+Dialog set to true. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & display\+Wait\+Dialog) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a9ac6f366c5a3c03ac5891ba22afe769d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a879bd63fb7a3dd4e66c12787b5808c40}\label{class_gost_crypt_1_1_boot_encryption_a879bd63fb7a3dd4e66c12787b5808c40}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Delete\+File\+Admin@{Delete\+File\+Admin}}
+\index{Delete\+File\+Admin@{Delete\+File\+Admin}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Delete\+File\+Admin()}{DeleteFileAdmin()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Delete\+File\+Admin (\begin{DoxyParamCaption}\item[{const string \&}]{file }\end{DoxyParamCaption})}
+
+
+
+Delete the admin file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a879bd63fb7a3dd4e66c12787b5808c40_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aa56a1b2fa3c5d43089ad74b99804babb}\label{class_gost_crypt_1_1_boot_encryption_aa56a1b2fa3c5d43089ad74b99804babb}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Checksum@{Get\+Checksum}}
+\index{Get\+Checksum@{Get\+Checksum}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Checksum()}{GetChecksum()}}
+{\footnotesize\ttfamily uint32 Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Checksum (\begin{DoxyParamCaption}\item[{byte $\ast$}]{data,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the checksum. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size\+\_\+t} & size \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint32 sum 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a32a8979f6ea15a11e10bc26d19df9cc5}\label{class_gost_crypt_1_1_boot_encryption_a32a8979f6ea15a11e10bc26d19df9cc5}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Decoy\+O\+S\+Wipe\+Status@{Get\+Decoy\+O\+S\+Wipe\+Status}}
+\index{Get\+Decoy\+O\+S\+Wipe\+Status@{Get\+Decoy\+O\+S\+Wipe\+Status}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Decoy\+O\+S\+Wipe\+Status()}{GetDecoyOSWipeStatus()}}
+{\footnotesize\ttfamily Decoy\+System\+Wipe\+Status Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Decoy\+O\+S\+Wipe\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the decoy os wipe status. 
+
+\begin{DoxyReturn}{Returns}
+Decoy\+System\+Wipe\+Status status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a32a8979f6ea15a11e10bc26d19df9cc5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aacfb758834e184a992d9f6274d77cc2a}\label{class_gost_crypt_1_1_boot_encryption_aacfb758834e184a992d9f6274d77cc2a}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Drive\+Geometry@{Get\+Drive\+Geometry}}
+\index{Get\+Drive\+Geometry@{Get\+Drive\+Geometry}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Drive\+Geometry()}{GetDriveGeometry()}}
+{\footnotesize\ttfamily D\+I\+S\+K\+\_\+\+G\+E\+O\+M\+E\+T\+RY Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Drive\+Geometry (\begin{DoxyParamCaption}\item[{int}]{drive\+Number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the drive geometry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & drive\+Number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+I\+S\+K\+\_\+\+G\+E\+O\+M\+E\+T\+RY geometry 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a3043ae06af0b4d63e45806ddc1458006}\label{class_gost_crypt_1_1_boot_encryption_a3043ae06af0b4d63e45806ddc1458006}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Drive\+Partitions@{Get\+Drive\+Partitions}}
+\index{Get\+Drive\+Partitions@{Get\+Drive\+Partitions}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Drive\+Partitions()}{GetDrivePartitions()}}
+{\footnotesize\ttfamily Partition\+List Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Drive\+Partitions (\begin{DoxyParamCaption}\item[{int}]{drive\+Number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the drive partitions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & drive\+Number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Partition\+List part\+List 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3043ae06af0b4d63e45806ddc1458006_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3043ae06af0b4d63e45806ddc1458006_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae710a86e41ba731cf231fad660dc16a9}\label{class_gost_crypt_1_1_boot_encryption_ae710a86e41ba731cf231fad660dc16a9}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Driver\+Service\+Start\+Type@{Get\+Driver\+Service\+Start\+Type}}
+\index{Get\+Driver\+Service\+Start\+Type@{Get\+Driver\+Service\+Start\+Type}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Driver\+Service\+Start\+Type()}{GetDriverServiceStartType()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Driver\+Service\+Start\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the driver service start type. 
+
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD start\+Type 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ae710a86e41ba731cf231fad660dc16a9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ae710a86e41ba731cf231fad660dc16a9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aa66b29a9ad9bd1aa8b7aece9d9eaca2c}\label{class_gost_crypt_1_1_boot_encryption_aa66b29a9ad9bd1aa8b7aece9d9eaca2c}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Hidden\+O\+S\+Creation\+Phase@{Get\+Hidden\+O\+S\+Creation\+Phase}}
+\index{Get\+Hidden\+O\+S\+Creation\+Phase@{Get\+Hidden\+O\+S\+Creation\+Phase}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Hidden\+O\+S\+Creation\+Phase()}{GetHiddenOSCreationPhase()}}
+{\footnotesize\ttfamily unsigned int Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Hidden\+O\+S\+Creation\+Phase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the hidden OS creation phase. 
+
+\begin{DoxyReturn}{Returns}
+unsigned int (config\+Flags\mbox{[}0\mbox{]} \& G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+C\+F\+G\+\_\+\+M\+A\+S\+K\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+O\+S\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+P\+H\+A\+SE) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aa66b29a9ad9bd1aa8b7aece9d9eaca2c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a438cec2387d7aab246d986d2a0128b21}\label{class_gost_crypt_1_1_boot_encryption_a438cec2387d7aab246d986d2a0128b21}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Installed\+Boot\+Loader\+Version@{Get\+Installed\+Boot\+Loader\+Version}}
+\index{Get\+Installed\+Boot\+Loader\+Version@{Get\+Installed\+Boot\+Loader\+Version}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Installed\+Boot\+Loader\+Version()}{GetInstalledBootLoaderVersion()}}
+{\footnotesize\ttfamily uint16 Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Installed\+Boot\+Loader\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the version of the installed boot loader. 
+
+\begin{DoxyReturn}{Returns}
+uint16 version 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a438cec2387d7aab246d986d2a0128b21_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a4af9421f27c8e568add543c8b09602b3}\label{class_gost_crypt_1_1_boot_encryption_a4af9421f27c8e568add543c8b09602b3}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Partition\+For\+Hidden\+OS@{Get\+Partition\+For\+Hidden\+OS}}
+\index{Get\+Partition\+For\+Hidden\+OS@{Get\+Partition\+For\+Hidden\+OS}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Partition\+For\+Hidden\+O\+S()}{GetPartitionForHiddenOS()}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_partition}{Partition} Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Partition\+For\+Hidden\+OS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Finds the first partition physically located behind the active one and returns its properties. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_gost_crypt_1_1_partition}{Partition} candidate\+Partition 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a4af9421f27c8e568add543c8b09602b3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a4af9421f27c8e568add543c8b09602b3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aaca146556fbaac863e487cdabcad4678}\label{class_gost_crypt_1_1_boot_encryption_aaca146556fbaac863e487cdabcad4678}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Remarks\+On\+Hidden\+OS@{Get\+Remarks\+On\+Hidden\+OS}}
+\index{Get\+Remarks\+On\+Hidden\+OS@{Get\+Remarks\+On\+Hidden\+OS}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Remarks\+On\+Hidden\+O\+S()}{GetRemarksOnHiddenOS()}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Remarks\+On\+Hidden\+OS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get remarks on hidden os. 
+
+\begin{DoxyReturn}{Returns}
+wstring (wstring (L\char`\"{}\textbackslash{}n\textbackslash{}n\char`\"{}) + Get\+String (\char`\"{}\+T\+W\+O\+\_\+\+S\+Y\+S\+T\+E\+M\+S\+\_\+\+I\+N\+\_\+\+O\+N\+E\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+N\+\_\+\+R\+E\+M\+A\+R\+K\char`\"{}) + L\char`\"{}\textbackslash{}n\textbackslash{}n\char`\"{} + Get\+String (\char`\"{}\+F\+O\+R\+\_\+\+M\+O\+R\+E\+\_\+\+I\+N\+F\+O\+\_\+\+O\+N\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+N\+S\char`\"{})) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aaca146556fbaac863e487cdabcad4678_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aaca146556fbaac863e487cdabcad4678_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a55499453ff60a4484743a7f286702cba}\label{class_gost_crypt_1_1_boot_encryption_a55499453ff60a4484743a7f286702cba}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Status@{Get\+Status}}
+\index{Get\+Status@{Get\+Status}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Status()}{GetStatus()}}
+{\footnotesize\ttfamily Boot\+Encryption\+Status Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get status. 
+
+\begin{DoxyReturn}{Returns}
+Boot\+Encryption\+Status status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a55499453ff60a4484743a7f286702cba_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a55499453ff60a4484743a7f286702cba_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ab325c58a9939344bdfe056d20df0f5ff}\label{class_gost_crypt_1_1_boot_encryption_ab325c58a9939344bdfe056d20df0f5ff}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+System\+Drive\+Configuration@{Get\+System\+Drive\+Configuration}}
+\index{Get\+System\+Drive\+Configuration@{Get\+System\+Drive\+Configuration}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+System\+Drive\+Configuration()}{GetSystemDriveConfiguration()}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_system_drive_configuration}{System\+Drive\+Configuration} Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+System\+Drive\+Configuration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the system drive configuration. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_gost_crypt_1_1_system_drive_configuration}{System\+Drive\+Configuration} Drive\+Config if (Drive\+Config\+Valid) Drive\+Config else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab325c58a9939344bdfe056d20df0f5ff_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab325c58a9939344bdfe056d20df0f5ff_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a0c4d3572b0222989e55734f6f939748e}\label{class_gost_crypt_1_1_boot_encryption_a0c4d3572b0222989e55734f6f939748e}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+System\+Loader\+Backup\+Path@{Get\+System\+Loader\+Backup\+Path}}
+\index{Get\+System\+Loader\+Backup\+Path@{Get\+System\+Loader\+Backup\+Path}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+System\+Loader\+Backup\+Path()}{GetSystemLoaderBackupPath()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+System\+Loader\+Backup\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get system loader backup path. 
+
+\begin{DoxyReturn}{Returns}
+string path + \textquotesingle{}\textbackslash{}\textquotesingle{} + G\+S\+T\+\_\+\+S\+Y\+S\+\_\+\+B\+O\+O\+T\+\_\+\+L\+O\+A\+D\+E\+R\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+N\+A\+ME 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a0c4d3572b0222989e55734f6f939748e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ad7d1c3f18b8e3bc9133a1f8cabeb8f4d}\label{class_gost_crypt_1_1_boot_encryption_ad7d1c3f18b8e3bc9133a1f8cabeb8f4d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Temp\+Path@{Get\+Temp\+Path}}
+\index{Get\+Temp\+Path@{Get\+Temp\+Path}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Temp\+Path()}{GetTempPath()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Temp\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the temp path. 
+
+\begin{DoxyReturn}{Returns}
+string string (temp\+Path) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ad7d1c3f18b8e3bc9133a1f8cabeb8f4d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a8113cd3021864fa8bbd421c33925f83d}\label{class_gost_crypt_1_1_boot_encryption_a8113cd3021864fa8bbd421c33925f83d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Volume\+Properties@{Get\+Volume\+Properties}}
+\index{Get\+Volume\+Properties@{Get\+Volume\+Properties}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Volume\+Properties()}{GetVolumeProperties()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Volume\+Properties (\begin{DoxyParamCaption}\item[{V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+E\+S\+\_\+\+S\+T\+R\+U\+CT $\ast$}]{properties }\end{DoxyParamCaption})}
+
+
+
+Get volume properties. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em V\+O\+L\+U\+M\+E\+\_\+\+P\+R\+O\+P\+E\+R\+T\+I\+E\+S\+\_\+\+S\+T\+R\+U\+CT} & $\ast$ properties \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a8113cd3021864fa8bbd421c33925f83d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a2faa08fabf7bd37b8ebd9e0b6b437274}\label{class_gost_crypt_1_1_boot_encryption_a2faa08fabf7bd37b8ebd9e0b6b437274}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Get\+Windows\+Directory@{Get\+Windows\+Directory}}
+\index{Get\+Windows\+Directory@{Get\+Windows\+Directory}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Get\+Windows\+Directory()}{GetWindowsDirectory()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+Boot\+Encryption\+::\+Get\+Windows\+Directory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get windows directory. 
+
+\begin{DoxyReturn}{Returns}
+string string (buf) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a2faa08fabf7bd37b8ebd9e0b6b437274_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_af434150f29efc685046c3f92502eeb65}\label{class_gost_crypt_1_1_boot_encryption_af434150f29efc685046c3f92502eeb65}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Initial\+Security\+Checks\+For\+Hidden\+OS@{Initial\+Security\+Checks\+For\+Hidden\+OS}}
+\index{Initial\+Security\+Checks\+For\+Hidden\+OS@{Initial\+Security\+Checks\+For\+Hidden\+OS}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Initial\+Security\+Checks\+For\+Hidden\+O\+S()}{InitialSecurityChecksForHiddenOS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Initial\+Security\+Checks\+For\+Hidden\+OS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The initial security checks for hidden OS. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_af434150f29efc685046c3f92502eeb65_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_afae7ad7d8fb9fb9137395cb5e378a849}\label{class_gost_crypt_1_1_boot_encryption_afae7ad7d8fb9fb9137395cb5e378a849}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Install@{Install}}
+\index{Install@{Install}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Install()}{Install()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Install (\begin{DoxyParamCaption}\item[{bool}]{hidden\+System }\end{DoxyParamCaption})}
+
+
+
+Install. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & hidden\+System \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_afae7ad7d8fb9fb9137395cb5e378a849_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_abcddd955b7fa53811e74c7298d34268b}\label{class_gost_crypt_1_1_boot_encryption_abcddd955b7fa53811e74c7298d34268b}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Install\+Boot\+Loader@{Install\+Boot\+Loader}}
+\index{Install\+Boot\+Loader@{Install\+Boot\+Loader}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Install\+Boot\+Loader()}{InstallBootLoader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Install\+Boot\+Loader (\begin{DoxyParamCaption}\item[{bool}]{preserve\+User\+Config = {\ttfamily false},  }\item[{bool}]{hidden\+O\+S\+Creation = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Install the bootloader. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & hidden\+O\+S\+Creation \\
+\hline
+\mbox{\tt in}  & {\em bool} & preserve\+User\+Config \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_abcddd955b7fa53811e74c7298d34268b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_abcddd955b7fa53811e74c7298d34268b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ad9957a4693a05ee0e8b4a142a7f5454c}\label{class_gost_crypt_1_1_boot_encryption_ad9957a4693a05ee0e8b4a142a7f5454c}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Install\+Volume\+Header@{Install\+Volume\+Header}}
+\index{Install\+Volume\+Header@{Install\+Volume\+Header}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Install\+Volume\+Header()}{InstallVolumeHeader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Install\+Volume\+Header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Install the volume header. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ad9957a4693a05ee0e8b4a142a7f5454c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ad9957a4693a05ee0e8b4a142a7f5454c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae15a4ec32e1605b7dcd5979a4334601f}\label{class_gost_crypt_1_1_boot_encryption_ae15a4ec32e1605b7dcd5979a4334601f}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Invalidate\+Cached\+Sys\+Drive\+Properties@{Invalidate\+Cached\+Sys\+Drive\+Properties}}
+\index{Invalidate\+Cached\+Sys\+Drive\+Properties@{Invalidate\+Cached\+Sys\+Drive\+Properties}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Invalidate\+Cached\+Sys\+Drive\+Properties()}{InvalidateCachedSysDriveProperties()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Invalidate\+Cached\+Sys\+Drive\+Properties (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Set invalid drive properties ( invalid size, ...) 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ae15a4ec32e1605b7dcd5979a4334601f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a448f5e8fc2f4463a8147f702c2e2d217}\label{class_gost_crypt_1_1_boot_encryption_a448f5e8fc2f4463a8147f702c2e2d217}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Is\+Boot\+Loader\+On\+Drive@{Is\+Boot\+Loader\+On\+Drive}}
+\index{Is\+Boot\+Loader\+On\+Drive@{Is\+Boot\+Loader\+On\+Drive}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Is\+Boot\+Loader\+On\+Drive()}{IsBootLoaderOnDrive()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Is\+Boot\+Loader\+On\+Drive (\begin{DoxyParamCaption}\item[{char $\ast$}]{device\+Path }\end{DoxyParamCaption})}
+
+
+
+Check if bootloader is on drive$\ast$ Note that this does not require admin rights (it just requires the driver to be running) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ device\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+booL F\+A\+L\+SE catch (...) (Device\+Io\+Control (h\+Driver, G\+S\+T\+\_\+\+I\+O\+C\+T\+L\+\_\+\+O\+P\+E\+N\+\_\+\+T\+E\+ST, \&open\+Test\+Struct, sizeof (O\+P\+E\+N\+\_\+\+T\+E\+S\+T\+\_\+\+S\+T\+R\+U\+CT), \&open\+Test\+Struct, sizeof (O\+P\+E\+N\+\_\+\+T\+E\+S\+T\+\_\+\+S\+T\+R\+U\+CT), \&dw\+Result, N\+U\+LL) \&\& open\+Test\+Struct.\+G\+S\+T\+Boot\+Loader\+Detected) else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a448f5e8fc2f4463a8147f702c2e2d217_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a050dbc6e24852e929a083acfdbe1d43d}\label{class_gost_crypt_1_1_boot_encryption_a050dbc6e24852e929a083acfdbe1d43d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Is\+C\+D\+Drive\+Present@{Is\+C\+D\+Drive\+Present}}
+\index{Is\+C\+D\+Drive\+Present@{Is\+C\+D\+Drive\+Present}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Is\+C\+D\+Drive\+Present()}{IsCDDrivePresent()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Is\+C\+D\+Drive\+Present (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the CD drive is present. 
+
+\begin{DoxyReturn}{Returns}
+bool true if (Get\+Drive\+Type (path.\+c\+\_\+str()) == D\+R\+I\+V\+E\+\_\+\+C\+D\+R\+OM) false else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a41ca434ce3526f63bc083f7dab6a1532}\label{class_gost_crypt_1_1_boot_encryption_a41ca434ce3526f63bc083f7dab6a1532}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Is\+Hidden\+System\+Running@{Is\+Hidden\+System\+Running}}
+\index{Is\+Hidden\+System\+Running@{Is\+Hidden\+System\+Running}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Is\+Hidden\+System\+Running()}{IsHiddenSystemRunning()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Is\+Hidden\+System\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the hidden system is running. 
+
+\begin{DoxyReturn}{Returns}
+bool hidden\+System\+Status != 0 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a41ca434ce3526f63bc083f7dab6a1532_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a41ca434ce3526f63bc083f7dab6a1532_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a60f1f2b0d4b4ada0e8e42eef381f515b}\label{class_gost_crypt_1_1_boot_encryption_a60f1f2b0d4b4ada0e8e42eef381f515b}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}}
+\index{Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Is\+Paging\+File\+Active()}{IsPagingFileActive()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Is\+Paging\+File\+Active (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{check\+Non\+Windows\+Partitions\+Only }\end{DoxyParamCaption})}
+
+
+
+Checks if the paging file is active. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & check\+Non\+Windows\+Partitions\+Only \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool \hyperlink{_dlgcode_8c_a4683f63544f31aee5130df039402b772}{Is\+Paging\+File\+Active} (check\+Non\+Windows\+Partitions\+Only) ? true \+: false 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a60f1f2b0d4b4ada0e8e42eef381f515b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a60f1f2b0d4b4ada0e8e42eef381f515b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a4b79045dfc8c9f05b29ebea5d02a4904}\label{class_gost_crypt_1_1_boot_encryption_a4b79045dfc8c9f05b29ebea5d02a4904}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Prepare\+Hidden\+O\+S\+Creation@{Prepare\+Hidden\+O\+S\+Creation}}
+\index{Prepare\+Hidden\+O\+S\+Creation@{Prepare\+Hidden\+O\+S\+Creation}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Prepare\+Hidden\+O\+S\+Creation()}{PrepareHiddenOSCreation()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Prepare\+Hidden\+O\+S\+Creation (\begin{DoxyParamCaption}\item[{int}]{ea,  }\item[{int}]{mode,  }\item[{int}]{pkcs5 }\end{DoxyParamCaption})}
+
+
+
+Prepare the hidden OS creation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em int} & mode \\
+\hline
+\mbox{\tt in}  & {\em int} & ea \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a0b1d3c4a491fffeed16d48a1f00e1429}\label{class_gost_crypt_1_1_boot_encryption_a0b1d3c4a491fffeed16d48a1f00e1429}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Prepare\+Installation@{Prepare\+Installation}}
+\index{Prepare\+Installation@{Prepare\+Installation}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Prepare\+Installation()}{PrepareInstallation()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Prepare\+Installation (\begin{DoxyParamCaption}\item[{bool}]{system\+Partition\+Only,  }\item[{\hyperlink{struct_password}{Password} \&}]{password,  }\item[{int}]{ea,  }\item[{int}]{mode,  }\item[{int}]{pkcs5,  }\item[{const string \&}]{rescue\+Iso\+Image\+Path }\end{DoxyParamCaption})}
+
+
+
+Prepare the installation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em int} & mode \\
+\hline
+\mbox{\tt in}  & {\em int} & ea \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & \& password \\
+\hline
+\mbox{\tt in}  & {\em bool} & system\+Partition\+Only \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a45bbded21c341187133deeeda390f12d}\label{class_gost_crypt_1_1_boot_encryption_a45bbded21c341187133deeeda390f12d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Probe\+Real\+System\+Drive\+Size@{Probe\+Real\+System\+Drive\+Size}}
+\index{Probe\+Real\+System\+Drive\+Size@{Probe\+Real\+System\+Drive\+Size}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Probe\+Real\+System\+Drive\+Size()}{ProbeRealSystemDriveSize()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Probe\+Real\+System\+Drive\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the real system drive size. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a45bbded21c341187133deeeda390f12d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a42fee6a10920d6e44487ee8a3ac2b17d}\label{class_gost_crypt_1_1_boot_encryption_a42fee6a10920d6e44487ee8a3ac2b17d}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Read\+Boot\+Sector\+Config@{Read\+Boot\+Sector\+Config}}
+\index{Read\+Boot\+Sector\+Config@{Read\+Boot\+Sector\+Config}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Read\+Boot\+Sector\+Config()}{ReadBootSectorConfig()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Read\+Boot\+Sector\+Config (\begin{DoxyParamCaption}\item[{byte $\ast$}]{config,  }\item[{size\+\_\+t}]{buf\+Length,  }\item[{byte $\ast$}]{user\+Config = {\ttfamily nullptr},  }\item[{string $\ast$}]{custom\+User\+Message = {\ttfamily nullptr},  }\item[{uint16 $\ast$}]{boot\+Loader\+Version = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Read the boot sector configurations. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint16} & $\ast$ boot\+Loader\+Version \\
+\hline
+\mbox{\tt in}  & {\em string} & $\ast$ custom\+User\+Message \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ user\+Config \\
+\hline
+\mbox{\tt in}  & {\em size\+\_\+t} & buf\+Length \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ config \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a42fee6a10920d6e44487ee8a3ac2b17d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a42fee6a10920d6e44487ee8a3ac2b17d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a948419f4d72d1da1943632761b47de08}\label{class_gost_crypt_1_1_boot_encryption_a948419f4d72d1da1943632761b47de08}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Read\+Driver\+Configuration\+Flags@{Read\+Driver\+Configuration\+Flags}}
+\index{Read\+Driver\+Configuration\+Flags@{Read\+Driver\+Configuration\+Flags}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Read\+Driver\+Configuration\+Flags()}{ReadDriverConfigurationFlags()}}
+{\footnotesize\ttfamily uint32 Gost\+Crypt\+::\+Boot\+Encryption\+::\+Read\+Driver\+Configuration\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Read the driver configuration flags. 
+
+\begin{DoxyReturn}{Returns}
+uint32 config\+Map 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a948419f4d72d1da1943632761b47de08_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a948419f4d72d1da1943632761b47de08_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ab800499c17495d75aecfd93cd0942690}\label{class_gost_crypt_1_1_boot_encryption_ab800499c17495d75aecfd93cd0942690}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Register\+Boot\+Driver@{Register\+Boot\+Driver}}
+\index{Register\+Boot\+Driver@{Register\+Boot\+Driver}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Register\+Boot\+Driver()}{RegisterBootDriver()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Register\+Boot\+Driver (\begin{DoxyParamCaption}\item[{bool}]{hidden\+System }\end{DoxyParamCaption})}
+
+
+
+Register the boot drive. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & hidden\+System \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab800499c17495d75aecfd93cd0942690_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab800499c17495d75aecfd93cd0942690_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a6644cab53713a12bfe4998605894dd8b}\label{class_gost_crypt_1_1_boot_encryption_a6644cab53713a12bfe4998605894dd8b}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Register\+Filter@{Register\+Filter}}
+\index{Register\+Filter@{Register\+Filter}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Register\+Filter()}{RegisterFilter()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Register\+Filter (\begin{DoxyParamCaption}\item[{bool}]{register\+Filter,  }\item[{Filter\+Type}]{filter\+Type,  }\item[{const G\+U\+ID $\ast$}]{device\+Class\+Guid = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Register the filter. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & G\+U\+ID \\
+\hline
+\mbox{\tt in}  & {\em Filter\+Type} & filter\+Type \\
+\hline
+\mbox{\tt in}  & {\em bool} & register\+Filter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a6644cab53713a12bfe4998605894dd8b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a6644cab53713a12bfe4998605894dd8b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a10d9792ca3396b62332ec244cee983eb}\label{class_gost_crypt_1_1_boot_encryption_a10d9792ca3396b62332ec244cee983eb}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Register\+Filter\+Driver@{Register\+Filter\+Driver}}
+\index{Register\+Filter\+Driver@{Register\+Filter\+Driver}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Register\+Filter\+Driver()}{RegisterFilterDriver()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Register\+Filter\+Driver (\begin{DoxyParamCaption}\item[{bool}]{register\+Driver,  }\item[{Filter\+Type}]{filter\+Type }\end{DoxyParamCaption})}
+
+
+
+Register the filter driver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Filter\+Type} & filter\+Type \\
+\hline
+\mbox{\tt in}  & {\em bool} & register\+Driver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a10d9792ca3396b62332ec244cee983eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a10d9792ca3396b62332ec244cee983eb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a7a5ba170d216844b9ff5db5b6368a0e5}\label{class_gost_crypt_1_1_boot_encryption_a7a5ba170d216844b9ff5db5b6368a0e5}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}}
+\index{Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Register\+System\+Favorites\+Service()}{RegisterSystemFavoritesService()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Register\+System\+Favorites\+Service (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Service }\end{DoxyParamCaption})}
+
+
+
+Register the system favorites service. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Service \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a7a5ba170d216844b9ff5db5b6368a0e5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a7a5ba170d216844b9ff5db5b6368a0e5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a2cf9147810cf18732e40ccbae474b7be}\label{class_gost_crypt_1_1_boot_encryption_a2cf9147810cf18732e40ccbae474b7be}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Rename\+Deprecated\+System\+Loader\+Backup@{Rename\+Deprecated\+System\+Loader\+Backup}}
+\index{Rename\+Deprecated\+System\+Loader\+Backup@{Rename\+Deprecated\+System\+Loader\+Backup}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Rename\+Deprecated\+System\+Loader\+Backup()}{RenameDeprecatedSystemLoaderBackup()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Rename\+Deprecated\+System\+Loader\+Backup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Rename the deprecated system loader bacup. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a2cf9147810cf18732e40ccbae474b7be_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aa8a362642702d24c487f62cd4a109300}\label{class_gost_crypt_1_1_boot_encryption_aa8a362642702d24c487f62cd4a109300}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Restart\+Computer@{Restart\+Computer}}
+\index{Restart\+Computer@{Restart\+Computer}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Restart\+Computer()}{RestartComputer()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Restart\+Computer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Restor the computer. 
+
+\begin{DoxyReturn}{Returns}
+bool (\hyperlink{_dlgcode_8c_ae5c680b07c23fe011659cb10ffed703c}{Restart\+Computer()} != F\+A\+L\+SE) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aa8a362642702d24c487f62cd4a109300_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aadfca881f52d27e0f6bf271702194da3}\label{class_gost_crypt_1_1_boot_encryption_aadfca881f52d27e0f6bf271702194da3}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Restore\+System\+Loader@{Restore\+System\+Loader}}
+\index{Restore\+System\+Loader@{Restore\+System\+Loader}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Restore\+System\+Loader()}{RestoreSystemLoader()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Restore\+System\+Loader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Restore the system loader. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aadfca881f52d27e0f6bf271702194da3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aadfca881f52d27e0f6bf271702194da3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_abb09defd16cb166c11b788d591241571}\label{class_gost_crypt_1_1_boot_encryption_abb09defd16cb166c11b788d591241571}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Restrict\+Paging\+Files\+To\+System\+Partition@{Restrict\+Paging\+Files\+To\+System\+Partition}}
+\index{Restrict\+Paging\+Files\+To\+System\+Partition@{Restrict\+Paging\+Files\+To\+System\+Partition}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Restrict\+Paging\+Files\+To\+System\+Partition()}{RestrictPagingFilesToSystemPartition()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Restrict\+Paging\+Files\+To\+System\+Partition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Restrict the paging file to system partitions. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_abb09defd16cb166c11b788d591241571_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_abb09defd16cb166c11b788d591241571_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a2a42d620e603b2dfe451fd34a361be35}\label{class_gost_crypt_1_1_boot_encryption_a2a42d620e603b2dfe451fd34a361be35}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Set\+Driver\+Configuration\+Flag@{Set\+Driver\+Configuration\+Flag}}
+\index{Set\+Driver\+Configuration\+Flag@{Set\+Driver\+Configuration\+Flag}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Set\+Driver\+Configuration\+Flag()}{SetDriverConfigurationFlag()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Set\+Driver\+Configuration\+Flag (\begin{DoxyParamCaption}\item[{uint32}]{flag,  }\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+
+Set the driver configuration flag. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & state \\
+\hline
+\mbox{\tt in}  & {\em uint32} & flag \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a2a42d620e603b2dfe451fd34a361be35_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a2a42d620e603b2dfe451fd34a361be35_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ad66126952d3c90239d15fe53b98d98be}\label{class_gost_crypt_1_1_boot_encryption_ad66126952d3c90239d15fe53b98d98be}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}}
+\index{Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Set\+Driver\+Service\+Start\+Type()}{SetDriverServiceStartType()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Set\+Driver\+Service\+Start\+Type (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{start\+Type }\end{DoxyParamCaption})}
+
+
+
+Set the driver service start type. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & start\+Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ad66126952d3c90239d15fe53b98d98be_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ad66126952d3c90239d15fe53b98d98be_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a06e9ef71b195c22837580dc678bb1e3f}\label{class_gost_crypt_1_1_boot_encryption_a06e9ef71b195c22837580dc678bb1e3f}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Set\+Hidden\+O\+S\+Creation\+Phase@{Set\+Hidden\+O\+S\+Creation\+Phase}}
+\index{Set\+Hidden\+O\+S\+Creation\+Phase@{Set\+Hidden\+O\+S\+Creation\+Phase}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Set\+Hidden\+O\+S\+Creation\+Phase()}{SetHiddenOSCreationPhase()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Set\+Hidden\+O\+S\+Creation\+Phase (\begin{DoxyParamCaption}\item[{unsigned int}]{new\+Phase }\end{DoxyParamCaption})}
+
+
+
+Set hidden OS creation page. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em unsigned} & int new\+Phase \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a06e9ef71b195c22837580dc678bb1e3f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a06e9ef71b195c22837580dc678bb1e3f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ae96eefda4ed624bd336f89b4a261b2c1}\label{class_gost_crypt_1_1_boot_encryption_ae96eefda4ed624bd336f89b4a261b2c1}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Start\+Decoy\+O\+S\+Wipe@{Start\+Decoy\+O\+S\+Wipe}}
+\index{Start\+Decoy\+O\+S\+Wipe@{Start\+Decoy\+O\+S\+Wipe}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Start\+Decoy\+O\+S\+Wipe()}{StartDecoyOSWipe()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Start\+Decoy\+O\+S\+Wipe (\begin{DoxyParamCaption}\item[{Wipe\+Algorithm\+Id}]{wipe\+Algorithm }\end{DoxyParamCaption})}
+
+
+
+Start the decoy OS wipe. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Wipe\+Algorithm\+Id} & wipe\+Algorithm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ae96eefda4ed624bd336f89b4a261b2c1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a1397fa6ebb63da2ca0a636cfa8262858}\label{class_gost_crypt_1_1_boot_encryption_a1397fa6ebb63da2ca0a636cfa8262858}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Start\+Decryption@{Start\+Decryption}}
+\index{Start\+Decryption@{Start\+Decryption}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Start\+Decryption()}{StartDecryption()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Start\+Decryption (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{discard\+Unreadable\+Encrypted\+Sectors }\end{DoxyParamCaption})}
+
+
+
+Start the decryption. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & discard\+Unreadable\+Encrypted\+Sectors \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a1397fa6ebb63da2ca0a636cfa8262858_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a4dd591bdb27968b702694bcd7664e010}\label{class_gost_crypt_1_1_boot_encryption_a4dd591bdb27968b702694bcd7664e010}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Start\+Encryption@{Start\+Encryption}}
+\index{Start\+Encryption@{Start\+Encryption}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Start\+Encryption()}{StartEncryption()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Start\+Encryption (\begin{DoxyParamCaption}\item[{Wipe\+Algorithm\+Id}]{wipe\+Algorithm,  }\item[{bool}]{zero\+Unreadable\+Sectors }\end{DoxyParamCaption})}
+
+
+
+Start the encryption. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & zero\+Unreadable\+Sectors \\
+\hline
+\mbox{\tt in}  & {\em Wipe\+Algorithm\+Id} & wipe\+Algorithm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a4dd591bdb27968b702694bcd7664e010_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_aa761ac20523a11bf2b2915d4eb53af70}\label{class_gost_crypt_1_1_boot_encryption_aa761ac20523a11bf2b2915d4eb53af70}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!System\+Drive\+Contains\+Extended\+Partition@{System\+Drive\+Contains\+Extended\+Partition}}
+\index{System\+Drive\+Contains\+Extended\+Partition@{System\+Drive\+Contains\+Extended\+Partition}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{System\+Drive\+Contains\+Extended\+Partition()}{SystemDriveContainsExtendedPartition()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+System\+Drive\+Contains\+Extended\+Partition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if system drive contains extended partition. 
+
+\begin{DoxyReturn}{Returns}
+bool System\+Drive\+Contains\+Partition\+Type (P\+A\+R\+T\+I\+T\+I\+O\+N\+\_\+\+E\+X\+T\+E\+N\+D\+ED) $\vert$$\vert$ System\+Drive\+Contains\+Partition\+Type (P\+A\+R\+T\+I\+T\+I\+O\+N\+\_\+\+X\+I\+N\+T13\+\_\+\+E\+X\+T\+E\+N\+D\+ED) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_aa761ac20523a11bf2b2915d4eb53af70_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a097627633d56bf5421d836d036f6a0e7}\label{class_gost_crypt_1_1_boot_encryption_a097627633d56bf5421d836d036f6a0e7}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!System\+Drive\+Contains\+Non\+Standard\+Partitions@{System\+Drive\+Contains\+Non\+Standard\+Partitions}}
+\index{System\+Drive\+Contains\+Non\+Standard\+Partitions@{System\+Drive\+Contains\+Non\+Standard\+Partitions}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{System\+Drive\+Contains\+Non\+Standard\+Partitions()}{SystemDriveContainsNonStandardPartitions()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+System\+Drive\+Contains\+Non\+Standard\+Partitions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the system drive contains non standard partitions. 
+
+\begin{DoxyReturn}{Returns}
+bool true if (System\+Drive\+Contains\+Partition\+Type ((byte) partition\+Type)) false else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a097627633d56bf5421d836d036f6a0e7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a3638d4139eef90bc7f913fea8290e49e}\label{class_gost_crypt_1_1_boot_encryption_a3638d4139eef90bc7f913fea8290e49e}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!System\+Drive\+Contains\+Partition\+Type@{System\+Drive\+Contains\+Partition\+Type}}
+\index{System\+Drive\+Contains\+Partition\+Type@{System\+Drive\+Contains\+Partition\+Type}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{System\+Drive\+Contains\+Partition\+Type()}{SystemDriveContainsPartitionType()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+System\+Drive\+Contains\+Partition\+Type (\begin{DoxyParamCaption}\item[{byte}]{type }\end{DoxyParamCaption})}
+
+
+
+Checks if the system drive contains partition type. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool true if (mbr-\/$>$Partitions\mbox{[}i\mbox{]}.Type == type) false else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3638d4139eef90bc7f913fea8290e49e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3638d4139eef90bc7f913fea8290e49e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a639795ac588f2523a75cc573cc537262}\label{class_gost_crypt_1_1_boot_encryption_a639795ac588f2523a75cc573cc537262}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!System\+Drive\+Is\+Dynamic@{System\+Drive\+Is\+Dynamic}}
+\index{System\+Drive\+Is\+Dynamic@{System\+Drive\+Is\+Dynamic}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{System\+Drive\+Is\+Dynamic()}{SystemDriveIsDynamic()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+System\+Drive\+Is\+Dynamic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the system drive is dynamic. 
+
+\begin{DoxyReturn}{Returns}
+bool request.\+Drive\+Is\+Dynamic ? true \+: false 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a639795ac588f2523a75cc573cc537262_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a770514730f74d63e147ea3b2510f5e0f}\label{class_gost_crypt_1_1_boot_encryption_a770514730f74d63e147ea3b2510f5e0f}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!System\+Partition\+Covers\+Whole\+Drive@{System\+Partition\+Covers\+Whole\+Drive}}
+\index{System\+Partition\+Covers\+Whole\+Drive@{System\+Partition\+Covers\+Whole\+Drive}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{System\+Partition\+Covers\+Whole\+Drive()}{SystemPartitionCoversWholeDrive()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+System\+Partition\+Covers\+Whole\+Drive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Checks if the system partition covers the whole drive. 
+
+\begin{DoxyReturn}{Returns}
+bool true if (Is\+O\+S\+At\+Least (W\+I\+N\+\_\+7) \&\& config.\+Partitions.\+size() == 2 \&\& config.\+Extra\+Boot\+Partition\+Present \&\& config.\+Drive\+Partition.\+Info.\+Partition\+Length.\+Quad\+Part -\/ config.\+System\+Partition.\+Info.\+Partition\+Length.\+Quad\+Part $<$ 164 $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB) config.\+Partitions.\+size() == 1 \&\& config.\+Drive\+Partition.\+Info.\+Partition\+Length.\+Quad\+Part -\/ config.\+System\+Partition.\+Info.\+Partition\+Length.\+Quad\+Part $<$ 64 $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a770514730f74d63e147ea3b2510f5e0f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a4792c6e0ed22b531c34152be522c8106}\label{class_gost_crypt_1_1_boot_encryption_a4792c6e0ed22b531c34152be522c8106}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Verify\+Rescue\+Disk@{Verify\+Rescue\+Disk}}
+\index{Verify\+Rescue\+Disk@{Verify\+Rescue\+Disk}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Verify\+Rescue\+Disk()}{VerifyRescueDisk()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Boot\+Encryption\+::\+Verify\+Rescue\+Disk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verify the rescue Disk. 
+
+\begin{DoxyReturn}{Returns}
+bool true if (memcmp (buffer.\+Ptr(), Rescue\+Iso\+Image, buffer.\+Size()) == 0) false else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ab87016e42d7f7826282297e50db00742}\label{class_gost_crypt_1_1_boot_encryption_ab87016e42d7f7826282297e50db00742}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Wipe\+Hidden\+O\+S\+Creation\+Config@{Wipe\+Hidden\+O\+S\+Creation\+Config}}
+\index{Wipe\+Hidden\+O\+S\+Creation\+Config@{Wipe\+Hidden\+O\+S\+Creation\+Config}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Wipe\+Hidden\+O\+S\+Creation\+Config()}{WipeHiddenOSCreationConfig()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Wipe\+Hidden\+O\+S\+Creation\+Config (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Wipe the fidden OS creation on configuration. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ab87016e42d7f7826282297e50db00742_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac55ac2e6869a99099651444e9e1702b9}\label{class_gost_crypt_1_1_boot_encryption_ac55ac2e6869a99099651444e9e1702b9}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Write\+Boot\+Drive\+Sector@{Write\+Boot\+Drive\+Sector}}
+\index{Write\+Boot\+Drive\+Sector@{Write\+Boot\+Drive\+Sector}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Write\+Boot\+Drive\+Sector()}{WriteBootDriveSector()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Write\+Boot\+Drive\+Sector (\begin{DoxyParamCaption}\item[{uint64}]{offset,  }\item[{byte $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Write on boot drive sector. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & $\ast$ data \\
+\hline
+\mbox{\tt in}  & {\em uint64} & offset \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ac55ac2e6869a99099651444e9e1702b9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac161b91655c0ee99d72b5b7f68ca04a3}\label{class_gost_crypt_1_1_boot_encryption_ac161b91655c0ee99d72b5b7f68ca04a3}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Write\+Boot\+Sector\+Config@{Write\+Boot\+Sector\+Config}}
+\index{Write\+Boot\+Sector\+Config@{Write\+Boot\+Sector\+Config}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Write\+Boot\+Sector\+Config()}{WriteBootSectorConfig()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Write\+Boot\+Sector\+Config (\begin{DoxyParamCaption}\item[{const byte}]{new\+Config\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Write on boot sector configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & byte new\+Config\mbox{[}\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ac161b91655c0ee99d72b5b7f68ca04a3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ac161b91655c0ee99d72b5b7f68ca04a3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_ac87f57dd76b5e427925623539dd34d7c}\label{class_gost_crypt_1_1_boot_encryption_ac87f57dd76b5e427925623539dd34d7c}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Write\+Boot\+Sector\+User\+Config@{Write\+Boot\+Sector\+User\+Config}}
+\index{Write\+Boot\+Sector\+User\+Config@{Write\+Boot\+Sector\+User\+Config}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Write\+Boot\+Sector\+User\+Config()}{WriteBootSectorUserConfig()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Write\+Boot\+Sector\+User\+Config (\begin{DoxyParamCaption}\item[{byte}]{user\+Config,  }\item[{const string \&}]{custom\+User\+Message }\end{DoxyParamCaption})}
+
+
+
+Write on boot sector user configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& custom\+User\+Message \\
+\hline
+\mbox{\tt in}  & {\em byte} & user\+Config \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_ac87f57dd76b5e427925623539dd34d7c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_boot_encryption_a3c129c6a89e38d3fd55b0a0df37bdead}\label{class_gost_crypt_1_1_boot_encryption_a3c129c6a89e38d3fd55b0a0df37bdead}} 
+\index{Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}!Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}}
+\index{Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}!Gost\+Crypt\+::\+Boot\+Encryption@{Gost\+Crypt\+::\+Boot\+Encryption}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Dword\+Value()}{WriteLocalMachineRegistryDwordValue()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Boot\+Encryption\+::\+Write\+Local\+Machine\+Registry\+Dword\+Value (\begin{DoxyParamCaption}\item[{char $\ast$}]{key\+Path,  }\item[{char $\ast$}]{value\+Name,  }\item[{D\+W\+O\+RD}]{value }\end{DoxyParamCaption})}
+
+
+
+Write the D\+W\+O\+RD value on local machine registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ value\+Name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ key\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3c129c6a89e38d3fd55b0a0df37bdead_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_boot_encryption_a3c129c6a89e38d3fd55b0a0df37bdead_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/Boot\+Encryption.\+h\item 
+Common/\hyperlink{_boot_encryption_8cpp}{Boot\+Encryption.\+cpp}\end{DoxyCompactItemize}

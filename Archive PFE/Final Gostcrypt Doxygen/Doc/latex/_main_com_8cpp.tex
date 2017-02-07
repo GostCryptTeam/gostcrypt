@@ -1,0 +1,161 @@
+\hypertarget{_main_com_8cpp}{}\section{Mount/\+Main\+Com.cpp File Reference}
+\label{_main_com_8cpp}\index{Mount/\+Main\+Com.\+cpp@{Mount/\+Main\+Com.\+cpp}}
+{\ttfamily \#include $<$atlcomcli.\+h$>$}\newline
+{\ttfamily \#include $<$atlconv.\+h$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Base\+Com.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Encryption.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Main\+Com.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Main\+Com\+\_\+h.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Main\+Com\+\_\+i.\+c\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Mount.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Password.\+h\char`\"{}}\newline
+Include dependency graph for Main\+Com.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_main_com_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_main_com}{Gost\+Crypt\+Main\+Com}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_main_com_8cpp_abcd4db73be75ad42a42564e0765185ab}{Com\+Server\+Main} ()
+\begin{DoxyCompactList}\small\item\em Dispatch message and revoke the class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{_main_com_8cpp_a03a4ed373a05e368dcc0bbbd22da67f4}\label{_main_com_8cpp_a03a4ed373a05e368dcc0bbbd22da67f4}} 
+I\+Gost\+Crypt\+Main\+Com $\ast$ {\bfseries Get\+Elevated\+Instance} (H\+W\+ND parent)
+\item 
+void \hyperlink{_main_com_8cpp_a7144de329cd753a816b2f6e3331f0e8a}{Uac\+Analyze\+Kernel\+Mini\+Dump} (H\+W\+ND hwnd\+Dlg)
+\begin{DoxyCompactList}\small\item\em Analyse the uac memory dump. \end{DoxyCompactList}\item 
+int \hyperlink{_main_com_8cpp_a40fa5b1e15ad512b316cdf506ceddd63}{Uac\+Backup\+Volume\+Header} (H\+W\+ND hwnd\+Dlg, B\+O\+OL b\+Require\+Confirmation, char $\ast$lpsz\+Volume)
+\begin{DoxyCompactList}\small\item\em Backup the uac volume header. \end{DoxyCompactList}\item 
+int \hyperlink{_main_com_8cpp_a59123cf74379931c3808e90019a5a6c9}{Uac\+Restore\+Volume\+Header} (H\+W\+ND hwnd\+Dlg, char $\ast$lpsz\+Volume)
+\begin{DoxyCompactList}\small\item\em Restore the uac volume header. \end{DoxyCompactList}\item 
+int \hyperlink{_main_com_8cpp_af5ae05feb4954a68855e16dc1a696a4d}{Uac\+Change\+Pwd} (char $\ast$lpsz\+Volume, \hyperlink{struct_password}{Password} $\ast$old\+Password, \hyperlink{struct_password}{Password} $\ast$new\+Password, int pkcs5, H\+W\+ND hwnd\+Dlg)
+\begin{DoxyCompactList}\small\item\em Change uac password. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_main_com_8cpp_abcd4db73be75ad42a42564e0765185ab}\label{_main_com_8cpp_abcd4db73be75ad42a42564e0765185ab}} 
+\index{Main\+Com.\+cpp@{Main\+Com.\+cpp}!Com\+Server\+Main@{Com\+Server\+Main}}
+\index{Com\+Server\+Main@{Com\+Server\+Main}!Main\+Com.\+cpp@{Main\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Com\+Server\+Main()}{ComServerMain()}}
+{\footnotesize\ttfamily C B\+O\+OL Com\+Server\+Main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dispatch message and revoke the class. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Co\+Register\+Class\+Object (C\+L\+S\+I\+D\+\_\+\+Gost\+Crypt\+Main\+Com, (L\+P\+U\+N\+K\+N\+O\+WN) \&factory,C\+L\+S\+C\+T\+X\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+E\+R\+V\+ER, R\+E\+G\+C\+L\+S\+\_\+\+S\+I\+N\+G\+L\+E\+U\+SE, \&cookie) != S\+\_\+\+OK) F\+A\+L\+SE if (r == -\/1) T\+R\+UE else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_main_com_8cpp_abcd4db73be75ad42a42564e0765185ab_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_main_com_8cpp_a7144de329cd753a816b2f6e3331f0e8a}\label{_main_com_8cpp_a7144de329cd753a816b2f6e3331f0e8a}} 
+\index{Main\+Com.\+cpp@{Main\+Com.\+cpp}!Uac\+Analyze\+Kernel\+Mini\+Dump@{Uac\+Analyze\+Kernel\+Mini\+Dump}}
+\index{Uac\+Analyze\+Kernel\+Mini\+Dump@{Uac\+Analyze\+Kernel\+Mini\+Dump}!Main\+Com.\+cpp@{Main\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Analyze\+Kernel\+Mini\+Dump()}{UacAnalyzeKernelMiniDump()}}
+{\footnotesize\ttfamily C void Uac\+Analyze\+Kernel\+Mini\+Dump (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg }\end{DoxyParamCaption})}
+
+
+
+Analyse the uac memory dump. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_main_com_8cpp_a40fa5b1e15ad512b316cdf506ceddd63}\label{_main_com_8cpp_a40fa5b1e15ad512b316cdf506ceddd63}} 
+\index{Main\+Com.\+cpp@{Main\+Com.\+cpp}!Uac\+Backup\+Volume\+Header@{Uac\+Backup\+Volume\+Header}}
+\index{Uac\+Backup\+Volume\+Header@{Uac\+Backup\+Volume\+Header}!Main\+Com.\+cpp@{Main\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Backup\+Volume\+Header()}{UacBackupVolumeHeader()}}
+{\footnotesize\ttfamily C int Uac\+Backup\+Volume\+Header (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{B\+O\+OL}]{b\+Require\+Confirmation,  }\item[{char $\ast$}]{lpsz\+Volume }\end{DoxyParamCaption})}
+
+
+
+Backup the uac volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ lpsz\+Volume \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Require\+Confirmation \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int r 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_main_com_8cpp_af5ae05feb4954a68855e16dc1a696a4d}\label{_main_com_8cpp_af5ae05feb4954a68855e16dc1a696a4d}} 
+\index{Main\+Com.\+cpp@{Main\+Com.\+cpp}!Uac\+Change\+Pwd@{Uac\+Change\+Pwd}}
+\index{Uac\+Change\+Pwd@{Uac\+Change\+Pwd}!Main\+Com.\+cpp@{Main\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Change\+Pwd()}{UacChangePwd()}}
+{\footnotesize\ttfamily C int Uac\+Change\+Pwd (\begin{DoxyParamCaption}\item[{char $\ast$}]{lpsz\+Volume,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{old\+Password,  }\item[{\hyperlink{struct_password}{Password} $\ast$}]{new\+Password,  }\item[{int}]{pkcs5,  }\item[{H\+W\+ND}]{hwnd\+Dlg }\end{DoxyParamCaption})}
+
+
+
+Change uac password. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\mbox{\tt in}  & {\em int} & pkcs5 \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ new\+Password \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{struct_password}{Password}} & $\ast$ old\+Password \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ lpsz\+Volume \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int r 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_main_com_8cpp_a59123cf74379931c3808e90019a5a6c9}\label{_main_com_8cpp_a59123cf74379931c3808e90019a5a6c9}} 
+\index{Main\+Com.\+cpp@{Main\+Com.\+cpp}!Uac\+Restore\+Volume\+Header@{Uac\+Restore\+Volume\+Header}}
+\index{Uac\+Restore\+Volume\+Header@{Uac\+Restore\+Volume\+Header}!Main\+Com.\+cpp@{Main\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Restore\+Volume\+Header()}{UacRestoreVolumeHeader()}}
+{\footnotesize\ttfamily C int Uac\+Restore\+Volume\+Header (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{char $\ast$}]{lpsz\+Volume }\end{DoxyParamCaption})}
+
+
+
+Restore the uac volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ lpsz\+Volume \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int r 
+\end{DoxyReturn}

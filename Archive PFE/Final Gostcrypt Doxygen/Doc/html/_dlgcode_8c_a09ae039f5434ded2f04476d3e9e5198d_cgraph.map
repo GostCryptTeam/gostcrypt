@@ -1,0 +1,10 @@
+<map id="RemoveDeviceWriteProtection" name="RemoveDeviceWriteProtection">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="281,5,406,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#ab2065cf612da5ee8667d48267a1cf822" title="Check write errors in file stream. " alt="" coords="249,56,437,83"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="309,107,378,133"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a067ed0c600bf924b6621ee79892384d3" title="Check if Uac is supported. " alt="" coords="286,157,401,184"/>
+<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="495,31,572,57"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#aeb4c15f61dd8f5bf8ed4f13bf7a97766" title="Draw error not as string id in Unicode. " alt="" coords="491,81,575,108"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="485,157,581,184"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="629,157,769,184"/>
+</map>

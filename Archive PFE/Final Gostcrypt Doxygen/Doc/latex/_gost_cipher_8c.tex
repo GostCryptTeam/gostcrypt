@@ -1,0 +1,162 @@
+\hypertarget{_gost_cipher_8c}{}\section{Crypto/\+Gost\+Cipher.c File Reference}
+\label{_gost_cipher_8c}\index{Crypto/\+Gost\+Cipher.\+c@{Crypto/\+Gost\+Cipher.\+c}}
+
+
+Gost encryption and decryption.  
+
+
+{\ttfamily \#include \char`\"{}Gost\+Cipher.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Stribog.\+h\char`\"{}}\newline
+Include dependency graph for Gost\+Cipher.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{_gost_cipher_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_gost_cipher_8c_a5c4472de500c6aa8f73dd9d0418aa4f0}{gost\+\_\+encrypt} (byte $\ast$in, byte $\ast$out, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\begin{DoxyCompactList}\small\item\em Encrypt with gost algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{_gost_cipher_8c_a58ce7997f812d09cdb40f8b5ea448acb}{gost\+\_\+decrypt} (byte $\ast$in, byte $\ast$out, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\begin{DoxyCompactList}\small\item\em Decrypt with gost algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{_gost_cipher_8c_a894c8f0e07a5614968fca09f7ae1f24b}{gost\+\_\+set\+\_\+key} (byte $\ast$key, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\begin{DoxyCompactList}\small\item\em Set the gost key Generate a pseudo random data (based on the key) and set the key. \end{DoxyCompactList}\item 
+void \hyperlink{_gost_cipher_8c_aff2cf603f8dd202120d4002caec55c59}{gost\+\_\+xor\+\_\+ks} (\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$out\+\_\+ks, gst\+\_\+udword $\ast$in, gst\+\_\+dword len)
+\begin{DoxyCompactList}\small\item\em Xor between \hyperlink{structgost__kds}{gost\+\_\+kds} and gst\+\_\+udword. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Gost encryption and decryption. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_gost_cipher_8c_a58ce7997f812d09cdb40f8b5ea448acb}\label{_gost_cipher_8c_a58ce7997f812d09cdb40f8b5ea448acb}} 
+\index{Gost\+Cipher.\+c@{Gost\+Cipher.\+c}!gost\+\_\+decrypt@{gost\+\_\+decrypt}}
+\index{gost\+\_\+decrypt@{gost\+\_\+decrypt}!Gost\+Cipher.\+c@{Gost\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{gost\+\_\+decrypt()}{gost\_decrypt()}}
+{\footnotesize\ttfamily void gost\+\_\+decrypt (\begin{DoxyParamCaption}\item[{byte $\ast$}]{in,  }\item[{byte $\ast$}]{out,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Decrypt with gost algorithm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{structgost__kds}{gost\+\_\+kds}} & $\ast$ ks \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ out \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_cipher_8c_a58ce7997f812d09cdb40f8b5ea448acb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_gost_cipher_8c_a5c4472de500c6aa8f73dd9d0418aa4f0}\label{_gost_cipher_8c_a5c4472de500c6aa8f73dd9d0418aa4f0}} 
+\index{Gost\+Cipher.\+c@{Gost\+Cipher.\+c}!gost\+\_\+encrypt@{gost\+\_\+encrypt}}
+\index{gost\+\_\+encrypt@{gost\+\_\+encrypt}!Gost\+Cipher.\+c@{Gost\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{gost\+\_\+encrypt()}{gost\_encrypt()}}
+{\footnotesize\ttfamily void gost\+\_\+encrypt (\begin{DoxyParamCaption}\item[{byte $\ast$}]{in,  }\item[{byte $\ast$}]{out,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Encrypt with gost algorithm. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{structgost__kds}{gost\+\_\+kds}} & $\ast$ ks \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ out \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_cipher_8c_a5c4472de500c6aa8f73dd9d0418aa4f0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_gost_cipher_8c_a894c8f0e07a5614968fca09f7ae1f24b}\label{_gost_cipher_8c_a894c8f0e07a5614968fca09f7ae1f24b}} 
+\index{Gost\+Cipher.\+c@{Gost\+Cipher.\+c}!gost\+\_\+set\+\_\+key@{gost\+\_\+set\+\_\+key}}
+\index{gost\+\_\+set\+\_\+key@{gost\+\_\+set\+\_\+key}!Gost\+Cipher.\+c@{Gost\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{gost\+\_\+set\+\_\+key()}{gost\_set\_key()}}
+{\footnotesize\ttfamily void gost\+\_\+set\+\_\+key (\begin{DoxyParamCaption}\item[{byte $\ast$}]{key,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Set the gost key Generate a pseudo random data (based on the key) and set the key. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{structgost__kds}{gost\+\_\+kds}} & $\ast$ ks \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_gost_cipher_8c_a894c8f0e07a5614968fca09f7ae1f24b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_gost_cipher_8c_aff2cf603f8dd202120d4002caec55c59}\label{_gost_cipher_8c_aff2cf603f8dd202120d4002caec55c59}} 
+\index{Gost\+Cipher.\+c@{Gost\+Cipher.\+c}!gost\+\_\+xor\+\_\+ks@{gost\+\_\+xor\+\_\+ks}}
+\index{gost\+\_\+xor\+\_\+ks@{gost\+\_\+xor\+\_\+ks}!Gost\+Cipher.\+c@{Gost\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{gost\+\_\+xor\+\_\+ks()}{gost\_xor\_ks()}}
+{\footnotesize\ttfamily void gost\+\_\+xor\+\_\+ks (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{out\+\_\+ks,  }\item[{gst\+\_\+udword $\ast$}]{in,  }\item[{gst\+\_\+dword}]{len }\end{DoxyParamCaption})}
+
+
+
+Xor between \hyperlink{structgost__kds}{gost\+\_\+kds} and gst\+\_\+udword. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em gst\+\_\+dword} & len \\
+\hline
+\mbox{\tt in}  & {\em gst\+\_\+udword} & $\ast$ in \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgost__kds}{gost\+\_\+kds}} & $\ast$ out\+\_\+ks \\
+\hline
+\mbox{\tt in}  & {\em \hyperlink{structgost__kds}{gost\+\_\+kds}} & $\ast$ ks \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{_gost_cipher_8c_aff2cf603f8dd202120d4002caec55c59_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,9 @@
+<map id="LoadCombo" name="LoadCombo">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a4ffbe57c23617a63122d4a7009ddc63d" title="Load a file and returns NULL if there&#39;s any error. Although the buffer can contain binary data..." alt="" coords="168,5,239,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="150,56,257,83"/>
+<area shape="rect" id="node6" href="$_xml_8c.html#afd9bef176d62607884f068b89108c21e" title="Find element in xml. " alt="" coords="145,107,261,133"/>
+<area shape="rect" id="node7" href="$_xml_8c.html#a3e91b410f16d94f7364bc48cd85f5622" title="Get next xml node text. " alt="" coords="144,157,263,184"/>
+<area shape="rect" id="node8" href="$_combo_8c.html#adea0ba98d3393d59bec4445a37abd526" title="Add item to combo box. " alt="" coords="148,208,259,235"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="311,31,432,57"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="324,81,419,108"/>
+</map>

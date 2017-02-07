@@ -1,0 +1,536 @@
+\hypertarget{_registry_8c}{}\section{Common/\+Registry.c File Reference}
+\label{_registry_8c}\index{Common/\+Registry.\+c@{Common/\+Registry.\+c}}
+
+
+Manage the registry values for windows.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Registry.\+h\char`\"{}}\newline
+Include dependency graph for Registry.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{_registry_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_registry_8c_a07aec80ae3cc47115a6dcfff6a592ce7}{Read\+Local\+Machine\+Registry\+Dword} (char $\ast$sub\+Key, char $\ast$name, D\+W\+O\+RD $\ast$value)
+\begin{DoxyCompactList}\small\item\em Query the registery and read it. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_afa689abc6854e130850c7bbbd7a6455c}{Read\+Local\+Machine\+Registry\+Multi\+String} (char $\ast$sub\+Key, char $\ast$name, char $\ast$value, D\+W\+O\+RD $\ast$size)
+\begin{DoxyCompactList}\small\item\em Query the registry and read multiple strings, ony the size of the data read changes with Read\+Local\+Machine\+Registry\+Dword. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a4a17e93d8f7adb6daff0d6023d25fd49}{Read\+Local\+Machine\+Registry\+String} (const char $\ast$sub\+Key, char $\ast$name, char $\ast$str, D\+W\+O\+RD $\ast$size)
+\begin{DoxyCompactList}\small\item\em Query the registry and read a string, ony the size of the data read changes with Read\+Local\+Machine\+Registry\+Dword. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a0089a5a30e4f44a27729224692e16f93}{Read\+Local\+Machine\+Registry\+String\+Non\+Reflected} (const char $\ast$sub\+Key, char $\ast$name, char $\ast$str, D\+W\+O\+RD $\ast$size)
+\begin{DoxyCompactList}\small\item\em Read a string in the registry in non reflected mode. \end{DoxyCompactList}\item 
+int \hyperlink{_registry_8c_a80387776b573d2310058d25d9cf0eefc}{Read\+Registry\+Int} (char $\ast$sub\+Key, char $\ast$name, int default\+Value)
+\begin{DoxyCompactList}\small\item\em Read a int value in the registry and return it ! \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{_registry_8c_ae6a7d3e59d0fd840504f182f0a528a9e}{Read\+Registry\+String} (char $\ast$sub\+Key, char $\ast$name, char $\ast$default\+Value, char $\ast$str, int max\+Len)
+\begin{DoxyCompactList}\small\item\em Read in the registry a string and return it. \end{DoxyCompactList}\item 
+D\+W\+O\+RD \hyperlink{_registry_8c_a4b6d586c107c576a4ded6e5bd67d1f1d}{Read\+Registry\+Bytes} (char $\ast$path, char $\ast$name, char $\ast$value, int max\+Len)
+\begin{DoxyCompactList}\small\item\em Read bytes in the registry. \end{DoxyCompactList}\item 
+void \hyperlink{_registry_8c_a7f6c7e2311898cacfbf8e6b8c6dbc52d}{Write\+Registry\+Int} (char $\ast$sub\+Key, char $\ast$name, int value)
+\begin{DoxyCompactList}\small\item\em Write a int in the registry. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a1b863382e407fb7468d82c4e4c51ab13}{Write\+Local\+Machine\+Registry\+Dword} (char $\ast$sub\+Key, char $\ast$name, D\+W\+O\+RD value)
+\begin{DoxyCompactList}\small\item\em Write a Dword in the local machine registry. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a451579799df2b685ce95ebe9e8d8f365}{Write\+Local\+Machine\+Registry\+Multi\+String} (char $\ast$sub\+Key, char $\ast$name, char $\ast$multi\+String, D\+W\+O\+RD size)
+\begin{DoxyCompactList}\small\item\em Write multiple lines in the local machine registry. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a397be04d2c991a2c2d796d4b81afdb5c}{Write\+Local\+Machine\+Registry\+String} (char $\ast$sub\+Key, char $\ast$name, char $\ast$str, B\+O\+OL expandable)
+\begin{DoxyCompactList}\small\item\em Write a whole string in the local machine resgistry. \end{DoxyCompactList}\item 
+void \hyperlink{_registry_8c_a662e574b8cb1c3a3a35bd1afe353e1c2}{Write\+Registry\+String} (char $\ast$sub\+Key, char $\ast$name, char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Write a string in the registry. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a3f278da99f6819a15902f4cdf7bbba81}{Write\+Registry\+Bytes} (char $\ast$path, char $\ast$name, char $\ast$str, D\+W\+O\+RD size)
+\begin{DoxyCompactList}\small\item\em Write bytes in the registry. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_registry_8c_a8939aa58e84d0ae28c0d8883b883bd4f}{Delete\+Local\+Machine\+Registry\+Key} (char $\ast$parent\+Key, char $\ast$sub\+Key\+To\+Delete)
+\begin{DoxyCompactList}\small\item\em Delete the local machine registry key. \end{DoxyCompactList}\item 
+void \hyperlink{_registry_8c_a0dff96f5392b2d33116a03eea6739097}{Delete\+Registry\+Value} (char $\ast$sub\+Key, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Delete a registry value. \end{DoxyCompactList}\item 
+void \hyperlink{_registry_8c_a7c63b7edd24e636366feff9040a8fbaf}{Get\+Startup\+Reg\+Key\+Name} (char $\ast$regk)
+\begin{DoxyCompactList}\small\item\em Getter for the registry key name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the registry values for windows. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+20/02/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_registry_8c_a8939aa58e84d0ae28c0d8883b883bd4f}\label{_registry_8c_a8939aa58e84d0ae28c0d8883b883bd4f}} 
+\index{Registry.\+c@{Registry.\+c}!Delete\+Local\+Machine\+Registry\+Key@{Delete\+Local\+Machine\+Registry\+Key}}
+\index{Delete\+Local\+Machine\+Registry\+Key@{Delete\+Local\+Machine\+Registry\+Key}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Delete\+Local\+Machine\+Registry\+Key()}{DeleteLocalMachineRegistryKey()}}
+{\footnotesize\ttfamily B\+O\+OL Delete\+Local\+Machine\+Registry\+Key (\begin{DoxyParamCaption}\item[{char $\ast$}]{parent\+Key,  }\item[{char $\ast$}]{sub\+Key\+To\+Delete }\end{DoxyParamCaption})}
+
+
+
+Delete the local machine registry key. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key\+To\+Delete \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ parent\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if ((status = Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, parent\+Key, 0, K\+E\+Y\+\_\+\+W\+R\+I\+TE, \&hkey)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if ((status = Reg\+Delete\+Key (hkey, sub\+Key\+To\+Delete)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) T\+R\+UE else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a8939aa58e84d0ae28c0d8883b883bd4f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a0dff96f5392b2d33116a03eea6739097}\label{_registry_8c_a0dff96f5392b2d33116a03eea6739097}} 
+\index{Registry.\+c@{Registry.\+c}!Delete\+Registry\+Value@{Delete\+Registry\+Value}}
+\index{Delete\+Registry\+Value@{Delete\+Registry\+Value}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Delete\+Registry\+Value()}{DeleteRegistryValue()}}
+{\footnotesize\ttfamily void Delete\+Registry\+Value (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Delete a registry value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{_registry_8c_a0dff96f5392b2d33116a03eea6739097_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a7c63b7edd24e636366feff9040a8fbaf}\label{_registry_8c_a7c63b7edd24e636366feff9040a8fbaf}} 
+\index{Registry.\+c@{Registry.\+c}!Get\+Startup\+Reg\+Key\+Name@{Get\+Startup\+Reg\+Key\+Name}}
+\index{Get\+Startup\+Reg\+Key\+Name@{Get\+Startup\+Reg\+Key\+Name}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Get\+Startup\+Reg\+Key\+Name()}{GetStartupRegKeyName()}}
+{\footnotesize\ttfamily void Get\+Startup\+Reg\+Key\+Name (\begin{DoxyParamCaption}\item[{char $\ast$}]{regk }\end{DoxyParamCaption})}
+
+
+
+Getter for the registry key name. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ regk \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a7c63b7edd24e636366feff9040a8fbaf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a07aec80ae3cc47115a6dcfff6a592ce7}\label{_registry_8c_a07aec80ae3cc47115a6dcfff6a592ce7}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Local\+Machine\+Registry\+Dword@{Read\+Local\+Machine\+Registry\+Dword}}
+\index{Read\+Local\+Machine\+Registry\+Dword@{Read\+Local\+Machine\+Registry\+Dword}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Local\+Machine\+Registry\+Dword()}{ReadLocalMachineRegistryDword()}}
+{\footnotesize\ttfamily B\+O\+OL Read\+Local\+Machine\+Registry\+Dword (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{D\+W\+O\+RD $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Query the registery and read it. 
+
+Copyright (c) 2004-\/2010 True\+Crypt Developers Association. All rights reserved.
+
+Governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key, 0, K\+E\+Y\+\_\+\+R\+E\+AD, \&hkey) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if (Reg\+Query\+Value\+Ex (hkey, name, N\+U\+LL, \&type, (B\+Y\+TE $\ast$) value, \&size) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) type == R\+E\+G\+\_\+\+D\+W\+O\+RD else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a07aec80ae3cc47115a6dcfff6a592ce7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_afa689abc6854e130850c7bbbd7a6455c}\label{_registry_8c_afa689abc6854e130850c7bbbd7a6455c}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Local\+Machine\+Registry\+Multi\+String@{Read\+Local\+Machine\+Registry\+Multi\+String}}
+\index{Read\+Local\+Machine\+Registry\+Multi\+String@{Read\+Local\+Machine\+Registry\+Multi\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Local\+Machine\+Registry\+Multi\+String()}{ReadLocalMachineRegistryMultiString()}}
+{\footnotesize\ttfamily B\+O\+OL Read\+Local\+Machine\+Registry\+Multi\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{value,  }\item[{D\+W\+O\+RD $\ast$}]{size }\end{DoxyParamCaption})}
+
+
+
+Query the registry and read multiple strings, ony the size of the data read changes with Read\+Local\+Machine\+Registry\+Dword. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key, 0, K\+E\+Y\+\_\+\+R\+E\+AD, \&hkey) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if (Reg\+Query\+Value\+Ex (hkey, name, N\+U\+LL, \&type, (B\+Y\+TE $\ast$) value, size) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) (type == R\+E\+G\+\_\+\+M\+U\+L\+T\+I\+\_\+\+SZ) else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_afa689abc6854e130850c7bbbd7a6455c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a4a17e93d8f7adb6daff0d6023d25fd49}\label{_registry_8c_a4a17e93d8f7adb6daff0d6023d25fd49}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Local\+Machine\+Registry\+String@{Read\+Local\+Machine\+Registry\+String}}
+\index{Read\+Local\+Machine\+Registry\+String@{Read\+Local\+Machine\+Registry\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Local\+Machine\+Registry\+String()}{ReadLocalMachineRegistryString()}}
+{\footnotesize\ttfamily B\+O\+OL Read\+Local\+Machine\+Registry\+String (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{str,  }\item[{D\+W\+O\+RD $\ast$}]{size }\end{DoxyParamCaption})}
+
+
+
+Query the registry and read a string, ony the size of the data read changes with Read\+Local\+Machine\+Registry\+Dword. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em const} & char $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key, 0, K\+E\+Y\+\_\+\+R\+E\+AD, \&hkey) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if (Reg\+Query\+Value\+Ex (hkey, name, N\+U\+LL, \&type, (B\+Y\+TE $\ast$) str, size) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) (type == R\+E\+G\+\_\+\+SZ) else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a4a17e93d8f7adb6daff0d6023d25fd49_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a0089a5a30e4f44a27729224692e16f93}\label{_registry_8c_a0089a5a30e4f44a27729224692e16f93}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Local\+Machine\+Registry\+String\+Non\+Reflected@{Read\+Local\+Machine\+Registry\+String\+Non\+Reflected}}
+\index{Read\+Local\+Machine\+Registry\+String\+Non\+Reflected@{Read\+Local\+Machine\+Registry\+String\+Non\+Reflected}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Local\+Machine\+Registry\+String\+Non\+Reflected()}{ReadLocalMachineRegistryStringNonReflected()}}
+{\footnotesize\ttfamily B\+O\+OL Read\+Local\+Machine\+Registry\+String\+Non\+Reflected (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{str,  }\item[{D\+W\+O\+RD $\ast$}]{size }\end{DoxyParamCaption})}
+
+
+
+Read a string in the registry in non reflected mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em const} & char $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key, 0, K\+E\+Y\+\_\+\+R\+E\+AD $\vert$ K\+E\+Y\+\_\+\+W\+O\+W64\+\_\+64\+K\+EY, \&hkey) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if (Reg\+Query\+Value\+Ex (hkey, name, N\+U\+LL, \&type, (B\+Y\+TE $\ast$) str, size) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) (type == R\+E\+G\+\_\+\+SZ) else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a0089a5a30e4f44a27729224692e16f93_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a4b6d586c107c576a4ded6e5bd67d1f1d}\label{_registry_8c_a4b6d586c107c576a4ded6e5bd67d1f1d}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Registry\+Bytes@{Read\+Registry\+Bytes}}
+\index{Read\+Registry\+Bytes@{Read\+Registry\+Bytes}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Registry\+Bytes()}{ReadRegistryBytes()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Read\+Registry\+Bytes (\begin{DoxyParamCaption}\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{value,  }\item[{int}]{max\+Len }\end{DoxyParamCaption})}
+
+
+
+Read bytes in the registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & max\+Len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD 0 if (Reg\+Open\+Key\+Ex (H\+K\+E\+Y\+\_\+\+C\+U\+R\+R\+E\+N\+T\+\_\+\+U\+S\+ER, path, 0, K\+E\+Y\+\_\+\+R\+E\+AD, \&hkey) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) (success ? size \+: 0) else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a4b6d586c107c576a4ded6e5bd67d1f1d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a80387776b573d2310058d25d9cf0eefc}\label{_registry_8c_a80387776b573d2310058d25d9cf0eefc}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Registry\+Int@{Read\+Registry\+Int}}
+\index{Read\+Registry\+Int@{Read\+Registry\+Int}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Registry\+Int()}{ReadRegistryInt()}}
+{\footnotesize\ttfamily int Read\+Registry\+Int (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{int}]{default\+Value }\end{DoxyParamCaption})}
+
+
+
+Read a int value in the registry and return it ! 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & default\+Value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_registry_8c_ae6a7d3e59d0fd840504f182f0a528a9e}\label{_registry_8c_ae6a7d3e59d0fd840504f182f0a528a9e}} 
+\index{Registry.\+c@{Registry.\+c}!Read\+Registry\+String@{Read\+Registry\+String}}
+\index{Read\+Registry\+String@{Read\+Registry\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Read\+Registry\+String()}{ReadRegistryString()}}
+{\footnotesize\ttfamily char $\ast$ Read\+Registry\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{default\+Value,  }\item[{char $\ast$}]{str,  }\item[{int}]{max\+Len }\end{DoxyParamCaption})}
+
+
+
+Read in the registry a string and return it. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & max\+Len \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ default\+Value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char $\ast$ str 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_registry_8c_a1b863382e407fb7468d82c4e4c51ab13}\label{_registry_8c_a1b863382e407fb7468d82c4e4c51ab13}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Local\+Machine\+Registry\+Dword@{Write\+Local\+Machine\+Registry\+Dword}}
+\index{Write\+Local\+Machine\+Registry\+Dword@{Write\+Local\+Machine\+Registry\+Dword}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Dword()}{WriteLocalMachineRegistryDword()}}
+{\footnotesize\ttfamily B\+O\+OL Write\+Local\+Machine\+Registry\+Dword (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{D\+W\+O\+RD}]{value }\end{DoxyParamCaption})}
+
+
+
+Write a Dword in the local machine registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if ((status = Reg\+Create\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key,0, N\+U\+LL, R\+E\+G\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+N\+O\+N\+\_\+\+V\+O\+L\+A\+T\+I\+LE, K\+E\+Y\+\_\+\+W\+R\+I\+TE, N\+U\+LL, \&hkey, \&disp)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if ((status = Reg\+Set\+Value\+Ex (hkey, name, 0, R\+E\+G\+\_\+\+D\+W\+O\+RD, (B\+Y\+TE $\ast$) \&value, sizeof value)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) T\+R\+UE else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a1b863382e407fb7468d82c4e4c51ab13_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a451579799df2b685ce95ebe9e8d8f365}\label{_registry_8c_a451579799df2b685ce95ebe9e8d8f365}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Local\+Machine\+Registry\+Multi\+String@{Write\+Local\+Machine\+Registry\+Multi\+String}}
+\index{Write\+Local\+Machine\+Registry\+Multi\+String@{Write\+Local\+Machine\+Registry\+Multi\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Multi\+String()}{WriteLocalMachineRegistryMultiString()}}
+{\footnotesize\ttfamily B\+O\+OL Write\+Local\+Machine\+Registry\+Multi\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{multi\+String,  }\item[{D\+W\+O\+RD}]{size }\end{DoxyParamCaption})}
+
+
+
+Write multiple lines in the local machine registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ multi\+String \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if ((status = Reg\+Create\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key,0, N\+U\+LL, R\+E\+G\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+N\+O\+N\+\_\+\+V\+O\+L\+A\+T\+I\+LE, K\+E\+Y\+\_\+\+W\+R\+I\+TE, N\+U\+LL, \&hkey, \&disp)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if ((status = Reg\+Set\+Value\+Ex (hkey, name, 0, R\+E\+G\+\_\+\+M\+U\+L\+T\+I\+\_\+\+SZ, (B\+Y\+TE $\ast$) multi\+String, size)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) T\+R\+UE else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a451579799df2b685ce95ebe9e8d8f365_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a397be04d2c991a2c2d796d4b81afdb5c}\label{_registry_8c_a397be04d2c991a2c2d796d4b81afdb5c}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Local\+Machine\+Registry\+String@{Write\+Local\+Machine\+Registry\+String}}
+\index{Write\+Local\+Machine\+Registry\+String@{Write\+Local\+Machine\+Registry\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+String()}{WriteLocalMachineRegistryString()}}
+{\footnotesize\ttfamily B\+O\+OL Write\+Local\+Machine\+Registry\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{str,  }\item[{B\+O\+OL}]{expandable }\end{DoxyParamCaption})}
+
+
+
+Write a whole string in the local machine resgistry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & expandable \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if ((status = Reg\+Create\+Key\+Ex (H\+K\+E\+Y\+\_\+\+L\+O\+C\+A\+L\+\_\+\+M\+A\+C\+H\+I\+NE, sub\+Key,0, N\+U\+LL, R\+E\+G\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+N\+O\+N\+\_\+\+V\+O\+L\+A\+T\+I\+LE, K\+E\+Y\+\_\+\+W\+R\+I\+TE, N\+U\+LL, \&hkey, \&disp)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) F\+A\+L\+SE if ((status = Reg\+Set\+Value\+Ex (hkey, name, 0, expandable ? R\+E\+G\+\_\+\+E\+X\+P\+A\+N\+D\+\_\+\+SZ \+: R\+E\+G\+\_\+\+SZ, (B\+Y\+TE $\ast$) str, strlen (str) + 1)) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) T\+R\+UE else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a397be04d2c991a2c2d796d4b81afdb5c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a3f278da99f6819a15902f4cdf7bbba81}\label{_registry_8c_a3f278da99f6819a15902f4cdf7bbba81}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Registry\+Bytes@{Write\+Registry\+Bytes}}
+\index{Write\+Registry\+Bytes@{Write\+Registry\+Bytes}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Registry\+Bytes()}{WriteRegistryBytes()}}
+{\footnotesize\ttfamily B\+O\+OL Write\+Registry\+Bytes (\begin{DoxyParamCaption}\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{str,  }\item[{D\+W\+O\+RD}]{size }\end{DoxyParamCaption})}
+
+
+
+Write bytes in the registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Reg\+Create\+Key\+Ex (H\+K\+E\+Y\+\_\+\+C\+U\+R\+R\+E\+N\+T\+\_\+\+U\+S\+ER, path,0, N\+U\+LL, R\+E\+G\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+N\+O\+N\+\_\+\+V\+O\+L\+A\+T\+I\+LE, K\+E\+Y\+\_\+\+W\+R\+I\+TE, N\+U\+LL, \&hkey, \&disp) != E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS) res == E\+R\+R\+O\+R\+\_\+\+S\+U\+C\+C\+E\+SS else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_registry_8c_a3f278da99f6819a15902f4cdf7bbba81_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_registry_8c_a7f6c7e2311898cacfbf8e6b8c6dbc52d}\label{_registry_8c_a7f6c7e2311898cacfbf8e6b8c6dbc52d}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Registry\+Int@{Write\+Registry\+Int}}
+\index{Write\+Registry\+Int@{Write\+Registry\+Int}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Registry\+Int()}{WriteRegistryInt()}}
+{\footnotesize\ttfamily void Write\+Registry\+Int (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Write a int in the registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_registry_8c_a662e574b8cb1c3a3a35bd1afe353e1c2}\label{_registry_8c_a662e574b8cb1c3a3a35bd1afe353e1c2}} 
+\index{Registry.\+c@{Registry.\+c}!Write\+Registry\+String@{Write\+Registry\+String}}
+\index{Write\+Registry\+String@{Write\+Registry\+String}!Registry.\+c@{Registry.\+c}}
+\subsubsection{\texorpdfstring{Write\+Registry\+String()}{WriteRegistryString()}}
+{\footnotesize\ttfamily void Write\+Registry\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{sub\+Key,  }\item[{char $\ast$}]{name,  }\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
+
+
+Write a string in the registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ str \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ sub\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{_registry_8c_a662e574b8cb1c3a3a35bd1afe353e1c2_icgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,150 @@
+\hypertarget{_hotkeys_8c}{}\section{Mount/\+Hotkeys.c File Reference}
+\label{_hotkeys_8c}\index{Mount/\+Hotkeys.\+c@{Mount/\+Hotkeys.\+c}}
+
+
+Manage the interface for the hotkey assigment and resolv the hotkeys when pressed.  
+
+
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Hotkeys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Language.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Mount.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Resource.\+h\char`\"{}}\newline
+Include dependency graph for Hotkeys.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_hotkeys_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_hotkeys_8c_a5b9b41e4bfbcc23ee71d5c6c87d6a416}\label{_hotkeys_8c_a5b9b41e4bfbcc23ee71d5c6c87d6a416}} 
+\#define {\bfseries M\+A\+X\+\_\+\+K\+E\+Y\+\_\+\+C\+O\+M\+B\+\_\+\+N\+A\+M\+E\+\_\+\+L\+EN}~260
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_hotkeys_8c_a03f9aaf84276380b39f9d492161fac78}{Get\+Key\+Name} (U\+I\+NT v\+Key, wchar\+\_\+t $\ast$key\+Name)
+\begin{DoxyCompactList}\small\item\em Returns T\+R\+UE if the key is allowed and its name is resolved. \end{DoxyCompactList}\item 
+void \hyperlink{_hotkeys_8c_a13f2f8c523fd1d48231425ecc9721226}{Unregister\+All\+Hotkeys} (H\+W\+ND hwnd\+Dlg, \hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY} hotkeys\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Unregistr=er all the hotkeys in the hotkey table. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_hotkeys_8c_a5e01f25ed9bc32c6467aca68dd09649c}{Register\+All\+Hotkeys} (H\+W\+ND hwnd\+Dlg, \hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY} hotkeys\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Register all hotkeys in the hotkeys table. \end{DoxyCompactList}\item 
+B\+O\+OL C\+A\+L\+L\+B\+A\+CK \hyperlink{_hotkeys_8c_a2e48d53af97a10565ba0c086dbdbc433}{Hotkeys\+Dlg\+Proc} (H\+W\+ND hwnd\+Dlg, U\+I\+NT msg, W\+P\+A\+R\+AM w\+Param, L\+P\+A\+R\+AM l\+Param)
+\begin{DoxyCompactList}\small\item\em Manage the window of hotkeys for assigning new one, seeing the existing one or deleting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_hotkeys_8c_a10d365b2d1df403abb5568c8ee14697b}\label{_hotkeys_8c_a10d365b2d1df403abb5568c8ee14697b}} 
+\hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY} {\bfseries Hotkeys} \mbox{[}N\+B\+R\+\_\+\+H\+O\+T\+K\+E\+YS\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the interface for the hotkey assigment and resolv the hotkeys when pressed. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_hotkeys_8c_a03f9aaf84276380b39f9d492161fac78}\label{_hotkeys_8c_a03f9aaf84276380b39f9d492161fac78}} 
+\index{Hotkeys.\+c@{Hotkeys.\+c}!Get\+Key\+Name@{Get\+Key\+Name}}
+\index{Get\+Key\+Name@{Get\+Key\+Name}!Hotkeys.\+c@{Hotkeys.\+c}}
+\subsubsection{\texorpdfstring{Get\+Key\+Name()}{GetKeyName()}}
+{\footnotesize\ttfamily B\+O\+OL Get\+Key\+Name (\begin{DoxyParamCaption}\item[{U\+I\+NT}]{v\+Key,  }\item[{wchar\+\_\+t $\ast$}]{key\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns T\+R\+UE if the key is allowed and its name is resolved. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em wchar\+\_\+t} & $\ast$ key\+Name \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & v\+Key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL result 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_hotkeys_8c_a03f9aaf84276380b39f9d492161fac78_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_hotkeys_8c_a2e48d53af97a10565ba0c086dbdbc433}\label{_hotkeys_8c_a2e48d53af97a10565ba0c086dbdbc433}} 
+\index{Hotkeys.\+c@{Hotkeys.\+c}!Hotkeys\+Dlg\+Proc@{Hotkeys\+Dlg\+Proc}}
+\index{Hotkeys\+Dlg\+Proc@{Hotkeys\+Dlg\+Proc}!Hotkeys.\+c@{Hotkeys.\+c}}
+\subsubsection{\texorpdfstring{Hotkeys\+Dlg\+Proc()}{HotkeysDlgProc()}}
+{\footnotesize\ttfamily B\+O\+OL C\+A\+L\+L\+B\+A\+CK Hotkeys\+Dlg\+Proc (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{U\+I\+NT}]{msg,  }\item[{W\+P\+A\+R\+AM}]{w\+Param,  }\item[{L\+P\+A\+R\+AM}]{l\+Param }\end{DoxyParamCaption})}
+
+
+
+Manage the window of hotkeys for assigning new one, seeing the existing one or deleting. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L\+P\+A\+R\+AM} & l\+Param \\
+\hline
+\mbox{\tt in}  & {\em W\+P\+A\+R\+AM} & w\+Param \\
+\hline
+\mbox{\tt in}  & {\em U\+I\+NT} & msg \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL 1 switch (msg) case W\+M\+\_\+\+I\+N\+I\+T\+D\+I\+A\+L\+OG 1 switch (msg) case W\+M\+\_\+\+T\+I\+M\+ER 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (msg == W\+M\+\_\+\+N\+O\+T\+I\+FY \&\& w\+Param == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+L\+I\+ST) 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+A\+S\+S\+I\+GN) 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+R\+E\+M\+O\+VE) 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+\_\+\+R\+E\+S\+E\+T\+\_\+\+H\+O\+T\+K\+E\+YS) 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+C\+A\+N\+C\+EL $\vert$$\vert$ lw == I\+D\+C\+L\+O\+SE) 1 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND if (lw == I\+D\+OK) 0 switch (msg) case W\+M\+\_\+\+C\+O\+M\+M\+A\+ND else 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (msg == W\+M\+\_\+\+N\+O\+T\+I\+FY \&\& w\+Param == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+L\+I\+ST) 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (lw == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+A\+S\+S\+I\+GN) 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (lw == I\+D\+C\+\_\+\+H\+O\+T\+K\+E\+Y\+\_\+\+R\+E\+M\+O\+VE) 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (lw == I\+D\+C\+\_\+\+R\+E\+S\+E\+T\+\_\+\+H\+O\+T\+K\+E\+YS) 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (lw == I\+D\+C\+A\+N\+C\+EL $\vert$$\vert$ lw == I\+D\+C\+L\+O\+SE) 1 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY if (lw == I\+D\+OK) 0 switch (msg) case W\+M\+\_\+\+N\+O\+T\+I\+FY else 1 switch (msg) case W\+M\+\_\+\+C\+L\+O\+SE 0 else 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_hotkeys_8c_a5e01f25ed9bc32c6467aca68dd09649c}\label{_hotkeys_8c_a5e01f25ed9bc32c6467aca68dd09649c}} 
+\index{Hotkeys.\+c@{Hotkeys.\+c}!Register\+All\+Hotkeys@{Register\+All\+Hotkeys}}
+\index{Register\+All\+Hotkeys@{Register\+All\+Hotkeys}!Hotkeys.\+c@{Hotkeys.\+c}}
+\subsubsection{\texorpdfstring{Register\+All\+Hotkeys()}{RegisterAllHotkeys()}}
+{\footnotesize\ttfamily B\+O\+OL Register\+All\+Hotkeys (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{\hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY}}]{hotkeys\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Register all hotkeys in the hotkeys table. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY}} & hotkeys\mbox{[}\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_hotkeys_8c_a13f2f8c523fd1d48231425ecc9721226}\label{_hotkeys_8c_a13f2f8c523fd1d48231425ecc9721226}} 
+\index{Hotkeys.\+c@{Hotkeys.\+c}!Unregister\+All\+Hotkeys@{Unregister\+All\+Hotkeys}}
+\index{Unregister\+All\+Hotkeys@{Unregister\+All\+Hotkeys}!Hotkeys.\+c@{Hotkeys.\+c}}
+\subsubsection{\texorpdfstring{Unregister\+All\+Hotkeys()}{UnregisterAllHotkeys()}}
+{\footnotesize\ttfamily void Unregister\+All\+Hotkeys (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{\hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY}}]{hotkeys\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Unregistr=er all the hotkeys in the hotkey table. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \hyperlink{struct_g_s_t_h_o_t_k_e_y}{G\+S\+T\+H\+O\+T\+K\+EY}} & hotkeys\mbox{[}\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

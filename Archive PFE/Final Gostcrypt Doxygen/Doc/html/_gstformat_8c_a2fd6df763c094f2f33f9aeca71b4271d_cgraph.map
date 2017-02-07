@@ -1,0 +1,4 @@
+<map id="SwitchWizardToHiddenOSMode" name="SwitchWizardToHiddenOSMode">
+<area shape="rect" id="node2" href="$_gstformat_8c.html#ab6d916ca0ac2eba75038f37f48a9aa5f" title="This functions is to be used when the wizard mode needs to be changed to WIZARD_MODE_SYS_DEVICE. If the function fails to switch the mode, it returns FALSE (otherwise TRUE). " alt="" coords="260,5,455,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a866bfbe498b0b6a65762fba91ec60006" title="Wait cursor mode. " alt="" coords="503,5,589,32"/>
+</map>

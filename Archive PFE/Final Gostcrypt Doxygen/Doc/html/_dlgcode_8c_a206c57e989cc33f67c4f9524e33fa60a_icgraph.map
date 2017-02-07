@@ -1,0 +1,19 @@
+<map id="IsNonInstallMode" name="IsNonInstallMode">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a4125d1015a6b5494fcebef68b9dcb316" title="Remove encryption notifications. " alt="" coords="373,13,624,39"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a073be7cebb2934ca194f4db74f233bcb" title="Save post install tasks settings. " alt="" coords="401,63,596,90"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a425c101cf12a9320cea51b432cc9e824" title="Reset the current directory. " alt="" coords="175,266,325,293"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a8a5c71f73e44a93cc97e9171195db5b0" title="Adds or removes GostCrypt.exe to/from the system startup sequence (with appropriate command line argu..." alt="" coords="183,317,317,343"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="197,215,303,242"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a1f83fe6ea2760e1774c10cf5f95cba9c" title="AskNonSysInPlaceEncryption\lResume" alt="" coords="679,5,875,47"/>
+<area shape="rect" id="node4" href="$_in_place_8c.html#a4f6f94a57238f4c66a4b404aa19e1dce" title="Save in settings. " alt="" coords="672,215,883,242"/>
+<area shape="rect" id="node9" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="383,317,614,359"/>
+<area shape="rect" id="node10" href="$_combo_8c.html#a13984b35e4a13c35da6c624d745df10c" title="Load a combo box. " alt="" coords="453,383,544,410"/>
+<area shape="rect" id="node11" href="$_combo_8c.html#a250f8ae239b13cab04f8e7bd80dc60c7" title="Dump a combo box in file as XML. " alt="" coords="450,434,547,461"/>
+<area shape="rect" id="node12" href="$_dlgcode_8c.html#a80653c4ecf7e3f5a60df24e5bdd3ffcc" title="Read the xml file for configuration, return TRUE if the status is initialized correctly (initialized ..." alt="" coords="427,485,571,511"/>
+<area shape="rect" id="node14" href="$_dlgcode_8c.html#ae6a606cd06400041069c4c90e555c06d" title="Returns the number of partitions where non&#45;system in&#45;place encryption is progress or had been in prog..." alt="" coords="393,266,604,293"/>
+<area shape="rect" id="node15" href="$_dlgcode_8c.html#ab0df2ec62c9a7dfafeecfe9deea9041b" title="Prints a UTF&#45;16 text (note that this involves a real printer, not a screen). textByteLen &#45; length of ..." alt="" coords="414,535,583,562"/>
+<area shape="rect" id="node17" href="$_dlgcode_8c.html#a2ee2033216cc7f03924cf529daf29616" title="Load the default key files parameter. " alt="" coords="409,114,588,141"/>
+<area shape="rect" id="node18" href="$_favorites_8cpp.html#aa20ddcab17869710e051829291333fdf" title="Polymorphe of loadgin favorites volumes sending a special vector of favorties. " alt="" coords="392,165,605,191"/>
+<area shape="rect" id="node13" href="$_mount_8c.html#a6bb852d40040bda681f77dd6bfac59ce" title="Set all the variables the program need to run, some are in a xml config file. " alt="" coords="728,375,827,402"/>
+<area shape="rect" id="node16" href="$_dlgcode_8c.html#ae0bc219f236e0be2c72c3d3f8fb2615b" title="Manage every case of text info diallog proc. " alt="" coords="691,535,863,562"/>
+</map>

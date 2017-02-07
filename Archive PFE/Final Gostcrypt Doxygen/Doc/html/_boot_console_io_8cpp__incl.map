@@ -1,0 +1,11 @@
+<map id="Boot/Windows/BootConsoleIo.cpp" name="Boot/Windows/BootConsoleIo.cpp">
+<area shape="rect" id="node2" href="$_boot_2_windows_2_platform_8h_source.html" title="Platform.h" alt="" coords="70,244,152,271"/>
+<area shape="rect" id="node17" href="$_bios_8h_source.html" title="Bios.h" alt="" coords="26,169,84,196"/>
+<area shape="rect" id="node18" href="$_boot_console_io_8h_source.html" title="BootConsoleIo.h" alt="" coords="108,169,226,196"/>
+<area shape="rect" id="node19" href="$_boot_debug_8h_source.html" title="BootDebug.h" alt="" coords="144,95,241,121"/>
+<area shape="rect" id="node20" href="$_boot_strings_8h_source.html" title="BootStrings.h" alt="" coords="266,95,367,121"/>
+<area shape="rect" id="node3" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="33,468,112,495"/>
+<area shape="rect" id="node6" href="$_memory_8h_source.html" title="memory.h" alt="" coords="142,319,222,345"/>
+<area shape="rect" id="node8" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="306,393,417,420"/>
+<area shape="rect" id="node16" href="$_endian_8h_source.html" title="endian.h" alt="" coords="180,393,250,420"/>
+</map>

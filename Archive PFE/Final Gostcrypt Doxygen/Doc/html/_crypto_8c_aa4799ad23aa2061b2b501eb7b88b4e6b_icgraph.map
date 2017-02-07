@@ -1,0 +1,6 @@
+<map id="HashGet" name="HashGet">
+<area shape="rect" id="node2" href="$_crypto_8c.html#a29f50eade907fc420650af70d8d044c8" title="Returns hash by name or 0 if no hash. " alt="" coords="137,5,244,32"/>
+<area shape="rect" id="node3" href="$_crypto_8c.html#a2fa53daf8bdc8724162cee75d0b82e15" title="Returns true if deprecated, false else. " alt="" coords="127,56,255,83"/>
+<area shape="rect" id="node4" href="$_random_8c.html#aba80bcfbc12785c63c8bbb16f415c516" title="Set the hash function that will be used by the default one if none was chosen otherwise set it the th..." alt="" coords="303,56,455,83"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#a9cce66955923f808f4dd297c7041ac5b" title="Change the password. " alt="" coords="503,49,681,90"/>
+</map>

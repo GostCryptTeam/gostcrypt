@@ -1,0 +1,6 @@
+<map id="GetDeviceSize" name="GetDeviceSize">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a980ae61866933e3a3a3b1a2074505341" title="Get all partition informations. " alt="" coords="160,5,271,32"/>
+<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="319,5,357,32"/>
+<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="405,5,444,32"/>
+<area shape="rect" id="node5" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="492,5,531,32"/>
+</map>

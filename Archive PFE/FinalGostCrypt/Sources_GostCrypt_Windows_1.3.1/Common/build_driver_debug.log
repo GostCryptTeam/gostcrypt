@@ -1,0 +1,4 @@
+BUILD: Computing Include file dependencies:
+BUILD: Examining c:\users\alexis\desktop\sources_gostcrypt_windows_1.3.1_commented\sources_gostcrypt_windows_1.3.1é\sources_gostcrypt_windows_1.3.1\common directory for files to compile.
+BUILD: null byte at offset 0x00000001
+BUILD: 2268 null bytes in file

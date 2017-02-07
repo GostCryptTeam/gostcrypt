@@ -1,0 +1,348 @@
+\hypertarget{class_gost_crypt_1_1_file}{}\section{Gost\+Crypt\+:\+:File Class Reference}
+\label{class_gost_crypt_1_1_file}\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+
+
+Inheritance diagram for Gost\+Crypt\+:\+:File\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{class_gost_crypt_1_1_file__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gost\+Crypt\+:\+:File\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{class_gost_crypt_1_1_file__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a6446ba56109e78b20cf1852c7f7b1145}\label{class_gost_crypt_1_1_file_a6446ba56109e78b20cf1852c7f7b1145}} 
+enum {\bfseries File\+Open\+Mode} \{ \newline
+{\bfseries Create\+Read\+Write}, 
+{\bfseries Create\+Write}, 
+{\bfseries Open\+Read}, 
+{\bfseries Open\+Write}, 
+\newline
+{\bfseries Open\+Read\+Write}
+ \}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a4b0f8fe96dd5b7620f826e3a0c9324b7}\label{class_gost_crypt_1_1_file_a4b0f8fe96dd5b7620f826e3a0c9324b7}} 
+enum {\bfseries File\+Share\+Mode} \{ {\bfseries Share\+None}, 
+{\bfseries Share\+Read}, 
+{\bfseries Share\+Read\+Write}, 
+{\bfseries Share\+Read\+Write\+Ignore\+Lock}
+ \}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a744c189c46b6b7976312ed3c0b2837d4}\label{class_gost_crypt_1_1_file_a744c189c46b6b7976312ed3c0b2837d4}} 
+enum {\bfseries File\+Open\+Flags} \{ {\bfseries Flags\+None} = 0, 
+{\bfseries Preserve\+Timestamps} = 1 $<$$<$ 0, 
+{\bfseries Disable\+Write\+Caching} = 1 $<$$<$ 1
+ \}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_acb4228d2ba1aeb7053c40c2fab0eace3}\label{class_gost_crypt_1_1_file_acb4228d2ba1aeb7053c40c2fab0eace3}} 
+typedef int {\bfseries System\+File\+Handle\+Type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_file_abc79497e09b0c9600a229e1eb5edecad}{File} (string path, bool read\+Only=false, bool create=false)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_gost_crypt_1_1_file}{File} constructor. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001}{Close} ()
+\begin{DoxyCompactList}\small\item\em Close a file. \end{DoxyCompactList}\item 
+D\+W\+O\+RD \hyperlink{class_gost_crypt_1_1_file_a633fa1572500c241ddb5b9272bb70600}{Read} (byte $\ast$buffer, D\+W\+O\+RD size)
+\begin{DoxyCompactList}\small\item\em Read a file. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_file_a994d0e6bff285330edea0f5daaa17da1}{Write} (byte $\ast$buffer, D\+W\+O\+RD size)
+\begin{DoxyCompactList}\small\item\em Write on a file. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_file_abfbb1c586ef29c31a905d1478d323bdd}{Seek\+At} (int64 position)
+\begin{DoxyCompactList}\small\item\em Seek at on file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ad701bd2ec025e674f2032dc6b2391fe8}\label{class_gost_crypt_1_1_file_ad701bd2ec025e674f2032dc6b2391fe8}} 
+void {\bfseries Assign\+System\+Handle} (System\+File\+Handle\+Type open\+File\+Handle, bool shared\+Handle=true)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001}\label{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001}} 
+void {\bfseries Close} ()
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ae0cc3e9c69b23befa61996e296b4b3a2}\label{class_gost_crypt_1_1_file_ae0cc3e9c69b23befa61996e296b4b3a2}} 
+void {\bfseries Delete} ()
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a62c38718322d8161f20b73ae86e4ad25}\label{class_gost_crypt_1_1_file_a62c38718322d8161f20b73ae86e4ad25}} 
+void {\bfseries Flush} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a2b5150e9bdcadb9fcaa3e42c719f002a}\label{class_gost_crypt_1_1_file_a2b5150e9bdcadb9fcaa3e42c719f002a}} 
+uint32 {\bfseries Get\+Device\+Sector\+Size} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a323fbf04c4da7ba9785860fa47541fd8}\label{class_gost_crypt_1_1_file_a323fbf04c4da7ba9785860fa47541fd8}} 
+uint64 {\bfseries Get\+Partition\+Device\+Start\+Offset} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ad740798367523ac53efecf0ff2855f36}\label{class_gost_crypt_1_1_file_ad740798367523ac53efecf0ff2855f36}} 
+bool {\bfseries Is\+Open} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a580ffa2267933dfd9b73841c58b3fc8d}\label{class_gost_crypt_1_1_file_a580ffa2267933dfd9b73841c58b3fc8d}} 
+\hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} {\bfseries Get\+Path} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a57efb915cfd1e01a153ced98946640f1}\label{class_gost_crypt_1_1_file_a57efb915cfd1e01a153ced98946640f1}} 
+uint64 {\bfseries Length} () const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a5c89f93a13632f1f0ad5aadbfd842c14}\label{class_gost_crypt_1_1_file_a5c89f93a13632f1f0ad5aadbfd842c14}} 
+void {\bfseries Open} (const \hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} \&path, File\+Open\+Mode mode=Open\+Read, File\+Share\+Mode share\+Mode=Share\+Read\+Write, File\+Open\+Flags flags=Flags\+None)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a0ebaad9651973586316b663c069beb86}\label{class_gost_crypt_1_1_file_a0ebaad9651973586316b663c069beb86}} 
+uint64 {\bfseries Read} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a4b373526122bd0578bd6a53bcb7e889b}\label{class_gost_crypt_1_1_file_a4b373526122bd0578bd6a53bcb7e889b}} 
+void {\bfseries Read\+Complete\+Buffer} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ae2c6edb5db50a713be646a93275e07f1}\label{class_gost_crypt_1_1_file_ae2c6edb5db50a713be646a93275e07f1}} 
+uint64 {\bfseries Read\+At} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, uint64 position) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ab758399ba66aaabe579f91941df9c4a4}\label{class_gost_crypt_1_1_file_ab758399ba66aaabe579f91941df9c4a4}} 
+void {\bfseries Seek\+At} (uint64 position) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ad9b03bafa2dc71bfbc336ba47ab39563}\label{class_gost_crypt_1_1_file_ad9b03bafa2dc71bfbc336ba47ab39563}} 
+void {\bfseries Seek\+End} (int ofset) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a54ade5acfa6a39a7ee1a228a21a62127}\label{class_gost_crypt_1_1_file_a54ade5acfa6a39a7ee1a228a21a62127}} 
+void {\bfseries Write} (const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&buffer) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a2c4b03b9e9aa46b0893b72a49d83719f}\label{class_gost_crypt_1_1_file_a2c4b03b9e9aa46b0893b72a49d83719f}} 
+void {\bfseries Write} (const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&buffer, size\+\_\+t length) const
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a08c967dac3fea5e47c5eaed62cc53b34}\label{class_gost_crypt_1_1_file_a08c967dac3fea5e47c5eaed62cc53b34}} 
+void {\bfseries Write\+At} (const \hyperlink{class_gost_crypt_1_1_const_buffer_ptr}{Const\+Buffer\+Ptr} \&buffer, uint64 position) const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_file_af83c4a46f6c48088605b98e6b08d162f}{Copy} (const \hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} \&source\+Path, const \hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} \&destination\+Path, bool preserve\+Timestamps=true)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a2b044c5b0a901e7ec057b7d3e43009ff}\label{class_gost_crypt_1_1_file_a2b044c5b0a901e7ec057b7d3e43009ff}} 
+static size\+\_\+t {\bfseries Get\+Optimal\+Read\+Size} ()
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_aeaecdc0cffd4e85b823b15488c3ecaf6}\label{class_gost_crypt_1_1_file_aeaecdc0cffd4e85b823b15488c3ecaf6}} 
+static size\+\_\+t {\bfseries Get\+Optimal\+Write\+Size} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ac5aab85ff90dac85e0a3aefabbc2176d}\label{class_gost_crypt_1_1_file_ac5aab85ff90dac85e0a3aefabbc2176d}} 
+void {\bfseries Validate\+State} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ab52155d16d3ff12c88f4b0050826c3d9}\label{class_gost_crypt_1_1_file_ab52155d16d3ff12c88f4b0050826c3d9}} 
+bool {\bfseries Elevated}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a47cdca56d489fa0c7cebc185aff9a80e}\label{class_gost_crypt_1_1_file_a47cdca56d489fa0c7cebc185aff9a80e}} 
+bool {\bfseries File\+Open}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a38b985fa8320ed233d0e61589671a33d}\label{class_gost_crypt_1_1_file_a38b985fa8320ed233d0e61589671a33d}} 
+uint64 {\bfseries File\+Pointer\+Position}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a5c92492806c53c33c8e2e9ef0f8e229c}\label{class_gost_crypt_1_1_file_a5c92492806c53c33c8e2e9ef0f8e229c}} 
+H\+A\+N\+D\+LE {\bfseries Handle}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a03af04f719471d24ad9be343731b5ac5}\label{class_gost_crypt_1_1_file_a03af04f719471d24ad9be343731b5ac5}} 
+bool {\bfseries Is\+Device}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_aec95b11e71e6b0199cf64fcc796f6322}\label{class_gost_crypt_1_1_file_aec95b11e71e6b0199cf64fcc796f6322}} 
+string {\bfseries Path}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ab2d0811dbea8ba9f1a3b90d4a0dee75a}\label{class_gost_crypt_1_1_file_ab2d0811dbea8ba9f1a3b90d4a0dee75a}} 
+bool {\bfseries File\+Is\+Open}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_ae7d0c979b4c4d6e919580cea1102a3ba}\label{class_gost_crypt_1_1_file_ae7d0c979b4c4d6e919580cea1102a3ba}} 
+File\+Open\+Flags {\bfseries m\+File\+Open\+Flags}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a19e3663e18ce2ba723a24fb897dd428d}\label{class_gost_crypt_1_1_file_a19e3663e18ce2ba723a24fb897dd428d}} 
+bool {\bfseries Shared\+Handle}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a955c3d80df34d0112497e42f78996965}\label{class_gost_crypt_1_1_file_a955c3d80df34d0112497e42f78996965}} 
+\hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} {\bfseries Path}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a3490bd7fdac830b5453a6ef196aaa2a5}\label{class_gost_crypt_1_1_file_a3490bd7fdac830b5453a6ef196aaa2a5}} 
+System\+File\+Handle\+Type {\bfseries File\+Handle}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a51831830db0d0b618af246a7c31ccedf}\label{class_gost_crypt_1_1_file_a51831830db0d0b618af246a7c31ccedf}} 
+time\+\_\+t {\bfseries Acc\+Time}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a1c268a6f62ab9a3692c0a53ec01ca4c7}\label{class_gost_crypt_1_1_file_a1c268a6f62ab9a3692c0a53ec01ca4c7}} 
+time\+\_\+t {\bfseries Mod\+Time}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_acf5b61ab1244d16e7e0ebfb283d67e91}\label{class_gost_crypt_1_1_file_acf5b61ab1244d16e7e0ebfb283d67e91}} 
+static const size\+\_\+t {\bfseries Optimal\+Read\+Size} = 256 $\ast$ 1024
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a4e25a4422e5ab28e9285acec45429772}\label{class_gost_crypt_1_1_file_a4e25a4422e5ab28e9285acec45429772}} 
+static const size\+\_\+t {\bfseries Optimal\+Write\+Size} = 256 $\ast$ 1024
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_abc79497e09b0c9600a229e1eb5edecad}\label{class_gost_crypt_1_1_file_abc79497e09b0c9600a229e1eb5edecad}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!File@{File}}
+\index{File@{File}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{File()}{File()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+File\+::\+File (\begin{DoxyParamCaption}\item[{string}]{path,  }\item[{bool}]{read\+Only = {\ttfamily false},  }\item[{bool}]{create = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_gost_crypt_1_1_file}{File} constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & create \\
+\hline
+\mbox{\tt in}  & {\em bool} & read\+Only \\
+\hline
+\mbox{\tt in}  & {\em path} & path \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_file_abc79497e09b0c9600a229e1eb5edecad_cgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001}\label{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!Close@{Close}}
+\index{Close@{Close}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+File\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Close a file. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_file_aec5740eb69e5ec15d77818aadeaf5001_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_af83c4a46f6c48088605b98e6b08d162f}\label{class_gost_crypt_1_1_file_af83c4a46f6c48088605b98e6b08d162f}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!Copy@{Copy}}
+\index{Copy@{Copy}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{Copy()}{Copy()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+File\+::\+Copy (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} \&}]{source\+Path,  }\item[{const \hyperlink{class_gost_crypt_1_1_filesystem_path}{File\+Path} \&}]{destination\+Path,  }\item[{bool}]{preserve\+Timestamps = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & preserve\+Timestamps) \\
+\hline
+\mbox{\tt in}  & {\em const} & File\+Path \\
+\hline
+\mbox{\tt in}  & {\em const} & File\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a633fa1572500c241ddb5b9272bb70600}\label{class_gost_crypt_1_1_file_a633fa1572500c241ddb5b9272bb70600}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!Read@{Read}}
+\index{Read@{Read}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily D\+W\+O\+RD Gost\+Crypt\+::\+File\+::\+Read (\begin{DoxyParamCaption}\item[{byte $\ast$}]{buffer,  }\item[{D\+W\+O\+RD}]{size }\end{DoxyParamCaption})}
+
+
+
+Read a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & size \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+W\+O\+RD bytes\+Read if (Elevated) bytes\+Read else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_file_a633fa1572500c241ddb5b9272bb70600_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_abfbb1c586ef29c31a905d1478d323bdd}\label{class_gost_crypt_1_1_file_abfbb1c586ef29c31a905d1478d323bdd}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!Seek\+At@{Seek\+At}}
+\index{Seek\+At@{Seek\+At}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{Seek\+At()}{SeekAt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+File\+::\+Seek\+At (\begin{DoxyParamCaption}\item[{int64}]{position }\end{DoxyParamCaption})}
+
+
+
+Seek at on file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int64} & position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_file_abfbb1c586ef29c31a905d1478d323bdd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_file_a994d0e6bff285330edea0f5daaa17da1}\label{class_gost_crypt_1_1_file_a994d0e6bff285330edea0f5daaa17da1}} 
+\index{Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}!Write@{Write}}
+\index{Write@{Write}!Gost\+Crypt\+::\+File@{Gost\+Crypt\+::\+File}}
+\subsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+File\+::\+Write (\begin{DoxyParamCaption}\item[{byte $\ast$}]{buffer,  }\item[{D\+W\+O\+RD}]{size }\end{DoxyParamCaption})}
+
+
+
+Write on a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & size \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_file_a994d0e6bff285330edea0f5daaa17da1_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Common/Boot\+Encryption.\+h\item 
+Platform/File.\+h\item 
+Common/\hyperlink{_boot_encryption_8cpp}{Boot\+Encryption.\+cpp}\item 
+Platform/\hyperlink{_file_common_8cpp}{File\+Common.\+cpp}\end{DoxyCompactItemize}

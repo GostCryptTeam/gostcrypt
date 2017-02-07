@@ -1,0 +1,108 @@
+\hypertarget{_dir_8c}{}\section{Setup/\+Dir.c File Reference}
+\label{_dir_8c}\index{Setup/\+Dir.\+c@{Setup/\+Dir.\+c}}
+
+
+Manage the installation directory.  
+
+
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$direct.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Dir.\+h\char`\"{}}\newline
+Include dependency graph for Dir.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_dir_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_dir_8c_a2f7585c9827a79eaaf338d54db3c02e0}{mkfulldir} (char $\ast$ori\+Path, B\+O\+OL b\+Checkonly)
+\begin{DoxyCompactList}\small\item\em Create full directory tree. returns 0 for success, -\/1 if failure. \end{DoxyCompactList}\item 
+int \hyperlink{_dir_8c_a5e7bc3be9c7e0e32539508b88525e431}{mkfulldir\+\_\+internal} (char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Set the directory in the program for the drives. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the installation directory. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/13/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_dir_8c_a2f7585c9827a79eaaf338d54db3c02e0}\label{_dir_8c_a2f7585c9827a79eaaf338d54db3c02e0}} 
+\index{Dir.\+c@{Dir.\+c}!mkfulldir@{mkfulldir}}
+\index{mkfulldir@{mkfulldir}!Dir.\+c@{Dir.\+c}}
+\subsubsection{\texorpdfstring{mkfulldir()}{mkfulldir()}}
+{\footnotesize\ttfamily int mkfulldir (\begin{DoxyParamCaption}\item[{char $\ast$}]{ori\+Path,  }\item[{B\+O\+OL}]{b\+Checkonly }\end{DoxyParamCaption})}
+
+
+
+Create full directory tree. returns 0 for success, -\/1 if failure. 
+
+Legal Notice\+: Some portions of the source code contained in this file were derived from the source code of Encryption for the Masses 2.\+02a, which is Copyright (c) 1998-\/2000 Paul Le Roux and which is governed by the \textquotesingle{}License Agreement for Encryption for the Masses\textquotesingle{}. Modifications and additions to the original source code (contained in this file) and all other portions of this file are Copyright (c) 2003-\/2008 True\+Crypt Developers Association and are governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ ori\+Path \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Checkonly \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+\_\+stat (path, \&st) if b\+Checkonly \+\_\+stat (path, \&st)) if mkfulldir\+\_\+internal (path) 0 else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{_dir_8c_a2f7585c9827a79eaaf338d54db3c02e0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{_dir_8c_a2f7585c9827a79eaaf338d54db3c02e0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_dir_8c_a5e7bc3be9c7e0e32539508b88525e431}\label{_dir_8c_a5e7bc3be9c7e0e32539508b88525e431}} 
+\index{Dir.\+c@{Dir.\+c}!mkfulldir\+\_\+internal@{mkfulldir\+\_\+internal}}
+\index{mkfulldir\+\_\+internal@{mkfulldir\+\_\+internal}!Dir.\+c@{Dir.\+c}}
+\subsubsection{\texorpdfstring{mkfulldir\+\_\+internal()}{mkfulldir\_internal()}}
+{\footnotesize\ttfamily int mkfulldir\+\_\+internal (\begin{DoxyParamCaption}\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Set the directory in the program for the drives. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & $\ast$ path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+\_\+stat (path, \&st) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_dir_8c_a5e7bc3be9c7e0e32539508b88525e431_icgraph}
+\end{center}
+\end{figure}

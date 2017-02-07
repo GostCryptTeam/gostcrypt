@@ -1,0 +1,8 @@
+<map id="LoadFile" name="LoadFile">
+<area shape="rect" id="node2" href="$_combo_8c.html#a13984b35e4a13c35da6c624d745df10c" title="Load a combo box. " alt="" coords="184,5,275,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a80653c4ecf7e3f5a60df24e5bdd3ffcc" title="Read the xml file for configuration, return TRUE if the status is initialized correctly (initialized ..." alt="" coords="157,56,301,83"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#ae6a606cd06400041069c4c90e555c06d" title="Returns the number of partitions where non&#45;system in&#45;place encryption is progress or had been in prog..." alt="" coords="124,107,335,133"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a2ee2033216cc7f03924cf529daf29616" title="Load the default key files parameter. " alt="" coords="140,157,319,184"/>
+<area shape="rect" id="node4" href="$_mount_8c.html#a6bb852d40040bda681f77dd6bfac59ce" title="Set all the variables the program need to run, some are in a xml config file. " alt="" coords="439,56,537,83"/>
+<area shape="rect" id="node6" href="$_in_place_8c.html#a4f6f94a57238f4c66a4b404aa19e1dce" title="Save in settings. " alt="" coords="383,107,593,133"/>
+</map>

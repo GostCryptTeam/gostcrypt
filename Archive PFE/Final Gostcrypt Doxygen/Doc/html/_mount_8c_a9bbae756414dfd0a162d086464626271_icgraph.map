@@ -1,0 +1,6 @@
+<map id="GetSelectedLong" name="GetSelectedLong">
+<area shape="rect" id="node2" href="$_mount_8c.html#a72dfe9be4266d5191f7f851ea69394e0" title="Refresh the main window, change the combo boxes, reload drive and refresh buttons values..." alt="" coords="196,5,309,32"/>
+<area shape="rect" id="node3" href="$_mount_8c.html#a76744853114d2478d197855d99fbc5a0" title="Enables some menu options depending on selected drive / partition. " alt="" coords="177,56,328,83"/>
+<area shape="rect" id="node4" href="$_mount_8c.html#ae64b268cda3c98fc549cae6d58699234" title="Function to select a drive Letter. " alt="" coords="211,107,295,133"/>
+<area shape="rect" id="node5" href="$_mount_8c.html#a8809a16329c0256d36135defa171a6bd" title="Take the selected object by the user and mount it. " alt="" coords="176,157,329,184"/>
+</map>

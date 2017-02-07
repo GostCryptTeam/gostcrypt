@@ -1,0 +1,19 @@
+<map id="PrintChar" name="PrintChar">
+<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="162,235,211,262"/>
+<area shape="rect" id="node13" href="$_int_filter_8cpp.html#ae1774e81b8d6f1a85dcec3cd81c10d9c" title="Filter int 15. " alt="" coords="507,83,586,110"/>
+<area shape="rect" id="node15" href="$_int_filter_8cpp.html#a53b20950b8c8930b97a81b1f57ffb438" title="Filter int 13. " alt="" coords="324,33,403,59"/>
+<area shape="rect" id="node16" href="$_platform_8cpp.html#a2bee97340991f6e6a46e2306d28a35fe" title="Throw a fatal Exception. " alt="" coords="292,337,435,363"/>
+<area shape="rect" id="node17" href="$_boot_console_io_8cpp.html#a26f50e4eb3544de269fffd2cf13ced86" title="Make a beep. " alt="" coords="161,387,213,414"/>
+<area shape="rect" id="node18" href="$_boot_console_io_8cpp.html#a9a0d1bf901856dba9b64b6a66e55aabd" title="Print a backspaace. " alt="" coords="129,438,244,465"/>
+<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#ac649bb03c8dc1048cba4a416c1551837" title="Print a uint64. " alt="" coords="339,235,388,262"/>
+<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a218773774aaa01e4368c444a4fdb4a4e" title="Print the end of line. " alt="" coords="326,185,401,211"/>
+<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#aab603d9c78b25cc43686d27a2cc276ea" title="Print error with his message. " alt="" coords="508,286,585,313"/>
+<area shape="rect" id="node7" href="$_int_filter_8cpp.html#a69c3a04fb0ab473da0813aaaac2bfc62" title="Install or interrupt filters. " alt="" coords="659,286,797,313"/>
+<area shape="rect" id="node14" href="$_boot_console_io_8cpp.html#a8a4e858833a8c85d6f3f1106b3d9b16b" title="Print error with his message without the end of line. " alt="" coords="304,387,423,414"/>
+<area shape="rect" id="node5" href="$_boot_console_io_8cpp.html#aec8c75eeef5d71fa2024d4a4e7d61372" title="Print the end of line cnt times. " alt="" coords="509,185,584,211"/>
+<area shape="rect" id="node8" href="$_boot_disk_io_8cpp.html#a8be7f4a4d8f6ec9b9393233d632c6cc1" title="Print dick errors. " alt="" coords="495,413,598,439"/>
+<area shape="rect" id="node12" href="$_boot_disk_io_8cpp.html#a83356da113027c53b480c8cf80bfd560" title="Get geometry of the drive (cylinders, heads and sectors) " alt="" coords="483,235,611,262"/>
+<area shape="rect" id="node9" href="$_boot_disk_io_8cpp.html#aed3ca1d96bd33172eb786424afe8dccc" title="Read and write sectors. " alt="" coords="664,413,792,439"/>
+<area shape="rect" id="node10" href="$_boot_disk_io_8cpp.html#acf447ac16962ecc404d9a1424e28cf5a" title="Read and write sectors. " alt="" coords="845,387,973,414"/>
+<area shape="rect" id="node11" href="$_boot_disk_io_8cpp.html#a11870b63310ca954d15c40f46a931137" title="Read sectors. " alt="" coords="861,438,958,465"/>
+</map>

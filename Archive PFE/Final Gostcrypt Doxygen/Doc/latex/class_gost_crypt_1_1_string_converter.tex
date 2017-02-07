@@ -1,0 +1,524 @@
+\hypertarget{class_gost_crypt_1_1_string_converter}{}\section{Gost\+Crypt\+:\+:String\+Converter Class Reference}
+\label{class_gost_crypt_1_1_string_converter}\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_string_converter_ac5fac70dd45743a6bea8b1a1025a5e2d}{Erase} (string \&str)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_string_converter_a6037e1542308e7d01ddfc048edc0df35}{Erase} (wstring \&str)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_af2aafa018883a06911693cfa6cf051ee}{From\+Number} (double number)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_a4da6015d49ba8bd6d5b781168deae166}{From\+Number} (int32 number)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_aca86ecb3415db8026c585662c2c86540}{From\+Number} (uint32 number)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_aa3baa25ce83f48273ae27b3943ceb4b1}{From\+Number} (int64 number)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_ab2f8b1c6a29c7c6a235cfc8828e1b7db}{From\+Number} (uint64 number)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_a90ae47fd725ce6960c4a93ae79a89806}{Get\+Trailing\+Number} (const string \&str)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_a8f57ff107fac8c923470014d26b9681b}{Get\+Type\+Name} (const type\+\_\+info \&type\+Info)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_a1dc1f215db66d2a4bb4d0b907513934f}{Quote\+Spaces} (const wstring \&str)
+\item 
+static vector$<$ string $>$ \hyperlink{class_gost_crypt_1_1_string_converter_a4e488a929da871d20de099fcc48e90f7}{Split} (const string \&str, const string \&separators=\char`\"{} \textbackslash{}\textbackslash{}, bool return\+Empty\+Fields=false)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_a6afb637684718b77737ca013b51a26db}{Strip\+Trailing\+Number} (const string \&str)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_a3ffac80d302898c47b5eeccbc4b5b424}{To\+Exception\+String} (const exception \&ex)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_ab3981bf6da41d9e6785b8fd02cda2d9e}{To\+Lower} (const string \&str)
+\item 
+static uint32 \hyperlink{class_gost_crypt_1_1_string_converter_a339be9ee8d5d59aa831e76b12dbbb21f}{To\+U\+Int32} (const string \&str)
+\item 
+static uint32 \hyperlink{class_gost_crypt_1_1_string_converter_a23476c43767a021a338e150d91380caa}{To\+U\+Int32} (const wstring \&str)
+\item 
+static uint64 \hyperlink{class_gost_crypt_1_1_string_converter_ada0fc4768185c72b861c48904da33d56}{To\+U\+Int64} (const string \&str)
+\item 
+static uint64 \hyperlink{class_gost_crypt_1_1_string_converter_a8ea2fe72a7ffaca52b4915607e64f307}{To\+U\+Int64} (const wstring \&str)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a42673028c655f57ae467b76d01a5b768}\label{class_gost_crypt_1_1_string_converter_a42673028c655f57ae467b76d01a5b768}} 
+static string {\bfseries To\+Single} (double number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a65240ba57e2220e33fe342c88f0fc07b}\label{class_gost_crypt_1_1_string_converter_a65240ba57e2220e33fe342c88f0fc07b}} 
+static string {\bfseries To\+Single} (int32 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a44b44c35dd9d5ba1b42e8cc973129313}\label{class_gost_crypt_1_1_string_converter_a44b44c35dd9d5ba1b42e8cc973129313}} 
+static string {\bfseries To\+Single} (uint32 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a38fccac3ca369a4fec46da5489a9abe7}\label{class_gost_crypt_1_1_string_converter_a38fccac3ca369a4fec46da5489a9abe7}} 
+static string {\bfseries To\+Single} (int64 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a1c9d44f80a26d27e800034205db7fad3}\label{class_gost_crypt_1_1_string_converter_a1c9d44f80a26d27e800034205db7fad3}} 
+static string {\bfseries To\+Single} (uint64 number)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_a95c318badff98d1c3902e5b375b4fd43}{To\+Single} (const wstring \&wstr, bool no\+Throw=false)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_string_converter_a8ef47849206bb6b17d9d8c7ca030a0a7}{To\+Single} (const wstring \&wstr, string \&str, bool no\+Throw=false)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_a52abce3a067b2fb0dfedcc7cc31206fc}{To\+Upper} (const string \&str)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a8f8279c9e7fee373032ea682343a3438}\label{class_gost_crypt_1_1_string_converter_a8f8279c9e7fee373032ea682343a3438}} 
+static wstring {\bfseries To\+Wide} (double number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_ab84dfd534ef66dc144234f86453bcd89}\label{class_gost_crypt_1_1_string_converter_ab84dfd534ef66dc144234f86453bcd89}} 
+static wstring {\bfseries To\+Wide} (int32 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a9f4eaee5c6c2d4c210070a12bc70ee77}\label{class_gost_crypt_1_1_string_converter_a9f4eaee5c6c2d4c210070a12bc70ee77}} 
+static wstring {\bfseries To\+Wide} (uint32 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a347bdf303b54836b818c654d4ede9b3f}\label{class_gost_crypt_1_1_string_converter_a347bdf303b54836b818c654d4ede9b3f}} 
+static wstring {\bfseries To\+Wide} (int64 number)
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a9c82be7ff94a89c83cae39bb16e1c514}\label{class_gost_crypt_1_1_string_converter_a9c82be7ff94a89c83cae39bb16e1c514}} 
+static wstring {\bfseries To\+Wide} (uint64 number)
+\item 
+static wstring \hyperlink{class_gost_crypt_1_1_string_converter_a3dd380a8d6cd73590b632520ecbf13e1}{To\+Wide} (const string \&str, bool no\+Throw=false)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_string_converter_aaef742101c5ac209f8af526c35ee415a}{To\+Wide\+Buffer} (const wstring \&str, wchar\+\_\+t $\ast$buffer, size\+\_\+t buffer\+Size)
+\item 
+static string \hyperlink{class_gost_crypt_1_1_string_converter_aab7bde96fdac70b8e673950f15ef8197}{Trim} (const string \&str)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_ac5fac70dd45743a6bea8b1a1025a5e2d}\label{class_gost_crypt_1_1_string_converter_ac5fac70dd45743a6bea8b1a1025a5e2d}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Erase@{Erase}}
+\index{Erase@{Erase}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Erase()}{Erase()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+String\+Converter\+::\+Erase (\begin{DoxyParamCaption}\item[{string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em string} & \&str) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_ac5fac70dd45743a6bea8b1a1025a5e2d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a6037e1542308e7d01ddfc048edc0df35}\label{class_gost_crypt_1_1_string_converter_a6037e1542308e7d01ddfc048edc0df35}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Erase@{Erase}}
+\index{Erase@{Erase}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Erase()}{Erase()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+String\+Converter\+::\+Erase (\begin{DoxyParamCaption}\item[{wstring \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em wstring} & \&str) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_af2aafa018883a06911693cfa6cf051ee}\label{class_gost_crypt_1_1_string_converter_af2aafa018883a06911693cfa6cf051ee}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!From\+Number@{From\+Number}}
+\index{From\+Number@{From\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{From\+Number()}{FromNumber()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+From\+Number (\begin{DoxyParamCaption}\item[{double}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em double} & number) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_af2aafa018883a06911693cfa6cf051ee_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a4da6015d49ba8bd6d5b781168deae166}\label{class_gost_crypt_1_1_string_converter_a4da6015d49ba8bd6d5b781168deae166}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!From\+Number@{From\+Number}}
+\index{From\+Number@{From\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{From\+Number()}{FromNumber()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+From\+Number (\begin{DoxyParamCaption}\item[{int32}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int32} & number) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_aca86ecb3415db8026c585662c2c86540}\label{class_gost_crypt_1_1_string_converter_aca86ecb3415db8026c585662c2c86540}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!From\+Number@{From\+Number}}
+\index{From\+Number@{From\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{From\+Number()}{FromNumber()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+From\+Number (\begin{DoxyParamCaption}\item[{uint32}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint32} & number) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_aa3baa25ce83f48273ae27b3943ceb4b1}\label{class_gost_crypt_1_1_string_converter_aa3baa25ce83f48273ae27b3943ceb4b1}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!From\+Number@{From\+Number}}
+\index{From\+Number@{From\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{From\+Number()}{FromNumber()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+From\+Number (\begin{DoxyParamCaption}\item[{int64}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int64} & number) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_ab2f8b1c6a29c7c6a235cfc8828e1b7db}\label{class_gost_crypt_1_1_string_converter_ab2f8b1c6a29c7c6a235cfc8828e1b7db}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!From\+Number@{From\+Number}}
+\index{From\+Number@{From\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{From\+Number()}{FromNumber()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+From\+Number (\begin{DoxyParamCaption}\item[{uint64}]{number }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint64} & number) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a90ae47fd725ce6960c4a93ae79a89806}\label{class_gost_crypt_1_1_string_converter_a90ae47fd725ce6960c4a93ae79a89806}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Get\+Trailing\+Number@{Get\+Trailing\+Number}}
+\index{Get\+Trailing\+Number@{Get\+Trailing\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Get\+Trailing\+Number()}{GetTrailingNumber()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+Get\+Trailing\+Number (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a90ae47fd725ce6960c4a93ae79a89806_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a8f57ff107fac8c923470014d26b9681b}\label{class_gost_crypt_1_1_string_converter_a8f57ff107fac8c923470014d26b9681b}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Get\+Type\+Name@{Get\+Type\+Name}}
+\index{Get\+Type\+Name@{Get\+Type\+Name}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Get\+Type\+Name()}{GetTypeName()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+Get\+Type\+Name (\begin{DoxyParamCaption}\item[{const type\+\_\+info \&}]{type\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & type\+\_\+info \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a8f57ff107fac8c923470014d26b9681b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a1dc1f215db66d2a4bb4d0b907513934f}\label{class_gost_crypt_1_1_string_converter_a1dc1f215db66d2a4bb4d0b907513934f}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Quote\+Spaces@{Quote\+Spaces}}
+\index{Quote\+Spaces@{Quote\+Spaces}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Quote\+Spaces()}{QuoteSpaces()}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+Quote\+Spaces (\begin{DoxyParamCaption}\item[{const wstring \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a1dc1f215db66d2a4bb4d0b907513934f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a4e488a929da871d20de099fcc48e90f7}\label{class_gost_crypt_1_1_string_converter_a4e488a929da871d20de099fcc48e90f7}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Split@{Split}}
+\index{Split@{Split}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Split()}{Split()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Gost\+Crypt\+::\+String\+Converter\+::\+Split (\begin{DoxyParamCaption}\item[{const string \&}]{str,  }\item[{const string \&}]{separators = {\ttfamily \char`\"{}~\textbackslash{}t\textbackslash{}r\textbackslash{}n\char`\"{}},  }\item[{bool}]{return\+Empty\+Fields = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & return\+Empty\+Fields) \\
+\hline
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a6afb637684718b77737ca013b51a26db}\label{class_gost_crypt_1_1_string_converter_a6afb637684718b77737ca013b51a26db}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Strip\+Trailing\+Number@{Strip\+Trailing\+Number}}
+\index{Strip\+Trailing\+Number@{Strip\+Trailing\+Number}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Strip\+Trailing\+Number()}{StripTrailingNumber()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+Strip\+Trailing\+Number (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a3ffac80d302898c47b5eeccbc4b5b424}\label{class_gost_crypt_1_1_string_converter_a3ffac80d302898c47b5eeccbc4b5b424}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Exception\+String@{To\+Exception\+String}}
+\index{To\+Exception\+String@{To\+Exception\+String}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Exception\+String()}{ToExceptionString()}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+To\+Exception\+String (\begin{DoxyParamCaption}\item[{const exception \&}]{ex }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & exception \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a3ffac80d302898c47b5eeccbc4b5b424_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_ab3981bf6da41d9e6785b8fd02cda2d9e}\label{class_gost_crypt_1_1_string_converter_ab3981bf6da41d9e6785b8fd02cda2d9e}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Lower@{To\+Lower}}
+\index{To\+Lower@{To\+Lower}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Lower()}{ToLower()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+To\+Lower (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a95c318badff98d1c3902e5b375b4fd43}\label{class_gost_crypt_1_1_string_converter_a95c318badff98d1c3902e5b375b4fd43}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Single@{To\+Single}}
+\index{To\+Single@{To\+Single}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Single()}{ToSingle()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+To\+Single (\begin{DoxyParamCaption}\item[{const wstring \&}]{wstr,  }\item[{bool}]{no\+Throw = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & no\+Throw) \\
+\hline
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a8ef47849206bb6b17d9d8c7ca030a0a7}\label{class_gost_crypt_1_1_string_converter_a8ef47849206bb6b17d9d8c7ca030a0a7}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Single@{To\+Single}}
+\index{To\+Single@{To\+Single}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Single()}{ToSingle()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+String\+Converter\+::\+To\+Single (\begin{DoxyParamCaption}\item[{const wstring \&}]{wstr,  }\item[{string \&}]{str,  }\item[{bool}]{no\+Throw = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & no\+Throw) \\
+\hline
+\mbox{\tt in}  & {\em string} & \&str \\
+\hline
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a8ef47849206bb6b17d9d8c7ca030a0a7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a339be9ee8d5d59aa831e76b12dbbb21f}\label{class_gost_crypt_1_1_string_converter_a339be9ee8d5d59aa831e76b12dbbb21f}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+U\+Int32@{To\+U\+Int32}}
+\index{To\+U\+Int32@{To\+U\+Int32}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+U\+Int32()}{ToUInt32()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint32 Gost\+Crypt\+::\+String\+Converter\+::\+To\+U\+Int32 (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a339be9ee8d5d59aa831e76b12dbbb21f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a23476c43767a021a338e150d91380caa}\label{class_gost_crypt_1_1_string_converter_a23476c43767a021a338e150d91380caa}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+U\+Int32@{To\+U\+Int32}}
+\index{To\+U\+Int32@{To\+U\+Int32}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+U\+Int32()}{ToUInt32()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint32 Gost\+Crypt\+::\+String\+Converter\+::\+To\+U\+Int32 (\begin{DoxyParamCaption}\item[{const wstring \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_ada0fc4768185c72b861c48904da33d56}\label{class_gost_crypt_1_1_string_converter_ada0fc4768185c72b861c48904da33d56}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+U\+Int64@{To\+U\+Int64}}
+\index{To\+U\+Int64@{To\+U\+Int64}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+U\+Int64()}{ToUInt64()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint64 Gost\+Crypt\+::\+String\+Converter\+::\+To\+U\+Int64 (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_ada0fc4768185c72b861c48904da33d56_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a8ea2fe72a7ffaca52b4915607e64f307}\label{class_gost_crypt_1_1_string_converter_a8ea2fe72a7ffaca52b4915607e64f307}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+U\+Int64@{To\+U\+Int64}}
+\index{To\+U\+Int64@{To\+U\+Int64}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+U\+Int64()}{ToUInt64()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint64 Gost\+Crypt\+::\+String\+Converter\+::\+To\+U\+Int64 (\begin{DoxyParamCaption}\item[{const wstring \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a52abce3a067b2fb0dfedcc7cc31206fc}\label{class_gost_crypt_1_1_string_converter_a52abce3a067b2fb0dfedcc7cc31206fc}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Upper@{To\+Upper}}
+\index{To\+Upper@{To\+Upper}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Upper()}{ToUpper()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+To\+Upper (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_a3dd380a8d6cd73590b632520ecbf13e1}\label{class_gost_crypt_1_1_string_converter_a3dd380a8d6cd73590b632520ecbf13e1}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Wide@{To\+Wide}}
+\index{To\+Wide@{To\+Wide}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Wide()}{ToWide()}}
+{\footnotesize\ttfamily wstring Gost\+Crypt\+::\+String\+Converter\+::\+To\+Wide (\begin{DoxyParamCaption}\item[{const string \&}]{str,  }\item[{bool}]{no\+Throw = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em bool} & no\+Throw) \\
+\hline
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_string_converter_a3dd380a8d6cd73590b632520ecbf13e1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_aaef742101c5ac209f8af526c35ee415a}\label{class_gost_crypt_1_1_string_converter_aaef742101c5ac209f8af526c35ee415a}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!To\+Wide\+Buffer@{To\+Wide\+Buffer}}
+\index{To\+Wide\+Buffer@{To\+Wide\+Buffer}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{To\+Wide\+Buffer()}{ToWideBuffer()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+String\+Converter\+::\+To\+Wide\+Buffer (\begin{DoxyParamCaption}\item[{const wstring \&}]{str,  }\item[{wchar\+\_\+t $\ast$}]{buffer,  }\item[{size\+\_\+t}]{buffer\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size\+\_\+t} & buffer\+Size) \\
+\hline
+\mbox{\tt in}  & {\em wchar\+\_\+t$\ast$} & buffer \\
+\hline
+\mbox{\tt in}  & {\em const} & wstring \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_string_converter_aab7bde96fdac70b8e673950f15ef8197}\label{class_gost_crypt_1_1_string_converter_aab7bde96fdac70b8e673950f15ef8197}} 
+\index{Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}!Trim@{Trim}}
+\index{Trim@{Trim}!Gost\+Crypt\+::\+String\+Converter@{Gost\+Crypt\+::\+String\+Converter}}
+\subsubsection{\texorpdfstring{Trim()}{Trim()}}
+{\footnotesize\ttfamily string Gost\+Crypt\+::\+String\+Converter\+::\+Trim (\begin{DoxyParamCaption}\item[{const string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Platform/String\+Converter.\+h\item 
+Platform/\hyperlink{_string_converter_8cpp}{String\+Converter.\+cpp}\end{DoxyCompactItemize}

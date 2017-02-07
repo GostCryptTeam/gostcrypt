@@ -1,0 +1,7 @@
+<map id="IsPagingFileActive" name="IsPagingFileActive">
+<area shape="rect" id="node2" href="$class_base_com.html#a41aa000a52c4c44d20b142c8868ef4ea" title="Check if the paging file is active. " alt="" coords="181,78,375,105"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#a60f1f2b0d4b4ada0e8e42eef381f515b" title="Checks if the paging file is active. " alt="" coords="189,132,367,173"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_format_com.html#a267f14ce211adc772463ff5249da4bdc" title="Call BaseCom IsPagingFileActive in basecom object. " alt="" coords="463,5,613,47"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_main_com.html#afd2c6c9964abf54b5eed75e2fda9ce7b" title="Call the &quot;IsPagingFileActive&quot; of the Basecom object and return it. " alt="" coords="441,71,635,112"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="423,136,653,177"/>
+</map>

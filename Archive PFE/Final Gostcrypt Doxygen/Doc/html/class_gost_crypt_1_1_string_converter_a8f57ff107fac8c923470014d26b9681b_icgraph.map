@@ -1,0 +1,5 @@
+<map id="GostCrypt::StringConverter::GetTypeName" name="GostCrypt::StringConverter::GetTypeName">
+<area shape="rect" id="node2" href="$class_gost_crypt_1_1_serializer_factory.html#a01d730c850465ebe1d4d08351f755d31" title="GostCrypt::SerializerFactory\l::GetName" alt="" coords="231,5,417,47"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_string_converter.html#a3ffac80d302898c47b5eeccbc4b5b424" title="GostCrypt::StringConverter\l::ToExceptionString" alt="" coords="235,71,413,112"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_serializable.html#a2a1a45654e086d8b894d027bb781627a" title="GostCrypt::Serializable\l::DeserializeNew" alt="" coords="465,5,621,47"/>
+</map>

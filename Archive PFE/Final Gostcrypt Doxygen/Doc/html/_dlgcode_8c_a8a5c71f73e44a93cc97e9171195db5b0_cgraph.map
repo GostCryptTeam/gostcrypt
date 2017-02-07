@@ -1,0 +1,4 @@
+<map id="ManageStartupSeq" name="ManageStartupSeq">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="209,5,330,32"/>
+<area shape="rect" id="node3" href="$_registry_8c.html#a7c63b7edd24e636366feff9040a8fbaf" title="Getter for the registry key name. " alt="" coords="187,56,352,83"/>
+</map>

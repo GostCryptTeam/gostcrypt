@@ -1,0 +1,749 @@
+\hypertarget{_boot_console_io_8cpp}{}\section{Boot/\+Windows/\+Boot\+Console\+Io.cpp File Reference}
+\label{_boot_console_io_8cpp}\index{Boot/\+Windows/\+Boot\+Console\+Io.\+cpp@{Boot/\+Windows/\+Boot\+Console\+Io.\+cpp}}
+
+
+Manage the output.  
+
+
+{\ttfamily \#include \char`\"{}Platform.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Bios.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Console\+Io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Debug.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Strings.\+h\char`\"{}}\newline
+Include dependency graph for Boot\+Console\+Io.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_boot_console_io_8cpp_a5d4ecb04d97df5f4d6fa15616090b360}{Disable\+Screen\+Output} ()
+\begin{DoxyCompactList}\small\item\em Disable the screen output (Screen\+Output\+Disabled = 1) \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a49aaa6eb06da70f3af641be097ef73b8}{Enable\+Screen\+Output} ()
+\begin{DoxyCompactList}\small\item\em Enable the screen output (Screen\+Output\+Disabled = 0) \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_aac7233dce0ef357b1ea507667a7b6e07}{Print\+Char} (char c)
+\begin{DoxyCompactList}\small\item\em Print char c if screen output is enabled. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a83f9361ee8d899e8dbc67d6cc03d5eff}{Print\+Char\+At\+Cursor} (char c)
+\begin{DoxyCompactList}\small\item\em Print char at cursor c if screen output is enabled. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a7108771e3ef11cc8cfd000fc2ed2915a}{Print} (const char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Call Printchar to print the string char by char. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a57115a258f27db5bd3ef6d1714bc94d5}{Print} (uint32 number)
+\begin{DoxyCompactList}\small\item\em Convert number to string and call Printchar to print the string char by char. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_ac649bb03c8dc1048cba4a416c1551837}{Print} (const \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} \&number)
+\begin{DoxyCompactList}\small\item\em Print a uint64. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a7b7ba00b653c510db16d707c4003cc6e}{Print\+Hex} (byte b)
+\begin{DoxyCompactList}\small\item\em Call Print\+Char with hexa values. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a2e51aacd48980ee90b7e27a0f06dc2e4}{Print\+Hex} (uint16 data)
+\begin{DoxyCompactList}\small\item\em Print a uint16 as 2 uint8. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_ad87e8c4a01d83a74c9dc02cbb342fb08}{Print\+Hex} (uint32 data)
+\begin{DoxyCompactList}\small\item\em Print uint32 as 2 uint16. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_aa5e58358fa90cdc6de6de48066738080}{Print\+Hex} (const \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} \&data)
+\begin{DoxyCompactList}\small\item\em Print a uint63 as 2 uint32. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_afe4052eacaa5ff4aab1e67aaba857264}{Print\+Repeated\+Char} (char c, int n)
+\begin{DoxyCompactList}\small\item\em Print char c, n times. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a218773774aaa01e4368c444a4fdb4a4e}{Print\+Endl} ()
+\begin{DoxyCompactList}\small\item\em Print the end of line. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_aec8c75eeef5d71fa2024d4a4e7d61372}{Print\+Endl} (int cnt)
+\begin{DoxyCompactList}\small\item\em Print the end of line cnt times. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a26f50e4eb3544de269fffd2cf13ced86}{Beep} ()
+\begin{DoxyCompactList}\small\item\em Make a beep. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a4b4b6a1f3245a01a6abd698f89dc3f2d}{Init\+Video\+Mode} ()
+\begin{DoxyCompactList}\small\item\em Initialize the video mode. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a6a3ca153f0817e8ba91a023b886bb662}{Clear\+Screen} ()
+\begin{DoxyCompactList}\small\item\em Clear the screen if screen output is enabled. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a9a0d1bf901856dba9b64b6a66e55aabd}{Print\+Backspace} ()
+\begin{DoxyCompactList}\small\item\em Print a backspaace. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_aab603d9c78b25cc43686d27a2cc276ea}{Print\+Error} (const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Print error with his message. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_a8a4e858833a8c85d6f3f1106b3d9b16b}{Print\+Error\+No\+Endl} (const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Print error with his message without the end of line. \end{DoxyCompactList}\item 
+byte \hyperlink{_boot_console_io_8cpp_a4545a55b302bb785565053a1b9a18449}{Get\+Shift\+Flags} ()
+\begin{DoxyCompactList}\small\item\em Get shift flags. \end{DoxyCompactList}\item 
+byte \hyperlink{_boot_console_io_8cpp_a6cf636994938a58fc26cc46d14be7722}{Get\+Keyboard\+Char} ()
+\begin{DoxyCompactList}\small\item\em Get keyboard char in ascii. \end{DoxyCompactList}\item 
+byte \hyperlink{_boot_console_io_8cpp_a44b6659917bdf713e93ab42c5fac1415}{Get\+Keyboard\+Char} (byte $\ast$scan\+Code)
+\begin{DoxyCompactList}\small\item\em Get ascii code of keyboard char. \end{DoxyCompactList}\item 
+bool \hyperlink{_boot_console_io_8cpp_adf789d9f8854a299c5213f1ac31c03a3}{Is\+Keyboard\+Char\+Available} ()
+\begin{DoxyCompactList}\small\item\em Check if keyboard char is available. \end{DoxyCompactList}\item 
+bool \hyperlink{_boot_console_io_8cpp_aa1d696ee74314834ace59e29c23c0786}{Esc\+Key\+Pressed} ()
+\begin{DoxyCompactList}\small\item\em Check if escape key is pressed. \end{DoxyCompactList}\item 
+void \hyperlink{_boot_console_io_8cpp_aff26e247ba18cbae817a037bb9dc4475}{Clear\+Bios\+Keystroke\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Clear the bios key stroke buffer. \end{DoxyCompactList}\item 
+bool \hyperlink{_boot_console_io_8cpp_a59e081dc70f176ba347c0fd851df9749}{Is\+Printable} (char c)
+\begin{DoxyCompactList}\small\item\em Is the char c printable ? \end{DoxyCompactList}\item 
+int \hyperlink{_boot_console_io_8cpp_a33007bfd2971c5edeb62670ed938205f}{Get\+String} (char $\ast$buffer, size\+\_\+t buffer\+Size)
+\begin{DoxyCompactList}\small\item\em Print the string buffer and return the position when escape key is pressed or at the end of the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manage the output. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+13/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a26f50e4eb3544de269fffd2cf13ced86}\label{_boot_console_io_8cpp_a26f50e4eb3544de269fffd2cf13ced86}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Beep@{Beep}}
+\index{Beep@{Beep}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Beep()}{Beep()}}
+{\footnotesize\ttfamily void Beep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Make a beep. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{_boot_console_io_8cpp_a26f50e4eb3544de269fffd2cf13ced86_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_a26f50e4eb3544de269fffd2cf13ced86_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aff26e247ba18cbae817a037bb9dc4475}\label{_boot_console_io_8cpp_aff26e247ba18cbae817a037bb9dc4475}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Clear\+Bios\+Keystroke\+Buffer@{Clear\+Bios\+Keystroke\+Buffer}}
+\index{Clear\+Bios\+Keystroke\+Buffer@{Clear\+Bios\+Keystroke\+Buffer}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Clear\+Bios\+Keystroke\+Buffer()}{ClearBiosKeystrokeBuffer()}}
+{\footnotesize\ttfamily void Clear\+Bios\+Keystroke\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the bios key stroke buffer. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a6a3ca153f0817e8ba91a023b886bb662}\label{_boot_console_io_8cpp_a6a3ca153f0817e8ba91a023b886bb662}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Clear\+Screen@{Clear\+Screen}}
+\index{Clear\+Screen@{Clear\+Screen}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Clear\+Screen()}{ClearScreen()}}
+{\footnotesize\ttfamily void Clear\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the screen if screen output is enabled. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a5d4ecb04d97df5f4d6fa15616090b360}\label{_boot_console_io_8cpp_a5d4ecb04d97df5f4d6fa15616090b360}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Disable\+Screen\+Output@{Disable\+Screen\+Output}}
+\index{Disable\+Screen\+Output@{Disable\+Screen\+Output}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Disable\+Screen\+Output()}{DisableScreenOutput()}}
+{\footnotesize\ttfamily void Disable\+Screen\+Output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disable the screen output (Screen\+Output\+Disabled = 1) 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{_boot_console_io_8cpp_a5d4ecb04d97df5f4d6fa15616090b360_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a49aaa6eb06da70f3af641be097ef73b8}\label{_boot_console_io_8cpp_a49aaa6eb06da70f3af641be097ef73b8}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Enable\+Screen\+Output@{Enable\+Screen\+Output}}
+\index{Enable\+Screen\+Output@{Enable\+Screen\+Output}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Enable\+Screen\+Output()}{EnableScreenOutput()}}
+{\footnotesize\ttfamily void Enable\+Screen\+Output (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Enable the screen output (Screen\+Output\+Disabled = 0) 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aa1d696ee74314834ace59e29c23c0786}\label{_boot_console_io_8cpp_aa1d696ee74314834ace59e29c23c0786}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Esc\+Key\+Pressed@{Esc\+Key\+Pressed}}
+\index{Esc\+Key\+Pressed@{Esc\+Key\+Pressed}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Esc\+Key\+Pressed()}{EscKeyPressed()}}
+{\footnotesize\ttfamily bool Esc\+Key\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if escape key is pressed. 
+
+\begin{DoxyReturn}{Returns}
+bool true if escape is pressed false else 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{_boot_console_io_8cpp_aa1d696ee74314834ace59e29c23c0786_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a6cf636994938a58fc26cc46d14be7722}\label{_boot_console_io_8cpp_a6cf636994938a58fc26cc46d14be7722}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Get\+Keyboard\+Char@{Get\+Keyboard\+Char}}
+\index{Get\+Keyboard\+Char@{Get\+Keyboard\+Char}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+Keyboard\+Char()}{GetKeyboardChar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily byte Get\+Keyboard\+Char (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get keyboard char in ascii. 
+
+\begin{DoxyReturn}{Returns}
+byte Get\+Keyboard\+Char(nullptr) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{_boot_console_io_8cpp_a6cf636994938a58fc26cc46d14be7722_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a44b6659917bdf713e93ab42c5fac1415}\label{_boot_console_io_8cpp_a44b6659917bdf713e93ab42c5fac1415}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Get\+Keyboard\+Char@{Get\+Keyboard\+Char}}
+\index{Get\+Keyboard\+Char@{Get\+Keyboard\+Char}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+Keyboard\+Char()}{GetKeyboardChar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily byte Get\+Keyboard\+Char (\begin{DoxyParamCaption}\item[{byte $\ast$}]{scan\+Code }\end{DoxyParamCaption})}
+
+
+
+Get ascii code of keyboard char. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & $\ast$ scan\+Code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+byte ascii\+Code 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{_boot_console_io_8cpp_a44b6659917bdf713e93ab42c5fac1415_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a4545a55b302bb785565053a1b9a18449}\label{_boot_console_io_8cpp_a4545a55b302bb785565053a1b9a18449}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Get\+Shift\+Flags@{Get\+Shift\+Flags}}
+\index{Get\+Shift\+Flags@{Get\+Shift\+Flags}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+Shift\+Flags()}{GetShiftFlags()}}
+{\footnotesize\ttfamily byte Get\+Shift\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get shift flags. 
+
+\begin{DoxyReturn}{Returns}
+byte flags 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a33007bfd2971c5edeb62670ed938205f}\label{_boot_console_io_8cpp_a33007bfd2971c5edeb62670ed938205f}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Get\+String@{Get\+String}}
+\index{Get\+String@{Get\+String}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+String()}{GetString()}}
+{\footnotesize\ttfamily int Get\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{buffer,  }\item[{size\+\_\+t}]{buffer\+Size }\end{DoxyParamCaption})}
+
+
+
+Print the string buffer and return the position when escape key is pressed or at the end of the buffer. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em size\+\_\+t} & buffer\+Size \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 if escape is pressed pos else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{_boot_console_io_8cpp_a33007bfd2971c5edeb62670ed938205f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a4b4b6a1f3245a01a6abd698f89dc3f2d}\label{_boot_console_io_8cpp_a4b4b6a1f3245a01a6abd698f89dc3f2d}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Init\+Video\+Mode@{Init\+Video\+Mode}}
+\index{Init\+Video\+Mode@{Init\+Video\+Mode}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Init\+Video\+Mode()}{InitVideoMode()}}
+{\footnotesize\ttfamily void Init\+Video\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the video mode. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_adf789d9f8854a299c5213f1ac31c03a3}\label{_boot_console_io_8cpp_adf789d9f8854a299c5213f1ac31c03a3}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Is\+Keyboard\+Char\+Available@{Is\+Keyboard\+Char\+Available}}
+\index{Is\+Keyboard\+Char\+Available@{Is\+Keyboard\+Char\+Available}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Is\+Keyboard\+Char\+Available()}{IsKeyboardCharAvailable()}}
+{\footnotesize\ttfamily bool Is\+Keyboard\+Char\+Available (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Check if keyboard char is available. 
+
+\begin{DoxyReturn}{Returns}
+bool true if the keyboard char is available, false else 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{_boot_console_io_8cpp_adf789d9f8854a299c5213f1ac31c03a3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a59e081dc70f176ba347c0fd851df9749}\label{_boot_console_io_8cpp_a59e081dc70f176ba347c0fd851df9749}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Is\+Printable@{Is\+Printable}}
+\index{Is\+Printable@{Is\+Printable}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Is\+Printable()}{IsPrintable()}}
+{\footnotesize\ttfamily bool Is\+Printable (\begin{DoxyParamCaption}\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+Is the char c printable ? 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & c \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool c $>$= \textquotesingle{} \textquotesingle{} \&\& c $<$= \textquotesingle{}$\sim$\textquotesingle{} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a7108771e3ef11cc8cfd000fc2ed2915a}\label{_boot_console_io_8cpp_a7108771e3ef11cc8cfd000fc2ed2915a}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print@{Print}}
+\index{Print@{Print}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print()}{Print()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Print (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str }\end{DoxyParamCaption})}
+
+
+
+Call Printchar to print the string char by char. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & char $\ast$ str \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{_boot_console_io_8cpp_a7108771e3ef11cc8cfd000fc2ed2915a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_a7108771e3ef11cc8cfd000fc2ed2915a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a57115a258f27db5bd3ef6d1714bc94d5}\label{_boot_console_io_8cpp_a57115a258f27db5bd3ef6d1714bc94d5}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print@{Print}}
+\index{Print@{Print}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print()}{Print()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Print (\begin{DoxyParamCaption}\item[{uint32}]{number }\end{DoxyParamCaption})}
+
+
+
+Convert number to string and call Printchar to print the string char by char. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint32} & number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{_boot_console_io_8cpp_a57115a258f27db5bd3ef6d1714bc94d5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_ac649bb03c8dc1048cba4a416c1551837}\label{_boot_console_io_8cpp_ac649bb03c8dc1048cba4a416c1551837}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print@{Print}}
+\index{Print@{Print}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print()}{Print()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Print (\begin{DoxyParamCaption}\item[{const \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} \&}]{number }\end{DoxyParamCaption})}
+
+
+
+Print a uint64. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & uint64 \& number \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{_boot_console_io_8cpp_ac649bb03c8dc1048cba4a416c1551837_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a9a0d1bf901856dba9b64b6a66e55aabd}\label{_boot_console_io_8cpp_a9a0d1bf901856dba9b64b6a66e55aabd}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Backspace@{Print\+Backspace}}
+\index{Print\+Backspace@{Print\+Backspace}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Backspace()}{PrintBackspace()}}
+{\footnotesize\ttfamily void Print\+Backspace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Print a backspaace. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{_boot_console_io_8cpp_a9a0d1bf901856dba9b64b6a66e55aabd_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aac7233dce0ef357b1ea507667a7b6e07}\label{_boot_console_io_8cpp_aac7233dce0ef357b1ea507667a7b6e07}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Char@{Print\+Char}}
+\index{Print\+Char@{Print\+Char}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Char()}{PrintChar()}}
+{\footnotesize\ttfamily void Print\+Char (\begin{DoxyParamCaption}\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+Print char c if screen output is enabled. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & c \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_aac7233dce0ef357b1ea507667a7b6e07_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a83f9361ee8d899e8dbc67d6cc03d5eff}\label{_boot_console_io_8cpp_a83f9361ee8d899e8dbc67d6cc03d5eff}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Char\+At\+Cursor@{Print\+Char\+At\+Cursor}}
+\index{Print\+Char\+At\+Cursor@{Print\+Char\+At\+Cursor}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Char\+At\+Cursor()}{PrintCharAtCursor()}}
+{\footnotesize\ttfamily void Print\+Char\+At\+Cursor (\begin{DoxyParamCaption}\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+Print char at cursor c if screen output is enabled. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em char} & c \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{_boot_console_io_8cpp_a83f9361ee8d899e8dbc67d6cc03d5eff_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a218773774aaa01e4368c444a4fdb4a4e}\label{_boot_console_io_8cpp_a218773774aaa01e4368c444a4fdb4a4e}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Endl@{Print\+Endl}}
+\index{Print\+Endl@{Print\+Endl}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Endl()}{PrintEndl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Print\+Endl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Print the end of line. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{_boot_console_io_8cpp_a218773774aaa01e4368c444a4fdb4a4e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_a218773774aaa01e4368c444a4fdb4a4e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aec8c75eeef5d71fa2024d4a4e7d61372}\label{_boot_console_io_8cpp_aec8c75eeef5d71fa2024d4a4e7d61372}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Endl@{Print\+Endl}}
+\index{Print\+Endl@{Print\+Endl}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Endl()}{PrintEndl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Print\+Endl (\begin{DoxyParamCaption}\item[{int}]{cnt }\end{DoxyParamCaption})}
+
+
+
+Print the end of line cnt times. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & cnt \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_aec8c75eeef5d71fa2024d4a4e7d61372_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aab603d9c78b25cc43686d27a2cc276ea}\label{_boot_console_io_8cpp_aab603d9c78b25cc43686d27a2cc276ea}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Error@{Print\+Error}}
+\index{Print\+Error@{Print\+Error}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Error()}{PrintError()}}
+{\footnotesize\ttfamily void Print\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Print error with his message. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & char $\ast$ message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_boot_console_io_8cpp_aab603d9c78b25cc43686d27a2cc276ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{_boot_console_io_8cpp_aab603d9c78b25cc43686d27a2cc276ea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a8a4e858833a8c85d6f3f1106b3d9b16b}\label{_boot_console_io_8cpp_a8a4e858833a8c85d6f3f1106b3d9b16b}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Error\+No\+Endl@{Print\+Error\+No\+Endl}}
+\index{Print\+Error\+No\+Endl@{Print\+Error\+No\+Endl}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Error\+No\+Endl()}{PrintErrorNoEndl()}}
+{\footnotesize\ttfamily void Print\+Error\+No\+Endl (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Print error with his message without the end of line. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & char $\ast$ message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{_boot_console_io_8cpp_a8a4e858833a8c85d6f3f1106b3d9b16b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{_boot_console_io_8cpp_a8a4e858833a8c85d6f3f1106b3d9b16b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a7b7ba00b653c510db16d707c4003cc6e}\label{_boot_console_io_8cpp_a7b7ba00b653c510db16d707c4003cc6e}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Hex@{Print\+Hex}}
+\index{Print\+Hex@{Print\+Hex}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Hex()}{PrintHex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily void Print\+Hex (\begin{DoxyParamCaption}\item[{byte}]{b }\end{DoxyParamCaption})}
+
+
+
+Call Print\+Char with hexa values. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em byte} & b \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{_boot_console_io_8cpp_a7b7ba00b653c510db16d707c4003cc6e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_a2e51aacd48980ee90b7e27a0f06dc2e4}\label{_boot_console_io_8cpp_a2e51aacd48980ee90b7e27a0f06dc2e4}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Hex@{Print\+Hex}}
+\index{Print\+Hex@{Print\+Hex}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Hex()}{PrintHex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily void Print\+Hex (\begin{DoxyParamCaption}\item[{uint16}]{data }\end{DoxyParamCaption})}
+
+
+
+Print a uint16 as 2 uint8. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint16} & data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{_boot_console_io_8cpp_a2e51aacd48980ee90b7e27a0f06dc2e4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_ad87e8c4a01d83a74c9dc02cbb342fb08}\label{_boot_console_io_8cpp_ad87e8c4a01d83a74c9dc02cbb342fb08}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Hex@{Print\+Hex}}
+\index{Print\+Hex@{Print\+Hex}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Hex()}{PrintHex()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily void Print\+Hex (\begin{DoxyParamCaption}\item[{uint32}]{data }\end{DoxyParamCaption})}
+
+
+
+Print uint32 as 2 uint16. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint32} & data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{_boot_console_io_8cpp_ad87e8c4a01d83a74c9dc02cbb342fb08_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_aa5e58358fa90cdc6de6de48066738080}\label{_boot_console_io_8cpp_aa5e58358fa90cdc6de6de48066738080}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Hex@{Print\+Hex}}
+\index{Print\+Hex@{Print\+Hex}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Hex()}{PrintHex()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily void Print\+Hex (\begin{DoxyParamCaption}\item[{const \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Print a uint63 as 2 uint32. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & uint64 \& data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{_boot_console_io_8cpp_aa5e58358fa90cdc6de6de48066738080_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_boot_console_io_8cpp_afe4052eacaa5ff4aab1e67aaba857264}\label{_boot_console_io_8cpp_afe4052eacaa5ff4aab1e67aaba857264}} 
+\index{Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}!Print\+Repeated\+Char@{Print\+Repeated\+Char}}
+\index{Print\+Repeated\+Char@{Print\+Repeated\+Char}!Boot\+Console\+Io.\+cpp@{Boot\+Console\+Io.\+cpp}}
+\subsubsection{\texorpdfstring{Print\+Repeated\+Char()}{PrintRepeatedChar()}}
+{\footnotesize\ttfamily void Print\+Repeated\+Char (\begin{DoxyParamCaption}\item[{char}]{c,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Print char c, n times. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & n \\
+\hline
+\mbox{\tt in}  & {\em char} & c \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

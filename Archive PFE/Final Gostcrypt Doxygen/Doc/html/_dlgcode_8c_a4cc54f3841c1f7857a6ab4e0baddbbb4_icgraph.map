@@ -1,0 +1,7 @@
+<map id="WideToSingleString" name="WideToSingleString">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#ae3c84abc241970e5cb052bc1abd0a9c9" title="Convert hard disk volume path to a partition path. " alt="" coords="189,31,423,57"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a50e68240af3f0e443840fc4dcfd75aab" title="Get the volume path to device. " alt="" coords="471,31,669,57"/>
+<area shape="rect" id="node4" href="$_dlgcode_8c.html#a60bf71dab6ded8634ccfc074cf8968bf" title="Check if the volume is mouted. " alt="" coords="745,5,871,32"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a58dff92ecdca5178fc74064075514ada" title="Get the number of the mounted volume. " alt="" coords="717,56,899,83"/>
+<area shape="rect" id="node5" href="$_mount_8c.html#a80e2191b50f9e6ba9b4b26db9c2f36b7" title="Keep a backup of the volume header to recover it when required. The header contains essential informa..." alt="" coords="947,5,1097,32"/>
+</map>

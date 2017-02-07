@@ -1,0 +1,430 @@
+\hypertarget{class_gost_crypt_1_1_elevator}{}\section{Gost\+Crypt\+:\+:Elevator Class Reference}
+\label{class_gost_crypt_1_1_elevator}\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_ae5fa1c4df5968245d213dd0a3cc3d93f}{Add\+Reference} ()
+\begin{DoxyCompactList}\small\item\em Add a reference. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_ab7e6ae353776bbd40daa2b4f55f0dc21}{Call\+Driver} (D\+W\+O\+RD ioctl, void $\ast$input, D\+W\+O\+RD input\+Size, void $\ast$output, D\+W\+O\+RD output\+Size)
+\begin{DoxyCompactList}\small\item\em Call the driver. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a96467eb7f4d481dc8cc88a905425010d}{Copy\+File} (const string \&source\+File, const string \&destination\+File)
+\begin{DoxyCompactList}\small\item\em Copy a file. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a7436d3b36f4775314d51ea0cc3ec13f3}{Delete\+File} (const string \&file)
+\begin{DoxyCompactList}\small\item\em Delete a file. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_af444333e649b29c3640242ded59cb673}{Read\+Write\+File} (B\+O\+OL write, B\+O\+OL device, const string \&file\+Path, byte $\ast$buffer, uint64 offset, uint32 size, D\+W\+O\+RD $\ast$size\+Done)
+\begin{DoxyCompactList}\small\item\em Process writing and reading on file. \end{DoxyCompactList}\item 
+static B\+O\+OL \hyperlink{class_gost_crypt_1_1_elevator_a2ebe7f1b09bc239343ec039ac6748543}{Is\+Paging\+File\+Active} (B\+O\+OL check\+Non\+Windows\+Partitions\+Only)
+\begin{DoxyCompactList}\small\item\em Check if paging file is active. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a4715568a6dfa5d681642b3ef420be6de}{Write\+Local\+Machine\+Registry\+Dword\+Value} (char $\ast$key\+Path, char $\ast$value\+Name, D\+W\+O\+RD value)
+\begin{DoxyCompactList}\small\item\em Write the D\+W\+O\+RD value in the local machine registry. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_abef1824127048f32bb751dd1418d93d7}{Register\+Filter\+Driver} (bool register\+Driver, Boot\+Encryption\+::\+Filter\+Type filter\+Type)
+\begin{DoxyCompactList}\small\item\em Register the filter driver. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a9289f57f90900b6b46a8e930d84b24ad}{Register\+System\+Favorites\+Service} (B\+O\+OL register\+Service)
+\begin{DoxyCompactList}\small\item\em Register the system favorites service. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a911b8cbe1a7aa7e2aebb7aec14dce4f7}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release the instance. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a7756cd9baaf29a8375bf42210961504d}{Set\+Driver\+Service\+Start\+Type} (D\+W\+O\+RD start\+Type)
+\begin{DoxyCompactList}\small\item\em the driver services start type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_elevator_a0b5a981fa1fa7f2b93f39c55a5ba20e1}{Elevate} ()
+\begin{DoxyCompactList}\small\item\em Elevate the instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_af1942484d90bc7fe183f96568dd29c73}\label{class_gost_crypt_1_1_elevator_af1942484d90bc7fe183f96568dd29c73}} 
+static D\+W\+O\+RD {\bfseries Elevated\+Com\+Instance\+Thread\+Id}
+\item 
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a792d16a99ab3d1932c087925c4edb9fd}\label{class_gost_crypt_1_1_elevator_a792d16a99ab3d1932c087925c4edb9fd}} 
+static int {\bfseries Reference\+Count} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_ae5fa1c4df5968245d213dd0a3cc3d93f}\label{class_gost_crypt_1_1_elevator_ae5fa1c4df5968245d213dd0a3cc3d93f}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Add\+Reference@{Add\+Reference}}
+\index{Add\+Reference@{Add\+Reference}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Add\+Reference()}{AddReference()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Add\+Reference (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Add a reference. 
+
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_ae5fa1c4df5968245d213dd0a3cc3d93f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_ab7e6ae353776bbd40daa2b4f55f0dc21}\label{class_gost_crypt_1_1_elevator_ab7e6ae353776bbd40daa2b4f55f0dc21}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Call\+Driver@{Call\+Driver}}
+\index{Call\+Driver@{Call\+Driver}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Call\+Driver()}{CallDriver()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Call\+Driver (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{ioctl,  }\item[{void $\ast$}]{input,  }\item[{D\+W\+O\+RD}]{input\+Size,  }\item[{void $\ast$}]{output,  }\item[{D\+W\+O\+RD}]{output\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Call the driver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & output\+Size \\
+\hline
+\mbox{\tt in}  & {\em void} & $\ast$ output \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & input\+Size \\
+\hline
+\mbox{\tt in}  & {\em void} & $\ast$ input \\
+\hline
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & ioctl \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_ab7e6ae353776bbd40daa2b4f55f0dc21_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a96467eb7f4d481dc8cc88a905425010d}\label{class_gost_crypt_1_1_elevator_a96467eb7f4d481dc8cc88a905425010d}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Copy\+File@{Copy\+File}}
+\index{Copy\+File@{Copy\+File}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Copy\+File()}{CopyFile()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Copy\+File (\begin{DoxyParamCaption}\item[{const string \&}]{source\+File,  }\item[{const string \&}]{destination\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Copy a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string \& destination\+File \\
+\hline
+\mbox{\tt in}  & {\em const} & string \& source\+File \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a96467eb7f4d481dc8cc88a905425010d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a96467eb7f4d481dc8cc88a905425010d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a7436d3b36f4775314d51ea0cc3ec13f3}\label{class_gost_crypt_1_1_elevator_a7436d3b36f4775314d51ea0cc3ec13f3}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Delete\+File@{Delete\+File}}
+\index{Delete\+File@{Delete\+File}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Delete\+File()}{DeleteFile()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Delete\+File (\begin{DoxyParamCaption}\item[{const string \&}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Delete a file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em const} & string $\ast$ file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a7436d3b36f4775314d51ea0cc3ec13f3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a7436d3b36f4775314d51ea0cc3ec13f3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a0b5a981fa1fa7f2b93f39c55a5ba20e1}\label{class_gost_crypt_1_1_elevator_a0b5a981fa1fa7f2b93f39c55a5ba20e1}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Elevate@{Elevate}}
+\index{Elevate@{Elevate}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Elevate()}{Elevate()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Elevate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Elevate the instance. 
+
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{class_gost_crypt_1_1_elevator_a0b5a981fa1fa7f2b93f39c55a5ba20e1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a0b5a981fa1fa7f2b93f39c55a5ba20e1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a2ebe7f1b09bc239343ec039ac6748543}\label{class_gost_crypt_1_1_elevator_a2ebe7f1b09bc239343ec039ac6748543}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}}
+\index{Is\+Paging\+File\+Active@{Is\+Paging\+File\+Active}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Is\+Paging\+File\+Active()}{IsPagingFileActive()}}
+{\footnotesize\ttfamily static B\+O\+OL Gost\+Crypt\+::\+Elevator\+::\+Is\+Paging\+File\+Active (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{check\+Non\+Windows\+Partitions\+Only }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Check if paging file is active. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & check\+Non\+Windows\+Partitions\+Only) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL Elevated\+Com\+Instance-\/$>$Is\+Paging\+File\+Active (check\+Non\+Windows\+Partitions\+Only) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a2ebe7f1b09bc239343ec039ac6748543_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a2ebe7f1b09bc239343ec039ac6748543_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_af444333e649b29c3640242ded59cb673}\label{class_gost_crypt_1_1_elevator_af444333e649b29c3640242ded59cb673}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Read\+Write\+File@{Read\+Write\+File}}
+\index{Read\+Write\+File@{Read\+Write\+File}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Read\+Write\+File()}{ReadWriteFile()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Read\+Write\+File (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{write,  }\item[{B\+O\+OL}]{device,  }\item[{const string \&}]{file\+Path,  }\item[{byte $\ast$}]{buffer,  }\item[{uint64}]{offset,  }\item[{uint32}]{size,  }\item[{D\+W\+O\+RD $\ast$}]{size\+Done }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Process writing and reading on file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & $\ast$ size\+Done \\
+\hline
+\mbox{\tt in}  & {\em uint32} & size \\
+\hline
+\mbox{\tt in}  & {\em uint64} & offset \\
+\hline
+\mbox{\tt in}  & {\em byte} & $\ast$ buffer \\
+\hline
+\mbox{\tt in}  & {\em const} & string \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & device \\
+\hline
+\mbox{\tt in}  & {\em B\+O\+OL} & write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_abef1824127048f32bb751dd1418d93d7}\label{class_gost_crypt_1_1_elevator_abef1824127048f32bb751dd1418d93d7}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Register\+Filter\+Driver@{Register\+Filter\+Driver}}
+\index{Register\+Filter\+Driver@{Register\+Filter\+Driver}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Register\+Filter\+Driver()}{RegisterFilterDriver()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Register\+Filter\+Driver (\begin{DoxyParamCaption}\item[{bool}]{register\+Driver,  }\item[{Boot\+Encryption\+::\+Filter\+Type}]{filter\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Register the filter driver. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Boot\+Encryption\+::\+Filter\+Type} & filter\+Type \\
+\hline
+\mbox{\tt in}  & {\em bool} & register\+Driver \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_abef1824127048f32bb751dd1418d93d7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_abef1824127048f32bb751dd1418d93d7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a9289f57f90900b6b46a8e930d84b24ad}\label{class_gost_crypt_1_1_elevator_a9289f57f90900b6b46a8e930d84b24ad}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}}
+\index{Register\+System\+Favorites\+Service@{Register\+System\+Favorites\+Service}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Register\+System\+Favorites\+Service()}{RegisterSystemFavoritesService()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Register\+System\+Favorites\+Service (\begin{DoxyParamCaption}\item[{B\+O\+OL}]{register\+Service }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Register the system favorites service. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & register\+Service \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a9289f57f90900b6b46a8e930d84b24ad_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a9289f57f90900b6b46a8e930d84b24ad_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a911b8cbe1a7aa7e2aebb7aec14dce4f7}\label{class_gost_crypt_1_1_elevator_a911b8cbe1a7aa7e2aebb7aec14dce4f7}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Release@{Release}}
+\index{Release@{Release}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Release()}{Release()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Release the instance. 
+
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a911b8cbe1a7aa7e2aebb7aec14dce4f7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a7756cd9baaf29a8375bf42210961504d}\label{class_gost_crypt_1_1_elevator_a7756cd9baaf29a8375bf42210961504d}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}}
+\index{Set\+Driver\+Service\+Start\+Type@{Set\+Driver\+Service\+Start\+Type}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Set\+Driver\+Service\+Start\+Type()}{SetDriverServiceStartType()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Set\+Driver\+Service\+Start\+Type (\begin{DoxyParamCaption}\item[{D\+W\+O\+RD}]{start\+Type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+the driver services start type 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & start\+Type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a7756cd9baaf29a8375bf42210961504d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a7756cd9baaf29a8375bf42210961504d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{class_gost_crypt_1_1_elevator_a4715568a6dfa5d681642b3ef420be6de}\label{class_gost_crypt_1_1_elevator_a4715568a6dfa5d681642b3ef420be6de}} 
+\index{Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}!Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}}
+\index{Write\+Local\+Machine\+Registry\+Dword\+Value@{Write\+Local\+Machine\+Registry\+Dword\+Value}!Gost\+Crypt\+::\+Elevator@{Gost\+Crypt\+::\+Elevator}}
+\subsubsection{\texorpdfstring{Write\+Local\+Machine\+Registry\+Dword\+Value()}{WriteLocalMachineRegistryDwordValue()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Elevator\+::\+Write\+Local\+Machine\+Registry\+Dword\+Value (\begin{DoxyParamCaption}\item[{char $\ast$}]{key\+Path,  }\item[{char $\ast$}]{value\+Name,  }\item[{D\+W\+O\+RD}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Write the D\+W\+O\+RD value in the local machine registry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em D\+W\+O\+RD} & value \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ value\+Name \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ key\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+stati void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a4715568a6dfa5d681642b3ef420be6de_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gost_crypt_1_1_elevator_a4715568a6dfa5d681642b3ef420be6de_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\hyperlink{_boot_encryption_8cpp}{Boot\+Encryption.\+cpp}\end{DoxyCompactItemize}

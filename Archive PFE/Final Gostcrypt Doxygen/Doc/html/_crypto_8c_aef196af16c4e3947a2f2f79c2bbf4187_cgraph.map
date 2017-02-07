@@ -1,0 +1,12 @@
+<map id="EncipherBlocks" name="EncipherBlocks">
+<area shape="rect" id="node2" href="$_crypto_8c.html#a794038e7ead3d5533e3134ce20e93a39" title="Get the block size of a cipher at id. " alt="" coords="167,5,305,32"/>
+<area shape="rect" id="node4" href="$_crypto_8c.html#a31f3ed0da669e630ba1fe809a652c177" title="Encipher one block. " alt="" coords="183,56,289,83"/>
+<area shape="rect" id="node3" href="$_crypto_8c.html#a497fc6204c6a611434f38e4ccec909db" title="Get cipher at id, return null if there is no cipher with this id. " alt="" coords="385,5,465,32"/>
+<area shape="rect" id="node5" href="$_gost_cipher_8c.html#a5c4472de500c6aa8f73dd9d0418aa4f0" title="Encrypt with gost algorithm. " alt="" coords="376,56,473,83"/>
+<area shape="rect" id="node6" href="$_grasshopper_cipher_8c.html#a8a03545392da4eb01f3fcd5197d42444" title="Encryption procedure. " alt="" coords="353,107,496,133"/>
+<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#a6107e1c52141eb86bb87182173247783" title="Switch opposed bytes (lower byte to upper byte, ...) of unsigned long. " alt="" coords="544,56,648,83"/>
+<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="696,81,735,108"/>
+<area shape="rect" id="node11" href="$_grasshopper_cipher_8c.html#a56efe30edac1e0cce6167cb840c2e470" title="Apply S conversion. " alt="" coords="577,157,615,184"/>
+<area shape="rect" id="node9" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="783,81,821,108"/>
+<area shape="rect" id="node10" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="869,81,908,108"/>
+</map>

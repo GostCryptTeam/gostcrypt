@@ -1,0 +1,12 @@
+<map id="LoadSettings" name="LoadSettings">
+<area shape="rect" id="node2" href="$_crypto_8c.html#a2ed7a4e1da14e3a1855fb83b7fcb4270" title="Deprecated useless. " alt="" coords="186,5,329,32"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#aedcf7abf8fef9eac7850aae1a2704ba2" title="return 0 or return the value of the driver configuration flags " alt="" coords="162,56,353,83"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a80653c4ecf7e3f5a60df24e5bdd3ffcc" title="Read the xml file for configuration, return TRUE if the status is initialized correctly (initialized ..." alt="" coords="185,107,329,133"/>
+<area shape="rect" id="node11" href="$_dlgcode_8c.html#ae6a606cd06400041069c4c90e555c06d" title="Returns the number of partitions where non&#45;system in&#45;place encryption is progress or had been in prog..." alt="" coords="152,157,363,184"/>
+<area shape="rect" id="node4" href="$_registry_8c.html#a07aec80ae3cc47115a6dcfff6a592ce7" title="Query the registery and read it. " alt="" coords="411,41,591,82"/>
+<area shape="rect" id="node6" href="$_dlgcode_8c.html#a4ffbe57c23617a63122d4a7009ddc63d" title="Load a file and returns NULL if there&#39;s any error. Although the buffer can contain binary data..." alt="" coords="465,107,536,133"/>
+<area shape="rect" id="node7" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="447,157,554,184"/>
+<area shape="rect" id="node10" href="$_dlgcode_8c.html#a34c34fd84e82b5e8d667bd36376db452" title="Returns TRUE if the file or directory exists (both may be enclosed in quotation marks). " alt="" coords="461,208,541,235"/>
+<area shape="rect" id="node8" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="639,132,760,159"/>
+<area shape="rect" id="node9" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="652,183,747,209"/>
+</map>

@@ -1,0 +1,161 @@
+\hypertarget{_format_com_8cpp}{}\section{Format/\+Format\+Com.cpp File Reference}
+\label{_format_com_8cpp}\index{Format/\+Format\+Com.\+cpp@{Format/\+Format\+Com.\+cpp}}
+
+
+\hyperlink{class_gost_crypt_format_com}{Gost\+Crypt\+Format\+Com} Class.  
+
+
+{\ttfamily \#include $<$atlcomcli.\+h$>$}\newline
+{\ttfamily \#include $<$atlconv.\+h$>$}\newline
+{\ttfamily \#include $<$comutil.\+h$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Base\+Com.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Encryption.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Progress.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gst\+Format.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format\+Com.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format\+Com\+\_\+h.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Format\+Com\+\_\+i.\+c\char`\"{}}\newline
+Include dependency graph for Format\+Com.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_format_com_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_format_com}{Gost\+Crypt\+Format\+Com}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_format_com_8cpp_ab0fc4f9f6098c389edbb597b7fe354f8}{Com\+Server\+Format} ()
+\begin{DoxyCompactList}\small\item\em Dispatch message and revoke the class. \end{DoxyCompactList}\item 
+I\+Gost\+Crypt\+Format\+Com $\ast$ \hyperlink{_format_com_8cpp_aacdc8a1f07f763d7399a4dc5977e3c2f}{Get\+Elevated\+Instance} (H\+W\+ND parent)
+\begin{DoxyCompactList}\small\item\em Get the elevated instance (call Com\+Get\+Instance) \end{DoxyCompactList}\item 
+int \hyperlink{_format_com_8cpp_a0d212dd0a3316a4f674c31dcac86bc8f}{Uac\+Format\+Ntfs} (H\+W\+ND h\+Wnd, int drive\+No, int cluster\+Size)
+\begin{DoxyCompactList}\small\item\em Call format\+Ntfs to format. \end{DoxyCompactList}\item 
+int \hyperlink{_format_com_8cpp_a360b0d6b6937b09ff44b97b9dab3da0e}{Uac\+Analyze\+Hidden\+Volume\+Host} (H\+W\+ND hwnd\+Dlg, int $\ast$drive\+No, \+\_\+\+\_\+int64 hidden\+Vol\+Host\+Size, int $\ast$real\+Cluster\+Size, \+\_\+\+\_\+int64 $\ast$nbr\+Free\+Clusters)
+\begin{DoxyCompactList}\small\item\em Analyse hidden volume. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_gost_crypt_format_com}{Gost\+Crypt\+Format\+Com} Class. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_format_com_8cpp_ab0fc4f9f6098c389edbb597b7fe354f8}\label{_format_com_8cpp_ab0fc4f9f6098c389edbb597b7fe354f8}} 
+\index{Format\+Com.\+cpp@{Format\+Com.\+cpp}!Com\+Server\+Format@{Com\+Server\+Format}}
+\index{Com\+Server\+Format@{Com\+Server\+Format}!Format\+Com.\+cpp@{Format\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Com\+Server\+Format()}{ComServerFormat()}}
+{\footnotesize\ttfamily C B\+O\+OL Com\+Server\+Format (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Dispatch message and revoke the class. 
+
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Co\+Register\+Class\+Object (C\+L\+S\+I\+D\+\_\+\+Gost\+Crypt\+Format\+Com, (L\+P\+U\+N\+K\+N\+O\+WN) \&factory,C\+L\+S\+C\+T\+X\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+E\+R\+V\+ER, R\+E\+G\+C\+L\+S\+\_\+\+S\+I\+N\+G\+L\+E\+U\+SE, \&cookie) != S\+\_\+\+OK) F\+A\+L\+SE if (r == -\/1) T\+R\+UE otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_format_com_8cpp_ab0fc4f9f6098c389edbb597b7fe354f8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_format_com_8cpp_aacdc8a1f07f763d7399a4dc5977e3c2f}\label{_format_com_8cpp_aacdc8a1f07f763d7399a4dc5977e3c2f}} 
+\index{Format\+Com.\+cpp@{Format\+Com.\+cpp}!Get\+Elevated\+Instance@{Get\+Elevated\+Instance}}
+\index{Get\+Elevated\+Instance@{Get\+Elevated\+Instance}!Format\+Com.\+cpp@{Format\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Get\+Elevated\+Instance()}{GetElevatedInstance()}}
+{\footnotesize\ttfamily I\+Gost\+Crypt\+Main\+Com $\ast$ Get\+Elevated\+Instance (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{parent }\end{DoxyParamCaption})}
+
+
+
+Get the elevated instance (call Com\+Get\+Instance) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & parent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+I\+Gost\+Crypt\+Format\+Com $\ast$ instance
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em H\+W\+ND} & parent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+I\+Gost\+Crypt\+Main\+Com $\ast$ instance 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_format_com_8cpp_aacdc8a1f07f763d7399a4dc5977e3c2f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_format_com_8cpp_a360b0d6b6937b09ff44b97b9dab3da0e}\label{_format_com_8cpp_a360b0d6b6937b09ff44b97b9dab3da0e}} 
+\index{Format\+Com.\+cpp@{Format\+Com.\+cpp}!Uac\+Analyze\+Hidden\+Volume\+Host@{Uac\+Analyze\+Hidden\+Volume\+Host}}
+\index{Uac\+Analyze\+Hidden\+Volume\+Host@{Uac\+Analyze\+Hidden\+Volume\+Host}!Format\+Com.\+cpp@{Format\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Analyze\+Hidden\+Volume\+Host()}{UacAnalyzeHiddenVolumeHost()}}
+{\footnotesize\ttfamily C int Uac\+Analyze\+Hidden\+Volume\+Host (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd\+Dlg,  }\item[{int $\ast$}]{drive\+No,  }\item[{\+\_\+\+\_\+int64}]{hidden\+Vol\+Host\+Size,  }\item[{int $\ast$}]{real\+Cluster\+Size,  }\item[{\+\_\+\+\_\+int64 $\ast$}]{nbr\+Free\+Clusters }\end{DoxyParamCaption})}
+
+
+
+Analyse hidden volume. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+\+\_\+int64} & $\ast$ nbr\+Free\+Clusters \\
+\hline
+\mbox{\tt in}  & {\em int} & $\ast$ real\+Cluster\+Size \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+\+\_\+int64} & hidden\+Vol\+Host\+Size \\
+\hline
+\mbox{\tt in}  & {\em int} & $\ast$ drive\+No \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd\+Dlg \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int r = gst-\/$>$Analyze\+Hidden\+Volume\+Host ((L\+O\+N\+G\+\_\+\+P\+TR) hwnd\+Dlg, drive\+No, hidden\+Vol\+Host\+Size, real\+Cluster\+Size, nbr\+Free\+Clusters) if(\+Com\+Get\+Instance (hwnd\+Dlg, \&gst)) 0 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_format_com_8cpp_a0d212dd0a3316a4f674c31dcac86bc8f}\label{_format_com_8cpp_a0d212dd0a3316a4f674c31dcac86bc8f}} 
+\index{Format\+Com.\+cpp@{Format\+Com.\+cpp}!Uac\+Format\+Ntfs@{Uac\+Format\+Ntfs}}
+\index{Uac\+Format\+Ntfs@{Uac\+Format\+Ntfs}!Format\+Com.\+cpp@{Format\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Uac\+Format\+Ntfs()}{UacFormatNtfs()}}
+{\footnotesize\ttfamily C int Uac\+Format\+Ntfs (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd,  }\item[{int}]{drive\+No,  }\item[{int}]{cluster\+Size }\end{DoxyParamCaption})}
+
+
+
+Call format\+Ntfs to format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & cluster\+Size \\
+\hline
+\mbox{\tt in}  & {\em int} & drive\+No \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Wnd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int r 
+\end{DoxyReturn}

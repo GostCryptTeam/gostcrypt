@@ -1,0 +1,8 @@
+<map id="Print" name="Print">
+<area shape="rect" id="node2" href="$_boot_disk_io_8cpp.html#a8be7f4a4d8f6ec9b9393233d632c6cc1" title="Print dick errors. " alt="" coords="127,31,229,57"/>
+<area shape="rect" id="node6" href="$_boot_disk_io_8cpp.html#a4ae7c6cd96997d6448c5801c31b98598" title="Print sectorcount in MB. " alt="" coords="103,81,253,108"/>
+<area shape="rect" id="node7" href="$_boot_disk_io_8cpp.html#a83356da113027c53b480c8cf80bfd560" title="Get geometry of the drive (cylinders, heads and sectors) " alt="" coords="114,132,242,159"/>
+<area shape="rect" id="node3" href="$_boot_disk_io_8cpp.html#aed3ca1d96bd33172eb786424afe8dccc" title="Read and write sectors. " alt="" coords="301,31,429,57"/>
+<area shape="rect" id="node4" href="$_boot_disk_io_8cpp.html#acf447ac16962ecc404d9a1424e28cf5a" title="Read and write sectors. " alt="" coords="477,5,605,32"/>
+<area shape="rect" id="node5" href="$_boot_disk_io_8cpp.html#a11870b63310ca954d15c40f46a931137" title="Read sectors. " alt="" coords="493,56,590,83"/>
+</map>

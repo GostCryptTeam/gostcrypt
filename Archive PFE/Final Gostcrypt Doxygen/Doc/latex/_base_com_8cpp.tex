@@ -1,0 +1,100 @@
+\hypertarget{_base_com_8cpp}{}\section{Common/\+Base\+Com.cpp File Reference}
+\label{_base_com_8cpp}\index{Common/\+Base\+Com.\+cpp@{Common/\+Base\+Com.\+cpp}}
+
+
+All fonctions on basic interactions with Com\+Object.  
+
+
+{\ttfamily \#include $<$atlcomcli.\+h$>$}\newline
+{\ttfamily \#include $<$atlconv.\+h$>$}\newline
+{\ttfamily \#include $<$comutil.\+h$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Base\+Com.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Boot\+Encryption.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Registry.\+h\char`\"{}}\newline
+Include dependency graph for Base\+Com.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_base_com_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+R\+E\+S\+U\+LT \hyperlink{_base_com_8cpp_af2784074c6f986fd22afe8c86cb35425}{Create\+Elevated\+Com\+Object} (H\+W\+ND hwnd, R\+E\+F\+G\+U\+ID guid, R\+E\+F\+I\+ID iid, void $\ast$$\ast$ppv)
+\begin{DoxyCompactList}\small\item\em Create an elevated Com\+Object. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_base_com_8cpp_ae2881a9f5aad412e737f5343a7359c38}{Com\+Get\+Instance\+Base} (H\+W\+ND h\+Wnd, R\+E\+F\+C\+L\+S\+ID clsid, R\+E\+F\+I\+ID iid, void $\ast$$\ast$gst\+Server)
+\begin{DoxyCompactList}\small\item\em Get an elevated Com\+Object, or get existing instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+All fonctions on basic interactions with Com\+Object. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+24/01/2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_base_com_8cpp_ae2881a9f5aad412e737f5343a7359c38}\label{_base_com_8cpp_ae2881a9f5aad412e737f5343a7359c38}} 
+\index{Base\+Com.\+cpp@{Base\+Com.\+cpp}!Com\+Get\+Instance\+Base@{Com\+Get\+Instance\+Base}}
+\index{Com\+Get\+Instance\+Base@{Com\+Get\+Instance\+Base}!Base\+Com.\+cpp@{Base\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Com\+Get\+Instance\+Base()}{ComGetInstanceBase()}}
+{\footnotesize\ttfamily B\+O\+OL Com\+Get\+Instance\+Base (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{h\+Wnd,  }\item[{R\+E\+F\+C\+L\+S\+ID}]{clsid,  }\item[{R\+E\+F\+I\+ID}]{iid,  }\item[{void $\ast$$\ast$}]{gst\+Server }\end{DoxyParamCaption})}
+
+
+
+Get an elevated Com\+Object, or get existing instance. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em void} & $\ast$$\ast$ gst\+Server \\
+\hline
+\mbox{\tt in}  & {\em R\+E\+F\+I\+ID} & iid \\
+\hline
+\mbox{\tt in}  & {\em R\+E\+F\+C\+L\+S\+ID} & clsid \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & h\+Wnd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL r 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_base_com_8cpp_af2784074c6f986fd22afe8c86cb35425}\label{_base_com_8cpp_af2784074c6f986fd22afe8c86cb35425}} 
+\index{Base\+Com.\+cpp@{Base\+Com.\+cpp}!Create\+Elevated\+Com\+Object@{Create\+Elevated\+Com\+Object}}
+\index{Create\+Elevated\+Com\+Object@{Create\+Elevated\+Com\+Object}!Base\+Com.\+cpp@{Base\+Com.\+cpp}}
+\subsubsection{\texorpdfstring{Create\+Elevated\+Com\+Object()}{CreateElevatedComObject()}}
+{\footnotesize\ttfamily H\+R\+E\+S\+U\+LT Create\+Elevated\+Com\+Object (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{hwnd,  }\item[{R\+E\+F\+G\+U\+ID}]{guid,  }\item[{R\+E\+F\+I\+ID}]{iid,  }\item[{void $\ast$$\ast$}]{ppv }\end{DoxyParamCaption})}
+
+
+
+Create an elevated Com\+Object. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em void} & $\ast$$\ast$ ppv \\
+\hline
+\mbox{\tt in}  & {\em R\+E\+F\+I\+ID} & iid \\
+\hline
+\mbox{\tt in}  & {\em R\+E\+F\+G\+U\+ID} & guid \\
+\hline
+\mbox{\tt in}  & {\em H\+W\+ND} & hwnd \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+H\+R\+E\+S\+U\+LT Co\+Get\+Object (moniker\+Name, \&bo, iid, ppv) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_base_com_8cpp_af2784074c6f986fd22afe8c86cb35425_cgraph}
+\end{center}
+\end{figure}

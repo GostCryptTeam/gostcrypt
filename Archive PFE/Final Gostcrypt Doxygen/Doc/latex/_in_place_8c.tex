@@ -1,0 +1,341 @@
+\hypertarget{_in_place_8c}{}\section{Format/\+In\+Place.c File Reference}
+\label{_in_place_8c}\index{Format/\+In\+Place.\+c@{Format/\+In\+Place.\+c}}
+
+
+Actions on cluster, header \& filesystem.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Platform/\+Finally.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Endian.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Common.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Crc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Dlgcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Language.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Gstformat.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volumes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}In\+Place.\+h\char`\"{}}\newline
+Include dependency graph for In\+Place.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_in_place_8c_a775d3a3797dd03263943cebceb04f00a}{G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}~1
+\item 
+\mbox{\Hypertarget{_in_place_8c_ac50762666aa00bd3a4308158510f1748}\label{_in_place_8c_ac50762666aa00bd3a4308158510f1748}} 
+\#define {\bfseries \+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+NT}~0x0600
+\item 
+\mbox{\Hypertarget{_in_place_8c_a5f88cdfff6f4d3c70920ef39d8c12813}\label{_in_place_8c_a5f88cdfff6f4d3c70920ef39d8c12813}} 
+\#define {\bfseries G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+W\+O\+R\+K\+\_\+\+C\+H\+U\+N\+K\+\_\+\+S\+I\+ZE}~(2048 $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB)
+\item 
+\mbox{\Hypertarget{_in_place_8c_aa17d38342c92c2e54bcde4907e0b100f}\label{_in_place_8c_aa17d38342c92c2e54bcde4907e0b100f}} 
+\#define {\bfseries G\+S\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+N\+T\+F\+S\+\_\+\+C\+O\+N\+C\+E\+A\+L\+\_\+\+P\+O\+R\+T\+I\+O\+N\+\_\+\+S\+I\+ZE}~(2 $\ast$ G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE)
+\item 
+\mbox{\Hypertarget{_in_place_8c_acd48ea323bedef5ff6bf27dc64c9eec4}\label{_in_place_8c_acd48ea323bedef5ff6bf27dc64c9eec4}} 
+\#define {\bfseries G\+S\+T\+\_\+\+N\+T\+F\+S\+\_\+\+C\+O\+N\+C\+E\+A\+L\+\_\+\+C\+O\+N\+S\+T\+A\+NT}~0x\+FF
+\item 
+\mbox{\Hypertarget{_in_place_8c_a7d9aac3750c7dc50b1a9d06aa64d39be}\label{_in_place_8c_a7d9aac3750c7dc50b1a9d06aa64d39be}} 
+\#define {\bfseries G\+S\+T\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~(64 $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB)
+\item 
+\mbox{\Hypertarget{_in_place_8c_a896666542257af1a1f7170e4ef44fa3f}\label{_in_place_8c_a896666542257af1a1f7170e4ef44fa3f}} 
+\#define {\bfseries G\+S\+T\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+\_\+\+S\+I\+ZE}~(G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE + G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE $\ast$ 2)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL \hyperlink{_in_place_8c_a9475a61d76001ed2c478951ea1dc17ca}{Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc} (const char $\ast$device\+Path, B\+O\+OL silent)
+\begin{DoxyCompactList}\small\item\em Access the partition Checks if the filesystem is formated in N\+T\+FS Checks if the filesystem can be safely shrunk Determines the filesystem size and checks if its long enough Checks free space on filesystem Checks if sector size is supported. \end{DoxyCompactList}\item 
+int \hyperlink{_in_place_8c_a6370868e40894b842cb36a61b82f3185}{Encrypt\+Partition\+In\+Place\+Begin} (volatile \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} $\ast$vol\+Params, volatile H\+A\+N\+D\+LE $\ast$out\+Handle, Wipe\+Algorithm\+Id wipe\+Algorithm)
+\begin{DoxyCompactList}\small\item\em Gain raw access, shrink the filesystem Create header backup on the partition. Decrypt the backup header to verify it has been correctly written Conceal the N\+T\+FS filesystem If a drive letter is assigned to the device, remove it Add the wizard to the system startup sequence if appropriate. \end{DoxyCompactList}\item 
+int \hyperlink{_in_place_8c_a75b99a80c929c1a59e5bfe118bed484a}{Encrypt\+Partition\+In\+Place\+Resume} (H\+A\+N\+D\+LE dev, volatile \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} $\ast$vol\+Params, Wipe\+Algorithm\+Id wipe\+Algorithm, volatile B\+O\+OL $\ast$b\+Try\+To\+Correct\+Read\+Errors)
+\begin{DoxyCompactList}\small\item\em Resume the encryption of the partition. \end{DoxyCompactList}\item 
+int \hyperlink{_in_place_8c_ac40985f7b9b7fcbc39c425e0443cb664}{Fast\+Volume\+Header\+Update} (H\+A\+N\+D\+LE dev, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$header\+Crypto\+Info, \hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$master\+Crypto\+Info, \+\_\+\+\_\+int64 device\+Size)
+\begin{DoxyCompactList}\small\item\em Update the volume header. \end{DoxyCompactList}\item 
+void \hyperlink{_in_place_8c_a6d1ee15344595fd5805894c814d35d93}{Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps} (char $\ast$ini\+Str\+Id, B\+O\+OL b\+Err)
+\begin{DoxyCompactList}\small\item\em Show error or warining. \end{DoxyCompactList}\item 
+void \hyperlink{_in_place_8c_ae9dfd12e4ac63e5ffa4e47c017607d16}{Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status} (int non\+Sys\+Inplace\+Enc\+Status)
+\begin{DoxyCompactList}\small\item\em Change Non\+Sys\+Inplace\+Enc\+Status value. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_in_place_8c_a4f6f94a57238f4c66a4b404aa19e1dce}{Save\+Non\+Sys\+In\+Place\+Enc\+Settings} (int delta, Wipe\+Algorithm\+Id new\+Wipe\+Algorithm)
+\begin{DoxyCompactList}\small\item\em Save in settings. \end{DoxyCompactList}\item 
+int \hyperlink{_in_place_8c_a7ec0e7e82e69bdb79755dabc8f42edbd}{Zero\+Unreadable\+Sectors} (H\+A\+N\+D\+LE dev, L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER start\+Offset, int64 size, int sector\+Size, \hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} $\ast$zeroed\+Sector\+Count)
+\begin{DoxyCompactList}\small\item\em Repairs damaged sectors (i.\+e. those with read errors) by zeroing them. Note that this operating fails if there are any write errors. \end{DoxyCompactList}\item 
+B\+O\+OL \hyperlink{_in_place_8c_a1cafb8de24df4b57cef88272ac6445e1}{Move\+Clusters\+Before\+Threshold} (H\+A\+N\+D\+LE volume\+Handle, P\+W\+S\+TR volume\+Device\+Path, int64 cluster\+Threshold)
+\begin{DoxyCompactList}\small\item\em Move the cluster before threshold. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Actions on cluster, header \& filesystem. 
+
+\begin{DoxyVersion}{Version}
+1.\+3.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14/12/2016 
+\end{DoxyDate}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_in_place_8c_a775d3a3797dd03263943cebceb04f00a}\label{_in_place_8c_a775d3a3797dd03263943cebceb04f00a}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE@{G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}}
+\index{G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE@{G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE}{GST\_LOCAL\_WIN32\_WINNT\_OVERRIDE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+N\+T\+\_\+\+O\+V\+E\+R\+R\+I\+DE~1}
+
+Copyright (c) 2008-\/2010 True\+Crypt Developers Association. All rights reserved.
+
+Governed by the True\+Crypt License 3.\+0 the full text of which is contained in the file License.\+txt included in True\+Crypt binary and source code distribution packages. In this file, \+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+NT is defined as 0x0600 to make filesystem shrink available (Vista or later). \+\_\+\+W\+I\+N32\+\_\+\+W\+I\+N\+NT cannot be defined as 0x0600 for the entire user-\/space projects because it breaks the main font app when the app is running on XP (likely an MS bug). I\+M\+P\+O\+R\+T\+A\+NT\+: Due to this issue, functions in this file must not directly interact with G\+UI. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_in_place_8c_a9475a61d76001ed2c478951ea1dc17ca}\label{_in_place_8c_a9475a61d76001ed2c478951ea1dc17ca}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc@{Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc}}
+\index{Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc@{Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc()}{CheckRequirementsForNonSysInPlaceEnc()}}
+{\footnotesize\ttfamily B\+O\+OL Check\+Requirements\+For\+Non\+Sys\+In\+Place\+Enc (\begin{DoxyParamCaption}\item[{const char $\ast$}]{device\+Path,  }\item[{B\+O\+OL}]{silent }\end{DoxyParamCaption})}
+
+
+
+Access the partition Checks if the filesystem is formated in N\+T\+FS Checks if the filesystem can be safely shrunk Determines the filesystem size and checks if its long enough Checks free space on filesystem Checks if sector size is supported. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & silent \\
+\hline
+\mbox{\tt in}  & {\em const} & char $\ast$ device\+Path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (Current\+O\+S\+Major $<$ 6) F\+A\+L\+SE if (partition\+Number == 0) F\+A\+L\+SE if (dev == I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+V\+A\+L\+UE) F\+A\+L\+SE if (Fake\+Dos\+Name\+For\+Device (device\+Path, dos\+Dev, dev\+Name, F\+A\+L\+SE) != 0) F\+A\+L\+SE if (!\+Device\+Io\+Control (dev, F\+S\+C\+T\+L\+\_\+\+G\+E\+T\+\_\+\+N\+T\+F\+S\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+TA, N\+U\+LL, 0, (L\+P\+V\+O\+ID) \&ntfs\+Vol\+Data, sizeof (ntfs\+Vol\+Data), \&n\+Bytes\+Returned, N\+U\+LL)) F\+A\+L\+SE if (New\+File\+Sys\+Size\+After\+Shrink (dev, device\+Path, N\+U\+LL, N\+U\+LL, silent) == -\/1) F\+A\+L\+SE if (ntfs\+Vol\+Data.\+Bytes\+Per\+Sector $>$ G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE $\vert$$\vert$ ntfs\+Vol\+Data.\+Bytes\+Per\+Sector \% E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+D\+A\+T\+A\+\_\+\+U\+N\+I\+T\+\_\+\+S\+I\+ZE != 0) F\+A\+L\+SE if (ntfs\+Vol\+Data.\+Free\+Clusters.\+Quad\+Part $\ast$ ntfs\+Vol\+Data.\+Bytes\+Per\+Cluster $<$ G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE) F\+A\+L\+SE if (!\+Device\+Io\+Control(dev, F\+S\+C\+T\+L\+\_\+\+G\+E\+T\+\_\+\+N\+T\+F\+S\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+TA, N\+U\+LL, 0, (L\+P\+V\+O\+ID)\&ntfs\+Vol\+Data, sizeof(ntfs\+Vol\+Data), \&n\+Bytes\+Returned, N\+U\+LL)) F\+A\+L\+SE if (device\+Size $<$ G\+S\+T\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+\_\+\+S\+I\+ZE) F\+A\+L\+SE if (device\+Size $<$ 0) T\+R\+UE otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_a9475a61d76001ed2c478951ea1dc17ca_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_a6370868e40894b842cb36a61b82f3185}\label{_in_place_8c_a6370868e40894b842cb36a61b82f3185}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Encrypt\+Partition\+In\+Place\+Begin@{Encrypt\+Partition\+In\+Place\+Begin}}
+\index{Encrypt\+Partition\+In\+Place\+Begin@{Encrypt\+Partition\+In\+Place\+Begin}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Encrypt\+Partition\+In\+Place\+Begin()}{EncryptPartitionInPlaceBegin()}}
+{\footnotesize\ttfamily int Encrypt\+Partition\+In\+Place\+Begin (\begin{DoxyParamCaption}\item[{volatile \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} $\ast$}]{vol\+Params,  }\item[{volatile H\+A\+N\+D\+LE $\ast$}]{out\+Handle,  }\item[{Wipe\+Algorithm\+Id}]{wipe\+Algorithm }\end{DoxyParamCaption})}
+
+
+
+Gain raw access, shrink the filesystem Create header backup on the partition. Decrypt the backup header to verify it has been correctly written Conceal the N\+T\+FS filesystem If a drive letter is assigned to the device, remove it Add the wizard to the system startup sequence if appropriate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em volatile} & Wipe\+Algorithm\+Id wipe\+Algorithm \\
+\hline
+\mbox{\tt in}  & {\em volatile} & H\+A\+N\+D\+LE $\ast$ out\+Handle \\
+\hline
+\mbox{\tt in}  & {\em volatile} & \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} wipe\+Algorithm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR n\+Status 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_a6370868e40894b842cb36a61b82f3185_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_a75b99a80c929c1a59e5bfe118bed484a}\label{_in_place_8c_a75b99a80c929c1a59e5bfe118bed484a}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Encrypt\+Partition\+In\+Place\+Resume@{Encrypt\+Partition\+In\+Place\+Resume}}
+\index{Encrypt\+Partition\+In\+Place\+Resume@{Encrypt\+Partition\+In\+Place\+Resume}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Encrypt\+Partition\+In\+Place\+Resume()}{EncryptPartitionInPlaceResume()}}
+{\footnotesize\ttfamily int Encrypt\+Partition\+In\+Place\+Resume (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{dev,  }\item[{volatile \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} $\ast$}]{vol\+Params,  }\item[{Wipe\+Algorithm\+Id}]{wipe\+Algorithm,  }\item[{volatile B\+O\+OL $\ast$}]{b\+Try\+To\+Correct\+Read\+Errors }\end{DoxyParamCaption})}
+
+
+
+Resume the encryption of the partition. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em volatile} & B\+O\+OL $\ast$ b\+Try\+To\+Correct\+Read\+Errors \\
+\hline
+\mbox{\tt in}  & {\em Wipe\+Algorithm\+Id} & wipe\+Algorithm \\
+\hline
+\mbox{\tt in}  & {\em volatile} & \hyperlink{struct_f_o_r_m_a_t___v_o_l___p_a_r_a_m_e_t_e_r_s}{F\+O\+R\+M\+A\+T\+\_\+\+V\+O\+L\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+RS} $\ast$ vol\+Params \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & dev \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int n\+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_in_place_8c_ac40985f7b9b7fcbc39c425e0443cb664}\label{_in_place_8c_ac40985f7b9b7fcbc39c425e0443cb664}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Fast\+Volume\+Header\+Update@{Fast\+Volume\+Header\+Update}}
+\index{Fast\+Volume\+Header\+Update@{Fast\+Volume\+Header\+Update}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Fast\+Volume\+Header\+Update()}{FastVolumeHeaderUpdate()}}
+{\footnotesize\ttfamily int Fast\+Volume\+Header\+Update (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{dev,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{header\+Crypto\+Info,  }\item[{\hyperlink{struct_c_r_y_p_t_o___i_n_f_o__t}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{master\+Crypto\+Info,  }\item[{\+\_\+\+\_\+int64}]{device\+Size }\end{DoxyParamCaption})}
+
+
+
+Update the volume header. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+\+\_\+int64} & device\+Size \\
+\hline
+\mbox{\tt in}  & {\em C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ master\+Crypto\+Info \\
+\hline
+\mbox{\tt in}  & {\em C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} & $\ast$ header\+Crypto\+Info \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & dev \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int n\+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{_in_place_8c_a1cafb8de24df4b57cef88272ac6445e1}\label{_in_place_8c_a1cafb8de24df4b57cef88272ac6445e1}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Move\+Clusters\+Before\+Threshold@{Move\+Clusters\+Before\+Threshold}}
+\index{Move\+Clusters\+Before\+Threshold@{Move\+Clusters\+Before\+Threshold}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Move\+Clusters\+Before\+Threshold()}{MoveClustersBeforeThreshold()}}
+{\footnotesize\ttfamily B\+O\+OL Move\+Clusters\+Before\+Threshold (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{volume\+Handle,  }\item[{P\+W\+S\+TR}]{volume\+Device\+Path,  }\item[{int64}]{cluster\+Threshold }\end{DoxyParamCaption})}
+
+
+
+Move the cluster before threshold. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int64} & cluster\+Threshold \\
+\hline
+\mbox{\tt in}  & {\em P\+W\+S\+TR} & volume\+Device\+Path \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & volume\+Handle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL F\+A\+L\+SE if (drive == -\/1) Move\+Clusters\+Before\+Threshold\+In\+Dir (volume\+Handle, volume\+Root, cluster\+Threshold) otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_a1cafb8de24df4b57cef88272ac6445e1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_a4f6f94a57238f4c66a4b404aa19e1dce}\label{_in_place_8c_a4f6f94a57238f4c66a4b404aa19e1dce}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Save\+Non\+Sys\+In\+Place\+Enc\+Settings@{Save\+Non\+Sys\+In\+Place\+Enc\+Settings}}
+\index{Save\+Non\+Sys\+In\+Place\+Enc\+Settings@{Save\+Non\+Sys\+In\+Place\+Enc\+Settings}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Save\+Non\+Sys\+In\+Place\+Enc\+Settings()}{SaveNonSysInPlaceEncSettings()}}
+{\footnotesize\ttfamily B\+O\+OL Save\+Non\+Sys\+In\+Place\+Enc\+Settings (\begin{DoxyParamCaption}\item[{int}]{delta,  }\item[{Wipe\+Algorithm\+Id}]{new\+Wipe\+Algorithm }\end{DoxyParamCaption})}
+
+
+
+Save in settings. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Wipe\+Algorithm\+Id} & new\+Wipe\+Algorithm \\
+\hline
+\mbox{\tt in}  & {\em int} & delta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+B\+O\+OL T\+R\+UE if (delta == 0) T\+R\+UE if (count $<$ 1) Save\+Buffer\+To\+File (str, Get\+Config\+Path (G\+S\+T\+\_\+\+A\+P\+P\+D\+\_\+\+F\+I\+L\+E\+N\+A\+M\+E\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC), strlen(str), F\+A\+L\+SE) 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_a4f6f94a57238f4c66a4b404aa19e1dce_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_ae9dfd12e4ac63e5ffa4e47c017607d16}\label{_in_place_8c_ae9dfd12e4ac63e5ffa4e47c017607d16}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status@{Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status}}
+\index{Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status@{Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status()}{SetNonSysInplaceEncUIStatus()}}
+{\footnotesize\ttfamily void Set\+Non\+Sys\+Inplace\+Enc\+U\+I\+Status (\begin{DoxyParamCaption}\item[{int}]{non\+Sys\+Inplace\+Enc\+Status }\end{DoxyParamCaption})}
+
+
+
+Change Non\+Sys\+Inplace\+Enc\+Status value. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em int} & non\+Sys\+Inplace\+Enc\+Status \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_ae9dfd12e4ac63e5ffa4e47c017607d16_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_a6d1ee15344595fd5805894c814d35d93}\label{_in_place_8c_a6d1ee15344595fd5805894c814d35d93}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps@{Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps}}
+\index{Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps@{Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps()}{ShowInPlaceEncErrMsgWAltSteps()}}
+{\footnotesize\ttfamily void Show\+In\+Place\+Enc\+Err\+Msg\+W\+Alt\+Steps (\begin{DoxyParamCaption}\item[{char $\ast$}]{ini\+Str\+Id,  }\item[{B\+O\+OL}]{b\+Err }\end{DoxyParamCaption})}
+
+
+
+Show error or warining. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em B\+O\+OL} & b\+Err \\
+\hline
+\mbox{\tt in}  & {\em char} & $\ast$ ini\+Str\+Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_in_place_8c_a6d1ee15344595fd5805894c814d35d93_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{_in_place_8c_a7ec0e7e82e69bdb79755dabc8f42edbd}\label{_in_place_8c_a7ec0e7e82e69bdb79755dabc8f42edbd}} 
+\index{In\+Place.\+c@{In\+Place.\+c}!Zero\+Unreadable\+Sectors@{Zero\+Unreadable\+Sectors}}
+\index{Zero\+Unreadable\+Sectors@{Zero\+Unreadable\+Sectors}!In\+Place.\+c@{In\+Place.\+c}}
+\subsubsection{\texorpdfstring{Zero\+Unreadable\+Sectors()}{ZeroUnreadableSectors()}}
+{\footnotesize\ttfamily int Zero\+Unreadable\+Sectors (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{dev,  }\item[{L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER}]{start\+Offset,  }\item[{int64}]{size,  }\item[{int}]{sector\+Size,  }\item[{\hyperlink{union_u_i_n_t64___s_t_r_u_c_t}{uint64} $\ast$}]{zeroed\+Sector\+Count }\end{DoxyParamCaption})}
+
+
+
+Repairs damaged sectors (i.\+e. those with read errors) by zeroing them. Note that this operating fails if there are any write errors. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em uint64} & $\ast$ zeroed\+Sector\+Count \\
+\hline
+\mbox{\tt in}  & {\em int} & sector\+Size \\
+\hline
+\mbox{\tt in}  & {\em int64} & size \\
+\hline
+\mbox{\tt in}  & {\em L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER} & start\+Offset \\
+\hline
+\mbox{\tt in}  & {\em H\+A\+N\+D\+LE} & dev \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (Set\+File\+Pointer\+Ex (dev, start\+Offset, N\+U\+LL, F\+I\+L\+E\+\_\+\+B\+E\+G\+IN) == 0) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (Set\+File\+Pointer\+Ex (dev, work\+Offset, N\+U\+LL, F\+I\+L\+E\+\_\+\+B\+E\+G\+IN) == 0) E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR if (Write\+File (dev, sector\+Buffer, sector\+Size, \&n, N\+U\+LL) == 0) E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY if (!sector\+Buffer) E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS otherwise 
+\end{DoxyReturn}

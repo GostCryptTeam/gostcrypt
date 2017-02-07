@@ -1,0 +1,51 @@
+<map id="L" name="L">
+<area shape="rect" id="node2" href="$_decompressor_8c.html#af23433d9d58fb31d4a1ac224e3bc46e8" title="Get needed bits. " alt="" coords="187,5,230,32"/>
+<area shape="rect" id="node4" href="$_base_com_8cpp.html#af2784074c6f986fd22afe8c86cb35425" title="Create an elevated ComObject. " alt="" coords="121,56,296,83"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_boot_encryption.html#aaca146556fbaac863e487cdabcad4678" title="Get remarks on hidden os. " alt="" coords="625,89,803,130"/>
+<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#a45bbded21c341187133deeeda390f12d" title="Get the real system drive size. " alt="" coords="882,153,1071,194"/>
+<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#a3043ae06af0b4d63e45806ddc1458006" title="Get the drive partitions. " alt="" coords="381,310,559,351"/>
+<area shape="rect" id="node9" href="$class_gost_crypt_1_1_boot_encryption.html#ab325c58a9939344bdfe056d20df0f5ff" title="Get the system drive configuration. " alt="" coords="615,270,813,311"/>
+<area shape="rect" id="node11" href="$class_gost_crypt_1_1_boot_encryption.html#a639795ac588f2523a75cc573cc537262" title="Checks if the system drive is dynamic. " alt="" coords="887,218,1066,259"/>
+<area shape="rect" id="node13" href="$class_gost_crypt_1_1_boot_encryption.html#a42fee6a10920d6e44487ee8a3ac2b17d" title="Read the boot sector configurations. " alt="" coords="887,703,1066,745"/>
+<area shape="rect" id="node14" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="93,411,324,453"/>
+<area shape="rect" id="node15" href="$_dlgcode_8c.html#af335404c61e5ba57fea6ee10dbb0a944" title="converts a unicode string to Single Byte Character String (SBCS). " alt="" coords="173,477,245,504"/>
+<area shape="rect" id="node16" href="$_dlgcode_8c.html#ab3655f2e62bb87018fd690bc610fe8e0" title="converts a SBCS string to a UNICODE string. " alt="" coords="161,528,256,555"/>
+<area shape="rect" id="node17" href="$_dlgcode_8c.html#ae86463a4b6e008375e6b08d86be58c59" title="Get the drive label. " alt="" coords="157,579,260,605"/>
+<area shape="rect" id="node18" href="$_dlgcode_8c.html#a920ebed5095721b60d2fc255ac9a1437" title="Get system encryption info string. " alt="" coords="110,630,307,671"/>
+<area shape="rect" id="node19" href="$_dlgcode_8c.html#a4200737a61fd9ee41717bc4f6acc99b9" title="Browse files in a directory. " alt="" coords="149,696,268,723"/>
+<area shape="rect" id="node20" href="$_dlgcode_8c.html#ac7495cc311e29a9a1135174a1c1f886b" title="Select multiples files. " alt="" coords="143,747,275,773"/>
+<area shape="rect" id="node21" href="$_dlgcode_8c.html#a980ae61866933e3a3a3b1a2074505341" title="Get all partition informations. " alt="" coords="153,797,264,824"/>
+<area shape="rect" id="node22" href="$_dlgcode_8c.html#a4ed932f69b3700d07d264b36985e312a" title="Get all device informations. " alt="" coords="158,848,259,875"/>
+<area shape="rect" id="node23" href="$_dlgcode_8c.html#a48446447692e2931f0404cd83043eefc" title="Get all drive informations. " alt="" coords="145,899,273,925"/>
+<area shape="rect" id="node24" href="$_dlgcode_8c.html#af678fa10d3bbe8c424ad511817c3d9b3" title="Returns drive letter number assigned to device (&#45;1 if none) " alt="" coords="125,360,293,387"/>
+<area shape="rect" id="node25" href="$_in_place_8c.html#a1cafb8de24df4b57cef88272ac6445e1" title="Move the cluster before threshold. " alt="" coords="373,663,567,689"/>
+<area shape="rect" id="node26" href="$_dlgcode_8c.html#a21e638a3f2f07b95457163fab9ed124b" title="Check File system. " alt="" coords="147,1051,270,1077"/>
+<area shape="rect" id="node27" href="$_dlgcode_8c.html#ae3c84abc241970e5cb052bc1abd0a9c9" title="Convert hard disk volume path to a partition path. " alt="" coords="92,1101,325,1128"/>
+<area shape="rect" id="node28" href="$_xml_8c.html#aa5570133a3559271a4c3a8faa3bc19b9" title="Write xml header. " alt="" coords="145,1152,273,1179"/>
+<area shape="rect" id="node29" href="$_xml_8c.html#afb3554f6751debc27d7274c34e7718e2" title="Write xml footer. " alt="" coords="147,1203,271,1229"/>
+<area shape="rect" id="node30" href="$_grasshopper_cipher_8c.html#ae7db41b7c51c2721085637dd810dd257" title="Inverse of R conversion. " alt="" coords="182,1253,235,1280"/>
+<area shape="rect" id="node31" href="$_grasshopper_cipher_8c.html#a6b136aade799131cab66db1d5d4df8b0" title="Key setup procedure. " alt="" coords="397,1317,543,1344"/>
+<area shape="rect" id="node32" href="$_grasshopper_cipher_8c.html#a8a03545392da4eb01f3fcd5197d42444" title="Encryption procedure. " alt="" coords="399,1380,541,1407"/>
+<area shape="rect" id="node33" href="$_grasshopper_cipher_8c.html#a6107e1c52141eb86bb87182173247783" title="Switch opposed bytes (lower byte to upper byte, ...) of unsigned long. " alt="" coords="157,1355,261,1381"/>
+<area shape="rect" id="node34" href="$_whirlpool_8c.html#ac2216e8e025d97e032313fbd750854f9" title="Initialize the hashing state. " alt="" coords="147,1456,270,1483"/>
+<area shape="rect" id="node35" href="$_ntdriver_8c.html#a294446bb36d4fe3b532c65195ee4fa95" title="Add a device to the driver object. " alt="" coords="151,1507,266,1533"/>
+<area shape="rect" id="node36" href="$_ntdriver_8c.html#a6b5e439a815cfb0c2d8378cd33bddf29" title="Create device object and return success. " alt="" coords="127,1557,290,1584"/>
+<area shape="rect" id="node37" href="$_ntdriver_8c.html#a0d693c57a6024c2a6c51c74c04acf374" title="Getter to know if the drive is accessible. " alt="" coords="117,1608,300,1635"/>
+<area shape="rect" id="node38" href="$_ntdriver_8c.html#a21cb8aa6d59015a21ad0dc44bf0d8eed" title="Check if the volume class exists. " alt="" coords="109,1659,309,1685"/>
+<area shape="rect" id="node39" href="$_ntdriver_8c.html#ae38cc37a46c511120730110455d222f7" title="Read registry configuration flags. " alt="" coords="125,1709,293,1736"/>
+<area shape="rect" id="node40" href="$_ntdriver_8c.html#a80eda945e51eb334e259093d5f8927c4" title="Write the registry conig flags. " alt="" coords="124,1760,293,1787"/>
+<area shape="rect" id="node41" href="$_gstformat_8c.html#a192dea119ef436222c08111c308e96b9" title="EA : encryption algorithm. In the volume creation wizard this function manage the algorithm choice wi..." alt="" coords="137,1811,281,1837"/>
+<area shape="rect" id="node42" href="$_gstformat_8c.html#a19fa3285c6349e9a5f8a303a2a6e6e9b" title="Dislay stars to hide the key but it shows that you are writing in the text box. " alt="" coords="131,1861,287,1888"/>
+<area shape="rect" id="node43" href="$_gstformat_8c.html#aa4eb133a06e2dab5eefdf60664f70064" title="Display error. " alt="" coords="131,1912,286,1939"/>
+<area shape="rect" id="node44" href="$_in_place_8c.html#a6d1ee15344595fd5805894c814d35d93" title="Show error or warining. " alt="" coords="113,1963,304,2005"/>
+<area shape="rect" id="node45" href="$_hotkeys_8c.html#a03f9aaf84276380b39f9d492161fac78" title="Returns TRUE if the key is allowed and its name is resolved. " alt="" coords="159,2029,259,2056"/>
+<area shape="rect" id="node46" href="$class_gost_crypt_1_1_platform_test.html#a32e037830a73167f9ac0ce5dc42cb84f" title="GostCrypt::PlatformTest\l::SerializerTest" alt="" coords="127,2081,290,2122"/>
+<area shape="rect" id="node47" href="$class_gost_crypt_1_1_platform_test.html#acce72e087247ae6078a2cc0fd432504c" title="GostCrypt::PlatformTest\l::TestAll" alt="" coords="127,2146,290,2187"/>
+<area shape="rect" id="node48" href="$class_gost_crypt_1_1_string_converter.html#a1dc1f215db66d2a4bb4d0b907513934f" title="GostCrypt::StringConverter\l::QuoteSpaces" alt="" coords="120,2211,297,2253"/>
+<area shape="rect" id="node49" href="$class_gost_crypt_1_1_string_converter.html#a3ffac80d302898c47b5eeccbc4b5b424" title="GostCrypt::StringConverter\l::ToExceptionString" alt="" coords="120,2277,297,2318"/>
+<area shape="rect" id="node50" href="$class_gost_crypt_1_1_string_converter.html#a3dd380a8d6cd73590b632520ecbf13e1" title="GostCrypt::StringConverter\l::ToWide" alt="" coords="120,2342,297,2383"/>
+<area shape="rect" id="node3" href="$_decompressor_8c.html#a93747b6f64a7778977983853051e3f90" title="Process all blocks or until error. " alt="" coords="445,5,495,32"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a4af9421f27c8e568add543c8b09602b3" title="Finds the first partition physically located behind the active one and returns its properties..." alt="" coords="887,87,1066,129"/>
+<area shape="rect" id="node10" href="$class_gost_crypt_1_1_boot_encryption.html#a3638d4139eef90bc7f913fea8290e49e" title="Checks if the system drive contains partition type. " alt="" coords="861,349,1092,390"/>
+<area shape="rect" id="node12" href="$class_gost_crypt_1_1_boot_encryption.html#a770514730f74d63e147ea3b2510f5e0f" title="Checks if the system partition covers the whole drive. " alt="" coords="863,283,1090,325"/>
+</map>

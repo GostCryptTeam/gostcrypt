@@ -1,0 +1,6 @@
+<map id="HarddiskVolumePathToPartitionPath" name="HarddiskVolumePathToPartitionPath">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#a50e68240af3f0e443840fc4dcfd75aab" title="Get the volume path to device. " alt="" coords="287,31,485,57"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a60bf71dab6ded8634ccfc074cf8968bf" title="Check if the volume is mouted. " alt="" coords="561,5,687,32"/>
+<area shape="rect" id="node5" href="$_dlgcode_8c.html#a58dff92ecdca5178fc74064075514ada" title="Get the number of the mounted volume. " alt="" coords="533,56,715,83"/>
+<area shape="rect" id="node4" href="$_mount_8c.html#a80e2191b50f9e6ba9b4b26db9c2f36b7" title="Keep a backup of the volume header to recover it when required. The header contains essential informa..." alt="" coords="763,5,913,32"/>
+</map>

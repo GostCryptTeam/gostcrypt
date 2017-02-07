@@ -1,0 +1,5 @@
+<map id="crypto_loadkey" name="crypto_loadkey">
+<area shape="rect" id="node2" href="$_volumes_8c.html#afa713bf1fa27171e0cc0aa16218fe10e" title="Read the volume header using getter from 16 to 64 bits. It permits to load the volume with its parame..." alt="" coords="164,42,301,69"/>
+<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a9cce66955923f808f4dd297c7041ac5b" title="Change the password. " alt="" coords="353,5,532,47"/>
+<area shape="rect" id="node4" href="$_cache_8c.html#adf059051b371da0777591dc451201226" title="Attempt to recognize volume using the mount password. " alt="" coords="349,71,536,98"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="GostCrypt::BootEncryption::RegisterFilter" name="GostCrypt::BootEncryption::RegisterFilter">
+<area shape="rect" id="node2" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="273,5,369,32"/>
+<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#ad7d1c3f18b8e3bc9133a1f8cabeb8f4d" title="Get the temp path. " alt="" coords="232,57,411,98"/>
+<area shape="rect" id="node5" href="$class_gost_crypt_1_1_file.html#a994d0e6bff285330edea0f5daaa17da1" title="Write on a file. " alt="" coords="247,123,396,149"/>
+<area shape="rect" id="node6" href="$class_gost_crypt_1_1_file.html#aec5740eb69e5ec15d77818aadeaf5001" title="Close a file. " alt="" coords="246,173,397,200"/>
+<area shape="rect" id="node3" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="459,5,599,32"/>
+</map>
