@@ -14,26 +14,26 @@
 namespace GostCrypt
 {
 
-	string Resources::GetLanguageXml ()
+	wstring Resources::GetLanguageXml ()
 	{
-		static const char LanguageXml[] =
+		static const wchar_t LanguageXml[] =
 		{
 #			include "Common/Language.xml.h"
 			, 0
 		};
 
-		return string (LanguageXml);
+		return wstring (LanguageXml);
 	}
 
-	string Resources::GetLegalNotices ()
+	wstring Resources::GetLegalNotices ()
 	{
-		static const char License[] =
+		static const wchar_t License[] =
 		{
 #			include "License.txt.h"
 			, 0
 		};
 
-		return string (License);
+		return wstring (License);
 	}
 
 

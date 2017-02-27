@@ -18,8 +18,8 @@ namespace GostCrypt
 	class Resources
 	{
 	public:
-		static string GetLanguageXml ();
-		static string GetLegalNotices ();
+		static wstring GetLanguageXml ();
+		static wstring GetLegalNotices ();
 #ifndef GST_NO_GUI
 		static wxBitmap GetDriveIconBitmap ();
 		static wxBitmap GetDriveIconMaskBitmap ();

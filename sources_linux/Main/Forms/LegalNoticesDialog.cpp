@@ -24,6 +24,6 @@ namespace GostCrypt
 		Fit();
 		Center();
 
-		LegalNoticesTextCtrl->ChangeValue (StringConverter::ToWide (Resources::GetLegalNotices()));
+		LegalNoticesTextCtrl->ChangeValue (Resources::GetLegalNotices());
 	}
 }

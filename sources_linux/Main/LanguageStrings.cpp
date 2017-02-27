@@ -37,14 +37,14 @@ namespace GostCrypt
 
 	void LanguageStrings::Init ()
 	{
-		foreach (XmlNode node, XmlParser (Resources::GetLanguageXml()).GetNodes (L"string"))
+		foreach (XmlNode node, XmlParser (wxString(Resources::GetLanguageXml())).GetNodes (L"string"))
 		{
 			wxString text = node.InnerText;
 			text.Replace (L"\\n", L"\n");
 			Map[StringConverter::ToSingle (wstring (node.Attributes[L"key"]))] = text;
 		}
 
-		foreach (XmlNode node, XmlParser (Resources::GetLanguageXml()).GetNodes (L"control"))
+		foreach (XmlNode node, XmlParser (wxString(Resources::GetLanguageXml())).GetNodes (L"control"))
 		{
 			wxString text = node.InnerText;
 			text.Replace (L"\\n", L"\n");

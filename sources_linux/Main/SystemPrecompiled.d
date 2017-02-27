@@ -1,7 +1,7 @@
 SystemPrecompiled.o: SystemPrecompiled.h /usr/include/wx-3.0/wx/wx.h \
  /usr/include/wx-3.0/wx/defs.h /usr/include/wx-3.0/wx/platform.h \
  /usr/include/wx-3.0/wx/compiler.h \
- /usr/lib/wx/include/gtk2-unicode-3.0/wx/setup.h \
+ /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-3.0/wx/setup.h \
  /usr/include/wx-3.0/wx/chkconf.h /usr/include/wx-3.0/wx/gtk/chkconf.h \
  /usr/include/wx-3.0/wx/unix/chkconf.h /usr/include/wx-3.0/wx/version.h \
  /usr/include/wx-3.0/wx/cpp.h /usr/include/wx-3.0/wx/dlimpexp.h \
