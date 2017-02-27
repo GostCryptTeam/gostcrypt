@@ -27,8 +27,8 @@ export CXX ?= g++
 export AS := nasm
 export RANLIB ?= ranlib
 
-export CFLAGS := -Wall -Wno-narrowing
-export CXXFLAGS := -Wall -Wno-unused-parameter -Wno-narrowing
+export CFLAGS := -Wall -Wno-narrowing -std=c++11
+export CXXFLAGS := -Wall -Wno-unused-parameter -Wno-narrowing -std=c++11
 C_CXX_FLAGS := -MMD -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -I$(BASE_DIR) -I$(BASE_DIR)/Crypto
 export ASFLAGS := -Ox -D __GNUC__
 export LFLAGS :=
