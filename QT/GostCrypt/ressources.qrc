@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ressources/favicon.gif</file>
+        <file>ressources/logo_gostcrypt.gif</file>
+        <file>ressources/add.gif</file>
+        <file>ressources/font.ttf</file>
+        <file>ressources/lock.gif</file>
+        <file>ressources/combobox-arrow.gif</file>
+        <file>ressources/check.gif</file>
+        <file>ressources/GC_style.qss</file>
+        <file>ressources/disk.gif</file>
+    </qresource>
+</RCC>
