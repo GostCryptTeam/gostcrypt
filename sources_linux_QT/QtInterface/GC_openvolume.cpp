@@ -125,13 +125,23 @@ GC_OpenVolume::GC_OpenVolume(QWidget* parent, const QString& style)
 
 GC_OpenVolume::~GC_OpenVolume()
 {
-    delete mGC_selectDevice;
-    delete mGC_volumeTools;
-    delete mGC_selectFile;
-    delete mGC_saveHistory;
-    delete mGC_volumePath;
-    delete mGC_textHistory;
     delete mGC_lock;
+    delete mGC_volumePath;
+    delete mGC_selectFile;
+    delete mGC_volumeTools;
+    delete mGC_selectDevice;
+    delete mGC_saveHistory;
+    delete mGC_textHistory;
+    delete mGC_ok;
+    delete mGC_cancel;
+    delete mGC_passwordTxt;
+    delete mGC_password;
+    delete mGC_cachePwd;
+    delete mGC_displayPwd;
+    delete mGC_useKeyfile;
+    delete mGC_keyFiles;
+    delete mGC_mountOption;
+
     delete mGC_grid;
     delete mGC_Volume;
 }
