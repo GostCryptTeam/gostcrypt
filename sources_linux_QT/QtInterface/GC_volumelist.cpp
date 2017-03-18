@@ -1,4 +1,4 @@
-#include "GC_VolumeList.h"
+#include "GC_volumelist.h"
 #include <QHBoxLayout>
 #include <QFontDatabase>
 #include <QDebug>
@@ -104,7 +104,7 @@ GC_VolumeList::GC_VolumeList(
 	/*! Type of Algorithm */
 	m_algorithmLabel = new QLabel(this);
 	m_algorithmLabel->setFont(QFont("Caviar Dreams", 12, 10));
-	m_algorithmLabel->setText((m_type == eGC_GOST) ? QString("GOST 28147-89") : QString("GOST Grasshopper"));
+    m_algorithmLabel->setText((m_algorithm == eGC_GOST) ? QString("GOST 28147-89") : QString("GOST Grasshopper"));
 	m_algorithmLabel->setGeometry(80, 49, 140, 20);
 	m_algorithmLabel->setAlignment(Qt::AlignCenter);
 	m_algorithmLabel->setObjectName(QString::fromUtf8("grayColorDark"));

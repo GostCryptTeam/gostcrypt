@@ -43,8 +43,8 @@ signals:
 	void Clicked(QString);
 protected:
 	void mousePressEvent(QMouseEvent* event);
-	void GC_VolumeList::enterEvent(QEvent * event);
-	void GC_VolumeList::leaveEvent(QEvent * event);
+    void enterEvent(QEvent * event);
+    void leaveEvent(QEvent * event);
 private:
 	const QString m_volumeLetter;
 	const QString m_path;
