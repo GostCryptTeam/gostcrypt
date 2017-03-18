@@ -254,7 +254,7 @@ WX_CONFIGURE_FLAGS += --enable-unicode -disable-shared --disable-dependency-trac
 
 #------ Project build ------
 
-PROJ_DIRS := Platform Volume Driver/Fuse Core Main
+PROJ_DIRS := Platform Volume Driver/Fuse Core
 
 .PHONY: all clean wxbuild
 

@@ -31,4 +31,12 @@ FORMS    +=
 RESOURCES += \
     ressources.qrc
 
+LIBS += ../Platform/Platform.a \
+    ../Volume/Volume.a \
+    ../Driver/Fuse/Driver.a \
+    ../Core/Core.a \
+    -ldl \
+    -pthread \
+    -lfuse
+
 TRANSLATIONS = GostCrypt_en.ts GostCrypt_ru.ts
