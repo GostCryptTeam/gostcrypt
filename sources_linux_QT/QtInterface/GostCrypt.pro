@@ -17,14 +17,28 @@ SOURCES += main.cpp\
     GC_button.cpp \
     GC_volumelist.cpp \
     GC_graphicuserinterface.cpp \
-    GC_openvolume.cpp
+    GC_openvolume.cpp \
+    wizard/Container_Type.cpp \
+    wizard/Encryption_Choice.cpp \
+    wizard/Format.cpp \
+    wizard/Location.cpp \
+    wizard/Password.cpp \
+    wizard/Size.cpp \
+    wizard/Ui_CreationWizard.cpp
 
 HEADERS  += \
     GC_window.h \
     GC_button.h \
     GC_volumelist.h \
     GC_graphicuserinterface.h \
-    GC_openvolume.h
+    GC_openvolume.h \
+    wizard/Container_Type.h \
+    wizard/Encryption_Choice.h \
+    wizard/Format.h \
+    wizard/Location.h \
+    wizard/Password.h \
+    wizard/Size.h \
+    wizard/Ui_CreationWizard.h
 
 FORMS    +=
 
