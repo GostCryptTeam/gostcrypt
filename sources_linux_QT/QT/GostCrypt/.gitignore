@@ -1,0 +1,4 @@
+*.pro.user
+release/
+x64
+debug
