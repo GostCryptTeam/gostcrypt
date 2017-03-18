@@ -2,3 +2,7 @@
 release/
 x64
 debug
+*.sln
+*.vxproj
+*.filters
+*.user
