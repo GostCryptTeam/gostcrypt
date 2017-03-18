@@ -1,0 +1,4 @@
+#ifndef GC_OPENVOLUME_H
+#define GC_OPENVOLUME_H
+
+#endif // GC_OPENVOLUME_H
