@@ -9,6 +9,8 @@
 PROJ = BootLoader
 .SILENT:
 
+MSVC16_ROOT = E:\MSVC15
+
 !ifndef MSVC16_ROOT
 !error Environment variable MSVC16_ROOT must point to the installation directory of MS Visual C++ 1.5
 !endif

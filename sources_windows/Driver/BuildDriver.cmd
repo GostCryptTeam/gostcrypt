@@ -39,6 +39,9 @@ set GST_TEST_SIGN=0
 
 REM echo "[*] WDK Path : %GST_WINDDK_ROOT%\bin\setenv.bat"
 
+set GST_WINDDK_ROOT=E:\WinDDK\%GST_WINDDK_BUILD%
+if exist "%GST_WINDDK_ROOT%\bin\setenv.bat" goto ddk_found
+
 set GST_WINDDK_ROOT=%SYSTEMDRIVE%\WinDDK\%GST_WINDDK_BUILD%
 if exist "%GST_WINDDK_ROOT%\bin\setenv.bat" goto ddk_found
 
