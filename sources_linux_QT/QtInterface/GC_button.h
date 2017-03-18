@@ -17,6 +17,7 @@ typedef enum
 {
    eGC_leftGreen,    /*!< Button with a left-icon */
    eGC_fullGreen,    /*!< Button with full background */
+   eGC_verif         /*!< Verficiation buttons */
 }
 eGC_buttonType;
 
@@ -37,7 +38,7 @@ public:
                                 const int & x,
                                 const int & y);
 signals:
-    void clicked();
+    void Clicked();
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);

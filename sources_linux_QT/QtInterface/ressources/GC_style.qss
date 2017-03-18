@@ -31,17 +31,29 @@ border-bottom:1px solid #8cbc62;
     padding:5px 5px 5px 5px;
 }
 
-#fullG:hover {
+#fullG:hover, #verif :hover {
     border: 1px solid #77a350;
 }
 
-#fullG:disabled {
+#fullG:disabled, #verif:disabled {
     background-color: #b4b4b4;
 }
 
-#fullG[pressed="true"] {
+#fullG[pressed="true"], #verif[pressed="true"]  {
     background-color: #8cbc62;
 }
+
+#verif {
+    height:20px;
+    margin-top:20px;
+    background-color: #9ed46f;
+    color: #ffffff;
+    border-radius: 3px;
+    qproperty-alignment: AlignCenter;
+    min-height:20px;
+    padding:5px 5px 5px 5px;
+}
+
 
 #title {
     color:#6c6c6c;
@@ -55,6 +67,10 @@ border-bottom:1px solid #8cbc62;
     color: #6c6c6c;
     border: 1px solid #c6c6c6;
     border-radius: 10px;
+}
+
+#group-noborder {
+    border: 0px;
 }
 
 #group::title {
@@ -153,4 +169,10 @@ QScrollBar::handle:vertical:hover {
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
     border: none;
     background: none;
+}
+
+#password {
+    color:#6c6c6c;
+    min-height:20px;
+    margin-top:10px;
 }

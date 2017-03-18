@@ -37,6 +37,8 @@
 
 #include "GC_button.h"
 #include "GC_volumelist.h"
+#include "GC_graphicuserinterface.h"
+#include "GC_openvolume.h"
 
 #ifdef QT_DEBUG
 #include <QDebug>
@@ -48,7 +50,7 @@
 
 namespace GC_UI {
 	class GC_window;
-};
+}
 
 	class GC_window : public QMainWindow
 	{
@@ -59,6 +61,9 @@ namespace GC_UI {
 		explicit GC_window(/*QWidget *parent = 0*/);
 		//! Destructor
 		~GC_window();
+
+    public slots:
+        // void AddVolume(); //! TODO
 
 	protected :
 		void ResizeEvent(QResizeEvent* event);
@@ -72,8 +77,10 @@ namespace GC_UI {
 
 	private slots:
 		void DebugSlot(QString path);
+        void OpenVolume();
 
 	private:
+        void ConnectSignals();
 
 		int mGC_width; /*!< Main Window's width */
 		int mGC_height; /*!< Main Window's height */
@@ -86,26 +93,20 @@ namespace GC_UI {
 		QLabel * mGC_lock; /*!< Green lock in 'mGC_Volume' group */
 
 		GC_button * mGC_newVolume; /*!< sends signal to create a new volume */
-		GC_button * mGC_selectFile; /*!< sends signal to select a new volume file */
-		GC_button * mGC_volumeTools; /*!< sends signal to open the volume tools window */
-		GC_button * mGC_selectDevice; /*!< sends signal to let the user to choose the device */
-		GC_button * mVolumeProperties; /*!< Opens window with volume information */
-		GC_button * mWipeCache; /*!< TODO */
-		GC_button * mMount; /*!< Mounts selected volume */
-		GC_button * mAutoMount; /*!< Mounts all loaded volumes */
-		GC_button * mDismount;  /*!< Dismount a selected volume */
-		GC_button * mDismountAll; /*!< Dismount all volumes */
+        GC_button * mGC_Mount; /*!< Mounts selected volume */
+        GC_button * mGC_AutoMount; /*!< Mounts all loaded volumes */
+        GC_button * mGC_DismountAll; /*!< Dismount all volumes */
+        GC_button * mGC_OpenVolume; /*!< Open an existing volume */
 
 		QString mGC_styleSheet; /*!< stylesheet */
-		QFont font; /*!< text font */
+        QFont mGC_font; /*!< text font */
 		QFrame * mGC_separator; /*!< gray line */
 
-		QGroupBox * mGC_Volume; /*!< Volume section */
-		QGroupBox * mGC_ButtonVolume; /*!< Volume section */
-		QGroupBox * mGC_ButtonMount; /*!< Mount volume section */
-		QCheckBox * mGC_saveHistory; /*!< Allow user (or not) to save the history
-										 of previously loaded path(s) */
-		QGridLayout * mGC_grid; /*!< Grid that contains volume groupbox elements */
+        QGroupBox * mGC_ButtonVolume; /*!< Volume section */
+        QGroupBox * mGC_ButtonMount; /*!< Mount volume section */
+        QCheckBox * mGC_saveHistory; /*!< Allow user (or not) to save the history
+                                         of previously loaded path(s) */
+        QGridLayout * mGC_grid; /*!< Grid that contains volume groupbox elements */
 		QGridLayout * mGC_ButtonGrid; /*!< TODO */
 		QGridLayout * mGC_ButtonMountGrid; /*!< TODO */
 		QComboBox * mGC_volumePath; /*!< Grid that contains volume groupbox elements */
@@ -113,9 +114,12 @@ namespace GC_UI {
 		QGroupBox * mGC_VolumeProperty; /*!< Volume property section */
 		QMap<QString, GC_VolumeList*> mGC_VolumeItems; /*!< All Widget Volume items */
 		QVBoxLayout * mGC_VolumesWidget; /*!< Widget with all volumes */
-		QWidget* mGC_VolumeWidget;
-		QGridLayout* mGC_VolumeLayout;
-		QScrollArea* mGC_VolumeScroll;
+        QWidget * mGC_VolumeWidget;
+        QGridLayout * mGC_VolumeLayout;
+        QScrollArea * mGC_VolumeScroll;
+
+        GC_GraphicUserInterface mGC_slots; /*!< Slot manager */
+        GC_OpenVolume * mGC_OpenVolumeWindow; /*!< Dialog to open a volume file */
 	};
 
 

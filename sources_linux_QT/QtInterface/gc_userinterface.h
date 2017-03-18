@@ -1,4 +1,0 @@
-#ifndef GC_USERINTERFACE_H
-#define GC_USERINTERFACE_H
-
-#endif // GC_USERINTERFACE_H

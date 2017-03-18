@@ -10,9 +10,9 @@ QString truncate(QString str) {
 		return str.left(20) + QString("...");
 	else
 		return str;
-};
+}
 
-/*! converts byte to MB, GB, KB*/
+/*! converts byte to MB, GB, KB */
 QString formatSize(unsigned long long sizeInByte) {
 
 	if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")

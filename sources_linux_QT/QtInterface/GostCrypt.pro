@@ -15,12 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
     GC_window.cpp \
     GC_button.cpp \
-    GC_volumelist.cpp
+    GC_volumelist.cpp \
+    GC_graphicuserinterface.cpp \
+    GC_openvolume.cpp
 
 HEADERS  += \
     GC_window.h \
     GC_button.h \
-    GC_volumelist.h
+    GC_volumelist.h \
+    GC_graphicuserinterface.h \
+    GC_openvolume.h
 
 FORMS    +=
 

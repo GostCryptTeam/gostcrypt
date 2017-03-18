@@ -28,6 +28,10 @@ GC_button::GC_button(QWidget* parent,
     case eGC_fullGreen:
         setObjectName("fullG");
         break;
+
+    case eGC_verif:
+        setObjectName("verif");
+        break;
     }
 }
 
@@ -55,6 +59,7 @@ void GC_button::mouseReleaseEvent(QMouseEvent* event)
     style()->unpolish(this);
     style()->polish(this);
     QLabel::setGeometry(QRect(this->x(), this->y()-1, this->width(), this->height()));
+    emit Clicked();
 }
 
 void GC_button::setGeometry(const int & width,
