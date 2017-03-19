@@ -17,28 +17,13 @@ SOURCES += main.cpp\
     Button.cpp \
     VolumeList.cpp \
     GraphicUserInterface.cpp \
-    OpenVolumeDialog.cpp
-    wizard/Container_Type.cpp \
-    wizard/Encryption_Choice.cpp \
-    wizard/Format.cpp \
-    wizard/Location.cpp \
-    wizard/Password.cpp \
-    wizard/Size.cpp \
-    wizard/Ui_CreationWizard.cpp
+    OpenVolumeDialog.cpp \
 
-HEADERS  += \
-    Window.h \
+HEADERS  += Window.h \
     Button.h \
     VolumeList.h \
     GraphicUserInterface.h \
-    OpenVolumeDialog.h
-    wizard/Container_Type.h \
-    wizard/Encryption_Choice.h \
-    wizard/Format.h \
-    wizard/Location.h \
-    wizard/Password.h \
-    wizard/Size.h \
-    wizard/Ui_CreationWizard.h
+    OpenVolumeDialog.h \
 
 FORMS    +=
 
