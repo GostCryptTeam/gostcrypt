@@ -7,7 +7,7 @@
         <file>ressources/lock.gif</file>
         <file>ressources/combobox-arrow.gif</file>
         <file>ressources/check.gif</file>
-        <file>ressources/GC_style.qss</file>
+        <file>ressources/style.qss</file>
         <file>ressources/disk.gif</file>
     </qresource>
 </RCC>

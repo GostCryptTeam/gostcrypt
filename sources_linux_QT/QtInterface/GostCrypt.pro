@@ -13,18 +13,18 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    GC_window.cpp \
-    GC_button.cpp \
-    GC_volumelist.cpp \
-    GC_graphicuserinterface.cpp \
-    GC_openvolume.cpp
+    Window.cpp \
+    Button.cpp \
+    VolumeList.cpp \
+    GraphicUserInterface.cpp \
+    OpenVolumeDialog.cpp
 
 HEADERS  += \
-    GC_window.h \
-    GC_button.h \
-    GC_volumelist.h \
-    GC_graphicuserinterface.h \
-    GC_openvolume.h
+    Window.h \
+    Button.h \
+    VolumeListDialog.h \
+    GraphicUserInterface.h \
+    OpenVolumeDialog.h
 
 FORMS    +=
 

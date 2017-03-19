@@ -2,7 +2,7 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
-    <name>mGC_window</name>
+    <name>Window</name>
     <message>
         <source>créer un volume</source>
         <translation type="unfinished"></translation>

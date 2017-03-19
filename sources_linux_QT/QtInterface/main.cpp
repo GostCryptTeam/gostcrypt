@@ -9,18 +9,20 @@
  *
  */
 
-#include "GC_window.h"
+#include "Window.h"
 
 #include <QApplication>
 #include <QFile>
-/*#include <QIODevice>
+/*
+#include <QIODevice>
 #include <QStyleFactory>
-#include <QFont>*/
+#include <QFont>
+//*/
 
 int main(int argc, char *argv[])
 {
     QApplication GC(argc, argv); /*!< Main application */
-    GC_window interface; /*!< GostCrypt UI*/
+    Window interface; /*!< GostCrypt UI*/
 
     interface.show();
     return GC.exec();

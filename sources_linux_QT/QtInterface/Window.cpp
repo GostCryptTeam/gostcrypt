@@ -1,5 +1,5 @@
 /*!
- * \file mGC_window.cpp
+ * \file Window.cpp
  * \brief Main cpp file for the GostCrypt's UI
  * \author Antoine Hébert, Louis Béclair, William Lardier
  * \version 0.1
@@ -9,18 +9,18 @@
  *
  */
 
-#include "GC_window.h"
+#include "Window.h"
 
-GC_window::GC_window(/*QWidget *parent*/) :
-    mGC_sidebar(this),
-    mGC_title(this),
-	mGC_gridCpt(0)
+Window::Window(/*QWidget *parent*/) :
+    mSidebar(this),
+    mTitle(this),
+	mGridCpt(0)
 {
     /*********** Size & style ***********/
     QIcon favicon;
     /* Embedded font */
     QFontDatabase::addApplicationFont(":/ressources/gs_font.ttf");
-    mGC_font = QFont("Caviar Dreams", 10, 1);
+    mFont = QFont("Caviar Dreams", 10, 1);
 
     /*! Set window dimensions according to the resolution */
     QRect dim;
@@ -28,15 +28,15 @@ GC_window::GC_window(/*QWidget *parent*/) :
     dim.setWidth(dim.height() * UI_RATIO);
     this->setMinimumWidth(dim.width());
     this->setMinimumHeight(dim.height());
-    mGC_width = dim.width();
-    mGC_height = dim.height();
+    mWidth = dim.width();
+    mHeight = dim.height();
 	//setFixedSize(QSize(dim.width(), dim.height()));
 
     /*!< Load QSS stylesheet file*/
-    QFile file(":/ressources/GC_style.qss");
+    QFile file(":/ressources/style.qss");
     file.open(QFile::ReadOnly);
-    mGC_styleSheet = QLatin1String(file.readAll());
-    setStyleSheet(mGC_styleSheet);
+    mStyleSheet = QLatin1String(file.readAll());
+    setStyleSheet(mStyleSheet);
 
     /*! Change background color */
     this->setObjectName( "window" );
@@ -49,165 +49,165 @@ GC_window::GC_window(/*QWidget *parent*/) :
 
     /*********** Widgets ***********/
     /*! sidebar with white background */
-    mGC_sidebar.setObjectName("sidebar");
-    mGC_sidebar.setGeometry(0,0,170,dim.height());
+    mSidebar.setObjectName("sidebar");
+    mSidebar.setGeometry(0,0,170,dim.height());
 
     /*! Load and draw the application logo*/
-    mGC_logo = new QLabel(this);
-    mGC_logo->setObjectName(QString::fromUtf8("logo"));
-    mGC_logo->setGeometry(QRect(15, 15, 141, 48));
-    mGC_logo->setPixmap(QPixmap(
+    mLogo = new QLabel(this);
+    mLogo->setObjectName(QString::fromUtf8("logo"));
+    mLogo->setGeometry(QRect(15, 15, 141, 48));
+    mLogo->setPixmap(QPixmap(
                            QString::fromUtf8(":/ressources/logo_gostcrypt.gif")
                           ));
 
     /*! New Volume button */
-    mGC_newVolume = new GC_button(this, tr("creer un volume").toUtf8(), &mGC_styleSheet, eGC_leftGreen);
-    mGC_newVolume->setGeometry(mGC_width/3.5, 35, mGC_width-(mGC_width/3.5+10), 7);
-    mGC_newVolume->setFont(mGC_font);
+    mNewVolume = new Button(this, tr("creer un volume").toUtf8(), &mStyleSheet, eLeftGreen);
+    mNewVolume->setGeometry(mWidth/3.5, 35, mWidth-(mWidth/3.5+10), 7);
+    mNewVolume->setFont(mFont);
 
     /*! title */
     QString title = QString(tr("GostCrypt Volume Creation Wizard :"));
-    mGC_title.setText(title);
-    mGC_title.setObjectName("title");
-    mGC_title.setFont(mGC_font);
-    QFontMetrics fm(mGC_font);
-    mGC_title.setGeometry(200,18,fm.width(title),fm.height());
+    mTitle.setText(title);
+    mTitle.setObjectName("title");
+    mTitle.setFont(mFont);
+    QFontMetrics fm(mFont);
+    mTitle.setGeometry(200,18,fm.width(title),fm.height());
 
     /*! gray line separator */
-    mGC_separator = new QFrame(this);
-    mGC_separator->setObjectName(QString::fromUtf8("line"));
-    mGC_separator->setGeometry(QRect(180, 50, this->width()-190, 1));
-    mGC_separator->setFrameShape(QFrame::HLine);
-    mGC_separator->setFrameShadow(QFrame::Sunken);
+    mSeparator = new QFrame(this);
+    mSeparator->setObjectName(QString::fromUtf8("line"));
+    mSeparator->setGeometry(QRect(180, 50, this->width()-190, 1));
+    mSeparator->setFrameShape(QFrame::HLine);
+    mSeparator->setFrameShadow(QFrame::Sunken);
 
     /********* Volume Property ********/
-    mGC_VolumeProperty = new QGroupBox(this);
-    mGC_VolumeProperty->setFont(mGC_font);
-    mGC_VolumeProperty->setObjectName(QString::fromUtf8("group"));
-    mGC_VolumeProperty->setProperty("white", true);
-    mGC_VolumeProperty->setTitle(QString(tr("Propriété des volumes")));
-    mGC_VolumeProperty->setGeometry(QRect(180,217,this->width()-190, this->height()*0.5));
+    mVolumeProperty = new QGroupBox(this);
+    mVolumeProperty->setFont(mFont);
+    mVolumeProperty->setObjectName(QString::fromUtf8("group"));
+    mVolumeProperty->setProperty("white", true);
+    mVolumeProperty->setTitle(QString(tr("Propriété des volumes")));
+    mVolumeProperty->setGeometry(QRect(180,217,this->width()-190, this->height()*0.5));
 
-	mGC_VolumeWidget = new QWidget;
+	mVolumeWidget = new QWidget;
 	
-	mGC_VolumeLayout = new QGridLayout(mGC_VolumeWidget);
-	mGC_VolumeWidget->setLayout(mGC_VolumeLayout);
+	mVolumeLayout = new QGridLayout(mVolumeWidget);
+	mVolumeWidget->setLayout(mVolumeLayout);
 
-	mGC_VolumeScroll = new QScrollArea(this);
-	mGC_VolumeScroll->setWidgetResizable(true);
-	mGC_VolumeScroll->setObjectName(QString::fromUtf8("volumes"));
-	mGC_VolumeScroll->setWidget(mGC_VolumeWidget);
-	mGC_VolumeScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-	mGC_VolumeScroll->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	mGC_VolumeScroll->setStyleSheet("background-color:transparent;");
+	mVolumeScroll = new QScrollArea(this);
+	mVolumeScroll->setWidgetResizable(true);
+	mVolumeScroll->setObjectName(QString::fromUtf8("volumes"));
+	mVolumeScroll->setWidget(mVolumeWidget);
+	mVolumeScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+	mVolumeScroll->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	mVolumeScroll->setStyleSheet("background-color:transparent;");
 	
 	//add widgets
-	mGC_VolumeScroll->setGeometry(QRect(185, 240, this->width() - 200, this->height()*0.5-25));
-	CreateVolumeWidget("E", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("F", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_OTHER, eGC_GOST, 541665);
-	CreateVolumeWidget("G", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_OTHER, eGC_GHOPPER, 545455402);
-	CreateVolumeWidget("H", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 15478955035);
-	CreateVolumeWidget("I", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("J", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("K", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("L", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("M", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("O", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("P", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
-	CreateVolumeWidget("Q", "C:/Program Files (x86)/MesVolumes/volume.*", eGC_NORMAL, eGC_GOST, 5);
+	mVolumeScroll->setGeometry(QRect(185, 240, this->width() - 200, this->height()*0.5-25));
+	CreateVolumeWidget("E", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("F", "C:/Program Files (x86)/MesVolumes/volume.*", eOther, eGost, 541665);
+	CreateVolumeWidget("G", "C:/Program Files (x86)/MesVolumes/volume.*", eOther, eGrasshopper, 545455402);
+	CreateVolumeWidget("H", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 15478955035);
+	CreateVolumeWidget("I", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("J", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("K", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("L", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("M", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("O", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("P", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+	CreateVolumeWidget("Q", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
 
 	//! Buttons
-    mGC_Mount = new GC_button(this, tr("Monter le volume"), &mGC_styleSheet, eGC_fullGreen);
-    mGC_Mount->setFont(mGC_font);
+    mMount = new Button(this, tr("Monter le volume"), &mStyleSheet, eFullGreen);
+    mMount->setFont(mFont);
 
-    mGC_AutoMount = new GC_button(this, tr("Monter Automatiquement"), &mGC_styleSheet, eGC_fullGreen);
-    mGC_AutoMount->setFont(mGC_font);
+    mAutoMount = new Button(this, tr("Monter Automatiquement"), &mStyleSheet, eFullGreen);
+    mAutoMount->setFont(mFont);
 
-    mGC_DismountAll = new GC_button(this, tr("Démonter tous les volumes"), &mGC_styleSheet, eGC_fullGreen);
-    mGC_DismountAll->setFont(mGC_font);
+    mDismountAll = new Button(this, tr("Démonter tous les volumes"), &mStyleSheet, eFullGreen);
+    mDismountAll->setFont(mFont);
 
-    mGC_OpenVolume = new GC_button(this, tr("Ouvrir un volume"), &mGC_styleSheet, eGC_fullGreen);
-    mGC_OpenVolume->setFont(mGC_font);
+    mOpenVolume = new Button(this, tr("Ouvrir un volume"), &mStyleSheet, eFullGreen);
+    mOpenVolume->setFont(mFont);
 
 	//! Containers for buttons
-	mGC_ButtonVolume = new QGroupBox(this);
-	mGC_ButtonVolume->setGeometry(QRect(180, 170, this->width() - 190, 40));
-	mGC_ButtonVolume->setStyleSheet("border:0px");
+	mButtonVolume = new QGroupBox(this);
+	mButtonVolume->setGeometry(QRect(180, 170, this->width() - 190, 40));
+	mButtonVolume->setStyleSheet("border:0px");
 
-    mGC_ButtonGrid = new QGridLayout(mGC_ButtonVolume);
-    mGC_ButtonGrid->addWidget(mGC_Mount, 0, 0);
-    mGC_ButtonGrid->addWidget(mGC_OpenVolume, 0, 1);
+    mButtonGrid = new QGridLayout(mButtonVolume);
+    mButtonGrid->addWidget(mMount, 0, 0);
+    mButtonGrid->addWidget(mOpenVolume, 0, 1);
 
-	mGC_ButtonMount = new QGroupBox(this);
-	mGC_ButtonMount->setGeometry(QRect(180, this->height()-50, this->width() - 190, 40));
-	mGC_ButtonMount->setStyleSheet("border:0px");
+	mButtonMount = new QGroupBox(this);
+	mButtonMount->setGeometry(QRect(180, this->height()-50, this->width() - 190, 40));
+	mButtonMount->setStyleSheet("border:0px");
 
-	mGC_ButtonMountGrid = new QGridLayout(mGC_ButtonMount);
-    mGC_ButtonMountGrid->addWidget(mGC_AutoMount, 0, 0);
-    //mGC_ButtonMountGrid->addWidget(mDismount, 0, 1);
-    mGC_ButtonMountGrid->addWidget(mGC_DismountAll, 0, 2);
+	mButtonMountGrid = new QGridLayout(mButtonMount);
+    mButtonMountGrid->addWidget(mAutoMount, 0, 0);
+    //mButtonMountGrid->addWidget(mDismount, 0, 1);
+    mButtonMountGrid->addWidget(mDismountAll, 0, 2);
 	
     ConnectSignals();
 }
 
-GC_window::~GC_window()
+Window::~Window()
 {
 
-	delete mGC_logo;
-    delete mGC_separator;
+	delete mLogo;
+    delete mSeparator;
 }
 
-void GC_window::ConnectSignals()
+void Window::ConnectSignals()
 {
-    QObject::connect(mGC_Mount, SIGNAL(Clicked()), &mGC_slots, SLOT(GC_receiveMount()));
-    QObject::connect(mGC_AutoMount, SIGNAL(Clicked()), &mGC_slots, SLOT(GC_receiveAutoMount()));
-    QObject::connect(mGC_DismountAll, SIGNAL(Clicked()), &mGC_slots, SLOT(GC_receiveDismountAll()));
-    QObject::connect(mGC_OpenVolume, SIGNAL(Clicked()), this, SLOT(OpenVolume()));
+    QObject::connect(mMount, SIGNAL(Clicked()), &mSlots, SLOT(receiveMount()));
+    QObject::connect(mAutoMount, SIGNAL(Clicked()), &mSlots, SLOT(receiveAutoMount()));
+    QObject::connect(mDismountAll, SIGNAL(Clicked()), &mSlots, SLOT(receiveDismountAll()));
+    QObject::connect(mOpenVolume, SIGNAL(Clicked()), this, SLOT(OpenVolume()));
 }
 
-void GC_window::ResizeEvent(QResizeEvent* event) {
+void Window::ResizeEvent(QResizeEvent* event) {
 #ifdef QT_DEBUG
     qDebug() << event;
 #endif
-    mGC_width = this->width();
-    mGC_height = this->height();
-    mGC_sidebar.setGeometry(0,0,170,this->height());
-    mGC_newVolume->setGeometry(mGC_width/3.5, 35, mGC_width-(mGC_width/3.5+10), 7);
-    mGC_separator->setGeometry(QRect(180, 50, this->width()-190, 1));
-    mGC_VolumeProperty->setGeometry(QRect(180,180,this->width()-190,this->height()*0.5));
-	mGC_VolumeScroll->setGeometry(QRect(185, 200, this->width() - 200, this->height()*0.5 - 25));
+    mWidth = this->width();
+    mHeight = this->height();
+    mSidebar.setGeometry(0,0,170,this->height());
+    mNewVolume->setGeometry(mWidth/3.5, 35, mWidth-(mWidth/3.5+10), 7);
+    mSeparator->setGeometry(QRect(180, 50, this->width()-190, 1));
+    mVolumeProperty->setGeometry(QRect(180,180,this->width()-190,this->height()*0.5));
+	mVolumeScroll->setGeometry(QRect(185, 200, this->width() - 200, this->height()*0.5 - 25));
 }
 
-void GC_window::CreateVolumeWidget(
+void Window::CreateVolumeWidget(
 		const QString& volumeLetter,
 		const QString& path,
-		const eGC_TYPE& type,
-		const eGC_ALGO& algorithm,
+		const VolumeType& type,
+		const VolumeAlgorithm& algorithm,
 		const unsigned long long& size
 	)
 {
-	if (mGC_VolumeItems[volumeLetter])
-		delete mGC_VolumeItems[volumeLetter];
-	mGC_VolumeItems[volumeLetter] = new GC_VolumeList(volumeLetter, path, type, algorithm, size, WIDTH-241);
-	mGC_VolumeLayout->addWidget(mGC_VolumeItems[volumeLetter],mGC_gridCpt/2, mGC_gridCpt%2+1);
+	if (mVolumeItems[volumeLetter])
+		delete mVolumeItems[volumeLetter];
+	mVolumeItems[volumeLetter] = new VolumeList(volumeLetter, path, type, algorithm, size, WIDTH-241);
+	mVolumeLayout->addWidget(mVolumeItems[volumeLetter],mGridCpt/2, mGridCpt%2+1);
 #ifdef QT_DEBUG
-	qDebug() << mGC_gridCpt / 2 << "," << mGC_gridCpt % 2 + 1 << volumeLetter;
+	qDebug() << mGridCpt / 2 << "," << mGridCpt % 2 + 1 << volumeLetter;
 #endif
-    QObject::connect(mGC_VolumeItems[volumeLetter], SIGNAL(Clicked(QString)), &mGC_slots, SLOT(GC_receive(QString)));
-	mGC_gridCpt++;
+    QObject::connect(mVolumeItems[volumeLetter], SIGNAL(Clicked(QString)), &mSlots, SLOT(receive(QString)));
+	mGridCpt++;
 }
 
-void GC_window::DebugSlot(QString path)
+void Window::DebugSlot(QString path)
 {
 #ifdef QT_DEBUG
 	qDebug() << path;
 #endif
 }
 
-void GC_window::OpenVolume()
+void Window::OpenVolume()
 {
-    mGC_OpenVolumeWindow = new GC_OpenVolume(this, mGC_styleSheet);
-    mGC_OpenVolumeWindow->setAttribute(Qt::WA_DeleteOnClose);
-    mGC_OpenVolumeWindow->setModal(true);
-    mGC_OpenVolumeWindow->show();
+    mOpenVolumeWindow = new OpenVolume(this, mStyleSheet);
+    mOpenVolumeWindow->setAttribute(Qt::WA_DeleteOnClose);
+    mOpenVolumeWindow->setModal(true);
+    mOpenVolumeWindow->show();
 }

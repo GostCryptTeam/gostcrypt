@@ -6,39 +6,39 @@
 #include <QLabel>
 #include <QObject>
 /**
-* \enum eGC_TYPE
+* \enum VolumeType
 * \brief Differents types of volumes.
 */
 typedef enum
 {
-	eGC_NORMAL,    /*!< Normal Volume type */
-	eGC_OTHER,    /*!< Other type of volume */
+	eNormal,    /*!< Normal Volume type */
+	eOther,    /*!< Other type of volume */
 }
-eGC_TYPE;
+VolumeType;
 
 /**
-* \enum e_ALGO
+* \enum VolumeAlgorithm
 * \brief Differents types of encyption algorithms.
 */
 typedef enum
 {
-	eGC_GOST,    /*!< GOST 28147-89 */
-	eGC_GHOPPER,    /*!< GOST grasshopper */
+	eGost,    /*!< GOST 28147-89 */
+	eGrasshopper,    /*!< GOST grasshopper */
 }
-eGC_ALGO;
+VolumeAlgorithm;
 
-class GC_VolumeList : public QWidget
+class VolumeList : public QWidget
 {
 	Q_OBJECT
 public:
-	GC_VolumeList(
+	VolumeList(
 		const QString& volumeLetter,
 		const QString& path,
-		const eGC_TYPE& type,
-		const eGC_ALGO& algorithm,
+		const VolumeType& type,
+		const VolumeAlgorithm& algorithm,
 		const unsigned long long& size,
 		const int& width);
-	~GC_VolumeList();
+	~VolumeList();
 signals:
 	void Clicked(QString);
 protected:
@@ -46,18 +46,18 @@ protected:
     void enterEvent(QEvent * event);
     void leaveEvent(QEvent * event);
 private:
-	const QString m_volumeLetter;
-	const QString m_path;
-	const eGC_TYPE m_type;
-	const eGC_ALGO m_algorithm;
-	const unsigned long int m_size;
-	QLabel* m_bkGray;
-	QLabel* m_pathLabel;
-	QLabel* m_volumeLetterLabel;
-	QLabel* m_sizeLabel;
-	QLabel* m_algorithmLabel;
-	QLabel* m_typeLabel;
-	QLabel* m_diskLabel;
+	const QString mVolumeLetter;
+	const QString mPath;
+	const VolumeType mType;
+	const VolumeAlgorithm mAlgorithm;
+	const unsigned long int mSize;
+	QLabel* mBkGray;
+	QLabel* mPathLabel;
+	QLabel* mVolumeLetterLabel;
+	QLabel* mSizeLabel;
+	QLabel* mAlgorithmLabel;
+	QLabel* mTypeLabel;
+	QLabel* mDiskLabel;
 };
 
 #endif // CUSTOMLIST_H

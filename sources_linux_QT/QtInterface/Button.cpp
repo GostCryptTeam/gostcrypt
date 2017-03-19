@@ -1,13 +1,13 @@
-#include "GC_button.h"
+#include "Button.h"
 
 #ifdef QT_DEBUG
 #include <QDebug>
 #endif
 
-GC_button::GC_button(QWidget* parent,
+Button::Button(QWidget* parent,
                      const QString& text,
                      QString* style,
-                     eGC_buttonType type) :
+                     ButtonType type) :
     QLabel(parent)
 {
 
@@ -21,25 +21,25 @@ GC_button::GC_button(QWidget* parent,
 
     switch(type)
     {
-    case eGC_leftGreen:
+    case eLeftGreen:
         setObjectName("leftG");
         break;
 
-    case eGC_fullGreen:
+    case eFullGreen:
         setObjectName("fullG");
         break;
 
-    case eGC_verif:
+    case eVerif:
         setObjectName("verif");
         break;
     }
 }
 
-GC_button::~GC_button() {
+Button::~Button() {
 
 }
 
-void GC_button::mousePressEvent(QMouseEvent* event)
+void Button::mousePressEvent(QMouseEvent* event)
 {
 #ifdef QT_DEBUG
     qDebug() << event;
@@ -50,7 +50,7 @@ void GC_button::mousePressEvent(QMouseEvent* event)
     QLabel::setGeometry(QRect(this->x(), this->y()+1, this->width(), this->height()));
 }
 
-void GC_button::mouseReleaseEvent(QMouseEvent* event)
+void Button::mouseReleaseEvent(QMouseEvent* event)
 {
 #ifdef QT_DEBUG
     qDebug() << event;
@@ -62,7 +62,7 @@ void GC_button::mouseReleaseEvent(QMouseEvent* event)
     emit Clicked();
 }
 
-void GC_button::setGeometry(const int & width,
+void Button::setGeometry(const int & width,
                             const int & height,
                             const int & x,
                             const int & y)

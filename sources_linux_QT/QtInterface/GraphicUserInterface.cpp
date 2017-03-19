@@ -1,14 +1,14 @@
-#include "GC_graphicuserinterface.h"
+#include "GraphicUserInterface.h"
 #include <iostream>
 #include <QDebug>
 
-GC_GraphicUserInterface::GC_GraphicUserInterface(QObject * parent)
+GraphicUserInterface::GraphicUserInterface(QObject * parent)
     : QObject(parent)
 {
 
 }
 
-void GC_GraphicUserInterface::GC_receive(const QString& str)
+void GraphicUserInterface::receive(const QString& str)
 {
 #ifdef QT_DEBUG
     qDebug() << str;
@@ -16,14 +16,14 @@ void GC_GraphicUserInterface::GC_receive(const QString& str)
 }
 
 
-void GC_GraphicUserInterface::GC_receiveMount()
+void GraphicUserInterface::receiveMount()
 {
 #ifdef QT_DEBUG
     qDebug() << "Monter";
 #endif
 }
 
-void GC_GraphicUserInterface::GC_receiveAutoMount()
+void GraphicUserInterface::receiveAutoMount()
 {
 #ifdef QT_DEBUG
     qDebug() << "Monter auto";
@@ -31,7 +31,7 @@ void GC_GraphicUserInterface::GC_receiveAutoMount()
 	// Voir Main/Forms/MainFrame.cpp:530
 }
 
-void GC_GraphicUserInterface::GC_receiveDismountAll()
+void GraphicUserInterface::receiveDismountAll()
 {
 #ifdef QT_DEBUG
     qDebug() << "Tout démonter";

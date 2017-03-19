@@ -1,5 +1,5 @@
-#ifndef mGC_BUTTON_H
-#define mGC_BUTTON_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include <QStyle>
 #include <QLabel>
@@ -10,28 +10,28 @@
 #include <QPainter>
 
 /**
- * \enum eGC_buttonType
+ * \enum ButtonType
  * \brief Differents types of buttons for GostCrypt.
  */
 typedef enum
 {
-   eGC_leftGreen,    /*!< Button with a left-icon */
-   eGC_fullGreen,    /*!< Button with full background */
-   eGC_verif         /*!< Verficiation buttons */
+   eLeftGreen,    /*!< Button with a left-icon */
+   eFullGreen,    /*!< Button with full background */
+   eVerif         /*!< Verficiation buttons */
 }
-eGC_buttonType;
+ButtonType;
 
 
-class GC_button : public QLabel
+class Button : public QLabel
 {
     Q_OBJECT
 public:
-       explicit GC_button(QWidget* parent,
+       explicit Button(QWidget* parent,
                  const QString& text,
                  QString * style,
-                 eGC_buttonType type = eGC_fullGreen
+                 ButtonType type = eFullGreen
                  );
-       ~GC_button();
+       ~Button();
 
        virtual void setGeometry(const int & width,
                                 const int & height,
@@ -44,4 +44,4 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
 };
 
-#endif // mGC_BUTTON_H
+#endif // BUTTON_H
