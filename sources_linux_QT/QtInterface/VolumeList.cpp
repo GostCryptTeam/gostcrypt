@@ -104,7 +104,7 @@ VolumeList::VolumeList(
 	/*! Type of Algorithm */
 	mAlgorithmLabel = new QLabel(this);
 	mAlgorithmLabel->setFont(QFont("Caviar Dreams", 12, 10));
-    mAlgorithmLabel->setText((mAlgorithm == VolumeAlgorithm.eGost) ? QString("GOST 28147-89") : QString("GOST Grasshopper"));
+    mAlgorithmLabel->setText((mAlgorithm == VolumeAlgorithm::eGost) ? QString("GOST 28147-89") : QString("GOST Grasshopper"));
 	mAlgorithmLabel->setGeometry(80, 49, 140, 20);
 	mAlgorithmLabel->setAlignment(Qt::AlignCenter);
 	mAlgorithmLabel->setObjectName(QString::fromUtf8("grayColorDark"));
@@ -113,7 +113,7 @@ VolumeList::VolumeList(
 	mTypeLabel = new QLabel(this);
 	mTypeLabel->setFont(QFont("Caviar Dreams", 10, 10));
 	QString lType = QObject::tr("Type : ");
-	QString lResult = (mType == VolumeType.eNORMAL)
+    QString lResult = (mType == VolumeType::eNormal)
 		? QObject::tr("Normal") :
 		QObject::tr("Autre");
 	mTypeLabel->setText(lType + lResult);

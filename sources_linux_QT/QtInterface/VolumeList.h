@@ -9,23 +9,21 @@
 * \enum VolumeType
 * \brief Differents types of volumes.
 */
-typedef enum
+enum class VolumeType
 {
 	eNormal,    /*!< Normal Volume type */
 	eOther,    /*!< Other type of volume */
-}
-VolumeType;
+};
 
 /**
 * \enum VolumeAlgorithm
 * \brief Differents types of encyption algorithms.
 */
-typedef enum
+enum class VolumeAlgorithm
 {
 	eGost,    /*!< GOST 28147-89 */
 	eGrasshopper,    /*!< GOST grasshopper */
-}
-VolumeAlgorithm;
+};
 
 class VolumeList : public QWidget
 {

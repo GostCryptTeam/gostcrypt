@@ -22,7 +22,7 @@ SOURCES += main.cpp\
 HEADERS  += \
     Window.h \
     Button.h \
-    VolumeListDialog.h \
+    VolumeList.h \
     GraphicUserInterface.h \
     OpenVolumeDialog.h
 

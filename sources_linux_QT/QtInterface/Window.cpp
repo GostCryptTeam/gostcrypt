@@ -103,18 +103,18 @@ Window::Window(/*QWidget *parent*/) :
 	
 	//add widgets
 	mVolumeScroll->setGeometry(QRect(185, 240, this->width() - 200, this->height()*0.5-25));
-	CreateVolumeWidget("E", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("F", "C:/Program Files (x86)/MesVolumes/volume.*", eOther, eGost, 541665);
-	CreateVolumeWidget("G", "C:/Program Files (x86)/MesVolumes/volume.*", eOther, eGrasshopper, 545455402);
-	CreateVolumeWidget("H", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 15478955035);
-	CreateVolumeWidget("I", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("J", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("K", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("L", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("M", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("O", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("P", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
-	CreateVolumeWidget("Q", "C:/Program Files (x86)/MesVolumes/volume.*", eNormal, eGost, 5);
+    CreateVolumeWidget("E", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("F", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eOther, VolumeAlgorithm::eGost, 541665);
+    CreateVolumeWidget("G", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eOther, VolumeAlgorithm::eGrasshopper, 545455402);
+    CreateVolumeWidget("H", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 15478955035);
+    CreateVolumeWidget("I", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("J", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("K", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("L", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("M", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("O", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("P", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
+    CreateVolumeWidget("Q", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
 
 	//! Buttons
     mMount = new Button(this, tr("Monter le volume"), &mStyleSheet, eFullGreen);
@@ -206,8 +206,8 @@ void Window::DebugSlot(QString path)
 
 void Window::OpenVolume()
 {
-    mOpenVolumeWindow = new OpenVolume(this, mStyleSheet);
-    mOpenVolumeWindow->setAttribute(Qt::WA_DeleteOnClose);
-    mOpenVolumeWindow->setModal(true);
-    mOpenVolumeWindow->show();
+    mOpenVolumeDialogWindow = new OpenVolumeDialog(this, mStyleSheet);
+    mOpenVolumeDialogWindow->setAttribute(Qt::WA_DeleteOnClose);
+    mOpenVolumeDialogWindow->setModal(true);
+    mOpenVolumeDialogWindow->show();
 }
