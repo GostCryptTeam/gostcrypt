@@ -125,13 +125,23 @@ OpenVolumeDialog::OpenVolumeDialog(QWidget* parent, const QString& style)
 
 OpenVolumeDialog::~OpenVolumeDialog()
 {
-    delete mSelectDevice;
-    delete mVolumeTools;
-    delete mSelectFile;
-    delete mSaveHistory;
-    delete mVolumePath;
-    delete mTextHistory;
     delete mLock;
+    delete mVolumePath;
+    delete mSelectFile;
+    delete mVolumeTools;
+    delete mSelectDevice;
+    delete mSaveHistory;
+    delete mTextHistory;
+    delete mOk;
+    delete mCancel;
+    delete mPasswordTxt;
+    delete mPassword;
+    delete mCachePwd;
+    delete mDisplayPwd;
+    delete mUseKeyfile;
+    delete mKeyFiles;
+    delete mMountOption;
+
     delete mGrid;
     delete mVolume;
 }
