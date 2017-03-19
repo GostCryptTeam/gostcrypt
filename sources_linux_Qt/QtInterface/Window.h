@@ -81,14 +81,12 @@ namespace UI {
 
 	private:
         void ConnectSignals();
-
+        QLabel mSidebar; /*!< left-sidebar with white background */
+        QLabel mTitle; /*!< "GostCrypt volume creation Wizard" */
+        int mGridCpt; /*!< Main Window's height */
 		int mWidth; /*!< Main Window's width */
 		int mHeight; /*!< Main Window's height */
-		int mGridCpt; /*!< Main Window's height */
-
 		QLabel * mLogo; /*!< Label where is draw the logo */
-		QLabel mSidebar; /*!< left-sidebar with white background */
-		QLabel mTitle; /*!< "GostCrypt volume creation Wizard" */
 		QLabel * mTextHistory; /*!< "Never save history" */
 		QLabel * mLock; /*!< Green lock in 'mVolume' group */
 
