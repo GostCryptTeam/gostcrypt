@@ -159,7 +159,6 @@ Window::~Window()
 
 void Window::ConnectSignals()
 {
-    QObject::connect(mMount, SIGNAL(Clicked()), &mSlots, SLOT(receiveMount()));
     QObject::connect(mAutoMount, SIGNAL(Clicked()), &mSlots, SLOT(receiveAutoMount()));
     QObject::connect(mDismountAll, SIGNAL(Clicked()), &mSlots, SLOT(receiveDismountAll()));
     QObject::connect(mOpenVolume, SIGNAL(Clicked()), this, SLOT(OpenVolume()));
