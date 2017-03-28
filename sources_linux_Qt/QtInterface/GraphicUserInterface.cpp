@@ -16,10 +16,10 @@ void GraphicUserInterface::receive(const QString& str)
 }
 
 
-void GraphicUserInterface::receiveMount()
+void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPassword)
 {
 #ifdef QT_DEBUG
-    qDebug() << "Monter";
+    qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
 }
 

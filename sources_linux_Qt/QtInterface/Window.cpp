@@ -30,7 +30,7 @@ Window::Window(/*QWidget *parent*/) :
     this->setMinimumHeight(dim.height());
     mWidth = dim.width();
     mHeight = dim.height();
-	//setFixedSize(QSize(dim.width(), dim.height()));
+    setFixedSize(QSize(dim.width(), dim.height()));
 
     /*!< Load QSS stylesheet file*/
     QFile file(":/ressources/style.qss");
@@ -66,7 +66,7 @@ Window::Window(/*QWidget *parent*/) :
     mNewVolume->setFont(mFont);
 
     /*! title */
-    QString title = QString(tr("GostCrypt Volume Creation Wizard :"));
+    QString title = QString(tr("GostCrypt Volume Creation Wizard :").toUtf8());
     mTitle.setText(title);
     mTitle.setObjectName("title");
     mTitle.setFont(mFont);
@@ -85,7 +85,7 @@ Window::Window(/*QWidget *parent*/) :
     mVolumeProperty->setFont(mFont);
     mVolumeProperty->setObjectName(QString::fromUtf8("group"));
     mVolumeProperty->setProperty("white", true);
-    mVolumeProperty->setTitle(QString(tr("Propriété des volumes")));
+    mVolumeProperty->setTitle(QString(tr("Propriété des volumes").toUtf8()));
     mVolumeProperty->setGeometry(QRect(180,217,this->width()-190, this->height()*0.5));
 
 	mVolumeWidget = new QWidget;
@@ -117,16 +117,16 @@ Window::Window(/*QWidget *parent*/) :
     CreateVolumeWidget("Q", "C:/Program Files (x86)/MesVolumes/volume.*", VolumeType::eNormal, VolumeAlgorithm::eGost, 5);
 
 	//! Buttons
-    mMount = new Button(this, tr("Monter le volume"), &mStyleSheet, eFullGreen);
+    mMount = new Button(this, tr("Monter le volume").toUtf8(), &mStyleSheet, eFullGreen);
     mMount->setFont(mFont);
 
-    mAutoMount = new Button(this, tr("Monter Automatiquement"), &mStyleSheet, eFullGreen);
+    mAutoMount = new Button(this, tr("Monter Automatiquement").toUtf8(), &mStyleSheet, eFullGreen);
     mAutoMount->setFont(mFont);
 
-    mDismountAll = new Button(this, tr("Démonter tous les volumes"), &mStyleSheet, eFullGreen);
+    mDismountAll = new Button(this, tr("Démonter tous les volumes").toUtf8(), &mStyleSheet, eFullGreen);
     mDismountAll->setFont(mFont);
 
-    mOpenVolume = new Button(this, tr("Ouvrir un volume"), &mStyleSheet, eFullGreen);
+    mOpenVolume = new Button(this, tr("Ouvrir un volume").toUtf8(), &mStyleSheet, eFullGreen);
     mOpenVolume->setFont(mFont);
 
 	//! Containers for buttons
@@ -206,7 +206,7 @@ void Window::DebugSlot(QString path)
 
 void Window::OpenVolume()
 {
-    mOpenVolumeDialogWindow = new OpenVolumeDialog(this, mStyleSheet);
+    mOpenVolumeDialogWindow = new OpenVolumeDialog(&mSlots, this, mStyleSheet);
     mOpenVolumeDialogWindow->setAttribute(Qt::WA_DeleteOnClose);
     mOpenVolumeDialogWindow->setModal(true);
     mOpenVolumeDialogWindow->show();

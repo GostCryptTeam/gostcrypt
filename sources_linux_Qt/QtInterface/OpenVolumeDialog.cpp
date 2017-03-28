@@ -1,7 +1,9 @@
 #include <QDebug>
 #include "OpenVolumeDialog.h"
 
-OpenVolumeDialog::OpenVolumeDialog(QWidget* parent, const QString& style)
+OpenVolumeDialog::OpenVolumeDialog(GraphicUserInterface * aSignal,
+                                   QWidget* parent,
+                                   const QString& style)
     : QDialog(parent), mStyleSheet(style)
 {
     setFixedSize(600,140);
@@ -9,13 +11,14 @@ OpenVolumeDialog::OpenVolumeDialog(QWidget* parent, const QString& style)
     QFontDatabase::addApplicationFont(":/ressources/gs_font.ttf");
     mFont = QFont("Caviar Dreams", 10, 1);
 
+    mSlots = aSignal;
+
     /*! GroupBox volume (load file) */
     mVolume = new QGroupBox(this);
     mVolume->setFont(mFont);
     mVolume->setObjectName(QString::fromUtf8("group-noborder"));
     //mVolume->setTitle(QString(tr("Ouvrir un volume")));
     mVolume->setGeometry(QRect(0,0,600,140));
-
 
     /*! GroupBox volume layout */
     mGrid = new QGridLayout(mVolume);
@@ -121,6 +124,11 @@ OpenVolumeDialog::OpenVolumeDialog(QWidget* parent, const QString& style)
     /*********** connect widgets ********/
     connect(mSelectFile, SIGNAL(Clicked()), this, SLOT(open()));
     connect(mCancel, SIGNAL(Clicked()), this, SLOT(quit()));
+    //! Enable the Open volume button on password
+    connect(mPassword, SIGNAL(textEdited(QString)), this, SLOT(enableButton()));
+    //! Emit volume infos
+    connect(mOk, SIGNAL(Clicked()), this, SLOT(createVolume()));
+    connect(this, SIGNAL(openVolume(QString, QString)), mSlots, SLOT(receiveMount(QString, QString)));
 }
 
 OpenVolumeDialog::~OpenVolumeDialog()
@@ -148,12 +156,12 @@ OpenVolumeDialog::~OpenVolumeDialog()
 
 void OpenVolumeDialog::open()
 {
-    QString directory =
-           QDir::toNativeSeparators(QFileDialog::getOpenFileName(this, tr("Find Files"), QDir::currentPath()));
+    mPath = QDir::toNativeSeparators(QFileDialog::getOpenFileName(this, tr("Find Files"),
+                                                                  QDir::currentPath()));
 
-    if(directory != "")
+    if(mPath != "")
     {
-         mVolumePath->addItem(directory);
+         mVolumePath->addItem(mPath);
          if(!mSaveHistory->isChecked())
          {
              //! TODO : save path
@@ -167,9 +175,24 @@ void OpenVolumeDialog::open()
          mUseKeyfile->show();
          mKeyFiles->show();
          mMountOption->show();
+        // mOk->setDisabled(false);
     }
 
-    qDebug() << directory;
+    qDebug() << mPath;
+}
+
+void OpenVolumeDialog::enableButton()
+{
+    if(mPassword->text() != "")
+        mOk->setDisabled(false);
+    else
+        mOk->setDisabled(true);
+}
+
+void OpenVolumeDialog::createVolume()
+{
+    emit openVolume(mPath, mPassword->text());
+    close();
 }
 
 void OpenVolumeDialog::quit()
