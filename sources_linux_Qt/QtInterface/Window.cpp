@@ -187,7 +187,7 @@ void Window::CreateVolumeWidget(
 {
 	if (mVolumeItems[volumeLetter])
 		delete mVolumeItems[volumeLetter];
-	mVolumeItems[volumeLetter] = new VolumeList(volumeLetter, path, type, algorithm, size, WIDTH-241);
+    mVolumeItems[volumeLetter] = new VolumeList(&mSlots, volumeLetter, path, type, algorithm, size, WIDTH-241);
 	mVolumeLayout->addWidget(mVolumeItems[volumeLetter],mGridCpt/2, mGridCpt%2+1);
 #ifdef QT_DEBUG
 	qDebug() << mGridCpt / 2 << "," << mGridCpt % 2 + 1 << volumeLetter;

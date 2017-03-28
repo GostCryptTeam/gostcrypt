@@ -178,7 +178,7 @@ void OpenVolumeDialog::open()
         // mOk->setDisabled(false);
     }
 
-    qDebug() << mPath;
+    //qDebug() << mPath;
 }
 
 void OpenVolumeDialog::enableButton()
