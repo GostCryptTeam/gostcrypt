@@ -9,7 +9,7 @@ under the GPLV3 license.
 
 #include "Platform/Platform.h"
 //#include <wx/wx.h>
-#include <wx/msgdlg.h>
+//#include <wx/msgdlg.h>
 
 namespace GostCrypt
 {

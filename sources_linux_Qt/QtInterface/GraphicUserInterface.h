@@ -8,6 +8,7 @@ class GraphicUserInterface : public QObject
     Q_OBJECT
 public:
     explicit GraphicUserInterface(QObject *parent = 0);
+    void init();
 
 public slots:
     void receive(const QString&);
