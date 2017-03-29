@@ -2,6 +2,7 @@
 #include <QHBoxLayout>
 #include <QFontDatabase>
 #include <QDebug>
+
 #define UI_RATIO 1.41
 
 /*! truncate the path text */
@@ -18,7 +19,7 @@ QString formatSize(unsigned long long sizeInByte) {
 	if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
 		+ QString::number(sizeInByte)
 		+ QString("</font>") 
-		+ QString(" B"));
+        + QString(" B"));
 
 	else if (sizeInByte < 1048576) return QString("<font color=#6e9f45>") 
 		+ QString::number((float)sizeInByte / (float)1024, 'f', 1) 
@@ -38,6 +39,7 @@ QString formatSize(unsigned long long sizeInByte) {
 }
 
 VolumeList::VolumeList(
+    GraphicUserInterface * eSlots,
 	const QString& volumeLetter,
 	const QString& path,
 	const VolumeType& type,
@@ -48,7 +50,8 @@ VolumeList::VolumeList(
 	mPath(path),
 	mType(type),
 	mAlgorithm(algorithm),
-	mSize(size)
+    mSize(size),
+    mWidth(width)
 {
 	QFontDatabase::addApplicationFont(":/ressources/gs_font.ttf");
 	this->setAttribute(Qt::WA_Hover);
@@ -59,10 +62,12 @@ VolumeList::VolumeList(
 				QString("#volumeItem {border-radius: 45px;}") +
 				QString("#disk { background: transparent; }"));
 
+    mSlots = eSlots;
+
 	/*! Gray background with border radius */
 	mBkGray = new QLabel(this);
 	this->setMinimumHeight(90);
-	mBkGray->resize(width/2, 90);
+    mBkGray->resize(mWidth/2, 90);
 	mBkGray->setObjectName(QString::fromUtf8("volumeItem"));	
 
 	/*! Loading disk image */
@@ -121,8 +126,21 @@ VolumeList::VolumeList(
 	mTypeLabel->setAlignment(Qt::AlignCenter);
 	mTypeLabel->setObjectName(QString::fromUtf8("grayColor"));
 
+    /*! Dismount volume */
+    mDismountLabel = new QLabel(this);
+    mDismountLabel->setAutoFillBackground(false);
+    mDismountLabel->setAttribute(Qt::WA_TranslucentBackground);
+    mDismountLabel->setGeometry(mWidth/2 - 20, 0, 20, 20);
+    mDismountLabel->setPixmap(QPixmap(
+        QString::fromUtf8(":/ressources/dismount.png")
+    ));
+    mDismountLabel->setToolTip(tr("Dismount volume").toUtf8());
+    mDismountLabel->setVisible(false);
+    //TODO : classe perso qLabel événement clic
+    connect(this, SIGNAL(emitDismount(QString)), mSlots, SLOT(receiveDismount(QString)));
+
 #ifdef QT_DEBUG
-	qDebug() << "Creation of " << mPath << "volume succeed";
+    //qDebug() << "Creation of " << mPath << "volume succeed";
 #endif
 }
 
@@ -130,31 +148,43 @@ VolumeList::~VolumeList()
 {
 	delete mBkGray;
 	delete mDiskLabel;
+    delete mVolumeLetterLabel;
+    delete mPathLabel;
+    delete mSizeLabel;
+    delete mAlgorithmLabel;
+    delete mTypeLabel;
+    delete mDismountLabel;
 }
 
 void VolumeList::mousePressEvent(QMouseEvent * event)
 {
 #ifdef QT_DEBUG
-	qDebug() << "Mouse pressed";
+    //qDebug() << "Mouse pressed " << event->x() << " et " << event->y() << "en : " <<  mWidth/2-20 << " " << 21;
 #endif
-	emit Clicked(mVolumeLetter);
+    if(event->x() > mWidth/2-20 && event->y() < 21)
+        emit emitDismount(mPath);
+    else
+        emit Clicked(mVolumeLetter);
 }
 
 void VolumeList::enterEvent(QEvent * event)
 {
 #ifdef QT_DEBUG
-	qDebug() << Q_FUNC_INFO << this->objectName();
+    //qDebug() << Q_FUNC_INFO << this->objectName();
 #endif
 	mBkGray->setStyleSheet("#volumeItem {border: 1px solid #000000;}");
 	QWidget::enterEvent(event);
+    mDismountLabel->setVisible(true);
 	
 }
 
 void VolumeList::leaveEvent(QEvent * event)
 {
 #ifdef QT_DEBUG
-	qDebug() << Q_FUNC_INFO << this->objectName();
+    //qDebug() << Q_FUNC_INFO << this->objectName();
 #endif
 	mBkGray->setStyleSheet("#volumeItem {border: 0px; background: #ececec}");
 	QWidget::leaveEvent(event);
+    mDismountLabel->setVisible(false);
 }
+

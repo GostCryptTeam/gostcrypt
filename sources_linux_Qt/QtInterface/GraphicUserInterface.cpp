@@ -77,3 +77,10 @@ void GraphicUserInterface::receiveDismountAll()
     qDebug() << "Tout démonter";
 #endif
 }
+
+void GraphicUserInterface::receiveDismount(const QString& aStr)
+{
+#ifdef QT_DEBUG
+    qDebug() << "On démonte " << aStr;
+#endif
+}

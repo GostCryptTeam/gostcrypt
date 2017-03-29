@@ -9,5 +9,6 @@
         <file>ressources/check.gif</file>
         <file>ressources/style.qss</file>
         <file>ressources/disk.gif</file>
+        <file>ressources/dismount.png</file>
     </qresource>
 </RCC>

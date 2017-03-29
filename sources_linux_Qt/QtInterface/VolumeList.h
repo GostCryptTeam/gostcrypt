@@ -5,6 +5,9 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QObject>
+#include <QMouseEvent>
+#include "GraphicUserInterface.h"
+
 /**
 * \enum VolumeType
 * \brief Differents types of volumes.
@@ -30,6 +33,7 @@ class VolumeList : public QWidget
 	Q_OBJECT
 public:
 	VolumeList(
+        GraphicUserInterface * eSlots,
 		const QString& volumeLetter,
 		const QString& path,
 		const VolumeType& type,
@@ -39,11 +43,14 @@ public:
 	~VolumeList();
 signals:
 	void Clicked(QString);
+    void emitDismount(QString);
+
 protected:
 	void mousePressEvent(QMouseEvent* event);
     void enterEvent(QEvent * event);
     void leaveEvent(QEvent * event);
 private:
+    const int mWidth;
 	const QString mVolumeLetter;
 	const QString mPath;
 	const VolumeType mType;
@@ -56,6 +63,9 @@ private:
 	QLabel* mAlgorithmLabel;
 	QLabel* mTypeLabel;
 	QLabel* mDiskLabel;
+    QLabel* mDismountLabel;
+
+    GraphicUserInterface * mSlots;
 };
 
 #endif // CUSTOMLIST_H

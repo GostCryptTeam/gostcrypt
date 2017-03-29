@@ -14,6 +14,7 @@ public slots:
     void receive(const QString&);
     void receiveMount(const QString&, const QString&);
     void receiveAutoMount();
+    void receiveDismount(const QString&);
     void receiveDismountAll();
 };
 

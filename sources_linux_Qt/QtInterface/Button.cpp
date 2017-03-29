@@ -12,7 +12,7 @@ Button::Button(QWidget* parent,
 {
 
 #ifdef QT_DEBUG
-    qDebug() << *style;
+    //qDebug() << *style;
 #endif
 
     setText(text);
@@ -42,7 +42,7 @@ Button::~Button() {
 void Button::mousePressEvent(QMouseEvent* event)
 {
 #ifdef QT_DEBUG
-    qDebug() << event;
+   // qDebug() << event;
 #endif
     setProperty("pressed", true);
     style()->unpolish(this);
@@ -53,7 +53,7 @@ void Button::mousePressEvent(QMouseEvent* event)
 void Button::mouseReleaseEvent(QMouseEvent* event)
 {
 #ifdef QT_DEBUG
-    qDebug() << event;
+    //qDebug() << event;
 #endif
     setProperty("pressed", false);
     style()->unpolish(this);
