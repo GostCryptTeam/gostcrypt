@@ -1,9 +1,9 @@
 #include "GraphicUserInterface.h"
-#include "Core/Core.h"
+/*#include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
 #include "Volume/Volume.h"
 #include "Platform/Platform.h"
-#include "Volume/EncryptionThreadPool.h"
+#include "Volume/EncryptionThreadPool.h"*/
 #include <iostream>
 #include <QDebug>
 #include <QCoreApplication>
@@ -15,7 +15,7 @@ GraphicUserInterface::GraphicUserInterface(QObject * parent)
 }
 void GraphicUserInterface::init() {
 
-    // Start core service
+   /* // Start core service
     GostCrypt::CoreService::Start();
     finally_do ({ GostCrypt::CoreService::Stop(); });
 
@@ -36,7 +36,6 @@ void GraphicUserInterface::init() {
             };
 
     GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (new AdminPasswordRequestHandler ()));
-    qDebug() << "Init Core done";
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -52,19 +51,18 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << "********";
 #endif
-   //*
     try {
-    if(GostCrypt::Core->IsVolumeMounted (GostCrypt::VolumePath(aPath.toStdWString()))) {
-        qDebug() << "Volume already mounted";
-        return;
-    }
-    qDebug() << "Exception not catch";
-    GostCrypt::MountOptions options;
-    GostCrypt::VolumePassword volumePassword = GostCrypt::VolumePassword(aPassword.toStdWString());
-    options.Password.reset(&volumePassword);
-    GostCrypt::VolumePath volumePath = GostCrypt::VolumePath(aPath.toStdString());
-    options.Path.reset(&volumePath);
-    GostCrypt::Core->MountVolume (options);
+	    if(GostCrypt::Core->IsVolumeMounted (GostCrypt::VolumePath(aPath.toStdWString()))) {
+    	    qDebug() << "Volume already mounted";
+        	return;
+	    }
+    	qDebug() << "Exception not catch";
+	    GostCrypt::MountOptions options;
+	   	GostCrypt::VolumePassword volumePassword = GostCrypt::VolumePassword(aPassword.toStdWString());
+	    options.Password.reset(&volumePassword);
+	    GostCrypt::VolumePath volumePath = GostCrypt::VolumePath(aPath.toStdString());
+	    options.Path.reset(&volumePath);
+	    GostCrypt::Core->MountVolume (options);
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }

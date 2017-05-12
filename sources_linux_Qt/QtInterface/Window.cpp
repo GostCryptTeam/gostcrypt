@@ -12,8 +12,6 @@
 #include "Window.h"
 
 Window::Window(/*QWidget *parent*/) :
-    mSidebar(this),
-    mTitle(this),
 	mGridCpt(0)
 {
     /*********** Size & style ***********/
@@ -22,10 +20,10 @@ Window::Window(/*QWidget *parent*/) :
     QFontDatabase::addApplicationFont(":/ressources/gs_font.ttf");
     mFont = QFont("Caviar Dreams", 10, 1);
 
-    /*! Set window dimensions according to the resolution */
+    /*! Set window dimensions */
     QRect dim;
-    dim.setHeight(530);
-    dim.setWidth(dim.height() * UI_RATIO);
+    dim.setHeight(HEIGHT);
+    dim.setWidth(WIDTH);
     this->setMinimumWidth(dim.width());
     this->setMinimumHeight(dim.height());
     mWidth = dim.width();
@@ -47,38 +45,16 @@ Window::Window(/*QWidget *parent*/) :
     favicon.addFile(QString::fromUtf8(":/ressources/favicon.gif"), QSize(), QIcon::Normal, QIcon::Off);
     this->setWindowIcon(favicon);
 
+    /*! Label top */
+    mBarTop = new QLabel(this);
+    mBarTop->setStyleSheet("background: #2a2a2a");
+    mBarTop->setGeometry(QRect(0, 0, WIDTH, 74));
+
     /*********** Widgets ***********/
-    /*! sidebar with white background */
-    mSidebar.setObjectName("sidebar");
-    mSidebar.setGeometry(0,0,170,dim.height());
-
-    /*! Load and draw the application logo*/
-    mLogo = new QLabel(this);
-    mLogo->setObjectName(QString::fromUtf8("logo"));
-    mLogo->setGeometry(QRect(15, 15, 141, 48));
-    mLogo->setPixmap(QPixmap(
-                           QString::fromUtf8(":/ressources/logo_gostcrypt.gif")
-                          ));
-
     /*! New Volume button */
     mNewVolume = new Button(this, tr("creer un volume").toUtf8(), &mStyleSheet, eLeftGreen);
-    mNewVolume->setGeometry(mWidth/3.5, 35, mWidth-(mWidth/3.5+10), 7);
+    mNewVolume->setGeometry(182, 32, 435, 19);
     mNewVolume->setFont(mFont);
-
-    /*! title */
-    QString title = QString(tr("GostCrypt Volume Creation Wizard :").toUtf8());
-    mTitle.setText(title);
-    mTitle.setObjectName("title");
-    mTitle.setFont(mFont);
-    QFontMetrics fm(mFont);
-    mTitle.setGeometry(200,18,fm.width(title),fm.height());
-
-    /*! gray line separator */
-    mSeparator = new QFrame(this);
-    mSeparator->setObjectName(QString::fromUtf8("line"));
-    mSeparator->setGeometry(QRect(180, 50, this->width()-190, 1));
-    mSeparator->setFrameShape(QFrame::HLine);
-    mSeparator->setFrameShadow(QFrame::Sunken);
 
     /********* Volume Property ********/
     mVolumeProperty = new QGroupBox(this);
@@ -152,9 +128,6 @@ Window::Window(/*QWidget *parent*/) :
 
 Window::~Window()
 {
-
-	delete mLogo;
-    delete mSeparator;
 }
 
 void Window::ConnectSignals()
@@ -165,16 +138,17 @@ void Window::ConnectSignals()
 }
 
 void Window::ResizeEvent(QResizeEvent* event) {
-#ifdef QT_DEBUG
+/*
+ * #ifdef QT_DEBUG
     qDebug() << event;
 #endif
     mWidth = this->width();
     mHeight = this->height();
-    mSidebar.setGeometry(0,0,170,this->height());
     mNewVolume->setGeometry(mWidth/3.5, 35, mWidth-(mWidth/3.5+10), 7);
     mSeparator->setGeometry(QRect(180, 50, this->width()-190, 1));
     mVolumeProperty->setGeometry(QRect(180,180,this->width()-190,this->height()*0.5));
 	mVolumeScroll->setGeometry(QRect(185, 200, this->width() - 200, this->height()*0.5 - 25));
+*/
 }
 
 void Window::CreateVolumeWidget(
