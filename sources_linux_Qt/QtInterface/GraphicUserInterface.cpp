@@ -1,9 +1,9 @@
 #include "GraphicUserInterface.h"
-#include "Core/Core.h"
+/*#include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
 #include "Volume/Volume.h"
 #include "Platform/Platform.h"
-#include "Volume/EncryptionThreadPool.h"
+#include "Volume/EncryptionThreadPool.h"*/
 #include <iostream>
 #include <QDebug>
 #include <QCoreApplication>
@@ -15,7 +15,7 @@ GraphicUserInterface::GraphicUserInterface(QObject * parent)
 }
 void GraphicUserInterface::init() {
 
-    // Start core service
+   /* // Start core service
     GostCrypt::CoreService::Start();
     finally_do ({ GostCrypt::CoreService::Stop(); });
 
@@ -35,7 +35,7 @@ void GraphicUserInterface::init() {
                 }
             };
 
-    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (new AdminPasswordRequestHandler ()));
+    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (new AdminPasswordRequestHandler ()));*/
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -51,7 +51,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
-    if(GostCrypt::Core->IsVolumeMounted (GostCrypt::VolumePath(aPath.toStdWString()))) {
+   /* if(GostCrypt::Core->IsVolumeMounted (GostCrypt::VolumePath(aPath.toStdWString()))) {
         qDebug() << "Volume already mounted";
         return;
     }
@@ -60,7 +60,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
     options.Password.reset(&volumePassword);
     GostCrypt::VolumePath volumePath = GostCrypt::VolumePath(aPath.toStdString());
     options.Path.reset(&volumePath);
-    GostCrypt::Core->MountVolume (options);
+    GostCrypt::Core->MountVolume (options);*/
 }
 
 void GraphicUserInterface::receiveAutoMount()

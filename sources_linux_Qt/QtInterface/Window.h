@@ -44,9 +44,8 @@
 #include <QDebug>
 #endif
 
-#define UI_RATIO 1.41
 #define HEIGHT 530
-#define WIDTH HEIGHT*UI_RATIO
+#define WIDTH 790
 
 namespace UI {
 	class Window;
@@ -81,11 +80,10 @@ namespace UI {
 
 	private:
         void ConnectSignals();
-        QLabel mSidebar; /*!< left-sidebar with white background */
-        QLabel mTitle; /*!< "GostCrypt volume creation Wizard" */
         int mGridCpt; /*!< Main Window's height */
 		int mWidth; /*!< Main Window's width */
 		int mHeight; /*!< Main Window's height */
+        QLabel * mBarTop; /*!< Label at the top of window */
 		QLabel * mLogo; /*!< Label where is draw the logo */
 		QLabel * mTextHistory; /*!< "Never save history" */
 		QLabel * mLock; /*!< Green lock in 'mVolume' group */
@@ -98,7 +96,6 @@ namespace UI {
 
 		QString mStyleSheet; /*!< stylesheet */
         QFont mFont; /*!< text font */
-		QFrame * mSeparator; /*!< gray line */
 
         QGroupBox * mButtonVolume; /*!< Volume section */
         QGroupBox * mButtonMount; /*!< Mount volume section */
