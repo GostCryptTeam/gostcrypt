@@ -66,28 +66,28 @@ typedef struct grasshopper_kds
 /****************************************************/
 
 /* S conversion function                            */
-inline void S(unsigned long long * block);
+/* inline void S(unsigned long long * block);		*/
 
 /* Inverse of S conversion function                */
-inline void S_inv(unsigned long long * block);
+/* inline void S_inv(unsigned long long * block);	*/
 /* Linear transformation                           */
 
-inline unsigned char ll(unsigned long long block[2]);
+ /* inline unsigned char ll(unsigned long long block[2]); */
 
 /* R conversion function                            */
- inline void R(unsigned long long * block);
+/* inline void R(unsigned long long * block);	*/
 
 /* Inverse of R conversion function                 */
-inline void R_inv(unsigned long long * block);
+/* inline void R_inv(unsigned long long * block); */
 
 /* L conversion function (16 iteration of R)        */
-inline void L(unsigned long long * block);
+/* inline void L(unsigned long long * block); */
 
 /* Inverse of L conversion function (16 iteration of R_inv) */
-inline void L_inv(unsigned long long * block);
+/* inline void L_inv(unsigned long long * block); */
 
 /* F conversion function (used in key setup)        */
- inline void F(unsigned long long * k, unsigned long long * block1, unsigned long long * block0);
+/* inline void F(unsigned long long * k, unsigned long long * block1, unsigned long long * block0); */
 
 /****************************************************/
 /****************************************************/
