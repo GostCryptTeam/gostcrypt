@@ -30,13 +30,13 @@ FORMS    +=
 RESOURCES += \
     ressources.qrc
 
-#LIBS += ../Core/Core.a \
-#    ../Volume/Volume.a \
-#    ../Platform/Platform.a \
-#    ../Driver/Fuse/Driver.a \
-#    -ldl \
-#    -pthread \
-#   -lfuse
+LIBS += ../Core/Core.a \
+    ../Volume/Volume.a \
+    ../Platform/Platform.a \
+    ../Driver/Fuse/Driver.a \
+    -ldl \
+    -pthread \
+   -lfuse
 
 INCLUDEPATH += ../ \
     ../Crypto/ \

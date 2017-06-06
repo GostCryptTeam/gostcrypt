@@ -64,7 +64,14 @@ typedef struct grasshopper_kds
 /****************************************************/
 /* Base and conversion functions                    */
 /****************************************************/
-
+/*
+C99 inline semantics requires that if a function with 
+external linkage is declared with inline function 
+specifier, it also has to be defined in the same 
+translation unit (TU). 
+That's why theses function should not by declared 
+before their declaration.
+*/
 /* S conversion function                            */
 /* inline void S(unsigned long long * block);		*/
 

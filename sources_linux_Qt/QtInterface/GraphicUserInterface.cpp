@@ -1,9 +1,9 @@
 #include "GraphicUserInterface.h"
-/*#include "Core/Core.h"
+#include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
 #include "Volume/Volume.h"
 #include "Platform/Platform.h"
-#include "Volume/EncryptionThreadPool.h"*/
+#include "Volume/EncryptionThreadPool.h"
 #include <iostream>
 #include <QDebug>
 #include <QCoreApplication>
@@ -15,7 +15,7 @@ GraphicUserInterface::GraphicUserInterface(QObject * parent)
 }
 void GraphicUserInterface::init() {
 
-   /* // Start core service
+    // Start core service
     GostCrypt::CoreService::Start();
     finally_do ({ GostCrypt::CoreService::Stop(); });
 
