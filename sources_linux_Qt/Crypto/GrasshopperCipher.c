@@ -9,6 +9,7 @@
 
 #include "GrasshopperCipher.h"
 #include <stdio.h>
+/* As seen on this post, it's necessary to add definition without inline after declaration : https://stackoverflow.com/questions/16245521/c99-inline-function-in-c-file/16245669#16245669 */
 
 unsigned char pi[256] = {252, 238, 221,  17, 207, 110,  49,  22, 251, 196, 250, 218,  35, 197,   4,  77, 
 	233, 119, 240, 219, 147,  46, 153, 186,  23,  54, 241, 187,  20, 205,  95, 193, 
@@ -197,6 +198,7 @@ inline unsigned char ll(unsigned long long *block)
 			mult_mod_poly[0][(block[1] >>  0) & 0xFF] );
 
 }
+unsigned char ll(unsigned long long *block);
 
 /* R conversion function                            */
 inline void R(unsigned long long * block)
@@ -214,6 +216,8 @@ inline void R(unsigned long long * block)
 	block[0] >>= 8;
 	block[0]  |= ((unsigned long long)(val) << 56);
 }
+void R(unsigned long long * block);
+
 
 /* Inverse of R conversion function                 */
 inline void R_inv(unsigned long long * block)
@@ -232,6 +236,7 @@ inline void R_inv(unsigned long long * block)
 	block[1]  = (valtmp[1] & 0xFFFFFFFFFFFFFF00L);
 	block[1] |= val;
 }
+void R_inv(unsigned long long * block);
 
 /* L conversion function (16 iteration of R)        */
 inline void L(unsigned long long * block)
@@ -241,6 +246,7 @@ inline void L(unsigned long long * block)
 	R(block); R(block); R(block); R(block);
 	R(block); R(block); R(block); R(block);
 }
+void L(unsigned long long * block);
 
 /* Inverse of L conversion function (16 iteration of R_inv) */
 inline void L_inv(unsigned long long * block)
@@ -250,8 +256,9 @@ inline void L_inv(unsigned long long * block)
 	R_inv(block); R_inv(block); R_inv(block); R_inv(block);
 	R_inv(block); R_inv(block); R_inv(block); R_inv(block);
 }
+void L_inv(unsigned long long * block);
 
-/* F conversion function (used in key setup)        */
+/* a F conversion function (used in key setup)        */
 inline void F(unsigned long long * k, unsigned long long * block1, unsigned long long * block0)
 {
 	unsigned long long tmpblock[2];
@@ -277,6 +284,8 @@ inline void F(unsigned long long * k, unsigned long long * block1, unsigned long
 	block1[0] = tmpblock[0];
 	block1[1] = tmpblock[1];
 }
+void F(unsigned long long * k, unsigned long long * block1, unsigned long long * block0);
+
 
 /****************************************************/
 /****************************************************/
