@@ -17,11 +17,11 @@ void GraphicUserInterface::init() {
 
     // Start core service
     GostCrypt::CoreService::Start();
-    finally_do ({ GostCrypt::CoreService::Stop(); });
+    //finally_do ({ GostCrypt::CoreService::Stop(); });
 
     // Start encryption thread pool
     GostCrypt::EncryptionThreadPool::Start();
-    finally_do ({ GostCrypt::EncryptionThreadPool::Stop(); });
+    //finally_do ({ GostCrypt::EncryptionThreadPool::Stop(); });
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
     // UserInterface.cpp:448
