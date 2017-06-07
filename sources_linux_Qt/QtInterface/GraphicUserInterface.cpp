@@ -56,7 +56,6 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
     	    qDebug() << "Volume already mounted";
         	return;
 	    }
-    	qDebug() << "Exception not catch";
 	    GostCrypt::MountOptions options;
 	   	GostCrypt::VolumePassword volumePassword = GostCrypt::VolumePassword(aPassword.toStdWString());
 	    options.Password.reset(&volumePassword);
