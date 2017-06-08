@@ -4,6 +4,7 @@
 #include "Volume/Volume.h"
 #include "Platform/Platform.h"
 #include "Volume/EncryptionThreadPool.h"
+#include "Volume/VolumeInfo.h"
 #include <iostream>
 #include <QDebug>
 #include <QCoreApplication>
@@ -51,16 +52,16 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << "********";
 #endif
+    GostCrypt::VolumePath *volumePath = new GostCrypt::VolumePath(aPath.toStdString());
+    GostCrypt::VolumePassword *volumePassword = new GostCrypt::VolumePassword(aPassword.toStdWString());
+    GostCrypt::MountOptions options;
     try {
-	    if(GostCrypt::Core->IsVolumeMounted (GostCrypt::VolumePath(aPath.toStdWString()))) {
+        if(GostCrypt::Core->IsVolumeMounted (*volumePath)) {
     	    qDebug() << "Volume already mounted";
         	return;
 	    }
-	    GostCrypt::MountOptions options;
-	   	GostCrypt::VolumePassword volumePassword = GostCrypt::VolumePassword(aPassword.toStdWString());
-	    options.Password.reset(&volumePassword);
-	    GostCrypt::VolumePath volumePath = GostCrypt::VolumePath(aPath.toStdString());
-	    options.Path.reset(&volumePath);
+        options.Password.reset(volumePassword);
+        options.Path.reset(volumePath);
 	    GostCrypt::Core->MountVolume (options);
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
@@ -80,6 +81,11 @@ void GraphicUserInterface::receiveDismountAll()
 #ifdef QT_DEBUG
     qDebug() << "Tout démonter";
 #endif
+    GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
+    for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
+        GostCrypt::Core->DismountVolume(volume);
+    }
+
 }
 
 void GraphicUserInterface::receiveDismount(const QString& aStr)
@@ -87,4 +93,7 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
 #ifdef QT_DEBUG
     qDebug() << "On démonte " << aStr;
 #endif
+    GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
+    GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
+    if(volume) GostCrypt::Core->DismountVolume(volume);
 }
