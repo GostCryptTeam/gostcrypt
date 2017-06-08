@@ -9,6 +9,8 @@ class GraphicUserInterface : public QObject
 public:
     explicit GraphicUserInterface(QObject *parent = 0);
     void init();
+    void stop();
+    ~GraphicUserInterface();
 
 public slots:
     void receive(const QString&);

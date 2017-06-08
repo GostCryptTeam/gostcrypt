@@ -13,14 +13,29 @@
 
 #include <QApplication>
 #include <QFile>
-/*
-#include <QIODevice>
-#include <QStyleFactory>
-#include <QFont>
-//*/
+#include "Core/Core.h"
+#include "Core/Unix/CoreService.h"
+#include "Platform/SystemLog.h"
 
 int main(int argc, char *argv[])
 {
+    if (argc > 1 && strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0)
+    {
+        // Process elevated requests
+        try
+        {
+            GostCrypt::CoreService::ProcessElevatedRequests();
+            return 0;
+        }
+        catch (exception &e)
+        {
+    #ifdef QT_DEBUG
+            GostCrypt::SystemLog::WriteException (e);
+    #endif
+        }
+        catch (...)	{ }
+        return 1;
+    }
     QApplication GC(argc, argv); /*!< Main application */
     Window interface; /*!< GostCrypt UI*/
 

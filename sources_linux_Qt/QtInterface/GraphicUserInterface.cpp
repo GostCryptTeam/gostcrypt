@@ -11,17 +11,15 @@
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
     : QObject(parent)
 {
-    init();
+    this->init();
 }
-void GraphicUserInterface::init() {
 
+void GraphicUserInterface::init() {
     // Start core service
     GostCrypt::CoreService::Start();
-    //finally_do ({ GostCrypt::CoreService::Stop(); });
-
     // Start encryption thread pool
     GostCrypt::EncryptionThreadPool::Start();
-    //finally_do ({ GostCrypt::EncryptionThreadPool::Stop(); });
+
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
     // UserInterface.cpp:448
@@ -30,7 +28,7 @@ void GraphicUserInterface::init() {
             {
                 virtual void operator() (string &passwordStr)
                 {
-                    wstring wPassword (L""); // Entrer le mot de passe sudo ici
+                    wstring wPassword (L"a"); // Entrer le mot de passe sudo ici
                     GostCrypt::StringConverter::ToSingle (wPassword, passwordStr);
                 }
             };
@@ -87,4 +85,14 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
 #ifdef QT_DEBUG
     qDebug() << "On démonte " << aStr;
 #endif
+}
+
+void GraphicUserInterface::stop() {
+    GostCrypt::CoreService::Stop();
+    GostCrypt::EncryptionThreadPool::Stop();
+}
+
+GraphicUserInterface::~GraphicUserInterface()
+{
+    this->stop();
 }
