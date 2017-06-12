@@ -1,38 +1,28 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2017-02-14T17:31:47
-#
-#-------------------------------------------------
-
-QT       += core gui widgets
-
-greaterThan(QT_MAJOR_VERSION, 4){
-QT += widgets
-CONFIG += c++11
-} else {
-QMAKE_CXXFLAGS += -std=c++11
-}
-
-TARGET = GostCrypt
 TEMPLATE = app
 
-SOURCES += main.cpp\
-    Window.cpp \
-    Button.cpp \
-    VolumeList.cpp \
-    GraphicUserInterface.cpp \
-    OpenVolumeDialog.cpp \
+QT += qml quick
+CONFIG += c++11
+TARGET = GostCrypt
 
-HEADERS  += Window.h \
-    Button.h \
-    VolumeList.h \
-    GraphicUserInterface.h \
-    OpenVolumeDialog.h \
+SOURCES += main.cpp \
+    modelclass.cpp \
+    volumeitemgraphic.cpp \
+    GraphicUserInterface.cpp
 
-FORMS    +=
+RESOURCES += qml.qrc
 
-RESOURCES += \
-    ressources.qrc
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    modelclass.h \
+    volumeitemgraphic.h \
+    GraphicUserInterface.h
 
 LIBS += ../Core/Core.a \
     ../Volume/Volume.a \
@@ -46,4 +36,4 @@ INCLUDEPATH += ../ \
     ../Crypto/ \
     ../Volume/
 
-TRANSLATIONS = GostCrypt_en.ts GostCrypt_ru.ts
+#TRANSLATIONS = GostCrypt_en.ts GostCrypt_ru.ts
