@@ -40,8 +40,4 @@ OBJS += ../Common/SecurityToken.o
 
 VolumeLibrary: Volume.a
 
-WX_CONFIG_LIBS := adv,core,base
-CXXFLAGS += $(shell $(WX_CONFIG) $(WX_CONFIG_ARGS) --cxxflags)
-WX_LIBS = $(shell $(WX_CONFIG) $(WX_CONFIG_ARGS) --libs $(WX_CONFIG_LIBS))
-
 include $(BUILD_INC)/Makefile.inc

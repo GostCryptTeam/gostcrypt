@@ -12,7 +12,6 @@
 #------ Targets ------
 # all
 # clean
-# wxbuild:		Configure and build wxWidgets - source code must be located at $(WX_ROOT)
 
 
 #------ Build configuration ------
@@ -36,14 +35,6 @@ export LFLAGS :=
 export PKG_CONFIG_PATH = /usr/local/lib/pkgconfig
 export PKCS11_INC = Pkcs11
 
-export WX_CONFIG ?= wx-config
-export WX_CONFIG_ARGS := --unicode
-WX_CONFIGURE_FLAGS :=
-export WXCONFIG_CFLAGS := `wx-config --cflags`
-export WXCONFIG_CXXFLAGS := `wx-config --cxxflags`
-WX_ROOT ?= ..
-
-
 export GST_BUILD_CONFIG := Debug
 
 ifeq "$(origin DEBUG)" "command line"
@@ -56,7 +47,6 @@ ifeq "$(origin NOGUI)" "command line"
 	export GST_NO_GUI := 1
 	export APPNAME := gostcrypt.cli
 	C_CXX_FLAGS += -DGST_NO_GUI
-	WX_CONFIGURE_FLAGS += --disable-gui
 endif
 
 C_CXX_FLAGS += -I$(PKCS11_INC)
@@ -69,19 +59,12 @@ ifneq "$(origin VERBOSE)" "command line"
 	MAKEFLAGS += -s
 endif
 
-ifeq "$(origin WXSTATIC)" "command line"
-	WX_CONFIG = $(WX_BUILD_DIR)/wx-config
-	WX_CONFIG_ARGS += --static
-endif
-
-
 #------ Release configuration ------
 
 ifeq "$(GST_BUILD_CONFIG)" "Release"
 
 	C_CXX_FLAGS += -O2 -fno-strict-aliasing  # Do not enable strict aliasing
 	export WX_BUILD_DIR ?= $(BASE_DIR)/wxrelease
-	WX_CONFIGURE_FLAGS += --disable-debug_flag --disable-debug_gdb --disable-debug_info
 
 else
 
@@ -98,7 +81,6 @@ endif
 ifeq "$(origin DEBUGGER)" "command line"
 
 	C_CXX_FLAGS += -ggdb  
-	WX_CONFIGURE_FLAGS += --enable-debug_gdb --enable-debug_info
 
 endif
 
@@ -173,7 +155,6 @@ ifeq "$(shell uname -s)" "Darwin"
 
 	C_CXX_FLAGS += -DGST_UNIX -DGST_BSD -DGST_MACOSX -mmacosx-version-min=10.4 -isysroot $(GST_OSX_SDK)
 	LFLAGS += -mmacosx-version-min=10.4 -Wl,-syslibroot $(GST_OSX_SDK)
-	WX_CONFIGURE_FLAGS += --with-macosx-version-min=10.4 --with-macosx-sdk=$(GST_OSX_SDK)
 
 	ifeq "$(CPU_ARCH)" "x64"
 		CPU_ARCH = x86
@@ -191,17 +172,7 @@ ifeq "$(shell uname -s)" "Darwin"
 
 		C_CXX_FLAGS += -gfull -arch i386 -arch ppc
 		LFLAGS += -Wl,-dead_strip -arch i386 -arch ppc
-
-		WX_CONFIGURE_FLAGS += --enable-universal_binary
-		WXCONFIG_CFLAGS += -gfull
-		WXCONFIG_CXXFLAGS += -gfull
-
-	else
-
-		WX_CONFIGURE_FLAGS += --disable-universal_binary
-
 	endif
-
 endif
 
 
@@ -223,8 +194,6 @@ ifeq "$(shell uname -s)" "SunOS"
 	PLATFORM := Solaris
 	PLATFORM_UNSUPPORTED := 1
 	C_CXX_FLAGS += -DGST_UNIX -DGST_SOLARIS
-	WX_CONFIGURE_FLAGS += --with-gtk
-
 endif
 
 
@@ -235,28 +204,11 @@ CXXFLAGS := $(C_CXX_FLAGS) $(CXXFLAGS) $(GST_EXTRA_CXXFLAGS)
 ASFLAGS += -f $(ASM_OBJ_FORMAT)
 LFLAGS := $(LFLAGS) $(GST_EXTRA_LFLAGS)
 
-WX_CONFIGURE_FLAGS += --enable-unicode -disable-shared --disable-dependency-tracking --disable-compat26 --enable-exceptions --enable-std_string --enable-dataobj --enable-mimetype \
-	--disable-protocol --disable-protocols --disable-url --disable-ipc --disable-sockets --disable-fs_inet --disable-ole --disable-docview --disable-clipboard \
-	--disable-help --disable-html --disable-mshtmlhelp --disable-htmlhelp --disable-mdi --disable-metafile --disable-webkit \
-	--disable-xrc --disable-aui --disable-postscript --disable-printarch \
-	--disable-arcstream --disable-fs_archive --disable-fs_zip --disable-tarstream --disable-zipstream \
-	--disable-animatectrl --disable-bmpcombobox --disable-calendar --disable-caret --disable-checklst --disable-collpane --disable-colourpicker --disable-comboctrl \
-	--disable-datepick --disable-display --disable-dirpicker --disable-filepicker --disable-fontpicker --disable-grid  --disable-dataviewctrl \
-	--disable-listbook --disable-odcombobox --disable-sash  --disable-searchctrl --disable-slider --disable-splitter --disable-togglebtn \
-	--disable-toolbar --disable-tbarnative --disable-treebook --disable-toolbook --disable-tipwindow --disable-popupwin \
-	--disable-commondlg --disable-aboutdlg --disable-coldlg --disable-finddlg --disable-fontdlg --disable-numberdlg --disable-splash \
-	--disable-tipdlg --disable-progressdlg --disable-wizarddlg --disable-miniframe --disable-tooltips --disable-splines --disable-palette \
-	--disable-richtext --disable-dialupman --disable-debugreport --disable-filesystem \
-	--disable-graphics_ctx --disable-sound --disable-mediactrl --disable-joystick --disable-apple_ieee \
-	--disable-gif --disable-pcx --disable-tga --disable-iff --disable-gif --disable-pnm \
-	--without-expat --without-libtiff --without-libjpeg --without-libpng -without-regex --without-zlib
-
-
 #------ Project build ------
 
 PROJ_DIRS := Platform Volume Driver/Fuse Core
 
-.PHONY: all clean wxbuild
+.PHONY: all clean
 
 all clean:
 	@if pwd | grep -q ' '; then echo 'Error: source code is stored in a path containing spaces' >&2; exit 1; fi
@@ -266,27 +218,3 @@ all clean:
 		$(MAKE) -C $$DIR -f $$PROJ.make NAME=$$PROJ $(MAKECMDGOALS) || exit $?; \
 		export LIBS="$(BASE_DIR)/$$DIR/$$PROJ.a $$LIBS -ldl"; \
 	done	
-
-
-#------ wxWidgets build ------
-
-ifeq "$(MAKECMDGOALS)" "wxbuild"
-CFLAGS :=
-CXXFLAGS :=
-LFLAGS :=
-endif
-
-wxbuild:
-
-ifneq "$(shell test -f $(WX_ROOT)/configure || test -f $(WX_BUILD_DIR)/../configure && echo 1)" "1"
-	@echo 'Error: WX_ROOT must point to wxWidgets source code directory' >&2
-	@exit 1
-endif
-
-	rm -rf "$(WX_BUILD_DIR)"
-	mkdir -p "$(WX_BUILD_DIR)"
-	@echo Configuring wxWidgets library...
-	cd "$(WX_BUILD_DIR)" && "$(WX_ROOT)/configure" $(WX_CONFIGURE_FLAGS) >/dev/null
-	
-	@echo Building wxWidgets library...
-	cd "$(WX_BUILD_DIR)" && $(MAKE)
