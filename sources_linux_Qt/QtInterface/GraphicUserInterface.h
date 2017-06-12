@@ -2,6 +2,12 @@
 #define GRAPHICUSERINTERFACE_H
 
 #include <QObject>
+#include "Core/Core.h"
+#include "Core/Unix/CoreService.h"
+#include "Volume/Volume.h"
+#include "Platform/Platform.h"
+#include "Volume/EncryptionThreadPool.h"
+#include "Volume/VolumeInfo.h"
 
 class GraphicUserInterface : public QObject
 {
@@ -18,6 +24,9 @@ public slots:
     void receiveAutoMount();
     void receiveDismount(const QString&);
     void receiveDismountAll();
+
+signals:
+    void sendVolume(GostCrypt::MountOptions aOptions);
 };
 
 #endif // GRAPHICUSERINTERFACE_H

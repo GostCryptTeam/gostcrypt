@@ -10,11 +10,9 @@ Item {
     y: 51
     width: 790
     height: 429
-    property string title: "AH"
+    property string title: "title"
     property string w
     property var object
-
-
 
     Rectangle {
         //anchors.fill: app
@@ -150,6 +148,13 @@ Item {
         id: loader
         anchors.fill: scrollArea
         //asynchronous: true // KNOWN ISSUE TO BE FIXED!!
+    }
+
+    Connections {
+        target: loader.item
+        onMountVolume: {
+            ConnectSignals.connectReceiveMount(path,password);
+        }
     }
 
     //Load the right QML Form

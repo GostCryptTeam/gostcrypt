@@ -4,12 +4,12 @@
 
     The interface of GostCrypt is developed in QML to be compatible for phones.
 */
-
+import QtQml 2.0 as QML
 import QtQuick 2.7
 import QtQuick.Window 2.2
-import gostcrypt.modelclass 1.0
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
+import "../UI/LoadVolume.js" as LoadVolume
 
 /*
  * Class : GostCrypt Main Window
@@ -20,7 +20,15 @@ Window {
     //Properties
     id: app
 
-    signal mountVolume(string path, string password)
+    //QML slots that receive C++ signals
+    Connections {
+        target: ConnectSignals;
+        onSendReceiveMount: {
+            console.log(aPath);
+            LoadVolume.loadVolume(aPath);
+        }
+    }
+
     //GostCrypt program name
     title: qsTr("GostCrypt 2.0")
     visible: true
@@ -86,7 +94,6 @@ Window {
                     subWindow.w = "../dialogs/GSOpenVolume.qml"
                     subWindow.title = 'Open a GostCrypt volume'
                     subWindow.loadForm()
-
                 }
             }
         }
@@ -151,9 +158,6 @@ Window {
         }
     }
 
-   /* ModelClass{
-        id: testt
-    }*/
     //View of all the loaded volumes
     Item {
         id: volumeListElement
@@ -161,9 +165,9 @@ Window {
         y: 111
         width: 594
         height: 303
-        /*GSVolumeItem {
+        GSVolumeItem {
             id:volumeDelegate
-        }*/
+        }
 
         ListModel {
             id: listOfVolumes

@@ -21,5 +21,6 @@
         <file>UI/GSButtonBlueBordered.qml</file>
         <file>ressource/disk.png</file>
         <file>UI/LoadVolume.js</file>
+        <file>UI/GSVolumeItem.qml</file>
     </qresource>
 </RCC>

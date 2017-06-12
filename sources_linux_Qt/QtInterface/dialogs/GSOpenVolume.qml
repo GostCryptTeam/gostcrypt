@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
 import "../UI" as UI
-import "../UI/LoadVolume.js" as LoadVolume
 
 Item {
     id: openVolume_Form
@@ -13,6 +12,7 @@ Item {
     property string volumePath
     //modality: Qt.WindowModal
     anchors.fill: childOf
+    signal mountVolume(string path, string password)
     //anchors.centerIn: childOf
 
     Item {
@@ -75,7 +75,7 @@ Item {
             title: "Please choose a file"
             folder: shortcuts.home
             onAccepted: {
-                console.log("You chose: " + fileDialog.fileUrls)
+                console.log("You chose: " + fileDialog.fileUrl)
                 openVolume_Form.moving(fileDialog.fileUrls)
             }
             onRejected: {
@@ -176,7 +176,7 @@ Item {
         text: qsTr("Mount Volume")
         onClicked: {
             catchClose();
-            app.mountVolume(fileDialog.fileUrl, password_value.text);
+            openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
         }
     }
 

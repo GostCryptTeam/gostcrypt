@@ -1,8 +1,8 @@
 import QtQuick 2.7
 import QtGraphicalEffects 1.0
 
-/*Component {
-    /*Item {
+Component {
+    Item {
         anchors.horizontalCenter: mainWindow.anchors.horizontalCenter
         width:585
         height:80
@@ -32,15 +32,11 @@ import QtGraphicalEffects 1.0
               color: "#80800000"
           }
     }
-    VolumeItemGraphic {
+    /*VolumeItemGraphic {
         id: volumeItem
         anchors.horizontalCenter: mainWindow.anchors.horizontalCenter
         width:585
         height:80
-    }
+    }*/
 }
-*/
 
-Component {
-    id: as;
-}

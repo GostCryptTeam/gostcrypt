@@ -1,23 +1,40 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <modelclass.h>
-#include "GraphicUserInterface.h"
-#include <QQuickView>
-//#include "volumeitemgraphic.h"
+#include <QQmlContext>
+#include <connectSignals.h>
+#include <GraphicUserInterface.h>
+#include "Core/Core.h"
+#include "Core/Unix/CoreService.h"
+#include "Platform/SystemLog.h"
 
 int main(int argc, char *argv[])
 {
+   /* if (argc > 1 && strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0)
+    {
+        // Process elevated requests
+        try
+        {
+            GostCrypt::CoreService::ProcessElevatedRequests();
+            return 0;
+        }
+        catch (exception &e)
+        {
+    #ifdef QT_DEBUG
+            GostCrypt::SystemLog::WriteException (e);
+    #endif
+        }
+        catch (...)	{ }
+        return 1;
+    }*/
+
     QGuiApplication app(argc, argv);
     GraphicUserInterface ui;
-    // Register our component type with QML.
-    qmlRegisterType<ModelClass>("gostcrypt.modelclass", 1, 0, "ModelClass");
-  //  qmlRegisterType<VolumeItemGraphic>("volumeItem", 1, 0, "volumeItem");
+    ConnectSignals cs(&ui);
 
-    //*/
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));//*/
+    QQmlContext* ctx = engine.rootContext();
+    ctx->setContextProperty("ConnectSignals", &cs);
+    engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
 
-    //QObject::connect(engine, SIGNAL(mountVolume(QString, QString)), &ui, SLOT(receiveMount(QString,QString)));
-    engine.connect(engine, SIGNAL(mountVolume(QString, QString)), &ui, SLOT(receiveMount(QString,QString)));
     return app.exec();
 }

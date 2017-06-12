@@ -42,8 +42,6 @@ Rectangle {
 
     }
 
-
-
     MouseArea {
         id: menuButton_mouseArea
         hoverEnabled: true

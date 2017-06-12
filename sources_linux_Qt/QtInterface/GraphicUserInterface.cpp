@@ -1,10 +1,5 @@
 #include "GraphicUserInterface.h"
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
-#include "Volume/Volume.h"
-#include "Platform/Platform.h"
-#include "Volume/EncryptionThreadPool.h"
-#include "Volume/VolumeInfo.h"
+
 #include <iostream>
 #include <QDebug>
 #include <QCoreApplication>
