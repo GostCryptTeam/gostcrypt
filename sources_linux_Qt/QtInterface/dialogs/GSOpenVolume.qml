@@ -14,6 +14,7 @@ Item {
     //modality: Qt.WindowModal
     anchors.fill: childOf
     //anchors.centerIn: childOf
+
     Item {
         id: item
         anchors.fill: parent
@@ -103,6 +104,7 @@ Item {
         }
 
         TextField {
+            id: password_value
             x: password_txt.x + password_txt.width + 15
             width: combo.width + 115
             horizontalAlignment: TextInput.AlignHCenter
@@ -174,7 +176,7 @@ Item {
         text: qsTr("Mount Volume")
         onClicked: {
             catchClose();
-            LoadVolume.loadVolume(volumePath)
+            app.mountVolume(fileDialog.fileUrl, password_value.text);
         }
     }
 

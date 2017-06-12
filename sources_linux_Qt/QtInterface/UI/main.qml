@@ -19,6 +19,8 @@ import QtQuick.Layouts 1.1
 Window {
     //Properties
     id: app
+
+    signal mountVolume(string path, string password)
     //GostCrypt program name
     title: qsTr("GostCrypt 2.0")
     visible: true
@@ -159,9 +161,9 @@ Window {
         y: 111
         width: 594
         height: 303
-        GSVolumeItem {
+        /*GSVolumeItem {
             id:volumeDelegate
-        }
+        }*/
 
         ListModel {
             id: listOfVolumes

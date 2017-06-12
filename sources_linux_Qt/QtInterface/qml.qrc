@@ -19,7 +19,6 @@
         <file>UI/GSCustomComboBox.qml</file>
         <file>dialogs/GSCheckBox.qml</file>
         <file>UI/GSButtonBlueBordered.qml</file>
-        <file>UI/GSVolumeItem.qml</file>
         <file>ressource/disk.png</file>
         <file>UI/LoadVolume.js</file>
     </qresource>
