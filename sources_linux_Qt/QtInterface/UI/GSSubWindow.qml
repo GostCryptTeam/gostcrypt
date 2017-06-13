@@ -13,6 +13,7 @@ Item {
     property string title: "title"
     property string w
     property var object
+    property var heightSubWindow
 
     Rectangle {
         //anchors.fill: app
@@ -31,7 +32,7 @@ Item {
     Rectangle {
         id: closeButton
         x: parent.width - 100
-        y: -17
+        y: containerSub.y -17
         width: 34
         height: 34
         color: "#232323"
@@ -95,29 +96,31 @@ Item {
 
     Rectangle {
         id: rectangle1
-        y: parent.y
-        anchors.fill: parent
+        height: heightSubWindow
+        y: containerSub.y
+        //anchors.fill: parent
         color: "#2a2a2a"
+        Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
     }
 
     RectangularGlow {
         id: effect
-        anchors.fill: rect2
+        anchors.fill: containerSub
         glowRadius: 80
         spread: 0.2
         color: "#000000"
-        cornerRadius: rect2.radius + glowRadius
+        cornerRadius: containerSub.radius + glowRadius
     }
 
     Rectangle {
-        id: rect2
+        id: containerSub
         color: "#2a2a2a"
         anchors.centerIn: parent
         width: parent.width
-        height: parent.height
+        height: heightSubWindow
         y: parent.y
         radius: 0
-
+        Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
     }
 
     Text {
@@ -126,7 +129,8 @@ Item {
         font.pointSize: 24
         color: "#719c24"
         leftPadding: 50
-        topPadding: 10
+        //topPadding: 10
+        y: containerSub.y + 10
     }
 
     //Content
@@ -140,7 +144,7 @@ Item {
 
     Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {
                 if(!anim_.running && subWindow_.opacity == 0.0) {
-                       subWindow_.visible = false
+                    subWindow_.visible = false
                 }
             } } }
 
@@ -151,10 +155,14 @@ Item {
     }
 
     Connections {
-        target: loader.item
-        onMountVolume: {
-            ConnectSignals.connectReceiveMount(path,password);
+        target: ConnectSignals
+        onSendSubWindowAskSudoPassword: {
+            console.log("demande de sudo");
+            w = "../dialogs/GSConnectSudo.qml";
+            loader.setSource(w);
+            changeSubWindowHeight(200);
         }
+
     }
 
     //Load the right QML Form
@@ -172,5 +180,10 @@ Item {
     function catchClose() { //todo : code d'erreur ?
         //fermer la subwindow
         subWindow_.opacity = 0.0
+    }
+
+    function changeSubWindowHeight(value) {
+        heightSubWindow = value;
+        loader.item.y = subWindow.y
     }
 }

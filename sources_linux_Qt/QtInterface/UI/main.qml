@@ -191,5 +191,6 @@ Window {
         height:429
         visible: false
         opacity: 0.0
+        heightSubWindow: 429
     }
 }

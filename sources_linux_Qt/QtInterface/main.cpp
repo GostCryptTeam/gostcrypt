@@ -9,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-   /* if (argc > 1 && strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0)
+    if (argc > 1 && strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0)
     {
         // Process elevated requests
         try
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         }
         catch (...)	{ }
         return 1;
-    }*/
+    }
 
     QGuiApplication app(argc, argv);
     GraphicUserInterface ui;

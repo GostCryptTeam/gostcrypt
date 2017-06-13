@@ -15,6 +15,13 @@ Item {
     signal mountVolume(string path, string password)
     //anchors.centerIn: childOf
 
+    Connections {
+        target: openVolume_Form
+        onMountVolume: {
+            ConnectSignals.connectReceiveMount(path,password);
+        }
+    }
+
     Item {
         id: item
         anchors.fill: parent
@@ -175,7 +182,7 @@ Item {
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
         onClicked: {
-            catchClose();
+            //catchClose();
             openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
         }
     }

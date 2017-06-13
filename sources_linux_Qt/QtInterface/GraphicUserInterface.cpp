@@ -5,7 +5,8 @@
 #include <QCoreApplication>
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
-    : QObject(parent)
+    :   QObject(parent),
+        mAdminPasswordRequestHandler(this)
 {
     this->init();
 }
@@ -18,18 +19,7 @@ void GraphicUserInterface::init() {
 
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
-    // UserInterface.cpp:448
-    // Très temoraire
-    struct AdminPasswordRequestHandler : public GostCrypt::GetStringFunctor
-            {
-                virtual void operator() (string &passwordStr)
-                {
-                    wstring wPassword (L"a"); // Entrer le mot de passe sudo ici
-                    GostCrypt::StringConverter::ToSingle (wPassword, passwordStr);
-                }
-            };
-
-    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (new AdminPasswordRequestHandler ()));
+    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (&mAdminPasswordRequestHandler));
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -50,12 +40,12 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
     GostCrypt::MountOptions options;
     try {
         if(GostCrypt::Core->IsVolumeMounted (*volumePath)) {
-    	    qDebug() << "Volume already mounted";
-        	return;
-	    }
+            qDebug() << "Volume already mounted";
+            return;
+        }
         options.Password.reset(volumePassword);
         options.Path.reset(volumePath);
-	    GostCrypt::Core->MountVolume (options);
+        GostCrypt::Core->MountVolume (options);
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }
@@ -66,7 +56,7 @@ void GraphicUserInterface::receiveAutoMount()
 #ifdef QT_DEBUG
     qDebug() << "Monter auto";
 #endif
-	// Voir Main/Forms/MainFrame.cpp:530
+    // Voir Main/Forms/MainFrame.cpp:530
 }
 
 void GraphicUserInterface::receiveDismountAll()
@@ -78,7 +68,11 @@ void GraphicUserInterface::receiveDismountAll()
     for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
         GostCrypt::Core->DismountVolume(volume);
     }
+}
 
+void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
+{
+    mAdminPasswordRequestHandler.sendPassword(aPwd);
 }
 
 void GraphicUserInterface::receiveDismount(const QString& aStr)

@@ -5,6 +5,7 @@
 ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
     : mGUI(aGUI)
 {
+    connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
 }
 
 void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
@@ -15,9 +16,7 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
     //test de renvoi de signal c++ vers qml
     //emit mGUI->sendVolume("test");
     emit sendReceiveMount(aPath);
-    //à décommenter : terminate called after throwing an instance of 'GostCrypt::ExecutedProcessFailed'
-    //what():  GostCrypt::Process::Execute:193
-    //mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
+    mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
 
 void ConnectSignals::connectReceiveAutoMount()
@@ -42,4 +41,14 @@ void ConnectSignals::connectReceiveDismountAll()
     qDebug() << "[DEBUG] : Dismount all devices...";
 #endif
     mGUI->receiveDismountAll();
+}
+
+void ConnectSignals::connectSudo(const QString& aPwd)
+{
+    mGUI->receiveSudoPassword(aPwd);
+}
+
+void ConnectSignals::subWindowAskSudoPassword()
+{
+    emit sendSubWindowAskSudoPassword();
 }

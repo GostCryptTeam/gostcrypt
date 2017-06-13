@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 
 Component {
     Item {
-        anchors.horizontalCenter: mainWindow.anchors.horizontalCenter
+        //anchors.horizontalCenter: mainWindow.anchors.horizontalCenter
         width:585
         height:80
         Rectangle {

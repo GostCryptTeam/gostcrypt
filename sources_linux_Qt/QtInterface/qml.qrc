@@ -22,5 +22,6 @@
         <file>ressource/disk.png</file>
         <file>UI/LoadVolume.js</file>
         <file>UI/GSVolumeItem.qml</file>
+        <file>dialogs/GSConnectSudo.qml</file>
     </qresource>
 </RCC>
