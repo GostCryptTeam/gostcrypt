@@ -116,9 +116,11 @@ Window {
         anchors.bottomMargin: 28
         GSButtonGreen {
             text: qsTr("Auto Mount Device")
+            onClicked: ConnectSignals.connectReceiveAutoMount()
         }
         GSButtonGreen {
             text: qsTr("Dismount All")
+            onClicked: ConnectSignals.connectReceiveDismountAll()
         }
         GSButtonGreen {
             text: qsTr("Volume Tools")

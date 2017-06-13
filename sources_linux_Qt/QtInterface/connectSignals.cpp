@@ -17,7 +17,7 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
     emit sendReceiveMount(aPath);
     //à décommenter : terminate called after throwing an instance of 'GostCrypt::ExecutedProcessFailed'
     //what():  GostCrypt::Process::Execute:193
-    //mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
+    mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
 
 void ConnectSignals::connectReceiveAutoMount()
