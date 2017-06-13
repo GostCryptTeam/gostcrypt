@@ -25,7 +25,7 @@ Item {
     Item {
         id: item
         anchors.fill: parent
-        anchors.topMargin: 90
+        anchors.topMargin: 0
         Image {
             id: img
             x: 50
@@ -95,8 +95,8 @@ Item {
     Item {
         id: password
         visible: false
-        y: buttonTools.y + buttonTools.height + 15
-        anchors.topMargin: 50
+        y: buttonTools.y + buttonTools.height - 15
+        anchors.topMargin: -20
         opacity: 0.0
 
         Text {
@@ -188,7 +188,7 @@ Item {
     }
 
     function moving(url) {
-        item.anchors.topMargin = 0
+        item.anchors.topMargin = -40
         combo.model = [fileDialog.fileUrl, "C:\\volumes\\myvolume", "C:\\volumes\\old", "C:\\Users\\Administrateur\\volume"]
         volumePath = fileDialog.fileUrl
     }

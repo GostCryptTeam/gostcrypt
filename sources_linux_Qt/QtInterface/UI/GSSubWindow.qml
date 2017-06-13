@@ -63,6 +63,7 @@ Item {
                 //object.destroy()
                 //fermer la subwindow
                 subWindow_.opacity = 0.0
+                heightSubWindow = 429
             }
         }
     }

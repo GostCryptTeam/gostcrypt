@@ -1,6 +1,4 @@
-
-function loadVolume(text) {
+function loadVolume(AuxMountPoint, EncryptionAlgorithmName, Path, Size) {
     console.log("Ajout du volume");
-    //app.
-    listOfVolumes.append({text_: text})
+    listOfVolumes.append({AuxMountPoint_: AuxMountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size})
 }
