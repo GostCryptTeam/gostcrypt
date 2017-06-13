@@ -91,11 +91,11 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     if(volume) GostCrypt::Core->DismountVolume(volume);
 }
 
-void GraphicUserInterface::receiveCreateVolume(GostCrypt::VolumeCreationOptions& aCreate){
+void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> &aCreate){
 #ifdef QT_DEBUG
-    qDebug() << "Création de volume " << string(aCreate.Path);
+    qDebug() << "Création de volume";
 #endif
-    GostCrypt::VolumeCreator creator = new GostCrypt::VolumeCreator();
+    GostCrypt::VolumeCreator creator;
     creator.CreateVolume(aCreate);
     try{
         creator.CheckResult();

@@ -8,6 +8,7 @@
 #include "Platform/Platform.h"
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumeInfo.h"
+#include "Core/VolumeCreator.h"
 
 class GraphicUserInterface : public QObject
 {
@@ -24,7 +25,7 @@ public slots:
     void receiveAutoMount();
     void receiveDismount(const QString&);
     void receiveDismountAll();
-    void receiveCreateVolume(GostCrypt::VolumeCreationOptions&);
+    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>&);
 
 signals:
     void sendVolume(GostCrypt::MountOptions aOptions);
