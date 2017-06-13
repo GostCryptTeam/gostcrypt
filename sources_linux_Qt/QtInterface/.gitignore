@@ -1,0 +1,9 @@
+*.pro.user
+*.pro.user.*
+release/
+x64
+debug
+*.sln
+*.vxproj
+*.filters
+*.user
