@@ -18,6 +18,7 @@ class GraphicUserInterface : public QObject
     Q_OBJECT
 public:
     explicit GraphicUserInterface(QObject *parent = 0);
+    GostCrypt::VolumeInfoList receiveGetAllVolumes();
     void init();
     void stop();
     ~GraphicUserInterface();
@@ -30,6 +31,7 @@ public slots:
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
     void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>);
+    void receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles);
 
 signals:
     void sendVolume(GostCrypt::MountOptions aOptions);

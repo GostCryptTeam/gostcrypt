@@ -72,6 +72,11 @@ void GraphicUserInterface::receiveDismountAll()
     }
 }
 
+GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
+{
+    return GostCrypt::Core->GetMountedVolumes();
+}
+
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
 {
     mAdminPasswordRequestHandler.sendPassword(aPwd);
@@ -85,6 +90,15 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
     GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
     if(volume) GostCrypt::Core->DismountVolume(volume);
+}
+
+void GraphicUserInterface::receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles){
+    GostCrypt::Core->ChangePassword(shared_ptr<GostCrypt::VolumePath>(new GostCrypt::VolumePath(volumePath.toStdWString())),
+                                    true,
+                                    shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(oldPassword.toStdString().c_str(),oldPassword.size())),
+                                    oldKeyFiles,
+                                    shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(newPassword.toStdString().c_str(), newPassword.size())),
+                                    newKeyFiles);
 }
 
 void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
@@ -106,7 +120,7 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
         return;
     }
     // Format non-FAT filesystem
-    const char *fsFormatter = nullptr;
+    /*const char *fsFormatter = nullptr;
 
     switch (aCreate->Filesystem)
     {
@@ -118,7 +132,7 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     default: break;
     }
 
-    /*if (fsFormatter)
+    if (fsFormatter)
     {
 
         GostCrypt::MountOptions mountOptions ();

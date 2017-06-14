@@ -58,6 +58,7 @@ Item {
             //close the subwindow and delete its values
             anchors.fill: parent
             hoverEnabled: true
+            z:2
             onClicked: {
                 //supprimer l'objet
                 //object.destroy()
@@ -158,6 +159,7 @@ Item {
     Connections {
         target: ConnectSignals
         onSendSubWindowAskSudoPassword: {
+
             console.log("demande de sudo");
             w = "../dialogs/GSConnectSudo.qml";
             loader.setSource(w);

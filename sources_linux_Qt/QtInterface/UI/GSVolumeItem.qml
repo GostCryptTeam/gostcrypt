@@ -102,7 +102,7 @@ Component {
                 anchors.fill: dismountVolume
                 onClicked: {
                     console.log("Dismount volume");
-                    ConnectSignals.connectReceiveDismount(MountPoint_);
+                    ConnectSignals.connectReceiveDismount(Path_);
                     listOfVolumes.remove(listOfVolumes.currentIndex);
                 }
             }
