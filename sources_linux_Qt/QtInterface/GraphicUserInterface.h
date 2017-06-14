@@ -38,6 +38,7 @@ signals:
     void askSudoPassword();
     void sendVolumeInfos(string AuxMountPoint, wstring EncryptionAlgorithmName, string Path, uint64 Size);
     void confirmSudoPassword();
+    void mountVolumePasswordIncorrect();
 
 private:
     class AdminPasswordRequestHandler : public GostCrypt::GetStringFunctor
@@ -58,7 +59,8 @@ private:
             mPassword = aPwd;
             mLoop.quit();
         }
-    }mAdminPasswordRequestHandler;
+    };
+    AdminPasswordRequestHandler *mAdminPasswordRequestHandler;
 
 };
 

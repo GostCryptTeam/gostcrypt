@@ -31,6 +31,7 @@ signals:
     void sendSubWindowAskSudoPassword();
     void sendSubWindowVolumeInfos(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
     void sendSubWindowConfirmSudoPassword();
+    void sendSubWindowMountVolumePasswordIncorrect();
 
 private:
     GraphicUserInterface* mGUI;
@@ -39,6 +40,7 @@ public slots:
     void subWindowAskSudoPassword();
     void subWindowSendVolumeInfos(string,wstring,string,uint64);
     void subWindowConfirmSudoPassword();
+    void subWindowMountVolumePasswordIncorrect();
 };
 
 

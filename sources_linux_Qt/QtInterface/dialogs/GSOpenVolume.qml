@@ -20,6 +20,14 @@ Item {
         onMountVolume: {
             ConnectSignals.connectReceiveMount(path,password);
         }
+
+    }
+
+    Connections {
+        target: ConnectSignals
+        onSendSubWindowMountVolumePasswordIncorrect: {
+            //password_value_style.border.color = "#e84747"
+        }
     }
 
     Item {
@@ -118,8 +126,10 @@ Item {
             echoMode: TextInput.Password
             height: combo.height
             style: TextFieldStyle {
+
                 textColor: "#e1e1e1"
                 background: Rectangle {
+                    id: password_value_style
                     radius: 5
                     implicitWidth: 100
                     implicitHeight: 24
@@ -144,6 +154,14 @@ Item {
             x: combo.x
             y: cache.y + 40
             height: combo.height
+            onClicked: {
+                if(display.checked == false)
+                {
+                    password_value.echoMode = TextInput.Password;
+                }else{
+                    password_value.echoMode = TextInput.Normal;
+                }
+            }
         }
 
         GSCheckBox {

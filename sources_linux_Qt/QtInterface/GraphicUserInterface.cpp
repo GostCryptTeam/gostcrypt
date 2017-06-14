@@ -6,7 +6,7 @@
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
     :   QObject(parent),
-        mAdminPasswordRequestHandler(this)
+        mAdminPasswordRequestHandler(new AdminPasswordRequestHandler(this))
 {
     this->init();
 }
@@ -20,7 +20,7 @@ void GraphicUserInterface::init() {
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
 
-    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (&mAdminPasswordRequestHandler));
+    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr<GostCrypt::GetStringFunctor>(mAdminPasswordRequestHandler));
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -50,7 +50,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
             shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
             emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
         } catch (GostCrypt::PasswordIncorrect &e) {
-
+            emit mountVolumePasswordIncorrect();
         }
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
@@ -62,7 +62,9 @@ void GraphicUserInterface::receiveAutoMount(const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter auto";
 #endif
+    (void) aPassword;
     // Voir Main/GraphicUserInterface.cpp:617
+    // Voir Main/UserInterface.cpp:509
 }
 
 void GraphicUserInterface::receiveDismountAll()
@@ -85,7 +87,7 @@ GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
 
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
 {
-    mAdminPasswordRequestHandler.sendPassword(aPwd);
+    mAdminPasswordRequestHandler->sendPassword(aPwd);
 }
 
 void GraphicUserInterface::receiveDismount(const QString& aStr)
@@ -94,7 +96,7 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     qDebug() << "On démonte " << aStr;
 #endif
     GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
-    GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
+    shared_ptr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
     if(volume) GostCrypt::Core->DismountVolume(volume);
 }
 

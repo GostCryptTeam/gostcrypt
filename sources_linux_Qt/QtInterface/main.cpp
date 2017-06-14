@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <connectSignals.h>
+#include <QIcon>
 #include <GraphicUserInterface.h>
 #include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     }
 
     QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/logo_gostcrypt.png"));
     GraphicUserInterface ui;
     ConnectSignals cs(&ui);
 

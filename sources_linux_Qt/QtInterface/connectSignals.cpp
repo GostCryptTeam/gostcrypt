@@ -32,6 +32,7 @@ ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
     connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
     connect(mGUI, SIGNAL(sendVolumeInfos(string,wstring,string,uint64)), this, SLOT(subWindowSendVolumeInfos(string,wstring,string,uint64)));
     connect(mGUI, SIGNAL(confirmSudoPassword()), this, SLOT(subWindowConfirmSudoPassword()));
+    connect(mGUI, SIGNAL(mountVolumePasswordIncorrect()), this, SLOT(subWindowMountVolumePasswordIncorrect()));
 }
 
 void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
@@ -156,4 +157,9 @@ void ConnectSignals::subWindowSendVolumeInfos(string aMountPoint, wstring aAlgo,
 void ConnectSignals::subWindowConfirmSudoPassword()
 {
     emit sendSubWindowConfirmSudoPassword();
+}
+
+void ConnectSignals::subWindowMountVolumePasswordIncorrect()
+{
+    emit sendSubWindowMountVolumePasswordIncorrect();
 }
