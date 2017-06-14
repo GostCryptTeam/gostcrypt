@@ -1,4 +1,4 @@
-*.[oad]
-*.h.gch
-gostcrypt
-build-GostCrypt-Desktop*/
+**/*.o
+**/*.a
+**/*.d
+**/*.user*
