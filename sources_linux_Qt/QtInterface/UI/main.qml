@@ -31,7 +31,6 @@ Window {
             subWindow.catchClose();
         }
     }
-
     //GostCrypt program name
     title: qsTr("GostCrypt 2.0")
     visible: true
