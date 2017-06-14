@@ -27,6 +27,9 @@ Window {
             subWindow.catchClose();
             LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
         }
+        onSendSubWindowConfirmSudoPassword:  {
+            subWindow.catchClose();
+        }
     }
 
     //GostCrypt program name
@@ -118,7 +121,7 @@ Window {
         anchors.bottomMargin: 28
         GSButtonGreen {
             text: qsTr("Auto Mount Device")
-            onClicked: ConnectSignals.connectReceiveAutoMount()
+            onClicked: ConnectSignals.connectReceiveAutoMount("dummy")
         }
         GSButtonGreen {
             text: qsTr("Dismount All")

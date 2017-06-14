@@ -31,6 +31,7 @@ ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
 {
     connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
     connect(mGUI, SIGNAL(sendVolumeInfos(string,wstring,string,uint64)), this, SLOT(subWindowSendVolumeInfos(string,wstring,string,uint64)));
+    connect(mGUI, SIGNAL(confirmSudoPassword()), this, SLOT(subWindowConfirmSudoPassword()));
 }
 
 void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
@@ -41,12 +42,12 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
     mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
 
-void ConnectSignals::connectReceiveAutoMount()
+void ConnectSignals::connectReceiveAutoMount(const QString& aPwd)
 {
 #ifdef QT_DEBUG
     qDebug() << "[DEBUG] : Auto mount devices...";
 #endif
-    mGUI->receiveAutoMount();
+    mGUI->receiveAutoMount(aPwd); //TODO change
 }
 
 void ConnectSignals::connectReceiveDismount(const QString &aString)
@@ -137,4 +138,9 @@ void ConnectSignals::subWindowSendVolumeInfos(string aMountPoint, wstring aAlgo,
                                   QString::fromWCharArray(aAlgo.c_str()),
                                   QString::fromStdString(aPath.c_str()),
                                   formatSize(aSize));
+}
+
+void ConnectSignals::subWindowConfirmSudoPassword()
+{
+    emit sendSubWindowConfirmSudoPassword();
 }
