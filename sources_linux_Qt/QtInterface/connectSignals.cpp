@@ -2,9 +2,33 @@
 #include <QUrl>
 #include "connectSignals.h"
 
+/*! converts byte to MB, GB, KB */
+QString formatSize(uint64 sizeInByte) {
+    if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
+        + QString::number(sizeInByte)
+        + QString("</font>")
+        + QString(" B"));
+
+    else if (sizeInByte < 1048576) return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1024, 'f', 1)
+        + QString("</font>")
+        + QString(" KB");
+
+    else if (sizeInByte < 1073741824) return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1048576, 'f', 1)
+        + QString("</font>")
+        + QString(" MB");
+
+    else return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1073741824, 'f', 1)
+        + QString("</font>")
+        + QString(" GB");
+}
+
 ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
     : mGUI(aGUI)
 {
+    connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
 }
 
 void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
@@ -15,8 +39,6 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
     //test de renvoi de signal c++ vers qml
     //emit mGUI->sendVolume("test");
     emit sendReceiveMount(aPath);
-    //à décommenter : terminate called after throwing an instance of 'GostCrypt::ExecutedProcessFailed'
-    //what():  GostCrypt::Process::Execute:193
     mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
 
@@ -44,11 +66,12 @@ void ConnectSignals::connectReceiveDismountAll()
     mGUI->receiveDismountAll();
 }
 
+
 void ConnectSignals::debug_connectReceiveCreate()
 {
-#ifdef QT_DEBUG
+
     qDebug() << "[DEBUG] : Creating debug device...";
-#endif
+
     shared_ptr <GostCrypt::VolumeCreationOptions> volume
             = shared_ptr <GostCrypt::VolumeCreationOptions>(new GostCrypt::VolumeCreationOptions());
 
@@ -68,7 +91,7 @@ void ConnectSignals::debug_connectReceiveCreate()
     volume->Type = GostCrypt::VolumeType::Normal;
     volume->Size = 50*1024*1024;
     volume->Password = shared_ptr <GostCrypt::VolumePassword>(new GostCrypt::VolumePassword("banana",6));
-    volume->Keyfiles = shared_ptr <GostCrypt::KeyfileList>(new GostCrypt::KeyfileList());
+    volume->Keyfiles = shared_ptr <GostCrypt::KeyfileList>(nullptr);
 
     volume->Filesystem = GostCrypt::VolumeCreationOptions::FilesystemType::Ext4;
     volume->FilesystemClusterSize = 16184;
@@ -86,4 +109,15 @@ void ConnectSignals::debug_connectReceiveCreate()
     //volume->SectorSize = GostCrypt::Core->GetDeviceSectorSize (volume->Path);
 
     mGUI->receiveCreateVolume(volume);
+}
+
+void ConnectSignals::connectSudo(const QString& aPwd)
+{
+    qDebug() << "[DEBUG] : connecting to sudo : " << aPwd;
+    mGUI->receiveSudoPassword(aPwd);
+}
+
+void ConnectSignals::subWindowAskSudoPassword()
+{
+    emit sendSubWindowAskSudoPassword();
 }

@@ -7,7 +7,7 @@
 import QtQml 2.0 as QML
 import QtQuick 2.7
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import "../UI/LoadVolume.js" as LoadVolume
 
@@ -25,7 +25,8 @@ Window {
         target: ConnectSignals;
         onSendReceiveMount: {
             console.log(aPath);
-            LoadVolume.loadVolume(aPath);
+            LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
+
         }
     }
 
@@ -94,6 +95,7 @@ Window {
                     subWindow.w = "../dialogs/GSOpenVolume.qml"
                     subWindow.title = 'Open a GostCrypt volume'
                     subWindow.loadForm()
+                    subWindow.changeSubWindowHeight(429);
                 }
             }
         }
@@ -101,7 +103,7 @@ Window {
         GSButtonBlue_icon {
             text: qsTr("Create Volume")
             onClicked: {
-               // testt.setText(text)
+                // testt.setText(text)
             }
         }
         //Smooth fade-in/fade-out animation
@@ -124,6 +126,7 @@ Window {
         }
         GSButtonGreen {
             text: qsTr("Volume Tools")
+            onClicked: LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
         }
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
@@ -167,6 +170,7 @@ Window {
         y: 111
         width: 594
         height: 303
+
         GSVolumeItem {
             id:volumeDelegate
         }
@@ -175,15 +179,23 @@ Window {
             id: listOfVolumes
         }
 
-        ListView {
-            id: listViewVolumes
+        GridView {
+            id: grid
             anchors.fill: parent;
-            anchors.margins: 5
-            model: listOfVolumes
+            cellWidth: grid.width/2;
+            cellHeight: 100
+            anchors.leftMargin: 35
+            anchors.topMargin: 10
+            anchors.bottomMargin: 10
             delegate: volumeDelegate
             focus: true
+            model: listOfVolumes
+            ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
+            snapMode: GridView.SnapToRow
+            /*displayMarginBeginning : -90
+            displayMarginEnd : -80*/
+            clip: true
         }
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
     //Sub window inside of the main window
@@ -193,5 +205,6 @@ Window {
         height:429
         visible: false
         opacity: 0.0
+        heightSubWindow: 429
     }
 }

@@ -22,12 +22,17 @@ public:
     Q_INVOKABLE void connectReceiveDismount(const QString&);
     Q_INVOKABLE void connectReceiveDismountAll();
     Q_INVOKABLE void debug_connectReceiveCreate(); // for test purposes only
+    Q_INVOKABLE void connectSudo(const QString& aPwd);
 
 signals:
     void sendReceiveMount(const QString& aPath);
+    void sendSubWindowAskSudoPassword();
 
 private:
     GraphicUserInterface* mGUI;
+
+public slots:
+    void subWindowAskSudoPassword();
 
 };
 
