@@ -23,5 +23,6 @@
         <file>UI/LoadVolume.js</file>
         <file>UI/GSVolumeItem.qml</file>
         <file>dialogs/GSConnectSudo.qml</file>
+        <file>UI/TooltipArea.qml</file>
     </qresource>
 </RCC>

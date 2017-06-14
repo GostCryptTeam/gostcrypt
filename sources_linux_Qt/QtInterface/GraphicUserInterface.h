@@ -11,6 +11,7 @@
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumeInfo.h"
 #include "Core/VolumeCreator.h"
+#include "../Volume/VolumeInfo.h"
 
 class GraphicUserInterface : public QObject
 {
@@ -30,10 +31,10 @@ public slots:
     void receiveSudoPassword(const QString& aPwd);
     void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>&);
 
-
 signals:
     void sendVolume(GostCrypt::MountOptions aOptions);
     void askSudoPassword();
+    void sendVolumeInfos(string AuxMountPoint, wstring EncryptionAlgorithmName, string Path, uint64 Size);
 
 private:
     class AdminPasswordRequestHandler : public GostCrypt::GetStringFunctor
