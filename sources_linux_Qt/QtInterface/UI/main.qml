@@ -195,6 +195,7 @@ Window {
             snapMode: GridView.SnapToRow
             clip: true
         }
+        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
     //Sub window inside of the main window

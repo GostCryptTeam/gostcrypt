@@ -5,6 +5,7 @@ import QtQuick.Controls 2.2
 Component {
     id:volumeDelegate
     Item {
+        id: item
         width: 240
         height:80
         TooltipArea {
@@ -17,7 +18,7 @@ Component {
             radius: 70
         }
         Text {
-            text: AuxMountPoint_
+            text: MountPoint_
             color: "#bdbdbd"
             font.pixelSize: 10
             x: 100
@@ -68,10 +69,60 @@ Component {
             x:25
             y:20
         }
+        Rectangle {
+            id: dismountVolume
+            width: 20
+            height:20
+            radius:25
+            color: "#7ba430"
+            opacity: 0.0
+            Rectangle {
+                id: bar1
+                x: 5
+                y: 9
+                width: 9
+                height: 2
+                rotation: 45
+                antialiasing: true
+                color: "#ffffff"
+            }
+
+            Rectangle {
+                id: bar2
+                x: 5
+                y: 9
+                width: 9
+                height: 2
+                rotation: -45
+                antialiasing: true
+                color: "#ffffff"
+            }
+
+            MouseArea {
+                anchors.fill: dismountVolume
+                onClicked: {
+                    console.log("Dismount volume");
+                    ConnectSignals.connectReceiveDismount(MountPoint_);
+                    listOfVolumes.remove(listOfVolumes.currentIndex);
+                }
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
+            hoverEnabled: true
+            propagateComposedEvents: true
+            onEntered: {
+                console.log("Entrée");
+                dismountVolume.opacity = 1.0
+            }
+            onExited: {
+                console.log("Sortie");
+                dismountVolume.opacity = 0.0
+            }
+
             onDoubleClicked: {
-                ConnectSignals.openPath(AuxMountPoint_);
+                ConnectSignals.openPath(MountPoint_);
             }
         }
 
