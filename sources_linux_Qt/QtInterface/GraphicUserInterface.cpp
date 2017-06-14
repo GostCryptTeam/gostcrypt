@@ -46,19 +46,23 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
         }
         options.Password.reset(volumePassword);
         options.Path.reset(volumePath);
-        shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
-        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+        try {
+            shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
+            emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+        } catch (GostCrypt::PasswordIncorrect &e) {
+            emit mountVolumePasswordIncorrect();
+        }
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }
 }
 
-void GraphicUserInterface::receiveAutoMount()
+void GraphicUserInterface::receiveAutoMount(const QString& aPassword)
 {
 #ifdef QT_DEBUG
     qDebug() << "Monter auto";
 #endif
-    // Voir Main/Forms/MainFrame.cpp:530
+    // Voir Main/GraphicUserInterface.cpp:617
 }
 
 void GraphicUserInterface::receiveDismountAll()
@@ -69,7 +73,9 @@ void GraphicUserInterface::receiveDismountAll()
     GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
     for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
         GostCrypt::Core->DismountVolume(volume);
+        emit confirmSudoPassword();
     }
+
 }
 
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)

@@ -20,6 +20,14 @@ Item {
         onMountVolume: {
             ConnectSignals.connectReceiveMount(path,password);
         }
+
+    }
+
+    Connections {
+        target: ConnectSignals
+        onSendSubWindowMountVolumePasswordIncorrect: {
+            password_value_style.border.color = "#e84747"
+        }
     }
 
     Item {
@@ -118,8 +126,10 @@ Item {
             echoMode: TextInput.Password
             height: combo.height
             style: TextFieldStyle {
+
                 textColor: "#e1e1e1"
                 background: Rectangle {
+                    id: password_value_style
                     radius: 5
                     implicitWidth: 100
                     implicitHeight: 24

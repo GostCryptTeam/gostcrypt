@@ -25,7 +25,7 @@ public:
 public slots:
     void receive(const QString&);
     void receiveMount(const QString&, const QString&);
-    void receiveAutoMount();
+    void receiveAutoMount(const QString& aPassword);
     void receiveDismount(const QString&);
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
@@ -35,6 +35,8 @@ signals:
     void sendVolume(GostCrypt::MountOptions aOptions);
     void askSudoPassword();
     void sendVolumeInfos(string AuxMountPoint, wstring EncryptionAlgorithmName, string Path, uint64 Size);
+    void confirmSudoPassword();
+    void mountVolumePasswordIncorrect();
 
 private:
     class AdminPasswordRequestHandler : public GostCrypt::GetStringFunctor

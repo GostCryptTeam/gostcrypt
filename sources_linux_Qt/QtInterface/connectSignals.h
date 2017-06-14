@@ -18,7 +18,7 @@ public:
     ~ConnectSignals(){}
 
     Q_INVOKABLE void connectReceiveMount(const QString& aPath, const QString& aPwd);
-    Q_INVOKABLE void connectReceiveAutoMount();
+    Q_INVOKABLE void connectReceiveAutoMount(const QString& aPwd);
     Q_INVOKABLE void connectReceiveDismount(const QString&);
     Q_INVOKABLE void connectReceiveDismountAll();
     Q_INVOKABLE void debug_connectReceiveCreate(); // for test purposes only
@@ -28,6 +28,8 @@ public:
 signals:
     void sendSubWindowAskSudoPassword();
     void sendSubWindowVolumeInfos(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
+    void sendSubWindowConfirmSudoPassword();
+    void sendSubWindowMountVolumePasswordIncorrect();
 
 private:
     GraphicUserInterface* mGUI;
@@ -35,6 +37,8 @@ private:
 public slots:
     void subWindowAskSudoPassword();
     void subWindowSendVolumeInfos(string,wstring,string,uint64);
+    void subWindowConfirmSudoPassword();
+    void subWindowMountVolumePasswordIncorrect();
 };
 
 
