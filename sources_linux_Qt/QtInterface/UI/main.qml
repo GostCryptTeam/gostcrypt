@@ -104,6 +104,7 @@ Window {
             text: qsTr("Create Volume")
             onClicked: {
                 // testt.setText(text)
+                ConnectSignals.debug_connectReceiveCreate()
             }
         }
         //Smooth fade-in/fade-out animation

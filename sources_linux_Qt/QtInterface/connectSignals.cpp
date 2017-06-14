@@ -94,7 +94,7 @@ void ConnectSignals::debug_connectReceiveCreate()
     volume->Keyfiles = shared_ptr <GostCrypt::KeyfileList>(nullptr);
 
     volume->Filesystem = GostCrypt::VolumeCreationOptions::FilesystemType::Ext4;
-    volume->FilesystemClusterSize = 16184;
+    volume->FilesystemClusterSize = 4096;
 
     GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
     for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
