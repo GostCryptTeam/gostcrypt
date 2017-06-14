@@ -29,7 +29,7 @@ public slots:
     void receiveDismount(const QString&);
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
-    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>&);
+    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>);
 
 signals:
     void sendVolume(GostCrypt::MountOptions aOptions);

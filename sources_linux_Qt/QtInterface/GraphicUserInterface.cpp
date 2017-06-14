@@ -19,6 +19,7 @@ void GraphicUserInterface::init() {
 
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
+
     GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (&mAdminPasswordRequestHandler));
 }
 
@@ -87,15 +88,15 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     if(volume) GostCrypt::Core->DismountVolume(volume);
 }
 
-void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> &aCreate){
+void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif
-    GostCrypt::VolumeCreator creator;
-    creator.CreateVolume(aCreate);
+    GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
+    creator->CreateVolume(aCreate);
     try{
-        creator.CheckResult();
-    }catch(...) { return; }
+        creator->CheckResult();
+    }catch(...) { qDebug() << "Erreur lors de la création"; return; }
 }
 
 void GraphicUserInterface::stop() {
