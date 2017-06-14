@@ -24,5 +24,6 @@
         <file>UI/GSVolumeItem.qml</file>
         <file>dialogs/GSConnectSudo.qml</file>
         <file>UI/TooltipArea.qml</file>
+        <file>dialogs/textFieldRed.qml</file>
     </qresource>
 </RCC>
