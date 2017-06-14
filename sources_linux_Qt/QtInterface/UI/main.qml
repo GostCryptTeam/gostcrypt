@@ -130,7 +130,10 @@ Window {
         }
         GSButtonGreen {
             text: qsTr("Dismount All")
-            onClicked: ConnectSignals.connectReceiveDismountAll()
+            onClicked: {
+                ConnectSignals.connectReceiveDismountAll()
+                listOfVolumes.clear()
+            }
         }
         GSButtonGreen {
             text: qsTr("Volume Tools")
