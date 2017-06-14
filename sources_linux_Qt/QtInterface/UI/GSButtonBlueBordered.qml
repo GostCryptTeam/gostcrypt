@@ -11,7 +11,7 @@ Button {
     contentItem: Text {
         text: buttonBlueBordered.text
         //font: buttonBlueBorderedIcon.font
-        font.pointSize: 11
+        font.pixelSize: 13
         color: "#e1e1e1"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
