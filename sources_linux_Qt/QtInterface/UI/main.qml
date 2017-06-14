@@ -31,6 +31,9 @@ Window {
             subWindow.opacity = subWindow.opacity = 1.0
             subWindow.visible = subWindow.visible = true
         }
+        onSendSubWindowConfirmSudoPassword:  {
+            subWindow.catchClose();
+        }
     }
 
     //GostCrypt program name
@@ -124,7 +127,7 @@ Window {
         anchors.bottomMargin: 28
         GSButtonGreen {
             text: qsTr("Auto Mount Device")
-            onClicked: ConnectSignals.connectReceiveAutoMount()
+            onClicked: ConnectSignals.connectReceiveAutoMount("dummy")
         }
         GSButtonGreen {
             text: qsTr("Dismount All")
