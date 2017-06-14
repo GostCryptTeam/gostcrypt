@@ -13,6 +13,7 @@ Item {
     //modality: Qt.WindowModal
     anchors.fill: childOf
     signal mountVolume(string path, string password)
+    signal incorrectPassword()
     //anchors.centerIn: childOf
 
     Connections {
@@ -26,7 +27,12 @@ Item {
     Connections {
         target: ConnectSignals
         onSendSubWindowMountVolumePasswordIncorrect: {
-            password_value_style.border.color = "#e84747"
+            console.log("bad password dans QML")
+            //password_value_style.border.color = "#e84747"
+            //PropertyChanges { target: password_value_style; border.color: "#e84747"   }
+            //incorrectPassword()
+            //password_value.state = "passwordIncorrect
+            password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
 
@@ -126,7 +132,6 @@ Item {
             echoMode: TextInput.Password
             height: combo.height
             style: TextFieldStyle {
-
                 textColor: "#e1e1e1"
                 background: Rectangle {
                     id: password_value_style
@@ -138,6 +143,23 @@ Item {
                     color: '#181818'
                 }
             }
+//            states: [
+//                State {
+//                    name: "passwordCorrect"
+//                    PropertyChanges {
+//                        target: password_value.style;
+//                        background.border.color: "#333"
+//                    }
+//                },
+//                State {
+//                    name: "passwordIncorrect"
+//                    when: incorrectPassword
+//                    PropertyChanges {
+//                        target: password_value.style.background;
+//                        border.color: "#e84747"
+//                    }
+//                }
+//            ]
         }
 
         GSCheckBox {
