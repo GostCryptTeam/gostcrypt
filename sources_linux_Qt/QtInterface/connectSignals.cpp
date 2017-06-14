@@ -29,6 +29,7 @@ ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
     : mGUI(aGUI)
 {
     connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
+    connect(mGUI, SIGNAL(sendVolumeInfos(string,wstring,string,uint64)), this, SLOT(subWindowSendVolumeInfos(string,wstring,string,uint64)));
 }
 
 void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
@@ -37,7 +38,6 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
     qDebug() << "[DEBUG] : Mounting an opened volume...";
 #endif
     //test de renvoi de signal c++ vers qml
-    //emit mGUI->sendVolume("test");
     emit sendReceiveMount(aPath);
     mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
@@ -120,4 +120,12 @@ void ConnectSignals::connectSudo(const QString& aPwd)
 void ConnectSignals::subWindowAskSudoPassword()
 {
     emit sendSubWindowAskSudoPassword();
+}
+
+void ConnectSignals::subWindowSendVolumeInfos(string aMountPoint, wstring aAlgo, string aPath, uint64 aSize)
+{
+    emit sendSubWindowVolumeInfos(QString::fromStdString(aMountPoint.c_str()),
+                                  QString::fromWCharArray(aAlgo.c_str()),
+                                  QString::fromStdString(aPath.c_str()),
+                                  formatSize(aSize));
 }

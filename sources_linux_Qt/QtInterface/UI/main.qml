@@ -26,7 +26,10 @@ Window {
         onSendReceiveMount: {
             console.log(aPath);
             LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
-
+        }
+        onSendSubWindowVolumeInfos: {
+            subWindow.catchClose();
+            LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
         }
     }
 

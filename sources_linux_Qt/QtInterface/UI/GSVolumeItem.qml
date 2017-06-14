@@ -1,8 +1,12 @@
 import QtQuick 2.7
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 2.2
 
 Component {
     Item {
+        TooltipArea {
+                text: Path_
+            }
         Rectangle {
             width: 240
             height:80
@@ -31,6 +35,7 @@ Component {
             elide: Text.ElideLeft
         }
         Text {
+            id: pathText
             text: Path_
             color: "#bdbdbd"
             font.pointSize: 8
@@ -39,9 +44,10 @@ Component {
             width: 100
             clip: true
             elide: Text.ElideRight
+
         }
         Text {
-            text: "Size : "+ Size_
+            text: "Size : " + Size_
             horizontalAlignment: Text.AlignHCenter
             color: "#97c966"
             font.pointSize: 8
