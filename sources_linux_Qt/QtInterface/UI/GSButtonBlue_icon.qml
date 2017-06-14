@@ -11,7 +11,7 @@ Button {
     contentItem: Text {
         leftPadding: -37
         text: buttonBlueIcon.text
-        font.pointSize: 11
+        font.pixelSize: 13
         //font: buttonGreenIcon.font
         color: buttonBlueIcon.down ? "#ffffff" : "#ffffff"
         horizontalAlignment: Text.AlignHCenter

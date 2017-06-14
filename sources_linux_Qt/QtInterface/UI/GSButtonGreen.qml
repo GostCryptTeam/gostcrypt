@@ -11,7 +11,7 @@ Button {
     contentItem: Text {
         text: buttonGreen.text
         //font: buttonGreenIcon.font
-        font.pointSize: 11
+        font.pixelSize: 13
         color: buttonGreen.down ? "#ffffff" : "#ffffff"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

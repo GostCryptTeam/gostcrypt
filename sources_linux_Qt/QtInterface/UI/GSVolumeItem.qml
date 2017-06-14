@@ -3,7 +3,10 @@ import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 
 Component {
+    id:volumeDelegate
     Item {
+        width: 240
+        height:80
         TooltipArea {
                 text: Path_
             }
@@ -16,7 +19,7 @@ Component {
         Text {
             text: AuxMountPoint_
             color: "#bdbdbd"
-            font.pointSize: 8
+            font.pixelSize: 10
             x: 100
             y: 10
             width: 100
@@ -27,7 +30,7 @@ Component {
             text: EncryptionAlgorithmName_
             horizontalAlignment: Text.AlignHCenter
             color: "#e1e1e1"
-            font.pointSize: 8
+            font.pixelSize: 10
             x: 100
             y: 25
             width: 100
@@ -38,7 +41,7 @@ Component {
             id: pathText
             text: Path_
             color: "#bdbdbd"
-            font.pointSize: 8
+            font.pixelSize: 10
             x: 100
             y: 40
             width: 100
@@ -50,7 +53,7 @@ Component {
             text: "Size : " + Size_
             horizontalAlignment: Text.AlignHCenter
             color: "#97c966"
-            font.pointSize: 8
+            font.pixelSize: 11
             x: 100
             y: 55
             width: 100
@@ -65,6 +68,15 @@ Component {
             x:25
             y:20
         }
+        MouseArea {
+            anchors.fill: parent
+            onDoubleClicked: {
+                ConnectSignals.openPath(AuxMountPoint_);
+            }
+        }
+
+
     }
+
 }
 

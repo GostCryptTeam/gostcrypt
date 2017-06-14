@@ -1,5 +1,6 @@
 #include <QQuickItem>
 #include <QUrl>
+#include <QDesktopServices>
 #include "connectSignals.h"
 
 /*! converts byte to MB, GB, KB */
@@ -37,8 +38,6 @@ void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aP
 #ifdef QT_DEBUG
     qDebug() << "[DEBUG] : Mounting an opened volume...";
 #endif
-    //test de renvoi de signal c++ vers qml
-    emit sendReceiveMount(aPath);
     mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
 }
 
@@ -115,6 +114,16 @@ void ConnectSignals::connectSudo(const QString& aPwd)
 {
     qDebug() << "[DEBUG] : connecting to sudo : " << aPwd;
     mGUI->receiveSudoPassword(aPwd);
+}
+
+void ConnectSignals::openPath(const QString &aPath)
+{
+#ifdef Q_WS_WIN
+    if (QFileInfo(path).isDir())
+        QProcess::startDetached("explorer", QStringList(path));
+    else
+#endif
+    QDesktopServices::openUrl(QUrl(aPath));
 }
 
 void ConnectSignals::subWindowAskSudoPassword()

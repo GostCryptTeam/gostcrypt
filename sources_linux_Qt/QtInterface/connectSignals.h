@@ -23,9 +23,9 @@ public:
     Q_INVOKABLE void connectReceiveDismountAll();
     Q_INVOKABLE void debug_connectReceiveCreate(); // for test purposes only
     Q_INVOKABLE void connectSudo(const QString& aPwd);
+    Q_INVOKABLE void openPath(const QString& aPath);
 
 signals:
-    void sendReceiveMount(const QString& aPath);
     void sendSubWindowAskSudoPassword();
     void sendSubWindowVolumeInfos(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
 
