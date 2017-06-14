@@ -40,7 +40,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
     GostCrypt::VolumePassword *volumePassword = new GostCrypt::VolumePassword(aPassword.toStdWString());
     GostCrypt::MountOptions options;
     try {
-        /*if(GostCrypt::Core->IsVolumeMounted (*volumePath)) {
+        if(GostCrypt::Core->IsVolumeMounted (*volumePath)) {
             qDebug() << "Volume already mounted";
             return;
         }
@@ -48,7 +48,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
         options.Path.reset(volumePath);
         shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
         emit sendVolumeInfos((string)volumeData.get()->AuxMountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
-        */emit sendVolumeInfos(string("1"), wstring(L"2"), string("3"), uint64(555));
+        //TEST : //emit sendVolumeInfos(string("1"), wstring(L"2"), string("3"), uint64(555));
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }
