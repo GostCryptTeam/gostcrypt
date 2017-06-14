@@ -13,7 +13,6 @@ Item {
         target: connectSudo_Form
         onConnection: {
             ConnectSignals.connectSudo(password);
-            childOf.catchClose();
         }
     }
 
@@ -48,5 +47,6 @@ Item {
             }
         }
         onAccepted: connectSudo_Form.connection(password_value.text);
+        focus: true
     }
 }

@@ -27,6 +27,10 @@ Window {
             subWindow.catchClose();
             LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
         }
+        onSendSubWindowAskSudoPassword: {
+            subWindow.opacity = subWindow.opacity = 1.0
+            subWindow.visible = subWindow.visible = true
+        }
         onSendSubWindowConfirmSudoPassword:  {
             subWindow.catchClose();
         }
@@ -34,6 +38,8 @@ Window {
     //GostCrypt program name
     title: qsTr("GostCrypt 2.0")
     visible: true
+
+    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
 
     //Window's maximum dimension
     minimumWidth: 790
