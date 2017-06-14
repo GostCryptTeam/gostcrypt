@@ -24,7 +24,7 @@ void GraphicUserInterface::init() {
             {
                 virtual void operator() (string &passwordStr)
                 {
-                    wstring wPassword (L"a"); // Entrer le mot de passe sudo ici
+                    wstring wPassword (L"user"); // Entrer le mot de passe sudo ici
                     GostCrypt::StringConverter::ToSingle (wPassword, passwordStr);
                 }
             };
@@ -91,15 +91,15 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     if(volume) GostCrypt::Core->DismountVolume(volume);
 }
 
-void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> &aCreate){
+void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif
-    GostCrypt::VolumeCreator creator;
-    creator.CreateVolume(aCreate);
+    GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
+    creator->CreateVolume(aCreate);
     try{
-        creator.CheckResult();
-    }catch(...) { return; }
+        creator->CheckResult();
+    }catch(...) { qDebug() << "Erreur lors de la création"; return; }
 }
 
 void GraphicUserInterface::stop() {

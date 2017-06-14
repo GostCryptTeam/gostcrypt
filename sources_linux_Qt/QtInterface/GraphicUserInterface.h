@@ -25,7 +25,7 @@ public slots:
     void receiveAutoMount();
     void receiveDismount(const QString&);
     void receiveDismountAll();
-    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>&);
+    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>);
 
 signals:
     void sendVolume(GostCrypt::MountOptions aOptions);
