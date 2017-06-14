@@ -13,6 +13,7 @@ Item {
         target: connectSudo_Form
         onConnection: {
             ConnectSignals.connectSudo(password);
+            childOf.catchClose();
         }
     }
 

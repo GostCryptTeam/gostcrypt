@@ -176,6 +176,14 @@ Item {
             x: combo.x
             y: cache.y + 40
             height: combo.height
+            onClicked: {
+                if(display.checked == false)
+                {
+                    password_value.echoMode = TextInput.Password;
+                }else{
+                    password_value.echoMode = TextInput.Normal;
+                }
+            }
         }
 
         GSCheckBox {
