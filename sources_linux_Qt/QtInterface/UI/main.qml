@@ -23,10 +23,6 @@ Window {
     //QML slots that receive C++ signals
     Connections {
         target: ConnectSignals;
-        onSendReceiveMount: {
-            console.log(aPath);
-            LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
-        }
         onSendSubWindowVolumeInfos: {
             subWindow.catchClose();
             LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
@@ -129,6 +125,7 @@ Window {
         }
         GSButtonGreen {
             text: qsTr("Volume Tools")
+            //TODO : supprimer (tests)
             onClicked: LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
         }
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
@@ -195,8 +192,6 @@ Window {
             model: listOfVolumes
             ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
             snapMode: GridView.SnapToRow
-            /*displayMarginBeginning : -90
-            displayMarginEnd : -80*/
             clip: true
         }
     }
