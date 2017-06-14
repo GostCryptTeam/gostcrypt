@@ -68,8 +68,27 @@ Component {
             x:25
             y:20
         }
+        Rectangle {
+            id: dismountVolume
+            width: 20
+            height:20
+            radius:25
+            color: "#ffffff"
+            opacity: 0.0
+        }
+
         MouseArea {
             anchors.fill: parent
+            hoverEnabled: true
+            onEntered: {
+                console.log("Entrée");
+                dismountVolume.opacity = 1.0
+            }
+            onExited: {
+                console.log("Sortie");
+                dismountVolume.opacity = 0.0
+            }
+
             onDoubleClicked: {
                 ConnectSignals.openPath(AuxMountPoint_);
             }

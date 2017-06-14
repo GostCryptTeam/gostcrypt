@@ -47,7 +47,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
         options.Password.reset(volumePassword);
         options.Path.reset(volumePath);
         shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
-        emit sendVolumeInfos((string)volumeData.get()->AuxMountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }
