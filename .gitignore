@@ -1,1 +1,3 @@
-build-GostCrypt-Desktop-Debug
+build-GostCrypt-*
+**/*.user
+
