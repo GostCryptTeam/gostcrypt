@@ -47,7 +47,7 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
         options.Password.reset(volumePassword);
         options.Path.reset(volumePath);
         shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
-        emit sendVolumeInfos((string)volumeData.get()->AuxMountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
     } catch (GostCrypt::SystemException e) {
         qDebug() << "Exception catch";
     }
@@ -108,41 +108,58 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     // Format non-FAT filesystem
     const char *fsFormatter = nullptr;
 
-    /*switch (aCreate->Filesystem)
+    switch (aCreate->Filesystem)
     {
-    case VolumeCreationOptions::FilesystemType::Ext2:		fsFormatter = "mkfs.ext2"; break;
-    case VolumeCreationOptions::FilesystemType::Ext3:		fsFormatter = "mkfs.ext3"; break;
-    case VolumeCreationOptions::FilesystemType::Ext4:		fsFormatter = "mkfs.ext4"; break;
-    case VolumeCreationOptions::FilesystemType::MacOsExt:	fsFormatter = "newfs_hfs"; break;
-    case VolumeCreationOptions::FilesystemType::UFS:		fsFormatter = "newfs" ; break;
+    case GostCrypt::VolumeCreationOptions::FilesystemType::Ext2:		fsFormatter = "mkfs.ext2"; break;
+    case GostCrypt::VolumeCreationOptions::FilesystemType::Ext3:		fsFormatter = "mkfs.ext3"; break;
+    case GostCrypt::VolumeCreationOptions::FilesystemType::Ext4:		fsFormatter = "mkfs.ext4"; break;
+    case GostCrypt::VolumeCreationOptions::FilesystemType::MacOsExt:	fsFormatter = "newfs_hfs"; break;
+    case GostCrypt::VolumeCreationOptions::FilesystemType::UFS:		fsFormatter = "newfs" ; break;
     default: break;
     }
 
-    if (fsFormatter)
+    /*if (fsFormatter)
     {
-        wxBusyCursor busy;
 
-        MountOptions mountOptions (Gui->GetPreferences().DefaultMountOptions);
-        mountOptions.Path = make_shared <VolumePath> (SelectedVolumePath);
+        GostCrypt::MountOptions mountOptions ();
+        // initialization
+        mountOptions.CachePassword = false;
+        mountOptions.FilesystemOptions = nullptr;
+        mountOptions.FilesystemType = nullptr;
+        mountOptions.Keyfiles = shared_ptr();
+        mountOptions.MountPoint = nullptr;
+        mountOptions.NoHardwareCrypto = true;
+        mountOptions.NoKernelCrypto = true;
+        mountOptions.PartitionInSystemEncryptionScope = false;
+        mountOptions.Password = shared_ptr();
+        mountOptions.PreserveTimestamps = false;
+        mountOptions.ProtectionKeyfiles = nullptr;
+        mountOptions.ProtectionPassword = nullptr;
+        mountOptions.Removable = false;
+        mountOptions.SharedAccessAllowed = false;
+        mountOptions.SlotNumber = 0;
+        mountOptions.UseBackupHeaders = false;
+        // real parameters
+        mountOptions.Path = make_shared <VolumePath> (aCreate->Path);
         mountOptions.NoFilesystem = true;
-        mountOptions.Protection = VolumeProtection::None;
-        mountOptions.Password = Password;
-        mountOptions.Keyfiles = Keyfiles;
+        mountOptions.Protection = GostCrypt::VolumeProtection::None;
+        mountOptions.Password = aCreate->Password;
+        mountOptions.Keyfiles = aCreate->Keyfiles;
 
-        shared_ptr <VolumeInfo> volume = Core->MountVolume (mountOptions);
-        finally_do_arg (shared_ptr <VolumeInfo>, volume, { Core->DismountVolume (finally_arg, true); });
+        shared_ptr <GostCrypt::VolumeInfo> volume = GostCrypt::Core->MountVolume (mountOptions);
+        finally_do_arg (shared_ptr <GostCrypt::VolumeInfo>, volume, { GostCrypt::Core->DismountVolume (finally_arg, true); });
 
-        Thread::Sleep (2000);	// Try to prevent race conditions caused by OS
+        //Thread::Sleep (2000);	// Try to prevent race conditions caused by OS
 
         // Temporarily take ownership of the device if the user is not an administrator
-        UserId origDeviceOwner ((uid_t) -1);
+        GostCrypt::UserId origDeviceOwner ((uid_t) -1);
 
-        DevicePath virtualDevice = volume->VirtualDevice;
+        GostCrypt::DevicePath virtualDevice = volume->VirtualDevice;
 
         try
         {
             File file;
-            file.Open (virtualDevice, File::OpenReadWrite);
+            file.Open (virtualDevice, GostCrypt::File::OpenReadWrite);
         }
         catch (...)
         {
@@ -156,14 +173,11 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
         finally_do_arg2 (FilesystemPath, virtualDevice, UserId, origDeviceOwner,
         {
             if (finally_arg2.SystemId != (uid_t) -1)
-                Core->SetFileOwner (finally_arg, finally_arg2);
+                GostCrypt::Core->SetFileOwner (finally_arg, finally_arg2);
         });
 
         // Create filesystem
         list <string> args;
-
-        if (SelectedFilesystemType == VolumeCreationOptions::FilesystemType::MacOsExt && VolumeSize >= 10 * BYTES_PER_MB)
-            args.push_back ("-J");
 
         args.push_back (string (virtualDevice));
 
