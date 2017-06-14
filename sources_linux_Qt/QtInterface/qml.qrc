@@ -25,5 +25,7 @@
         <file>dialogs/GSConnectSudo.qml</file>
         <file>UI/TooltipArea.qml</file>
         <file>dialogs/textFieldRed.qml</file>
+        <file>ressource/logoMenu.png</file>
+        <file>UI/GSMenuButtonItem.qml</file>
     </qresource>
 </RCC>
