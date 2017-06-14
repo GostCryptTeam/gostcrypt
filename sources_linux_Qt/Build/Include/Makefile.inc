@@ -46,5 +46,5 @@ TR_SED_BIN := tr '\n' ' ' | tr -s ' ' ',' | sed -e 's/^,//g' -e 's/,$$/n/' | tr 
 
 $(NAME).a: $(OBJS)
 	@echo Updating library $@
-	$(AR) $(AFLAGS) -rcu $@ $(OBJS)
+	$(AR) $(AFLAGS) -rc $@ $(OBJS)
 	$(RANLIB) $@
