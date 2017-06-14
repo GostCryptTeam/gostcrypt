@@ -47,5 +47,6 @@ Item {
             }
         }
         onAccepted: connectSudo_Form.connection(password_value.text);
+        focus: true
     }
 }

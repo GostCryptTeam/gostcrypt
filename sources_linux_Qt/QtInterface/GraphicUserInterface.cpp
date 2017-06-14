@@ -98,6 +98,7 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
     shared_ptr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
     if(volume) GostCrypt::Core->DismountVolume(volume);
+    emit confirmSudoPassword();
 }
 
 void GraphicUserInterface::receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles){
