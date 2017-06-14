@@ -411,6 +411,7 @@ namespace GostCrypt
 			if (!CreationAborted)
 			{
 				Creator->CheckResult();
+                                Gui->GetPreferences().DefaultMountOptions;
 
 #ifdef GST_UNIX
 				// Format non-FAT filesystem
