@@ -10,13 +10,19 @@ Item {
     y: 51
     width: 790
     height: 429
-    property string title: "title"
+    property string title: "Sudo password"
     property string w
     property var object
     property var heightSubWindow
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            console.log("Clic catch");
+        }
+    }
+
     Rectangle {
-        //anchors.fill: app
         width: app.width
         height:app.height
         x:0
@@ -65,6 +71,7 @@ Item {
                 //fermer la subwindow
                 subWindow_.opacity = 0.0
                 heightSubWindow = 429
+                ConnectSignals.connectEndSudo();
             }
         }
     }
@@ -160,10 +167,6 @@ Item {
         target: ConnectSignals
         onSendSubWindowAskSudoPassword: {
 
-            console.log("demande de sudo");
-            w = "../dialogs/GSConnectSudo.qml";
-            loader.setSource(w);
-            changeSubWindowHeight(200);
         }
 
     }

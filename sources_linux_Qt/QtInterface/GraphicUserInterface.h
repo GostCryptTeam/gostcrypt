@@ -30,6 +30,7 @@ public slots:
     void receiveDismount(const QString&);
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
+    void receiveSudoEndPassword();
     void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>);
     void receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles);
 
@@ -52,11 +53,14 @@ private:
         virtual void operator() (string &passwordStr)
         {
             emit parent->askSudoPassword();
-            mLoop.exec();
+            if(mLoop.isRunning() == false) mLoop.exec();
             GostCrypt::StringConverter::ToSingle (mPassword.toStdWString(), passwordStr);
         }
         void sendPassword(const QString& aPwd) {
             mPassword = aPwd;
+            mLoop.quit();
+        }
+        void quitExec() {
             mLoop.quit();
         }
     };

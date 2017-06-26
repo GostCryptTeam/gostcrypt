@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void openPath(const QString& aPath);
     Q_INVOKABLE void getAllMountedVolumes();
     Q_INVOKABLE void changepassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyfiles, shared_ptr <GostCrypt::KeyfileList> newKeyfiles);
+    Q_INVOKABLE void connectEndSudo();
 
 signals:
     void sendSubWindowAskSudoPassword();

@@ -8,7 +8,10 @@ Item {
     property var childOf
     anchors.fill: childOf
     signal connection(string password)
+    MouseArea {
+        anchors.fill:parent
 
+    }
     Connections {
         target: connectSudo_Form
         onConnection: {
@@ -49,4 +52,6 @@ Item {
         onAccepted: connectSudo_Form.connection(password_value.text);
         focus: true
     }
+
+
 }

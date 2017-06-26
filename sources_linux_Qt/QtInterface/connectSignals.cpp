@@ -118,6 +118,14 @@ void ConnectSignals::connectSudo(const QString& aPwd)
     mGUI->receiveSudoPassword(aPwd);
 }
 
+void ConnectSignals::connectEndSudo()
+{
+    qDebug() << "[DEBUG] : end of sudo requested : ";
+    mGUI->receiveSudoEndPassword();
+}
+
+
+
 void ConnectSignals::openPath(const QString &aPath)
 {
 #ifdef Q_WS_WIN
