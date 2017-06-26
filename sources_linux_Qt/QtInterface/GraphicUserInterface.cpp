@@ -6,7 +6,7 @@
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
     :   QObject(parent),
-        mAdminPasswordRequestHandler(this)
+        mAdminPasswordRequestHandler(new AdminPasswordRequestHandler(this))
 {
     this->init();
 }
@@ -20,7 +20,7 @@ void GraphicUserInterface::init() {
     GostCrypt::Core->Init();
     GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
 
-    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr <GostCrypt::GetStringFunctor> (&mAdminPasswordRequestHandler));
+    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr<GostCrypt::GetStringFunctor>(mAdminPasswordRequestHandler));
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -62,7 +62,9 @@ void GraphicUserInterface::receiveAutoMount(const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter auto";
 #endif
+    (void) aPassword;
     // Voir Main/GraphicUserInterface.cpp:617
+    // Voir Main/UserInterface.cpp:509
 }
 
 void GraphicUserInterface::receiveDismountAll()
@@ -71,16 +73,29 @@ void GraphicUserInterface::receiveDismountAll()
     qDebug() << "Tout démonter";
 #endif
     GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
+    bool check = false;
     for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
         GostCrypt::Core->DismountVolume(volume);
-        emit confirmSudoPassword();
+        if(!check) {
+            emit confirmSudoPassword();
+            check = true;
+        }
     }
+}
 
+GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
+{
+    return GostCrypt::Core->GetMountedVolumes();
 }
 
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
 {
-    mAdminPasswordRequestHandler.sendPassword(aPwd);
+    mAdminPasswordRequestHandler->sendPassword(aPwd);
+}
+
+void GraphicUserInterface::receiveSudoEndPassword()
+{
+    mAdminPasswordRequestHandler->quitExec();
 }
 
 void GraphicUserInterface::receiveDismount(const QString& aStr)
@@ -89,15 +104,28 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     qDebug() << "On démonte " << aStr;
 #endif
     GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
-    GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
+    shared_ptr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
     if(volume) GostCrypt::Core->DismountVolume(volume);
+    emit confirmSudoPassword();
+}
+
+void GraphicUserInterface::receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles){
+    GostCrypt::Core->ChangePassword(shared_ptr<GostCrypt::VolumePath>(new GostCrypt::VolumePath(volumePath.toStdWString())),
+                                    true,
+                                    shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(oldPassword.toStdString().c_str(),oldPassword.size())),
+                                    oldKeyFiles,
+                                    shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(newPassword.toStdString().c_str(), newPassword.size())),
+                                    newKeyFiles);
 }
 
 void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif
-    GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
+    QString cmd = "createGSVolume";
+
+    system(cmd.toStdString().c_str());
+    /*GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
     creator->CreateVolume(aCreate);
     struct timespec ts = { 0, 10 * 1000 * 1000 };
     GostCrypt::VolumeCreator::ProgressInfo pi = creator->GetProgressInfo();
@@ -110,9 +138,9 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     }catch(exception &e) {
         qDebug() << "Erreur lors de la création : " << e.what();
         return;
-    }
+    }*/
     // Format non-FAT filesystem
-    const char *fsFormatter = nullptr;
+    /*const char *fsFormatter = nullptr;
 
     switch (aCreate->Filesystem)
     {
@@ -124,7 +152,7 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     default: break;
     }
 
-    /*if (fsFormatter)
+    if (fsFormatter)
     {
 
         GostCrypt::MountOptions mountOptions ();

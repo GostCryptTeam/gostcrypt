@@ -28,10 +28,6 @@ Item {
         target: ConnectSignals
         onSendSubWindowMountVolumePasswordIncorrect: {
             console.log("bad password dans QML")
-            //password_value_style.border.color = "#e84747"
-            //PropertyChanges { target: password_value_style; border.color: "#e84747"   }
-            //incorrectPassword()
-            //password_value.state = "passwordIncorrect
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
@@ -143,23 +139,6 @@ Item {
                     color: '#181818'
                 }
             }
-//            states: [
-//                State {
-//                    name: "passwordCorrect"
-//                    PropertyChanges {
-//                        target: password_value.style;
-//                        background.border.color: "#333"
-//                    }
-//                },
-//                State {
-//                    name: "passwordIncorrect"
-//                    when: incorrectPassword
-//                    PropertyChanges {
-//                        target: password_value.style.background;
-//                        border.color: "#e84747"
-//                    }
-//                }
-//            ]
         }
 
         GSCheckBox {

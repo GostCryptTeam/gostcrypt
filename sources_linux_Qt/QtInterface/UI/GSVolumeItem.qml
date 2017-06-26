@@ -4,6 +4,7 @@ import QtQuick.Controls 2.2
 
 Component {
     id:volumeDelegate
+
     Item {
         id: item
         width: 240
@@ -102,8 +103,9 @@ Component {
                 anchors.fill: dismountVolume
                 onClicked: {
                     console.log("Dismount volume");
-                    ConnectSignals.connectReceiveDismount(MountPoint_);
-                    listOfVolumes.remove(listOfVolumes.currentIndex);
+                    ConnectSignals.connectReceiveDismount(Path_);
+                    listOfVolumes.remove(index);
+
                 }
             }
         }

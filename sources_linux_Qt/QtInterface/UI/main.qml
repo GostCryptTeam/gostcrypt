@@ -19,13 +19,23 @@ import "../UI/LoadVolume.js" as LoadVolume
 Window {
     //Properties
     id: app
-
+    property bool isSudo: false;
     //QML slots that receive C++ signals
     Connections {
         target: ConnectSignals;
         onSendSubWindowVolumeInfos: {
             subWindow.catchClose();
             LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
+        }
+        onSendSubWindowAskSudoPassword: {
+            if(subWindow.opacity != 1)
+                subWindow.opacity = subWindow.opacity = 1.0;
+            if(subWindow.visible != true)
+                subWindow.visible = subWindow.visible = true;
+            subWindow.w = "../dialogs/GSConnectSudo.qml"
+            subWindow.title = 'Sudo password'
+            subWindow.loadForm()
+            subWindow.changeSubWindowHeight(200);
         }
         onSendSubWindowConfirmSudoPassword:  {
             subWindow.catchClose();
@@ -34,6 +44,8 @@ Window {
     //GostCrypt program name
     title: qsTr("GostCrypt 2.0")
     visible: true
+
+    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
 
     //Window's maximum dimension
     minimumWidth: 790
@@ -124,7 +136,14 @@ Window {
         }
         GSButtonGreen {
             text: qsTr("Dismount All")
-            onClicked: ConnectSignals.connectReceiveDismountAll()
+            onClicked: {
+                if(!isSudo) {
+                    isSudo = true;
+                    ConnectSignals.connectReceiveDismountAll()
+                    listOfVolumes.clear()
+                    isSudo = false;
+                }
+            }
         }
         GSButtonGreen {
             text: qsTr("Volume Tools")
@@ -196,6 +215,9 @@ Window {
             ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
             snapMode: GridView.SnapToRow
             clip: true
+            onCurrentIndexChanged: {
+                console.log("Item select = " + currentIndex);
+            }
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
