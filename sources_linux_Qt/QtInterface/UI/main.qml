@@ -23,6 +23,7 @@ Window {
      */
     id: app
 
+
     /*!
         \property title
         \brief GostCrypt program name
@@ -228,8 +229,12 @@ Window {
         GSButtonGreen {
             text: qsTr("Dismount All")
             onClicked: {
-                ConnectSignals.connectReceiveDismountAll()
-                listOfVolumes.clear()
+                if(!isSudo) {
+                    isSudo = true;
+                    ConnectSignals.connectReceiveDismountAll()
+                    listOfVolumes.clear()
+                    isSudo = false;
+                }
             }
         }
         /*!
@@ -318,6 +323,9 @@ Window {
             ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
             snapMode: GridView.SnapToRow
             clip: true
+            onCurrentIndexChanged: {
+                console.log("Item select = " + currentIndex);
+            }
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }

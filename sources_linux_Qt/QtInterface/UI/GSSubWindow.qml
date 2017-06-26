@@ -15,6 +15,13 @@ Item {
     property var heightSubWindow
     property bool isOpen
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            console.log("Clic catch");
+        }
+    }
+
     Rectangle {
         width: app.width
         height:app.height
@@ -60,6 +67,7 @@ Item {
             z:2
             onClicked: {
                 catchClose()
+                // ConnectSignals.connectEndSudo();
             }
         }
     }
