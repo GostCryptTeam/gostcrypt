@@ -1,7 +1,6 @@
 import QtQuick 2.7
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.4
-//import "OpenVolume.js" as OpenVolume
 import QtQml 2.0 as QML
 
 Item {
@@ -10,18 +9,18 @@ Item {
     y: 51
     width: 790
     height: 429
-    property string title: "title"
+    property string title: ""
     property string w
     property var object
     property var heightSubWindow
+    property bool isOpen
 
     Rectangle {
-        //anchors.fill: app
         width: app.width
         height:app.height
         x:0
         y:-parent.y
-        color: '#000000'
+        color: palette.shadow
         opacity: 0.5
 
         MouseArea {
@@ -40,7 +39,7 @@ Item {
         z: 1
         visible: true
         antialiasing: true
-        border.color: "#2f88a7"
+        border.color: palette.blue
         border.width: 2
         Image {
             id: closeButton_Image
@@ -60,11 +59,7 @@ Item {
             hoverEnabled: true
             z:2
             onClicked: {
-                //supprimer l'objet
-                //object.destroy()
-                //fermer la subwindow
-                subWindow_.opacity = 0.0
-                heightSubWindow = 429
+                catchClose()
             }
         }
     }
@@ -91,7 +86,7 @@ Item {
             when: !closeButton_Area.containsMouse
             PropertyChanges {
                 target: closeButton
-                border.color: "#2f88a7"
+                border.color: palette.blue
             }
         }
     ]
@@ -100,8 +95,7 @@ Item {
         id: rectangle1
         height: heightSubWindow
         y: containerSub.y
-        //anchors.fill: parent
-        color: "#2a2a2a"
+        color: palette.darkSecond
         Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
     }
 
@@ -110,13 +104,13 @@ Item {
         anchors.fill: containerSub
         glowRadius: 80
         spread: 0.2
-        color: "#000000"
+        color: palette.shadow
         cornerRadius: containerSub.radius + glowRadius
     }
 
     Rectangle {
         id: containerSub
-        color: "#2a2a2a"
+        color: palette.darkSecond
         anchors.centerIn: parent
         width: parent.width
         height: heightSubWindow
@@ -145,7 +139,7 @@ Item {
     }
 
     Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {
-                if(!anim_.running && subWindow_.opacity == 0.0) {
+                if(!anim_.running && subWindow_.isOpen == false) {
                     subWindow_.visible = false
                 }
             } } }
@@ -156,23 +150,13 @@ Item {
         //asynchronous: true // KNOWN ISSUE TO BE FIXED!!
     }
 
-    Connections {
-        target: ConnectSignals
-        onSendSubWindowAskSudoPassword: {
-
-            console.log("demande de sudo");
-            w = "../dialogs/GSConnectSudo.qml";
-            loader.setSource(w);
-            changeSubWindowHeight(200);
-        }
-
-    }
-
     //Load the right QML Form
     function loadForm() {
+        loader.setSource("");
         var component = Qt.createComponent(w);
         var parent = scrollArea;
         if (component.status == QML.Component.Ready) {
+            console.log("Chargement de la forme " + w);
             loader.setSource(w);
         }else if (component.status == Component.Error) {
             // Error Handling
@@ -181,8 +165,12 @@ Item {
     }
 
     function catchClose() { //todo : code d'erreur ?
+        //effacer le contenu du loader
+        loader.setSource("");
         //fermer la subwindow
         subWindow_.opacity = 0.0
+        subWindow_.isOpen = false
+        heightSubWindow = 429
     }
 
     function changeSubWindowHeight(value) {

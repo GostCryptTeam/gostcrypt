@@ -27,5 +27,6 @@
         <file>dialogs/textFieldRed.qml</file>
         <file>ressource/logoMenu.png</file>
         <file>UI/GSMenuButtonItem.qml</file>
+        <file>UI/SignalManager.qml</file>
     </qresource>
 </RCC>
