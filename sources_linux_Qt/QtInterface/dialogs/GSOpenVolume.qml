@@ -127,6 +127,7 @@ Item {
             horizontalAlignment: TextInput.AlignHCenter
             echoMode: TextInput.Password
             height: combo.height
+            focus: true
             style: TextFieldStyle {
                 textColor: "#e1e1e1"
                 background: Rectangle {
@@ -190,9 +191,7 @@ Item {
             text: qsTr("Mount Options...")
             width: 150
         }
-
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
-
     }
 
     UI.GSButtonBlueBordered {
@@ -201,7 +200,9 @@ Item {
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
         onClicked: {
-            //catchClose();
+            var password_blank = Array(password_value.length+1).join('#');
+            console.log("Mot de passe : "+password_blank);
+            password_value.text = password_blank
             openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
         }
     }
