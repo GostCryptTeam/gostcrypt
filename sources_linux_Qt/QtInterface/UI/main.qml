@@ -23,7 +23,6 @@ Window {
      */
     id: app
 
-
     /*!
         \property title
         \brief GostCrypt program name
