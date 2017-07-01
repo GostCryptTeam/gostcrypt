@@ -28,5 +28,7 @@
         <file>ressource/logoMenu.png</file>
         <file>UI/GSMenuButtonItem.qml</file>
         <file>UI/SignalManager.qml</file>
+        <file>UI/GSSudo.qml</file>
+        <file>UI/GSErrorMessage.qml</file>
     </qresource>
 </RCC>

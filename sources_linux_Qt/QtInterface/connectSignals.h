@@ -16,8 +16,8 @@ class ConnectSignals : public QObject
 public:
     ConnectSignals(GraphicUserInterface* aGUI = nullptr);
     ~ConnectSignals(){}
+    void init(QObject *);
 
-    Q_INVOKABLE void connectReceiveMount(const QString& aPath, const QString& aPwd);
     Q_INVOKABLE void connectReceiveAutoMount(const QString& aPwd);
     Q_INVOKABLE void connectReceiveDismount(const QString&);
     Q_INVOKABLE void connectReceiveDismountAll();
@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE void connectEndSudo();
 
 signals:
+    void sendSubWindowErrorMessage(QString aTitle,QString aContent);
     void sendSubWindowAskSudoPassword();
     void sendSubWindowVolumeInfos(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
     void sendSubWindowConfirmSudoPassword();
@@ -38,6 +39,7 @@ private:
     GraphicUserInterface* mGUI;
 
 public slots:
+    void subWindowSendErrorMessage(QString,QString);
     void subWindowAskSudoPassword();
     void subWindowSendVolumeInfos(string,wstring,string,uint64);
     void subWindowConfirmSudoPassword();

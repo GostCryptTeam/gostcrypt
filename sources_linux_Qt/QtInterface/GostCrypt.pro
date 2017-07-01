@@ -5,9 +5,9 @@ CONFIG += c++11
 TARGET = GostCrypt
 
 SOURCES += main.cpp \
-    volumeitemgraphic.cpp \
     GraphicUserInterface.cpp \
-    connectSignals.cpp
+    connectSignals.cpp \
+    UserSettings.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,9 +20,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    volumeitemgraphic.h \
     GraphicUserInterface.h \
-    connectSignals.h
+    connectSignals.h \
+    UserSettings.h
 
 LIBS += ../Core/Core.a \
     ../Volume/Volume.a \

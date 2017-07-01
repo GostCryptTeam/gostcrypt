@@ -15,8 +15,7 @@ Item {
             LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
         }
         onSendSubWindowAskSudoPassword: {
-            console.log("Demande de sudo");
-            subWindow.opacity = subWindow.opacity = 1.0
+            /*subWindow.opacity = subWindow.opacity = 1.0
             subWindow.visible = subWindow.visible = true
             if(subWindow.w !== "../dialogs/GSConnectSudo.qml")
             {
@@ -24,10 +23,15 @@ Item {
                 subWindow.title = 'Enter your password'
                 subWindow.loadForm()
                 subWindow.changeSubWindowHeight(200);
-            }
+            }*/
+            console.log("Demande de sudo");
+            app.toggleSudo(1)
         }
         onSendSubWindowConfirmSudoPassword:  {
             subWindow.catchClose();
+        }
+        onSendSubWindowErrorMessage: {
+            openErrorMessage(aTitle, aContent);
         }
     }
 }

@@ -4,6 +4,7 @@
 #include <connectSignals.h>
 #include <QIcon>
 #include <GraphicUserInterface.h>
+#include "UserSettings.h"
 #include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
 #include "Platform/SystemLog.h"
@@ -32,11 +33,14 @@ int main(int argc, char *argv[])
     app.setWindowIcon(QIcon(":/logo_gostcrypt.png"));
     GraphicUserInterface ui;
     ConnectSignals cs(&ui);
+    UserSettings settings;
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
     ctx->setContextProperty("ConnectSignals", &cs);
+    ctx->setContextProperty("UserSettings", &settings);
     engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
+    cs.init(engine.rootObjects().first());
 
     return app.exec();
 }

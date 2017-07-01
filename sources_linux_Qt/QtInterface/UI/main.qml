@@ -34,6 +34,8 @@ Window {
      */
     visible: true
 
+    signal mountVolume(string path, string password)
+
     SignalManager {
         id: signalManager
     }
@@ -175,17 +177,7 @@ Window {
                 \brief Open the subwindow by clicking on the "Mount volume"
                 button. Animation when subwindow appears.
              */
-            onClicked: {
-                subWindow.opacity = (subWindow.opacity == 1.0) ? 0.0 : 1.0
-                subWindow.visible = (subWindow.visible == true) ? false : true
-                subWindow.isOpen = true
-                if(subWindow.isOpen == true) {
-                    subWindow.w = "../dialogs/GSOpenVolume.qml"
-                    subWindow.title = 'Open a GostCrypt volume'
-                    subWindow.loadForm()
-                    subWindow.changeSubWindowHeight(429);
-                }
-            }
+            onClicked: openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429)
         }
         /*!
             \class GSButtonBlue_icon
@@ -243,7 +235,10 @@ Window {
         GSButtonGreen {
             text: qsTr("Volume Tools")
             //TODO : supprimer (tests)
-            onClicked: LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
+            onClicked: {
+
+            }
+                //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
         }
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
@@ -341,5 +336,77 @@ Window {
         opacity: 0.0
         heightSubWindow: 429
         isOpen: false
+    }
+
+    GSSudo{
+        id: sudo_
+        isVisible: false
+        visible:false
+        opacity : 0.0
+        title: "Sudo password"
+        contentText: "Enter your admin password"
+    }
+
+    GSErrorMessage {
+        id: errorMessage
+        isVisible: false
+        visible: false
+        opacity: 0.0
+        title: "Message d'erreur"
+        contentError: "Description du message d'erreur.\n Le message spécifique s'affichera donc ici."
+    }
+
+    function openSubWindow(path, title, height) {
+        if(subWindow.isOpen == false)
+        {
+            subWindow.opacity = 1.0
+            subWindow.visible = true
+            subWindow.isOpen = true
+            subWindow.w = path
+            subWindow.title = title
+            subWindow.loadForm()
+            subWindow.changeSubWindowHeight(height);
+        }
+        else
+        {
+            subWindow.w = path
+            subWindow.title = title
+            subWindow.loadForm()
+            subWindow.changeSubWindowHeight(height);
+            console.log("Taille changée en "+height+"px !")
+        }
+    }
+
+    function openErrorMessage(title, content) {
+        if(errorMessage.isVisible == false){
+            errorMessage.isVisible = true;
+            errorMessage.opacity = 1.0;
+            errorMessage.visible = true;
+            errorMessage.title = title;
+            errorMessage.contentError = content;
+        }else{
+            errorMessage.visible = true;
+            errorMessage.title = title;
+            errorMessage.contentError = content;
+        }
+    }
+
+    function closeErrorMessage() {
+        if(errorMessage.isVisible == true){
+            errorMessage.isVisible = false;
+            errorMessage.opacity = 0.0;
+        }
+    }
+
+    function toggleSudo(choice) {
+        if(choice == true)
+        {
+            sudo_.opacity = 1.0
+            sudo_.isVisible = true
+            sudo_.visible = true
+        }else{
+            sudo_.opacity = 0.0
+            sudo_.isVisible = false
+        }
     }
 }

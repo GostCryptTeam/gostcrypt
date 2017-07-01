@@ -4,7 +4,8 @@ import QtQuick.Controls.Styles 1.4
 
 ComboBox {
     id: control
-    model: ["C:\\volumes\\myvolume", "C:\\volumes\\old", "C:\\Users\\Administrateur\\volume"]
+    property var model_: [""]
+    model: model_
 
     delegate: ItemDelegate {
         width: control.width

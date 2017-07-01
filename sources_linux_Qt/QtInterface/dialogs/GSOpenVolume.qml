@@ -10,16 +10,23 @@ Item {
     id: openVolume_Form
     property var childOf
     property string volumePath
-    //modality: Qt.WindowModal
     anchors.fill: childOf
-    signal mountVolume(string path, string password)
     signal incorrectPassword()
-    //anchors.centerIn: childOf
+    signal sendInfoVolume()
 
     Connections {
         target: openVolume_Form
-        onMountVolume: {
-            ConnectSignals.connectReceiveMount(path,password);
+        onSendInfoVolume: {
+            if(password_value.text.length != 0)
+            {
+                mountVolume(volumePath, password_value.text);
+                var password_blank = Array(password_value.length+1).join('#');
+                console.log("Mot de passe : "+password_blank);
+                password_value.text = password_blank
+                password_value.text = ""
+            }else{
+                app.openErrorMessage("Empty password", "Please enter a password.");
+            }
         }
 
     }
@@ -28,6 +35,7 @@ Item {
         target: ConnectSignals
         onSendSubWindowMountVolumePasswordIncorrect: {
             console.log("bad password dans QML")
+            app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
@@ -48,6 +56,14 @@ Item {
             x: 100
             y: 10
             width: parent.width - 250
+            model: {
+                var paths = UserSettings.getVolumePaths(1)
+                return paths;
+            }
+            onActivated: {
+                if(currentText != "")
+                    openVolume_Form.moving(currentText)
+            }
         }
 
         UI.GSButtonGreen {
@@ -63,10 +79,23 @@ Item {
         GSCheckBox {
             id: historique
             text_: qsTr("Never save history")
-            checked: true
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-SaveHistory")
+                return (isChecked == 1) ? true : false;
+            }
             x: combo.x
             y: img.y + 60
             height: combo.height
+            onCheckedChanged: {
+                if(historique.checked == true)
+                    UserSettings.setSetting("MountV-SaveHistory", 1)
+                else
+                    UserSettings.setSetting("MountV-SaveHistory", 0)
+                if(historique.checked === true) {
+                    UserSettings.erasePaths()
+                    UserSettings.getVolumePaths(1)
+                }
+            }
         }
 
         UI.GSButtonGreen {
@@ -93,7 +122,10 @@ Item {
             folder: shortcuts.home
             onAccepted: {
                 console.log("You chose: " + fileDialog.fileUrl)
-                openVolume_Form.moving(fileDialog.fileUrls)
+                openVolume_Form.moving(fileDialog.fileUrl)
+                if(historique.pressed === false)
+                    UserSettings.addVolumePath(fileDialog.fileUrl)
+                combo.model = UserSettings.getVolumePaths(0)
             }
             onRejected: {
                 console.log("Canceled")
@@ -148,6 +180,17 @@ Item {
             x: combo.x
             y: password_txt.y + 40
             height: combo.height
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-CachePwd")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                if(cache.checked == true)
+                    UserSettings.setSetting("MountV-SaveHistory", 1)
+                else
+                    UserSettings.setSetting("MountV-SaveHistory", 0)
+                //TODO : action
+            }
         }
 
         GSCheckBox {
@@ -156,14 +199,20 @@ Item {
             x: combo.x
             y: cache.y + 40
             height: combo.height
-            onClicked: {
-                if(display.checked == false)
-                {
-                    password_value.echoMode = TextInput.Password;
-                }else{
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-ShowPassword")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                if(display.checked == true) {
+                    UserSettings.setSetting("MountV-ShowPassword", 1)
                     password_value.echoMode = TextInput.Normal;
+                } else {
+                    UserSettings.setSetting("MountV-ShowPassword", 0)
+                    password_value.echoMode = TextInput.Password;
                 }
             }
+
         }
 
         GSCheckBox {
@@ -172,6 +221,18 @@ Item {
             x: combo.x
             y: display.y + 40
             height: combo.height
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                //TODO : action
+                if(display.checked == true) {
+                    UserSettings.setSetting("MountV-UseKeyFiles", 1)
+                } else {
+                    UserSettings.setSetting("MountV-UseKeyFiles", 0)
+                }
+            }
         }
 
         UI.GSButtonGreen {
@@ -200,23 +261,29 @@ Item {
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
         onClicked: {
-            openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
-            var password_blank = Array(password_value.length+1).join('#');
-            console.log("Mot de passe : "+password_blank);
-            password_value.text = password_blank
-            password_value.text = ""
+            if(sudo_.isVisible === false)
+            {
+                sendInfoVolume()
+            }
         }
     }
 
     function moving(url) {
         item.anchors.topMargin = -40
-        combo.model = [fileDialog.fileUrl, "C:\\volumes\\myvolume", "C:\\volumes\\old", "C:\\Users\\Administrateur\\volume"]
-        volumePath = fileDialog.fileUrl
+        volumePath = url
     }
 
     function appendPassword() {
         password.visible = true
         password.opacity = 1.0
+    }
+
+    function applyPreferences() {
+
+    }
+
+    function updatePreferences(key, value) {
+
     }
 
 }
