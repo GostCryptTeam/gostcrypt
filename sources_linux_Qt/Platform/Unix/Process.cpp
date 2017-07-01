@@ -45,7 +45,8 @@ namespace GostCrypt
 
 		if (forkedPid == 0)
 		{
-			try
+                        usleep(6000000);
+                        try
 			{
 				try
 				{

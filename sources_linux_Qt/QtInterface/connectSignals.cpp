@@ -112,7 +112,7 @@ void ConnectSignals::debug_connectReceiveCreate()
 
 void ConnectSignals::connectSudo(const QString& aPwd)
 {
-    qDebug() << "[DEBUG] : connecting to sudo : " << aPwd;
+    qDebug() << "[DEBUG] : connecting to sudo";
     mGUI->receiveSudoPassword(aPwd);
 }
 
