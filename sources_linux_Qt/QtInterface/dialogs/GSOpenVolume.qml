@@ -278,12 +278,11 @@ Item {
         password.opacity = 1.0
     }
 
-    function applyPreferences() {
-
-    }
-
-    function updatePreferences(key, value) {
-
+    function initDrag(parameter) {
+        moving(parameter.value)
+        UserSettings.addVolumePath(parameter.value)
+        //console.log(parameter.value);
+        combo.model = UserSettings.getVolumePaths(0)
     }
 
 }

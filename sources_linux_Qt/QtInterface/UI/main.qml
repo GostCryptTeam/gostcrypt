@@ -157,6 +157,32 @@ Window {
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
+    DropArea {
+        x: 0; y: 0
+        anchors.fill:parent
+
+        Rectangle {
+            x: 98
+            y: 111
+            width: 594
+            height: 303
+            color: "#719c24"
+            opacity: 0.5
+
+            visible: parent.containsDrag
+        }
+
+        onDropped: {
+            if (drop.hasText) {
+                if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
+                    console.log(drop.text)
+                    openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "dropVolume", "value" : drop.text.trim()})
+                    drop.acceptProposedAction()
+                }
+            }
+        }
+    }
+
     /*!
         \qmlclass Row
         \brief Contains the buttons "Mount volume" and "Create volume"
@@ -179,7 +205,7 @@ Window {
                 \brief Open the subwindow by clicking on the "Mount volume"
                 button. Animation when subwindow appears.
              */
-            onClicked: openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429)
+            onClicked: openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "", "value" : ""})
         }
         /*!
             \class GSButtonBlue_icon
@@ -238,9 +264,9 @@ Window {
             text: qsTr("Volume Tools")
             //TODO : supprimer (tests)
             onClicked: {
-
+                LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
             }
-                //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
+
         }
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
@@ -358,7 +384,7 @@ Window {
         contentError: "Description du message d'erreur.\n Le message spécifique s'affichera donc ici."
     }
 
-    function openSubWindow(path, title, height) {
+    function openSubWindow(path, title, height, parameter) {
         if(subWindow.isOpen == false)
         {
             subWindow.opacity = 1.0
@@ -366,6 +392,7 @@ Window {
             subWindow.isOpen = true
             subWindow.w = path
             subWindow.title = title
+            subWindow.parameter = parameter
             subWindow.loadForm()
             subWindow.changeSubWindowHeight(height);
         }
@@ -373,6 +400,7 @@ Window {
         {
             subWindow.w = path
             subWindow.title = title
+            subWindow.parameter = parameter
             subWindow.loadForm()
             subWindow.changeSubWindowHeight(height);
             console.log("Taille changée en "+height+"px !")

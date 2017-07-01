@@ -14,6 +14,7 @@ Item {
     property var object
     property var heightSubWindow
     property bool isOpen
+    property variant parameter: {"name" : "", "value" : ""}
 
     MouseArea {
         anchors.fill: parent
@@ -156,6 +157,9 @@ Item {
         id: loader
         anchors.fill: scrollArea
         //asynchronous: true // KNOWN ISSUE TO BE FIXED!!
+        onLoaded: {
+            applyParameter()
+        }
     }
 
     //Load the right QML Form
@@ -172,10 +176,21 @@ Item {
         }
     }
 
+    function applyParameter() {
+        switch(parameter.name)
+        {
+        case "dropVolume":
+            console.log("[Debug] : Opening a volume from a drag action.")
+            loader.item.initDrag(parameter)
+            break;
+        }
+    }
+
     function catchClose() { //todo : code d'erreur ?
         //effacer le contenu du loader
         loader.setSource("");
         //fermer la subwindow
+        subWindow_.parameter = ""
         subWindow_.opacity = 0.0
         subWindow_.isOpen = false
         heightSubWindow = 429
