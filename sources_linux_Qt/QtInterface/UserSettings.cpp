@@ -65,7 +65,7 @@ void UserSettings::addVolumePath(const QString &path)
     //Append the new path
     for(int i=NB_PATH-1; i>0; i--)
         mSettings.setValue("MountV-path"+ QString::number(i), mSettings.value("MountV-path"+ QString::number(i-1)));
-    mSettings.setValue("MountV-path1", path);
+    mSettings.setValue("MountV-path0", path);
 }
 
 void UserSettings::erasePaths()
