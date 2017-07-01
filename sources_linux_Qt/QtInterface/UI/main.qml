@@ -55,11 +55,13 @@ Window {
         property color shadow: "#000000"
         property color dark: "#303030"
         property color darkSecond: "#2a2a2a"
-        property color darkThirdb: "#272727"
+        property color darkThird: "#272727"
         property color text: "#e1e1e1"
         property color textLight: "#e1e1e1"
-        property color green: "#FFEB3B"
+        property color green: "#719c24"
+        property color greenDark: "#597d1c"
         property color blue: "#2f88a7"
+        property color darkInput: "#181818"
     }
 
     //Window's maximum dimension

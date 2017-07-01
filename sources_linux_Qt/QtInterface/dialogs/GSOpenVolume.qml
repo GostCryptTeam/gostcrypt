@@ -169,7 +169,7 @@ Item {
                     implicitHeight: 24
                     border.color: "#333"
                     border.width: 1
-                    color: '#181818'
+                    color: palette.darkInput
                 }
             }
         }

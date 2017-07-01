@@ -48,12 +48,20 @@ Item {
         opacity: 0.9
     }
 
+    Rectangle {
+        color: palette.darkThird
+        radius : 15
+        anchors.centerIn: parent
+        width: connectSudo_Form.width / 2
+        height: 150
+    }
+
     Text {
         id: password_txt
         anchors.horizontalCenter: connectSudo_Form.horizontalCenter
-        y: 60
+        y: connectSudo_Form.height/2 - 40
         text: contentText
-        font.pointSize: 11
+        font.pointSize: 15
         lineHeightMode: Text.FixedHeight
         color: '#719c24'
     }
@@ -61,8 +69,9 @@ Item {
     TextField {
         id: password_value
         anchors.horizontalCenter: connectSudo_Form.horizontalCenter
-        width: connectSudo_Form.width / 2
-        y: password_txt.y + 30
+        width: connectSudo_Form.width / 2 - 50
+        y: password_txt.y + 40
+        height: 25
         horizontalAlignment: TextInput.AlignHCenter
         echoMode: TextInput.Password
         style: TextFieldStyle {
@@ -70,7 +79,7 @@ Item {
             background: Rectangle {
                 radius: 5
                 implicitWidth: 100
-                implicitHeight: 24
+                implicitHeight: 25
                 border.color: "#333"
                 border.width: 1
                 color: '#181818'
