@@ -65,6 +65,7 @@ Window {
         property color bluePress: "#266f88"
         property color border: "#202020"
         property color darkInput: "#181818"
+        property color hoverItemMenu: "#404040"
     }
 
     //Window's maximum dimension
