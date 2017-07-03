@@ -7,8 +7,6 @@ Item {
     id:subWindow_
     x: 0
     y: 51
-    width: 790
-    height: 429
     property string title: ""
     property string w
     property var object
@@ -19,7 +17,6 @@ Item {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            console.log("Clic catch");
         }
     }
 
@@ -58,7 +55,7 @@ Item {
             height: 30
             enabled: false
             smooth: false
-            source: "../ressource/closeSubWindow.png"
+            source: "ressource/closeSubWindow.png"
         }
         MouseArea {
             id: closeButton_Area

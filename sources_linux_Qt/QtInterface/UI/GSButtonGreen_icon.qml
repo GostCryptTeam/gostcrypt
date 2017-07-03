@@ -29,7 +29,7 @@ Button {
             height: 37
             enabled: false
             smooth: false
-            source: "../ressource/buttonGreenLeft.png"
+            source: "ressource/buttonGreenLeft.png"
         }
         color: "#719c24"
         implicitWidth: 160

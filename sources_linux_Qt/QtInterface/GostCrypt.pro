@@ -22,7 +22,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     GraphicUserInterface.h \
     connectSignals.h \
-    UserSettings.h
+    UserSettings.h \
+    DragWindowProvider.h
 
 LIBS += ../Core/Core.a \
     ../Volume/Volume.a \
@@ -38,4 +39,4 @@ INCLUDEPATH += ../ \
 
 #TRANSLATIONS = GostCrypt_en.ts GostCrypt_ru.ts
 
-DISTFILES +=
+DISTFILES += \

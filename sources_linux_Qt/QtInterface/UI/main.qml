@@ -9,7 +9,8 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
-import "../UI/LoadVolume.js" as LoadVolume
+import "LoadVolume.js" as LoadVolume
+import "./frames" as GSFrame
 
 /*!
   \class main.qml (Window)
@@ -17,6 +18,10 @@ import "../UI/LoadVolume.js" as LoadVolume
   subwindow management
 */
 Window {
+
+    /*************************************
+     ************* Properties ************
+     *************************************/
     /*!
         \property Window::id
         \brief Setting the Class id
@@ -34,17 +39,10 @@ Window {
      */
     visible: true
 
-    signal mountVolume(string path, string password)
-
-    SignalManager {
-        id: signalManager
-    }
-
     /*!
-        \brief Receive all the mounted volumes after
-        the window is successfully loaded
-     */
-    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
+      \flags Setting the window frameless
+      */
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     /*!
         \class QtObject
@@ -56,11 +54,16 @@ Window {
         property color dark: "#303030"
         property color darkSecond: "#2a2a2a"
         property color darkThird: "#272727"
+        property color textLowOpacity: "#454545"
         property color text: "#e1e1e1"
         property color textLight: "#e1e1e1"
         property color green: "#719c24"
+        property color greenHover: "#7ba430"
         property color greenDark: "#597d1c"
         property color blue: "#2f88a7"
+        property color blueHover: "#3d97b6"
+        property color bluePress: "#266f88"
+        property color border: "#202020"
         property color darkInput: "#181818"
     }
 
@@ -74,7 +77,7 @@ Window {
         \property minimumHeight
         \brief Window's minimum height
      */
-    minimumHeight: 530
+    minimumHeight: 570
     /*!
         \property maximumHeight
         \brief Window's maximum height
@@ -94,7 +97,7 @@ Window {
         \property height
         \brief The window's default height
      */
-    height: 530
+    height: 570
     /*!
         \property color
         \brief The window's default
@@ -134,166 +137,89 @@ Window {
      */
     property real rotate
 
+
+
+
+    /*************************************
+     *************  Signals  *************
+     *************************************/
+
     /*!
-        \qmlsignal onWidthChanged
-        \brief When the width of the 'app'
-        object changes, updating the screen type
+      \signal mountVolume : sending a signal
+        to Gostcrypt to mount a volume
      */
-    onWidthChanged: {
-        if( width > height ) {
-            app.isLandscape = true
-        } else {
-            app.isLandscape = false
-        }
+
+    signal mountVolume(string path, string password)
+
+    /*!
+        \class SignalManager
+        \brief Manages the received signals
+     */
+    SignalManager {
+        id: signalManager
     }
 
     /*!
-        \class GSMainForm
-        \brief Contains the background of the
-        main window
+        \brief Receive all the mounted volumes after
+        the window is successfully loaded
      */
-    GSMainForm {
-        id: mainWindow
+    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
+
+
+
+
+    /*************************************
+     **********  Window content **********
+     *************************************/
+
+    GSFrame.VolumeFrame {
+        id: content_
+        x: 0
+        y: 40
+        mainWindow_: app
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
-    DropArea {
-        x: 0; y: 0
-        anchors.fill:parent
 
-        Rectangle {
-            x: 98
-            y: 111
-            width: 594
-            height: 303
-            color: "#719c24"
-            opacity: 0.5
 
-            visible: parent.containsDrag
+    /*************************************
+     ***** Frameless window dragging *****
+     *************************************/
+    MouseArea {
+        id: titleBarMouseRegion
+        x:0
+        y:0
+        height: 40
+        width: parent.width
+        property var clickPos
+        onPressed: {
+            clickPos = { x: mouse.x, y: mouse.y }
         }
-
-        onDropped: {
-            if (drop.hasText) {
-                if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
-                    console.log(drop.text)
-                    openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "dropVolume", "value" : drop.text.trim()})
-                    drop.acceptProposedAction()
-                }
-            }
+        onPositionChanged: {
+            app.x = DragWindowProvider.cursorPos().x - clickPos.x
+            app.y = DragWindowProvider.cursorPos().y - clickPos.y
         }
     }
 
-    /*!
-        \qmlclass Row
-        \brief Contains the buttons "Mount volume" and "Create volume"
-        These buttons are centered.
-     */
-    Row {
-        id: rowWindow
-        spacing: 70
-        anchors.horizontalCenter: parent.horizontalCenter
-        topPadding: 18
-        /*!
-            \class GSButtonGreen_icon
-            \brief Button that allow the user to mount
-            a volume by opening a subwindow.
-         */
-        GSButtonGreen_icon {
-            text: qsTr("Mount Volume")
-            /*!
-                \qmlsignal onClicked
-                \brief Open the subwindow by clicking on the "Mount volume"
-                button. Animation when subwindow appears.
-             */
-            onClicked: openSubWindow("../dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "", "value" : ""})
-        }
-        /*!
-            \class GSButtonBlue_icon
-            \brief Button that opens the Gostcrypt volume creation
-            wizard to create a volume.
-         */
-        GSButtonBlue_icon {
-            text: qsTr("Create Volume")
-            onClicked: {
-                ConnectSignals.debug_connectReceiveCreate()
-            }
-        }
-        //Smooth fade-in/fade-out animation
-        Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }
-    /*!
-        \qmlclass Row
-        \brief Contains the buttons "Auto Mount Device",
-        "Dismount All" and "Volume Tools".
-        These buttons are centered.
-     */
-    Row {
-        id: rowBottom
-        spacing: 22
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 28
-        /*!
-            \class GSButtonGreen
-            \brief Auto-mount a device.
-         */
-        GSButtonGreen {
-            text: qsTr("Auto Mount Device")
-            onClicked: ConnectSignals.connectReceiveAutoMount("dummy")
-        }
-        /*!
-            \class GSButtonGreen
-            \brief Dismount all the devices currently mounted
-         */
-        GSButtonGreen {
-            text: qsTr("Dismount All")
-            onClicked: {
-                if(!isSudo) {
-                    isSudo = true;
-                    ConnectSignals.connectReceiveDismountAll()
-                    listOfVolumes.clear()
-                    isSudo = false;
-                }
-            }
-        }
-        /*!
-            \class GSButtonGreen
-            \brief Opens the volume tools options.
-         */
-        GSButtonGreen {
-            text: qsTr("Volume Tools")
-            //TODO : supprimer (tests)
-            onClicked: {
-                LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
-            }
 
-        }
-        Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }
+
+
+    /*************************************
+     *********  Static window  ***********
+     *************************************/
+
     /*!
         \class GSMenu
         \brief Menu zone on the left
      */
     GSMenu{
         id: gs_Menu
-        height: app.height
+        height: app.height-40
+        y:40
+        selected: 0
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
-    /*!
-        \fn toggleMenu(void)
-        \brief Closing/Opening the menu by opening on the button
-        Returns nothing.
-     */
-    function toggleMenu() {
-        gs_Menu.x = app.shown ? -gs_Menu.width : 0
-        rowWindow.anchors.horizontalCenterOffset = app.shown ? 0 : 75
-        rowBottom.anchors.horizontalCenterOffset = app.shown ? 0 : 75
-        mainWindow.x = app.shown ? 0 : 75
-        menuButton.x = app.shown ? 20 : 165
-        volumeListElement.x = app.shown ? 98 : 173
-        app.shown = !app.shown
-        menuButton.value = !menuButton.value;
-    }
+
     /*!
         \class GSMenuButton
         \brief The menu button with three horizontal bars
@@ -302,7 +228,7 @@ Window {
     GSMenuButton {
         id: menuButton
         x: 20
-        y: 15
+        y: 55
         value: rotate
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
         //Changing the rotation value following the width
@@ -312,58 +238,34 @@ Window {
         }
     }
 
-    /*!
-        \qmlclass Item
-        \brief Contains the gridview with all the mounted volumes.
-     */
-    Item {
-        id: volumeListElement
-        x: 98
-        y: 111
-        width: 594
-        height: 303
-
-        GSVolumeItem {
-            id:volumeDelegate
-        }
-
-        ListModel {
-            id: listOfVolumes
-        }
-
-        GridView {
-            id: grid
-            anchors.fill: parent;
-            cellWidth: grid.width/2;
-            cellHeight: 100
-            anchors.leftMargin: 35
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-            delegate: volumeDelegate
-            focus: true
-            model: listOfVolumes
-            ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
-            snapMode: GridView.SnapToRow
-            clip: true
-            onCurrentIndexChanged: {
-                console.log("Item select = " + currentIndex);
-            }
-        }
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    TitleBar  {
+        x:0
+        y:0
+        height:40
+        height_: 40
     }
 
+
+    /*************************************
+     **********  On-top layers ***********
+     *************************************/
     /*!
         \class Item
         \brief Sub window inside of the main window
      */
-    GSSubWindow {
-        id: subWindow
-        width:app.width
-        height:429
-        visible: false
-        opacity: 0.0
-        heightSubWindow: 429
-        isOpen: false
+    Item {
+        x: 0
+        y: 40
+        GSSubWindow {
+            id: subWindow
+            width:app.width
+            y:40
+            height:429
+            visible: false
+            opacity: 0.0
+            heightSubWindow: 429
+            isOpen: false
+        }
     }
 
     GSSudo{
@@ -382,6 +284,36 @@ Window {
         opacity: 0.0
         title: "Message d'erreur"
         contentError: "Description du message d'erreur.\n Le message spécifique s'affichera donc ici."
+    }
+
+
+
+    /*************************************
+     **************  Style ***************
+     *************************************/
+    Rectangle{
+        anchors.fill:parent
+        color: "transparent"
+        border.color: palette.darkThird
+        border.width: 1
+    }
+
+
+    /*************************************
+     *******  JavaScript functions *******
+     *************************************/
+
+    /*!
+        \fn toggleMenu(void)
+        \brief Closing/Opening the menu by opening on the button
+        Returns nothing.
+     */
+    function toggleMenu() {
+        gs_Menu.x = app.shown ? -gs_Menu.width : 0
+        content_.x = app.shown ? 0 : 75
+        menuButton.x = app.shown ? 20 : 165
+        app.shown = !app.shown
+        menuButton.value = !menuButton.value;
     }
 
     function openSubWindow(path, title, height, parameter) {
@@ -439,4 +371,5 @@ Window {
             sudo_.isVisible = false
         }
     }
+
 }

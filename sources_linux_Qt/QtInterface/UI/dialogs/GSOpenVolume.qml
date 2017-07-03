@@ -4,7 +4,7 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
-import "../UI" as UI
+import "../" as UI
 
 Item {
     id: openVolume_Form
@@ -66,7 +66,7 @@ Item {
             }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButton {
             id: buttonOpen
             x: combo.x + combo.width + 15
             y: combo.y
@@ -74,6 +74,9 @@ Item {
             text: "Open..."
             width: 100
             onClicked: fileDialog.open()
+            color_: palette.green
+            colorHover_: palette.green
+            colorPress_: palette.greenDark
         }
 
         GSCheckBox {
@@ -98,22 +101,28 @@ Item {
             }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButton {
             id: buttonTools
             x: combo.x + combo.width - 140
             y: historique.y
             height: combo.height
             text: qsTr("Volume Tools")
             width: 120
+            color_: palette.green
+            colorHover_: palette.greenHover
+            colorPress_: palette.greenDark
         }
 
-        UI.GSButtonGreen {
+        UI.GSButton {
             id: buttonDevide
             x: buttonTools.x + buttonTools.width + 15
             y: buttonTools.y
             height: combo.height
             text: qsTr("Select Device")
             width: 120
+            color_: palette.green
+            colorHover_: palette.greenHover
+            colorPress_: palette.greenDark
         }
 
         FileDialog {
@@ -235,31 +244,38 @@ Item {
             }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButton {
             id: buttonKeyfiles
             x: buttonDevide.x - 30
             y: cache.y
             height: combo.height
             text: qsTr("Keyfiles...")
             width: 150
+            color_: palette.green
+            colorHover_: palette.greenHover
+            colorPress_: palette.greenDark
         }
 
-        UI.GSButtonGreen {
+        UI.GSButton {
             id: buttonMountOption
             x: buttonDevide.x - 30
             y: display.y + 20
             height: combo.height
             text: qsTr("Mount Options...")
             width: 150
+            color_: palette.green
+            colorHover_: palette.greenHover
+            colorPress_: palette.greenDark
         }
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
     }
 
-    UI.GSButtonBlueBordered {
+    UI.GSButtonBordered {
         id: validation
         anchors.horizontalCenter: openVolume_Form.horizontalCenter
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
+        color_: palette.blue
         onClicked: {
             if(sudo_.isVisible === false)
             {

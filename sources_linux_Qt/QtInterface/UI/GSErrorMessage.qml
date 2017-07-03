@@ -65,11 +65,12 @@ Item {
         bottomPadding: 20
     }
 
-    GSButtonBlueBordered {
+    GSButtonBordered {
         id: exitButton
         anchors.horizontalCenter: errorLayer.horizontalCenter
         anchors.top: contentText.bottom
         text: qsTr("OK")
+        color_: palette.blue
         onClicked: {
             closeErrorMessage();
         }

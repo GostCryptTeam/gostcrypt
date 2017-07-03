@@ -30,7 +30,7 @@ Button {
             height: 37
             enabled: false
             smooth: false
-            source: "../ressource/buttonBlueRight.png"
+            source: "ressource/buttonBlueRight.png"
         }
         color: "#2f88a7"
         implicitWidth: 160

@@ -8,6 +8,7 @@
 #include "Core/Core.h"
 #include "Core/Unix/CoreService.h"
 #include "Platform/SystemLog.h"
+#include "DragWindowProvider.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,11 +35,13 @@ int main(int argc, char *argv[])
     GraphicUserInterface ui;
     ConnectSignals cs(&ui);
     UserSettings settings;
+    DragWindowProvider drag;
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
     ctx->setContextProperty("ConnectSignals", &cs);
     ctx->setContextProperty("UserSettings", &settings);
+    ctx->setContextProperty("DragWindowProvider", &drag);
     engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
     cs.init(engine.rootObjects().first());
 
