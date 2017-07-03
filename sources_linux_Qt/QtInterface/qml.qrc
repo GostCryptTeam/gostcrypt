@@ -48,5 +48,6 @@
         <file>UI/frames/VolumeFrame.qml</file>
         <file>UI/frames/BackgroundFrame.qml</file>
         <file>UI/frames/ItemMenu.qml</file>
+        <file>UI/frames/ItemVolumeTools.qml</file>
     </qresource>
 </RCC>

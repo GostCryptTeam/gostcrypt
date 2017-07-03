@@ -144,7 +144,7 @@ Item {
         height: parent.height - 100
     }
 
-    Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {
+    Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration/2; easing.type: Easing.OutQuad; onRunningChanged: {
                 if(!anim_.running && subWindow_.isOpen == false) {
                     subWindow_.visible = false
                 }

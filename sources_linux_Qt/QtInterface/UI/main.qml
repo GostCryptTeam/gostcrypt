@@ -166,7 +166,7 @@ Window {
      */
     Component.onCompleted: ConnectSignals.getAllMountedVolumes()
 
-
+    //TODO : add all the signals QML->C++ here
 
 
     /*************************************
