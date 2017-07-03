@@ -29,7 +29,6 @@
         <file>UI/ressource/logo_gostcrypt.png</file>
         <file>UI/ressource/logoMenu.png</file>
         <file>UI/OpenVolume.js</file>
-        <file>UI/frames/VolumeFrame.qml</file>
         <file>UI/GSButtonBordered.qml</file>
         <file>UI/ressource/menu_favorite.png</file>
         <file>UI/ressource/menu_help.png</file>
@@ -40,5 +39,13 @@
         <file>UI/ressource/dragDrop.png</file>
         <file>UI/ressource/menu_home.png</file>
         <file>UI/ressource/link.png</file>
+        <file>UI/frames/HomeFrame.qml</file>
+        <file>UI/frames/SystemFrame.qml</file>
+        <file>UI/frames/SettingsFrame.qml</file>
+        <file>UI/frames/ToolsFrame.qml</file>
+        <file>UI/frames/FavoritesFrame.qml</file>
+        <file>UI/frames/HelpFrame.qml</file>
+        <file>UI/frames/VolumeFrame.qml</file>
+        <file>UI/frames/BackgroundFrame.qml</file>
     </qresource>
 </RCC>

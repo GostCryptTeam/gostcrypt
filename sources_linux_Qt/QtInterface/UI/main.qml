@@ -172,13 +172,42 @@ Window {
      **********  Window content **********
      *************************************/
 
-    GSFrame.VolumeFrame {
+    signal menuCHanged(string name, int index)
+
+    Loader {
+        id: pageLoader
+        source: "frames/HomeFrame.qml"
+        y:40
+        x:0
+        onLoaded: {
+            pageLoader.item.mainWindow_ = app
+        }
+        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    }
+
+    Connections {
+        target: gs_Menu
+        onMenuChanged: {
+            pageLoader.source = name
+            gs_Menu.selected = index
+        }
+    }
+
+    Connections {
+        target: pageLoader.item
+        onMenuChanged: {
+            pageLoader.source = name
+            gs_Menu.selected = index
+        }
+    }
+
+    /*GSFrame.VolumeFrame {
         id: content_
         x: 0
         y: 40
         mainWindow_: app
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }
+
+    }*/
 
 
 
@@ -310,7 +339,7 @@ Window {
      */
     function toggleMenu() {
         gs_Menu.x = app.shown ? -gs_Menu.width : 0
-        content_.x = app.shown ? 0 : 75
+        pageLoader.x = app.shown ? 0 : 75
         menuButton.x = app.shown ? 20 : 165
         app.shown = !app.shown
         menuButton.value = !menuButton.value;

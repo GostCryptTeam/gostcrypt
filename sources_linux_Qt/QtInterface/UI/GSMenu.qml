@@ -12,9 +12,8 @@ Item {
         "ressource/menu_settings.png",
         "ressource/menu_favorite.png",
         "ressource/menu_help.png"]
-
     property int selected: 0
-
+    signal menuChanged(string name, int index)
     /*
     RectangularGlow {
         id: effect
@@ -40,6 +39,9 @@ Item {
         text: qsTr("Home")
         iconPath_: icons[0]
         selected_: (selected == 0) ? true : false
+        onClicked: {
+            menuChanged("frames/HomeFrame.qml", 0)
+        }
     }
     GSMenuButtonItem {
         id: buttonVolumes
@@ -47,6 +49,9 @@ Item {
         text: qsTr("Volumes")
         iconPath_: icons[1]
         selected_: (selected == 1) ? true : false
+        onClicked: {
+            menuChanged("frames/VolumeFrame.qml", 1)
+        }
     }
     GSMenuButtonItem {
         id: buttonSystem
@@ -54,6 +59,9 @@ Item {
         text: qsTr("System")
         iconPath_: icons[2]
         selected_: (selected == 2) ? true : false
+        onClicked: {
+            menuChanged("frames/SystemFrame.qml", 2)
+        }
     }
     GSMenuButtonItem {
         id: buttonFavorites
@@ -61,6 +69,9 @@ Item {
         text: qsTr("Favorites")
         iconPath_: icons[3]
         selected_: (selected == 3) ? true : false
+        onClicked: {
+            menuChanged("frames/FavoritesFrame.qml", 3)
+        }
     }
     GSMenuButtonItem {
         id: buttonTools
@@ -68,6 +79,9 @@ Item {
         text: qsTr("Tools")
         iconPath_: icons[4]
         selected_: (selected == 4) ? true : false
+        onClicked: {
+            menuChanged("frames/ToolsFrame.qml", 4)
+        }
     }
     GSMenuButtonItem {
         id: buttonSettings
@@ -75,6 +89,9 @@ Item {
         text: qsTr("Settings")
         iconPath_: icons[5]
         selected_: (selected == 5) ? true : false
+        onClicked: {
+            menuChanged("frames/SettingsFrame.qml", 5)
+        }
     }
     GSMenuButtonItem {
         id: buttonHelp
@@ -82,5 +99,8 @@ Item {
         text: qsTr("Help")
         iconPath_: icons[6]
         selected_: (selected == 6) ? true : false
+        onClicked: {
+            menuChanged("frames/HelpFrame.qml", 6)
+        }
     }
 }

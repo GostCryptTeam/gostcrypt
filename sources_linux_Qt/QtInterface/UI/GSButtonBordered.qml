@@ -13,7 +13,7 @@ Button {
         text: buttonBordered.text
         //font: buttonBorderedIcon.font
         font.pixelSize: 13
-        color: "#e1e1e1"
+        color: palette.textLight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -22,7 +22,7 @@ Button {
     //Fond + icon
     background: Rectangle {
         id: buttonBordered_rect
-        color: "#e1e1e1"
+        color: palette.darkSecond
         implicitWidth: 160
         implicitHeight: 37
         border.width: 2
@@ -44,7 +44,7 @@ Button {
             when: buttonBordered_mouseArea.containsMouse && !buttonBordered_mouseArea.pressed
             PropertyChanges {
                 target: buttonBordered_rect
-                color : "#272727"
+                color : palette.darkThird
             }
         },
         State {
@@ -60,7 +60,7 @@ Button {
             when: !buttonBordered_mouseArea.containsMouse
             PropertyChanges {
                 target: buttonBordered_rect
-                color : "#2a2a2a"
+                color : palette.darkSecond
             }
         }
     ]

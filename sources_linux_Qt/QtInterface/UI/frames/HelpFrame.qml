@@ -5,6 +5,6 @@ Item {
     signal menuChanged(string name, int index)
 
     BackgroundFrame {
-        name: "Volume"
+        name: "Help"
     }
 }
