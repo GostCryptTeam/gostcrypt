@@ -55,7 +55,7 @@ void UserSettings::addVolumePath(const QString &path)
 {
     //Checks if the path is already in the list
     for(int i=0; i<NB_PATH; i++)
-        if( mSettings.value("MountV-path"+ QString::number(i)).toString() == path && i!=0)
+        if( mSettings.value("MountV-path"+ QString::number(i)).toString() == path/* && i!=0*/)
         {
             //permutate the path with the first element
             mSettings.setValue("MountV-path"+ QString::number(i), mSettings.value("MountV-path0"));

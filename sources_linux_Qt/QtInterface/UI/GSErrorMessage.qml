@@ -55,6 +55,7 @@ Item {
         text: contentError
         y: 100
         width: errorLayer.width
+        anchors.horizontalCenter: parent.horizontalCenter
         //width: errorLayer.width
         horizontalAlignment: Text.AlignHCenter
         font.family: "Helvetica"
@@ -63,6 +64,7 @@ Item {
         leftPadding: errorLayer.width/4
         rightPadding: errorLayer.width/4
         bottomPadding: 20
+        wrapMode: Text.WordWrap
     }
 
     GSButtonBordered {

@@ -65,4 +65,12 @@ Item {
             }
         }
     }
+    function setType(value)
+    {
+        type = value
+        if(value === 1)
+            direct.checked = true
+        else
+            normal.checked = true
+    }
 }

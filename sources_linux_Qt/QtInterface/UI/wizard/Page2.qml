@@ -4,6 +4,7 @@ import "../" as UI
 
 Item {
     id: top
+    x: 20
     property int type: 0
     Grid {
         y: 20
@@ -65,5 +66,13 @@ Item {
                 }
             }
         }
+    }
+    function setType(value)
+    {
+        type = value
+        if(value === 1)
+            hiddenVol.checked = true
+        else
+            stdGVol.checked = true
     }
 }

@@ -12,6 +12,47 @@ void VolumeCreation::createVolume()
                  shared_ptr<GostCrypt::VolumeCreationOptions>(&mInfos));
 }
 
+QStringList VolumeCreation::getAlgos() const
+{
+    QStringList algos;
+    //TODO : récupérer la liste des algos dans GostCrypt::...
+    algos.append("GOST 28147-89");
+    algos.append("GOST Grasshopper");
+    return algos;
+}
+
+QStringList VolumeCreation::getHashs() const
+{
+    QStringList algos;
+    //TODO : récupérer la liste des hashs dans GostCrypt::...
+    algos.append("GOST R 34.11-2012");
+    algos.append("GOST R 34.11-94");
+    algos.append("Whirlpool");
+    return algos;
+}
+
+QString VolumeCreation::getAlgosDescription(const int &aIndex)
+{
+    switch(aIndex){
+    case 0:
+        return "The GOST 28147-89 block cipher is part of the Russian cryptographic"
+               "standard algorithms. It is a symmetric key block cipher based on a"
+               "balanced Feistel network.<br><font color='719c24'><a href='#'>More information on GOST 28147-89</a></font>";
+        break;
+    case 1:
+        return "No description here.";
+        break;
+    default:
+        return "";
+    }
+}
+
+QString VolumeCreation::getfreeSpace()
+{
+    return "c++ value TODO"; //mVCreator. TODO
+
+}
+
 
 template<typename T>
 void VolumeCreation::setInfo(const QString &aKey, T aValue)

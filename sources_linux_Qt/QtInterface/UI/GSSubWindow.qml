@@ -144,6 +144,7 @@ Item {
             }
         }
         Text {
+            id: title_
             topPadding: 20
             text: title
             font.family: "Helvetica"
@@ -241,5 +242,9 @@ Item {
     function changeSubWindowHeight(value) {
         heightSubWindow = value;
         loader.item.y = subWindow.y
+    }
+
+    function changeSubWindowTitle(title) {
+        title_.text = title
     }
 }

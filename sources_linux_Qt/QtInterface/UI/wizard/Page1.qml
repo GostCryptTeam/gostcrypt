@@ -5,6 +5,7 @@ import "../" as UI
 Item {
     id: top
     property int type: 0
+    x: 20
     Grid {
         columns: 1
         rows: 3
@@ -43,7 +44,6 @@ Item {
 
         UI.GSCheckBox {
             id: nonSystem
-
             text_: qsTr("Encrypt a non-system partition/drive")
             checked: false
             height: 40
@@ -71,9 +71,10 @@ Item {
             text_: qsTr("Encrypt the system partition or entire system drive")
             checked: false
             height: 40
+            enabled: false
             exclusiveGroup :groupRadio
             onCheckedChanged: {
-                if(encryptedFile.checked === true) {
+                if(system.checked === true) {
                     top.type = 2
                 }
             }
@@ -96,5 +97,16 @@ Item {
                 }
             }
         }
+    }
+
+    function setType(value)
+    {
+        type = value
+        if(value === 0)
+            encryptedFile.checked = true
+        else if (value === 1)
+            nonSystem.checked = true
+        else
+            system.checked = true
     }
 }

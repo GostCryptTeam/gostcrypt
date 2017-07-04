@@ -57,5 +57,10 @@
         <file>UI/wizard/Page6.qml</file>
         <file>UI/wizard/Page7.qml</file>
         <file>UI/GSCheckBox.qml</file>
+        <file>UI/wizard/Page9.qml</file>
+        <file>UI/wizard/Page10.qml</file>
+        <file>UI/wizard/Page11.qml</file>
+        <file>UI/GSHelpButton.qml</file>
+        <file>UI/wizard/PageEnd.qml</file>
     </qresource>
 </RCC>
