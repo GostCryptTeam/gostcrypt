@@ -91,7 +91,7 @@ Item {
          */
             onClicked: {
                 volumeToolsMenu.opacity = 0.0
-                openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "", "value" : ""})
+                openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
             }
         }
         /*!
@@ -104,6 +104,7 @@ Item {
             onClicked: {
                 ConnectSignals.debug_connectReceiveCreate()
                 volumeToolsMenu.opacity = 0.0
+                openSubWindow("wizard/WizardManager.qml", 'GostCrypt Volume Creation Wizard', "Create a volume", 429, {"name" : "", "value" : ""})
             }
         }
         //Smooth fade-in/fade-out animation
@@ -271,27 +272,21 @@ Item {
                         anchors.fill: parent
                         acceptedButtons: Qt.NoButton
                         cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                        onClicked: {
-                            volumeToolsMenu.opacity = 0.0
-                        }
                     }
                 onLinkActivated: {
-                    console.log(link)
+                    volumeToolsMenu.opacity = 0.0
                     if(link == "1")
                     {
                         //TODO : right method
                         ConnectSignals.debug_connectReceiveCreate()
                     }else{
-                        openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "", "value" : ""})
+                        openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
                     }
                 }
             }
 
         }
     }
-
-
-
 
     //Volume Tools menu
     Rectangle {
@@ -397,7 +392,7 @@ Item {
             if (drop.hasText) {
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
                     console.log(drop.text)
-                    openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', 429, {"name" : "dropVolume", "value" : drop.text.trim()})
+                    openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "dropVolume", "value" : drop.text.trim()})
                     drop.acceptProposedAction()
                 }
             }

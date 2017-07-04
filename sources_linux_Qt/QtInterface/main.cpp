@@ -9,6 +9,7 @@
 #include "Core/Unix/CoreService.h"
 #include "Platform/SystemLog.h"
 #include "DragWindowProvider.h"
+#include "volumecreation.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,12 +37,15 @@ int main(int argc, char *argv[])
     ConnectSignals cs(&ui);
     UserSettings settings;
     DragWindowProvider drag;
+    VolumeCreation wizard;
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
     ctx->setContextProperty("ConnectSignals", &cs);
     ctx->setContextProperty("UserSettings", &settings);
     ctx->setContextProperty("DragWindowProvider", &drag);
+    ctx->setContextProperty("Wizard", &wizard);
+
     engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
     cs.init(engine.rootObjects().first());
 

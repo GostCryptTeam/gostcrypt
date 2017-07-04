@@ -346,13 +346,14 @@ Window {
         menuButton.value = !menuButton.value;
     }
 
-    function openSubWindow(path, title, height, parameter) {
+    function openSubWindow(path, title, name, height, parameter) {
         if(subWindow.isOpen == false)
         {
             subWindow.opacity = 1.0
             subWindow.visible = true
             subWindow.isOpen = true
             subWindow.w = path
+            subWindow.name = name
             subWindow.title = title
             subWindow.parameter = parameter
             subWindow.loadForm()
@@ -362,6 +363,7 @@ Window {
         {
             subWindow.w = path
             subWindow.title = title
+            subWindow.name = name
             subWindow.parameter = parameter
             subWindow.loadForm()
             subWindow.changeSubWindowHeight(height);

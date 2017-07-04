@@ -6,7 +6,7 @@ Rectangle{
     property int height_
     id:titlebar
     width: parent.width
-    color: palette.darkSecond
+    color: palette.border
     anchors.bottomMargin: 1
 
     Rectangle {
@@ -60,7 +60,7 @@ Rectangle{
         y:0
         width: height_
         anchors.right: parent.right
-        color: palette.darkSecond
+        color: palette.border
         Text{
             color: palette.text
             text: "×"
@@ -72,7 +72,7 @@ Rectangle{
             height: parent.height
             hoverEnabled: true
             onEntered: appclose.color=palette.darkThird
-            onExited: appclose.color=palette.darkSecond
+            onExited: appclose.color=palette.border
             onClicked: Qt.quit()
         }
     }
@@ -83,7 +83,7 @@ Rectangle{
         width: height_
         y:0
         anchors.right: appclose.left
-        color: palette.darkSecond
+        color: palette.border
         Text{
             color: palette.text
             text: '_'
@@ -95,7 +95,7 @@ Rectangle{
             height: parent.height
             hoverEnabled: true
             onEntered: appminimize.color=palette.darkThird
-            onExited: appminimize.color=palette.darkSecond
+            onExited: appminimize.color=palette.border
             onClicked: app.visibility = Window.Minimized
         }
     }

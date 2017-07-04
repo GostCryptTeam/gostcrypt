@@ -16,8 +16,6 @@
         <file>UI/GSSudo.qml</file>
         <file>UI/GSErrorMessage.qml</file>
         <file>UI/TitleBar.qml</file>
-        <file>UI/dialogs/GSCheckBox.qml</file>
-        <file>UI/dialogs/GSConnectSudo.qml</file>
         <file>UI/dialogs/GSOpenVolume.qml</file>
         <file>UI/dialogs/textFieldRed.qml</file>
         <file>UI/ressource/buttonBlueRight.png</file>
@@ -49,5 +47,15 @@
         <file>UI/frames/BackgroundFrame.qml</file>
         <file>UI/frames/ItemMenu.qml</file>
         <file>UI/frames/ItemVolumeTools.qml</file>
+        <file>UI/wizard/WizardManager.qml</file>
+        <file>UI/wizard/Page1.qml</file>
+        <file>UI/wizard/Page8.qml</file>
+        <file>UI/wizard/Page2.qml</file>
+        <file>UI/wizard/Page3.qml</file>
+        <file>UI/wizard/Page4.qml</file>
+        <file>UI/wizard/Page5.qml</file>
+        <file>UI/wizard/Page6.qml</file>
+        <file>UI/wizard/Page7.qml</file>
+        <file>UI/GSCheckBox.qml</file>
     </qresource>
 </RCC>

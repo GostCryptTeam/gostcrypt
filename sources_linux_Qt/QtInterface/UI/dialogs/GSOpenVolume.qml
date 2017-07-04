@@ -43,7 +43,7 @@ Item {
     Item {
         id: item
         anchors.fill: parent
-        anchors.topMargin: 0
+        anchors.topMargin: 40
         Image {
             id: img
             x: 50
@@ -66,7 +66,7 @@ Item {
             }
         }
 
-        UI.GSButton {
+        UI.GSButtonBordered {
             id: buttonOpen
             x: combo.x + combo.width + 15
             y: combo.y
@@ -75,11 +75,9 @@ Item {
             width: 100
             onClicked: fileDialog.open()
             color_: palette.green
-            colorHover_: palette.green
-            colorPress_: palette.greenDark
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: historique
             text_: qsTr("Never save history")
             checked: {
@@ -101,7 +99,7 @@ Item {
             }
         }
 
-        UI.GSButton {
+        UI.GSButtonBordered {
             id: buttonTools
             x: combo.x + combo.width - 140
             y: historique.y
@@ -109,11 +107,9 @@ Item {
             text: qsTr("Volume Tools")
             width: 120
             color_: palette.green
-            colorHover_: palette.greenHover
-            colorPress_: palette.greenDark
         }
 
-        UI.GSButton {
+        UI.GSButtonBordered {
             id: buttonDevide
             x: buttonTools.x + buttonTools.width + 15
             y: buttonTools.y
@@ -121,8 +117,6 @@ Item {
             text: qsTr("Select Device")
             width: 120
             color_: palette.green
-            colorHover_: palette.greenHover
-            colorPress_: palette.greenDark
         }
 
         FileDialog {
@@ -146,15 +140,15 @@ Item {
     Item {
         id: password
         visible: false
-        y: buttonTools.y + buttonTools.height - 15
-        anchors.topMargin: -20
+        y: buttonTools.y + buttonTools.height + 30
+        anchors.topMargin: 00
         opacity: 0.0
 
         Text {
             id: password_txt
             y: 10 //TODO lineheight
-            leftPadding: 15
-            text: "Password: "
+            leftPadding: 20
+            text: qsTr("Password: ")
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
             lineHeight: combo.height
@@ -163,8 +157,8 @@ Item {
 
         TextField {
             id: password_value
-            x: password_txt.x + password_txt.width + 15
-            width: combo.width + 115
+            x: password_txt.x + password_txt.width + 2
+            width: combo.width + 118
             horizontalAlignment: TextInput.AlignHCenter
             echoMode: TextInput.Password
             height: combo.height
@@ -183,7 +177,7 @@ Item {
             }
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: cache
             text_: qsTr("Cache password and keyfiles in memory")
             x: combo.x
@@ -202,7 +196,7 @@ Item {
             }
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: display
             text_: qsTr("Display password")
             x: combo.x
@@ -224,7 +218,7 @@ Item {
 
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles")
             x: combo.x
@@ -244,7 +238,7 @@ Item {
             }
         }
 
-        UI.GSButton {
+        UI.GSButtonBordered {
             id: buttonKeyfiles
             x: buttonDevide.x - 30
             y: cache.y
@@ -252,11 +246,9 @@ Item {
             text: qsTr("Keyfiles...")
             width: 150
             color_: palette.green
-            colorHover_: palette.greenHover
-            colorPress_: palette.greenDark
         }
 
-        UI.GSButton {
+        UI.GSButtonBordered {
             id: buttonMountOption
             x: buttonDevide.x - 30
             y: display.y + 20
@@ -264,8 +256,6 @@ Item {
             text: qsTr("Mount Options...")
             width: 150
             color_: palette.green
-            colorHover_: palette.greenHover
-            colorPress_: palette.greenDark
         }
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
     }
@@ -285,7 +275,7 @@ Item {
     }
 
     function moving(url) {
-        item.anchors.topMargin = -40
+        item.anchors.topMargin = 20
         volumePath = url
     }
 

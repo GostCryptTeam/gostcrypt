@@ -7,7 +7,8 @@ TARGET = GostCrypt
 SOURCES += main.cpp \
     GraphicUserInterface.cpp \
     connectSignals.cpp \
-    UserSettings.cpp
+    UserSettings.cpp \
+    volumecreation.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,7 +24,8 @@ HEADERS += \
     GraphicUserInterface.h \
     connectSignals.h \
     UserSettings.h \
-    DragWindowProvider.h
+    DragWindowProvider.h \
+    volumecreation.h
 
 LIBS += ../Core/Core.a \
     ../Volume/Volume.a \
