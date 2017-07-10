@@ -44,7 +44,7 @@ export WXCONFIG_CXXFLAGS := `wx-config --cxxflags`
 WX_ROOT ?= ..
 
 
-export GST_BUILD_CONFIG := Debug
+export GST_BUILD_CONFIG := Release
 
 ifeq "$(origin DEBUG)" "command line"
 	ifneq "$(DEBUG)" "0"
