@@ -29,18 +29,16 @@ QString formatSize(uint64 sizeInByte) {
 ConnectSignals::ConnectSignals(GraphicUserInterface *aGUI)
     : mGUI(aGUI)
 {
+    connect(mGUI, SIGNAL(sendError(QString,QString)), this, SLOT(subWindowSendErrorMessage(QString,QString)));
     connect(mGUI, SIGNAL(askSudoPassword()), this, SLOT(subWindowAskSudoPassword()));
     connect(mGUI, SIGNAL(sendVolumeInfos(string,wstring,string,uint64)), this, SLOT(subWindowSendVolumeInfos(string,wstring,string,uint64)));
     connect(mGUI, SIGNAL(confirmSudoPassword()), this, SLOT(subWindowConfirmSudoPassword()));
     connect(mGUI, SIGNAL(mountVolumePasswordIncorrect()), this, SLOT(subWindowMountVolumePasswordIncorrect()));
 }
 
-void ConnectSignals::connectReceiveMount(const QString &aPath, const QString &aPwd)
+void ConnectSignals::init(QObject* aQml)
 {
-#ifdef QT_DEBUG
-    qDebug() << "[DEBUG] : Mounting an opened volume...";
-#endif
-    mGUI->receiveMount(QUrl(aPath).toLocalFile(),aPwd);
+    connect(aQml, SIGNAL(mountVolume(QString, QString)), mGUI, SLOT(receiveMount(QString, const QString &)));
 }
 
 void ConnectSignals::connectReceiveAutoMount(const QString& aPwd)
@@ -114,8 +112,13 @@ void ConnectSignals::debug_connectReceiveCreate()
 
 void ConnectSignals::connectSudo(const QString& aPwd)
 {
-    qDebug() << "[DEBUG] : connecting to sudo : " << aPwd;
+    qDebug() << "[DEBUG] : connecting to sudo";
     mGUI->receiveSudoPassword(aPwd);
+}
+
+void ConnectSignals::subWindowSendErrorMessage(QString aTitle, QString aContent)
+{
+    emit sendSubWindowErrorMessage(aTitle, aContent);
 }
 
 void ConnectSignals::connectEndSudo()
@@ -123,8 +126,6 @@ void ConnectSignals::connectEndSudo()
     qDebug() << "[DEBUG] : end of sudo requested : ";
     mGUI->receiveSudoEndPassword();
 }
-
-
 
 void ConnectSignals::openPath(const QString &aPath)
 {

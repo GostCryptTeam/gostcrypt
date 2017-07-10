@@ -65,7 +65,7 @@ Component {
 
         Image {
             id: disk
-            source: "../ressource/disk.png"
+            source: "ressource/disk.png"
             asynchronous : true
             x:25
             y:20
@@ -105,7 +105,7 @@ Component {
                     console.log("Dismount volume");
                     ConnectSignals.connectReceiveDismount(Path_);
                     listOfVolumes.remove(index);
-
+                    if(listOfVolumes.count == 0) helpStart.visible = true;
                 }
             }
         }
@@ -115,11 +115,9 @@ Component {
             hoverEnabled: true
             propagateComposedEvents: true
             onEntered: {
-                console.log("Entrée");
                 dismountVolume.opacity = 1.0
             }
             onExited: {
-                console.log("Sortie");
                 dismountVolume.opacity = 0.0
             }
 

@@ -31,6 +31,11 @@
 #include "Volume/EncryptionThreadPool.h"
 #include "Core/Core.h"
 
+/*
+ * Contrairement à ce que je pensais au départ, on utilise fuse non pas pour monter le système de fichier final dans le système (ce qui nous permettrais a priori de ne pas avoir besoin des privileges), mais pour pouvoir gérer le chiffrement.
+ * Dans le système de fichier fuse dev ici, il y a que deux fichier dont un représente le volume. L'interet de fuse c'est qu'a chaque fois qu'on veut lire/écrire dans le fichier volume le système de fichier dev dans ce fichier sera appelé. Les fonction de lecture et écritures vont faire appel au chiffrement déchifrement pour dechifréer que la partie qui nous interesse dans le dossier
+ * Je pense que l'étape qui conciste à transformer ce gros fichier volume (maintenant déchiffrer on the fly) en système de fichier linux est gérer par les loopback qui est une fonctionalité linux dédié à cela si j'ai bien compris */
+
 namespace GostCrypt
 {
 	static int fuse_service_access (const char *path, int mask)
@@ -522,7 +527,8 @@ namespace GostCrypt
 		FuseService::UserId = getuid();
 		FuseService::GroupId = getgid();
 		
-		if (getenv ("SUDO_UID"))
+                // SUDO_UID est l'UID de l'utilisateur qui a lancé le SUDO, donc la on test si l'utilisateur qui a lancé le sudo est different de root (UID 0)
+                if (getenv ("SUDO_UID"))
 		{
 			try
 			{
@@ -539,7 +545,8 @@ namespace GostCrypt
 		}
 		static fuse_operations fuse_service_oper;
 
-		fuse_service_oper.access = fuse_service_access;
+                // Ici on bind toutes les fonctions statiques pour les passer à la library fuse
+                fuse_service_oper.access = fuse_service_access;
 		fuse_service_oper.destroy = fuse_service_destroy;
 		fuse_service_oper.getattr = fuse_service_getattr;
 		fuse_service_oper.init = fuse_service_init;
@@ -572,14 +579,18 @@ namespace GostCrypt
 
 			// Wait for the exit of the main service
 			byte buf[1];
+                        // La lecture va atteindre d'avoir quelques chose à lire, mais rien n'est envoyé. Lorsque la pipe est fermé en écriture par le parent le read va donc se débloquer
 			if (read (SignalHandlerPipe->GetReadFD(), buf, sizeof (buf))) { } // Errors ignored
 
 			_exit (0);
 		}
 
-		SignalHandlerPipe->GetWriteFD();
+                //On ferme la pipe en lecture
+                SignalHandlerPipe->GetWriteFD();
+
 
 		_exit (fuse_main (argc, argv, &fuse_service_oper));
+                //une fois que le process enfant est terminé la pipe sera automatiquement fermé et le processus parent va se fermé
 	}
 
 	VolumeInfo FuseService::OpenVolumeInfo;

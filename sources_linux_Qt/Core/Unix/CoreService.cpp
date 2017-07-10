@@ -391,7 +391,7 @@ namespace GostCrypt
 		}
 
 		vector <char> adminPassword (request.AdminPassword.size() + 1);
-		int timeout = 6000;
+                int timeout = 1000;
 
 		if (request.FastElevation)
 		{
@@ -413,7 +413,7 @@ namespace GostCrypt
 		throw_sys_if (fcntl (outPipe->GetReadFD(), F_SETFL, O_NONBLOCK) == -1);
 		throw_sys_if (fcntl (errPipe.GetReadFD(), F_SETFL, O_NONBLOCK) == -1);
 
-		vector <char> buffer (4096), errOutput (4096);
+                vector <char> buffer (4096), errOutput (4096), stdOutput (4096);
 		buffer.clear ();
 		errOutput.clear ();
 
@@ -435,7 +435,10 @@ namespace GostCrypt
 
 						if (bytesRead > 5 && bytesRead < 80)  // Short message captured
 							timeout = 200;
-					}
+                                        }else{
+                                            stdOutput.insert (errOutput.end(), buffer.begin(), buffer.begin() + bytesRead);
+
+                                        }
 				}
 
 				if (bytesRead == 0)

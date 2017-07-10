@@ -1,32 +1,66 @@
 <RCC>
     <qresource prefix="/">
-        <file>ressource/buttonGreenLeft.png</file>
-        <file>ressource/buttonBlueRight.png</file>
-        <file>ressource/font.ttf</file>
         <file>UI/GSButton.qml</file>
         <file>UI/GSButtonBlue_icon.qml</file>
-        <file>UI/GSButtonForm.ui.qml</file>
-        <file>UI/GSButtonGreen.qml</file>
         <file>UI/GSButtonGreen_icon.qml</file>
-        <file>UI/GSMainForm.qml</file>
         <file>UI/GSMenu.qml</file>
         <file>UI/GSMenuButton.qml</file>
         <file>UI/GSSubWindow.qml</file>
         <file>UI/main.qml</file>
-        <file>dialogs/GSOpenVolume.qml</file>
-        <file>ressource/closeSubWindow.png</file>
-        <file>ressource/logo_gostcrypt.png</file>
         <file>UI/GSCustomComboBox.qml</file>
-        <file>dialogs/GSCheckBox.qml</file>
-        <file>UI/GSButtonBlueBordered.qml</file>
-        <file>ressource/disk.png</file>
         <file>UI/LoadVolume.js</file>
         <file>UI/GSVolumeItem.qml</file>
-        <file>dialogs/GSConnectSudo.qml</file>
         <file>UI/TooltipArea.qml</file>
-        <file>dialogs/textFieldRed.qml</file>
-        <file>ressource/logoMenu.png</file>
         <file>UI/GSMenuButtonItem.qml</file>
         <file>UI/SignalManager.qml</file>
+        <file>UI/GSSudo.qml</file>
+        <file>UI/GSErrorMessage.qml</file>
+        <file>UI/TitleBar.qml</file>
+        <file>UI/dialogs/GSOpenVolume.qml</file>
+        <file>UI/dialogs/textFieldRed.qml</file>
+        <file>UI/ressource/buttonBlueRight.png</file>
+        <file>UI/ressource/buttonGreenLeft.png</file>
+        <file>UI/ressource/closeSubWindow.png</file>
+        <file>UI/ressource/disk.png</file>
+        <file>UI/ressource/font.ttf</file>
+        <file>UI/ressource/lock.gif</file>
+        <file>UI/ressource/logo_gostcrypt.png</file>
+        <file>UI/ressource/logoMenu.png</file>
+        <file>UI/OpenVolume.js</file>
+        <file>UI/GSButtonBordered.qml</file>
+        <file>UI/ressource/menu_favorite.png</file>
+        <file>UI/ressource/menu_help.png</file>
+        <file>UI/ressource/menu_settings.png</file>
+        <file>UI/ressource/menu_system.png</file>
+        <file>UI/ressource/menu_tools.png</file>
+        <file>UI/ressource/menu_volume.png</file>
+        <file>UI/ressource/dragDrop.png</file>
+        <file>UI/ressource/menu_home.png</file>
+        <file>UI/ressource/link.png</file>
+        <file>UI/frames/HomeFrame.qml</file>
+        <file>UI/frames/SystemFrame.qml</file>
+        <file>UI/frames/SettingsFrame.qml</file>
+        <file>UI/frames/ToolsFrame.qml</file>
+        <file>UI/frames/FavoritesFrame.qml</file>
+        <file>UI/frames/HelpFrame.qml</file>
+        <file>UI/frames/VolumeFrame.qml</file>
+        <file>UI/frames/BackgroundFrame.qml</file>
+        <file>UI/frames/ItemMenu.qml</file>
+        <file>UI/frames/ItemVolumeTools.qml</file>
+        <file>UI/wizard/WizardManager.qml</file>
+        <file>UI/wizard/Page1.qml</file>
+        <file>UI/wizard/Page8.qml</file>
+        <file>UI/wizard/Page2.qml</file>
+        <file>UI/wizard/Page3.qml</file>
+        <file>UI/wizard/Page4.qml</file>
+        <file>UI/wizard/Page5.qml</file>
+        <file>UI/wizard/Page6.qml</file>
+        <file>UI/wizard/Page7.qml</file>
+        <file>UI/GSCheckBox.qml</file>
+        <file>UI/wizard/Page9.qml</file>
+        <file>UI/wizard/Page10.qml</file>
+        <file>UI/wizard/Page11.qml</file>
+        <file>UI/GSHelpButton.qml</file>
+        <file>UI/wizard/PageEnd.qml</file>
     </qresource>
 </RCC>

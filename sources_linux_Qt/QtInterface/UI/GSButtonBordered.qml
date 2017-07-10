@@ -2,17 +2,18 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 
 Button {
-    id: buttonBlueBordered
+    id: buttonBordered
     signal clicked()
     width: 160
     height: 37
+    property color color_
 
     //Partie texte
     contentItem: Text {
-        text: buttonBlueBordered.text
-        //font: buttonBlueBorderedIcon.font
+        text: buttonBordered.text
+        //font: buttonBorderedIcon.font
         font.pixelSize: 13
-        color: "#e1e1e1"
+        color: palette.textLight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -20,19 +21,19 @@ Button {
 
     //Fond + icon
     background: Rectangle {
-        id: buttonBlueBordered_rect
-        color: "#e1e1e1"
+        id: buttonBordered_rect
+        color: palette.darkSecond
         implicitWidth: 160
         implicitHeight: 37
         border.width: 2
         radius: 8
-        border.color: "#2f88a7"
+        border.color: color_
     }
 
     //Capture du curseur
     MouseArea {
-        id: buttonBlueBordered_mouseArea
-        onClicked: buttonBlueBordered.clicked()
+        id: buttonBordered_mouseArea
+        onClicked: buttonBordered.clicked()
         anchors.fill: parent
         hoverEnabled: true
     }
@@ -40,26 +41,26 @@ Button {
     states: [
         State {
             name: "hover"
-            when: buttonBlueBordered_mouseArea.containsMouse && !buttonBlueBordered_mouseArea.pressed
+            when: buttonBordered_mouseArea.containsMouse && !buttonBordered_mouseArea.pressed
             PropertyChanges {
-                target: buttonBlueBordered_rect
-                color : "#272727"
+                target: buttonBordered_rect
+                color : palette.darkThird
             }
         },
         State {
             name: "pressed"
-            when: buttonBlueBordered_mouseArea.pressed
+            when: buttonBordered_mouseArea.pressed
             PropertyChanges {
-                target: buttonBlueBordered_rect
+                target: buttonBordered_rect
                 color : "#1e1e1e"
             }
         },
         State {
             name: "exit"
-            when: !buttonBlueBordered_mouseArea.containsMouse
+            when: !buttonBordered_mouseArea.containsMouse
             PropertyChanges {
-                target: buttonBlueBordered_rect
-                color : "#2a2a2a"
+                target: buttonBordered_rect
+                color : palette.darkSecond
             }
         }
     ]

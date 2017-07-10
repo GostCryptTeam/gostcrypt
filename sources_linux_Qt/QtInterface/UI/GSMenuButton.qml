@@ -3,46 +3,47 @@ import QtQuick 2.5
 Rectangle {
     width: 46
     height: 46
-    color: "#2f88a7"
-    radius: 6
-    border.color: "#00000000"
+    color: "transparent"//"#2f88a7"
+    radius: 46
+    border.color: palette.blue
     property real value
 
     Item {
         anchors.fill: parent
         rotation: (state == "menu") ? value*180 : -value*180
         Rectangle {
+            color: palette.text
             id: bar1
-            x: 11 + 7.5*value
-            y: 12 + 5*value
-            width: 24 - 7*value
-            height: 3
+            x: 14 + 7.5*value
+            y: 14 + 5*value
+            width: 18 - 7*value
+            height: 2
             rotation: 45*value
             antialiasing: true
         }
 
         Rectangle {
+            color: palette.text
             id: bar2
-            x: 11 + value
+            x: 14 + value
             y: 22 + 1*value
-            width: 24 - 3*value
-            height: 3
+            width: 18 - 3*value
+            height: 2
             antialiasing: true
         }
 
         Rectangle {
+            color: palette.text
             id: bar3
-            x: 11 + 7.5*value
-            y: 32 - 4*value
-            width: 24 - 7*value
-            height: 3
+            x: 14 + 7.5*value
+            y: 30 - 4*value
+            width: 18 - 7*value
+            height: 2
             rotation: -45*value
             antialiasing: true
         }
 
     }
-
-
 
     MouseArea {
         id: menuButton_mouseArea
@@ -61,7 +62,7 @@ Rectangle {
             when: menuButton_mouseArea.containsMouse && !menuButton_mouseArea.pressed
             PropertyChanges {
                 target: menuButton
-                color : "#3d97b6"
+                color : palette.darkInput
             }
         },
         State {
@@ -69,7 +70,7 @@ Rectangle {
             when: menuButton_mouseArea.pressed
             PropertyChanges {
                 target: menuButton
-                color : "#266f88"
+                color : palette.border
             }
         },
         State {
@@ -77,7 +78,7 @@ Rectangle {
             when: !menuButton_mouseArea.containsMouse
             PropertyChanges {
                 target: menuButton
-                color : "#2f88a7"
+                color : "transparent"
             }
         },
         State { name: "menu" },

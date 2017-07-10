@@ -4,22 +4,29 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
-import "../UI" as UI
+import "../" as UI
 
 Item {
     id: openVolume_Form
     property var childOf
     property string volumePath
-    //modality: Qt.WindowModal
     anchors.fill: childOf
-    signal mountVolume(string path, string password)
     signal incorrectPassword()
-    //anchors.centerIn: childOf
+    signal sendInfoVolume()
 
     Connections {
         target: openVolume_Form
-        onMountVolume: {
-            ConnectSignals.connectReceiveMount(path,password);
+        onSendInfoVolume: {
+            if(password_value.text.length != 0)
+            {
+                mountVolume(volumePath, password_value.text);
+                var password_blank = Array(password_value.length+1).join('#');
+                console.log("Mot de passe : "+password_blank);
+                password_value.text = password_blank
+                password_value.text = ""
+            }else{
+                app.openErrorMessage("Empty password", "Please enter a password.");
+            }
         }
 
     }
@@ -28,6 +35,7 @@ Item {
         target: ConnectSignals
         onSendSubWindowMountVolumePasswordIncorrect: {
             console.log("bad password dans QML")
+            app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
@@ -35,7 +43,7 @@ Item {
     Item {
         id: item
         anchors.fill: parent
-        anchors.topMargin: 0
+        anchors.topMargin: 40
         Image {
             id: img
             x: 50
@@ -48,9 +56,17 @@ Item {
             x: 100
             y: 10
             width: parent.width - 250
+            model: {
+                var paths = UserSettings.getVolumePaths(1)
+                return paths;
+            }
+            onActivated: {
+                if(currentText != "")
+                    openVolume_Form.moving(currentText)
+            }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButtonBordered {
             id: buttonOpen
             x: combo.x + combo.width + 15
             y: combo.y
@@ -58,33 +74,49 @@ Item {
             text: "Open..."
             width: 100
             onClicked: fileDialog.open()
+            color_: palette.green
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: historique
             text_: qsTr("Never save history")
-            checked: true
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-SaveHistory")
+                return (isChecked == 1) ? true : false;
+            }
             x: combo.x
             y: img.y + 60
             height: combo.height
+            onCheckedChanged: {
+                if(historique.checked == true)
+                    UserSettings.setSetting("MountV-SaveHistory", 1)
+                else
+                    UserSettings.setSetting("MountV-SaveHistory", 0)
+                if(historique.checked === true) {
+                    UserSettings.erasePaths()
+                    UserSettings.getVolumePaths(1)
+                }
+            }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButtonBordered {
             id: buttonTools
             x: combo.x + combo.width - 140
             y: historique.y
             height: combo.height
             text: qsTr("Volume Tools")
             width: 120
+            color_: palette.green
         }
 
-        UI.GSButtonGreen {
+        UI.GSButtonBordered {
             id: buttonDevide
             x: buttonTools.x + buttonTools.width + 15
             y: buttonTools.y
             height: combo.height
             text: qsTr("Select Device")
             width: 120
+            color_: palette.green
         }
 
         FileDialog {
@@ -93,7 +125,10 @@ Item {
             folder: shortcuts.home
             onAccepted: {
                 console.log("You chose: " + fileDialog.fileUrl)
-                openVolume_Form.moving(fileDialog.fileUrls)
+                openVolume_Form.moving(fileDialog.fileUrl)
+                if(historique.pressed === false)
+                    UserSettings.addVolumePath(fileDialog.fileUrl)
+                combo.model = UserSettings.getVolumePaths(0)
             }
             onRejected: {
                 console.log("Canceled")
@@ -105,15 +140,15 @@ Item {
     Item {
         id: password
         visible: false
-        y: buttonTools.y + buttonTools.height - 15
-        anchors.topMargin: -20
+        y: buttonTools.y + buttonTools.height + 30
+        anchors.topMargin: 00
         opacity: 0.0
 
         Text {
             id: password_txt
             y: 10 //TODO lineheight
-            leftPadding: 15
-            text: "Password: "
+            leftPadding: 20
+            text: qsTr("Password: ")
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
             lineHeight: combo.height
@@ -122,8 +157,8 @@ Item {
 
         TextField {
             id: password_value
-            x: password_txt.x + password_txt.width + 15
-            width: combo.width + 115
+            x: password_txt.x + password_txt.width + 2
+            width: combo.width + 118
             horizontalAlignment: TextInput.AlignHCenter
             echoMode: TextInput.Password
             height: combo.height
@@ -137,85 +172,127 @@ Item {
                     implicitHeight: 24
                     border.color: "#333"
                     border.width: 1
-                    color: '#181818'
+                    color: palette.darkInput
                 }
             }
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: cache
             text_: qsTr("Cache password and keyfiles in memory")
             x: combo.x
             y: password_txt.y + 40
             height: combo.height
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-CachePwd")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                if(cache.checked == true)
+                    UserSettings.setSetting("MountV-SaveHistory", 1)
+                else
+                    UserSettings.setSetting("MountV-SaveHistory", 0)
+                //TODO : action
+            }
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: display
             text_: qsTr("Display password")
             x: combo.x
             y: cache.y + 40
             height: combo.height
-            onClicked: {
-                if(display.checked == false)
-                {
-                    password_value.echoMode = TextInput.Password;
-                }else{
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-ShowPassword")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                if(display.checked == true) {
+                    UserSettings.setSetting("MountV-ShowPassword", 1)
                     password_value.echoMode = TextInput.Normal;
+                } else {
+                    UserSettings.setSetting("MountV-ShowPassword", 0)
+                    password_value.echoMode = TextInput.Password;
                 }
             }
+
         }
 
-        GSCheckBox {
+        UI.GSCheckBox {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles")
             x: combo.x
             y: display.y + 40
             height: combo.height
+            checked: {
+                var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
+                return (isChecked == 1) ? true : false;
+            }
+            onCheckedChanged: {
+                //TODO : action
+                if(use_Keyfiles.checked == true) {
+                    UserSettings.setSetting("MountV-UseKeyFiles", 1)
+                } else {
+                    UserSettings.setSetting("MountV-UseKeyFiles", 0)
+                }
+            }
         }
 
-        UI.GSButtonGreen {
+        UI.GSButtonBordered {
             id: buttonKeyfiles
             x: buttonDevide.x - 30
             y: cache.y
             height: combo.height
             text: qsTr("Keyfiles...")
             width: 150
+            color_: palette.green
         }
 
-        UI.GSButtonGreen {
+        UI.GSButtonBordered {
             id: buttonMountOption
             x: buttonDevide.x - 30
             y: display.y + 20
             height: combo.height
             text: qsTr("Mount Options...")
             width: 150
+            color_: palette.green
         }
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
     }
 
-    UI.GSButtonBlueBordered {
+    UI.GSButtonBordered {
         id: validation
         anchors.horizontalCenter: openVolume_Form.horizontalCenter
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
+        color_: palette.blue
         onClicked: {
             openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
             var password_blank = Array(password_value.length+1).join('#');
             console.log("Mot de passe : "+password_blank);
             password_value.text = password_blank
+            if(sudo_.isVisible === false)
+            {
+                sendInfoVolume()
+            }
         }
     }
 
     function moving(url) {
-        item.anchors.topMargin = -40
-        combo.model = [fileDialog.fileUrl, "C:\\volumes\\myvolume", "C:\\volumes\\old", "C:\\Users\\Administrateur\\volume"]
-        volumePath = fileDialog.fileUrl
+        item.anchors.topMargin = 20
+        volumePath = url
     }
 
     function appendPassword() {
         password.visible = true
         password.opacity = 1.0
+    }
+
+    function initDrag(parameter) {
+        moving(parameter.value)
+        UserSettings.addVolumePath(parameter.value)
+        //console.log(parameter.value);
+        combo.model = UserSettings.getVolumePaths(0)
     }
 
 }

@@ -18,7 +18,6 @@ OBJS += Hash.o
 OBJS += Keyfile.o
 OBJS += Pkcs5Kdf.o
 OBJS += Volume.o
-OBJS += VolumeAlert.o
 OBJS += VolumeException.o
 OBJS += VolumeHeader.o
 OBJS += VolumeInfo.o

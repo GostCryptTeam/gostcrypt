@@ -13,7 +13,6 @@
 #include "Pkcs5Kdf.h"
 #include "VolumeHeader.h"
 #include "VolumeException.h"
-#include "VolumeAlert.h"
 #include "Common/Crypto.h"
 
 namespace GostCrypt

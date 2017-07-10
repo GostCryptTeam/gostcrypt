@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <QDebug>
+#include <QUrl>
 #include <QCoreApplication>
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
@@ -31,8 +32,9 @@ void GraphicUserInterface::receive(const QString& str)
 }
 
 
-void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPassword)
+void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 {
+    aPath = QUrl(aPath).toLocalFile();
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << "********";
 #endif
@@ -46,14 +48,37 @@ void GraphicUserInterface::receiveMount(const QString& aPath, const QString& aPa
         }
         options.Password.reset(volumePassword);
         options.Path.reset(volumePath);
+        //shared_ptr
+        options.MountPoint.reset(new GostCrypt::DirectoryPath("/media/"));
         try {
+
             shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
+#ifdef QT_DEBUG
+    qDebug() << "VOLUME MONTÉ !! : " << aPath << " '" << aPassword << "'";
+#endif
             emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+
         } catch (GostCrypt::PasswordIncorrect &e) {
             emit mountVolumePasswordIncorrect();
         }
     } catch (GostCrypt::SystemException e) {
-        qDebug() << "Exception catch";
+        switch(e.GetErrorCode())
+        {
+        //not a volume file
+        case 22:
+            qDebug() << "Bad file";
+            emit sendError("Bad file", "Not a GostCrypt volume.");
+            emit mountVolumePasswordIncorrect();
+            break;
+        }
+
+        emit sendError("Exception catch", "An unexpected error occured. \n"
+#ifdef QT_DEBUG
+        +QString::fromUtf8(e.what())
+#endif
+        );
+
+       // qDebug() << "Exception catch";
     }
 }
 

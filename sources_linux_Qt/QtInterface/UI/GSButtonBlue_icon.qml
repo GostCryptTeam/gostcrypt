@@ -24,20 +24,20 @@ Button {
         id: buttonBlueIcon_rect
         Image {
             id: buttonBlueIcon_menuBars
-            x: parent.width - 42
+            x: parent.width - 37
             y: 0
-            width: 42
+            width: 37
             height: 37
             enabled: false
             smooth: false
-            source: "../ressource/buttonBlueRight.png"
+            source: "ressource/buttonBlueRight.png"
         }
-        color: "#2f88a7"
+        color: palette.dark
         implicitWidth: 160
         implicitHeight: 37
-        border.width: 0
+        border.width: 1
         radius: 2
-        border.color: "#00000000"
+        border.color: palette.blue
     }
 
     //Capture du curseur
@@ -70,7 +70,7 @@ Button {
             when: !buttonBlueIcon_mouseArea.containsMouse
             PropertyChanges {
                 target: buttonBlueIcon_rect
-                color : "#2f88a7"
+                color : palette.dark
             }
         }
     ]

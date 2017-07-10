@@ -5,11 +5,13 @@ import QtQuick.Controls.Styles 1.4
 CheckBox {
     id: box
     property string text_
+    property int sizeText: 11
+    property int leftPadding_: 15
 
     style: CheckBoxStyle {
         label: Text {
-            leftPadding: 15
-            font.pointSize: 11
+            leftPadding: leftPadding_
+            font.pointSize: sizeText
             color: "white"
             text: text_
         }
@@ -19,7 +21,7 @@ CheckBox {
             radius: 15
             border.color: control.activeFocus ? "#719c24" : "#191919"
             border.width: 1
-            color: '#191919'
+            color: palette.bkCheckBox
             Rectangle {
                 visible: control.checked
                 color: "#719c24"

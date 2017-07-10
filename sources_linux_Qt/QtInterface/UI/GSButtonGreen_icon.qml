@@ -25,18 +25,18 @@ Button {
             id: buttonGreenIcon_menuBars
             x: 0
             y: 0
-            width: 42
+            width: 37
             height: 37
             enabled: false
             smooth: false
-            source: "../ressource/buttonGreenLeft.png"
+            source: "ressource/buttonGreenLeft.png"
         }
-        color: "#719c24"
+        color: palette.dark
         implicitWidth: 160
         implicitHeight: 37
-        border.width: 0
+        border.width: 1
         radius: 2
-        border.color: "#00000000"
+        border.color: palette.green
     }
 
     //Capture du curseur
@@ -69,7 +69,7 @@ Button {
             when: !buttonGreenIcon_mouseArea.containsMouse
             PropertyChanges {
                 target: buttonGreenIcon_rect
-                color : "#719c24"
+                color: palette.dark
             }
         }
     ]

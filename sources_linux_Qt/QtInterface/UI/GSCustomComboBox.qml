@@ -4,17 +4,25 @@ import QtQuick.Controls.Styles 1.4
 
 ComboBox {
     id: control
-    model: ["C:\\volumes\\myvolume", "C:\\volumes\\old", "C:\\Users\\Administrateur\\volume"]
+    property var model_: [""]
+    model: model_
 
     delegate: ItemDelegate {
+        id: item
         width: control.width
         contentItem: Text {
             text: modelData
-            color: "#719c24"
+            color: palette.green
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }
+        background: Rectangle {
+            anchors.fill: parent
+            //color: palette.dark
+            color: item.highlighted ? palette.darkSecond : palette.dark
+        }
+
         highlighted: control.highlightedIndex == index
     }
 
@@ -44,7 +52,6 @@ ComboBox {
     contentItem: Text {
         leftPadding: 20
         rightPadding: control.indicator.width + control.spacing
-
         text: control.displayText
         font: control.font
         color: control.pressed ? "#5e7d25" : "#719c24"
@@ -53,12 +60,37 @@ ComboBox {
         elide: Text.ElideRight
     }
 
+    popup: Popup {
+            y: control.height - 1
+            width: control.width
+            implicitHeight: contentItem.implicitHeight
+            padding: 1
+
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: control.popup.visible ? control.delegateModel : null
+                currentIndex: control.highlightedIndex
+
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+
+            background: Rectangle {
+                color: palette.darkInput
+                border.color: palette.darkInput
+                radius: 2
+            }
+        }
+
     background: Rectangle {
-        color:"transparent"
+        color: palette.darkInput
         implicitWidth: 120
         implicitHeight: 40
-        border.color: control.pressed ? "#5e7d25" : "#719c24"
+        border.color: control.pressed ? palette.darkInput : palette.darkInput
         border.width: control.visualFocus ? 2 : 1
         radius: 2
     }
+
+
+
 }
