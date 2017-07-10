@@ -200,10 +200,10 @@ Item {
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume")
         onClicked: {
+            openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
             var password_blank = Array(password_value.length+1).join('#');
             console.log("Mot de passe : "+password_blank);
             password_value.text = password_blank
-            openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
         }
     }
 
