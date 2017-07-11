@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QUrl>
 #include <QCoreApplication>
+#include "Platform/Unix/Process.h"
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
     :   QObject(parent),
@@ -150,7 +151,7 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     QString cmd = "createGSVolume";
 
     system(cmd.toStdString().c_str());
-    /*GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
+    GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
     creator->CreateVolume(aCreate);
     struct timespec ts = { 0, 10 * 1000 * 1000 };
     GostCrypt::VolumeCreator::ProgressInfo pi = creator->GetProgressInfo();
@@ -163,9 +164,9 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     }catch(exception &e) {
         qDebug() << "Erreur lors de la création : " << e.what();
         return;
-    }*/
+    }
     // Format non-FAT filesystem
-    /*const char *fsFormatter = nullptr;
+    const char *fsFormatter = nullptr;
 
     switch (aCreate->Filesystem)
     {
@@ -180,26 +181,24 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
     if (fsFormatter)
     {
 
-        GostCrypt::MountOptions mountOptions ();
+        GostCrypt::MountOptions mountOptions;
         // initialization
         mountOptions.CachePassword = false;
-        mountOptions.FilesystemOptions = nullptr;
-        mountOptions.FilesystemType = nullptr;
-        mountOptions.Keyfiles = shared_ptr();
-        mountOptions.MountPoint = nullptr;
+        mountOptions.Keyfiles = shared_ptr<GostCrypt::KeyfileList>();
+        mountOptions.MountPoint = shared_ptr<GostCrypt::FilesystemPath>();
         mountOptions.NoHardwareCrypto = true;
         mountOptions.NoKernelCrypto = true;
         mountOptions.PartitionInSystemEncryptionScope = false;
-        mountOptions.Password = shared_ptr();
+        mountOptions.Password = shared_ptr<GostCrypt::VolumePassword>();
         mountOptions.PreserveTimestamps = false;
-        mountOptions.ProtectionKeyfiles = nullptr;
-        mountOptions.ProtectionPassword = nullptr;
+        mountOptions.ProtectionKeyfiles = shared_ptr<GostCrypt::KeyfileList>();
+        mountOptions.ProtectionPassword = shared_ptr<GostCrypt::VolumePassword>();
         mountOptions.Removable = false;
         mountOptions.SharedAccessAllowed = false;
         mountOptions.SlotNumber = 0;
         mountOptions.UseBackupHeaders = false;
         // real parameters
-        mountOptions.Path = make_shared <VolumePath> (aCreate->Path);
+        mountOptions.Path = make_shared <GostCrypt::VolumePath> (aCreate->Path);
         mountOptions.NoFilesystem = true;
         mountOptions.Protection = GostCrypt::VolumeProtection::None;
         mountOptions.Password = aCreate->Password;
@@ -217,19 +216,19 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
 
         try
         {
-            File file;
+            GostCrypt::File file;
             file.Open (virtualDevice, GostCrypt::File::OpenReadWrite);
         }
         catch (...)
         {
-            if (!Core->HasAdminPrivileges())
+            if (!GostCrypt::Core->HasAdminPrivileges())
             {
                 origDeviceOwner = virtualDevice.GetOwner();
-                Core->SetFileOwner (virtualDevice, UserId (getuid()));
+                GostCrypt::Core->SetFileOwner (virtualDevice, GostCrypt::UserId (getuid()));
             }
         }
 
-        finally_do_arg2 (FilesystemPath, virtualDevice, UserId, origDeviceOwner,
+        finally_do_arg2 (GostCrypt::FilesystemPath, virtualDevice, GostCrypt::UserId, origDeviceOwner,
         {
             if (finally_arg2.SystemId != (uid_t) -1)
                 GostCrypt::Core->SetFileOwner (finally_arg, finally_arg2);
@@ -240,8 +239,8 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
 
         args.push_back (string (virtualDevice));
 
-        Process::Execute (fsFormatter, args);
-    }*/
+        GostCrypt::Process::Execute (fsFormatter, args);
+    }
 
 }
 

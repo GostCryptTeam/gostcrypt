@@ -4,6 +4,9 @@ QT += qml quick
 CONFIG += c++11
 TARGET = GostCrypt
 
+DEFINES += GST_UNIX \
+    GST_LINUX
+
 SOURCES += main.cpp \
     GraphicUserInterface.cpp \
     connectSignals.cpp \
