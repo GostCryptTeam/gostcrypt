@@ -267,7 +267,7 @@ Item {
         text: qsTr("Mount Volume")
         color_: palette.blue
         onClicked: {
-            openVolume_Form.mountVolume(fileDialog.fileUrl, password_value.text);
+            mountVolume(fileDialog.fileUrl, password_value.text);
             var password_blank = Array(password_value.length+1).join('#');
             console.log("Mot de passe : "+password_blank);
             password_value.text = password_blank
