@@ -252,12 +252,15 @@ namespace GostCrypt
 	{
 		VolumeInfoList volumes;
 
-		foreach_ref (const MountedFilesystem &mf, GetMountedFilesystems ())
+                // On parcours tout les système de fichier monté
+                foreach_ref (const MountedFilesystem &mf, GetMountedFilesystems ())
 		{
-			if (string (mf.MountPoint).find (GetFuseMountDirPrefix()) == string::npos)
+                        // On vérifie que le point de montage est bien dans la zone réserver aux montage fuse
+                        if (string (mf.MountPoint).find (GetFuseMountDirPrefix()) == string::npos)
 				continue;
 
-			shared_ptr <VolumeInfo> mountedVol;
+                        // On ouvre le fichier de controle pour y lire les information du volume
+                        shared_ptr <VolumeInfo> mountedVol;
 			try
 			{
 				shared_ptr <File> controlFile (new File);
@@ -271,14 +274,17 @@ namespace GostCrypt
 				continue;
 			}
 			
-			if (!volumePath.IsEmpty() && wstring (mountedVol->Path).compare (volumePath) != 0)
+                        // Si ce n'est pas le volume demandé on passe
+                        if (!volumePath.IsEmpty() && wstring (mountedVol->Path).compare (volumePath) != 0)
 				continue;
 
-			mountedVol->AuxMountPoint = mf.MountPoint;
+                        // on complete les infos de volume avec le point de montage du fuse que l'on avait trouvé précédement
+                        mountedVol->AuxMountPoint = mf.MountPoint;
 
-			if (!mountedVol->VirtualDevice.IsEmpty())
+                        if (!mountedVol->VirtualDevice.IsEmpty())
 			{
-				MountedFilesystemList mpl = GetMountedFilesystems (mountedVol->VirtualDevice);
+                                // on récupère le point de montage final du volume
+                                MountedFilesystemList mpl = GetMountedFilesystems (mountedVol->VirtualDevice);
 
 				if (mpl.size() > 0)
 					mountedVol->MountPoint = mpl.front()->MountPoint;
