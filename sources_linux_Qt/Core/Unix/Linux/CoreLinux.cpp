@@ -39,7 +39,8 @@ namespace GostCrypt
 		loopPaths.push_back ("/dev/loop/");
 		loopPaths.push_back ("/dev/.static/dev/loop");
 
-		for (int devIndex = 0; devIndex < 256; devIndex++)
+                // Voir losetup -f pour simplifier
+                for (int devIndex = 0; devIndex < 256; devIndex++)
 		{
 			string loopDev;
 			foreach (const string &loopPath, loopPaths)

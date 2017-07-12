@@ -35,9 +35,11 @@ void GraphicUserInterface::receive(const QString& str)
 
 void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 {
+    // aPth n'est pas mis à jour lorsque l'on utilise l'historique ou le drag'n'drop
     aPath = QUrl(aPath).toLocalFile();
+    //aPath = "/home/hantoine/volume";
 #ifdef QT_DEBUG
-    qDebug() << "Monter : " << aPath << " " << "********";
+    qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
     GostCrypt::VolumePath *volumePath = new GostCrypt::VolumePath(aPath.toStdString());
     GostCrypt::VolumePassword *volumePassword = new GostCrypt::VolumePassword(aPassword.toStdWString());

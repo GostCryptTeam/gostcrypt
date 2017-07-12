@@ -45,7 +45,9 @@ namespace GostCrypt
 
 		if (forkedPid == 0)
 		{
-                        usleep(6000000);
+                        // for debug purposes (stop child process to give time to attach to debugger)
+                        //int cont = 1;
+                        //while(cont);
                         try
 			{
 				try
@@ -54,9 +56,9 @@ namespace GostCrypt
 					if (!execFunctor)
 						args[argIndex++] = const_cast <char*> (processName.c_str());
 
-					foreach (const string &arg, arguments)
-					{
-						args[argIndex++] = const_cast <char*> (arg.c_str());
+                                        for (list<string>::const_iterator arg = arguments.begin(); arg != arguments.end(); arg++)
+                                        {
+                                                args[argIndex++] = const_cast <char*> (arg->c_str());
 					}
 					args[argIndex] = nullptr;
 
