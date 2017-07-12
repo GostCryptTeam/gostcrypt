@@ -12,7 +12,7 @@ Item {
         target: ConnectSignals;
         onSendSubWindowVolumeInfos: {
             subWindow.catchClose();
-            LoadVolume.loadVolume(aMount, aAlgo, aPath, aSize);
+            loadVolume(aMount, aAlgo, aPath, aSize);
         }
         onSendSubWindowAskSudoPassword: {
             /*subWindow.opacity = subWindow.opacity = 1.0
