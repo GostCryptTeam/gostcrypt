@@ -55,7 +55,7 @@ namespace GostCrypt
 		uint64 TotalDataRead;
 		uint64 TotalDataWritten;
 		VolumeType::Enum Type;
-		DevicePath VirtualDevice;
+                DevicePath VirtualDevice; /* Path of the final block device to mount (example: /dev/loop0) */
 		VolumeTime VolumeCreationTime;
 
 	private:
