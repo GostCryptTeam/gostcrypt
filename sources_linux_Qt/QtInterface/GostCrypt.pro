@@ -38,6 +38,11 @@ LIBS += ../Core/Core.a \
     -pthread \
    -lfuse
 
+PRE_TARGETDEPS += ../Core/Core.a \
+    ../Volume/Volume.a \
+    ../Platform/Platform.a \
+    ../Driver/Fuse/Driver.a
+
 INCLUDEPATH += ../ \
     ../Crypto/ \
     ../Volume/
