@@ -40,27 +40,24 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
-    GostCrypt::VolumePath *volumePath = new GostCrypt::VolumePath(aPath.toStdString());
-    GostCrypt::VolumePassword *volumePassword = new GostCrypt::VolumePassword(aPassword.toStdWString());
     GostCrypt::MountOptions options;
+    options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
+    options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));
+    //options.MountPoint.reset(new DirectoryPath("/home/hantoine/as"));
     try {
-        options.Password.reset(volumePassword);
-        options.Path.reset(volumePath);
-        try {
 
-            shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
+        shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
 #ifdef QT_DEBUG
     qDebug() << "VOLUME MONTÉ !! : " << aPath << " '" << aPassword << "'";
 #endif
-            emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
 
-        } catch (GostCrypt::PasswordIncorrect &e) {
-            emit mountVolumePasswordIncorrect();
-        } catch (GostCrypt::VolumeAlreadyMounted &e) {
-            qDebug() << "Volume already mounted";
-            return;
-        }
-    } catch (GostCrypt::SystemException e) {
+    } catch (GostCrypt::PasswordIncorrect &e) {
+        emit mountVolumePasswordIncorrect();
+    } catch (GostCrypt::VolumeAlreadyMounted &e) {
+        qDebug() << "Volume already mounted";
+        return;
+    } catch (GostCrypt::SystemException &e) {
         switch(e.GetErrorCode())
         {
         //not a volume file
@@ -70,14 +67,11 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
             emit mountVolumePasswordIncorrect();
             break;
         }
-
         emit sendError("Exception catch", "An unexpected error occured. \n"
 #ifdef QT_DEBUG
         +QString::fromUtf8(e.what())
 #endif
         );
-
-       // qDebug() << "Exception catch";
     }
 }
 
