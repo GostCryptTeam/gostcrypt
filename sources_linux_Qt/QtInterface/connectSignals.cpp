@@ -66,9 +66,9 @@ void ConnectSignals::connectReceiveDismountAll()
 }
 
 
-void ConnectSignals::debug_connectReceiveCreate()
+/*void ConnectSignals::debug_connectReceiveCreate()
 {
-
+    return;
     qDebug() << "[DEBUG] : Creating debug device...";
 
     shared_ptr <GostCrypt::VolumeCreationOptions> volume
@@ -108,7 +108,7 @@ void ConnectSignals::debug_connectReceiveCreate()
     //volume->SectorSize = GostCrypt::Core->GetDeviceSectorSize (volume->Path);
 
     mGUI->receiveCreateVolume(volume);
-}
+}*/
 
 void ConnectSignals::connectSudo(const QString& aPwd)
 {

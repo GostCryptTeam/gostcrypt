@@ -11,7 +11,7 @@
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumeInfo.h"
 #include "Core/VolumeCreator.h"
-#include "../Volume/VolumeInfo.h"
+#include "Platform/Unix/Process.h"
 
 class GraphicUserInterface : public QObject
 {

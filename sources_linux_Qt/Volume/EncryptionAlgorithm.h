@@ -39,6 +39,7 @@ namespace GostCrypt
 		virtual size_t GetKeySize () const;
 		virtual shared_ptr <EncryptionMode> GetMode () const;
 		virtual wstring GetName () const;
+                virtual wstring GetDescription () const;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual bool IsModeSupported (const EncryptionMode &mode) const;
 		virtual bool IsModeSupported (const shared_ptr <EncryptionMode> mode) const;

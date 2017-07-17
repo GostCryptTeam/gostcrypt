@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QUrl>
 #include <QCoreApplication>
-#include "Platform/Unix/Process.h"
 
 GraphicUserInterface::GraphicUserInterface(QObject * parent)
     :   QObject(parent),

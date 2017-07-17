@@ -138,6 +138,24 @@ namespace GostCrypt
 		return name;
 	}
 
+        wstring EncryptionAlgorithm::GetDescription () const
+        {
+                if (Ciphers.size() < 1)
+                        throw NotInitialized (SRC_POS);
+
+                wstring desc;
+
+                foreach_reverse_ref (const Cipher &c, Ciphers)
+                {
+                        if (desc.empty())
+                                desc = c.GetDescription();
+                        else
+                                desc += wstring (L"\n\n") + c.GetDescription();
+                }
+
+                return desc;
+        }
+
 	bool EncryptionAlgorithm::IsModeSupported (const EncryptionMode &mode) const
 	{
 		bool supported = false;
