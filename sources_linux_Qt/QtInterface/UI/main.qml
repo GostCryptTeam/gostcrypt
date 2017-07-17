@@ -142,32 +142,6 @@ Window {
 
 
 
-    /*************************************
-     *************  Signals  *************
-     *************************************/
-
-    /*!
-      \signal mountVolume : sending a signal
-        to Gostcrypt to mount a volume
-     */
-
-    signal mountVolume(string path, string password)
-
-    /*!
-        \class SignalManager
-        \brief Manages the received signals
-     */
-    SignalManager {
-        id: signalManager
-    }
-
-    /*!
-        \brief Receive all the mounted volumes after
-        the window is successfully loaded
-     */
-    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
-
-    //TODO : add all the signals QML->C++ here
 
 
     /*************************************
@@ -210,6 +184,34 @@ Window {
         mainWindow_: app
 
     }*/
+
+
+
+    /*************************************
+     *************  Signals  *************
+     *************************************/
+
+    /*!
+      \signal mountVolume : sending a signal
+        to Gostcrypt to mount a volume
+     */
+
+    signal mountVolume(string path, string password)
+
+    /*!
+        \brief Receive all the mounted volumes after
+        the window is successfully loaded
+     */
+    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
+
+    //TODO : add all the signals QML->C++ here
+    /*!
+        \class SignalManager
+        \brief Manages the received signals
+     */
+    SignalManager {
+        id: signalManager
+    }
 
 
 

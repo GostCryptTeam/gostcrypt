@@ -304,7 +304,10 @@ Item {
                 changeSubWindowTitle("Volume Password")
                 bar.value -= 1
                 currentPage-=1
+            }else{
+                openErrorMessage("Different passwords", "The passwords are different or empties. <br>Please try again.")
             }
+
             break;
         case 11: //format volume (standard volume)
             types[10] = content.item.format
