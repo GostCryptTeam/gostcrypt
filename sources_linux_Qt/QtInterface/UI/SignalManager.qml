@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "LoadVolume.js" as LoadVolume
 
 Item {
     /*!
@@ -12,7 +13,7 @@ Item {
         target: ConnectSignals;
         onSendSubWindowVolumeInfos: {
             subWindow.catchClose();
-            loadVolume(aMount, aAlgo, aPath, aSize);
+            pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
         }
         onSendSubWindowAskSudoPassword: {
             /*subWindow.opacity = subWindow.opacity = 1.0

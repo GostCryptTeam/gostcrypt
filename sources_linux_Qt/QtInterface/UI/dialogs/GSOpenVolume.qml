@@ -268,13 +268,14 @@ Item {
         color_: palette.blue
         onClicked: {
             mountVolume(fileDialog.fileUrl, password_value.text);
-            var password_blank = Array(password_value.length+1).join('#');
-            console.log("Mot de passe : "+password_blank);
-            password_value.text = password_blank
             if(sudo_.isVisible === false)
             {
                 sendInfoVolume()
             }
+            var password_blank = Array(password_value.length+1).join('#');
+            console.log("Mot de passe : "+password_blank);
+            password_value.text = password_blank
+
         }
     }
 
