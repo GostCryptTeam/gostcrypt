@@ -40,6 +40,8 @@ Item {
         selected_: (selected == 0) ? true : false
         onClicked: {
             menuChanged("frames/HomeFrame.qml", 0)
+            //loading the mounted volumes
+            ConnectSignals.getAllMountedVolumes()
         }
     }
     GSMenuButtonItem {
