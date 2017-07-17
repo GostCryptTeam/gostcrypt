@@ -30,14 +30,6 @@ namespace GostCrypt
 		catch (...) { }
 	}
 
-	void Pipe::Close ()
-	{
-		if (ReadFileDescriptor != -1)
-			close (ReadFileDescriptor);
-		if (WriteFileDescriptor != -1)
-			close (WriteFileDescriptor);
-	}
-
 	int Pipe::GetReadFD ()
 	{
 		assert (ReadFileDescriptor != -1);
@@ -63,4 +55,12 @@ namespace GostCrypt
 
 		return WriteFileDescriptor;
 	}
+
+        void Pipe::Close ()
+        {
+                if (ReadFileDescriptor != -1)
+                        close (ReadFileDescriptor);
+                if (WriteFileDescriptor != -1)
+                        close (WriteFileDescriptor);
+        }
 }
