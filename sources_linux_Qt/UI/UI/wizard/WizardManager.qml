@@ -88,6 +88,34 @@ Item {
         }
     }
 
+    function sendAllInfos(){
+        /*property variant types: [
+            0, //container type
+            0, //volume type
+            0, //normal or direct mode (hidden)
+            "", //volume path (standard volume)
+            "", //volume path (hidden+direct volume)
+            "", //volume password (hidden+direct volume)
+            "", //volume path (hidden+normal volume)
+            ["", ""], //name of the algorithm (standard volume) and name of the hash algorithm
+            [0, ""], //volume size and type (KB, MB, GB) (standard volumes)
+            ["", ""], //volume password with verification (standard volume)
+            ["","", false] //file system, cluster & dynamic(bool) (standard volumes)
+        ]*/
+        // container type = don't care
+        Wizard.setType(types[2])
+        Wizard.setPath(types[3])
+        Wizard.setPassword(types[9])
+        Wizard.setEA(types[6][0])
+        Wizard.setVolumeHeaderKdf(types[6][1])
+        bytes = types[8][0]*1024
+        if(types[8][1] === "MB")
+            bytes = bytes*1024
+        if(types[8][1] === "GB")
+            bytes = bytes*1024*1024
+        Wizard.setSize(bytes)
+    }
+
     function manageWizard(direction)
     {
         switch(currentPage)
@@ -284,6 +312,8 @@ Item {
         case 11: //format volume (standard volume)
             types[10] = content.item.format
             console.log("11 : " + types[9])
+            sendAllInfos()
+            Wizard.createVolume()
             //TODO : create volume here
             if(direction === 1) //1 => normal
             {

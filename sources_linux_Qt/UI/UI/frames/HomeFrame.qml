@@ -102,7 +102,6 @@ Item {
         UI.GSButtonBlue_icon {
             text: qsTr("Create Volume")
             onClicked: {
-                ConnectSignals.debug_connectReceiveCreate()
                 volumeToolsMenu.opacity = 0.0
                 openSubWindow("wizard/WizardManager.qml", 'GostCrypt Volume Creation Wizard', "Create a volume", 429, {"name" : "", "value" : ""})
             }
