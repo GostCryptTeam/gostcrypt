@@ -15,12 +15,10 @@
 
 namespace GostCrypt
 {
-	class EncryptionTest 
+	class EncryptionTest
 	{
 	public:
 		static void TestAll ();
-		static void TestAll (bool enableCpuEncryptionSupport);
-
 	protected:
 		static void TestCiphers ();
 		static void TestPkcs5 ();

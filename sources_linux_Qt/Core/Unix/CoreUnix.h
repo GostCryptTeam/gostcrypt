@@ -22,7 +22,7 @@ namespace GostCrypt
 		CoreUnix ();
 		virtual ~CoreUnix ();
 
-		virtual void CheckFilesystem (shared_ptr <VolumeInfo> mountedVolume, bool repair = false) const; 
+		virtual void CheckFilesystem (shared_ptr <VolumeInfo> mountedVolume, bool repair = false) const;
 		virtual void DismountFilesystem (const DirectoryPath &mountPoint, bool force) const;
 		virtual shared_ptr <VolumeInfo> DismountVolume (shared_ptr <VolumeInfo> mountedVolume, bool ignoreOpenFiles = false, bool syncVolumeInfo = false);
 		virtual bool FilesystemSupportsLargeFiles (const FilePath &filePath) const;
@@ -32,11 +32,11 @@ namespace GostCrypt
 		virtual int GetOSMajorVersion () const { throw NotApplicable (SRC_POS); }
 		virtual int GetOSMinorVersion () const { throw NotApplicable (SRC_POS); }
 		virtual VolumeInfoList GetMountedVolumes (const VolumePath &volumePath = VolumePath()) const;
-		virtual bool IsDevicePresent (const DevicePath &device) const { throw NotApplicable (SRC_POS); }
+		virtual bool IsDevicePresent (const DevicePath &device) const { (void)device; throw NotApplicable (SRC_POS); }
 		virtual bool IsInPortableMode () const { return false; }
 		virtual bool IsMountPointAvailable (const DirectoryPath &mountPoint) const;
-		virtual bool IsOSVersion (int major, int minor) const { throw NotApplicable (SRC_POS); }
-		virtual bool IsOSVersionLower (int major, int minor) const { throw NotApplicable (SRC_POS); }
+		virtual bool IsOSVersion (int major, int minor) const { (void)major; (void)minor; throw NotApplicable (SRC_POS); }
+		virtual bool IsOSVersionLower (int major, int minor) const { (void)major; (void)minor; throw NotApplicable (SRC_POS); }
 		virtual bool IsPasswordCacheEmpty () const { throw NotApplicable (SRC_POS); }
 		virtual bool HasAdminPrivileges () const { return getuid() == 0 || geteuid() == 0; }
 		virtual VolumeSlotNumber MountPointToSlotNumber (const DirectoryPath &mountPoint) const;
@@ -46,9 +46,9 @@ namespace GostCrypt
 		virtual void WipePasswordCache () const { throw NotApplicable (SRC_POS); }
 
 	protected:
-		virtual DevicePath AttachFileToLoopDevice (const FilePath &filePath, bool readOnly) const { throw NotApplicable (SRC_POS); }
-		virtual void DetachLoopDevice (const DevicePath &devicePath) const { throw NotApplicable (SRC_POS); }
-		virtual void DismountNativeVolume (shared_ptr <VolumeInfo> mountedVolume) const { throw NotApplicable (SRC_POS); }
+		virtual DevicePath AttachFileToLoopDevice (const FilePath &filePath, bool readOnly) const { (void)filePath; (void)readOnly; throw NotApplicable (SRC_POS); }
+		virtual void DetachLoopDevice (const DevicePath &devicePath) const { (void)devicePath; throw NotApplicable (SRC_POS); }
+		virtual void DismountNativeVolume (shared_ptr <VolumeInfo> mountedVolume) const { (void)mountedVolume; throw NotApplicable (SRC_POS); }
 		virtual bool FilesystemSupportsUnixPermissions (const DevicePath &devicePath) const;
 		virtual string GetDefaultMountPointPrefix () const;
 		virtual string GetFuseMountDirPrefix () const { return ".gostcrypt_aux_mnt"; }
@@ -58,8 +58,8 @@ namespace GostCrypt
 		virtual string GetTempDirectory () const;
 		virtual void MountFilesystem (const DevicePath &devicePath, const DirectoryPath &mountPoint, const string &filesystemType, bool readOnly, const string &systemMountOptions) const;
 		virtual void MountAuxVolumeImage (const DirectoryPath &auxMountPoint, const MountOptions &options) const;
-		virtual void MountVolumeNative (shared_ptr <Volume> volume, MountOptions &options, const DirectoryPath &auxMountPoint) const { throw NotApplicable (SRC_POS); }
-		
+		virtual void MountVolumeNative (shared_ptr <Volume> volume, MountOptions &options, const DirectoryPath &auxMountPoint) const { (void)volume; (void)options; (void) auxMountPoint; throw NotApplicable (SRC_POS); }
+
 	private:
 		CoreUnix (const CoreUnix &);
 		CoreUnix &operator= (const CoreUnix &);

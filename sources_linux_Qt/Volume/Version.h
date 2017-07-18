@@ -19,7 +19,7 @@ namespace GostCrypt
 	{
 	public:
 		static const string String ()					{ return VERSION_STRING; }
-		static const uint16 Number ()					{ return VERSION_NUM; }
+                static uint16 Number ()                                 	{ return VERSION_NUM; }
 
 	};
 }

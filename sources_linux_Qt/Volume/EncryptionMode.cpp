@@ -48,13 +48,15 @@ namespace GostCrypt
 
 	void EncryptionMode::ValidateParameters (byte *data, uint64 length) const
 	{
-		if ((Ciphers.size() > 0 && (length % Ciphers.front()->GetBlockSize()) != 0))
+        (void)data;
+        if ((Ciphers.size() > 0 && (length % Ciphers.front()->GetBlockSize()) != 0))
 			throw ParameterIncorrect (SRC_POS);
 	}
 
 	void EncryptionMode::ValidateParameters (byte *data, uint64 sectorCount, size_t sectorSize) const
 	{
-		if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)
+        (void)data;
+        if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)
 			throw ParameterIncorrect (SRC_POS);
 	}
 }

@@ -24,7 +24,7 @@ namespace GostCrypt
 	CoreUnix::CoreUnix ()
 	{
 		signal (SIGPIPE, SIG_IGN);
-		
+
 		char *loc = setlocale (LC_ALL, "");
 		if (!loc || string (loc) == "C")
 			setlocale (LC_ALL, "en_US.UTF-8");
@@ -33,7 +33,7 @@ namespace GostCrypt
 	CoreUnix::~CoreUnix ()
 	{
 	}
-	
+
 	void CoreUnix::CheckFilesystem (shared_ptr <VolumeInfo> mountedVolume, bool repair) const
 	{
 		if (!mountedVolume->MountPoint.IsEmpty())
@@ -71,6 +71,8 @@ namespace GostCrypt
 #ifdef GST_MACOSX
 		if (force)
 			args.push_back ("-f");
+#else
+		(void)force;
 #endif
 		args.push_back ("--");
 		args.push_back (mountPoint);
@@ -148,7 +150,7 @@ namespace GostCrypt
 	{
 		string path = filePath;
 		size_t pos;
-		
+
 		while ((pos = path.find_last_of ('/')) != string::npos)
 		{
 			path = path.substr (0, pos);
@@ -196,7 +198,7 @@ namespace GostCrypt
 		device.SeekAt (0);
 		device.ReadCompleteBuffer (bootSector);
 
-		byte *b = bootSector.Ptr(); 
+		byte *b = bootSector.Ptr();
 
 		return memcmp (b + 3,  "NTFS", 4) != 0
 			&& memcmp (b + 54, "FAT", 3) != 0
@@ -209,13 +211,13 @@ namespace GostCrypt
 		const char *envPrefix = getenv ("GOSTCRYPT_MOUNT_PREFIX");
 		if (envPrefix && !string (envPrefix).empty())
 			return envPrefix;
-		
+
 		if (FilesystemPath ("/media").IsDirectory())
 			return "/media/gostcrypt";
-		
+
 		if (FilesystemPath ("/mnt").IsDirectory())
 			return "/mnt/gostcrypt";
-		
+
 		return GetTempDirectory() + "/gostcrypt_mnt";
 	}
 
@@ -252,15 +254,15 @@ namespace GostCrypt
 	{
 		VolumeInfoList volumes;
 
-                // On parcours tout les système de fichier monté
-                foreach_ref (const MountedFilesystem &mf, GetMountedFilesystems ())
+				// On parcours tout les système de fichier monté
+				foreach_ref (const MountedFilesystem &mf, GetMountedFilesystems ())
 		{
-                        // On vérifie que le point de montage est bien dans la zone réserver aux montage fuse
-                        if (string (mf.MountPoint).find (GetFuseMountDirPrefix()) == string::npos)
+						// On vérifie que le point de montage est bien dans la zone réserver aux montage fuse
+						if (string (mf.MountPoint).find (GetFuseMountDirPrefix()) == string::npos)
 				continue;
 
-                        // On ouvre le fichier de controle pour y lire les information du volume
-                        shared_ptr <VolumeInfo> mountedVol;
+						// On ouvre le fichier de controle pour y lire les information du volume
+						shared_ptr <VolumeInfo> mountedVol;
 			try
 			{
 				shared_ptr <File> controlFile (new File);
@@ -273,18 +275,18 @@ namespace GostCrypt
 			{
 				continue;
 			}
-			
-                        // Si ce n'est pas le volume demandé on passe
-                        if (!volumePath.IsEmpty() && wstring (mountedVol->Path).compare (volumePath) != 0)
+
+						// Si ce n'est pas le volume demandé on passe
+						if (!volumePath.IsEmpty() && wstring (mountedVol->Path).compare (volumePath) != 0)
 				continue;
 
-                        // on complete les infos de volume avec le point de montage du fuse que l'on avait trouvé précédement
-                        mountedVol->AuxMountPoint = mf.MountPoint;
+						// on complete les infos de volume avec le point de montage du fuse que l'on avait trouvé précédement
+						mountedVol->AuxMountPoint = mf.MountPoint;
 
-                        if (!mountedVol->VirtualDevice.IsEmpty())
+						if (!mountedVol->VirtualDevice.IsEmpty())
 			{
-                                // on récupère le point de montage final du volume
-                                MountedFilesystemList mpl = GetMountedFilesystems (mountedVol->VirtualDevice);
+								// on récupère le point de montage final du volume
+								MountedFilesystemList mpl = GetMountedFilesystems (mountedVol->VirtualDevice);
 
 				if (mpl.size() > 0)
 					mountedVol->MountPoint = mpl.front()->MountPoint;
@@ -298,7 +300,7 @@ namespace GostCrypt
 
 		return volumes;
 	}
-	
+
 	gid_t CoreUnix::GetRealGroupId () const
 	{
 		const char *env = getenv ("SUDO_GID");
@@ -330,7 +332,7 @@ namespace GostCrypt
 
 		return getuid();
 	}
-	
+
 	string CoreUnix::GetTempDirectory () const
 	{
 		char *envDir = getenv ("TMPDIR");

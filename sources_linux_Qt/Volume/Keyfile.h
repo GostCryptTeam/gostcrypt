@@ -22,7 +22,7 @@ namespace GostCrypt
 	class Keyfile
 	{
 	public:
-		Keyfile (const FilesystemPath &path){ }
+                Keyfile (const FilesystemPath &path){ (void)path; }
 		virtual ~Keyfile () { };
 
 		operator FilesystemPath () const { return Path; }

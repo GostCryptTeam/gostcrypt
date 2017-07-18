@@ -70,7 +70,7 @@ namespace GostCrypt
 				}
 				catch (...) // Suppress errors to allow using read-only files
 				{
-#ifdef DEBUG 
+#ifdef DEBUG
 					throw;
 #endif
 				}
@@ -129,7 +129,7 @@ namespace GostCrypt
 
 		// HDIO_GETGEO ioctl is limited by the size of long
 		TextReader tr ("/sys/block/" + string (Path.ToHostDriveOfPartition().ToBaseName()) + "/" + string (Path.ToBaseName()) + "/start");
-		
+
 		string line;
 		tr.ReadLine (line);
 		return StringConverter::ToUInt64 (line) * GetDeviceSectorSize();
@@ -185,6 +185,7 @@ namespace GostCrypt
 
 	void File::Open (const FilePath &path, FileOpenMode mode, FileShareMode shareMode, FileOpenFlags flags)
 	{
+		(void)shareMode;
 #ifdef GST_LINUX
 		int sysFlags = O_LARGEFILE;
 #else
@@ -196,7 +197,7 @@ namespace GostCrypt
 		case CreateReadWrite:
 			sysFlags |= O_CREAT | O_TRUNC | O_RDWR;
 			break;
-				
+
 		case CreateWrite:
 			sysFlags |= O_CREAT | O_TRUNC | O_WRONLY;
 			break;
@@ -259,7 +260,7 @@ namespace GostCrypt
 					throw SystemException (SRC_POS, wstring (path));
 				}
 				break;
-			
+
 			case ShareReadWriteIgnoreLock:
 				break;
 
@@ -336,7 +337,7 @@ namespace GostCrypt
 #endif
 		throw_sys_sub_if (write (FileHandle, buffer, buffer.Size()) != (ssize_t) buffer.Size(), wstring (Path));
 	}
-	
+
 	void File::WriteAt (const ConstBufferPtr &buffer, uint64 position) const
 	{
 		if_debug (ValidateState());

@@ -15,6 +15,7 @@ namespace GostCrypt
 	// CheckFilesystemResponse
 	void CheckFilesystemResponse::Deserialize (shared_ptr <Stream> stream)
 	{
+		(void)stream;
 	}
 
 	void CheckFilesystemResponse::Serialize (shared_ptr <Stream> stream) const
@@ -25,6 +26,7 @@ namespace GostCrypt
 	// DismountFilesystemResponse
 	void DismountFilesystemResponse::Deserialize (shared_ptr <Stream> stream)
 	{
+		(void)stream;
 	}
 
 	void DismountFilesystemResponse::Serialize (shared_ptr <Stream> stream) const
@@ -72,7 +74,7 @@ namespace GostCrypt
 		Serializer sr (stream);
 		sr.Serialize ("Size", Size);
 	}
-	
+
 	// GetHostDevicesResponse
 	void GetHostDevicesResponse::Deserialize (shared_ptr <Stream> stream)
 	{
@@ -102,6 +104,7 @@ namespace GostCrypt
 	// SetFileOwnerResponse
 	void SetFileOwnerResponse::Deserialize (shared_ptr <Stream> stream)
 	{
+		(void)stream;
 	}
 
 	void SetFileOwnerResponse::Serialize (shared_ptr <Stream> stream) const

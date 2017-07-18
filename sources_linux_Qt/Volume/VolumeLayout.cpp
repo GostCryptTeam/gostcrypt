@@ -71,7 +71,8 @@ namespace GostCrypt
 
 	uint64 VolumeLayoutV1Normal::GetDataOffset (uint64 volumeHostSize) const
 	{
-		return HeaderSize;
+        (void)volumeHostSize;
+        return HeaderSize;
 	}
 
 	uint64 VolumeLayoutV1Normal::GetDataSize (uint64 volumeHostSize) const
@@ -100,7 +101,8 @@ namespace GostCrypt
 
 	uint64 VolumeLayoutV1Hidden::GetDataSize (uint64 volumeHostSize) const
 	{
-		return Header->GetHiddenVolumeDataSize ();
+        (void)volumeHostSize;
+        return Header->GetHiddenVolumeDataSize ();
 	}
 
 
@@ -119,12 +121,14 @@ namespace GostCrypt
 
 	uint64 VolumeLayoutV2Normal::GetDataOffset (uint64 volumeHostSize) const
 	{
-		return Header->GetEncryptedAreaStart();
+        (void)volumeHostSize;
+        return Header->GetEncryptedAreaStart();
 	}
 
 	uint64 VolumeLayoutV2Normal::GetDataSize (uint64 volumeHostSize) const
 	{
-		return Header->GetVolumeDataSize();
+        (void)volumeHostSize;
+        return Header->GetVolumeDataSize();
 	}
 
 	uint64 VolumeLayoutV2Normal::GetMaxDataSize (uint64 volumeSize) const
@@ -151,12 +155,14 @@ namespace GostCrypt
 
 	uint64 VolumeLayoutV2Hidden::GetDataOffset (uint64 volumeHostSize) const
 	{
-		return Header->GetEncryptedAreaStart();
+        (void)volumeHostSize;
+        return Header->GetEncryptedAreaStart();
 	}
 
 	uint64 VolumeLayoutV2Hidden::GetDataSize (uint64 volumeHostSize) const
 	{
-		return Header->GetVolumeDataSize();
+        (void)volumeHostSize;
+        return Header->GetVolumeDataSize();
 	}
 
 	uint64 VolumeLayoutV2Hidden::GetMaxDataSize (uint64 volumeSize) const
@@ -190,7 +196,8 @@ namespace GostCrypt
 
 	uint64 VolumeLayoutSystemEncryption::GetDataOffset (uint64 volumeHostSize) const
 	{
-		return 0;
+        (void)volumeHostSize;
+        return 0;
 	}
 
 	uint64 VolumeLayoutSystemEncryption::GetDataSize (uint64 volumeHostSize) const

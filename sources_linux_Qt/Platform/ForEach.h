@@ -83,7 +83,7 @@ namespace GostCrypt
 
 	public:
 		template <class T>
-		static TypeWrapper <T> ToTypeWrapper (const T &x) { return TypeWrapper <T> (); }
+                static TypeWrapper <T> ToTypeWrapper (const T &x) { (void)x; return TypeWrapper <T> (); }
 
 		struct TypeWrapperDummy
 		{
