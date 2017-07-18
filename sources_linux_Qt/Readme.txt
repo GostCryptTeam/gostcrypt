@@ -1,1 +1,0 @@
-This archive contains the source code of GostCrypt 1.3
