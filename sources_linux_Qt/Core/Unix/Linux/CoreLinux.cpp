@@ -19,7 +19,7 @@
 #include "Platform/SystemInfo.h"
 #include "Platform/TextReader.h"
 #include "Volume/EncryptionModeXTS.h"
-#include "Driver/Fuse/FuseService.h"
+#include "FuseDriver/FuseService.h"
 #include "Core/Unix/CoreServiceProxy.h"
 
 namespace GostCrypt
@@ -39,8 +39,8 @@ namespace GostCrypt
 		loopPaths.push_back ("/dev/loop/");
 		loopPaths.push_back ("/dev/.static/dev/loop");
 
-                // Voir losetup -f pour simplifier
-                for (int devIndex = 0; devIndex < 256; devIndex++)
+				// Voir losetup -f pour simplifier
+				for (int devIndex = 0; devIndex < 256; devIndex++)
 		{
 			string loopDev;
 			foreach (const string &loopPath, loopPaths)
@@ -50,7 +50,7 @@ namespace GostCrypt
 					break;
 			}
 
-                        if (!FilesystemPath (loopDev).IsBlockDevice())
+						if (!FilesystemPath (loopDev).IsBlockDevice())
 				continue;
 
 			list <string> args;
@@ -159,7 +159,7 @@ namespace GostCrypt
 		while (tr.ReadLine (line))
 		{
 			vector <string> fields = StringConverter::Split (line);
-			
+
 			if (fields.size() != 4
 				|| fields[3].find ("loop") == 0	// skip loop devices
 				|| fields[3].find ("cloop") == 0
@@ -378,10 +378,10 @@ namespace GostCrypt
 
 				stringstream nativeDevName;
 				nativeDevName << "gostcrypt" << options.SlotNumber;
-				
+
 				if (nativeDevCount != cipherCount - 1)
 					nativeDevName << "_" << cipherCount - nativeDevCount - 2;
-				
+
 				nativeDevPath = "/dev/mapper/" + nativeDevName.str();
 
 				execArgs.clear();
@@ -389,7 +389,7 @@ namespace GostCrypt
 				execArgs.push_back (nativeDevName.str());
 
 				Process::Execute ("dmsetup", execArgs, -1, nullptr, &dmCreateArgsBuf);
-				
+
 				// Wait for the device to be created
 				for (int t = 0; true; t++)
 				{

@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "Platform/FileStream.h"
-#include "Driver/Fuse/FuseService.h"
+#include "FuseDriver/FuseService.h"
 #include "Volume/VolumePasswordCache.h"
 
 namespace GostCrypt

@@ -32,7 +32,7 @@ unix {
     }
 }
 
-DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_DEPRECATED_WARNINGS QT_NO_FOREACH
 
 
 RESOURCES += qml.qrc
@@ -63,4 +63,4 @@ LIBS += ../Core/libCore.a \
     -pthread \
    -lfuse
 
-
+TARGET = ../GostCrypt
