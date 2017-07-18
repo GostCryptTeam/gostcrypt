@@ -269,7 +269,6 @@ Item {
         onClicked: {
             if(sudo_.isVisible === false)
             {
-                mountVolume(fileDialog.fileUrl, password_value.text);
                 sendInfoVolume()
                 var password_blank = Array(password_value.length+1).join('#');
                 console.log("Mot de passe : "+password_blank);
