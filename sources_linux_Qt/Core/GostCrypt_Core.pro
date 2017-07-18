@@ -56,7 +56,9 @@ unix {
     macx {
         HEADERS += \
         Unix/MacOSX/System.h \
-        Unix/MacOSX/CoreMacOSX.h
+        Unix/MacOSX/CoreMacOSX.h \
+        Unix/FreeBSD/System.h \
+        Unix/FreeBSD/CoreFreeBSD.h
     }
     linux {
         HEADERS += \
@@ -89,7 +91,7 @@ unix {
         SOURCES += Unix/Solaris/CoreSolaris.cpp
     }
     macx {
-        SOURCES += Unix/MacOSX/CoreMacOSX.cpp
+        SOURCES += Unix/FreeBSD/CoreFreeBSD.cpp Unix/MacOSX/CoreMacOSX.cpp
     }
     linux {
         SOURCES += Unix/Linux/CoreLinux.cpp
