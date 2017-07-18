@@ -52,7 +52,7 @@ void hmac_stribog
 	char buf[STRIBOG_BLOCKSIZE];
 	int32 i;
 
-    /* If the key is longer than the hash algorithm block size,
+	/* If the key is longer than the hash algorithm block size,
 	   let key = stribog(key), as per HMAC specifications. */
 	if (lk > STRIBOG_BLOCKSIZE)
 	{
@@ -82,7 +82,7 @@ void hmac_stribog
 	STRIBOG_finalize (&ctx, (unsigned char *) inner);
 
 	/**** Outer Digest ****/
-	
+
 	STRIBOG_init (&ctx);
 
 	for (i = 0; i < lk; ++i)
@@ -182,7 +182,7 @@ void hmac_gosthash
 	char buf[GOSTHASH_BLOCKSIZE];
 	int32 i;
 
-    /* If the key is longer than the hash algorithm block size,
+	/* If the key is longer than the hash algorithm block size,
 	   let key = gosthash(key), as per HMAC specifications. */
 	if (lk > GOSTHASH_BLOCKSIZE)
 	{
@@ -212,7 +212,7 @@ void hmac_gosthash
 	GOSTHASH_finalize (&ctx, (unsigned char *) inner);
 
 	/**** Outer Digest ****/
-	
+
 	GOSTHASH_init (&ctx);
 
 	for (i = 0; i < lk; ++i)
@@ -313,7 +313,7 @@ void hmac_whirlpool
 	char buf[WHIRLPOOL_BLOCKSIZE];
 	int i;
 
-    /* If the key is longer than the hash algorithm block size,
+	/* If the key is longer than the hash algorithm block size,
 	   let key = whirlpool(key), as per HMAC specifications. */
 	if (lk > WHIRLPOOL_BLOCKSIZE)
 	{
@@ -440,22 +440,23 @@ char *get_pkcs5_prf_name (int pkcs5_prf_id)
 {
 	switch (pkcs5_prf_id)
 	{
-	case WHIRLPOOL:	
+	case WHIRLPOOL:
 		return "HMAC-Whirlpool";
 
-	default:		
+	default:
 		return "(Unknown)";
 	}
 }
 
 int get_pkcs5_iteration_count (int pkcs5_prf_id, BOOL bBoot)
 {
+	(void)bBoot;
 	switch (pkcs5_prf_id)
 	{
-	case WHIRLPOOL:	
+	case WHIRLPOOL:
 		return 1000;
 
-	default:		
+	default:
 		GST_THROW_FATAL_EXCEPTION;	// Unknown/wrong ID
 	}
 	return 0;

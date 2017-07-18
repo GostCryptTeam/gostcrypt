@@ -68,7 +68,7 @@ namespace GostCrypt
 		virtual shared_ptr <Volume> OpenVolume (shared_ptr <VolumePath> volumePath, bool preserveTimestamps, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, shared_ptr <VolumePassword> protectionPassword = shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> protectionKeyfiles = shared_ptr <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false) const;
 		virtual void RandomizeEncryptionAlgorithmKey (shared_ptr <EncryptionAlgorithm> encryptionAlgorithm) const;
 		virtual void ReEncryptVolumeHeaderWithNewSalt (const BufferPtr &newHeaderBuffer, shared_ptr <VolumeHeader> header, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles) const;
-		virtual void SetAdminPasswordCallback (shared_ptr <GetStringFunctor> functor) { }
+                virtual void SetAdminPasswordCallback (shared_ptr <GetStringFunctor> functor) { (void)functor; }
 		virtual void SetApplicationExecutablePath (const FilePath &path) { ApplicationExecutablePath = path; }
 		virtual void SetFileOwner (const FilesystemPath &path, const UserId &owner) const = 0;
 		virtual DirectoryPath SlotNumberToMountPoint (VolumeSlotNumber slotNumber) const = 0;

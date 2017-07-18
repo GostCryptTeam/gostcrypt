@@ -18,13 +18,7 @@
 
 namespace GostCrypt
 {
-	void EncryptionTest::TestAll ()
-	{
-		TestAll (false);
-		TestAll (true);
-	}
-
-	void EncryptionTest::TestAll (bool enableCpuEncryptionSupport)
+    void EncryptionTest::TestAll ()
 	{
 		TestCiphers();
 		TestXts();

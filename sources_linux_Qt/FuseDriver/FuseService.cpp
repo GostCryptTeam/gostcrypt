@@ -40,7 +40,9 @@ namespace GostCrypt
 {
 	static int fuse_service_access (const char *path, int mask)
 	{
-		try
+        (void)path;
+        (void)mask;
+        try
 		{
 			if (!FuseService::CheckAccessRights())
 				return -EACCES;
@@ -83,7 +85,8 @@ namespace GostCrypt
 
 	static void fuse_service_destroy (void *userdata)
 	{
-		try
+        (void)userdata;
+        try
 		{
 			FuseService::Dismount();
 		}
@@ -147,7 +150,8 @@ namespace GostCrypt
 
 	static int fuse_service_opendir (const char *path, struct fuse_file_info *fi)
 	{
-		try
+        (void)fi;
+        try
 		{
 			if (!FuseService::CheckAccessRights())
 				return -EACCES;
@@ -188,7 +192,8 @@ namespace GostCrypt
 
 	static int fuse_service_read (const char *path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 	{
-		try
+        (void)fi;
+        try
 		{
 			if (!FuseService::CheckAccessRights())
 				return -EACCES;
@@ -256,7 +261,9 @@ namespace GostCrypt
 
 	static int fuse_service_readdir (const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi)
 	{
-		try
+        (void)fi;
+        (void)offset;
+        try
 		{
 			if (!FuseService::CheckAccessRights())
 				return -EACCES;
@@ -279,7 +286,8 @@ namespace GostCrypt
 
 	static int fuse_service_write (const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 	{
-		try
+        (void)fi;
+        try
 		{
 			if (!FuseService::CheckAccessRights())
 				return -EACCES;
@@ -503,7 +511,8 @@ namespace GostCrypt
 	
 	void FuseService::OnSignal (int signal)
 	{
-		try
+        (void)signal;
+        try
 		{
 			shared_ptr <VolumeInfo> volume = Core->GetMountedVolume (SlotNumber);
 			

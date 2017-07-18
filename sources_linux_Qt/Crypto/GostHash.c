@@ -66,7 +66,7 @@ static void gost_encrypt_with_key(byte *in, byte *out, byte *key)
 	X5 = 0;
 	X6 = 0;
 	X7 = 0;
-	
+
 	for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
 	{
 		X0 |= (gst_udword)key[i + 0] << (i * 8);
@@ -88,7 +88,7 @@ static void gost_encrypt_with_key(byte *in, byte *out, byte *key)
 	n1 = r(n2, n1, X5);
 	n2 = r(n1, n2, X6);
 	n1 = r(n2, n1, X7);
-	
+
 	n2 = r(n1, n2, X0);
 	n1 = r(n2, n1, X1);
 	n2 = r(n1, n2, X2);
@@ -215,7 +215,8 @@ static void step (byte *H, byte *M, gost_hash_ctx *ctx)
 {
 	byte U[32], W[32], V[32], S[32], K[4][32];
 	gst_dword i;
-	
+
+	(void)ctx;
 	xor_blocks(W, H, M, 32);
 	P_transform(W, K[0]); //First key
 
@@ -231,21 +232,21 @@ static void step (byte *H, byte *M, gost_hash_ctx *ctx)
 
 	A (U, U);
 	/* As the other C values are all 0's, we only need to XOR
-     * with C[3] */
+	 * with C[3] */
 	xor_blocks(U, U, C_3, 32);
 	A (V, V);
 	A (V, V);
 	xor_blocks (W, U, V, 32);
 	P_transform (W, K[2]); //Third key
-	
+
 	gost_encrypt_with_key (H + 16, S + 16, K[2]);
-	
+
 	A (U, U);
 	A (V, V);
 	A (V, V);
 	xor_blocks (W, U, V, 32);
 	P_transform (W, K[3]); //Fourth key
-	
+
 	gost_encrypt_with_key (H + 24, S + 24, K[3]);
 
 	for (i = 0; i < 12; i++)
@@ -273,7 +274,7 @@ void GOSTHASH_add (byte *block, gst_udword len, gost_hash_ctx *ctx)
 		{
 			return;
 		}
-		
+
 		curptr += add_bytes;
 		step (ctx->H, ctx->remainder, ctx);
 		add_blocks(ctx->S, ctx->remainder, 32);
@@ -290,9 +291,9 @@ void GOSTHASH_add (byte *block, gst_udword len, gost_hash_ctx *ctx)
 	while (curptr <= barrier) //Add the input block to the hash
 	{
 		step(ctx->H, curptr, ctx);
-		
+
 		add_blocks(ctx->S, curptr, 32); //Add 32 unsigned chars of the message to the encrypted message
-		
+
 		ctx->len += 32; //We've processed 32 unsigned chars
 		curptr += 32; //Advance the block-pointer 32 unsigned chars
 	}
@@ -313,7 +314,7 @@ void GOSTHASH_finalize (gost_hash_ctx *ctx, byte *out)
 	gst_dword bptr;
 
 	final_len = ctx->len;
-	
+
 	copy_blocks(H, ctx->H, 32);
 	copy_blocks(S, ctx->S, 32);
 

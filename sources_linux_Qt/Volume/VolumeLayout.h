@@ -70,7 +70,7 @@ namespace GostCrypt
 		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const { throw NotApplicable (SRC_POS); }
+                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:
@@ -88,7 +88,7 @@ namespace GostCrypt
 		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const { throw NotApplicable (SRC_POS); }
+                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:
@@ -140,7 +140,7 @@ namespace GostCrypt
 		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const { throw NotApplicable (SRC_POS); }
+                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
 		virtual Pkcs5KdfList GetSupportedKeyDerivationFunctions () const;
 		virtual bool HasBackupHeader () const { return false; }
 		virtual bool HasDriveHeader () const { return true; }
