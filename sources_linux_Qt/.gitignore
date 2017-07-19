@@ -1,6 +1,0 @@
-**/*.o
-**/*.a
-**/*.d
-**/*.user*
-Makefile
-*/.qmake.stash
