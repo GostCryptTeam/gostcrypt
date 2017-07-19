@@ -35,7 +35,7 @@ Item {
         }
         onLinkActivated: {
             menuChanged("frames/HomeFrame.qml",0)
-
+            ConnectSignals.getAllMountedVolumes()
         }
     }
 }

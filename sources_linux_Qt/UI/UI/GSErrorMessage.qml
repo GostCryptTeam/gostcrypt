@@ -10,6 +10,7 @@ Item {
     property string title: ""
     property string contentError: ""
     property bool isVisible: false
+    property int size: 15
 
     Behavior on opacity {
         NumberAnimation {
@@ -59,7 +60,7 @@ Item {
         //width: errorLayer.width
         horizontalAlignment: Text.AlignHCenter
         font.family: "Helvetica"
-        font.pointSize: 14
+        font.pixelSize: size
         color: "#ffffff"
         leftPadding: errorLayer.width/4
         rightPadding: errorLayer.width/4

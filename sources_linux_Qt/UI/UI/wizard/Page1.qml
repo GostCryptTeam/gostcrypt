@@ -27,6 +27,7 @@ Item {
             Text {
                 id:description
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr("Creates a virtual encrypted disk within a file. Recomended for "+
                 "inexperienced users.<br> <font color='#719c24'><a href=\"#\">More Information</a></font>")
                 anchors.top:encryptedFile.bottom
@@ -56,6 +57,7 @@ Item {
             Text {
                 id:description2
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr("Encrypts a non-system partition on any internal or"+
                       " external driv (e.g. a flash drive). Optionnaly, creates "+
                       "a hidden volume.")
@@ -81,6 +83,7 @@ Item {
             Text {
                 id:description3
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr( "Encrypts the partition/drive where Windows is installed. "+
                             "Anyone who wants to gain access and use the system, read and "+
                             "write files, etc., will need to enter the correct "+

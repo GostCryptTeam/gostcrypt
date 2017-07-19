@@ -68,4 +68,13 @@ Button {
     transitions: Transition {
         ColorAnimation { duration:100 }
     }
+
+    function setDisable(bool)
+    {
+        if(bool){
+            buttonBordered_rect.border.color = palette.darkThird
+        }else{
+            buttonBordered_rect.border.color = color_
+        }
+    }
 }

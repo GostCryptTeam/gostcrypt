@@ -28,6 +28,7 @@ Item {
             Text {
                 id:description
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr("Select this option if you want to create a normal GostCrypt volume.")
                 anchors.top:stdGVol.bottom
                 color: palette.text
@@ -50,6 +51,7 @@ Item {
             Text {
                 id:description3
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr( "It may happen that you are forced by somebody to reveal the"+
                             " password of an encrypted volume. There are many situations where"+
                             " you cannot refuse to reveal the password (for example, due to extorsion) "+

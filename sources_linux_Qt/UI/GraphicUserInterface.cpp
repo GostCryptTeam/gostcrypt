@@ -51,7 +51,6 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
     qDebug() << "VOLUME MONTÉ !! : " << aPath << " '" << aPassword << "'";
 #endif
         emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
-
     } catch (GostCrypt::PasswordIncorrect &e) {
         emit mountVolumePasswordIncorrect();
     } catch (GostCrypt::VolumeAlreadyMounted &e) {
@@ -92,12 +91,19 @@ void GraphicUserInterface::receiveDismountAll()
 #endif
     GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
     bool check = false;
-    for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
-        GostCrypt::Core->DismountVolume(volume);
-        if(!check) {
-            emit confirmSudoPassword();
-            check = true;
+    try {
+        for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
+            GostCrypt::Core->DismountVolume(volume);
+            if(!check) {
+                emit confirmSudoPassword();
+                check = true;
+            }
         }
+    }catch(...) {
+        emit sendError("Exception catch", "An unexpected error occured. \n"
+#ifdef QT_DEBUG
+        +QString::fromUtf8(e.what())
+#endif
     }
 }
 

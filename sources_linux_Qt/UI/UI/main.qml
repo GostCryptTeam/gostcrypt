@@ -374,7 +374,8 @@ Window {
         }
     }
 
-    function openErrorMessage(title, content) {
+    function openErrorMessage(title, content, size) {
+        if(size !== undefined) errorMessage.size = size
         if(errorMessage.isVisible == false){
             errorMessage.isVisible = true;
             errorMessage.opacity = 1.0;
