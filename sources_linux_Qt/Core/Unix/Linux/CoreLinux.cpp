@@ -50,7 +50,7 @@ namespace GostCrypt
 					break;
 			}
 
-						if (!FilesystemPath (loopDev).IsBlockDevice())
+                        if (!FilesystemPath (loopDev).IsBlockDevice())
 				continue;
 
 			list <string> args;
