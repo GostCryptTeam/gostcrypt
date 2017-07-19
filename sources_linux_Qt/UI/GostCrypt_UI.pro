@@ -64,3 +64,8 @@ LIBS += ../Core/libCore.a \
    -lfuse
 
 TARGET = ../GostCrypt
+
+PRE_TARGETDEPS += ../Core/libCore.a \
+    ../Volume/libVolume.a \
+    ../Platform/libPlatform.a \
+    ../FuseDriver/libFuseDriver.a
