@@ -49,7 +49,7 @@ Item {
         echoMode: TextInput.Password
         height: 40
         focus: true
-        Keys.onReleased: password[1] = password_value.text
+        Keys.onReleased: password[1] = password_value2.text
         style: TextFieldStyle {
             textColor: "#e1e1e1"
             background: Rectangle {

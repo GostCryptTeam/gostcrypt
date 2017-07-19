@@ -384,8 +384,7 @@ Item {
             break;
         case 9: //volume password (standard volume)
             typeBranch = content.item.type
-            console.log(content.item.password[0])
-            console.log(content.item.password[1])
+
             //type 0 & 1 (normal) => types[7], else types[11]
             if(content.item.type !== 2) {
                 types[7][0] = content.item.password[0]
@@ -395,6 +394,8 @@ Item {
                 types[11][1] = content.item.password[1]
             }
             //TODO : short password
+            console.log(content.item.password[0])
+            console.log(content.item.password[1])
             if(direction === 1
                     && content.item.password[0] !== ""
                     && content.item.password[0] === content.item.password[1]) //1 => normal
@@ -405,7 +406,7 @@ Item {
                 changeSubWindowTitle("Volume Format")
                 currentPage+=1
                 content.item.type = typeBranch
-                if(typeBranch === 0 || typeBranch === 2)
+                if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
                     next_.text = qsTr("Format")
             }else if(direction !== 1){
                 manageProgressBar(9,direction,typeBranch)

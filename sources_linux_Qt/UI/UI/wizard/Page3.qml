@@ -4,6 +4,7 @@ import "../" as UI
 
 Item {
     id: top
+    x: 20
     property int type: 0
     Grid {
         y: 20
