@@ -91,7 +91,6 @@ void GraphicUserInterface::receiveDismountAll()
 #endif
     GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
     bool check = false;
-    try {
         for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
             GostCrypt::Core->DismountVolume(volume);
             if(!check) {
@@ -99,12 +98,6 @@ void GraphicUserInterface::receiveDismountAll()
                 check = true;
             }
         }
-    }catch(...) {
-        emit sendError("Exception catch", "An unexpected error occured. \n"
-#ifdef QT_DEBUG
-        +QString::fromUtf8(e.what())
-#endif
-    }
 }
 
 GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
