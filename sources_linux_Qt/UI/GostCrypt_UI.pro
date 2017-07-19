@@ -69,3 +69,12 @@ PRE_TARGETDEPS += ../Core/libCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a
+
+TRANSLATIONS = gostcrypt_en.ts gostcrypt_fr.ts gostcrypt_es.ts gostcrypt_it.ts gostcrypt_ru.ts gostcrypt_ar.ts
+translation {
+SOURCES += UI/* \
+           UI/dialogs/* \
+           UI/frames/* \
+           UI/ressource/* \
+           UI/wizard/* \
+}
