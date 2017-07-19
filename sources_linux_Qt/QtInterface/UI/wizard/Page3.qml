@@ -27,6 +27,7 @@ Item {
             Text {
                 id:description
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr("If you select this option, the wizard will first help you create a normal GostCrypt"+
                       "volume and then a hidden GostCrypt volume within it. Inexperienced users should always select this option.")
                 anchors.top:normal.bottom
@@ -50,6 +51,7 @@ Item {
             Text {
                 id:description3
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr( "If you select this option, you will create a hidden volume within"+
                             " an existing GostCrypt volume. It will be assumed that you have already created a GostCrypt volume"+
                             " that is suitable to host the hidden volume." )

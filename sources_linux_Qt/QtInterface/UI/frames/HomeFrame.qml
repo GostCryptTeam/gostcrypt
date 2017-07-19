@@ -397,6 +397,7 @@ Item {
             }
         }
     }
+
     function loadVolume(MountPoint, EncryptionAlgorithmName, Path, Size) {
         console.log("Ajout du volume");
         if(helpStart !== undefined && helpStart.visible == true)
