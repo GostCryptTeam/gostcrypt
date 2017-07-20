@@ -39,6 +39,7 @@ public:
     Q_INVOKABLE void setFileSystem(const int& value);
     Q_INVOKABLE void setFileSystemClusterSize(const uint32& value);
     Q_INVOKABLE void setSectorSize(const uint32& value);
+    Q_INVOKABLE void sendRandomPosition(const int& x, const int& y);
 
     Q_INVOKABLE float getPercent();
     Q_INVOKABLE int getTimeRemaining();

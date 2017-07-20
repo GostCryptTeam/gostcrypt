@@ -237,6 +237,11 @@ void VolumeCreation::setSectorSize(const uint32 &value) // should always be 512 
     infos->SectorSize = value; //uint32 // TODO : isn't that value computed automatically ?
 }
 
+void VolumeCreation::sendRandomPosition(const int &x, const int &y)
+{
+    //TODO : send random position to generate "random" numbers
+}
+
 float VolumeCreation::getPercent()
 {
     return 0.0f;

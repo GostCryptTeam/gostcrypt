@@ -7,6 +7,15 @@ Item {
     id: top
     property variant format: ["", "", false] //file system, cluster & dynamic(bool) (standard volumes)
     property int type: 0
+
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled : true
+        onPositionChanged: {
+            Wizard.sendRandomPosition(mouse.x, mouse.y)
+        }
+    }
+
     Rectangle {
         id: options_
         color: "transparent"
