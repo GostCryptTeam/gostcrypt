@@ -5,25 +5,42 @@ import "../" as UI
 
 Item {
     property int currentPage: 1
-    property variant types: [
-        0,              //container type
-        0,              //volume type
-        0,              //normal or direct mode (hidden)
-        "",             //volume path (standard/hidden volume)
-        "",             //volume password (hidden+direct volume)
-        ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
-        [0, ""],        //volume size and type (KB, MB, GB) (standard volumes)
-        ["", ""],       //volume password with verification (standard volume)
-        ["","", false], //file system, cluster & dynamic(bool) (standard volumes)
-        ["", ""],       //HIDDEN VOLUME : algorithm & hash
-        [0, ""],        //HIDDEN VOLUME: volume size
-        ["", ""],       //HIDDEN VOLUME: volume password (with verification)
-        ["","", false], //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)
-    ]
+    property var volumeInfos: {
+        "CONTAINER_TYPE": 0,
+        "VOLUME_TYPE": 0,
+        "NORMAL_OR_HIDDEN": 0,                  //normal or direct mode (hidden)
+        "VOLUME_PATH": "",                      //volume path (standard/hidden volume)
+        "VOLUME_PWD": "",                       //volume password (hidden+direct volume)
+        "ALGORITHM_HASH_NAMES": ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
+        "VOLUME_SIZE": [0, ""],                 //volume size and type (KB, MB, GB) (standard volumes)
+        "VOLUME_NEW_PASSWORD": ["", ""],        //volume password with verification (standard volume)
+        "FORMAT_INFOS": ["", "", false],        //file system, cluster & dynamic(bool) (standard volumes)
+        "HIDDEN_ALGORITHM_HASH": ["", ""],      //HIDDEN VOLUME : algorithm & hash
+        "HIDDEN_VOLUME_SIZE": [0, ""],          //HIDDEN VOLUME: volume size
+        "HIDDEN_VOLUME_PASSWORD": ["",""],      //HIDDEN VOLUME: volume password (with verification)
+        "HIDDEN_FORMAT_INFOS":  ["","", false]  //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)*/
+    }
+    property var progress: {
+        "VOLUME_TYPE": 1,
+        "VOLUME_ISHIDDEN": 2,
+        "DIRECT_NORMAL": 3,
+        "VOLUME_PATH": 4,
+        "VOLUME_DIRECT_PWD": 5,
+        "VOLUME_OUTER_VOLUME": 6,
+        "VOLUME_ALGO": 7,
+        "VOLUME_SIZE": 8,
+        "VOLUME_PWD": 9,
+        "VOLUME_FORMAT": 10,
+        "VOLUME_OUTER_CONTENTS": 11,
+        "VOLUME_HIDDEN_VOLUME": 12,
+        "VOLUME_END": 666
+    }
+
     signal next()
     signal back()
     signal cancel()
     signal help()
+
     x:0
     y:0
     anchors.topMargin: 0
@@ -94,31 +111,15 @@ Item {
     }
 
     function sendAllInfos(){
-        /*property variant types: [
-            0,              //container type
-            0,              //volume type
-            0,              //normal or direct mode (hidden)
-            "",             //volume path (standard/hidden volume)
-            "",             //volume password (hidden+direct volume)
-            ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
-            [0, ""],        //volume size and type (KB, MB, GB) (standard volumes)
-            ["", ""],       //volume password with verification (standard volume)
-            ["","", false], //file system, cluster & dynamic(bool) (standard volumes)
-            ["", ""],       //HIDDEN VOLUME : algorithm & hash
-            [0, ""],        //HIDDEN VOLUME: volume size
-            ["", ""],       //HIDDEN VOLUME: volume password (with verification)
-            ["","", false], //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)
-        ]*/
-        // container type = don't care
-        Wizard.setType(types[2])
-        Wizard.setPath(types[3])
-        Wizard.setPassword(types[9])
-        Wizard.setEA(types[6][0])
-        Wizard.setVolumeHeaderKdf(types[6][1])
-        bytes = types[8][0]*1024
-        if(types[8][1] === "MB")
+        Wizard.setType(volumeInfos.NORMAL_OR_HIDDEN)
+        Wizard.setPath(volumeInfos.VOLUME_PATH)
+        Wizard.setPassword(volumeInfos.HIDDEN_ALGORITHM_HASH)
+        Wizard.setEA(volumeInfos.VOLUME_SIZE[0])
+        Wizard.setVolumeHeaderKdf(volumeInfos.VOLUME_SIZE[1])
+        bytes = volumeInfos.FORMAT_INFOS[0]*1024
+        if(volumeInfos.FORMAT_INFOS[1] === "MB")
             bytes = bytes*1024
-        if(types[8][1] === "GB")
+        if(volumeInfos.FORMAT_INFOS[1] === "GB")
             bytes = bytes*1024*1024
         Wizard.setSize(bytes)
     }
@@ -126,29 +127,39 @@ Item {
     function manageWizard(direction)
     {
         var typeBranch = 0;
-
         switch(currentPage)
         {
-        case 1: //mode choice
-            types[0] = content.item.type
+
+
+            /* Page1.qml
+             * * Create an encrypted file container
+             * * Encrypt a non-system partition/volume
+             */
+        case progress.VOLUME_TYPE:
+            volumeInfos.CONTAINER_TYPE = content.item.type
             manageProgressBar(1,direction,0)
             if(direction === 1)
             {
-                content.source = "Page2.qml"
-                changeSubWindowTitle(qsTr("Volume Type"))
-                content.item.setType(types[1] ? types[1] : 0)
-                currentPage++
+                changePage(2, qsTr("Volume Type"), currentPage)
+                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
             }
             break;
 
-        case 2: //volume type
-            //the next page depends on the choice
-            types[1] = content.item.type
-            manageProgressBar(2,direction,types[1])
+
+
+            /* Page2.qml
+             * * Standard GostCrypt Volume
+             * * Hidden GostCrypt Volume
+             */
+        case progress.VOLUME_ISHIDDEN:
+            volumeInfos.VOLUME_TYPE = content.item.type
+            manageProgressBar(2,direction,0)
             if(direction === 1) //1 => normal
             {
-                if(types[1] === 0)
+                // Choice: Standard GostCrypt Volume
+                if(volumeInfos.VOLUME_TYPE === 0)
                 {
+                    changePage(4, qsTr("Volume Location"), currentPage)
                     content.source = "Page4.qml"
                     content.item.message = qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
                                            +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
@@ -159,31 +170,29 @@ Item {
                                            +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
                                            +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 0
-                    changeSubWindowTitle("Volume Location")
-                    currentPage+=2
-                }else //2 => hidden
-                {
-                    content.source = "Page3.qml"
-                    changeSubWindowTitle(qsTr("Volume Creation Mode"))
-                    currentPage++
-                }
+                }else //Choice : Hideden GostCrypt Volume
+                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
             }else{
-                content.source = "Page1.qml"
-                changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
-                content.item.setType(types[0] ? types[0] : 0)
-                currentPage--
+                changePage(1, qsTr("GostCrypt Volume Creation Wizard"), currentPage)
+                content.item.setType(volumeInfos.CONTAINER_TYPE ? volumeInfos.CONTAINER_TYPE : 0)
             }
             break;
 
-        case 3: //volume creation mode (hidden)
-            types[2] = content.item.type
-            manageProgressBar(3,direction,types[2])
+
+
+            /* Page3.qml (hidden volume)
+             * * Normal mode
+             * * Direct mode
+             */
+        case progress.DIRECT_NORMAL:
+            volumeInfos.NORMAL_OR_HIDDEN = content.item.type
+            manageProgressBar(3,direction,volumeInfos.NORMAL_OR_HIDDEN)
             if(direction === 1) //1 => normal
             {
+                changePage(4, qsTr("Volume Location"), currentPage)
                 //normal
-                if(types[2] === 0)
+                if(volumeInfos.NORMAL_OR_HIDDEN === 0)
                 {
-                    content.source = "Page4.qml"
                     content.item.message = qsTr("Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)"
                                        +"<br>"
                                        +"A GostCrypt volume can reside in a file (called GostCrypt container),"
@@ -196,99 +205,91 @@ Item {
                                        +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 2
                     content.item.setFileDialog(false)
-                    changeSubWindowTitle("Volume Location")
-                    currentPage+=1
                 }else{ //direct mode (Quick)
-                    content.source = "Page4.qml"
                     content.item.message = qsTr("Select the location of the GostCrypt volume within which you wish to create a hidden volume.")
                     content.item.type = 1
                     content.item.setFileDialog(true)
-                    changeSubWindowTitle(qsTr("Volume Location"))
-                    currentPage+=1
                 }
             }else{
-                content.source = "Page2.qml"
-                changeSubWindowTitle(qsTr("Volume Type"))
-                content.item.setType(types[1] ? types[1] : 0)
-                currentPage--
+                changePage(2, qsTr("Volume Type"), currentPage)
+                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
             }
             break;
 
-        case 4: //volume location
-            types[3] = content.item.path
-            if(direction === 1 && types[3] !== "") //1 => normal
+
+
+            /* Page4.qml
+             * Volume path
+             * type 0 : normal
+             * type 1 : path of an existing volume (hidden)
+             * type 2 : path of a new volume (hidden)
+             */
+        case progress.VOLUME_PATH:
+            volumeInfos.VOLUME_PATH = content.item.path
+            if(direction === 1 && volumeInfos.VOLUME_PATH !== "") //1 => normal
             {
                 manageProgressBar(4,direction,content.item.type)
                 switch (content.item.type) {
                 case 0:
-                    content.source = "Page7.qml"
-                    changeSubWindowTitle(qsTr("Encryption Options"))
-                    currentPage+=3
+                    changePage(7, qsTr("Encryption Options"), currentPage)
                     break;
                 case 1:
-                    content.source = "Page5.qml"
-                    changeSubWindowTitle(qsTr("Volume Password"))
-                    currentPage+=1
+                    changePage(5, qsTr("Volume Password"), currentPage)
                     break;
                 case 2:
-                    content.source = "Page6.qml"
-                    changeSubWindowTitle(qsTr("Outer Volume"))
-                    currentPage+=2
+                    changePage(6, qsTr("Outer Volume"), currentPage)
                     break;
                 }
             }else if(direction !== 1){
                 manageProgressBar(4,direction,content.item.type)
                 switch (content.item.type) {
                 case 0:
-                    content.source = "Page2.qml"
-                    changeSubWindowTitle(qsTr("Volume Type"))
-                    content.item.setType(types[1] ? types[1] : 0)
-                    currentPage-=2
+                    changePage(2, qsTr("Volume Type"), currentPage)
+                    content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
                     break;
                 case 1:
                 case 2:
-                    content.source = "Page3.qml"
-                    changeSubWindowTitle(qsTr("Volume Creation Mode"))
-                    content.item.setType(types[2] ? types[2] : 0)
-                    currentPage-=1
+                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
+                    content.item.setType(volumeInfos.NORMAL_OR_HIDDEN ? volumeInfos.NORMAL_OR_HIDDEN : 0)
                     break;
                 }
-
             }
             break;
 
-        case 5: //volume password (hidden/direct)
-            console.log("password is :" + content.item.password)
-            types[4] = content.item.password
-            if(direction === 1 && types[4] !== "") //1 => normal
+
+            /* Page5.qml
+             * Existing volume password (hidden)
+             */
+        case progress.VOLUME_DIRECT_PWD: //volume password (hidden/direct)
+            volumeInfos.VOLUME_PWD = content.item.password
+            if(direction === 1 && volumeInfos.VOLUME_PWD !== "") //1 => normal
             {
-                content.source = "Page12.qml"
+                changePage(12, qsTr("Hidden Volume"), currentPage)
                 back_.setDisable(1)
-                changeSubWindowTitle(qsTr("Hidden Volume"))
                 manageProgressBar(5,direction,3)
-                currentPage+=7
                 content.item.type = 3
             }else if(direction !== 1){
-                content.source = "Page4.qml"
+                changePage(4, qsTr("Volume Location"), currentPage)
                 content.item.message = qsTr("Select the location of the GostCrypt volume within which you wish to create a hidden volume.")
                 content.item.type = 1
                 content.item.setFileDialog(true)
-                changeSubWindowTitle(qsTr("Volume Location"))
-                currentPage-=1
                 manageProgressBar(5,direction,0)
             }
             break;
 
-        case 6: //outer volume message (hidden/normal)
+
+
+            /* Page6.qml
+             * Outer Volume information (hidden/normal)
+             */
+        case progress.VOLUME_OUTER_VOLUME: //outer volume message (hidden/normal)
             if(direction === 1)
             {
-                content.source = "Page7.qml"
-                changeSubWindowTitle(qsTr("Encryption Options"))
+                changePage(7, qsTr("Encryption Options"), currentPage)
                 manageProgressBar(6,direction,0)
-                currentPage+=1
                 content.item.type = 1
             }else{
-                content.source = "Page4.qml"
+                changePage(4, qsTr("Volume Location"), currentPage)
                 content.item.message = qsTr("Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)"
                                    +"<br>"
                                    +"A GostCrypt volume can reside in a file (called GostCrypt container),"
@@ -301,32 +302,34 @@ Item {
                                    +" on) by moving them to the GostCrypt container that you are about to create now.")
                 content.item.type = 2
                 content.item.setFileDialog(false)
-                changeSubWindowTitle(qsTr("Volume Location"))
-                currentPage-=2
                 manageProgressBar(6,direction,0)
             }
             break;
 
-        case 7: //algorithm & hash (standard volume)
+
+
+            /* Page7.qml
+             * Algorithm and hash used to format the current volume
+             */
+        case progress.VOLUME_ALGO: //algorithm & hash (standard volume)
             typeBranch = content.item.type
-            console.log("ici type vaut " + typeBranch)
             manageProgressBar(7,direction,typeBranch)
-            //type 0 & 1 (normal) => types[5], else types[9]
+            //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH
             if(content.item.type !== 2)
-                types[5] = content.item.algoHash
+                volumeInfos.ALGORITHM_HASH_NAMES = content.item.algoHash
             else
-                types[9] = content.item.algoHash
+                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.algoHash
             if(direction === 1)
             {
-                content.source = "Page8.qml"
-                changeSubWindowTitle(qsTr("Volume Size"))
-                currentPage+=1
+                if(typeBranch === 2)
+                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                else
+                    changePage(8, qsTr("Volume Location"), currentPage)
                 content.item.type = typeBranch
             }else{
                 switch(content.item.type) {
                 case 0:
-                    //go to page4
-                    content.source = "Page4.qml"
+                    changePage(4, qsTr("Volume Location"), currentPage)
                     content.item.message = qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
                                            +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
                                            +" container is just like any normal file (it can be, for example, moved or deleted as"
@@ -337,97 +340,101 @@ Item {
                                            +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 0
                     content.item.setFileDialog(false)
-                    changeSubWindowTitle(qsTr("Volume Location"))
-                    currentPage-=3
                     break;
                 case 1:
-                        //go to outer volume page
-                        content.source = "Page6.qml"
-                        changeSubWindowTitle(qsTr("Outer Volume"))
-                        currentPage--
+                    changePage(6, qsTr("Outer Volume"), currentPage)
                     break;
                 case 2:
                 case 3:
-                    //go to outer volume page
-                    content.source = "Page12.qml"
+                    changePage(12, qsTr("Hidden Volume"), currentPage)
                     back_.setDisable(1)
-                    changeSubWindowTitle(qsTr("Hidden Volume"))
-                    currentPage+=5
                     content.item.type = typeBranch
                     break;
                 }
             }
             break;
-        case 8://volume size (standard volume)
-            console.log("branch is " + content.item.type)
+
+
+
+
+            /* Page8.qml
+             * Volume size
+             * in KB, MB or GB
+             */
+        case progress.VOLUME_SIZE://volume size (standard volume)
             typeBranch = content.item.type
-            //type 0 & 1 (normal) => types[6], else types[10]
+            //type 0 & 1 (normal) => volumeInfos.VOLUME_SIZE, else volumeInfos.HIDDEN_VOLUME_SIZE
             if(content.item.type !== 2)
-                types[6] = content.item.sizeType
+                volumeInfos.VOLUME_SIZE = content.item.sizeType
             else
-                types[10] = content.item.sizeType
+                volumeInfos.HIDDEN_VOLUME_SIZE = content.item.sizeType
             if(direction === 1
                     && content.item.sizeType
                     && content.item.sizeType[0] > 0) //1 => normal
             {
+                changePage(9, qsTr("Volume Password"), currentPage)
                 manageProgressBar(8,direction,typeBranch)
-                content.source = "Page9.qml"
-                changeSubWindowTitle(qsTr("Volume Password"))
-                currentPage+=1
                 content.item.type = typeBranch
-                manageProgressBar(8,direction,typeBranch)
             }else if(direction !== 1){
+                changePage(7, qsTr("Encryption Options"), currentPage)
                 manageProgressBar(8,direction,typeBranch)
-                content.source = "Page7.qml"
-                changeSubWindowTitle(qsTr("Encryption Options"))
-                currentPage-=1
                 content.item.type = typeBranch
             }
             break;
-        case 9: //volume password (standard volume)
+
+
+
+
+            /* Page9.qml
+             * Volume password (twice)
+             * TODO : use keyfiles
+             */
+        case progress.VOLUME_PWD: //volume password (standard volume)
             typeBranch = content.item.type
 
-            //type 0 & 1 (normal) => types[7], else types[11]
+            //type 0 & 1 (normal) => volumeInfos.VOLUME_NEW_PASSWORD, else volumeInfos.HIDDEN_VOLUME_PASSWORD
             if(content.item.type !== 2) {
-                types[7][0] = content.item.password[0]
-                types[7][1] = content.item.password[1]
+                volumeInfos.VOLUME_NEW_PASSWORD[0] = content.item.password[0]
+                volumeInfos.VOLUME_NEW_PASSWORD[1] = content.item.password[1]
             }else {
-                types[11][0] = content.item.password[0]
-                types[11][1] = content.item.password[1]
+                volumeInfos.HIDDEN_VOLUME_PASSWORD[0] = content.item.password[0]
+                volumeInfos.HIDDEN_VOLUME_PASSWORD[1] = content.item.password[1]
             }
             //TODO : short password
             if(direction === 1
                     && content.item.password[0] !== ""
                     && content.item.password[0] === content.item.password[1]) //1 => normal
             {
+                changePage(10, qsTr("Volume Format"), currentPage)
                 manageProgressBar(9,direction,typeBranch)
-                console.log("type vaut " + content.item.type)
-                content.source = "Page10.qml"
-                changeSubWindowTitle(qsTr("Volume Format"))
-                currentPage+=1
                 content.item.type = typeBranch
-                if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
-                    next_.text = qsTr("Format")
+                //if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
+                next_.text = qsTr("Format")
             }else if(direction !== 1){
+                changePage(8, qsTr("Volume Size"), currentPage)
                 manageProgressBar(9,direction,typeBranch)
-                content.source = "Page8.qml"
-                changeSubWindowTitle(qsTr("Volume Size"))
-                currentPage-=1
                 content.item.type = typeBranch
             }else{
                 openErrorMessage(qsTr("Different passwords"), qsTr("The passwords are different or empties. <br>Please try again."))
             }
             break;
-        case 10:
+
+
+
+
+            /* Page10.qml
+             * Volume format : random, filesystem, cluster, dynamic
+             */
+        case progress.VOLUME_FORMAT:
              //format volume (standard volume)
             if(content.item.type !== 2) {
-                types[8][0] = content.item.format[0]
-                types[8][1] = content.item.format[1]
-                types[8][2] = content.item.format[2]
+                volumeInfos.FORMAT_INFOS[0] = content.item.format[0]
+                volumeInfos.FORMAT_INFOS[1] = content.item.format[1]
+                volumeInfos.FORMAT_INFOS[2] = content.item.format[2]
             }else {
-                types[12][0] = content.item.format[0]
-                types[12][1] = content.item.format[1]
-                types[12][2] = content.item.format[2]
+                volumeInfos.HIDDEN_FORMAT_INFOS[0] = content.item.format[0]
+                volumeInfos.HIDDEN_FORMAT_INFOS[1] = content.item.format[1]
+                volumeInfos.HIDDEN_FORMAT_INFOS[2] = content.item.format[2]
             }
             typeBranch = content.item.type
             manageProgressBar(10,direction,typeBranch)
@@ -436,20 +443,17 @@ Item {
             {
                 switch(content.item.type) {
                 case 0:
-                    //TODO : creation volume normal mode
                     sendAllInfos()
                     Wizard.createVolume()
                     content.source = "PageEnd.qml"
-                    changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
+                    changeSubWindowTitle()
                     back_.visible = false
                     next_.visible = false
                     help_.visible = false
                     break;
                 case 1:
-                    content.source = "Page11.qml"
-                    changeSubWindowTitle(qsTr("Outer Volume Contents"))
+                    changePage(11, qsTr("Outer Volume Contents"), currentPage)
                     back_.setDisable(1)
-                    currentPage+=1
                     break;
                 case 2:
                 case 3:
@@ -470,44 +474,70 @@ Item {
                     break;
                 }
             }else if(direction !== 1){
-                content.source = "Page9.qml"
-                changeSubWindowTitle(qsTr("Volume password"))
+                changePage(9, qsTr("Volume password"), currentPage)
                 next_.text = qsTr("Next >")
-                currentPage-=1
                 content.item.type = typeBranch
             }
-
             break;
 
-        case 11:
+
+
+
+            /* Page11.qml
+             * Outer Volume Contents
+             */
+        case progress.VOLUME_OUTER_CONTENTS:
             typeBranch = content.item.type
             manageProgressBar(11,direction,0)
             if(direction === 1) //1 => normal
             {
-                content.source = "Page12.qml"
-                changeSubWindowTitle(qsTr("Hidden Volume"))
+                changePage(12, qsTr("Hidden Volume"), currentPage)
                 back_.setDisable(1)
-                currentPage+=1
                 content.item.type = typeBranch
             }
             break;
 
-        case 12:
+
+
+
+            /* Page12.qml
+             * AHidden Volume part (information)
+             */
+        case progress.VOLUME_HIDDEN_VOLUME:
             typeBranch = content.item.type
             manageProgressBar(12,direction,typeBranch)
             if(direction === 1) //1 => normal
             {
-                content.source = "Page7.qml"
-                changeSubWindowTitle(qsTr("Encryption Options"))
-                currentPage-=5
+                changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
                 back_.setDisable(0)
                 content.item.type = typeBranch
             }
+            break;
+
+
+
+            /* PageEnd.qml
+             * Done !
+             */
+        case progress.VOLUME_END:
+
             break;
         }
 
     }
 
+    /*!
+      * Fn : manages the page loading
+      */
+    function changePage(number, title, current) {
+        content.source = "Page"+number+".qml"
+        changeSubWindowTitle(title)
+        currentPage+=(number-current)
+    }
+
+    /*!
+      * Fn : manages the loading bar
+      */
     function manageProgressBar(posInitial, direction, branch)
     {
         switch(posInitial) {

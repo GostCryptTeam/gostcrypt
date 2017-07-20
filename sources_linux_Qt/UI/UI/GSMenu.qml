@@ -44,7 +44,7 @@ Item {
             ConnectSignals.getAllMountedVolumes()
         }
     }
-    GSMenuButtonItem {
+    /*GSMenuButtonItem {
         id: buttonVolumes
         y: home.y + 60
         text: qsTr("Volumes")
@@ -63,10 +63,11 @@ Item {
         onClicked: {
             menuChanged("frames/SystemFrame.qml", 2)
         }
-    }
+    }*/
+
     GSMenuButtonItem {
         id: buttonFavorites
-        y: buttonSystem.y + 60
+        y: home.y + 60
         text: qsTr("Favorites")
         iconPath_: icons[3]
         selected_: (selected == 3) ? true : false
