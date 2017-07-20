@@ -7,6 +7,7 @@ Item {
     id: top
     property variant sizeType: [0, "MB"]
     property int type: 0
+
     TextField {
         id: sizeValue
         x: 10
@@ -74,7 +75,7 @@ Item {
         id:freeDiskSpace
         width: top.width-120
         font.pixelSize: 15
-        text: qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>")
+        text: ""
         y: 120
         x: 60
         color: palette.text
@@ -86,9 +87,7 @@ Item {
         id:description
         width: top.width-120
         font.pixelSize: 12
-        text: qsTr("Please specify the size of the container you want to create.<br><br>If"
-                   +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
-                   +"<br><br>Note that possible size of an NTFS volume is 3792 KB.")
+        text: ""
         y: 150
         x: 60
         color: palette.text
@@ -96,9 +95,8 @@ Item {
         wrapMode: Text.WordWrap
     }
 
-
-
-
-
-
+    function setText(bold, text) {
+        freeDiskSpace.text = bold
+        description.text = text
+    }
 }

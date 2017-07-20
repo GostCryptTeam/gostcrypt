@@ -15,7 +15,7 @@ Item {
     Behavior on opacity {
         NumberAnimation {
             id: animation
-            duration: app.duration;
+            duration: app.duration/3;
             easing.type: Easing.OutQuad;
             onRunningChanged: {
                 if(!animation.running && errorLayer.isVisible == false) {

@@ -153,7 +153,7 @@ Item {
              */
         case progress.VOLUME_ISHIDDEN:
             volumeInfos.VOLUME_TYPE = content.item.type
-            manageProgressBar(2,direction,0)
+            manageProgressBar(2,direction,content.item.type)
             if(direction === 1) //1 => normal
             {
                 // Choice: Standard GostCrypt Volume
@@ -321,10 +321,20 @@ Item {
                 volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.algoHash
             if(direction === 1)
             {
-                if(typeBranch === 2)
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(8, qsTr("Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                                              +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
+                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                }
+                else {
                     changePage(8, qsTr("Hidden Volume Size"), currentPage)
-                else
-                    changePage(8, qsTr("Volume Location"), currentPage)
+                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the hidden volume to create. The minimum possible "
+                                              +"size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). "
+                                              +"The maximum possible size you can specify for the hidden volume is displayed above."))
+                }
                 content.item.type = typeBranch
             }else{
                 switch(content.item.type) {
@@ -372,11 +382,31 @@ Item {
                     && content.item.sizeType
                     && content.item.sizeType[0] > 0) //1 => normal
             {
-                changePage(9, qsTr("Volume Password"), currentPage)
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(9, qsTr("Volume Password"), currentPage)
+                    content.item.setText(qsTr("     It is very important that you choose a good password. You should avoid"
+                                              +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
+                                              +" It should not contain any names or dates of birth. It sould not be easy to guess."
+                                              +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
+                                              +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
+                                              +" The maximum possible length is 64 characters."))
+                }
+                else {
+                    changePage(9, qsTr("Hidden Volume Password"), currentPage)
+                    content.item.setText(qsTr(" Please choose a password for the hidden volume. It is very important that you choose a good password. You should avoid"
+                                              +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
+                                              +" It should not contain any names or dates of birth. It sould not be easy to guess."
+                                              +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
+                                              +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
+                                              +" The maximum possible length is 64 characters."))
+                }
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }else if(direction !== 1){
-                changePage(7, qsTr("Encryption Options"), currentPage)
+                if(typeBranch !== 3 && typeBranch !== 2)
+                    changePage(7, qsTr("Encryption Options"), currentPage)
+                else
+                    changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }
@@ -405,13 +435,30 @@ Item {
                     && content.item.password[0] !== ""
                     && content.item.password[0] === content.item.password[1]) //1 => normal
             {
-                changePage(10, qsTr("Volume Format"), currentPage)
+                if(typeBranch !== 3 && typeBranch !== 2)
+                    changePage(10, qsTr("Volume Format"), currentPage)
+                else
+                    changePage(10, qsTr("Hidden Volume Format"), currentPage)
                 manageProgressBar(9,direction,typeBranch)
                 content.item.type = typeBranch
                 //if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
                 next_.text = qsTr("Format")
             }else if(direction !== 1){
-                changePage(8, qsTr("Volume Size"), currentPage)
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(8, qsTr("Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                                              +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
+                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                }
+                else {
+                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the hidden volume to create. The minimum possible "
+                                              +"size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). "
+                                              +"The maximum possible size you can specify for the hidden volume is displayed above."))
+                }
+
                 manageProgressBar(9,direction,typeBranch)
                 content.item.type = typeBranch
             }else{
@@ -474,7 +521,10 @@ Item {
                     break;
                 }
             }else if(direction !== 1){
-                changePage(9, qsTr("Volume password"), currentPage)
+                if(typeBranch !== 3 && typeBranch !== 2)
+                    changePage(9, qsTr("Volume password"), currentPage)
+                else
+                    changePage(9, qsTr("Hidden Volume password"), currentPage)
                 next_.text = qsTr("Next >")
                 content.item.type = typeBranch
             }

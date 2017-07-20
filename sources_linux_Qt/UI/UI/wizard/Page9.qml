@@ -8,7 +8,6 @@ Item {
     anchors.centerIn: parent
     property variant password: ["", ""]
     property int type: 0
-    //password part
 
     Text {
         x: 52
@@ -120,19 +119,18 @@ Item {
     }
 
     Text {
-        id:description2
+        id:description
         width: top.width-120
         font.pixelSize: 12
-        text: qsTr("     It is very important that you choose a good password. You should avoid"
-                   +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
-                   +" It should not contain any names or dates of birth. It sould not be easy to guess."
-                   +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
-                   +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
-                   +" The maximum possible length is 64 characters.")
+        text: ""
         y: use_Keyfiles.y + 95
         x: 60
         color: palette.text
         horizontalAlignment: Text.AlignJustify
         wrapMode: Text.WordWrap
+    }
+
+    function setText(text) {
+        description.text = text
     }
 }
