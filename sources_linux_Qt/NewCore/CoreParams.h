@@ -8,22 +8,28 @@ namespace GostCrypt {
 		static bool initCoreParams();
 
 		struct CoreParams {};
-		SERIALIZABLE(CoreParams);
+		SERIALIZABLE(CoreParams)
 
-		struct CoreCreateVolumeParams : CoreParams {};
-		SERIALIZABLE(CoreCreateVolumeParams);
+		struct CreateVolumeParams : CoreParams {};
+		SERIALIZABLE(CoreCreateVolumeParams)
 
-		struct CoreChangeVolumePasswordParams : CoreParams {};
-		SERIALIZABLE(CoreChangeVolumePasswordParams);
+		struct ChangeVolumePasswordParams : CoreParams {};
+		SERIALIZABLE(CoreChangeVolumePasswordParams)
 
-		struct CoreCreateKeyFileParams : CoreParams {};
-		SERIALIZABLE(CoreCreateKeyFileParams);
+		struct CreateKeyFileParams : CoreParams {};
+		SERIALIZABLE(CoreCreateKeyFileParams)
 
-		struct CoreMountVolumeParams : CoreParams {};
-		SERIALIZABLE(CoreMountVolumeParams);
+		struct MountVolumeParams : CoreParams {};
+		SERIALIZABLE(CoreMountVolumeParams)
 
-		struct CoreDismountVolumeParams : CoreParams {};
-		SERIALIZABLE(CoreDismountVolumeParams);
+		struct DismountVolumeParams : CoreParams {};
+		SERIALIZABLE(CoreDismountVolumeParams)
+
+		struct GetHostDevicesParams : CoreParams {};
+		SERIALIZABLE(GetHostDevicesParams)
+
+		struct GetMountedVolumesParams : CoreParams {};
+		SERIALIZABLE(GetMountedVolumesParams)
 	}
 }
 #endif // COREPARAMS_H
