@@ -1,5 +1,6 @@
 import QtQuick 2.7
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.2 as ControlsOld
+import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
@@ -10,6 +11,7 @@ Item {
     id: openVolume_Form
     property var childOf
     property string volumePath
+    property variant devices
     anchors.fill: childOf
     signal incorrectPassword()
     signal sendInfoVolume()
@@ -117,6 +119,24 @@ Item {
             text: qsTr("Select Device")
             width: 120
             color_: palette.green
+            onClicked: {
+                devices = ConnectSignals.getListOfDevices()
+                console.log(devices)
+                devicesSelection.visible = true
+                var i = 0
+                while(devices[i] !== undefined) {
+                    listDeviceModel.append(
+                                {
+                                    mountPoint: devices[i][0],
+                                    name: devices[i][1],
+                                    path: devices[i][2],
+                                    removable: devices[i][3],
+                                    size: devices[i][4],
+                                    systemNumber: devices[i][5]
+                                })
+                    i++;
+                }
+            }
         }
 
         FileDialog {
@@ -155,7 +175,7 @@ Item {
             color: '#719c24'
         }
 
-        TextField {
+        ControlsOld.TextField {
             id: password_value
             x: password_txt.x + password_txt.width + 2
             width: combo.width + 118
@@ -274,6 +294,73 @@ Item {
                 console.log("Mot de passe : "+password_blank);
                 password_value.text = password_blank
             }
+        }
+    }
+
+    // Device part
+    Rectangle {
+        id: devicesSelection
+        visible: false
+        anchors.fill:parent
+        color: palette.darkSecond
+
+        Component {
+                id: deviceDelegate
+                Item {
+                    width: 180;
+                    height: 105;
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Rectangle {
+                        anchors.fill: parent
+                        color: palette.darkThird
+                        border.color: palette.darkInput
+                        border.width: 1
+                        radius: 2
+
+                        Item {
+                            x: 5
+                            y: 5
+                            width: parent.width -10
+                            height: parent.height -10
+                            Column {
+                                Text { color:palette.text; text: '<b>MountPoint:</b> ' + mountPoint }
+                                Text { color:palette.text; text: '<b>Name:</b> ' + name }
+                                Text { color:palette.text; text: '<b>Path:</b> ' + path }
+                                Text { color:palette.text; text: '<b>Removable:</b> ' + removable }
+                                Text { color:palette.text; text: '<b>Size:</b> ' + size }
+                                Text { color:palette.text; text: '<b>SystemNumber:</b> ' + systemNumber }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+        ListModel {
+             id: listDeviceModel
+             ListElement {
+                 mountPoint: "";
+                 name: "";
+                 path: "";
+                 removable: false;
+                 size: 0;
+                 systemNumber: 0
+             }
+        }
+
+        ListView {
+            id: listOfDevices
+            anchors.fill: parent
+            delegate: deviceDelegate
+            model: listDeviceModel
+            focus: true
+            ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
+            snapMode: GridView.SnapToRow
+            clip: true
+            spacing:10
+            anchors.topMargin: 10
+            anchors.bottomMargin: 10
         }
     }
 

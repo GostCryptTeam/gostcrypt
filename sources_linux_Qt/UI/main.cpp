@@ -10,6 +10,7 @@
 #include "Platform/SystemLog.h"
 #include "DragWindowProvider.h"
 #include "volumecreation.h"
+#include <QStorageInfo>
 
 int main(int argc, char *argv[])
 {

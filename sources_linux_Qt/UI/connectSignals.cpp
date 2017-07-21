@@ -127,6 +127,43 @@ void ConnectSignals::connectEndSudo()
     mGUI->receiveSudoEndPassword();
 }
 
+void iterateHostDeviceList(GostCrypt::HostDeviceList volumes, QVariantList *listOfDevices)
+{
+    if(volumes.size() <= 0)
+        return;
+    for (std::list<shared_ptr <GostCrypt::HostDevice>>::iterator it = volumes.begin();
+         it != volumes.end();
+         it++)
+    {
+#ifdef QT_DEBUG
+        qDebug() << "======\nMountPoint : " << QString::fromStdString(GostCrypt::StringConverter::ToSingle(it->get()->MountPoint));
+        qDebug() << "Name : " << QString::fromWCharArray(it->get()->Name.c_str());
+        qDebug() << "Path : " << QString::fromStdString(GostCrypt::StringConverter::ToSingle(it->get()->Path));
+        qDebug() << "Removable : " << it->get()->Removable;
+        qDebug() << "Size : " << it->get()->Size;
+        qDebug() << "SystemNumber : " << it->get()->SystemNumber;
+#endif
+        *listOfDevices << QVariant::fromValue(
+                             QVariantList{
+                                 QString::fromStdString(GostCrypt::StringConverter::ToSingle(it->get()->MountPoint)),
+                                 QString::fromWCharArray(it->get()->Name.c_str()),
+                                 QString::fromStdString(GostCrypt::StringConverter::ToSingle(it->get()->Path)),
+                                 (bool)it->get()->Removable,
+                                 (int)it->get()->Size,
+                                 (int)it->get()->SystemNumber
+                             });
+        iterateHostDeviceList(it->get()->Partitions, listOfDevices);
+    }
+}
+
+QVariantList ConnectSignals::getListOfDevices()
+{
+    GostCrypt::HostDeviceList volumes = GostCrypt::Core->GetHostDevices(false);
+    QVariantList listOfDevices{};
+    iterateHostDeviceList(volumes, &listOfDevices);
+    return listOfDevices;
+}
+
 void ConnectSignals::openPath(const QString &aPath)
 {
 #ifdef Q_WS_WIN

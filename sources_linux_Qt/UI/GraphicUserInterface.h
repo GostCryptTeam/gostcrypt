@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QEventLoop>
 #include "Core/Core.h"
+#include "Core/Unix/Linux/CoreLinux.h"
 #include "Core/Unix/CoreService.h"
 #include "Volume/Volume.h"
 #include "Platform/Platform.h"
