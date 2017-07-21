@@ -121,12 +121,13 @@ Item {
             color_: palette.green
             onClicked: {
                 devices = ConnectSignals.getListOfDevices()
-                console.log(devices)
-                devicesSelection.visible = true
+                changeSubWindowTitle("Please select a device")
+                devicesSelection.opacity = 1.0
                 var i = 0
                 while(devices[i] !== undefined) {
                     listDeviceModel.append(
                                 {
+                                    number: i,
                                     mountPoint: devices[i][0],
                                     name: devices[i][1],
                                     path: devices[i][2],
@@ -301,52 +302,112 @@ Item {
     Rectangle {
         id: devicesSelection
         visible: false
+        opacity: 0.0
         anchors.fill:parent
         color: palette.darkSecond
+        Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration/2; easing.type: Easing.OutQuad; onRunningChanged: {
+                    if(!anim_.running) {
+                        devicesSelection.visible = !devicesSelection.visible
+                    }
+                } } }
 
         Component {
                 id: deviceDelegate
                 Item {
-                    width: 180;
-                    height: 105;
+                    id: elementDevice
+                    width: 320;
+                    height: 70;
                     anchors.horizontalCenter: parent.horizontalCenter
+                    Behavior on height { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
+                    Behavior on width { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
                     Rectangle {
+                        id: contentDevice
                         anchors.fill: parent
-                        color: palette.darkThird
-                        border.color: palette.darkInput
+                        color: '#3b3b3b'
+                        border.color: palette.darkThird
                         border.width: 1
                         radius: 2
 
-                        Item {
-                            x: 5
+                        //Circle (number)
+                        Rectangle {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: 50
+                            height: 50
+                            radius: 50
+                            color: palette.darkInput
+                            x:10
+                            Text {
+                                color: palette.text
+                                text: number
+                                anchors.centerIn: parent
+                                font.pixelSize: 15
+                            }
+                        }
+                        Column {
+                            id: infos
+                            x: 70
+                            y: 8
+                            Text {
+                                id: infos_Path
+                                font.pixelSize: 18
+                                color:palette.text;
+                                text: '<b>Path:</b> ' + path
+                            }
+                            Text {
+                                font.pixelSize: 11
+                                color:palette.text;
+                                text: '<b>Size:</b> ' + size
+                            }
+                            Text {
+                                font.pixelSize: 11
+                                color:palette.text;
+                                text: '<b>Removable:</b> ' + removable
+                            }
+                        }
+                        /*Item {
+                            x: 70
                             y: 5
                             width: parent.width -10
                             height: parent.height -10
                             Column {
                                 Text { color:palette.text; text: '<b>MountPoint:</b> ' + mountPoint }
                                 Text { color:palette.text; text: '<b>Name:</b> ' + name }
-                                Text { color:palette.text; text: '<b>Path:</b> ' + path }
+
                                 Text { color:palette.text; text: '<b>Removable:</b> ' + removable }
-                                Text { color:palette.text; text: '<b>Size:</b> ' + size }
+
                                 Text { color:palette.text; text: '<b>SystemNumber:</b> ' + systemNumber }
+                            }
+                        }*/
+                        MouseArea {
+                            id:area
+                            anchors.fill:parent
+                            hoverEnabled: true
+                            cursorShape: area.containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
+                            onEntered: {
+                                contentDevice.color = "#454545"
+                                elementDevice.width = 400
+                               // elementDevice.height = 87
+                            }
+                            onExited: {
+                                contentDevice.color = "#3B3B3B"
+                                elementDevice.width = 320
+                               // elementDevice.height = 70
+                            }
+                            onClicked: {
+                                openVolume_Form.moving(path)
+                                if(historique.pressed === false)
+                                    UserSettings.addVolumePath(path)
+                                combo.model = UserSettings.getVolumePaths(0)
+                                devicesSelection.opacity = 0.0
+                                changeSubWindowTitle(qsTr("Open a GostCrypt Volume"))
                             }
                         }
                     }
-
-
                 }
             }
 
         ListModel {
              id: listDeviceModel
-             ListElement {
-                 mountPoint: "";
-                 name: "";
-                 path: "";
-                 removable: false;
-                 size: 0;
-                 systemNumber: 0
-             }
         }
 
         ListView {
@@ -377,7 +438,6 @@ Item {
     function initDrag(parameter) {
         moving(parameter.value)
         UserSettings.addVolumePath(parameter.value)
-        //console.log(parameter.value);
         combo.model = UserSettings.getVolumePaths(0)
     }
 
