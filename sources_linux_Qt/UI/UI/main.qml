@@ -141,22 +141,29 @@ Window {
 
 
 
-
-
-
     /*************************************
      **********  Window content **********
      *************************************/
 
-    signal menuCHanged(string name, int index)
+    signal menuChanged(string name, int index)
 
     Loader {
         id: pageLoader
         source: "frames/HomeFrame.qml"
         y:40
         x:0
+        onSourceChanged: animation.running = true
         onLoaded: {
             pageLoader.item.mainWindow_ = app
+        }
+        NumberAnimation {
+            id: animation
+            target: pageLoader.item
+            property: "opacity"
+            from: 0
+            to: 1.0
+            duration: app.duration/4
+            easing.type: Easing.InExpo
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
@@ -164,7 +171,8 @@ Window {
     Connections {
         target: gs_Menu
         onMenuChanged: {
-            pageLoader.source = name
+            if(name !== "")
+                pageLoader.source = name
             gs_Menu.selected = index
         }
     }
@@ -172,8 +180,13 @@ Window {
     Connections {
         target: pageLoader.item
         onMenuChanged: {
-            pageLoader.source = name
-            gs_Menu.selected = index
+            if(pageLoader.source !== name)
+                pageLoader.source = name
+            if(name === "frames/Home.qml")
+            {
+                pageLoader.item.clearVolumes()
+                ConnectSignals.getAllMountedVolumes();
+            }
         }
     }
 
@@ -342,11 +355,14 @@ Window {
         Returns nothing.
      */
     function toggleMenu() {
+        gs_Menu.toggleSubMenu(false)
         gs_Menu.x = app.shown ? -gs_Menu.width : 0
-        pageLoader.x = app.shown ? 0 : 75
-        menuButton.x = app.shown ? 20 : 165
+        pageLoader.x = app.shown ? 0 : 85
+        menuButton.x = app.shown ? 20 : 185
         app.shown = !app.shown
         menuButton.value = !menuButton.value;
+        //gs_Menu.selected = 0 TODO
+        //TODO setting home as active is nothing was selected
     }
 
     function openSubWindow(path, title, name, height, parameter) {
@@ -407,5 +423,6 @@ Window {
             sudo_.isVisible = false
         }
     }
+
 
 }

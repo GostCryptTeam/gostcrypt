@@ -78,3 +78,5 @@ SOURCES += UI/* \
            UI/ressource/* \
            UI/wizard/* \
 }
+
+DISTFILES +=

@@ -407,4 +407,8 @@ Item {
         listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size})
     }
 
+    function clearVolumes() {
+        listOfVolumes.clear();
+    }
+
 }
