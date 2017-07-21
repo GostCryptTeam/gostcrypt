@@ -4,3 +4,4 @@
 **/*.user*
 Makefile
 */.qmake.stash
+*.autosave

@@ -55,7 +55,7 @@ SOURCES += main.cpp \
     UserSettings.cpp \
     volumecreation.cpp
 
-LIBS += ../Core/libCore.a \
+LIBS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a \
@@ -65,7 +65,7 @@ LIBS += ../Core/libCore.a \
 
 TARGET = ../GostCrypt
 
-PRE_TARGETDEPS += ../Core/libCore.a \
+PRE_TARGETDEPS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a
