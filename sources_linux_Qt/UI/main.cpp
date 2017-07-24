@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
         // Process elevated requests
         try
         {
-            GostCrypt::CoreService::ProcessElevatedRequests();
+            // TODO : replace by NewCore
+            //GostCrypt::CoreService::ProcessElevatedRequests();
             return 0;
         }
         catch (exception &e)

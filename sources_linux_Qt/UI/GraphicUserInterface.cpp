@@ -41,11 +41,11 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
-    GostCrypt::MountOptions options;
-    options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
-    options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));
+    GostCrypt::NewCore::MountVolumeParams options;
+    //options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
+    //options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));
     //options.MountPoint.reset(new DirectoryPath("/home/hantoine/as"));
-    try {
+    /*try {
 
 //        shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
 #ifdef QT_DEBUG
@@ -73,7 +73,7 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
         +QString::fromUtf8(e.what())
 #endif
         );
-    }
+    }*/
 }
 
 void GraphicUserInterface::receiveAutoMount(const QString& aPassword)
@@ -137,7 +137,7 @@ void GraphicUserInterface::receiveChangePassword(const QString &volumePath, cons
                                     newKeyFiles);*/
 }
 
-void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
+void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::NewCore::CreateVolumeParams> aCreate){
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif

@@ -18,7 +18,7 @@ namespace GostCrypt
 {
 	
 	struct VolumeCreationOptions
-	{
+    {
 		VolumePath Path;
 		VolumeType::Enum Type;
 		uint64 Size;
@@ -56,7 +56,7 @@ namespace GostCrypt
 				return VolumeCreationOptions::FilesystemType::FAT;
 #endif
 			}
-		};
+        };
 
 		FilesystemType::Enum Filesystem;
 		uint32 FilesystemClusterSize;

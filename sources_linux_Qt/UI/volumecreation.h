@@ -2,7 +2,7 @@
 #define VOLUMECREATION_H
 
 #include <QObject>
-#include "../Core/VolumeCreator.h"
+//#include "../Core/VolumeCreator.h"
 
 class VolumeCreation : public QObject {
     Q_OBJECT
@@ -20,8 +20,8 @@ public:
     Q_INVOKABLE QString getfreeSpace();
 
 private:
-    GostCrypt::VolumeCreationOptions mInfos;
-    GostCrypt::VolumeCreator mVCreator;
+    //GostCrypt::VolumeCreationOptions mInfos;
+    //GostCrypt::VolumeCreator mVCreator;
 };
 
 #endif // VOLUMECREATION_H

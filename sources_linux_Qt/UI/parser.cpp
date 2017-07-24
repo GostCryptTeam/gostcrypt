@@ -1,6 +1,6 @@
 #include "parser.h"
 
-void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::MountOptions *options)
+void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::MountVolumeParams *options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
     parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
@@ -28,7 +28,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
 
     // Parsing all options
 
-    if (parser.isSet("help"))
+    /*if (parser.isSet("help"))
         throw new Parser::ParseException(); // throwing an empty exception shows the help only
 
     if (parser.isSet("password")) {
@@ -59,7 +59,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
         for(QString option : opts){
             options->FilesystemOptions.append((option + " ").toStdWString());
         }
-    }
+    }*/
 
     /*if (parser.isSet("")) { // filesystemtype
         // force filesystem thype
@@ -73,7 +73,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
 
     }*/
 
-    if (parser.isSet("h")) // enable-hardware-crypto
+    /*if (parser.isSet("h")) // enable-hardware-crypto
         options->NoHardwareCrypto = false;
 
     if (parser.isSet("enable-kernel-crypto"))
@@ -85,7 +85,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
     if (parser.isSet("mountpoint")) {
         const QString mountpoint = parser.value("mountpoint");
         options->MountPoint.reset(new GostCrypt::DirectoryPath(qPrintable(mountpoint)));
-    }
+    }*/
 
     /*if (parser.isSet("")) { // volume protection
 
@@ -99,7 +99,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
 
     }*/
 
-    if (parser.isSet("removable"))
+    /*if (parser.isSet("removable"))
         options->Removable = true;
 
     if (parser.isSet("shared"))
@@ -123,10 +123,10 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
     if (positionalArguments.size() > 2)
         throw new Parser::ParseException("Too many arguments specified.");
 
-    options->Path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));
+    options->Path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));*/
 }
 
-void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QString *volume)
+void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::DismountVolumeParams *volume)
 {
     parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
     parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
@@ -145,13 +145,13 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
     if (positionalArguments.size() > 2)
         throw new Parser::ParseException("Too many arguments specified.");
 
-    *volume = positionalArguments.at(1);
+    //*volume = positionalArguments.at(1);
 }
 
-void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, WhatToList *item)
+void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item)
 {
     parser.addPositionalArgument("list", "Mounts a volume.", "list");
-    parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs}");
+    parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
     parser.process(app);
 
     // Parsing all options
@@ -162,8 +162,9 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, WhatTo
     // parsing positional arguments
 
     const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2) {
+    if (positionalArguments.size() < 2){
         *item = Volumes;
+        return;
     }
     if (positionalArguments.size() > 2)
         throw new Parser::ParseException("Too many arguments specified.");
@@ -180,7 +181,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, WhatTo
         throw new Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, VolumeCreation *options)
+void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::CreateVolumeParams *options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path");
@@ -203,7 +204,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Volu
     parser.process(app);
 
     // Parsing all options
-    options->Keyfiles.reset(nullptr);
+    /*options->Keyfiles.reset(nullptr);
     options->Password.reset(nullptr);
 
     if (parser.isSet("help"))
@@ -221,12 +222,6 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Volu
     }
 
     if (parser.isSet("file")) {
-        /*const QStringList files = parser.values("file");
-        GostCrypt::KeyfileList* keyfiles = new list<shared_ptr<GostCrypt::Keyfile>>();
-        for(QString file : files){
-            keyfiles->push_back(shared_ptr<GostCrypt::Keyfile>(new GostCrypt::Keyfile(file.toStdString())));
-        }
-        options->Keyfiles.reset(keyfiles);*/
         options->setKeyFiles("ho ho"); // TODO DO SOMETHING
         throw new Parser::ParseException("WELL WE HAVE A PROBLEM HERE");
     }
@@ -324,10 +319,10 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Volu
     if (positionalArguments.size() > 2)
         throw new Parser::ParseException("Too many arguments specified.");
 
-    options->Path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));
+    options->Path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));*/
 }
 
-uint64 parseSize(QString s, bool *ok){
+quint64 parseSize(QString s, bool *ok){
     s.data()[s.size()-1]='\0';
     if(ok)
         *ok = true;

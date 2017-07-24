@@ -4,14 +4,13 @@
 #include <QDebug>
 #include <QObject>
 #include <QEventLoop>
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
+//#include "Core/Core.h"
+//#include "Core/Unix/CoreService.h"
 #include "Volume/Volume.h"
-#include "Platform/Platform.h"
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumeInfo.h"
-#include "Core/VolumeCreator.h"
-#include "../Volume/VolumeInfo.h"
+#include "NewCore/CoreParams.h"
+//#include "Core/VolumeCreator.h"
 
 class GraphicUserInterface : public QObject
 {
@@ -31,11 +30,11 @@ public slots:
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
     void receiveSudoEndPassword();
-    void receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions>);
+    void receiveCreateVolume(shared_ptr <GostCrypt::NewCore::CreateVolumeParams> options);
     void receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles);
 
 signals:
-    void sendVolume(GostCrypt::MountOptions aOptions);
+    void sendVolume(GostCrypt::NewCore::MountVolumeParams aOptions);
     void askSudoPassword();
     void sendVolumeInfos(string AuxMountPoint, wstring EncryptionAlgorithmName, string Path, uint64 Size);
     void confirmSudoPassword();

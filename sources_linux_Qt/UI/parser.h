@@ -1,10 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
-#include "Platform/SystemLog.h"
-#include "volumecreation.h"
+#include "NewCore/CoreParams.h"
 
 #include <QCommandLineParser>
 #include <iostream>
@@ -12,31 +9,31 @@
 
 namespace Parser {
 
-class ParseException : QException {
-public:
-    ParseException() { this->message = ""; }
-    ParseException(const QString &message) { this->message = message; }
-    void raise() const { throw *this; }
-    ParseException *clone() const { return new ParseException(*this); }
-    QString getMessage() { return this->message; }
-private:
-    QString message;
-};
+    class ParseException : QException {
+    public:
+        ParseException() { this->message = ""; }
+        ParseException(const QString &message) { this->message = message; }
+        void raise() const { throw *this; }
+        ParseException *clone() const { return new ParseException(*this); }
+        QString getMessage() { return this->message; }
+    private:
+        QString message;
+    };
 
-typedef enum _WhatToList
-{
-    Volumes,
-    Algorithms,
-    Hashs,
-    FileSystems
-} WhatToList;
+    typedef enum _WhatToList
+    {
+        Volumes,
+        Algorithms,
+        Hashs,
+        FileSystems
+    } WhatToList;
 
-uint64 parseSize(QString s, bool *ok);
+    quint64 parseSize(QString s, bool *ok);
 
-void parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::MountOptions *options);
-void parseCreate(QCoreApplication &app, QCommandLineParser &parser, VolumeCreation *options);
-void parseDismount(QCoreApplication &app, QCommandLineParser &parser, QString *volume);
-void parseList(QCoreApplication &app, QCommandLineParser &parser, WhatToList *item);
+    void parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::MountVolumeParams *options);
+    void parseCreate(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::CreateVolumeParams *options);
+    void parseDismount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::DismountVolumeParams *volume);
+    void parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item);
 
 }
 

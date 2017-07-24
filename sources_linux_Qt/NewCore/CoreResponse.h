@@ -1,7 +1,7 @@
 #ifndef CORERESPONSE_H
 #define CORERESPONSE_H
 #include <QVariant>
-
+#include <QSharedPointer>
 #include "SerializationUtil.h"
 
 namespace GostCrypt {
@@ -9,28 +9,37 @@ namespace GostCrypt {
 		static bool initCoreResponse();
 
 		struct CoreResponse {};
-		SERIALIZABLE(CoreResponse)
 
 		struct CreateVolumeResponse : CoreResponse {};
-		SERIALIZABLE(CreateVolumeResponse)
 
 		struct ChangeVolumePasswordResponse : CoreResponse {};
-		SERIALIZABLE(ChangeVolumePasswordResponse)
 
 		struct CreateKeyFileResponse : CoreResponse {};
-		SERIALIZABLE(CreateKeyFileResponse)
 
 		struct MountVolumeResponse : CoreResponse {};
-		SERIALIZABLE(MountVolumeResponse)
 
 		struct DismountVolumeResponse : CoreResponse {};
-		SERIALIZABLE(DismountVolumeResponse)
 
 		struct GetHostDevicesResponse : CoreResponse {};
-		SERIALIZABLE(GetHostDevicesResponse)
 
 		struct GetMountedVolumesResponse : CoreResponse {};
-		SERIALIZABLE(GetMountedVolumesResponse)
 	}
 }
+
+SERIALIZABLE(GostCrypt::NewCore::CoreResponse)
+SERIALIZABLE(GostCrypt::NewCore::CreateVolumeResponse)
+SERIALIZABLE(GostCrypt::NewCore::ChangeVolumePasswordResponse)
+SERIALIZABLE(GostCrypt::NewCore::CreateKeyFileResponse)
+SERIALIZABLE(GostCrypt::NewCore::MountVolumeResponse)
+SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
+SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
+SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
+
+
+
+
+
+
+
+
 #endif // CORERESPONSE_H
