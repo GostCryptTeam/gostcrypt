@@ -254,16 +254,31 @@ Window {
      *********  Static window  ***********
      *************************************/
 
-    /*!
-        \class GSMenu
-        \brief Menu zone on the left
-     */
-    GSMenu{
-        id: gs_Menu
-        height: app.height-40
+
+    Rectangle {
+        id: fullSizeSubMenu
+        x:0
         y:40
-        selected: 0
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+        width: app.width
+        height: app.height-40
+        color: "#000000"
+        opacity: 0.0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: app.duration/2;
+                easing.type: Easing.OutQuad
+            }
+        }
+        MouseArea {
+            id: mouseAreaMenu
+            anchors.fill: parent
+            enabled: false
+            visible: false
+            propagateComposedEvents: true
+            onClicked: {
+                toggleMenu()
+            }
+        }
     }
 
     /*!
@@ -276,13 +291,35 @@ Window {
         x: 20
         y: 55
         value: rotate
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+        Behavior on x {
+            NumberAnimation {
+                duration: app.duration;
+                easing.type: Easing.OutQuad
+            }
+        }
         //Changing the rotation value following the width
         onXChanged: {
-            rotate = (1-Math.abs(gs_Menu.x/gs_Menu.width))
-            menuButton.value = rotate
+            if(x<=185) {
+                rotate = (1-Math.abs(gs_Menu.x/gs_Menu.width))
+                menuButton.value = rotate
+            }
         }
     }
+
+
+    /*!
+        \class GSMenu
+        \brief Menu zone on the left
+     */
+    GSMenu{
+        id: gs_Menu
+        height: app.height-40
+        y:40
+        selected: 0
+        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    }
+
+
 
     TitleBar  {
         x:0
@@ -355,8 +392,9 @@ Window {
         Returns nothing.
      */
     function toggleMenu() {
+        gs_Menu.selected = 0
         gs_Menu.toggleSubMenu(false)
-        gs_Menu.x = app.shown ? -gs_Menu.width : 0
+        gs_Menu.x = app.shown ? -gs_Menu.width-1 : 0
         pageLoader.x = app.shown ? 0 : 85
         menuButton.x = app.shown ? 20 : 185
         app.shown = !app.shown

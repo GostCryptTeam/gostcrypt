@@ -1,10 +1,11 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
 
 Button {
     id: buttonMenu
     signal clicked()
-    width: 150
+    width: 170
     height: 60
     property string iconPath_
     property bool selected_: false
@@ -47,7 +48,7 @@ Button {
 
     Rectangle {
         anchors.top: buttonMenu_rect.bottom
-        width: 150
+        width: 170
         height: 1
         color: palette.border
     }

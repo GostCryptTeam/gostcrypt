@@ -265,8 +265,8 @@ Item {
                 font.pixelSize: 13
                 y: line1.y + 20
                 horizontalAlignment: Text.AlignVCenter
-                text: qsTr("<html>New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
-                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume</html>")
+                text: qsTr("New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
+                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume")
                 MouseArea {
                         anchors.fill: parent
                         acceptedButtons: Qt.NoButton

@@ -79,4 +79,5 @@ SOURCES += UI/* \
            UI/wizard/* \
 }
 
-DISTFILES +=
+DISTFILES += \
+    UI/ressource/separator.png

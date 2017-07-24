@@ -3,15 +3,15 @@ import QtQuick.Controls 2.2
 
 Item {
     id: top
-    x:-150
-    width: 150
+    x: -170
+    width: 170
     property variant icons: [
         "ressource/menu_home.png",
         "ressource/menu_volume.png",
         "ressource/menu_system.png",
+        "ressource/menu_favorite.png",
         "ressource/menu_tools.png",
         "ressource/menu_settings.png",
-        "ressource/menu_favorite.png",
         "ressource/menu_help.png"]
     property variant menus: {
         "HOME": 0,
@@ -22,6 +22,7 @@ Item {
     }
 
     property int selected: 0
+    property string titleSubMenuText_: ""
     signal menuChanged(string name, int index)
 
     /********************
@@ -29,8 +30,8 @@ Item {
      ********************/
     Rectangle {
         id: subMenu
-        x:0
-        width: 120
+        x:-231
+        width: 230
         height: parent.height
         color: palette.border
         border.color: palette.darkInput
@@ -41,34 +42,89 @@ Item {
                 easing.type: Easing.OutQuad;
             }
         }
+        Rectangle {
+            color: "transparent"
+            width: 230
+            x:1
+            height: 50
+            Text {
+                id: text_
+                text: titleSubMenuText_
+                color: palette.text
+                anchors.centerIn: parent
+                font.pixelSize: 15
+                font.capitalization: Font.AllUppercase
+            }
+            Rectangle {
+                height: 1
+                width: parent.width-2
+                color: palette.dark
+                y:49
+            }
+        }
 
         Component {
-                id: subMenuDelegate
-                Item {
+            id: subMenuDelegateHead
+            Rectangle {
+                width: 228
+                x: 1
+                height:25
+                color:palette.darkInput
+                Text {
+                    x:15
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: section
+                    font.pixelSize: 11
+                    color: "#C9C9C9"
+                    font.capitalization: Font.AllUppercase
+                }
+                Rectangle {
+                    height: 1
+                    width: parent.width
+                    color: palette.dark
+                    y:24
+                }
+            }
+        }
+
+        Component {
+            id: subMenuDelegate
+            Item {
+                width: 228;
+                x: 1
+                height: {
+                    if(size === "small")
+                        if(finale !== undefined) 28;
+                        else return 32
+                    else if(size ==="medium")
+                        if(finale !== undefined) 39;
+                        else return 43
+                    else
+                        if(finale !== undefined) 50;
+                        else return 54
+                }
+                Rectangle {
                     id: elementSubMenu
-                    width: 100;
-                    height: 50;
+                    width: parent.width
+                    height: {
+                        if(finale !== undefined) parent.height;
+                        else return parent.height - 4
+                    }
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Rectangle {
-                        id: elementSubMenu_Rect
-                        x: 5
-                        width: 90
-                        height: 50
-                        radius: 2
-                        color: palette.darkThird
-                        Text {
-                            horizontalAlignment: Text.AlignHCenter
-                            text: message
-                            color: palette.text
-                            font.pixelSize: 11
-                            wrapMode: Text.WordWrap
-                            anchors.centerIn: parent
-                            width: 80
-                        }
+                    color: palette.darkThird
+                    Text {
+                        horizontalAlignment: Text.AlignLeft
+                        text: message
+                        color: palette.text
+                        font.pixelSize: 14
+                        wrapMode: Text.WordWrap
+                        anchors.verticalCenter: parent.verticalCenter
+                        x: 20
+                        width: 200
                     }
                     MouseArea {
                         id: elementSubMenu_MouseArea
-                        anchors.fill: elementSubMenu_Rect
+                        anchors.fill: elementSubMenu
                         hoverEnabled: true
                         onClicked: {
                             console.log("SubMenu button clicked")
@@ -79,7 +135,7 @@ Item {
                             name: "hover"
                             when: elementSubMenu_MouseArea.containsMouse && !elementSubMenu_MouseArea.pressed
                             PropertyChanges {
-                                target: elementSubMenu_Rect
+                                target: elementSubMenu
                                 color : palette.dark
                             }
                         },
@@ -92,7 +148,7 @@ Item {
                             name: "exit"
                             when: !elementSubMenu_MouseArea.containsMouse
                             PropertyChanges {
-                                target: elementSubMenu_Rect
+                                target: elementSubMenu
                                 color: palette.darkThird
                             }
                         }
@@ -103,54 +159,96 @@ Item {
                     }
 
                 }
+                Rectangle {
+                    height: {
+                        if(finale !== undefined) return 0
+                        else return 4
+                    }
+                    width: 228
+                    anchors {
+                        left: elementSubMenu.left
+                        right: elementSubMenu.right
+                        top: elementSubMenu.bottom
+                    }
+                    color: palette.darkThird
+                    Image {
+                        height: parent.height
+                        fillMode: Image.TileHorizontally
+                        x:10
+                        width: parent.width-20
+                        horizontalAlignment: Image.AlignLeft
+                        verticalAlignment: Image.AlignTop
+                        source: "ressource/separator.png"
+                    }
+                }
             }
 
+        }
+
         ListModel {
-             id: listSubMenuModel
+            id: listSubMenuModel
         }
 
         ListView {
             id: listOfSubMenu
-            anchors.fill: parent
+            y:50
+            width: parent.width
+            height: parent.height-50
             delegate: subMenuDelegate
             model: listSubMenuModel
             focus: true
+            snapMode: ScrollBar.SnapAlways
+            clip: true
+            anchors.topMargin: 50
+            anchors.bottomMargin: 10
+            boundsBehavior: Flickable.DragOverBounds
             ScrollBar.vertical:
                 ScrollBar {
                 snapMode: ScrollBar.SnapOnRelease
-                contentItem.opacity: 0.2
-            }
-            snapMode: GridView.SnapToRow
-            clip: false
-            spacing:10
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-            boundsBehavior: Flickable.DragOverBounds
+              //  contentItem.opacity: 0.1
+                policy: ScrollBar.AsNeeded
+                parent: listOfSubMenu.parent
+                anchors.top: listOfSubMenu.top
+                anchors.left: listOfSubMenu.left
+                anchors.bottom: listOfSubMenu.bottom
+                }
+            section.property: "type"
+            section.criteria: ViewSection.FullString
+            section.delegate: subMenuDelegateHead
         }
-
-
     }
+
+
     function toggleSubMenu(open){
         //Toggle case
         if(open === undefined)
         {
-            if(subMenu.x === 150) {
-                subMenu.x = 0
+            fullSizeSubMenu.opacity = fullSizeSubMenu.opacity === 0.0 ? 0.5 : 0.0
+            mouseAreaMenu.enabled = mouseAreaMenu.enabled === true ? false : true
+            mouseAreaMenu.visible = mouseAreaMenu.visible === true ? false : true
+            if(subMenu.x > 0) {
+                subMenu.x = -231
                 top.x = 0
             }else{
-                top.x = -100
-                subMenu.x = 150
+                top.x = -120
+                subMenu.x = 170
             }
             return
         }
         //Forced case
         if(open === true) {
-            top.x = -100
-            subMenu.x = 150
+            fullSizeSubMenu.opacity = 0.5
+            mouseAreaMenu.enabled = true
+            mouseAreaMenu.visible = true
+            top.x = -120
+            subMenu.x = 170
         }
         else {
+            fullSizeSubMenu.opacity = 0.0
+            mouseAreaMenu.enabled = false
+            mouseAreaMenu.visible = false
             top.x = 0
-            subMenu.x = 0
+            subMenu.x = -231
         }
     }
 
@@ -160,51 +258,65 @@ Item {
         switch(index) {
         case menus.HOME:
             //nothing here (?)
+            app.toggleMenu()
             break;
         case menus.FAVORITE:
-            listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites...")})
-            //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites...")}) not needed now
-            listSubMenuModel.append({message: qsTr("Organize favorite volumes...")})
-            //listSubMenuModel.append({message: qsTr("Organize System favorite volumes...")}) not needed now
-            listSubMenuModel.append({message: qsTr("Mount favorite volumes")})
+            titleSubMenuText_ = "favorite"
+            listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), size: "big", type: "menu"})
+            //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
+            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: "menu"})
+            //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
+            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: "menu", finale:"true"})
             break;
         case menus.TOOLS:
-            listSubMenuModel.append({message: qsTr("Benchmark...")})
-            listSubMenuModel.append({message: qsTr("Test vectors...")})
-            listSubMenuModel.append({message: qsTr("Traveler Disk Setup...")})
-            //listSubMenuModel.append({message: qsTr("Volume Creation Wizard...")}) not needed now
-            listSubMenuModel.append({message: qsTr("Keyfile Generator")})
-            listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles...")})
-            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions")})
-            listSubMenuModel.append({message: qsTr("Backup Volume Header...")})
-            listSubMenuModel.append({message: qsTr("Restore Volume Header...")})
-            listSubMenuModel.append({message: qsTr("Refresh Drive Letters")}) //Windows ?
-            listSubMenuModel.append({message: qsTr("Clear Volume History")})
-            listSubMenuModel.append({message: qsTr("Wipe Cached Passwords")}) //when enable ?
+            titleSubMenuText_ = "tools"
+            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: "tests"})
+            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: "tests", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Traveler Disk Setup..."), size: "medium", type: "traveler", finale:"true"})
+            //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
+
+            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: "keyfiles"})
+            listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: "keyfiles"})
+            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: "keyfiles", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: "volume header"})
+            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: "volume header", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Refresh Drive Letters"), size: "medium", type: "other"}) //Windows ?
+            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "medium", type: "other"})
+            listSubMenuModel.append({message: qsTr("Wipe Cached Passwords"), size: "medium", type: "other", finale:"true"}) //when enable ?
             break;
         case menus.SETTINGS:
-            listSubMenuModel.append({message: qsTr("Language...")})
-            listSubMenuModel.append({message: qsTr("Hot Keys...")})
-            //listSubMenuModel.append({message: qsTr("System Encryption...")}) not needed now
-            //listSubMenuModel.append({message: qsTr("System Favorite Volumes...")}) not needed now
-            listSubMenuModel.append({message: qsTr("Performance...")})
-            listSubMenuModel.append({message: qsTr("Default Keyfiles...")})
-            listSubMenuModel.append({message: qsTr("Security Tokens...")})
-            listSubMenuModel.append({message: qsTr("Preferences...")})
+            titleSubMenuText_ = "settings"
+            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: "user settings"})
+            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: "user settings", finale:"true"})
+            //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
+            //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
+
+            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: "performance", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: "keyfiles"})
+            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: "keyfiles", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: " ", finale:"true"})
             break;
         case menus.HELP:
-            listSubMenuModel.append({message: qsTr("User's Guide")})
-            listSubMenuModel.append({message: qsTr("Online Help")})
-            listSubMenuModel.append({message: qsTr("Beginner's Tutorial")})
-            listSubMenuModel.append({message: qsTr("Frequently Asked Questions")})
-            listSubMenuModel.append({message: qsTr("GostCrypt Website")})
-            listSubMenuModel.append({message: qsTr("Downloads")})
-            listSubMenuModel.append({message: qsTr("News")})
-            listSubMenuModel.append({message: qsTr("Version History")})
-            listSubMenuModel.append({message: qsTr("Analyse a System Crash...")})
-            listSubMenuModel.append({message: qsTr("Contact")})
-            listSubMenuModel.append({message: qsTr("Legal Notices")})
-            listSubMenuModel.append({message: qsTr("About")})
+            titleSubMenuText_ = "help"
+            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: "help"})
+            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: "help"})
+            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: "help"})
+            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: "help", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: "web"})
+            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: "web"})
+            listSubMenuModel.append({message: qsTr("News"), size: "small", type: "web"})
+            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: "web"})
+            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: "web", finale:"true"})
+
+            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: "information"})
+            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: "information"})
+            listSubMenuModel.append({message: qsTr("About"), size: "small", type: "information", finale:"true"})
             break;
         }
     }
@@ -220,6 +332,10 @@ Item {
         width: parent.width
         height: parent.height
         radius: 0
+        border {
+            color:palette.border
+            width: 1
+        }
     }
 
     GSMenuButtonItem {
@@ -232,7 +348,6 @@ Item {
             selected = menus.HOME
             manageSubMenu(selected)
             menuChanged("frames/HomeFrame.qml", menus.HOME)
-            toggleSubMenu(false);
         }
     }
 
@@ -247,7 +362,6 @@ Item {
                 toggleSubMenu();
                 menuChanged("", menus.HOME)
             }else{
-
                 selected = menus.FAVORITE
                 manageSubMenu(selected)
                 toggleSubMenu(true);
