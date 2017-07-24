@@ -19,6 +19,5 @@ UI.depends = \
     GostCrypt_FuserDriver \
     GostCrypt_Platform \
     GostCrypt_Volume \
-    GostCrypt_UI \
     GostCrypt_NewCore
 
