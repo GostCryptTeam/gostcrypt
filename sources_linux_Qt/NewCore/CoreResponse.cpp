@@ -7,12 +7,13 @@ namespace NewCore {
 		bool initCoreResponse()
 		{
 			INIT_SERIALIZE(CoreResponse);
-			INIT_SERIALIZE(CoreCreateVolumeResponse);
-			INIT_SERIALIZE(CoreChangeVolumePasswordResponse);
-			INIT_SERIALIZE(CoreCreateKeyFileResponse);
-			INIT_SERIALIZE(CoreMountVolumeResponse);
-			INIT_SERIALIZE(CoreDismountVolumeResponse);
+			INIT_SERIALIZE(CreateVolumeResponse);
+			INIT_SERIALIZE(ChangeVolumePasswordResponse);
+			INIT_SERIALIZE(CreateKeyFileResponse);
+			INIT_SERIALIZE(MountVolumeResponse);
+			INIT_SERIALIZE(DismountVolumeResponse);
+			INIT_SERIALIZE(GetHostDevicesResponse);
+			INIT_SERIALIZE(GetMountedVolumesResponse);
 		}
-
 	}
 }

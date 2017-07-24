@@ -9,22 +9,28 @@ namespace GostCrypt {
 		static bool initCoreResponse();
 
 		struct CoreResponse {};
-		SERIALIZABLE(CoreResponse);
+		SERIALIZABLE(CoreResponse)
 
-		struct CoreCreateVolumeResponse : CoreResponse {};
-		SERIALIZABLE(CoreCreateVolumeResponse);
+		struct CreateVolumeResponse : CoreResponse {};
+		SERIALIZABLE(CreateVolumeResponse)
 
-		struct CoreChangeVolumePasswordResponse : CoreResponse {};
-		SERIALIZABLE(CoreChangeVolumePasswordResponse);
+		struct ChangeVolumePasswordResponse : CoreResponse {};
+		SERIALIZABLE(ChangeVolumePasswordResponse)
 
-		struct CoreCreateKeyFileResponse : CoreResponse {};
-		SERIALIZABLE(CoreCreateKeyFileResponse);
+		struct CreateKeyFileResponse : CoreResponse {};
+		SERIALIZABLE(CreateKeyFileResponse)
 
-		struct CoreMountVolumeResponse : CoreResponse {};
-		SERIALIZABLE(CoreMountVolumeResponse);
+		struct MountVolumeResponse : CoreResponse {};
+		SERIALIZABLE(MountVolumeResponse)
 
-		struct CoreDismountVolumeResponse : CoreResponse {};
-		SERIALIZABLE(CoreDismountVolumeResponse);
+		struct DismountVolumeResponse : CoreResponse {};
+		SERIALIZABLE(DismountVolumeResponse)
+
+		struct GetHostDevicesResponse : CoreResponse {};
+		SERIALIZABLE(GetHostDevicesResponse)
+
+		struct GetMountedVolumesResponse : CoreResponse {};
+		SERIALIZABLE(GetMountedVolumesResponse)
 	}
 }
 #endif // CORERESPONSE_H

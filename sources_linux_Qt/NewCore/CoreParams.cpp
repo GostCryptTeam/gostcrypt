@@ -7,12 +7,13 @@ namespace NewCore {
 		bool initCoreParams()
 		{
 			INIT_SERIALIZE(CoreParams);
-			INIT_SERIALIZE(CoreCreateVolumeParams);
-			INIT_SERIALIZE(CoreChangeVolumePasswordParams);
-			INIT_SERIALIZE(CoreCreateKeyFileParams);
-			INIT_SERIALIZE(CoreMountVolumeParams);
-			INIT_SERIALIZE(CoreDismountVolumeParams);
+			INIT_SERIALIZE(CreateVolumeParams);
+			INIT_SERIALIZE(ChangeVolumePasswordParams);
+			INIT_SERIALIZE(CreateKeyFileParams);
+			INIT_SERIALIZE(MountVolumeParams);
+			INIT_SERIALIZE(DismountVolumeParams);
+			INIT_SERIALIZE(GetHostDevicesParams);
+			INIT_SERIALIZE(GetMountedVolumesParams);
 		}
-
 	}
 }
