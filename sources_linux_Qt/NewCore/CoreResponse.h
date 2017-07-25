@@ -1,12 +1,8 @@
 #ifndef CORERESPONSE_H
 #define CORERESPONSE_H
 #include <QVariant>
-<<<<<<< HEAD
 #include <QList>
-
-=======
 #include <QSharedPointer>
->>>>>>> 13fe05bc5bb7f62448a6df80656dc0ff28e6b1f4
 #include "SerializationUtil.h"
 
 namespace GostCrypt {
