@@ -3,6 +3,7 @@
 #include <QVariant>
 #include <QSharedPointer>
 #include "SerializationUtil.h"
+#include "Volume/Volume.h"
 
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
@@ -40,57 +41,60 @@ namespace GostCrypt {
 
 		struct CoreParams {};
 
-        struct CreateVolumeParams : CoreParams {
-            struct VolumeParams {
-                QSharedPointer <VolumePassword> password; // password of the volume (never null)
-                QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
-                QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
-                QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm; // the algorithm to use (never null)
-                FilesystemType::Enum filesystem; // the filesystem to use
-                uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
-                uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
-            };
-            VolumePath path; // path of the file to create or device to format
-            VolumeType::Enum type; // Normal or hidden ?
-            quint64 size; // size
-            QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
-            QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
-        };
+		struct CreateVolumeParams : CoreParams {
+			struct VolumeParams {
+				QSharedPointer <VolumePassword> password; // password of the volume (never null)
+				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
+				QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
+				QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm; // the algorithm to use (never null)
+				FilesystemType::Enum filesystem; // the filesystem to use
+				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
+				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
+			};
+			VolumePath path; // path of the file to create or device to format
+			VolumeType::Enum type; // Normal or hidden ?
+			quint64 size; // size
+			QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
+			QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
+		};
 
-        struct ChangeVolumePasswordParams : CoreParams {
-            QSharedPointer <VolumePath> path; // path of the volume we want to change the password (never null)
-            QSharedPointer <VolumePassword> password; // old password, optional if volume is already opened
-            QSharedPointer <KeyfileList> keyfiles; // old keyfiles, optional if volume is already opened
-            QSharedPointer <Pkcs5Kdf> newVolumeHeaderKdf; // new key derivation function (never null)
-            QSharedPointer <VolumePassword> newPassword; // new password (never null)
-            QSharedPointer <KeyfileList> newKeyfiles; // new keyfiles
-        };
+		struct ChangeVolumePasswordParams : CoreParams {
+			QSharedPointer <VolumePath> path; // path of the volume we want to change the password (never null)
+			QSharedPointer <VolumePassword> password; // old password, optional if volume is already opened
+			QSharedPointer <KeyfileList> keyfiles; // old keyfiles, optional if volume is already opened
+			QSharedPointer <Pkcs5Kdf> newVolumeHeaderKdf; // new key derivation function (never null)
+			QSharedPointer <VolumePassword> newPassword; // new password (never null)
+			QSharedPointer <KeyfileList> newKeyfiles; // new keyfiles
+		};
 
-        struct CreateKeyFileParams : CoreParams {
-            FilePath file; // the path of the file to fill with random data
-        };
+		struct CreateKeyFileParams : CoreParams {
+			FilePath file; // the path of the file to fill with random data
+		};
 
-        struct MountVolumeParams : CoreParams {
-            QString fileSystemOptions; // additional options for fuse
-            FilesystemType::Enum fileSystemType; // Impose a filesystem
-            bool noFileSystem; // does not mount the volume at the end if true
-            bool preserveTimestamps; // Preserve timestamps of file ?
-            QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
-            QSharedPointer <VolumePassword> password; // password of the volume
-            QSharedPointer <DirectoryPath> mountPoint; // mountpoint of the volume
-            QSharedPointer <VolumePath> path; // path of the container or device to mount
-            VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
-            bool useBackupHeaders; // open the volume with its backup header.
-            bool sharedAccessAllowed; // do we allow shared access to the container ?
-        };
+		struct MountVolumeParams : CoreParams {
+			QString fileSystemOptions; // additional options for fuse
+			FilesystemType::Enum fileSystemType; // Impose a filesystem
+			bool noFileSystem; // does not mount the volume at the end if true
+			bool preserveTimestamps; // Preserve timestamps of file ?
+			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
+			QSharedPointer <VolumePassword> password; // password of the volume
+			QSharedPointer <DirectoryPath> mountPoint; // mountpoint of the volume
+			QSharedPointer <VolumePath> path; // path of the container or device to mount
+			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
+			bool useBackupHeaders; // open the volume with its backup header.
+			bool sharedAccessAllowed; // do we allow shared access to the container ?
+		};
 
-        struct DismountVolumeParams : CoreParams {
-            QString volumepath; // path of the file mounted, not the mount point
-        };
+		struct DismountVolumeParams : CoreParams {
+			QString volumepath; // path of the file mounted, not the mount point
+		};
 
-        struct GetHostDevicesParams : CoreParams {}; // no parameters
+		struct GetHostDevicesParams : CoreParams {}; // no parameters
 
-        struct GetMountedVolumesParams : CoreParams {}; // no parameters
+		struct GetMountedVolumesParams : CoreParams {
+			VolumePath volumePath; // optional path to select VolumeInfo from one particular volume
+		};
+
 	}
 }
 

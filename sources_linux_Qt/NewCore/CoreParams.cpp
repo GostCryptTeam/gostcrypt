@@ -158,8 +158,10 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetHostDevicesP
 
 DEF_SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetMountedVolumesParams & Valeur) {
+//    out << Valeur.volumePath;
     return out;
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetMountedVolumesParams & Valeur) {
+//    in >> Valeur.volumePath;
     return in;
 }
