@@ -33,7 +33,13 @@ int main(int argc, char *argv[])
             catch (...)	{ }
             return 1;
         } else {
-            return handleCLI(argc, argv);
+            #ifdef QT_DEBUG // QML debbuger has its own arguments
+                if(!(argc == 2 && strncmp(argv[argc-1], "-qmljs", 6) == 0)){
+            #endif
+                    return handleCLI(argc, argv);
+            #ifdef QT_DEBUG
+                }
+            #endif
         }
     }
 
