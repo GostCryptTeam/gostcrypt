@@ -58,11 +58,11 @@
     </message>
     <message>
         <source>GostCrypt language changed</source>
-        <translation>La langue de GostCrypt a été changée</translation>
+        <translation type="obsolete">La langue de GostCrypt a été changée</translation>
     </message>
     <message>
         <source>The language of Gostcrypt has been changed. The changes take effect now.</source>
-        <translation>La langue a été changée. Les modifications prennent effet dès maintenant.</translation>
+        <translation type="obsolete">La langue a été changée. Les modifications prennent effet dès maintenant.</translation>
     </message>
 </context>
 <context>
@@ -355,11 +355,35 @@
     <name>GSVolumeItem</name>
     <message>
         <source>Double-click to open volume</source>
-        <translation>Double-cliquez pour ouvrir un volume</translation>
+        <translation type="obsolete">Double-cliquez pour ouvrir un volume</translation>
     </message>
     <message>
         <source>TODO: shortcuts </source>
-        <translation>TODO: shortcuts</translation>
+        <translation type="obsolete">TODO: shortcuts</translation>
+    </message>
+    <message>
+        <source>Add/remove volume from favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume properties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Tools...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dismount volume...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to open volume</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -389,7 +413,7 @@
     </message>
     <message>
         <source>Volume Tools</source>
-        <translation>Outils du volume</translation>
+        <translation type="obsolete">Outils du volume</translation>
     </message>
     <message>
         <source>Drag &amp; Drop a GostCrypt volume here !</source>
@@ -410,11 +434,11 @@
     </message>
     <message>
         <source>Add/Remove Keyfiles from/to Volume...</source>
-        <translation>Ajouter/Supprimer les fichier-clés d&apos;/à un volume...</translation>
+        <translation>Aj./Suppr. les fichier-clés d&apos;un volume...</translation>
     </message>
     <message>
         <source>Remove all keyfiles from volume...</source>
-        <translation>Supprimer tous les fichier-clés d&apos;un volume...</translation>
+        <translation>Suppr. les fichier-clés d&apos;un volume...</translation>
     </message>
     <message>
         <source>Backup volume header...</source>

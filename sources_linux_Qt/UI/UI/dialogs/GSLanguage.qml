@@ -44,8 +44,6 @@ Item {
                     console.log("Setting language as : "+name+ " ("+code+")")
                     Translation.setLanguage(code)
                     catchClose() //closing the subwindow
-                    openErrorMessage(qsTr("GostCrypt language changed"),
-                                     qsTr("The language of Gostcrypt has been changed. The changes take effect now."))
                 }
             }
             states: [

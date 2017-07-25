@@ -66,5 +66,11 @@
         <file>UI/GSMenuBar.qml</file>
         <file>UI/ressource/separator.png</file>
         <file>UI/dialogs/GSLanguage.qml</file>
+        <file>UI/ressource/volumeFavorite.svg</file>
+        <file>UI/ressource/volumeProperties.svg</file>
+        <file>UI/ressource/volumeTools.svg</file>
+        <file>UI/ressource/volumeFavoriteHover.svg</file>
+        <file>UI/ressource/volumePropertiesHover.svg</file>
+        <file>UI/ressource/volumeToolsHover.svg</file>
     </qresource>
 </RCC>

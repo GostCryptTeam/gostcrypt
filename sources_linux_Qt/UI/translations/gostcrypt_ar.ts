@@ -6,7 +6,7 @@
     <name>BackgroundFrame</name>
     <message>
         <source>Home</source>
-        <translation type="unfinished"></translation>
+        <translation>الصفحة الرئيسي</translation>
     </message>
 </context>
 <context>
@@ -56,20 +56,12 @@
         <source>Please choose a language :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>GostCrypt language changed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The language of Gostcrypt has been changed. The changes take effect now.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>GSMenu</name>
     <message>
         <source>Home</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">الصفحة الرئيسي</translation>
     </message>
     <message>
         <source>Favorites</source>
@@ -343,17 +335,33 @@
     <name>GSSubWindow</name>
     <message>
         <source>Home</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">الصفحة الرئيسي</translation>
     </message>
 </context>
 <context>
     <name>GSVolumeItem</name>
     <message>
-        <source>Double-click to open volume</source>
+        <source>Add/remove volume from favorites...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TODO: shortcuts </source>
+        <source>Volume properties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume Tools...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dismount volume...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to open volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -380,10 +388,6 @@
     </message>
     <message>
         <source>Dismount All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volume Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

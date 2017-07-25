@@ -14,10 +14,6 @@ Item {
         \brief Contains the background of the
         main window
     */
-   /* GSMainForm {
-        id: mainWindow
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }*/
 
     Item {
         id: mainWindow
@@ -36,20 +32,24 @@ Item {
 
         Rectangle {
             id: rectangle1
-            x: 98
+            anchors {
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
             y: 438
-            width: 594
-            height: 92
+            width: 500
+            height: 70
             color: palette.darkSecond
-            border.width: 0
+            border.width: 1
+            border.color: palette.darkInput
         }
 
         Rectangle {
             id: rectangle2
-            x: 98
+            anchors.horizontalCenter: parent.horizontalCenter
             y: 111
-            width: 594
-            height: 303
+            width: 550
+            height: 315
             color: palette.darkSecond
         }
          Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
@@ -119,19 +119,20 @@ Item {
  */
     Row {
         id: rowBottom
-        spacing: 22
+        spacing: 30
         anchors.horizontalCenter: mainWindow.horizontalCenter
         anchors.bottom: mainWindow.bottom;
-        anchors.bottomMargin: 28
+        anchors.bottomMargin: 15
         /*!
         \class GSButtonBordered
         \brief Auto-mount a device.
      */
         UI.GSButtonBordered {
             text: qsTr("Auto Mount Device") + Translation.tr
+            width:200
             onClicked:
             {
-                volumeToolsMenu.opacity = 0.0
+                //volumeToolsMenu.opacity = 0.0
                 ConnectSignals.connectReceiveAutoMount("dummy")
             }
             color_:palette.green
@@ -142,9 +143,10 @@ Item {
      */
         UI.GSButtonBordered {
             text: qsTr("Dismount All") + Translation.tr
-            color_:palette.green
+            color_:palette.blue
+            width:200
             onClicked: {
-                volumeToolsMenu.opacity = 0.0
+                //volumeToolsMenu.opacity = 0.0
                 ConnectSignals.connectReceiveDismountAll()
                 listOfVolumes.clear()
                 helpStart.visible = true
@@ -154,7 +156,7 @@ Item {
             \class GSButtonBordered
             \brief Opens the volume tools options.
          */
-        UI.GSButtonBordered {
+        /*UI.GSButtonBordered {
             id: volumeTools
             text: qsTr("Volume Tools") + Translation.tr
             color_:palette.blue
@@ -165,7 +167,7 @@ Item {
                 if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true
             }
 
-        }
+        }*/
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
@@ -217,7 +219,7 @@ Item {
         x: 98
         y: 111
         width: 594
-        height: 303
+        height: 315
         visible: true
         MouseArea {
             anchors.fill: parent
@@ -244,7 +246,8 @@ Item {
 
         Rectangle {
             id: rect
-            width: 594
+            width: rectangle2.width
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: helpStart.bottom
             height:100
             color: palette.darkThird
@@ -293,7 +296,7 @@ Item {
         color: palette.darkThird
         border.width: 2
         border.color: palette.blue
-        width: volumeTools.width * 1.5
+        width: 250
         height: 240
         x:455
         y:210
