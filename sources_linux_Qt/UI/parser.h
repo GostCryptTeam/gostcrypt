@@ -2,9 +2,8 @@
 #define PARSER_H
 
 #include "NewCore/CoreParams.h"
-
-#include <QCommandLineParser>
 #include <iostream>
+#include <QCommandLineParser>
 #include <QException>
 
 namespace Parser {
@@ -28,13 +27,17 @@ namespace Parser {
         FileSystems
     } WhatToList;
 
-    quint64 parseSize(QString s, bool *ok);
-
     void parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::MountVolumeParams *options);
     void parseCreate(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::CreateVolumeParams *options);
     void parseDismount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::DismountVolumeParams *volume);
     void parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item);
 
+    quint64 parseSize(QString s, bool *ok);
+    bool askPassword(string volume, QString &p);
+    GostCrypt::NewCore::FilesystemType::Enum parseFilesystem(QString fs);
+
 }
+
+
 
 #endif // PARSER_H

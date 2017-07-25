@@ -1,6 +1,8 @@
 #ifndef SERIALIZEUTIL_H
 #define SERIALIZEUTIL_H
 
+#include <QDataStream>
+
 #define SERIALIZABLE(ClassName) \
 	Q_DECLARE_METATYPE(ClassName) \
     QDataStream & operator<< (QDataStream & out, const ClassName & Valeur); \

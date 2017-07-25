@@ -13,7 +13,30 @@ namespace GostCrypt {
 	namespace NewCore {
 		static bool initCoreParams();
 
-        struct FilesystemType::Enum; // declaration at the end of the file
+        struct FilesystemType {
+            enum Enum {
+                Unknown = 0,
+                None,
+                FAT,
+                NTFS,
+                Ext2,
+                Ext3,
+                Ext4,
+                MacOsExt,
+                UFS
+            };
+            static Enum GetPlatformNative () {
+#ifdef GST_LINUX
+                return GostCrypt::NewCore::FilesystemType::Ext3;
+#elif defined (GST_MACOSX)
+                return GostCrypt::NewCore::FilesystemType::MacOsExt;
+#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
+                return GostCrypt::NewCore::FilesystemType::UFS;
+#else
+                return GostCrypt::NewCore::FilesystemType::FAT;
+#endif
+            }
+        };
 
 		struct CoreParams {};
 
@@ -68,31 +91,6 @@ namespace GostCrypt {
         struct GetHostDevicesParams : CoreParams {}; // no parameters
 
         struct GetMountedVolumesParams : CoreParams {}; // no parameters
-
-        struct FilesystemType {
-            enum Enum {
-                Unknown = 0,
-                None,
-                FAT,
-                NTFS,
-                Ext2,
-                Ext3,
-                Ext4,
-                MacOsExt,
-                UFS
-            };
-            static Enum GetPlatformNative () {
-#ifdef GST_LINUX
-                return GostCrypt::NewCore::MountVolumeParams::FilesystemType::Ext3;
-#elif defined (GST_MACOSX)
-                return GostCrypt::NewCore::MountVolumeParams::FilesystemType::MacOsExt;
-#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
-                return GostCrypt::NewCore::MountVolumeParams::FilesystemType::UFS;
-#else
-                return GostCrypt::NewCore::MountVolumeParams::FilesystemType::FAT;
-#endif
-            }
-        };
 	}
 }
 

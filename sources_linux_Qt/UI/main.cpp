@@ -10,27 +10,34 @@
 #include "Platform/SystemLog.h"
 #include "DragWindowProvider.h"
 #include "volumecreation.h"
+#include "cmdUserInterface.h"
 
 int main(int argc, char *argv[])
 {
-    if (argc > 1 && strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0)
+    if (argc > 1)
     {
-        // Process elevated requests
-        try
-        {
-            // TODO : replace by NewCore
-            //GostCrypt::CoreService::ProcessElevatedRequests();
-            return 0;
+        if(strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0){
+            // Process elevated requests
+            try
+            {
+                // TODO : replace by NewCore
+                //GostCrypt::CoreService::ProcessElevatedRequests();
+                return 0;
+            }
+            catch (exception &e)
+            {
+        #ifdef QT_DEBUG
+                GostCrypt::SystemLog::WriteException (e);
+        #endif
+            }
+            catch (...)	{ }
+            return 1;
+        } else {
+            return handleCLI(argc, argv);
         }
-        catch (exception &e)
-        {
-    #ifdef QT_DEBUG
-            GostCrypt::SystemLog::WriteException (e);
-    #endif
-        }
-        catch (...)	{ }
-        return 1;
     }
+
+    // no arguments, starting GUI
 
     QGuiApplication app(argc, argv);
     app.setWindowIcon(QIcon(":/logo_gostcrypt.png"));
