@@ -27,9 +27,9 @@ namespace Parser {
         FileSystems
     } WhatToList;
 
-    void parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::MountVolumeParams *options);
-    void parseCreate(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::CreateVolumeParams *options);
-    void parseDismount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::DismountVolumeParams *volume);
+    void parseMount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options);
+    void parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options);
+    void parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> options);
     void parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item);
 
     quint64 parseSize(QString s, bool *ok);

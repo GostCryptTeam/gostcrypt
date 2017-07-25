@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::MountVolumeParams *options)
+void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
     parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
@@ -24,7 +24,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
     // Parsing all options
 
     if (parser.isSet("help"))
-        throw new Parser::ParseException(); // throwing an empty exception shows the help only
+        throw Parser::ParseException(); // throwing an empty exception shows the help only
 
     if (parser.isSet("options")) {
         const QStringList opts = parser.values("options");
@@ -41,7 +41,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
     if (parser.isSet("no-filesystem")) { // nofilesystem
         options->noFileSystem = true;
         if(parser.isSet("filesystem") || parser.isSet("options") || parser.isSet("protection"))
-            throw new Parser::ParseException("--nofilesystem cannot be used with --filesystem, --protection or --options.");
+            throw Parser::ParseException("--nofilesystem cannot be used with --filesystem, --protection or --options.");
     }
 
     if (parser.isSet("no-preserve-timestamps"))
@@ -82,21 +82,21 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, GostC
         if(protection == "readonly")
                 options->protection = GostCrypt::VolumeProtection::ReadOnly;
         else if(protection != "none")
-            throw new Parser::ParseException("Protection type not found : "+ protection);
+            throw Parser::ParseException("Protection type not found : "+ protection);
     }
 
     // parsing positional arguments
 
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw new Parser::ParseException("Argument 'volumepath' missed.");
+        throw Parser::ParseException("Argument 'volumepath' missed.");
     if (positionalArguments.size() > 2)
-        throw new Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException("Too many arguments specified.");
 
     options->path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));
 }
 
-void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::DismountVolumeParams *volume)
+void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
 {
     parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
     parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
@@ -105,15 +105,15 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, Go
     // Parsing all options
 
     if (parser.isSet("help"))
-        throw new Parser::ParseException();
+        throw Parser::ParseException();
 
     // parsing positional arguments
 
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw new Parser::ParseException("Argument 'volume' missed.");
+        throw Parser::ParseException("Argument 'volume' missed.");
     if (positionalArguments.size() > 2)
-        throw new Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException("Too many arguments specified.");
 
     volume->volumepath = positionalArguments.at(1);
 }
@@ -127,7 +127,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
     // Parsing all options
 
     if (parser.isSet("help"))
-        throw new Parser::ParseException();
+        throw Parser::ParseException();
 
     // parsing positional arguments
 
@@ -137,7 +137,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
         return;
     }
     if (positionalArguments.size() > 2)
-        throw new Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException("Too many arguments specified.");
     QString volume = positionalArguments.at(1);
     if(volume == "volumes")
         *item = Volumes;
@@ -145,13 +145,13 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
         *item = Algorithms;
     else if (volume == "hashs")
         *item = Hashs;
-    if (volume == "filesystems")
+    else if (volume == "filesystems")
         *item = FileSystems;
     else
-        throw new Parser::ParseException("Unknown item to list.");
+        throw Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, GostCrypt::NewCore::CreateVolumeParams *options)
+void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path");
@@ -178,7 +178,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
     options->password.reset(nullptr);
 
     if (parser.isSet("help"))
-        throw new Parser::ParseException();
+        throw Parser::ParseException();
 
     if (parser.isSet("password")) {
         const QString password = parser.value("password");
@@ -193,7 +193,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
 
     if (parser.isSet("file")) {
         options->setKeyFiles("ho ho"); // TODO DO SOMETHING
-        throw new Parser::ParseException("WELL WE HAVE A PROBLEM HERE");
+        throw Parser::ParseException("WELL WE HAVE A PROBLEM HERE");
     }
 
     if (parser.isSet("hash")) { // TODO : use some magic function to get it faster
@@ -208,7 +208,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
             }
         }
         if(options->VolumeHeaderKdf.get() == nullptr)
-            throw new Parser::ParseException(myhash + " not found !");
+            throw Parser::ParseException(myhash + " not found !");
     }
 
     if (parser.isSet("algorithm")) { // TODO : use some magic function to get it faster
@@ -222,7 +222,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
             }
         }
         if(options->EA.get() == nullptr)
-            throw new Parser::ParseException("algorithm " + algo + " not found !");
+            throw Parser::ParseException("algorithm " + algo + " not found !");
     }
 
     if (parser.isSet("Quick"))
@@ -242,7 +242,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
             }
         }
         if(i>=nbfilesystems)
-            throw new Parser::ParseException("Filesystem " + fs + " not found !");
+            throw Parser::ParseException("Filesystem " + fs + " not found !");
     } else {
         options->Filesystem = GostCrypt::VolumeCreationOptions::FilesystemType::GetPlatformNative();
     }
@@ -252,7 +252,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
         bool ok = false;
         options->FilesystemClusterSize = number.toInt(&ok);
         if (!ok)
-            throw new Parser::ParseException("'cluster-size' must be a number !");
+            throw Parser::ParseException("'cluster-size' must be a number !");
     }
 
     if (parser.isSet("sector-size")) {
@@ -260,7 +260,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
         bool ok = false;
         options->SectorSize = number.toInt(&ok);
         if (!ok)
-            throw new Parser::ParseException("'sector-size' must be a number !");
+            throw Parser::ParseException("'sector-size' must be a number !");
     }*/
 
     if (parser.isSet("size")) {
@@ -268,7 +268,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
         bool ok = false;
         options->size = parseSize(number, &ok);
         if (!ok)
-            throw new Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
+            throw Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
     }
 
     /*if (parser.isSet("type")) {
@@ -278,7 +278,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
         } else if(type == "Hidden" || type == "hidden") {
             options->Type = GostCrypt::VolumeType::Hidden;
         } else
-            throw new Parser::ParseException("'type' must be one of {Normal|Hidden} !");
+            throw Parser::ParseException("'type' must be one of {Normal|Hidden} !");
     }*/
 
     parseDismount(app,parser,nullptr);
@@ -287,9 +287,9 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, Gost
 
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw new Parser::ParseException("Argument 'volumepath' missed.");
+        throw Parser::ParseException("Argument 'volumepath' missed.");
     if (positionalArguments.size() > 2)
-        throw new Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException("Too many arguments specified.");
 
     options->path = GostCrypt::VolumePath(qPrintable(positionalArguments.at(1)));
 }
@@ -340,6 +340,6 @@ GostCrypt::NewCore::FilesystemType::Enum Parser::parseFilesystem(QString fs){
     int r = -1;
     r = filesystems.indexOf(QRegExp(fs, Qt::CaseInsensitive));
     if(r == -1)
-        throw new Parser::ParseException("Unknown filesystem : "+fs);
+        throw Parser::ParseException("Unknown filesystem : "+fs);
     return GostCrypt::NewCore::FilesystemType::Enum(r);
 }

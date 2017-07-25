@@ -23,7 +23,7 @@ namespace GostCrypt {
 		private:
 
 		};
-		QSharedPointer<CoreBase> getCore();
+        QSharedPointer<CoreBase> getCore();
 	}
 }
 

@@ -6,8 +6,8 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
+#include "NewCore/CoreBase.h"
+#include "NewCore/CoreParams.h"
 #include "Platform/SystemLog.h"
 #include "Volume/Pkcs5Kdf.h"
 #include "parser.h"
@@ -40,7 +40,7 @@ public:
 
 struct FirstCMD {
     enum Enum MK_ALL(MK_ENUM);
-    static const QStringList Str MK_ALL(MK_STRTAB);
+    static const QStringList Str;
 };
 
 

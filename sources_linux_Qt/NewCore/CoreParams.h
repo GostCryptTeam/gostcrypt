@@ -12,7 +12,7 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-		static bool initCoreParams();
+        bool initCoreParams();
 
         struct FilesystemType {
             enum Enum {

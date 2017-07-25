@@ -4,10 +4,11 @@
 #include <QList>
 #include <QSharedPointer>
 #include "SerializationUtil.h"
+#include "Volume/VolumeInfo.h"
 
 namespace GostCrypt {
 	namespace NewCore {
-		static bool initCoreResponse();
+        bool initCoreResponse();
 
 		struct CoreResponse {};
 
@@ -24,7 +25,7 @@ namespace GostCrypt {
 		struct GetHostDevicesResponse : CoreResponse {};
 
 		struct GetMountedVolumesResponse : CoreResponse {
-			QList<QSharedPointer<VolumeInfo>> volumeInfoList;
+            QList<QSharedPointer<VolumeInfo>> volumeInfoList;
 		};
 	}
 }
