@@ -19,7 +19,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y:5
             color: palette.text
-            text: qsTr("Encryption Algorithm")
+            text: qsTr("Encryption Algorithm") + Translation.tr
         }
 
         UI.GSCustomComboBox {
@@ -90,7 +90,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y:5
             color: palette.text
-            text: qsTr("Hash Algorithm")
+            text: qsTr("Hash Algorithm") + Translation.tr
         }
 
         UI.GSCustomComboBox {
@@ -110,7 +110,7 @@ Item {
             horizontalAlignment: Text.AlignJustify
             wrapMode: Text.WordWrap
             width: parent.width *0.5
-            text: qsTr("<font color='#719c24'><a href='#'>Information on hash algorithms</a></font>")
+            text: qsTr("<font color='#719c24'><a href='#'>Information on hash algorithms</a></font>") + Translation.tr
             color: palette.text
             font.pixelSize: 12
             MouseArea {

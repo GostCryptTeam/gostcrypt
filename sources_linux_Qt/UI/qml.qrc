@@ -65,5 +65,6 @@
         <file>UI/wizard/Page12.qml</file>
         <file>UI/GSMenuBar.qml</file>
         <file>UI/ressource/separator.png</file>
+        <file>UI/dialogs/GSLanguage.qml</file>
     </qresource>
 </RCC>

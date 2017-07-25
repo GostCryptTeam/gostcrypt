@@ -16,7 +16,7 @@ Item {
         text: qsTr("The volume cluster bitmap has been scanned and the maximum "
                    + "possible size of the hidden volume has been determined. In the "
                    + "next steps you will set the options, the size, and the password "
-                   + "for the hidden volume.")
+                   + "for the hidden volume.") + Translation.tr
         x: 60
         color: palette.text
         horizontalAlignment: Text.AlignJustify

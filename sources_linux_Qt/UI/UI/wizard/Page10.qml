@@ -30,7 +30,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y:5
             color: palette.text
-            text: qsTr("Options")
+            text: qsTr("Options") + Translation.tr
         }
 
         Text {
@@ -38,12 +38,12 @@ Item {
             x:20
             y:35
             color: palette.text
-            text: qsTr("Filesystem")
+            text: qsTr("Filesystem") + Translation.tr
         }
 
         UI.GSCustomComboBox {
             id: typeFilesystem
-            model: ["FAT", "None"]
+            model: ["FAT", qsTr("None") + Translation.tr]
             x: fileSystem.x + fileSystem.width + 10
             y: fileSystem.y-5
             width: parent.width * 0.2
@@ -55,12 +55,12 @@ Item {
             x:typeFilesystem.x + typeFilesystem.width +10
             y: fileSystem.y
             color: palette.text
-            text: qsTr("Cluster")
+            text: qsTr("Cluster") + Translation.tr
         }
 
         UI.GSCustomComboBox {
             id: clusterType
-            model: ["Default",
+            model: [qsTr("Default"),
                 "0.5KB",
                 "1KB",
                 "2KB",
@@ -128,7 +128,7 @@ Item {
             x: 20
             y: 10
             color: palette.text
-            text: qsTr("Random Pool:")
+            text: qsTr("Random Pool:") + Translation.tr
         }
         Text {
             id: randomPoolValue_
@@ -144,7 +144,7 @@ Item {
             x: 20
             y: randomPool_.y + 20
             color: palette.text
-            text: qsTr("Header key:")
+            text: qsTr("Header key:") + Translation.tr
         }
         Text {
             id: headerKeyValue_
@@ -160,7 +160,7 @@ Item {
             x: 20
             y: headerKey_.y + 20
             color: palette.text
-            text: qsTr("Master key:")
+            text: qsTr("Master key:") + Translation.tr
         }
         Text {
             id: masterKeyValue_
@@ -222,7 +222,7 @@ Item {
             id:infos
             width: parent.width*0.7 +20 +140
             font.pixelSize: 12
-            text: qsTr("Done : <b><font color='#'>0%</font></b> - Speed : <b><font color='#'>0 o/s</font></b> - Left : <b><font color='#'>0 s</font></b>")
+            text: qsTr("Done : <b><font color='#'>0%</font></b> - Speed : <b><font color='#'>0 o/s</font></b> - Left : <b><font color='#'>0 s</font></b>") + Translation.tr
             y: bar.y + 30
             x: 20
             color: palette.text

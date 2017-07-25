@@ -11,7 +11,7 @@ Rectangle {
     color: palette.bkCheckBox
     Text {
         anchors.centerIn: parent
-        text: qsTr("<b>?</b>")
+        text: qsTr("<b>?</b>") + Translation.tr
         font.pixelSize: size*0.6
         color: palette.green
     }

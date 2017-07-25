@@ -36,7 +36,6 @@ Item {
     Connections {
         target: ConnectSignals
         onSendSubWindowMountVolumePasswordIncorrect: {
-            console.log("bad password dans QML")
             app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
@@ -73,7 +72,7 @@ Item {
             x: combo.x + combo.width + 15
             y: combo.y
             height: combo.height
-            text: "Open..."
+            text: qsTr("Open...") + Translation.tr
             width: 100
             onClicked: fileDialog.open()
             color_: palette.green
@@ -121,7 +120,7 @@ Item {
             color_: palette.green
             onClicked: {
                 devices = ConnectSignals.getListOfDevices()
-                changeSubWindowTitle("Please select a device")
+                changeSubWindowTitle(qsTr("Please select a device"))
                 devicesSelection.opacity = 1.0
                 var i = 0
                 while(devices[i] !== undefined) {
@@ -142,10 +141,9 @@ Item {
 
         FileDialog {
             id: fileDialog
-            title: "Please choose a file"
+            title: qsTr("Please choose a file") + Translation.tr
             folder: shortcuts.home
             onAccepted: {
-                console.log("You chose: " + fileDialog.fileUrl)
                 openVolume_Form.moving(fileDialog.fileUrl)
                 if(historique.pressed === false)
                     UserSettings.addVolumePath(fileDialog.fileUrl)
@@ -169,7 +167,7 @@ Item {
             id: password_txt
             y: 10 //TODO lineheight
             leftPadding: 20
-            text: qsTr("Password: ")
+            text: qsTr("Password: ")  + Translation.tr
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
             lineHeight: combo.height
@@ -200,7 +198,7 @@ Item {
 
         UI.GSCheckBox {
             id: cache
-            text_: qsTr("Cache password and keyfiles in memory")
+            text_: qsTr("Cache password and keyfiles in memory")  + Translation.tr
             x: combo.x
             y: password_txt.y + 40
             height: combo.height
@@ -219,7 +217,7 @@ Item {
 
         UI.GSCheckBox {
             id: display
-            text_: qsTr("Display password")
+            text_: qsTr("Display password")  + Translation.tr
             x: combo.x
             y: cache.y + 40
             height: combo.height
@@ -241,7 +239,7 @@ Item {
 
         UI.GSCheckBox {
             id: use_Keyfiles
-            text_: qsTr("Use keyfiles")
+            text_: qsTr("Use keyfiles") + Translation.tr
             x: combo.x
             y: display.y + 40
             height: combo.height
@@ -264,7 +262,7 @@ Item {
             x: buttonDevide.x - 30
             y: cache.y
             height: combo.height
-            text: qsTr("Keyfiles...")
+            text: qsTr("Keyfiles...") + Translation.tr
             width: 150
             color_: palette.green
         }
@@ -274,7 +272,7 @@ Item {
             x: buttonDevide.x - 30
             y: display.y + 20
             height: combo.height
-            text: qsTr("Mount Options...")
+            text: qsTr("Mount Options...") + Translation.tr
             width: 150
             color_: palette.green
         }
@@ -285,7 +283,7 @@ Item {
         id: validation
         anchors.horizontalCenter: openVolume_Form.horizontalCenter
         anchors.bottom: openVolume_Form.bottom
-        text: qsTr("Mount Volume")
+        text: qsTr("Mount Volume") + Translation.tr
         color_: palette.blue
         onClicked: {
             if(sudo_.isVisible === false)

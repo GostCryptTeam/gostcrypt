@@ -100,7 +100,7 @@ Item {
             topPadding: 5
             anchors.horizontalCenter: parent.horizontalCenter
             y: 5
-            text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home")+"</font></a> > "+ name
+            text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
             color: palette.text
             font.pixelSize: 12
 
@@ -116,7 +116,7 @@ Item {
         Text {
             id: title_
             topPadding: 20
-            text: title
+            text: title + Translation.tr
             font.family: "Helvetica"
             font.pointSize: 17
             color: palette.green

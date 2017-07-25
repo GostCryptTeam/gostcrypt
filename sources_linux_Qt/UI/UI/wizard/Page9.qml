@@ -13,7 +13,7 @@ Item {
         x: 52
         y:5
         color: palette.text
-        text: qsTr("Please enter a password twice :")
+        text: qsTr("Please enter a password twice :") + Translation.tr
     }
 
     TextField {

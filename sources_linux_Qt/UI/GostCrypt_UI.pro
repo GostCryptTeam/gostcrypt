@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += qml quick
+QT += qml quick widgets
 
 TARGET = GostCrypt
 TEMPLATE = app
@@ -47,13 +47,15 @@ HEADERS += \
     connectSignals.h \
     UserSettings.h \
     DragWindowProvider.h \
-    volumecreation.h
+    volumecreation.h \
+    TranslationApp.h
 
 SOURCES += main.cpp \
     GraphicUserInterface.cpp \
     connectSignals.cpp \
     UserSettings.cpp \
-    volumecreation.cpp
+    volumecreation.cpp \
+    TranslationApp.cpp
 
 LIBS += ../Core/libCore.a \
     ../Volume/libVolume.a \
@@ -70,14 +72,26 @@ PRE_TARGETDEPS += ../Core/libCore.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a
 
-TRANSLATIONS = gostcrypt_en.ts gostcrypt_fr.ts gostcrypt_es.ts gostcrypt_it.ts gostcrypt_ru.ts gostcrypt_ar.ts
+
+lupdate_hack{
+    SOURCES += qml/*.qml \
+        qml/*.js
+}
+TRANSLATIONS =  translations/gostcrypt_en.ts \
+                translations/gostcrypt_fr.ts \
+                translations/gostcrypt_es.ts \
+                translations/gostcrypt_it.ts \
+                translations/gostcrypt_ru.ts \
+                translations/gostcrypt_ar.ts
+
 translation {
-SOURCES += UI/* \
-           UI/dialogs/* \
-           UI/frames/* \
-           UI/ressource/* \
-           UI/wizard/* \
+    SOURCES += UI/* \
+               UI/dialogs/* \
+               UI/frames/* \
+               UI/ressource/* \
+               UI/wizard/* \
 }
 
 DISTFILES += \
-    UI/ressource/separator.png
+    UI/ressource/separator.png \
+    UI/dialogs/GSLanguage.qml

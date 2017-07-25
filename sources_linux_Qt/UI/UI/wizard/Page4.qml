@@ -26,7 +26,7 @@ Item {
         x: combo.x + combo.width + 15
         y: combo.y
         height: combo.height
-        text: "Select File..."
+        text: qsTr("Select File...")
         width: 100
         onClicked: fileDialog.open()
         color_: palette.green
@@ -55,7 +55,7 @@ Item {
 
     FileDialog {
         id: fileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file") + Translation.tr
         folder: shortcuts.home
         selectExisting: {
             if(type !== 2)

@@ -41,7 +41,7 @@ Item {
 
     Text {
         id: titleText
-        text: title
+        text: title + Translation.tr
         y: 50
         width: errorLayer.width
         //width: errorLayer.width
@@ -53,7 +53,7 @@ Item {
 
     Text {
         id: contentText
-        text: contentError
+        text: contentError + Translation.tr
         y: 100
         width: errorLayer.width
         anchors.horizontalCenter: parent.horizontalCenter
@@ -72,7 +72,7 @@ Item {
         id: exitButton
         anchors.horizontalCenter: errorLayer.horizontalCenter
         anchors.top: contentText.bottom
-        text: qsTr("OK")
+        text: qsTr("OK") + Translation.tr
         color_: palette.blue
         onClicked: {
             closeErrorMessage();

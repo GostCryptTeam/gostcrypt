@@ -32,7 +32,7 @@ Window {
         \property title
         \brief GostCrypt program name
      */
-    title: qsTr("GostCrypt 2.0")
+    title: qsTr("GostCrypt 2.0") + Translation.tr
     /*!
         \property visible
         \brief Displaying main window
@@ -365,8 +365,8 @@ Window {
         isVisible: false
         visible: false
         opacity: 0.0
-        title: "Message d'erreur"
-        contentError: "Description du message d'erreur.\n Le message spécifique s'affichera donc ici."
+        title: qsTr("Message d'erreur")
+        contentError: qsTr("Description du message d'erreur.\n Le message spécifique s'affichera donc ici.")
     }
 
 

@@ -13,7 +13,7 @@ Item {
         width: top.width-120
         font.pixelSize: 12
         text: qsTr("In the next steps, you will set the options for the outer volume"
-                   +" (within which the hidden volume will be created later on).")
+                   +" (within which the hidden volume will be created later on).") + Translation.tr
         x: 60
         color: palette.text
         horizontalAlignment: Text.AlignJustify

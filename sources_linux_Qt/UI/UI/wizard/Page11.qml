@@ -24,7 +24,7 @@ Item {
                    + "After you click Next, cluster bitmap of the outer volume will be scanned to determine the size "
                    + "of uninterrupted area of free space whose end is aligned with the end of the volume. This "
                    + "area will accommodate the hidden volume, so it will limit its maximum possible size. Cluster "
-                   + "bitmap scanning ensures that no data on the outer volume are overwritter by the hidden volume.")
+                   + "bitmap scanning ensures that no data on the outer volume are overwritter by the hidden volume.") + Translation.tr
         x: 30
         color: palette.text
         horizontalAlignment: Text.AlignJustify

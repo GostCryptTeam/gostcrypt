@@ -49,7 +49,7 @@ Item {
             height: 50
             Text {
                 id: text_
-                text: titleSubMenuText_
+                text: titleSubMenuText_ + Translation.tr
                 color: palette.text
                 anchors.centerIn: parent
                 font.pixelSize: 15
@@ -114,7 +114,7 @@ Item {
                     color: palette.darkThird
                     Text {
                         horizontalAlignment: Text.AlignLeft
-                        text: message
+                        text: message + Translation.tr
                         color: palette.text
                         font.pixelSize: 14
                         wrapMode: Text.WordWrap
@@ -127,7 +127,8 @@ Item {
                         anchors.fill: elementSubMenu
                         hoverEnabled: true
                         onClicked: {
-                            console.log("SubMenu button clicked")
+                            openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
+                            toggleMenu()
                         }
                     }
                     states: [
@@ -261,62 +262,59 @@ Item {
             app.toggleMenu()
             break;
         case menus.FAVORITE:
-            titleSubMenuText_ = "favorite"
-            listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), size: "big", type: "menu"})
+            titleSubMenuText_ = qsTr("favorite")
+            listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: "menu"})
+            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: "menu", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             break;
         case menus.TOOLS:
-            titleSubMenuText_ = "tools"
-            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: "tests"})
-            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: "tests", finale:"true"})
+            titleSubMenuText_ = qsTr("tools")
+            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Traveler Disk Setup..."), size: "medium", type: "traveler", finale:"true"})
             //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
 
-            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: "keyfiles"})
-            listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: "keyfiles"})
-            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: "keyfiles", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: "volume header"})
-            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: "volume header", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Refresh Drive Letters"), size: "medium", type: "other"}) //Windows ?
-            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "medium", type: "other"})
-            listSubMenuModel.append({message: qsTr("Wipe Cached Passwords"), size: "medium", type: "other", finale:"true"}) //when enable ?
+            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "medium", type: qsTr("other"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             break;
         case menus.SETTINGS:
-            titleSubMenuText_ = "settings"
-            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: "user settings"})
-            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: "user settings", finale:"true"})
+            titleSubMenuText_ = qsTr("settings")
+            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
+            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
             //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
 
-            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: "performance", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: "keyfiles"})
-            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: "keyfiles", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: " ", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             break;
         case menus.HELP:
-            titleSubMenuText_ = "help"
-            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: "help"})
-            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: "help"})
-            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: "help"})
-            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: "help", finale:"true"})
+            titleSubMenuText_ = qsTr("help")
+            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: qsTr("help"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: "web"})
-            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: "web"})
-            listSubMenuModel.append({message: qsTr("News"), size: "small", type: "web"})
-            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: "web"})
-            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: "web", finale:"true"})
+            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: "information"})
-            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: "information"})
-            listSubMenuModel.append({message: qsTr("About"), size: "small", type: "information", finale:"true"})
+            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("About"), size: "small", type: qsTr("information"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             break;
         }
     }
@@ -341,7 +339,7 @@ Item {
     GSMenuButtonItem {
         id: home
         y: 1
-        text: qsTr("Home")
+        text: qsTr("Home") + Translation.tr
         iconPath_: icons[0]
         selected_: (selected == 0) ? true : false
         onClicked: {
@@ -354,7 +352,7 @@ Item {
     GSMenuButtonItem {
         id: buttonFavorites
         y: home.y + 60
-        text: qsTr("Favorites")
+        text: qsTr("Favorites") + Translation.tr
         iconPath_: icons[3]
         selected_: (selected === menus.FAVORITE) ? true : false
         onClicked: {
@@ -373,7 +371,7 @@ Item {
     GSMenuButtonItem {
         id: buttonTools
         y: buttonFavorites.y + 60
-        text: qsTr("Tools")
+        text: qsTr("Tools") + Translation.tr
         iconPath_: icons[4]
         selected_: (selected === menus.TOOLS) ? true : false
         onClicked: {
@@ -391,7 +389,7 @@ Item {
     GSMenuButtonItem {
         id: buttonSettings
         y: buttonTools.y + 60
-        text: qsTr("Settings")
+        text: qsTr("Settings") + Translation.tr
         iconPath_: icons[5]
         selected_: (selected === menus.SETTINGS) ? true : false
         onClicked: {
@@ -409,7 +407,7 @@ Item {
     GSMenuButtonItem {
         id: buttonHelp
         y: buttonSettings.y + 60
-        text: qsTr("Help")
+        text: qsTr("Help") + Translation.tr
         iconPath_: icons[6]
         selected_: (selected === menus.HELP) ? true : false
         onClicked: {

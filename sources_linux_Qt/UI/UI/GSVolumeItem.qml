@@ -55,7 +55,7 @@ Component {
             }
         }
         Text {
-            text: MountPoint_
+            text: MountPoint_ + Translation.tr
             color: "#bdbdbd"
             font.pixelSize: 10
             x: 100
@@ -66,7 +66,7 @@ Component {
             horizontalAlignment: Text.AlignHCenter
         }
         Text {
-            text: EncryptionAlgorithmName_
+            text: EncryptionAlgorithmName_ + Translation.tr
             horizontalAlignment: Text.AlignHCenter
             color: "#e1e1e1"
             font.pixelSize: 10
@@ -78,7 +78,7 @@ Component {
         }
         Text {
             id: pathText
-            text: Path_
+            text: Path_ + Translation.tr
             color: "#bdbdbd"
             font.pixelSize: 10
             x: 100
@@ -90,7 +90,7 @@ Component {
 
         }
         Text {
-            text: "Size : " + Size_
+            text: "Size : " + Size_ + Translation.tr
             horizontalAlignment: Text.AlignHCenter
             color: "#97c966"
             font.pixelSize: 11

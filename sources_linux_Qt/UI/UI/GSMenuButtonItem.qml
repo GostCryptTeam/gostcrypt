@@ -28,7 +28,7 @@ Button {
 
     //Partie texte
     contentItem: Text {
-        text: buttonMenu.text
+        text: buttonMenu.text + Translation.tr
         font.pixelSize: 12
         color: palette.text
         horizontalAlignment: Text.AlignRight

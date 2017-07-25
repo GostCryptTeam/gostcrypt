@@ -167,7 +167,7 @@ Item {
                                            +" any normal file). Click 'Select File' to choose a filename for the container and"
                                            +" to select the location where you wish the container to be created.<br><br><b>WARNING</b>: If you select"
                                            +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                                           +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
+                                           +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
                                            +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 0
                 }else //Choice : Hideden GostCrypt Volume
@@ -201,7 +201,7 @@ Item {
                                        +" any normal file). Click 'Select File' to choose a filename for the container and"
                                        +" to select the location where you wish the container to be created.<br><b>WARNING</b>: If you select"
                                        +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                                       +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
+                                       +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
                                        +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 2
                     content.item.setFileDialog(false)
@@ -298,7 +298,7 @@ Item {
                                    +" any normal file). Click 'Select File' to choose a filename for the container and"
                                    +" to select the location where you wish the container to be created.<br><b>WARNING</b>: If you select"
                                    +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                                   +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
+                                   +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
                                    +" on) by moving them to the GostCrypt container that you are about to create now.")
                 content.item.type = 2
                 content.item.setFileDialog(false)
@@ -323,7 +323,7 @@ Item {
             {
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)
-                    content.item.setText(qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>"),
+                    content.item.setText(qsTr("<b>Free space on drive : ") + Wizard.getfreeSpace()+"</b>",
                                          qsTr("Please specify the size of the container you want to create.<br><br>If"
                                               +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
                                               +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
@@ -346,7 +346,7 @@ Item {
                                            +" any normal file). Click 'Select File' to choose a filename for the container and"
                                            +" to select the location where you wish the container to be created.<br><br><b>WARNING</b>: If you select"
                                            +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                                           +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
+                                           +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
                                            +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 0
                     content.item.setFileDialog(false)
@@ -500,6 +500,7 @@ Item {
                     break;
                 case 1:
                     changePage(11, qsTr("Outer Volume Contents"), currentPage)
+                    next_.text = qsTr("Next >")
                     back_.setDisable(1)
                     break;
                 case 2:
@@ -514,7 +515,7 @@ Item {
                                           + "TO DO SO, REFER TO THE SECTION \"PROTECTION OF HIDDEN VOLUMES AGAINST DAMAGE\" IN THE GOSTCRYPT USER'S "
                                           + "GUIDE), DO NOT WRITE TO THE OUTER VOLUME. OTHERWISE, YOU MAY OVERWRITE AND DAMAGE THE HIDDEN VOLUME!"), 13)
                     content.source = "PageEnd.qml"
-                    changeSubWindowTitle("GostCrypt Volume Creation Wizard")
+                    changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
                     back_.visible = false
                     next_.visible = false
                     help_.visible = false

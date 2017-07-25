@@ -10,7 +10,7 @@ Button {
 
     //Partie texte
     contentItem: Text {
-        text: buttonBordered.text
+        text: buttonBordered.text + Translation.tr
         //font: buttonBorderedIcon.font
         font.pixelSize: 13
         color: palette.textLight

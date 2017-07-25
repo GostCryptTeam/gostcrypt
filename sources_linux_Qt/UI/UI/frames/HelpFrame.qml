@@ -15,6 +15,6 @@ Item {
         color: palette.text
         anchors.horizontalCenter: parent.horizontalCenter
         y: 20
-        text: "Help"
+        text: qsTr("Help") + Translation.tr
     }
 }

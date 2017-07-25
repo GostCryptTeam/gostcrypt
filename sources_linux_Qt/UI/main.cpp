@@ -10,6 +10,7 @@
 #include "Platform/SystemLog.h"
 #include "DragWindowProvider.h"
 #include "volumecreation.h"
+#include "TranslationApp.h"
 #include <QStorageInfo>
 
 int main(int argc, char *argv[])
@@ -39,9 +40,12 @@ int main(int argc, char *argv[])
     UserSettings settings;
     DragWindowProvider drag;
     VolumeCreation wizard;
+    TranslationApp translation;
+
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
+    ctx->setContextProperty("Translation", (QObject*)&translation);
     ctx->setContextProperty("ConnectSignals", &cs);
     ctx->setContextProperty("UserSettings", &settings);
     ctx->setContextProperty("DragWindowProvider", &drag);

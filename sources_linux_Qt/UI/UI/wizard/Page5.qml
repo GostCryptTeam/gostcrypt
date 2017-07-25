@@ -94,7 +94,7 @@ Item {
                    +", its cluster bitmap will be scanned to determine the size of the uninterrupted area of free space (if"
                    +" there is any) whose end is aligned with the end of the volume. This area will accommodate"
                    +" the hidden volume and therefore will limit its maximum possible size. Cluster map scanning is"
-                   +" necessary to ensure that no data on the outer volume will be overwritten by the hidden volume.")
+                   +" necessary to ensure that no data on the outer volume will be overwritten by the hidden volume.") + Translation.tr
         y: use_Keyfiles.y + 45
         x: 60
         color: palette.text

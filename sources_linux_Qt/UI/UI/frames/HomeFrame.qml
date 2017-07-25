@@ -83,7 +83,7 @@ Item {
             a volume by opening a subwindow.
          */
         UI.GSButtonGreen_icon {
-            text: qsTr("Mount Volume")
+            text: qsTr("Mount Volume") + Translation.tr
             /*!
             \qmlsignal onClicked
             \brief Open the subwindow by clicking on the "Mount volume"
@@ -91,7 +91,7 @@ Item {
          */
             onClicked: {
                 volumeToolsMenu.opacity = 0.0
-                openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
+                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
             }
         }
         /*!
@@ -100,10 +100,10 @@ Item {
         wizard to create a volume.
      */
         UI.GSButtonBlue_icon {
-            text: qsTr("Create Volume")
+            text: qsTr("Create Volume") + Translation.tr
             onClicked: {
                 volumeToolsMenu.opacity = 0.0
-                openSubWindow("wizard/WizardManager.qml", 'GostCrypt Volume Creation Wizard', "Create a volume", 429, {"name" : "", "value" : ""})
+                openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
             }
         }
         //Smooth fade-in/fade-out animation
@@ -128,7 +128,7 @@ Item {
         \brief Auto-mount a device.
      */
         UI.GSButtonBordered {
-            text: qsTr("Auto Mount Device")
+            text: qsTr("Auto Mount Device") + Translation.tr
             onClicked:
             {
                 volumeToolsMenu.opacity = 0.0
@@ -141,7 +141,7 @@ Item {
         \brief Dismount all the devices currently mounted
      */
         UI.GSButtonBordered {
-            text: qsTr("Dismount All")
+            text: qsTr("Dismount All") + Translation.tr
             color_:palette.green
             onClicked: {
                 volumeToolsMenu.opacity = 0.0
@@ -156,7 +156,7 @@ Item {
          */
         UI.GSButtonBordered {
             id: volumeTools
-            text: qsTr("Volume Tools")
+            text: qsTr("Volume Tools") + Translation.tr
             color_:palette.blue
             //TODO : supprimer (tests)
             onClicked: {
@@ -236,7 +236,7 @@ Item {
         Text {
             y: 120
             font.pixelSize: 20
-            text: qsTr("Drag & Drop a GostCrypt volume here !")
+            text: qsTr("Drag & Drop a GostCrypt volume here !") + Translation.tr
             anchors.horizontalCenter: helpStart.horizontalCenter
             color: palette.textLowOpacity
             font.bold: true
@@ -256,7 +256,7 @@ Item {
                 color: palette.textLowOpacity
                 anchors.horizontalCenter: rect.horizontalCenter
                 horizontalAlignment: Text.AlignVCenter
-                text: qsTr("Thank you for using <font color=\"#719c24\">GostCrypt</font> !")
+                text: qsTr("Thank you for using <font color=\"#719c24\">GostCrypt</font> !") + Translation.tr
             }
 
             Text {
@@ -266,7 +266,7 @@ Item {
                 y: line1.y + 20
                 horizontalAlignment: Text.AlignVCenter
                 text: qsTr("New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
-                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume")
+                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume") + Translation.tr
                 MouseArea {
                         anchors.fill: parent
                         acceptedButtons: Qt.NoButton
@@ -279,7 +279,7 @@ Item {
                         //TODO : right method
                         ConnectSignals.debug_connectReceiveCreate()
                     }else{
-                        openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
+                        openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
                     }
                 }
             }
@@ -391,7 +391,7 @@ Item {
             if (drop.hasText) {
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
                     console.log(drop.text)
-                    openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "dropVolume", "value" : drop.text.trim()})
+                    openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : drop.text.trim()})
                     drop.acceptProposedAction()
                 }
             }

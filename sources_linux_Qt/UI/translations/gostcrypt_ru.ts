@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.0" language="ru_RU">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>BackgroundFrame</name>
     <message>
         <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FavoritesFrame</name>
+    <message>
+        <source>Add mounted volume to Favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>???</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add mounted volume to system Favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize favorite Volumes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize System Favorite Volumes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mount Favorite Volumes...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23,17 +51,24 @@
     </message>
 </context>
 <context>
+    <name>GSLanguage</name>
+    <message>
+        <source>Please choose a language :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GostCrypt language changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The language of Gostcrypt has been changed. The changes take effect now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GSMenu</name>
     <message>
         <source>Home</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volumes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -50,6 +85,190 @@
     </message>
     <message>
         <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add mounted volume to Favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize favorite volumes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mount favorite volumes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Benchmark...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Test vectors...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyfile Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Security Token Keyfiles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close All Security Token Sessions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup Volume Header...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore Volume Header...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear Volume History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hot Keys...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Performance...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Keyfiles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security Tokens...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preferences...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User&apos;s Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beginner&apos;s Tutorial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frequently Asked Questions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GostCrypt Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>News</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyse a System Crash...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legal Notices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>keyfiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>volume header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>user settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change GostCrypt Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>web</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GostCrypt</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -103,6 +322,22 @@
         <source>Mount Volume</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Open a GostCrypt Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select a device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a file</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GSSubWindow</name>
@@ -119,6 +354,13 @@
     </message>
     <message>
         <source>TODO: shortcuts </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpFrame</name>
+    <message>
+        <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -153,11 +395,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;html&gt;New user ? Try to &lt;font color=&quot;#2f88a7&quot;&gt;&lt;a href=&quot;1&quot;&gt;create&lt;/a&gt;&lt;/font&gt;
-                            or &lt;font color=&quot;#719c24&quot;&gt;&lt;a href=&quot;2&quot;&gt;mount&lt;/a&gt;&lt;/font&gt; a volume&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Change Volume Password...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -181,6 +418,27 @@
         <source>Reset volume header...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>New user ? Try to &lt;font color=&quot;#2f88a7&quot;&gt;&lt;a href=&quot;1&quot;&gt;create&lt;/a&gt;&lt;/font&gt;
+                            or &lt;font color=&quot;#719c24&quot;&gt;&lt;a href=&quot;2&quot;&gt;mount&lt;/a&gt;&lt;/font&gt; a volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a GostCrypt volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mount a volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GostCrypt Volume Creation Wizard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page1</name>
@@ -197,15 +455,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Encrypts a non-system partition on any internal or external driv (e.g. a flash drive). Optionnaly, creates a hidden volume.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Encrypt the system partition or entire system drive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Encrypts the partition/drive where Windows is installed. Anyone who wants to gain access and use the system, read and write files, etc., will need to enter the correct password each time before Windows boots. Optionnaly, creates a hidden system.&lt;br&gt;&lt;font color=&apos;#719c24&apos;&gt;&lt;a href=&quot;#&quot;&gt;More about system encryption&lt;/a&gt;&lt;/font&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encrypts a non-system partition on any internal or external drive (e.g. a flash drive). Optionnaly, creates a hidden volume.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -245,6 +503,14 @@
     </message>
     <message>
         <source>Done : &lt;b&gt;&lt;font color=&apos;#&apos;&gt;0%&lt;/font&gt;&lt;/b&gt; - Speed : &lt;b&gt;&lt;font color=&apos;#&apos;&gt;0 o/s&lt;/font&gt;&lt;/b&gt; - Left : &lt;b&gt;&lt;font color=&apos;#&apos;&gt;0 s&lt;/font&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -304,6 +570,14 @@
     <name>Page4</name>
     <message>
         <source>Never save history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose a file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -370,10 +644,6 @@
         <source>GB</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Please specify the size of the container you want to create.&lt;br&gt;&lt;br&gt;If you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size.&lt;br&gt;&lt;br&gt;Note that possible size of an NTFS volume is 3792 KB.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Page9</name>
@@ -393,15 +663,61 @@
         <source>Keyfiles...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>     It is very important that you choose a good password. You should avoid choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words). It should not contain any names or dates of birth. It sould not be easy to guess. A good password is a random combination of upper and lower case letters, numbers, and special characters, such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better). The maximum possible length is 64 characters.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PageEnd</name>
     <message>
         <source>&lt;font size=&apos;7&apos; color=&apos;2f88a7&apos;&gt;Done !&lt;/font&gt;&lt;br&gt;Click the exit button to finish.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsFrame</name>
+    <message>
+        <source>Language...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>???</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hot Keys...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Encryption...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Favorite Volumes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Keyfiles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security Tokens...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preferences...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SystemFrame</name>
+    <message>
+        <source>System</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -474,6 +790,10 @@
         <source>Set header Key Derivation Algorithm....</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WizardManager</name>
@@ -494,19 +814,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A GostCrypt volume can reside in a file (called GostCrypt container), which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt container is just like any normal file (it can be, for example, moved or deleted as any normal file). Click &apos;Select File&apos; to choose a filename for the container and to select the location where you wish the container to be created.&lt;br&gt;&lt;br&gt;&lt;b&gt;WARNING&lt;/b&gt;: If you select an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with the newly created GostCrypt container. You will be able to encrypt existing giles (later on) by moving them to the GostCrypt container that you are about to create now.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Volume Creation Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>GostCrypt Volume Creation Wizard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)&lt;br&gt;A GostCrypt volume can reside in a file (called GostCrypt container), which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt container is just like any normal file (it can be, for example, moved or deleted as any normal file). Click &apos;Select File&apos; to choose a filename for the container and to select the location where you wish the container to be created.&lt;br&gt;&lt;b&gt;WARNING&lt;/b&gt;: If you select an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with the newly created GostCrypt container. You will be able to encrypt existing giles (later on) by moving them to the GostCrypt container that you are about to create now.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -569,11 +881,68 @@
         <source>Volume password</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please specify the size of the container you want to create.&lt;br&gt;&lt;br&gt;If you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size.&lt;br&gt;&lt;br&gt;Note that possible size of an NTFS volume is 3792 KB.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Volume Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please specify the size of the hidden volume to create. The minimum possible size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). The maximum possible size you can specify for the hidden volume is displayed above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>     It is very important that you choose a good password. You should avoid choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words). It should not contain any names or dates of birth. It sould not be easy to guess. A good password is a random combination of upper and lower case letters, numbers, and special characters, such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better). The maximum possible length is 64 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Volume Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Please choose a password for the hidden volume. It is very important that you choose a good password. You should avoid choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words). It should not contain any names or dates of birth. It sould not be easy to guess. A good password is a random combination of upper and lower case letters, numbers, and special characters, such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better). The maximum possible length is 64 characters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Volume Encryption Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Volume Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden Volume password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A GostCrypt volume can reside in a file (called GostCrypt container), which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt container is just like any normal file (it can be, for example, moved or deleted as any normal file). Click &apos;Select File&apos; to choose a filename for the container and to select the location where you wish the container to be created.&lt;br&gt;&lt;br&gt;&lt;b&gt;WARNING&lt;/b&gt;: If you select an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with the newly created GostCrypt container. You will be able to encrypt existing files (later on) by moving them to the GostCrypt container that you are about to create now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)&lt;br&gt;A GostCrypt volume can reside in a file (called GostCrypt container), which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt container is just like any normal file (it can be, for example, moved or deleted as any normal file). Click &apos;Select File&apos; to choose a filename for the container and to select the location where you wish the container to be created.&lt;br&gt;&lt;b&gt;WARNING&lt;/b&gt;: If you select an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with the newly created GostCrypt container. You will be able to encrypt existing files (later on) by moving them to the GostCrypt container that you are about to create now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Free space on drive : </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>main</name>
     <message>
         <source>GostCrypt 2.0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message d&apos;erreur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description du message d&apos;erreur.
+ Le message spécifique s&apos;affichera donc ici.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
