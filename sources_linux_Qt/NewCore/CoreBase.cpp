@@ -28,14 +28,14 @@ namespace GostCrypt {
 
 		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params)
 		{
-			QSharedPointer<GetMountedVolumesResponse> response;
+			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 
 			return response;
 		}
 
 		QList<QSharedPointer<MountedFilesystem> > CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
 		{
-			QList<QSharedPointer<MountedFilesystem> > mountedFilesystems;
+			QList<QSharedPointer<MountedFilesystem>> mountedFilesystems;
 			/*
 			FILE *mtab = fopen ("/etc/mtab", "r");
 
