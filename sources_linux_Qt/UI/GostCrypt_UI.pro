@@ -47,13 +47,15 @@ HEADERS += \
     connectSignals.h \
     UserSettings.h \
     DragWindowProvider.h \
-    volumecreation.h
+    volumecreation.h \
+    parser.h
 
 SOURCES += main.cpp \
     GraphicUserInterface.cpp \
     connectSignals.cpp \
     UserSettings.cpp \
-    volumecreation.cpp
+    volumecreation.cpp \
+    parser.cpp
 
 LIBS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \

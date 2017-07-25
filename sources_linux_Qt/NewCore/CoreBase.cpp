@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "CoreBase.h"
 #include "CoreUser.h"
 #include "CoreRoot.h"

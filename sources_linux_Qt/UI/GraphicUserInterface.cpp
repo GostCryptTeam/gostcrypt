@@ -15,14 +15,14 @@ GraphicUserInterface::GraphicUserInterface(QObject * parent)
 
 void GraphicUserInterface::init() {
     // Start core service
-    GostCrypt::CoreService::Start();
+//    GostCrypt::CoreService::Start();
     // Start encryption thread pool
     GostCrypt::EncryptionThreadPool::Start();
 
-    GostCrypt::Core->Init();
-    GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
+//    GostCrypt::Core->Init();
+//    GostCrypt::Core->SetApplicationExecutablePath (QCoreApplication::applicationFilePath().toStdWString());
 
-    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr<GostCrypt::GetStringFunctor>(mAdminPasswordRequestHandler));
+//    GostCrypt::Core->SetAdminPasswordCallback (shared_ptr<GostCrypt::GetStringFunctor>(mAdminPasswordRequestHandler));
 }
 
 void GraphicUserInterface::receive(const QString& str)
@@ -41,17 +41,17 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
-    GostCrypt::MountOptions options;
-    options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
-    options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));
+    GostCrypt::NewCore::MountVolumeParams options;
+    //options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
+    //options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));
     //options.MountPoint.reset(new DirectoryPath("/home/hantoine/as"));
-    try {
+    /*try {
 
-        shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
+//        shared_ptr <GostCrypt::VolumeInfo> volumeData = GostCrypt::Core->MountVolume (options);
 #ifdef QT_DEBUG
     qDebug() << "VOLUME MONTÉ !! : " << aPath << " '" << aPassword << "'";
 #endif
-        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
+//        emit sendVolumeInfos((string)volumeData.get()->MountPoint, volumeData.get()->EncryptionAlgorithmName, (string)volumeData.get()->Path, volumeData.get()->Size);
 
     } catch (GostCrypt::PasswordIncorrect &e) {
         emit mountVolumePasswordIncorrect();
@@ -73,7 +73,7 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
         +QString::fromUtf8(e.what())
 #endif
         );
-    }
+    }*/
 }
 
 void GraphicUserInterface::receiveAutoMount(const QString& aPassword)
@@ -91,7 +91,7 @@ void GraphicUserInterface::receiveDismountAll()
 #ifdef QT_DEBUG
     qDebug() << "Tout démonter";
 #endif
-    GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
+/*    GostCrypt::VolumeInfoList volumes = GostCrypt::Core->GetMountedVolumes();
     bool check = false;
     for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
         GostCrypt::Core->DismountVolume(volume);
@@ -99,12 +99,12 @@ void GraphicUserInterface::receiveDismountAll()
             emit confirmSudoPassword();
             check = true;
         }
-    }
+    }*/
 }
 
 GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
 {
-    return GostCrypt::Core->GetMountedVolumes();
+//    return GostCrypt::Core->GetMountedVolumes();
 }
 
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
@@ -123,27 +123,27 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
     qDebug() << "On démonte " << aStr;
 #endif
     GostCrypt::VolumePath path = GostCrypt::VolumePath(aStr.toStdString());
-    shared_ptr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
-    if(volume) GostCrypt::Core->DismountVolume(volume);
-    emit confirmSudoPassword();
+//    shared_ptr<GostCrypt::VolumeInfo> volume = GostCrypt::Core->GetMountedVolume(path);
+//    if(volume) GostCrypt::Core->DismountVolume(volume);
+//    emit confirmSudoPassword();
 }
 
 void GraphicUserInterface::receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles){
-    GostCrypt::Core->ChangePassword(shared_ptr<GostCrypt::VolumePath>(new GostCrypt::VolumePath(volumePath.toStdWString())),
+/*    GostCrypt::Core->ChangePassword(shared_ptr<GostCrypt::VolumePath>(new GostCrypt::VolumePath(volumePath.toStdWString())),
                                     true,
                                     shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(oldPassword.toStdString().c_str(),oldPassword.size())),
                                     oldKeyFiles,
                                     shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(newPassword.toStdString().c_str(), newPassword.size())),
-                                    newKeyFiles);
+                                    newKeyFiles);*/
 }
 
-void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCreationOptions> aCreate){
+void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::NewCore::CreateVolumeParams> aCreate){
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif
     QString cmd = "createGSVolume";
 
-    system(cmd.toStdString().c_str());
+/*    system(cmd.toStdString().c_str());
     GostCrypt::VolumeCreator *creator = new GostCrypt::VolumeCreator();
     creator->CreateVolume(aCreate);
     struct timespec ts = { 0, 10 * 1000 * 1000 };
@@ -233,12 +233,12 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::VolumeCrea
         args.push_back (string (virtualDevice));
 
         GostCrypt::Process::Execute (fsFormatter, args);
-    }
+    }*/
 
 }
 
 void GraphicUserInterface::stop() {
-    GostCrypt::CoreService::Stop();
+//    GostCrypt::CoreService::Stop();
     GostCrypt::EncryptionThreadPool::Stop();
 }
 
