@@ -21,7 +21,7 @@ namespace GostCrypt {
 			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesParams> params);
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params);
 		private:
-
+			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint);
 		};
 		QSharedPointer<CoreBase> getCore();
 	}

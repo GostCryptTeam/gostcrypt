@@ -2,15 +2,6 @@
 
 namespace GostCrypt {
 namespace NewCore {
-		QSharedPointer<CoreBase> CoreUser::getCore()
-		{
-			if(getuid()) {
-				return QSharedPointer<CoreBase>(new CoreRoot());
-			} else {
-				return QSharedPointer<CoreBase>(new CoreUser());
-			}
-		}
-
 		CoreUser::CoreUser()
 		{
 

@@ -3,28 +3,52 @@
 #include <QVariant>
 #include <QList>
 #include <QSharedPointer>
+#include <QFileInfo>
 #include "SerializationUtil.h"
+#include "CoreParams.h"
 
 namespace GostCrypt {
 	namespace NewCore {
 		static bool initCoreResponse();
 
-		struct CoreResponse {};
+		struct CoreResponse {
+			DEC_SERIALIZABLE(CoreResponse);
+		};
 
-		struct CreateVolumeResponse : CoreResponse {};
+		struct CreateVolumeResponse : CoreResponse {
+			DEC_SERIALIZABLE(CreateVolumeResponse);
+		};
 
-		struct ChangeVolumePasswordResponse : CoreResponse {};
+		struct ChangeVolumePasswordResponse : CoreResponse {
+			DEC_SERIALIZABLE(ChangeVolumePasswordResponse);
+		};
 
-		struct CreateKeyFileResponse : CoreResponse {};
+		struct CreateKeyFileResponse : CoreResponse {
+			DEC_SERIALIZABLE(CreateKeyFileResponse);
+		};
 
-		struct MountVolumeResponse : CoreResponse {};
+		struct MountVolumeResponse : CoreResponse {
+			DEC_SERIALIZABLE(MountVolumeResponse);
+		};
 
-		struct DismountVolumeResponse : CoreResponse {};
+		struct DismountVolumeResponse : CoreResponse {
+			DEC_SERIALIZABLE(DismountVolumeResponse);
+		};
 
-		struct GetHostDevicesResponse : CoreResponse {};
+		struct GetHostDevicesResponse : CoreResponse {
+			DEC_SERIALIZABLE(GetHostDevicesResponse);
+		};
 
 		struct GetMountedVolumesResponse : CoreResponse {
 			QList<QSharedPointer<VolumeInfo>> volumeInfoList;
+			DEC_SERIALIZABLE(GetMountedVolumesResponse);
+		};
+
+		struct MountedFilesystem
+		{
+			QFileInfo Device;
+			QFileInfo MountPoint;
+			FilesystemType::Enum Type;
 		};
 	}
 }
