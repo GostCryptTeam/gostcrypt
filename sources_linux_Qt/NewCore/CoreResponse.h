@@ -1,6 +1,7 @@
 #ifndef CORERESPONSE_H
 #define CORERESPONSE_H
 #include <QVariant>
+#include <QList>
 
 #include "SerializationUtil.h"
 
@@ -29,7 +30,9 @@ namespace GostCrypt {
 		struct GetHostDevicesResponse : CoreResponse {};
 		SERIALIZABLE(GetHostDevicesResponse)
 
-		struct GetMountedVolumesResponse : CoreResponse {};
+		struct GetMountedVolumesResponse : CoreResponse {
+			QList<QSharedPointer<VolumeInfo>> volumeInfoList;
+		};
 		SERIALIZABLE(GetMountedVolumesResponse)
 	}
 }

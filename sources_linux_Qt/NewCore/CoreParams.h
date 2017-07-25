@@ -2,6 +2,7 @@
 #define COREPARAMS_H
 #include <QVariant>
 #include "SerializationUtil.h"
+#include "Volume/Volume.h"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -28,7 +29,9 @@ namespace GostCrypt {
 		struct GetHostDevicesParams : CoreParams {};
 		SERIALIZABLE(GetHostDevicesParams)
 
-		struct GetMountedVolumesParams : CoreParams {};
+		struct GetMountedVolumesParams : CoreParams {
+			VolumePath volumePath;
+		};
 		SERIALIZABLE(GetMountedVolumesParams)
 	}
 }
