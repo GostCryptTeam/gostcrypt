@@ -2,7 +2,7 @@
 
 
 namespace GostCrypt {
-namespace NewCore {
+    namespace NewCore {
 
 		bool initCoreResponse()
 		{
@@ -18,63 +18,69 @@ namespace NewCore {
             return true;
 		}
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::CoreResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CoreResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CoreResponse & Valeur) {
-    return in;
-}
- DEF_SERIALIZABLE(GostCrypt::NewCore::CreateVolumeResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CreateVolumeResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateVolumeResponse & Valeur) {
-    return in;
-}
+        DEF_SERIALIZABLE(CoreResponse)
+        QDataStream & operator << (QDataStream & out, const CoreResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, CoreResponse & Valeur) {
+            return in;
+        }
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::ChangeVolumePasswordResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ChangeVolumePasswordResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ChangeVolumePasswordResponse & Valeur) {
-    return in;
-}
-DEF_SERIALIZABLE(GostCrypt::NewCore::CreateKeyFileResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CreateKeyFileResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateKeyFileResponse & Valeur) {
-    return in;
-}
-DEF_SERIALIZABLE(GostCrypt::NewCore::MountVolumeResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::MountVolumeResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MountVolumeResponse & Valeur) {
-    return in;
-}
-DEF_SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::DismountVolumeResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::DismountVolumeResponse & Valeur) {
-    return in;
-}
-DEF_SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetHostDevicesResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetHostDevicesResponse & Valeur) {
-    return in;
-}
-DEF_SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetMountedVolumesResponse& Valeur) {
-    return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetMountedVolumesResponse & Valeur) {
-    return in;
-}
+        DEF_SERIALIZABLE(CreateVolumeResponse)
+        QDataStream & operator << (QDataStream & out, const CreateVolumeResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, CreateVolumeResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(ChangeVolumePasswordResponse)
+        QDataStream & operator << (QDataStream & out, const ChangeVolumePasswordResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ChangeVolumePasswordResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(CreateKeyFileResponse)
+        QDataStream & operator << (QDataStream & out, const CreateKeyFileResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, CreateKeyFileResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(MountVolumeResponse)
+        QDataStream & operator << (QDataStream & out, const MountVolumeResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, MountVolumeResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(DismountVolumeResponse)
+        QDataStream & operator << (QDataStream & out, const DismountVolumeResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, DismountVolumeResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GetHostDevicesResponse)
+        QDataStream & operator << (QDataStream & out, const GetHostDevicesResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GetHostDevicesResponse & Valeur) {
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GetMountedVolumesResponse)
+        QDataStream & operator << (QDataStream & out, const GetMountedVolumesResponse& Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GetMountedVolumesResponse & Valeur) {
+            return in;
+        }
 
     }
 }
