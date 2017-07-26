@@ -3,6 +3,7 @@
 #include "CoreBase.h"
 #include "CoreUser.h"
 #include "CoreRoot.h"
+#include "CoreException.h"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -36,41 +37,40 @@ namespace GostCrypt {
 		QList<QSharedPointer<MountedFilesystem> > CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
 		{
 			QList<QSharedPointer<MountedFilesystem>> mountedFilesystems;
-			/*
+			//*
 			FILE *mtab = fopen ("/etc/mtab", "r");
 
 			if (!mtab)
 				mtab = fopen ("/proc/mounts", "r");
 			if(!mtab)
-				twrow Q
-			throw_sys_sub_if (!mtab, "/proc/mounts");
-			finally_do_arg (FILE *, mtab, { fclose (finally_arg); });
+				throw FailedOpenFile(QFileInfo("/proc/mounts"));
 
-			static Mutex mutex;
-			ScopeLock sl (mutex);
+			static QMutex mutex;
+			mutex.lock();
 
 			struct mntent *entry;
 			while ((entry = getmntent (mtab)) != nullptr)
 			{
-				make_shared_auto (MountedFilesystem, mf);
+				QSharedPointer<MountedFilesystem> mf(new MountedFilesystem);
 
 				if (entry->mnt_fsname)
-					mf->Device = DevicePath (entry->mnt_fsname);
+					mf->Device = QFileInfo (QString(entry->mnt_fsname));
 				else
 					continue;
 
 				if (entry->mnt_dir)
-					mf->MountPoint = DirectoryPath (entry->mnt_dir);
+					mf->MountPoint = QFileInfo(QString(entry->mnt_dir));
 
 				if (entry->mnt_type)
-					mf->Type = entry->mnt_type;
+					mf->Type = entry->mnt_type;//TODO
 
 				if ((devicePath.IsEmpty() || devicePath == mf->Device || realDevicePath == mf->Device) && (mountPoint.IsEmpty() || mountPoint == mf->MountPoint))
 					mountedFilesystems.push_back (mf);
 			}//*/
 
+			fclose(mtab);
+			mutex.unlock();
 			return mountedFilesystems;
-
 		}
 
 	}
