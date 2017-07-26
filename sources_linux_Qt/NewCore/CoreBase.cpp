@@ -8,21 +8,20 @@
 namespace GostCrypt {
 	namespace NewCore {
 
-        QSharedPointer<CoreBase> getCore()
-        {
-            initCoreParams();
-            initCoreResponse();
-            initCoreException();
-            if(getuid()) {
-                return QSharedPointer<CoreBase>(new CoreRoot());
-            } else {
-                return QSharedPointer<CoreBase>(new CoreUser());
-            }
-        }
+		QSharedPointer<CoreBase> getCore()
+		{
+			initCoreParams();
+			initCoreResponse();
+			initCoreException();
+			if(getuid()) {
+				return QSharedPointer<CoreBase>(new CoreRoot());
+			} else {
+				return QSharedPointer<CoreBase>(new CoreUser());
+			}
+		}
 
 		CoreBase::CoreBase()
 		{
-
 		}
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
@@ -34,6 +33,10 @@ namespace GostCrypt {
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 
+			foreach(QSharedPointer<MountedFilesystem> mf, getMountedFilesystems()) {
+				//if(mf->MountPoint.)
+			}
+
 			return response;
 		}
 
@@ -41,10 +44,10 @@ namespace GostCrypt {
 		{
 			QList<QSharedPointer<MountedFilesystem>> mountedFilesystems;
 			//*
-			FILE *mtab = fopen ("/etc/mtab", "r");
+			FILE *mtab = setmntent ("/etc/mtab", "r");
 
 			if (!mtab)
-				mtab = fopen ("/proc/mounts", "r");
+				mtab = setmntent ("/proc/mounts", "r");
 			if(!mtab)
 				throw FailedOpenFile(QFileInfo("/proc/mounts"));
 
@@ -64,14 +67,16 @@ namespace GostCrypt {
 				if (entry->mnt_dir)
 					mf->MountPoint = QFileInfo(QString(entry->mnt_dir));
 
-				if (entry->mnt_type)
-					mf->Type = entry->mnt_type;//TODO
+				//if (entry->mnt_type)
+				//	mf->Type = entry->mnt_type;//TODO
 
-				if ((devicePath.IsEmpty() || devicePath == mf->Device || realDevicePath == mf->Device) && (mountPoint.IsEmpty() || mountPoint == mf->MountPoint))
-					mountedFilesystems.push_back (mf);
+
+				if ((devicePath.canonicalFilePath().isEmpty() || devicePath == mf->Device) && \
+						(mountPoint.canonicalFilePath().isEmpty() || mountPoint == mf->MountPoint))
+					mountedFilesystems.append(mf);
 			}//*/
 
-			fclose(mtab);
+			endmntent(mtab);
 			mutex.unlock();
 			return mountedFilesystems;
 		}
