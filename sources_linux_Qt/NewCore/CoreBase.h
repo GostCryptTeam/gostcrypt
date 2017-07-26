@@ -6,6 +6,8 @@
 #include "CoreResponse.h"
 #include "CoreException.h"
 
+#define GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX "/tmp/.gostcrypt_aux_mnt"
+
 namespace GostCrypt {
 	namespace NewCore {
 		class CoreBase : public QObject
@@ -23,9 +25,9 @@ namespace GostCrypt {
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params);
             QSharedPointer<GetFileSystemTypesResponse> getFileSystemsSupported(QSharedPointer<GetFileSystemTypesParams> params);
 		private:
-			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint);
+			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
 		};
-        QSharedPointer<CoreBase> getCore();
+		QSharedPointer<CoreBase> getCore();
 	}
 }
 

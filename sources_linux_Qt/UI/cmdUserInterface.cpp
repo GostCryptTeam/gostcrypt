@@ -8,16 +8,16 @@ QTextStream &qStdOut() {
 }
 
 void AdminPasswordCLIRequestHandler::operator() (string &passwordStr) {
-    termios oldt;
-    tcgetattr(STDIN_FILENO, &oldt);
-    termios newt = oldt;
-    newt.c_lflag &= ~ECHO;
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input
+	termios oldt;
+	tcgetattr(STDIN_FILENO, &oldt);
+	termios newt = oldt;
+	newt.c_lflag &= ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input
 
     qStdOut() << "Please enter your sudo password: " << endl;
     getline(cin, passwordStr);
 
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the termineal
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the termineal
 }
 
 int handleCLI(int argc, char ** argv){

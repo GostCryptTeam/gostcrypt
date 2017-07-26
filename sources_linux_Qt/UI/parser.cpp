@@ -97,57 +97,57 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
 
 void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
 {
-    parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
-    parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
-    parser.process(app);
+	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
+	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
+	parser.process(app);
 
-    // Parsing all options
+	// Parsing all options
 
-    if (parser.isSet("help"))
-        throw Parser::ParseException();
+	if (parser.isSet("help"))
+		throw Parser::ParseException();
 
-    // parsing positional arguments
+	// parsing positional arguments
 
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volume' missed.");
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
+	const QStringList positionalArguments = parser.positionalArguments();
+	if (positionalArguments.size() < 2)
+		throw Parser::ParseException("Argument 'volume' missed.");
+	if (positionalArguments.size() > 2)
+		throw Parser::ParseException("Too many arguments specified.");
 
-    volume->volumepath = positionalArguments.at(1);
+	volume->volumepath = positionalArguments.at(1);
 }
 
 void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item)
 {
-    parser.addPositionalArgument("list", "Mounts a volume.", "list");
-    parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
-    parser.process(app);
+	parser.addPositionalArgument("list", "Mounts a volume.", "list");
+	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
+	parser.process(app);
 
-    // Parsing all options
+	// Parsing all options
 
-    if (parser.isSet("help"))
-        throw Parser::ParseException();
+	if (parser.isSet("help"))
+		throw Parser::ParseException();
 
-    // parsing positional arguments
+	// parsing positional arguments
 
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2){
-        *item = Volumes;
-        return;
-    }
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
-    QString volume = positionalArguments.at(1);
-    if(volume == "volumes")
-        *item = Volumes;
-    else if (volume == "algorithms")
-        *item = Algorithms;
-    else if (volume == "hashs")
-        *item = Hashs;
-    else if (volume == "filesystems")
-        *item = FileSystems;
-    else
-        throw Parser::ParseException("Unknown item to list.");
+	const QStringList positionalArguments = parser.positionalArguments();
+	if (positionalArguments.size() < 2){
+		*item = Volumes;
+		return;
+	}
+	if (positionalArguments.size() > 2)
+		throw Parser::ParseException("Too many arguments specified.");
+	QString volume = positionalArguments.at(1);
+	if(volume == "volumes")
+		*item = Volumes;
+	else if (volume == "algorithms")
+		*item = Algorithms;
+	else if (volume == "hashs")
+		*item = Hashs;
+	else if (volume == "filesystems")
+		*item = FileSystems;
+	else
+		throw Parser::ParseException("Unknown item to list.");
 }
 
 void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
@@ -288,26 +288,26 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){
-    s.data()[s.size()-1]='\0';
-    if(ok)
-        *ok = true;
-    if(s.data()[s.size()-2].isNumber())
-        return s.toInt();
-    if(s.data()[s.size()-2] == "K"){
-        s.data()[s.size()-2]='\0';
-        return s.toInt()*1024;
-    }
-    if(s.data()[s.size()-2] == "M"){
-        s.data()[s.size()-2]='\0';
-        return s.toInt()*1024*1024;
-    }
-    if(s.data()[s.size()-2] == "G"){
-        s.data()[s.size()-2]='\0';
-        return s.toInt()*1024*1024*1024;
-    }
-    if(ok)
-        *ok = false;
-    return 0;
+	s.data()[s.size()-1]='\0';
+	if(ok)
+		*ok = true;
+	if(s.data()[s.size()-2].isNumber())
+		return s.toInt();
+	if(s.data()[s.size()-2] == "K"){
+		s.data()[s.size()-2]='\0';
+		return s.toInt()*1024;
+	}
+	if(s.data()[s.size()-2] == "M"){
+		s.data()[s.size()-2]='\0';
+		return s.toInt()*1024*1024;
+	}
+	if(s.data()[s.size()-2] == "G"){
+		s.data()[s.size()-2]='\0';
+		return s.toInt()*1024*1024*1024;
+	}
+	if(ok)
+		*ok = false;
+	return 0;
 }
 
 bool Parser::askPassword(string volume, QString &p){
