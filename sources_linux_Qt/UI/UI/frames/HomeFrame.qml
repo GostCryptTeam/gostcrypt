@@ -179,10 +179,10 @@ Item {
      */
     Item {
         id: volumeListElement
-        x: 98
-        y: 111
-        width: 594
-        height: 303
+        x: rectangle2.x
+        y: rectangle2.y
+        width: rectangle2.width
+        height: rectangle2.height
 
         UI.GSVolumeItem {
             id:volumeDelegate
@@ -194,12 +194,13 @@ Item {
 
         GridView {
             id: grid
-            anchors.fill: parent;
+            y: 20
+            x: 25
+            height: volumeListElement.height - 40
+            width: volumeListElement.width - 40
+            //anchors.horizontalCenter: volumeListElement.horizontalCenter
             cellWidth: grid.width/2;
             cellHeight: 100
-            anchors.leftMargin: 35
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
             delegate: volumeDelegate
             focus: true
             model: listOfVolumes
@@ -407,7 +408,8 @@ Item {
         {
             helpStart.visible = false
         }
-        listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size})
+        var isFavorite = UserSettings.isFavorite(Path);
+        listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
     }
 
     function clearVolumes() {

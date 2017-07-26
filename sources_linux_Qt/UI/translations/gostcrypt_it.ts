@@ -341,10 +341,6 @@
 <context>
     <name>GSVolumeItem</name>
     <message>
-        <source>Add/remove volume from favorites...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Volume properties...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -362,6 +358,14 @@
     </message>
     <message>
         <source>Click to open volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add volume to favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from favorites...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,6 @@ import QtQuick.Controls 2.2
 
 Component {
     id:volumeDelegate
-
     Item {
         id: item
         width: 240
@@ -35,9 +34,9 @@ Component {
                 Text {
                     text: MountPoint_ + Translation.tr
                     color: "#bdbdbd"
-                    font.pixelSize: 10
-                    y: 10
-                    width: 120
+                    font.pixelSize: 14
+                    y: 7
+                    width: 140
                     clip: true
                     elide: Text.ElideLeft
                     horizontalAlignment: Text.AlignHCenter
@@ -49,7 +48,7 @@ Component {
                     color: "#e1e1e1"
                     font.pixelSize: 10
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
-                    y: 25
+                    y: 26
                     width: 120
                     clip: true
                     elide: Text.ElideLeft
@@ -60,7 +59,7 @@ Component {
                     color: "#bdbdbd"
                     font.pixelSize: 10
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
-                    y: 40
+                    y: 41
                     width: 120
                     clip: true
                     elide: Text.ElideRight
@@ -73,21 +72,11 @@ Component {
                     color: "#97c966"
                     font.pixelSize: 11
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
-                    y: 55
+                    y: 56
                     width: 120
                     clip: true
                     elide: Text.ElideLeft
                 }
-            }
-
-            GaussianBlur {
-                id: blur
-                anchors.fill: rightPartTexts
-                source: rightPartTexts
-                radius: 8
-                samples: 16
-                deviation: 3
-                opacity: 0.0
             }
 
             MouseArea {
@@ -100,7 +89,6 @@ Component {
                     volumeFavorite.opacity = 1.0
                     volumeProperties.opacity = 1.0
                     rightPartTexts.opacity = 0.1
-                    blur.opacity = 0.4
                     volumeTools_.opacity = 1.0
                 }
                 onExited: {
@@ -108,7 +96,6 @@ Component {
                     volumeFavorite.opacity = 0.0
                     volumeProperties.opacity = 0.0
                     rightPartTexts.opacity = 1.0
-                    blur.opacity = 0.0
                     volumeTools_.opacity = 0.0
                 }
 
@@ -127,7 +114,12 @@ Component {
 
                         ToolTip {
                             parent: volumeFavorite
-                            text: qsTr("Add/remove volume from favorites...")
+                            text: {
+                                if(Favorite == false)
+                                    qsTr("Add volume to favorites...")
+                                else
+                                    qsTr("Remove from favorites...")
+                            }
                             visible: volumeFavoriteArea.containsMouse
                             delay: 500
                             timeout: 5000
@@ -135,8 +127,14 @@ Component {
 
                         Image {
                             id: image
-                            source: "ressource/volumeFavorite.svg"
-                            asynchronous : true
+                            source: {
+                                if(Favorite === true)
+                                    return "ressource/volumeFavoriteHover.png"
+                                else
+                                    return "ressource/volumeFavorite.png"
+                            }
+                            //asynchronous : true
+                            //antialiasing: true
                             x:0
                             y:0
                             width:parent.width
@@ -149,20 +147,49 @@ Component {
                             }
                         }
 
+                        ColorOverlay{
+                            id: overlay
+                            anchors.fill: image
+                            source:image
+                            color: "#F5AB35"
+                            opacity: {
+                                if(Favorite === false)
+                                    return 0.0
+                                else
+                                    return 1.0
+                            }
+                            antialiasing: true
+                        }
+
                         MouseArea {
                             id: volumeFavoriteArea
                             anchors.fill: volumeFavorite
                             hoverEnabled: true
                             onClicked: {
                                 console.log("Volume favorite");
+                                if(Favorite === false)
+                                {
+                                    UserSettings.setFavoritesVolumes(Path_)
+                                    Favorite = true;
+                                    image.source = "ressource/volumeFavoriteHover.png"
+                                    overlay.opacity = 1.0
+                                }else{
+                                    UserSettings.setFavoritesVolumes(Path_)
+                                    Favorite = false;
+                                    image.source = "ressource/volumeFavorite.png"
+                                    overlay.opacity = 0.0
+                                }
                             }
                             onEntered: {
                                 cursorShape = Qt.PointingHandCursor
-                                image.source = "ressource/volumeFavoriteHover.svg"
+                                image.source = "ressource/volumeFavoriteHover.png"
                             }
                             onExited: {
                                 cursorShape = Qt.ArrowCursor
-                                image.source = "ressource/volumeFavorite.svg"
+                                if(Favorite === true)
+                                    image.source = "ressource/volumeFavoriteHover.png"
+                                else
+                                    image.source = "ressource/volumeFavorite.png"
                             }
                         }
                         Behavior on opacity {
@@ -196,8 +223,8 @@ Component {
 
                         Image {
                             id: image2
-                            source: "ressource/volumeProperties.svg"
-                            asynchronous : true
+                            source: "ressource/volumeProperties.png"
+                           // asynchronous : true
                             x:0
                             y:0
                             width:parent.width
@@ -219,11 +246,11 @@ Component {
                             }
                             onEntered: {
                                 cursorShape = Qt.PointingHandCursor
-                                image2.source = "ressource/volumePropertiesHover.svg"
+                                image2.source = "ressource/volumePropertiesHover.png"
                             }
                             onExited: {
                                 cursorShape = Qt.ArrowCursor
-                                image2.source = "ressource/volumeProperties.svg"
+                                image2.source = "ressource/volumeProperties.png"
                             }
                         }
                         Behavior on opacity {
@@ -256,8 +283,8 @@ Component {
 
                         Image {
                             id: image3
-                            source: "ressource/volumeTools.svg"
-                            asynchronous : true
+                            source: "ressource/volumeTools.png"
+                            //asynchronous : true
                             smooth: true
                             x:0
                             y:0
@@ -280,11 +307,11 @@ Component {
                             }
                             onEntered: {
                                 cursorShape = Qt.PointingHandCursor
-                                image3.source = "ressource/volumeToolsHover.svg"
+                                image3.source = "ressource/volumeToolsHover.png"
                             }
                             onExited: {
                                 cursorShape = Qt.ArrowCursor
-                                image3.source = "ressource/volumeTools.svg"
+                                image3.source = "ressource/volumeTools.png"
                             }
                         }
                         Behavior on opacity {

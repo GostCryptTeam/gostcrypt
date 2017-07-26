@@ -363,27 +363,35 @@
     </message>
     <message>
         <source>Add/remove volume from favorites...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Aj./Suppr. le volume des favoris...</translation>
     </message>
     <message>
         <source>Volume properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés du volume...</translation>
     </message>
     <message>
         <source>Volume Tools...</source>
-        <translation type="unfinished"></translation>
+        <translation>Options du volume...</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir</translation>
     </message>
     <message>
         <source>Dismount volume...</source>
-        <translation type="unfinished"></translation>
+        <translation>Démonter le volume...</translation>
     </message>
     <message>
         <source>Click to open volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliquer pour ouvrir le volume</translation>
+    </message>
+    <message>
+        <source>Add volume to favorites...</source>
+        <translation>Ajouter le volume aux favoris...</translation>
+    </message>
+    <message>
+        <source>Remove from favorites...</source>
+        <translation>Retirer le volume des favoris...</translation>
     </message>
 </context>
 <context>
@@ -397,7 +405,7 @@
     <name>HomeFrame</name>
     <message>
         <source>Mount Volume</source>
-        <translation>Monter un volume</translation>
+        <translation>Monter un vol.</translation>
     </message>
     <message>
         <source>Create Volume</source>
@@ -405,7 +413,7 @@
     </message>
     <message>
         <source>Auto Mount Device</source>
-        <translation>Monter automatiquement le périphérique</translation>
+        <translation>Monter auto.</translation>
     </message>
     <message>
         <source>Dismount All</source>
