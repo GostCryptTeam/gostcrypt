@@ -318,6 +318,7 @@ bool Parser::askPassword(string volume, QString &p){
     newt.c_lflag &= ~ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input
 
+    // the only std::cout authorized
     std::cout << "Please enter the " << volume << " password (leave empty if none) : " << std::endl;
     getline(std::cin, pass);
 

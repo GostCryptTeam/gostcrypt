@@ -2,6 +2,11 @@
 
 const QStringList FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
+QTextStream &qStdOut() {
+    static QTextStream ts( stdout );
+    return ts;
+}
+
 void AdminPasswordCLIRequestHandler::operator() (string &passwordStr) {
     termios oldt;
     tcgetattr(STDIN_FILENO, &oldt);
@@ -9,7 +14,7 @@ void AdminPasswordCLIRequestHandler::operator() (string &passwordStr) {
     newt.c_lflag &= ~ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input
 
-    std::cout << "Please enter your sudo password: " << std::endl;
+    qStdOut() << "Please enter your sudo password: " << endl;
     getline(cin, passwordStr);
 
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the termineal
@@ -51,16 +56,16 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseMount(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response;
                     response = Core->mountVolume(options);
-                    std::cout << "Volume Mounted"; // maybe add some more display
+                    qStdOut() << "Volume Mounted"; // maybe add some more display
                 } /*catch (GostCrypt::PasswordIncorrect &e) { // TODO make this work
-                    std::cout << "Wrong password or bad GostCrypt volume." << std::endl;
+                    qStdOut() << "Wrong password or bad GostCrypt volume." << endl;
                 } catch (GostCrypt::VolumeAlreadyMounted &e) {
-                    std::cout << "Volume has already been mounted." << std::endl;
+                    qStdOut() << "Volume has already been mounted." << endl;
                 }*/ catch(Parser::ParseException &e){
-                    std::cout << qPrintable(e.getMessage()) << std::endl;
+                    qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 } catch(...) {
-                    std::cout << "Unknown exception raised.";
+                    qStdOut() << "Unknown exception raised.";
                 }
             }
             break;
@@ -74,31 +79,31 @@ int handleCLI(int argc, char ** argv){
                     //QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
                     // TODO : call Core !
                 } catch(Parser::ParseException &e){
-                    std::cout << qPrintable(e.getMessage()) << std::endl;
+                    qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 } catch(...) {
-                    std::cout << "Unknown exception raised.";
+                    qStdOut() << "Unknown exception raised.";
                 }
             }
             break;
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
         case FirstCMD::test://"test":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::dismountall://"dismount-all":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::automount://"auto-mount":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::backupheaders://"backup-headers":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::createkeyfiles://"create-keyfiles":
-            std::cout << "Option not supported." << std::endl; // TODO
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::list://"list":
             {
@@ -112,36 +117,36 @@ int handleCLI(int argc, char ** argv){
                                 QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
                                 params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
                                 response = Core->getMountedVolumes(params);
-                                //std::cout << "";
+                                //qStdOut() << "";
                                 for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
-                                    std::cout << "----------------------------------------------------" << std::endl; // TODO : upgrade display
-                                    std::cout << "Name: " << string((*v)->Path)                         << std::endl;
-                                    std::cout << "Mountpoint: " << string((*v)->MountPoint)             << std::endl;
-                                    std::cout << "Size: " << (*v)->Size                                 << std::endl;
-                                    //std::cout << "Algorithm: " << string((*v)->EncryptionAlgorithmName) << std::endl;
+                                    qStdOut() << "----------------------------------------------------------------" << endl; // TODO : upgrade display
+                                    qStdOut() << "Name: " << QString::fromStdString(string((*v)->Path))             << endl;
+                                    qStdOut() << "Mountpoint: " << QString::fromStdString(string((*v)->MountPoint)) << endl;
+                                    qStdOut() << "Size: " << (*v)->Size                                             << endl;
+                                    //qStdOut() << "Algorithm: " << string((*v)->EncryptionAlgorithmName) << endl;
                                 }
                             }
                             break;
                         case Parser::Algorithms:
-                            std::cout << "Option not supported." << std::endl; // TODO
+                            qStdOut() << "Option not supported." << endl; // TODO
                             break;
                         case Parser::Hashs:
-                            std::cout << "Option not supported." << std::endl; // TODO
+                            qStdOut() << "Option not supported." << endl; // TODO
                             break;
                         case Parser::FileSystems:
                             // TODO call core for what is compatible on the system
-                            std::cout << "Option not supported." << std::endl; // TODO
+                            qStdOut() << "Option not supported." << endl; // TODO
                             break;
                     }
 
                 } catch(Parser::ParseException &e){
-                    std::cout << qPrintable(e.getMessage()) << std::endl;
+                    qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 }
             }
             break;
         default:
-            std::cout << "Not a valid command. Try --help for help." << std::endl;
+            qStdOut() << "Not a valid command. Try --help for help." << endl;
     }
 
     return 0;

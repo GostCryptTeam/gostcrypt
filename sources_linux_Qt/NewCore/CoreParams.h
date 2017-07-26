@@ -9,20 +9,6 @@
 #include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
 
-#define MK_ENUM(name) name // TODO move to external file ? used in coreparams.h and cmduserinterface.h
-#define MK_STRTAB(name) #name
-#define MK_ALL_FILESYSTEMTYPE(func) { \
-    func(Unknown), \
-    func(None), \
-    func(vfat), \
-    func(ntfs), \
-    func(Ext2), \
-    func(Ext3), \
-    func(Ext4), \
-    func(MacOsExt), \
-    func(UFS), \
-}
-
 namespace GostCrypt {
 	namespace NewCore {
         bool initCoreParams();
