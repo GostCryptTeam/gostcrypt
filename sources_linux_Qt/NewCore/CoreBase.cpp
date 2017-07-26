@@ -55,7 +55,7 @@ namespace GostCrypt {
 					controlFile->Open (mf->MountPoint.canonicalFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
-					mountedVol.reset(Serializable::DeserializeNew <VolumeInfo> (controlFileStream).get());
+					mountedVol.reset(new VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream)));
 				}
 				catch (...)
 				{
