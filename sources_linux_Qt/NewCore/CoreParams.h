@@ -4,7 +4,6 @@
 #include <QSharedPointer>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
-
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
 #include "Volume/VolumeSlot.h"
@@ -50,12 +49,14 @@ namespace GostCrypt {
 				FilesystemType::Enum filesystem; // the filesystem to use
 				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
 				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
+                DEC_SERIALIZABLE(VolumeParams);
 			};
 			VolumePath path; // path of the file to create or device to format
 			VolumeType::Enum type; // Normal or hidden ?
 			quint64 size; // size
 			QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
 			QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
+			DEC_SERIALIZABLE(CreateVolumeParams);
 		};
 
 		struct ChangeVolumePasswordParams : CoreParams {
@@ -65,10 +66,12 @@ namespace GostCrypt {
 			QSharedPointer <Pkcs5Kdf> newVolumeHeaderKdf; // new key derivation function (never null)
 			QSharedPointer <VolumePassword> newPassword; // new password (never null)
 			QSharedPointer <KeyfileList> newKeyfiles; // new keyfiles
+			DEC_SERIALIZABLE(ChangeVolumePasswordParams);
 		};
 
 		struct CreateKeyFileParams : CoreParams {
 			FilePath file; // the path of the file to fill with random data
+			DEC_SERIALIZABLE(CreateKeyFileParams);
 		};
 
 		struct MountVolumeParams : CoreParams {
@@ -83,16 +86,21 @@ namespace GostCrypt {
 			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
+			DEC_SERIALIZABLE(MountVolumeParams);
 		};
 
 		struct DismountVolumeParams : CoreParams {
 			QString volumepath; // path of the file mounted, not the mount point
+			DEC_SERIALIZABLE(DismountVolumeParams);
 		};
 
-		struct GetHostDevicesParams : CoreParams {}; // no parameters
+		struct GetHostDevicesParams : CoreParams {
+			DEC_SERIALIZABLE(GetHostDevicesParams);
+		}; // no parameters
 
 		struct GetMountedVolumesParams : CoreParams {
 			VolumePath volumePath; // optional path to select VolumeInfo from one particular volume
+			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
 	}

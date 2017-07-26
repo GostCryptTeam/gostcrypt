@@ -34,11 +34,13 @@ HEADERS += \
     CoreResponse.h \
     SerializationUtil.h \
     CoreUser.h \
-    CoreRoot.h
+    CoreRoot.h \
+    CoreException.h
 
 SOURCES += \
     CoreParams.cpp \
     CoreBase.cpp \
     CoreResponse.cpp \
     CoreUser.cpp \
-    CoreRoot.cpp
+    CoreRoot.cpp \
+    CoreException.cpp

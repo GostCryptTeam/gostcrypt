@@ -17,8 +17,6 @@ namespace NewCore {
 
             return true;
 		}
-	}
-}
 
 DEF_SERIALIZABLE(GostCrypt::NewCore::CoreResponse)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CoreResponse& Valeur) {
@@ -76,4 +74,7 @@ QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetMount
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetMountedVolumesResponse & Valeur) {
     return in;
+}
+
+    }
 }

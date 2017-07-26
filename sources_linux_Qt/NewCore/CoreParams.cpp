@@ -8,39 +8,34 @@ namespace NewCore {
 		{
 			INIT_SERIALIZE(CoreParams);
 			INIT_SERIALIZE(CreateVolumeParams);
-            INIT_SERIALIZE(CreateVolumeParams::VolumeParams);
+			INIT_SERIALIZE(CreateVolumeParams::VolumeParams);
 			INIT_SERIALIZE(ChangeVolumePasswordParams);
 			INIT_SERIALIZE(CreateKeyFileParams);
 			INIT_SERIALIZE(MountVolumeParams);
 			INIT_SERIALIZE(DismountVolumeParams);
 			INIT_SERIALIZE(GetHostDevicesParams);
 			INIT_SERIALIZE(GetMountedVolumesParams);
-
             return true;
 		}
 
 
 
-	}
+QDataStream & operator<< (QDataStream & out, const GostCrypt::NewCore::CoreParams & Valeur) {
+	return out;
 }
-
+QDataStream & operator>> (QDataStream & in, GostCrypt::NewCore::CoreParams & Valeur) {
+	return in;
+}
 DEF_SERIALIZABLE(GostCrypt::NewCore::CoreParams)
-QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CoreParams & Valeur) {
 
-return out;
-}
-QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CoreParams & Valeur) {
-    return in;
-}
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CreateVolumeParams & Valeur) {
 //    out << Valeur.path; // TODO
-    out << (quint32)Valeur.type;
-    out << (quint64)Valeur.size;
+	out << (quint32)Valeur.type;
+	out << (quint64)Valeur.size;
     out << Valeur.outerVolume;
     out << Valeur.innerVolume;
-    return out;
+	return out;
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateVolumeParams & Valeur) {
 //    in >> Valeur.path; // TODO
@@ -52,8 +47,8 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateVolumePar
     in >> Valeur.innerVolume;
     return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CreateVolumeParams::VolumeParams & Valeur) {
 //    out << Valeur.password;
 //    out << Valeur.keyfiles;
@@ -76,8 +71,8 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateVolumePar
     in >> Valeur.sectorSize;
     return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::ChangeVolumePasswordParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ChangeVolumePasswordParams & Valeur) {
 //    out << Valeur.path;
 //    out << Valeur.password;
@@ -85,7 +80,7 @@ QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ChangeVo
 //    out << Valeur.newVolumeHeaderKdf;
 //    out << Valeur.newPassword;
 //    out << Valeur.newKeyfiles;
-    return out;
+	return out;
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ChangeVolumePasswordParams & Valeur) {
 //    in >> Valeur.path;
@@ -94,10 +89,10 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ChangeVolumePas
 //    in >> Valeur.newVolumeHeaderKdf;
 //    in >> Valeur.newPassword;
 //    in >> Valeur.newKeyfiles;
-    return in;
+	return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::ChangeVolumePasswordParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::CreateKeyFileParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CreateKeyFileParams & Valeur) {
 //    out << Valeur.file;
     return out;
@@ -106,8 +101,8 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CreateKeyFilePa
 //    in >> Valeur.file;
     return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::CreateKeyFileParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::MountVolumeParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::MountVolumeParams & Valeur) {
     out << Valeur.fileSystemOptions;
     out << (quint32)Valeur.fileSystemType;
@@ -137,26 +132,26 @@ QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MountVolumePara
     in >> Valeur.sharedAccessAllowed;
     return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::MountVolumeParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::DismountVolumeParams & Valeur) {
-    out << Valeur.volumepath;
-    return out;
+	out << Valeur.volumepath;
+	return out;
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::DismountVolumeParams & Valeur) {
-    in >> Valeur.volumepath;
-    return in;
+	in >> Valeur.volumepath;
+	return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetHostDevicesParams & Valeur) {
-    return out;
+	return out;
 }
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetHostDevicesParams & Valeur) {
-    return in;
+	return in;
 }
+DEF_SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 
-DEF_SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetMountedVolumesParams & Valeur) {
 //    out << Valeur.volumePath;
     return out;
@@ -164,4 +159,7 @@ QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GetMount
 QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GetMountedVolumesParams & Valeur) {
 //    in >> Valeur.volumePath;
     return in;
+}
+DEF_SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
+    }
 }
