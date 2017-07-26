@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
+    GostCrypt_Core \
     GostCrypt_NewCore \
     GostCrypt_Platform \
     GostCrypt_FuseDriver \
