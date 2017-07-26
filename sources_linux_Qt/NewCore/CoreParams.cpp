@@ -14,6 +14,7 @@ namespace GostCrypt {
 			INIT_SERIALIZE(DismountVolumeParams);
 			INIT_SERIALIZE(GetHostDevicesParams);
 			INIT_SERIALIZE(GetMountedVolumesParams);
+            INIT_SERIALIZE(GetFileSystemTypesParams);
             return true;
 		}
 
@@ -154,5 +155,15 @@ namespace GostCrypt {
             return in;
         }
         DEF_SERIALIZABLE(GetMountedVolumesParams)
+
+        QDataStream & operator << (QDataStream & out, const GetFileSystemTypesParams & Valeur) {
+            out << Valeur.volumetypefilter;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GetFileSystemTypesParams & Valeur) {
+            in >> Valeur.volumetypefilter;
+            return in;
+        }
+        DEF_SERIALIZABLE(GetFileSystemTypesParams)
     }
 }

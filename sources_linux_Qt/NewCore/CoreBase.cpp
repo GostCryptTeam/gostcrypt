@@ -33,8 +33,14 @@ namespace GostCrypt {
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 
-			return response;
-		}
+            return response;
+        }
+
+        QSharedPointer<GetFileSystemTypesResponse> CoreBase::getFileSystemsSupported(QSharedPointer<GetFileSystemTypesParams> params)
+        {
+            QSharedPointer<GetFileSystemTypesResponse> response(new GetFileSystemTypesResponse);
+            return response;
+        }
 
 		QList<QSharedPointer<MountedFilesystem> > CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
 		{
