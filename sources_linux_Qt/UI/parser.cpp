@@ -157,36 +157,43 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path");
     parser.addOptions({
                           {{"p","password"}, "Specify an inline password.", "password"},
-                          {"hidden-password", "Specify an inline hidden password.", "hiddenpassword"},
+                          {{"hpassword","hidden-password"}, "Specify an inline hidden password.", "password"},
                           {{"f", "file", "keyfile"}, "Adds a keyfile.", "file"},
-                          {{"hfile", "hkeyfile"}, "Adds a keyfile for the hidden volume.", "file"},
+                          {{"hfile", "hkeyfile"/*,"hidden-file", "hidden-keyfile"*/}, "Adds a keyfile for the hidden volume.", "file"},
                           {{"h", "hash"}, "Chooses the hash function. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
-                          {"hhash", "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
+                          {{"hhash","hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          {"halgorithm", "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          {{"q","Quick"}, "Enable quick formatting."},
+                          {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
+                          //{{"q","Quick"}, "Enable quick formatting."}, // available only for the software itself ?
                           {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities."},
-                          {"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"},
-                          {"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"},
-                          {{"s", "size", "volume-size"}, "Sets the wanted size of the created volume.", "size{B|KB|MB|GB}"},
+                          {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities."},
+                          //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
+                          //{"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
+                          {{"s", "size", "volume-size"}, "Sets the wanted size of the created volume. For hidden volumes, the size will be asked later.", "size{B|KB|MB|GB}"},
                           {{"t", "type"}, "Sets the volume type.", "{Normal|Hidden}"}
                       });
-    parser.process(app);
+    //parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
     // Parsing all options
-    /*options->keyfiles.reset(nullptr);
-    options->password.reset(nullptr);
 
     if (parser.isSet("help"))
         throw Parser::ParseException();
 
-    if (parser.isSet("password")) {
+    if(parser.isSet("type")){
+        const QString type = parser.value("type");
+        if(!type.compare("Hidden",Qt::CaseInsensitive)){
+            type = GostCrypt::VolumeType::Hidden;
+        } else if(type.compare("Normal",Qt::CaseInsensitive)){
+            throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
+        }
+    }
+
+    /*if (parser.isSet("password")) {
         const QString password = parser.value("password");
-        options->setPassword(password);
+        options->outerVolume->password.reset(new VolumePassword(password));
     }else{
-        string password;
-        cout << "Please enter the volume password (leave empty if none) : " << std::endl;
-        getline(cin, password);
+
         if(password != "")
             options->setPassword(QString::fromStdString(password));
     }
@@ -261,7 +268,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         options->SectorSize = number.toInt(&ok);
         if (!ok)
             throw Parser::ParseException("'sector-size' must be a number !");
-    }*/
+    }
 
     if (parser.isSet("size")) {
         const QString number = parser.value("size");
@@ -280,8 +287,6 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         } else
             throw Parser::ParseException("'type' must be one of {Normal|Hidden} !");
     }*/
-
-    parseDismount(app,parser,nullptr);
 
     // parsing positional arguments
 

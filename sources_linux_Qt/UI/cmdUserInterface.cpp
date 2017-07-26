@@ -26,13 +26,14 @@ int handleCLI(int argc, char ** argv){
     parser.addHelpOption();
     parser.addPositionalArgument("command", "The command to execute.","{mount|create|umount|test|dismountall|automount|backupheaders|createkeyfiles|list}");
 
-    parser.process(app);
-
     // Call parse() to find out the positional arguments.
     parser.parse(QCoreApplication::arguments());
 
     const QStringList args = parser.positionalArguments();
     const QString command = args.isEmpty() ? QString() : args.first();
+
+    if(args.length() == 0 && parser.isSet("help"))
+        parser.showHelp();
 
     if(args.length() == 0) // nothing to do. Probably launched with --help
         return 0;
@@ -65,17 +66,30 @@ int handleCLI(int argc, char ** argv){
             break;
         case FirstCMD::createvolume://"create-volume":
         case FirstCMD::create://"create":
-            // TODO
+            {
+                QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options;
+                options.reset(new GostCrypt::NewCore::CreateVolumeParams());
+                try {
+                    Parser::parseCreate(app, parser, options);
+                    //QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
+                    // TODO : call Core !
+                } catch(Parser::ParseException &e){
+                    std::cout << qPrintable(e.getMessage()) << std::endl;
+                    parser.showHelp();
+                } catch(...) {
+                    std::cout << "Unknown exception raised.";
+                }
+            }
             break;
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-            // TODO
+            std::cout << "Option not supported." << std::endl; // TODO
         case FirstCMD::test://"test":
             std::cout << "Option not supported." << std::endl; // TODO
             break;
         case FirstCMD::dismountall://"dismount-all":
-            // TODO
+            std::cout << "Option not supported." << std::endl; // TODO
             break;
         case FirstCMD::automount://"auto-mount":
             std::cout << "Option not supported." << std::endl; // TODO
