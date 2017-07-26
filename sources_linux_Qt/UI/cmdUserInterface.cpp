@@ -112,8 +112,9 @@ int handleCLI(int argc, char ** argv){
                                 QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
                                 params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
                                 response = Core->getMountedVolumes(params);
+                                //std::cout << "";
                                 for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
-                                    std::cout << "----------------------------------------------------" << std::endl;
+                                    std::cout << "----------------------------------------------------" << std::endl; // TODO : upgrade display
                                     std::cout << "Name: " << string((*v)->Path)                         << std::endl;
                                     std::cout << "Mountpoint: " << string((*v)->MountPoint)             << std::endl;
                                     std::cout << "Size: " << (*v)->Size                                 << std::endl;
@@ -128,10 +129,9 @@ int handleCLI(int argc, char ** argv){
                             std::cout << "Option not supported." << std::endl; // TODO
                             break;
                         case Parser::FileSystems:
-                            // all are from enum FileSystemType of GostCrypt::NewCore::FileSystemType
-                            for(QString fs : GostCrypt::NewCore::FilesystemType::Str)
-                                std::cout << qPrintable(fs) << " ";
-                            std::cout << std::endl;
+                            // TODO call core for what is compatible on the system
+                            std::cout << "Option not supported." << std::endl; // TODO
+                            break;
                     }
 
                 } catch(Parser::ParseException &e){

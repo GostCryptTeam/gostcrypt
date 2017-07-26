@@ -1,7 +1,5 @@
 #include "CoreParams.h"
 
-const QStringList GostCrypt::NewCore::FilesystemType::Str = MK_ALL_FILESYSTEMTYPE(MK_STRTAB);
-
 namespace GostCrypt {
     namespace NewCore {
 
@@ -52,19 +50,17 @@ namespace GostCrypt {
         //    out << Valeur.keyfiles;
         //    out << Valeur.volumeHeaderKdf;
         //    out << Valeur.encryptionAlgorithm;
-            out << (quint32)Valeur.filesystem;
+            out << Valeur.filesystem;
             out << Valeur.filesystemClusterSize;
             out << Valeur.sectorSize;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, CreateVolumeParams::VolumeParams & Valeur) {
-            quint32 tmp;
         //    in >> Valeur.password;
         //    in >> Valeur.keyfiles;
         //    in >> Valeur.volumeHeaderKdf;
         //    in >> Valeur.encryptionAlgorithm;
-            in >> tmp;
-            Valeur.filesystem = FilesystemType::Enum(tmp);
+            in >> Valeur.filesystem;
             in >> Valeur.filesystemClusterSize;
             in >> Valeur.sectorSize;
             return in;
@@ -103,7 +99,7 @@ namespace GostCrypt {
 
         QDataStream & operator << (QDataStream & out, const MountVolumeParams & Valeur) {
             out << Valeur.fileSystemOptions;
-            out << (quint32)Valeur.fileSystemType;
+            out << Valeur.fileSystemType;
             out << Valeur.noFileSystem;
             out << Valeur.preserveTimestamps;
             //out << Valeur.keyfiles;
@@ -124,8 +120,7 @@ namespace GostCrypt {
             //in >> Valeur.keyfiles;
             //in >> Valeur.password;
             //in >> Valeur.path;
-            in >> tmp;
-            Valeur.fileSystemType = FilesystemType::Enum(tmp);
+            in >> Valeur.fileSystemType;
             in >> Valeur.useBackupHeaders;
             in >> Valeur.sharedAccessAllowed;
             return in;

@@ -35,7 +35,6 @@ namespace Parser {
 
     quint64 parseSize(QString s, bool *ok);
     bool askPassword(string volume, QString &p);
-    GostCrypt::NewCore::FilesystemType::Enum parseFilesystem(QString fs);
 
 }
 

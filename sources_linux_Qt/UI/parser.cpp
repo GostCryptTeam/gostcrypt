@@ -34,8 +34,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
     }
 
     if (parser.isSet("filesystem")) { // filesystemtype
-        const QString fs = parser.value("filesystem");
-        options->fileSystemType = parseFilesystem(fs);
+        options->fileSystemType = parser.value("filesystem"); // TODO check if exists
     }
 
     if (parser.isSet("no-filesystem")) { // nofilesystem
@@ -164,7 +163,6 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
                           {{"hhash","hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
                           {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          //{{"q","Quick"}, "Enable quick formatting."}, // available only for the software itself ?
                           {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities."},
                           {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities."},
                           //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
@@ -178,83 +176,83 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     // Parsing all options
 
     if (parser.isSet("help"))
-        throw Parser::ParseException();
+        throw Parser::ParseException(); // if help requested we throw an empty exception, showing the help and exiting
 
     if(parser.isSet("type")){
         const QString type = parser.value("type");
         if(!type.compare("Hidden",Qt::CaseInsensitive)){
-            type = GostCrypt::VolumeType::Hidden;
+            options->type = GostCrypt::VolumeType::Hidden;
+            options->innerVolume.reset(new GostCrypt::NewCore::CreateVolumeParams::VolumeParams());
         } else if(type.compare("Normal",Qt::CaseInsensitive)){
             throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
         }
     }
 
-    /*if (parser.isSet("password")) {
+    if (parser.isSet("password")) {
         const QString password = parser.value("password");
-        options->outerVolume->password.reset(new VolumePassword(password));
+        options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
     }else{
-
-        if(password != "")
-            options->setPassword(QString::fromStdString(password));
+        QString password;
+        if(options->type != GostCrypt::VolumeType::Hidden){
+            if(askPassword("volume", password))
+                options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
+        } else {
+            if(askPassword("outer volume", password))
+                options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
+        }
     }
 
-    if (parser.isSet("file")) {
-        options->setKeyFiles("ho ho"); // TODO DO SOMETHING
-        throw Parser::ParseException("WELL WE HAVE A PROBLEM HERE");
+    if(options->type != GostCrypt::VolumeType::Hidden){
+        if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hash") || parser.isSet("halgorithm") || parser.isSet("hfile-system"))
+            throw Parser::ParseException("Options for hidden volumes should only be used with --type=Hidden");
+    } else {
+        if (parser.isSet("hpassword")) {
+            const QString hpassword = parser.value("hpassword");
+            options->innerVolume->password.reset(new GostCrypt::VolumePassword(hpassword.toStdWString()));
+        }else{
+            QString hpassword;
+            if(askPassword("inner volume", hpassword))
+                options->innerVolume->password.reset(new GostCrypt::VolumePassword(hpassword.toStdWString()));
+        }
+
+        if (parser.isSet("hfile")) { // TODO
+            throw Parser::ParseException("keyfiles not implemented yet");
+        }
+
+        if (parser.isSet("hhash")) { // TODO
+            const QString myhash = parser.value("hhash");
+            throw Parser::ParseException("hashs not supported yet.");
+        }
+
+        if (parser.isSet("halgorithm")) { // TODO
+            const QString myalgorithm = parser.value("halgorithm");
+            throw Parser::ParseException("algorithms not supported yet.");
+        }
+
+        if (parser.isSet("hfile-system")) {
+            options->innerVolume->filesystem = parser.value("hfile-system"); // TODO check if ok
+        }
     }
 
-    if (parser.isSet("hash")) { // TODO : use some magic function to get it faster
+    if (parser.isSet("file")) { // TODO
+        throw Parser::ParseException("keyfiles not implemented yet");
+    }
+
+    if (parser.isSet("hash")) { // TODO
         const QString myhash = parser.value("hash");
-        GostCrypt::Pkcs5KdfList hashList = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
-        for(GostCrypt::SharedPtr<GostCrypt::Pkcs5Kdf> hash : hashList){
-            if(QString::fromWCharArray(hash->GetName().c_str()).toStdString() == myhash){
-                // TODO : should we allow deprecated values ?
-                options->VolumeHeaderKdf.reset(hash);
-                options->setVolumeHeaderKdf(myhash);
-                break;
-            }
-        }
-        if(options->VolumeHeaderKdf.get() == nullptr)
-            throw Parser::ParseException(myhash + " not found !");
+        throw Parser::ParseException("hashs not supported yet.");
     }
 
-    if (parser.isSet("algorithm")) { // TODO : use some magic function to get it faster
-        const QString algo = parser.value("algorithm");
-        GostCrypt::EncryptionAlgorithmList encryptionAlgos = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
-        for(GostCrypt::SharedPtr<GostCrypt::EncryptionAlgorithm> algorithm : encryptionAlgos){
-            if(QString::fromWCharArray(algorithm->GetName().c_str()).toStdString() == algo){
-                // TODO : should we allow deprecated values ?
-                options->EA.reset(algorithm);
-                break;
-            }
-        }
-        if(options->EA.get() == nullptr)
-            throw Parser::ParseException("algorithm " + algo + " not found !");
+    if (parser.isSet("algorithm")) { // TODO
+        const QString myalgorithm = parser.value("algorithm");
+        throw Parser::ParseException("algorithms not supported yet.");
     }
-
-    if (parser.isSet("Quick"))
-        options->Quick = true;
-    else
-        options->Quick = false;
 
     if (parser.isSet("file-system")) {
-        uint32 i;
-        const QString fs = parser.value("file-system");
-        const uint32 nbfilesystems = 8;
-        const QString* filesystems = { "None", "FAT", "NTFS", "Ext2", "Ext3", "Ext4", "MacOsExt", "UFS" };
-        for(i=0; i < nbfilesystems; i++){
-            if(filesystems[i] == fs){
-                options->Filesystem = GostCrypt::VolumeCreationOptions::FilesystemType(i+1);
-                break;
-            }
-        }
-        if(i>=nbfilesystems)
-            throw Parser::ParseException("Filesystem " + fs + " not found !");
-    } else {
-        options->Filesystem = GostCrypt::VolumeCreationOptions::FilesystemType::GetPlatformNative();
+        options->outerVolume->filesystem = parser.value("file-system"); // TODO check if ok
     }
 
-    if (parser.isSet("cluster-size")) {
+    /*if (parser.isSet("cluster-size")) {  // reserved for the core for now
         const QString number = parser.value("cluster-size");
         bool ok = false;
         options->FilesystemClusterSize = number.toInt(&ok);
@@ -268,7 +266,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         options->SectorSize = number.toInt(&ok);
         if (!ok)
             throw Parser::ParseException("'sector-size' must be a number !");
-    }
+    }*/
 
     if (parser.isSet("size")) {
         const QString number = parser.value("size");
@@ -277,16 +275,6 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         if (!ok)
             throw Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
     }
-
-    /*if (parser.isSet("type")) {
-        const QString type = parser.value("type");
-        if(type == "Normal" || type == "normal"){
-            options->Type = GostCrypt::VolumeType::Normal;
-        } else if(type == "Hidden" || type == "hidden") {
-            options->Type = GostCrypt::VolumeType::Hidden;
-        } else
-            throw Parser::ParseException("'type' must be one of {Normal|Hidden} !");
-    }*/
 
     // parsing positional arguments
 
@@ -338,12 +326,4 @@ bool Parser::askPassword(string volume, QString &p){
         return false;
     p = QString(pass.c_str());
     return true;
-}
-
-GostCrypt::NewCore::FilesystemType::Enum Parser::parseFilesystem(QString fs){
-    int r = -1;
-    r = GostCrypt::NewCore::FilesystemType::Str.indexOf(QRegExp(fs, Qt::CaseInsensitive));
-    if(r == -1)
-        throw Parser::ParseException("Unknown filesystem : "+fs);
-    return GostCrypt::NewCore::FilesystemType::Enum(r);
 }

@@ -49,7 +49,7 @@ namespace GostCrypt {
 		{
 			QFileInfo Device;
 			QFileInfo MountPoint;
-			FilesystemType::Enum Type;
+            QString Type;
 		};
 	}
 }
