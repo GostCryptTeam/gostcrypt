@@ -336,9 +336,8 @@ bool Parser::askPassword(string volume, QString &p){
 }
 
 GostCrypt::NewCore::FilesystemType::Enum Parser::parseFilesystem(QString fs){
-    const QStringList filesystems = { "None", "FAT", "NTFS", "Ext2", "Ext3", "Ext4", "MacOsExt", "UFS" };
     int r = -1;
-    r = filesystems.indexOf(QRegExp(fs, Qt::CaseInsensitive));
+    r = GostCrypt::NewCore::FilesystemType::Str.indexOf(QRegExp(fs, Qt::CaseInsensitive));
     if(r == -1)
         throw Parser::ParseException("Unknown filesystem : "+fs);
     return GostCrypt::NewCore::FilesystemType::Enum(r);

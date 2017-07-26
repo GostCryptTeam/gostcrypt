@@ -21,9 +21,7 @@ public:
     virtual void operator() (string &passwordStr);
 };
 
-#define MK_ENUM(name) name
-#define MK_STRTAB(name) #name
-#define MK_ALL(func) { \
+#define MK_ALL_COMMANDS(func) { \
     func(mount), \
     func(createvolume), \
     func(create), \
@@ -39,7 +37,7 @@ public:
 }
 
 struct FirstCMD {
-    enum Enum MK_ALL(MK_ENUM);
+    enum Enum MK_ALL_COMMANDS(MK_ENUM);
     static const QStringList Str;
 };
 

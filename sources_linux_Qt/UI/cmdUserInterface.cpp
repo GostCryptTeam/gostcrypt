@@ -1,18 +1,18 @@
 #include "cmdUserInterface.h"
 
-const QStringList FirstCMD::Str = MK_ALL(MK_STRTAB);
+const QStringList FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
 void AdminPasswordCLIRequestHandler::operator() (string &passwordStr) {
-    /*termios oldt;
+    termios oldt;
     tcgetattr(STDIN_FILENO, &oldt);
     termios newt = oldt;
     newt.c_lflag &= ~ECHO;
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input*/
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt); // hide input
 
     std::cout << "Please enter your sudo password: " << std::endl;
     getline(cin, passwordStr);
 
-    //tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the termineal
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the termineal
 }
 
 int handleCLI(int argc, char ** argv){
@@ -115,7 +115,9 @@ int handleCLI(int argc, char ** argv){
                             break;
                         case Parser::FileSystems:
                             // all are from enum FileSystemType of GostCrypt::NewCore::FileSystemType
-                            std::cout << "None, FAT, NTFS, Ext2, Ext3, Ext4, MacOsExt, UFS" << std::endl;
+                            for(QString fs : GostCrypt::NewCore::FilesystemType::Str)
+                                std::cout << qPrintable(fs) << " ";
+                            std::cout << std::endl;
                     }
 
                 } catch(Parser::ParseException &e){

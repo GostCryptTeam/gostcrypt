@@ -1,5 +1,6 @@
 #include "CoreParams.h"
 
+const QStringList GostCrypt::NewCore::FilesystemType::Str = MK_ALL_FILESYSTEMTYPE(MK_STRTAB);
 
 namespace GostCrypt {
 namespace NewCore {
@@ -17,7 +18,6 @@ namespace NewCore {
 			INIT_SERIALIZE(GetMountedVolumesParams);
             return true;
 		}
-
 
 
 QDataStream & operator<< (QDataStream & out, const GostCrypt::NewCore::CoreParams & Valeur) {

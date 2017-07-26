@@ -35,8 +35,8 @@ QDataStream & operator>> (QDataStream & in, QSharedPointer<ClassName> & Valeur) 
 }
 
 #define INIT_SERIALIZE(ClassName) \
-	qRegisterMetaTypeStreamOperators<ClassName>("ClassName"); \
-	qRegisterMetaTypeStreamOperators<QSharedPointer<ClassName>>("QSharedPointer<ClassName>"); \
+    qRegisterMetaTypeStreamOperators<ClassName>(#ClassName); \
+    qRegisterMetaTypeStreamOperators<QSharedPointer<ClassName>>("QSharedPointer<"#ClassName">"); \
 	qMetaTypeId<ClassName>(); \
 	qMetaTypeId<QSharedPointer<ClassName>>()
 

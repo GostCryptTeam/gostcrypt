@@ -9,22 +9,27 @@
 #include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
 
+#define MK_ENUM(name) name
+#define MK_STRTAB(name) #name
+#define MK_ALL_FILESYSTEMTYPE(func) { \
+    func(Unknown), \
+    func(None), \
+    func(FAT), \
+    func(NTFS), \
+    func(Ext2), \
+    func(Ext3), \
+    func(Ext4), \
+    func(MacOsExt), \
+    func(UFS), \
+}
+
 namespace GostCrypt {
 	namespace NewCore {
         bool initCoreParams();
 
         struct FilesystemType {
-            enum Enum {
-                Unknown = 0,
-                None,
-                FAT,
-                NTFS,
-                Ext2,
-                Ext3,
-                Ext4,
-                MacOsExt,
-                UFS
-            };
+            enum Enum MK_ALL_FILESYSTEMTYPE(MK_ENUM);
+            static const QStringList Str;
             static Enum GetPlatformNative () {
 #ifdef GST_LINUX
                 return GostCrypt::NewCore::FilesystemType::Ext3;
