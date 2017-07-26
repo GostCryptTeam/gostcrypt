@@ -5,11 +5,12 @@
 #include <QSharedPointer>
 #include <QFileInfo>
 #include "SerializationUtil.h"
+#include "Volume/VolumeInfo.h"
 #include "CoreParams.h"
 
 namespace GostCrypt {
 	namespace NewCore {
-		static bool initCoreResponse();
+        bool initCoreResponse();
 
 		struct CoreResponse {
 			DEC_SERIALIZABLE(CoreResponse);

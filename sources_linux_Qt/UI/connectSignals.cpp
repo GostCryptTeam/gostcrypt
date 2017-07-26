@@ -94,10 +94,10 @@ void ConnectSignals::openPath(const QString &aPath)
 
 void ConnectSignals::getAllMountedVolumes()
 {
-    GostCrypt::VolumeInfoList volumes = mGUI->receiveGetAllVolumes();
+    /*GostCrypt::VolumeInfoList volumes = mGUI->receiveGetAllVolumes();
     for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
         this->subWindowSendVolumeInfos(volume->MountPoint, volume->EncryptionAlgorithmName, volume->Path, volume->Size);
-    }
+    }*/
 }
 
 void ConnectSignals::changepassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, GostCrypt::SharedPtr<GostCrypt::KeyfileList> oldKeyfiles, GostCrypt::SharedPtr<GostCrypt::KeyfileList> newKeyfiles)

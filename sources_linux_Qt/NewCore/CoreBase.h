@@ -4,6 +4,7 @@
 #include <QObject>
 #include "CoreParams.h"
 #include "CoreResponse.h"
+#include "CoreException.h"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -23,7 +24,7 @@ namespace GostCrypt {
 		private:
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint);
 		};
-		QSharedPointer<CoreBase> getCore();
+        QSharedPointer<CoreBase> getCore();
 	}
 }
 

@@ -1,6 +1,11 @@
 #ifndef COREROOT_H
 #define COREROOT_H
 
+#include <QSharedPointer>
+#include "CoreBase.h"
+#include "CoreParams.h"
+#include "CoreResponse.h"
+
 namespace GostCrypt {
 	namespace NewCore {
 		class CoreRoot : public CoreBase

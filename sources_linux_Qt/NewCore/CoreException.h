@@ -1,13 +1,16 @@
 #ifndef COREEXCEPTION_H
 #define COREEXCEPTION_H
 #include <QFileInfo>
+#include <QException>
 #include "SerializationUtil.h"
 
 namespace GostCrypt {
 	namespace NewCore {
+        bool initCoreException();
+
 		class CoreException : public QException {
 			public:
-				CoreException();
+                CoreException() {}
 				void raise() const { throw *this; }
 				CoreException *clone() const { return new CoreException(*this); }
 			DEC_SERIALIZABLE(CoreException);
@@ -18,8 +21,9 @@ namespace GostCrypt {
 		};
 		class FailedOpenFile : public SystemException {
 			public:
-				FailedOpenFile(QFileInfo file) : file(file) {}
-				QFileInfo GetFile() const { return file; }
+                FailedOpenFile() {}
+                FailedOpenFile(QFileInfo file) : file(file) {}
+                QFileInfo getFile() const { return file; }
 			protected:
 				QFileInfo file;
 			DEC_SERIALIZABLE(FailedOpenFile);

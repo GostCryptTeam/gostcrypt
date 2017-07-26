@@ -48,14 +48,16 @@ HEADERS += \
     UserSettings.h \
     DragWindowProvider.h \
     volumecreation.h \
-    parser.h
+    parser.h \
+    cmdUserInterface.h
 
 SOURCES += main.cpp \
     GraphicUserInterface.cpp \
     connectSignals.cpp \
     UserSettings.cpp \
     volumecreation.cpp \
-    parser.cpp
+    parser.cpp \
+    cmdUserInterface.cpp
 
 LIBS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \

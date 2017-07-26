@@ -4,7 +4,6 @@
 #include <QSharedPointer>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
-
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
 #include "Volume/VolumeSlot.h"
@@ -12,9 +11,32 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-		bool initCoreParams();
+        bool initCoreParams();
 
-		struct FilesystemType; // declaration at the end of the file
+        struct FilesystemType {
+            enum Enum {
+                Unknown = 0,
+                None,
+                FAT,
+                NTFS,
+                Ext2,
+                Ext3,
+                Ext4,
+                MacOsExt,
+                UFS
+            };
+            static Enum GetPlatformNative () {
+#ifdef GST_LINUX
+                return GostCrypt::NewCore::FilesystemType::Ext3;
+#elif defined (GST_MACOSX)
+                return GostCrypt::NewCore::FilesystemType::MacOsExt;
+#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
+                return GostCrypt::NewCore::FilesystemType::UFS;
+#else
+                return GostCrypt::NewCore::FilesystemType::FAT;
+#endif
+            }
+        };
 
 		struct CoreParams {};
 
@@ -27,6 +49,7 @@ namespace GostCrypt {
 				FilesystemType::Enum filesystem; // the filesystem to use
 				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
 				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
+                DEC_SERIALIZABLE(VolumeParams);
 			};
 			VolumePath path; // path of the file to create or device to format
 			VolumeType::Enum type; // Normal or hidden ?
@@ -76,38 +99,10 @@ namespace GostCrypt {
 		}; // no parameters
 
 		struct GetMountedVolumesParams : CoreParams {
-			DEC_SERIALIZABLE(GetMountedVolumesParams);
-		}; // no parameters
-
-		struct GetMountedVolumesParams : CoreParams {
 			VolumePath volumePath; // optional path to select VolumeInfo from one particular volume
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
-		struct FilesystemType {
-			enum Enum {
-				Unknown = 0,
-				None,
-				FAT,
-				NTFS,
-				Ext2,
-				Ext3,
-				Ext4,
-				MacOsExt,
-				UFS
-			};
-			static Enum GetPlatformNative () {
-#ifdef GST_LINUX
-				return GostCrypt::NewCore::MountVolumeParams::FilesystemType::Ext3;
-#elif defined (GST_MACOSX)
-				return GostCrypt::NewCore::MountVolumeParams::FilesystemType::MacOsExt;
-#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
-				return GostCrypt::NewCore::MountVolumeParams::FilesystemType::UFS;
-#else
-				return GostCrypt::NewCore::MountVolumeParams::FilesystemType::FAT;
-#endif
-			}
-		};
 	}
 }
 

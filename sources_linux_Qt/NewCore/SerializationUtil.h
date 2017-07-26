@@ -1,9 +1,12 @@
 #ifndef SERIALIZEUTIL_H
 #define SERIALIZEUTIL_H
 
+#include <QDataStream>
+#include <QSharedPointer>
+
 #define SERIALIZABLE(ClassName) \
 	Q_DECLARE_METATYPE(ClassName) \
-	Q_DECLARE_METATYPE(QSharedPointer<ClassName>)
+    Q_DECLARE_METATYPE(QSharedPointer<ClassName>)
 
 #define DEC_SERIALIZABLE(ClassName) \
 friend QDataStream & operator<< (QDataStream & out, const ClassName & Valeur); \
@@ -13,7 +16,7 @@ friend QDataStream & operator<< (QDataStream & out, const QSharedPointer<ClassNa
 
 #define DEF_SERIALIZABLE(ClassName) \
 QDataStream & operator<< (QDataStream & out, const QSharedPointer<ClassName> & Valeur) { \
-	if(!Valeur) { \
+    if(!Valeur) { \
 		out << false; \
 	} else { \
 		out << true; \
