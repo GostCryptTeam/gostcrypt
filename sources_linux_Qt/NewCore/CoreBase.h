@@ -6,6 +6,8 @@
 #include "CoreResponse.h"
 #include "CoreException.h"
 
+#define GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX "/tmp/.gostcrypt_aux_mnt"
+
 namespace GostCrypt {
 	namespace NewCore {
 		class CoreBase : public QObject

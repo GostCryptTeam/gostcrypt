@@ -3,7 +3,14 @@
 #include "CoreBase.h"
 #include "CoreUser.h"
 #include "CoreRoot.h"
+#include "CoreResponse.h"
+#include "CoreParams.h"
 #include "CoreException.h"
+#include <QMutex>
+
+#include "Platform/FileStream.h"
+#include "Platform/SharedPtr.h"
+#include "FuseDriver/FuseService.h"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -33,8 +40,49 @@ namespace GostCrypt {
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 
-			foreach(QSharedPointer<MountedFilesystem> mf, getMountedFilesystems()) {
-				//if(mf->MountPoint.)
+			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
+				/* Filter only Fuse FileSystems*/
+				if(!mf->MountPoint.canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
+					continue;
+				}
+
+				QSharedPointer<VolumeInfo> mountedVol;
+
+				/* TODO : Replace by Qt serialization in the future */
+				try
+				{
+					shared_ptr <File> controlFile (new File);
+					controlFile->Open (mf->MountPoint.canonicalFilePath().toStdString() + FuseService::GetControlPath());
+
+					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
+					mountedVol.reset(Serializable::DeserializeNew <VolumeInfo> (controlFileStream).get());
+				}
+				catch (...)
+				{
+					continue;
+				}
+
+				/* If specific volume asked, check if this is the one */
+				if(params && !params->volumePath.IsEmpty() && mountedVol->Path != params->volumePath)
+					continue;
+
+				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
+				mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint.canonicalFilePath().toStdString());
+
+				/* Add final mount point information if possible */
+				if(!mountedVol->VirtualDevice.IsEmpty())
+				{
+					QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(QFileInfo(QString::fromStdString(string(mountedVol->VirtualDevice))));
+					if(!mpl.isEmpty()) {
+						mountedVol->MountPoint = DirectoryPath(mpl.first()->MountPoint.canonicalFilePath().toStdString());
+					}
+				}
+
+				response->volumeInfoList.append(mountedVol);
+
+				/* If volume path specified no need to stay in the loop */
+				if(params && !params->volumePath.IsEmpty())
+					break;
 			}
 
 			return response;
