@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "NewCore/CoreParams.h"
+#include "Volume/VolumePassword.h"
 #include <iostream>
 #include <QCommandLineParser>
 #include <QException>

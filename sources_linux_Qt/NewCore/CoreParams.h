@@ -9,22 +9,27 @@
 #include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
 
+#define MK_ENUM(name) name // TODO move to external file ? used in coreparams.h and cmduserinterface.h
+#define MK_STRTAB(name) #name
+#define MK_ALL_FILESYSTEMTYPE(func) { \
+    func(Unknown), \
+    func(None), \
+    func(FAT), \
+    func(NTFS), \
+    func(Ext2), \
+    func(Ext3), \
+    func(Ext4), \
+    func(MacOsExt), \
+    func(UFS), \
+}
+
 namespace GostCrypt {
 	namespace NewCore {
         bool initCoreParams();
 
         struct FilesystemType {
-            enum Enum {
-                Unknown = 0,
-                None,
-                FAT,
-                NTFS,
-                Ext2,
-                Ext3,
-                Ext4,
-                MacOsExt,
-                UFS
-            };
+            enum Enum MK_ALL_FILESYSTEMTYPE(MK_ENUM);
+            static const QStringList Str;
             static Enum GetPlatformNative () {
 #ifdef GST_LINUX
                 return GostCrypt::NewCore::FilesystemType::Ext3;
@@ -41,7 +46,23 @@ namespace GostCrypt {
 		struct CoreParams {};
 
 		struct CreateVolumeParams : CoreParams {
+            CreateVolumeParams(){
+                path = VolumePath("");
+                type = VolumeType::Normal;
+                size = 0;
+                innerVolume.reset();
+                outerVolume.reset(new GostCrypt::NewCore::CreateVolumeParams::VolumeParams());
+            }
 			struct VolumeParams {
+                VolumeParams(){
+                    password.reset();
+                    keyfiles.reset();
+                    volumeHeaderKdf.reset(); // not supposed to be null
+                    encryptionAlgorithm.reset(); // not supposed to be null
+                    filesystem = FilesystemType::GetPlatformNative();
+                    filesystemClusterSize = 4096; // default value, not supposed to change except for very specific requests
+                    sectorSize = 512; // default value, not supposed to change except for very specific requests
+                }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
 				QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
