@@ -7,6 +7,9 @@
 #include "CoreParams.h"
 #include "CoreException.h"
 #include <QMutex>
+#include <QTextStream>
+#include <QDebug>
+#include <QString>
 
 #include "Platform/FileStream.h"
 #include "Platform/SharedPtr.h"
@@ -33,7 +36,51 @@ namespace GostCrypt {
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
 		{
+			QSharedPointer<GetHostDevicesResponse> res(new GetHostDevicesResponse);
+			QFile file("/proc/partitions");
 
+			if(!file.open(QFile::ReadOnly))
+				throw FailedOpenFileException(QFileInfo("/proc/partitions"));
+			QByteArray fileContent = file.readAll();
+			QTextStream ts(&fileContent);
+			while(!ts.atEnd()) {
+				QStringList fields = ts.readLine().trimmed().split(" ", QString::SkipEmptyParts);
+
+				if(fields.count() != 4
+					|| fields.at(3).startsWith("loop")	// skip loop devices
+					|| fields.at(3).startsWith("cloop")
+					|| fields.at(3).startsWith("ram")	// skip RAM devices
+					|| fields.at(3).startsWith("dm-")	// skip device mapper devices
+					|| fields.at(2) == 1				// skip extended partitions
+					)
+					continue;
+
+				bool isNumber;
+				fields.at(0).toInt(&isNumber);
+				if(!isNumber)
+					continue;
+				QSharedPointer<HostDevice> hd(new HostDevice());
+				hd->devicePath = QFileInfo((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(3));
+				hd->size = fields.at(2).toULongLong(&isNumber)*1024;
+				if(!isNumber)
+					qDebug() << "Fail to read device size for device " << hd->devicePath.canonicalFilePath();
+				try {
+					hd->mountPoint = getDeviceMountPoint(hd->devicePath);
+				} catch(DeviceNotMounted &e) {}
+
+				/* Check if device is partition */
+				if(!res->hostDevices.isEmpty()) {
+					if(hd->devicePath.canonicalFilePath().startsWith(res->hostDevices.last()->devicePath.canonicalFilePath())) {
+						res->hostDevices.last()->partitions.append(hd);
+						continue;
+					}
+				}
+
+				res->hostDevices.append(hd);
+			}
+
+
+			return res;
 		}
 
 		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params)
@@ -72,10 +119,8 @@ namespace GostCrypt {
 				/* Add final mount point information if possible */
 				if(!mountedVol->VirtualDevice.IsEmpty())
 				{
-					QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(QFileInfo(QString::fromStdString(string(mountedVol->VirtualDevice))));
-					if(!mpl.isEmpty()) {
-						mountedVol->MountPoint = DirectoryPath(mpl.first()->MountPoint.canonicalFilePath().toStdString());
-					}
+					QFileInfo device (QString::fromStdString(string(mountedVol->VirtualDevice)));
+					mountedVol->MountPoint = DirectoryPath(getDeviceMountPoint(device).canonicalFilePath().toStdString());
 				}
 
 				response->volumeInfoList.append(mountedVol);
@@ -97,7 +142,7 @@ namespace GostCrypt {
 			if (!mtab)
 				mtab = setmntent ("/proc/mounts", "r");
 			if(!mtab)
-				throw FailedOpenFile(QFileInfo("/proc/mounts"));
+				throw FailedOpenFileException(QFileInfo("/proc/mounts"));
 
 			static QMutex mutex;
 			mutex.lock();
@@ -115,19 +160,30 @@ namespace GostCrypt {
 				if (entry->mnt_dir)
 					mf->MountPoint = QFileInfo(QString(entry->mnt_dir));
 
-				//if (entry->mnt_type)
-				//	mf->Type = entry->mnt_type;//TODO
-
+				if (entry->mnt_type) {
+					int index;
+					if((index = FilesystemType::Str.indexOf(QRegExp(QString(entry->mnt_type)))) < 0)
+						mf->Type = FilesystemType::Enum::Unknown;
+					else
+						mf->Type = (FilesystemType::Enum)index;
+				}
 
 				if ((devicePath.canonicalFilePath().isEmpty() || devicePath == mf->Device) && \
 						(mountPoint.canonicalFilePath().isEmpty() || mountPoint == mf->MountPoint))
 					mountedFilesystems.append(mf);
-			}//*/
+			}
 
 			endmntent(mtab);
 			mutex.unlock();
 			return mountedFilesystems;
 		}
 
+		QFileInfo CoreBase::getDeviceMountPoint(QFileInfo &devicePath)
+		{
+			QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(devicePath);
+			if(mpl.isEmpty())
+				 throw DeviceNotMountedException(devicePath);
+			return mpl.first()->MountPoint;
+		}
 	}
 }

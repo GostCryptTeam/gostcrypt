@@ -108,10 +108,8 @@ int handleCLI(int argc, char ** argv){
 					switch(item){
 						case Parser::Volumes:
 							{
-								QSharedPointer <GostCrypt::NewCore::GetMountedVolumesParams> params;
 								QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
-								params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
-								response = Core->getMountedVolumes(params);
+								response = Core->getMountedVolumes();
 								for(QSharedPointer<GostCrypt::VolumeInfo> v : response->volumeInfoList){
 									std::cout << "----------------------------------------------------" << std::endl;
 									std::cout << "Name: " << string(v->Path)                         << std::endl;
@@ -132,6 +130,17 @@ int handleCLI(int argc, char ** argv){
 							for(QString fs : GostCrypt::NewCore::FilesystemType::Str)
 								std::cout << qPrintable(fs) << " ";
 							std::cout << std::endl;
+							break;
+						case Parser::Devices:
+							QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response;
+							response = Core->getHostDevices();
+							for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
+								std::cout << d->devicePath.canonicalFilePath().toStdString() << "\t" << d->mountPoint.canonicalFilePath().toStdString() << "\t" << d->size << std::endl;
+								for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
+									std::cout << "\t" << p->devicePath.canonicalFilePath().toStdString() << "\t" << p->mountPoint.canonicalFilePath().toStdString() << "\t" << p->size << std::endl;
+								}
+							}
+
 					}
 
 				} catch(Parser::ParseException &e){
