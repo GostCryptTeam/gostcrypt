@@ -47,10 +47,16 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
-		struct MountedFilesystem {
+        struct GetFileSystemTypesResponse : CoreResponse {
+            QStringList filesystems;
+            DEC_SERIALIZABLE(GetFileSystemTypesResponse);
+        };
+
+		struct MountedFilesystem
+		{
 			QFileInfo Device;
 			QFileInfo MountPoint;
-			FilesystemType::Enum Type;
+            QString Type;
 		};
 
 		struct HostDevice {
@@ -70,6 +76,7 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
+SERIALIZABLE(GostCrypt::NewCore::GetFileSystemTypesResponse)
 
 
 

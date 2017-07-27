@@ -5,6 +5,7 @@
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
+#include <QTextStream>
 
 #include "NewCore/CoreBase.h"
 #include "NewCore/CoreParams.h"
@@ -22,6 +23,8 @@ public:
 	virtual void operator() (string &passwordStr);
 };
 
+#define MK_ENUM(name) name // TODO move to external file ?
+#define MK_STRTAB(name) #name
 #define MK_ALL_COMMANDS(func) { \
 	func(mount), \
 	func(createvolume), \
@@ -42,6 +45,7 @@ struct FirstCMD {
 	static const QStringList Str;
 };
 
+QTextStream& qStdOut();// replaces the classic std::cout
 
 int handleCLI(int argc, char ** argv); // some kind of main for commands
 

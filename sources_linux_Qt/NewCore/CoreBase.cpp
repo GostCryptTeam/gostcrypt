@@ -86,7 +86,6 @@ namespace GostCrypt {
 		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params)
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
-
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
 				/* Filter only Fuse FileSystems*/
 				if(!mf->MountPoint.canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
@@ -161,11 +160,7 @@ namespace GostCrypt {
 					mf->MountPoint = QFileInfo(QString(entry->mnt_dir));
 
 				if (entry->mnt_type) {
-					int index;
-					if((index = FilesystemType::Str.indexOf(QRegExp(QString(entry->mnt_type)))) < 0)
-						mf->Type = FilesystemType::Enum::Unknown;
-					else
-						mf->Type = (FilesystemType::Enum)index;
+					mf->Type = QString(entry->mnt_type);
 				}
 
 				if ((devicePath.canonicalFilePath().isEmpty() || devicePath == mf->Device) && \
@@ -185,5 +180,10 @@ namespace GostCrypt {
 				 throw DeviceNotMountedException(devicePath);
 			return mpl.first()->MountPoint;
 		}
+        QSharedPointer<GetFileSystemTypesResponse> CoreBase::getFileSystemsSupported(QSharedPointer<GetFileSystemTypesParams> params)
+        {
+            QSharedPointer<GetFileSystemTypesResponse> response(new GetFileSystemTypesResponse);
+            return response;
+        }
 	}
 }

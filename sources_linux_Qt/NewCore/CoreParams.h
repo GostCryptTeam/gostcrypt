@@ -9,39 +9,21 @@
 #include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
 
-#define MK_ENUM(name) name // TODO move to external file ? used in coreparams.h and cmduserinterface.h
-#define MK_STRTAB(name) #name
-#define MK_ALL_FILESYSTEMTYPE(func) { \
-    func(Unknown), \
-    func(None), \
-    func(FAT), \
-    func(NTFS), \
-    func(Ext2), \
-    func(Ext3), \
-    func(Ext4), \
-    func(MacOsExt), \
-    func(UFS), \
-}
-
 namespace GostCrypt {
 	namespace NewCore {
         bool initCoreParams();
 
-        struct FilesystemType {
-            enum Enum MK_ALL_FILESYSTEMTYPE(MK_ENUM);
-            static const QStringList Str;
-            static Enum GetPlatformNative () {
+        static QString GetFileSystemTypePlatformNative () {
 #ifdef GST_LINUX
-                return GostCrypt::NewCore::FilesystemType::Ext3;
+            return "ext3";
 #elif defined (GST_MACOSX)
-                return GostCrypt::NewCore::FilesystemType::MacOsExt;
+            return "MacOsExt";
 #elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
-                return GostCrypt::NewCore::FilesystemType::UFS;
+            return "fs";
 #else
-                return GostCrypt::NewCore::FilesystemType::FAT;
+            return "fat";
 #endif
-            }
-        };
+        }
 
 		struct CoreParams {};
 
@@ -59,7 +41,7 @@ namespace GostCrypt {
                     keyfiles.reset();
                     volumeHeaderKdf.reset(); // not supposed to be null
                     encryptionAlgorithm.reset(); // not supposed to be null
-                    filesystem = FilesystemType::GetPlatformNative();
+                    filesystem = GetFileSystemTypePlatformNative();
                     filesystemClusterSize = 4096; // default value, not supposed to change except for very specific requests
                     sectorSize = 512; // default value, not supposed to change except for very specific requests
                 }
@@ -67,7 +49,7 @@ namespace GostCrypt {
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
 				QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
 				QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm; // the algorithm to use (never null)
-				FilesystemType::Enum filesystem; // the filesystem to use
+                QString filesystem; // the filesystem to use
 				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
 				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
                 DEC_SERIALIZABLE(VolumeParams);
@@ -97,7 +79,7 @@ namespace GostCrypt {
 
 		struct MountVolumeParams : CoreParams {
 			QString fileSystemOptions; // additional options for fuse
-			FilesystemType::Enum fileSystemType; // Impose a filesystem
+            QString fileSystemType; // Impose a filesystem
 			bool noFileSystem; // does not mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
@@ -124,6 +106,11 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
+        struct GetFileSystemTypesParams : CoreParams {
+            QString volumetypefilter; // used to test a specific volumetype
+            DEC_SERIALIZABLE(GetFileSystemTypesParams);
+        };
+
 	}
 }
 
@@ -136,5 +123,6 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
+SERIALIZABLE(GostCrypt::NewCore::GetFileSystemTypesParams)
 
 #endif // COREPARAMS_H
