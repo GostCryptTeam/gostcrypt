@@ -35,7 +35,9 @@ void GraphicUserInterface::receive(const QString& str)
 void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 {
     // aPth n'est pas mis à jour lorsque l'on utilise l'historique ou le drag'n'drop
-    aPath = QUrl(aPath).toLocalFile();
+    //checking for "file://"
+    if(aPath[0] == 'f')
+        aPath = QUrl(aPath).toLocalFile();
     //aPath = "/home/hantoine/volume";
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;

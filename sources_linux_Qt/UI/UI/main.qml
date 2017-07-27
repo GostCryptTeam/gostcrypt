@@ -274,7 +274,8 @@ Window {
             anchors.fill: parent
             enabled: false
             visible: false
-            propagateComposedEvents: true
+            propagateComposedEvents: false
+            hoverEnabled: true
             onClicked: {
                 toggleMenu()
             }

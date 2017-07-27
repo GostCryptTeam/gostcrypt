@@ -28,6 +28,8 @@ public:
     Q_INVOKABLE void changepassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyfiles, shared_ptr <GostCrypt::KeyfileList> newKeyfiles);
     Q_INVOKABLE void connectEndSudo();
     Q_INVOKABLE QVariantList getListOfDevices();
+    Q_INVOKABLE bool isMounted(const QString& path);
+    Q_INVOKABLE QString getMountPoint(const QString& path) const;
 
 signals:
     void sendSubWindowErrorMessage(QString aTitle,QString aContent);

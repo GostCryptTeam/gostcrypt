@@ -8,6 +8,21 @@ Component {
         id: item
         width: 240
         height:80
+
+        function updateFavorite()
+        {
+            if(UserSettings.isFavorite(Path_) === true)
+            {
+                overlay.opacity = 1.0
+                image.source = "ressource/volumeFavoriteHover.png"
+                Favorite = true
+            }else{
+                overlay.opacity = 0.0
+                image.source = "ressource/volumeFavorite.png"
+                Favorite = false
+            }
+        }
+
         TooltipArea {
             text: Path_
         }
@@ -77,6 +92,13 @@ Component {
                     clip: true
                     elide: Text.ElideLeft
                 }
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: app.duration/2;
+                        easing.type: Easing.OutQuad;
+                    }
+                }
             }
 
             MouseArea {
@@ -85,6 +107,7 @@ Component {
                 hoverEnabled: true
                 propagateComposedEvents: true
                 onEntered: {
+                    updateFavorite()
                     dismountVolume.opacity = 1.0
                     volumeFavorite.opacity = 1.0
                     volumeProperties.opacity = 1.0
@@ -102,12 +125,12 @@ Component {
                 //options
                 Row {
                     id: rowOptions
-                    spacing: 14
+                    spacing: 20
                     anchors.centerIn: parent
                     Rectangle {
                         id: volumeFavorite
-                        width: 35
-                        height:35
+                        width: 25
+                        height:25
                         radius:0
                         color: "transparent"
                         opacity: 0.0
@@ -151,7 +174,7 @@ Component {
                             id: overlay
                             anchors.fill: image
                             source:image
-                            color: "#F5AB35"
+                            color: palette.blue
                             opacity: {
                                 if(Favorite === false)
                                     return 0.0
@@ -195,7 +218,7 @@ Component {
                         Behavior on opacity {
                             NumberAnimation {
                                 id: animationFavorite
-                                duration: app.duration/2;
+                                duration: app.duration/3;
                                 easing.type: Easing.OutQuad;
                                 onRunningChanged: {
 
@@ -207,8 +230,8 @@ Component {
 
                     Rectangle {
                         id: volumeProperties
-                        width: 35
-                        height:35
+                        width: 25
+                        height:25
                         radius:0
                         color: "transparent"
                         opacity: 0.0
@@ -268,8 +291,8 @@ Component {
 
                     Rectangle {
                         id: volumeTools_
-                        width: 35
-                        height:35
+                        width: 25
+                        height:25
                         radius:0
                         color: "transparent"
                         opacity: 0.0
@@ -304,6 +327,11 @@ Component {
                             hoverEnabled: true
                             onClicked: {
                                 console.log("Volume tools");
+                                //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
+                                volumeToolsMenu.opacity = (volumeToolsMenu.opacity == 0.0) ? 1.0 : 0.0
+                                if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true
+                                volumeToolsMenuLayer.opacity = (volumeToolsMenuLayer.opacity == 0.0) ? 0.4 : 0.0
+                                if(volumeToolsMenuLayer.visible == false) volumeToolsMenuLayer.visible = true
                             }
                             onEntered: {
                                 cursorShape = Qt.PointingHandCursor
@@ -328,6 +356,7 @@ Component {
                 }
             }
         }
+
 
         //left part
         Rectangle {
@@ -474,5 +503,7 @@ Component {
         }
 
     }
+
+
 }
 

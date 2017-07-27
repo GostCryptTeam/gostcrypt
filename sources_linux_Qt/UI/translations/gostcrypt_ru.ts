@@ -80,14 +80,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add mounted volume to Favorites...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize favorite volumes...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mount favorite volumes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -200,10 +192,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
     </message>
@@ -261,6 +249,26 @@
     </message>
     <message>
         <source>GostCrypt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from favorites...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a GostCrypt volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mount a volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favorite Volume options...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Mounted)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

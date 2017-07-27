@@ -21,6 +21,7 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length != 0)
             {
+                //console.log("volumePath vaut ici " +volumePath)
                 mountVolume(volumePath, password_value.text);
                 var password_blank = Array(password_value.length+1).join('#');
                 console.log("Mot de passe : "+password_blank);
@@ -166,17 +167,19 @@ Item {
         Text {
             id: password_txt
             y: 10 //TODO lineheight
+            width: 95
             leftPadding: 20
             text: qsTr("Password: ")  + Translation.tr
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
+            horizontalAlignment: Text.AlignRight
             lineHeight: combo.height
             color: '#719c24'
         }
 
         ControlsOld.TextField {
             id: password_value
-            x: password_txt.x + password_txt.width + 2
+            x: combo.x
             width: combo.width + 118
             horizontalAlignment: TextInput.AlignHCenter
             echoMode: TextInput.Password

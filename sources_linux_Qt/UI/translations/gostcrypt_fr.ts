@@ -89,11 +89,11 @@
     </message>
     <message>
         <source>Add mounted volume to Favorites...</source>
-        <translation>Ajouter le volume monté aux favoris...</translation>
+        <translation type="obsolete">Ajouter le volume monté aux favoris...</translation>
     </message>
     <message>
         <source>Organize favorite volumes...</source>
-        <translation>Organiser les volumes favoris...</translation>
+        <translation type="obsolete">Organiser les volumes favoris...</translation>
     </message>
     <message>
         <source>Mount favorite volumes</source>
@@ -209,7 +209,7 @@
     </message>
     <message>
         <source>menu</source>
-        <translation>menu</translation>
+        <translation type="obsolete">menu</translation>
     </message>
     <message>
         <source></source>
@@ -276,6 +276,30 @@
         <source>GostCrypt</source>
         <translation>GostCrypt</translation>
     </message>
+    <message>
+        <source>Remove from favorites...</source>
+        <translation>Retirer le volume des favoris...</translation>
+    </message>
+    <message>
+        <source>Open a GostCrypt volume</source>
+        <translation>Ouvrir un volume GostCrypt</translation>
+    </message>
+    <message>
+        <source>Mount a volume</source>
+        <translation>Monter un volume</translation>
+    </message>
+    <message>
+        <source>Mounted</source>
+        <translation type="obsolete">Monté</translation>
+    </message>
+    <message>
+        <source>Favorite Volume options...</source>
+        <translation>Options du volume en favori...</translation>
+    </message>
+    <message>
+        <source>(Mounted)</source>
+        <translation>(Monté)</translation>
+    </message>
 </context>
 <context>
     <name>GSOpenVolume</name>
@@ -301,7 +325,7 @@
     </message>
     <message>
         <source>Password: </source>
-        <translation>Mot de passe:</translation>
+        <translation>M.d.p:</translation>
     </message>
     <message>
         <source>Cache password and keyfiles in memory</source>

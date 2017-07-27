@@ -164,6 +164,22 @@ QVariantList ConnectSignals::getListOfDevices()
     return listOfDevices;
 }
 
+bool ConnectSignals::isMounted(const QString &path)
+{
+    GostCrypt::VolumeInfoList volumes = mGUI->receiveGetAllVolumes();
+    for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes)
+        if(path == QString::fromStdString((string)volume->Path)) return true;
+    return false;
+}
+
+QString ConnectSignals::getMountPoint(const QString &path) const
+{
+    GostCrypt::VolumeInfoList volumes = mGUI->receiveGetAllVolumes();
+    for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes)
+        if(path == QString::fromStdString((string)volume->Path)) return QString::fromStdString((string)volume->MountPoint);
+    return "";
+}
+
 void ConnectSignals::openPath(const QString &aPath)
 {
 #ifdef Q_WS_WIN

@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
+import QtGraphicalEffects 1.0
 
 Item {
     id: top
@@ -86,71 +87,386 @@ Item {
                 }
             }
         }
-
-        Component {
-            id: subMenuDelegate
-            Item {
-                width: 228;
-                x: 1
-                height: {
-                    if(size === "small")
-                        if(finale !== undefined) 28;
-                        else return 32
-                    else if(size ==="medium")
-                        if(finale !== undefined) 39;
-                        else return 43
-                    else
-                        if(finale !== undefined) 50;
-                        else return 54
-                }
-                Rectangle {
-                    id: elementSubMenu
-                    width: parent.width
+        Item {
+            id: loaderSub
+            anchors.fill:parent
+            visible: false
+            Component {
+                id: subMenuDelegate
+                Item {
+                    width: 228;
+                    x: 1
                     height: {
-                        if(finale !== undefined) parent.height;
-                        else return parent.height - 4
+                        if(size === "small")
+                            if(finale !== undefined) 28;
+                            else return 32
+                        else if(size ==="medium")
+                            if(finale !== undefined) 39;
+                            else return 43
+                        else
+                            if(finale !== undefined) 50;
+                            else return 54
                     }
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    color: palette.darkThird
-                    Text {
-                        horizontalAlignment: Text.AlignLeft
-                        text: message + Translation.tr
-                        color: palette.text
-                        font.pixelSize: 14
-                        wrapMode: Text.WordWrap
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: 20
-                        width: 200
-                    }
-                    MouseArea {
-                        id: elementSubMenu_MouseArea
-                        anchors.fill: elementSubMenu
-                        hoverEnabled: true
-                        onClicked: {
-                            openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
-                            toggleMenu()
+                    Rectangle {
+                        id: elementSubMenu
+                        width: parent.width
+                        height: {
+                            if(finale !== undefined) parent.height;
+                            else return parent.height - 4
                         }
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: palette.darkThird
+                        Text {
+                            horizontalAlignment: Text.AlignLeft
+                            text: message + Translation.tr
+                            color: palette.text
+                            font.pixelSize: 14
+                            wrapMode: Text.WordWrap
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: 20
+                            width: 200
+                        }
+                        MouseArea {
+                            id: elementSubMenu_MouseArea
+                            anchors.fill: elementSubMenu
+                            hoverEnabled: true
+                            onClicked: {
+                                openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
+                                toggleMenu()
+                            }
+                        }
+                        states: [
+                            State {
+                                name: "hover"
+                                when: elementSubMenu_MouseArea.containsMouse && !elementSubMenu_MouseArea.pressed
+                                PropertyChanges {
+                                    target: elementSubMenu
+                                    color : palette.dark
+                                }
+                            },
+                            State {
+                                name: "pressed"
+                                when: elementSubMenu_MouseArea.pressed
+
+                            },
+                            State {
+                                name: "exit"
+                                when: !elementSubMenu_MouseArea.containsMouse
+                                PropertyChanges {
+                                    target: elementSubMenu
+                                    color: palette.darkThird
+                                }
+                            }
+                        ]
+
+                        transitions: Transition {
+                            ColorAnimation { duration:100 }
+                        }
+
+                    }
+                    Rectangle {
+                        height: {
+                            if(finale !== undefined) return 0
+                            else return 4
+                        }
+                        width: 228
+                        anchors {
+                            left: elementSubMenu.left
+                            right: elementSubMenu.right
+                            top: elementSubMenu.bottom
+                        }
+                        color: palette.darkThird
+                        Image {
+                            height: parent.height
+                            fillMode: Image.TileHorizontally
+                            x:10
+                            width: parent.width-20
+                            horizontalAlignment: Image.AlignLeft
+                            verticalAlignment: Image.AlignTop
+                            source: "ressource/separator.png"
+                        }
+                    }
+                }
+
+            }
+
+            ListModel {
+                id: listSubMenuModel
+            }
+
+            ListView {
+                id: listOfSubMenu
+                y:50
+                width: parent.width
+                height: parent.height-50
+                delegate: subMenuDelegate
+                model: listSubMenuModel
+                focus: true
+                snapMode: ScrollBar.SnapAlways
+                clip: true
+                anchors.topMargin: 50
+                anchors.bottomMargin: 10
+                boundsBehavior: Flickable.DragOverBounds
+                ScrollBar.vertical:
+                    ScrollBar {
+                    snapMode: ScrollBar.SnapOnRelease
+                  //  contentItem.opacity: 0.1
+                    policy: ScrollBar.AsNeeded
+                    parent: listOfSubMenu.parent
+                    anchors.top: listOfSubMenu.top
+                    anchors.left: listOfSubMenu.left
+                    anchors.bottom: listOfSubMenu.bottom
+                    }
+                section.property: "type"
+                section.criteria: ViewSection.FullString
+                section.delegate: subMenuDelegateHead
+            }
+        }
+        Item {
+            id: loaderFavoriteSub
+            visible: false
+            anchors.fill:parent
+            Rectangle {
+                y: subMenu.y + subMenu.height - 129
+                x: 1
+                width: 1
+                height:100
+                color: palette.darkThird
+            }
+            Rectangle {
+                y: subMenu.y + subMenu.height - 130
+                x: 1
+                width: parent.width-2
+                height:1
+                color: palette.dark
+            }
+            Rectangle {
+                x:2
+                width: parent.width-2
+                height:149
+                y: subMenu.y + subMenu.height - 129
+                color: palette.darkInput
+                Text {
+                    y: 10
+                    x: 10
+                    text: "Double-click on a path to<br>mount the volume.<br>Or mount all favorite volumes :"
+                    color: palette.text
+                    width: parent.width - 20
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 13
+                }
+                GSButtonBordered {
+                    text: qsTr("Mount favorite volumes") + Translation.tr
+                    color_: palette.green
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: 75
+                    onClicked: {
+                        //Mount all favorite volumes
+                        var volumes = UserSettings.getFavoritesVolumes()
+                        //TODO
+                    }
+                }
+
+            }
+            Rectangle {
+                y: subMenu.y + subMenu.height - 130
+                x: parent.width-2
+                width: 1
+                height:100
+                color: palette.darkThird
+            }
+
+
+            Component {
+                id: subMenuDelegateFavorite
+                Item {
+                    y:1
+                    width: 228;
+                    x: 1
+                    height: 60
+                    Rectangle {
+                        id: favoriteElement
+                        anchors.fill:parent;
+                        color: {
+                            if(mounted === false) return palette.darkThird
+                            return palette.darkInput
+                        }
+                        Text {
+                            id: textInfos
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: 10
+                            width: 180
+                            text: path
+                            color: palette.text
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            visible: {
+                                if(mounted === false) return false
+                                else return true
+                            }
+                            text : qsTr("(Mounted)")
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                leftMargin: 10
+                                bottomMargin: 10
+                            }
+                            horizontalAlignment: Text.AlignRight
+                            font.pixelSize: 11
+                            color: palette.text
+                            opacity: 0.5
+                        }
+
+                        ToolTip {
+                            parent: favoriteElement
+                            text: path
+                            visible: favoriteElementMouseArea.containsMouse && !unFavButtonArea.containsMouse && !toolFavArea.containsMouse
+                            delay: 500
+                            timeout: 5000
+                        }
+                        Text {
+                            id: unFavButton
+                            anchors.right: parent.right
+                            y: -5
+                            anchors.rightMargin: 15
+                            text: "×"
+                            color: palette.text
+                            font.pixelSize: 30
+                            opacity: 0.0
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: app.duration/2;
+                                    easing.type: Easing.OutQuad;
+                                }
+                            }
+                            ToolTip {
+                                parent: unFavButton
+                                text: qsTr("Remove from favorites...")
+                                visible: unFavButtonArea.containsMouse
+                                delay: 500
+                                timeout: 5000
+                            }
+                        }
+
+                        Image {
+                            id: propertiesFav
+                            source: "ressource/volumeTools.png"
+                            anchors.right: parent.right
+                            anchors.rightMargin: 12
+                            x:0
+                            y:32
+                            width:20
+                            height:20
+                            opacity: 0.0
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: app.duration/2;
+                                    easing.type: Easing.OutQuad;
+                                }
+                            }
+                            ToolTip {
+                                parent: toolFavArea
+                                text: qsTr("Favorite Volume options...")
+                                visible: toolFavArea.containsMouse
+                                delay: 500
+                                timeout: 5000
+                            }
+                        }
+
+                        ColorOverlay{
+                            id: overlayImage
+                            anchors.fill: propertiesFav
+                            source:propertiesFav
+                            color: palette.blue
+                            visible: false
+                            antialiasing: true
+                        }
+                    }
+
+                    MouseArea {
+                        id: favoriteElementMouseArea
+                        anchors.fill: favoriteElement
+                        hoverEnabled: true
+                        propagateComposedEvents: false
+                        onEntered: {
+                            unFavButton.opacity = 1.0
+                            propertiesFav.opacity = 1.0
+                        }
+                        onExited: {
+                            unFavButton.opacity = 0.0
+                            propertiesFav.opacity = 0.0
+                        }
+                        onDoubleClicked: {
+                            //TODO
+                            if(mounted === false){
+                                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
+                                toggleMenu();
+                            }
+                            else ConnectSignals.openPath(mountPoint);
+
+                        }
+
+                        MouseArea {
+                            id:unFavButtonArea
+                            width: 50
+                            height: 30
+                            x: 178
+                            hoverEnabled: true
+                            onEntered: unFavButton.color = palette.blue
+                            onExited: unFavButton.color = palette.text
+                            onClicked: {
+                                //TODO : unfav path
+                                UserSettings.setFavoritesVolumes(path);
+                                listSubMenuModelFavorite.clear();
+                                manageSubMenu(menus.FAVORITE)
+
+                                //check if favorite un homeframe
+
+                            }
+                        }
+                        MouseArea {
+                            id: toolFavArea
+                            width:50
+                            height: 30
+                            x: 178
+                            y: 30
+                            hoverEnabled: true
+                            onEntered: overlayImage.visible = true
+                            onExited: overlayImage.visible = false
+                            onClicked: {
+                                //TODO: open subwindow
+                            }
+                        }
+
                     }
                     states: [
                         State {
                             name: "hover"
-                            when: elementSubMenu_MouseArea.containsMouse && !elementSubMenu_MouseArea.pressed
+                            when: favoriteElementMouseArea.containsMouse && !favoriteElementMouseArea.pressed
                             PropertyChanges {
-                                target: elementSubMenu
-                                color : palette.dark
+                                target: favoriteElement
+                                color : {
+                                    if(mounted === false) return palette.dark
+                                    return palette.darkInput
+                                }
                             }
                         },
                         State {
                             name: "pressed"
-                            when: elementSubMenu_MouseArea.pressed
+                            when: favoriteElementMouseArea.pressed
 
                         },
                         State {
                             name: "exit"
-                            when: !elementSubMenu_MouseArea.containsMouse
+                            when: !favoriteElementMouseArea.containsMouse
                             PropertyChanges {
-                                target: elementSubMenu
-                                color: palette.darkThird
+                                target: favoriteElement
+                                color: {
+                                    if(mounted === false) return palette.darkThird
+                                    return palette.darkInput
+                                }
                             }
                         }
                     ]
@@ -158,65 +474,39 @@ Item {
                     transitions: Transition {
                         ColorAnimation { duration:100 }
                     }
+                }
 
-                }
-                Rectangle {
-                    height: {
-                        if(finale !== undefined) return 0
-                        else return 4
-                    }
-                    width: 228
-                    anchors {
-                        left: elementSubMenu.left
-                        right: elementSubMenu.right
-                        top: elementSubMenu.bottom
-                    }
-                    color: palette.darkThird
-                    Image {
-                        height: parent.height
-                        fillMode: Image.TileHorizontally
-                        x:10
-                        width: parent.width-20
-                        horizontalAlignment: Image.AlignLeft
-                        verticalAlignment: Image.AlignTop
-                        source: "ressource/separator.png"
-                    }
-                }
             }
 
+            ListModel {
+                id: listSubMenuModelFavorite
+            }
+
+            ListView {
+                id: listOfSubMenuFavorite
+                y:50
+                width: parent.width
+                height: parent.height-180
+                delegate: subMenuDelegateFavorite
+                model: listSubMenuModelFavorite
+                focus: true
+                snapMode: ScrollBar.SnapAlways
+                clip: true
+                anchors.topMargin: 50
+                anchors.bottomMargin: 10
+                boundsBehavior: Flickable.DragOverBounds
+                ScrollBar.vertical:
+                    ScrollBar {
+                    snapMode: ScrollBar.SnapOnRelease
+                    policy: ScrollBar.AsNeeded
+                    parent: listOfSubMenuFavorite.parent
+                    anchors.top: listOfSubMenuFavorite.top
+                    anchors.left: listOfSubMenuFavorite.left
+                    anchors.bottom: listOfSubMenuFavorite.bottom
+                    }
+            }
         }
 
-        ListModel {
-            id: listSubMenuModel
-        }
-
-        ListView {
-            id: listOfSubMenu
-            y:50
-            width: parent.width
-            height: parent.height-50
-            delegate: subMenuDelegate
-            model: listSubMenuModel
-            focus: true
-            snapMode: ScrollBar.SnapAlways
-            clip: true
-            anchors.topMargin: 50
-            anchors.bottomMargin: 10
-            boundsBehavior: Flickable.DragOverBounds
-            ScrollBar.vertical:
-                ScrollBar {
-                snapMode: ScrollBar.SnapOnRelease
-              //  contentItem.opacity: 0.1
-                policy: ScrollBar.AsNeeded
-                parent: listOfSubMenu.parent
-                anchors.top: listOfSubMenu.top
-                anchors.left: listOfSubMenu.left
-                anchors.bottom: listOfSubMenu.bottom
-                }
-            section.property: "type"
-            section.criteria: ViewSection.FullString
-            section.delegate: subMenuDelegateHead
-        }
     }
 
 
@@ -256,18 +546,28 @@ Item {
     function manageSubMenu(index) {
         //filling the submenu zone
         listSubMenuModel.clear()
+        listSubMenuModelFavorite.clear()
+        loaderSub.visible = true
+        loaderFavoriteSub.visible = false
         switch(index) {
         case menus.HOME:
             //nothing here (?)
             app.toggleMenu()
             break;
         case menus.FAVORITE:
+            loaderSub.visible = false
+            loaderFavoriteSub.visible = true
             titleSubMenuText_ = qsTr("favorite")
-            listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            /*listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), subtype: "1", size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
             listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})*/
+            var favorites = UserSettings.getFavoritesVolumes()
+            var isMounted = false;
+            for(var i = 0; i< favorites.length; i++) {
+                listSubMenuModelFavorite.append({path: favorites[i], mounted: ConnectSignals.isMounted(favorites[i]), mountPoint: ConnectSignals.getMountPoint(favorites[i])});
+            }
             break;
         case menus.TOOLS:
             titleSubMenuText_ = qsTr("tools")
@@ -360,6 +660,8 @@ Item {
                 toggleSubMenu();
                 menuChanged("", menus.HOME)
             }else{
+                loaderSub.visible = false
+                loaderFavoriteSub.visible = true
                 selected = menus.FAVORITE
                 manageSubMenu(selected)
                 toggleSubMenu(true);
