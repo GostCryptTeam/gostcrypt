@@ -146,6 +146,8 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
 		*item = Hashs;
 	else if (volume == "filesystems")
 		*item = FileSystems;
+	else if (volume == "devices")
+		*item = Devices;
 	else
 		throw Parser::ParseException("Unknown item to list.");
 }

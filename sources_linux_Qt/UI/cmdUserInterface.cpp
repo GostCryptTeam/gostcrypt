@@ -137,6 +137,15 @@ int handleCLI(int argc, char ** argv){
                             // TODO call core for what is compatible on the system
                             qStdOut() << "Option not supported." << endl; // TODO
                             break;
+                        case Parser::Devices:
+							QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response;
+							response = Core->getHostDevices();
+							for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
+								qStdOut() << d->devicePath.canonicalFilePath() << "\t" << d->mountPoint.canonicalFilePath() << "\t" << d->size << endl;
+								for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
+									qStdOut()<< "\t" << p->devicePath.canonicalFilePath() << "\t" << p->mountPoint.canonicalFilePath() << "\t" << p->size << endl;
+								}
+							}
                     }
 
                 } catch(Parser::ParseException &e){

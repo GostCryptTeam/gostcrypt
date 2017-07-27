@@ -12,6 +12,7 @@ namespace GostCrypt {
 	namespace NewCore {
         bool initCoreResponse();
 
+		struct HostDevice;
 		struct CoreResponse {
 			DEC_SERIALIZABLE(CoreResponse);
 		};
@@ -37,6 +38,7 @@ namespace GostCrypt {
 		};
 
 		struct GetHostDevicesResponse : CoreResponse {
+			QList<QSharedPointer<HostDevice>> hostDevices;
 			DEC_SERIALIZABLE(GetHostDevicesResponse);
 		};
 
@@ -55,6 +57,13 @@ namespace GostCrypt {
 			QFileInfo Device;
 			QFileInfo MountPoint;
             QString Type;
+		};
+
+		struct HostDevice {
+			QFileInfo mountPoint;
+			QFileInfo devicePath;
+			quint64 size;
+			QList<QSharedPointer<HostDevice>> partitions;
 		};
 	}
 }
