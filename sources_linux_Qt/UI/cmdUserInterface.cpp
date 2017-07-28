@@ -117,7 +117,6 @@ int handleCLI(int argc, char ** argv){
                                 QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
                                 params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
                                 response = Core->getMountedVolumes(params);
-                                //qStdOut() << "";
                                 for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
                                     qStdOut() << "----------------------------------------------------------------" << endl; // TODO : upgrade display
                                     qStdOut() << "Name: " << QString::fromStdString(string((*v)->Path))             << endl;
@@ -134,16 +133,23 @@ int handleCLI(int argc, char ** argv){
                             qStdOut() << "Option not supported." << endl; // TODO
                             break;
                         case Parser::FileSystems:
-                            // TODO call core for what is compatible on the system
-                            qStdOut() << "Option not supported." << endl; // TODO
+                            {
+								QSharedPointer <GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse> response(new GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse);
+								response = Core->getFileSystemsTypesSupported();
+								for(QString fst : response->filesystems) {
+									qStdOut() << fst << endl;
+								}
+							}
                             break;
                         case Parser::Devices:
-							QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response;
-							response = Core->getHostDevices();
-							for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-								qStdOut() << d->devicePath.canonicalFilePath() << "\t" << d->mountPoint.canonicalFilePath() << "\t" << d->size << endl;
-								for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-									qStdOut()<< "\t" << p->devicePath.canonicalFilePath() << "\t" << p->mountPoint.canonicalFilePath() << "\t" << p->size << endl;
+							{
+								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
+								response = Core->getHostDevices();
+								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
+									qStdOut() << d->devicePath.canonicalFilePath() << "\t" << d->mountPoint.canonicalFilePath() << "\t" << d->size << endl;
+									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
+										qStdOut()<< "\t" << p->devicePath.canonicalFilePath() << "\t" << p->mountPoint.canonicalFilePath() << "\t" << p->size << endl;
+									}
 								}
 							}
                     }

@@ -106,9 +106,9 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
-        struct GetFileSystemTypesParams : CoreParams {
+        struct GetFileSystemsTypesSupportedParams : CoreParams {
             QString volumetypefilter; // used to test a specific volumetype
-            DEC_SERIALIZABLE(GetFileSystemTypesParams);
+            DEC_SERIALIZABLE(GetFileSystemsTypesSupportedParams);
         };
 
 	}
@@ -123,6 +123,6 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
-SERIALIZABLE(GostCrypt::NewCore::GetFileSystemTypesParams)
+SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
 
 #endif // COREPARAMS_H
