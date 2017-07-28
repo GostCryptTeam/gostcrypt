@@ -57,7 +57,7 @@ namespace GostCrypt
 		DataAreaKey.CopyFrom (options.DataKey);
 
 		VolumeCreationTime = 0;
-		HiddenVolumeDataSize = (options.Type == VolumeType::Hidden ? options.VolumeDataSize : 0);
+        HiddenVolumeDataSize = (options.Type == VolumeType::Hidden ? options.VolumeDataSize : 0); // to know if the volume is hidden or not. useless since the layout already contains this information.
 		VolumeDataSize = options.VolumeDataSize;
 
 		EncryptedAreaStart = options.VolumeDataStart;
