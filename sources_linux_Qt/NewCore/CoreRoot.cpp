@@ -7,6 +7,12 @@ namespace GostCrypt {
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)
 		{
+			if(!params)
+				throw MissingParamException("params");
+
+			if(isVolumeMounted(params->path))
+				throw VolumeAlreadyMountedException(*params->path);
+
 
 		}
 

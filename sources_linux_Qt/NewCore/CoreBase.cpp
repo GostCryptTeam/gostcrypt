@@ -109,7 +109,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-				if(params && !params->volumePath.IsEmpty() && mountedVol->Path != params->volumePath)
+				if(params && !params->volumePath.canonicalFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath.canonicalFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -125,7 +125,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-				if(params && !params->volumePath.IsEmpty())
+				if(params && !params->volumePath.canonicalFilePath().isEmpty())
 					break;
 			}
 
@@ -179,6 +179,13 @@ namespace GostCrypt {
 			if(mpl.isEmpty())
 				 throw DeviceNotMountedException(devicePath);
 			return mpl.first()->MountPoint;
+		}
+
+		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
+		{
+			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
+			params->volumePath = *volumeFile;
+			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)

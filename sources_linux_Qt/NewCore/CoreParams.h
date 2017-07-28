@@ -2,6 +2,7 @@
 #define COREPARAMS_H
 #include <QVariant>
 #include <QSharedPointer>
+#include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
 #include "Volume/Keyfile.h"
@@ -84,8 +85,8 @@ namespace GostCrypt {
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
 			QSharedPointer <VolumePassword> password; // password of the volume
-			QSharedPointer <DirectoryPath> mountPoint; // mountpoint of the volume
-			QSharedPointer <VolumePath> path; // path of the container or device to mount
+			QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
+			QSharedPointer <QFileInfo> path; // path of the container or device to mount
 			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
@@ -102,7 +103,7 @@ namespace GostCrypt {
 		}; // no parameters
 
 		struct GetMountedVolumesParams : CoreParams {
-			VolumePath volumePath; // optional path to select VolumeInfo from one particular volume
+			QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
