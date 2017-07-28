@@ -161,9 +161,9 @@ QStringList VolumeCreation::getHashs() const
     return algos;
 }
 
-QString VolumeCreation::getAlgosDescription(const int &aIndex)
+QString VolumeCreation::getAlgosDescription(const unsigned int &aIndex)
 {
-    if(aIndex >= 0 && aIndex < algorithms.size()){
+    if(aIndex < algorithms.size()){
         QString qtString = QString::fromWCharArray(algorithms[aIndex]->GetDescription().c_str());
         return qtString;
     }else{

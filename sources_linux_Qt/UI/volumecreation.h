@@ -25,7 +25,7 @@ public:
     Q_INVOKABLE void abort();
     Q_INVOKABLE QStringList getAlgos() const;
     Q_INVOKABLE QStringList getHashs() const;
-    Q_INVOKABLE QString getAlgosDescription(const int& aIndex);
+    Q_INVOKABLE QString getAlgosDescription(const unsigned int& aIndex);
     Q_INVOKABLE QString getfreeSpace();
 
     Q_INVOKABLE void setPath(const QString& value);
