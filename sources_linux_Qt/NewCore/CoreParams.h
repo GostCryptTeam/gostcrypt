@@ -79,15 +79,18 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeParams : CoreParams {
+			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
 			bool noFileSystem; // does not mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
-			QSharedPointer <VolumePassword> password; // password of the volume
+			QSharedPointer <QByteArray> password; // password of the volume
 			QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
 			QSharedPointer <QFileInfo> path; // path of the container or device to mount
 			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
+			QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
+			QSharedPointer <KeyfileList> protectionKeyfiles; // keyfiles to mount the hidden protected volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
 			DEC_SERIALIZABLE(MountVolumeParams);

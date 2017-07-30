@@ -102,7 +102,6 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
 	parser.process(app);
 
 	// Parsing all options
-
 	if (parser.isSet("help"))
 		throw Parser::ParseException();
 

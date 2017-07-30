@@ -30,6 +30,7 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeResponse : CoreResponse {
+			bool writeDisabled;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 

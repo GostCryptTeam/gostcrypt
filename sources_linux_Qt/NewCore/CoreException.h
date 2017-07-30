@@ -106,6 +106,17 @@ namespace GostCrypt {
 				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath.canonicalFilePath() + " is already mounted.")
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
 		};
+
+		#define FailedOpenVolumeException(volumePath) FailedOpenVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+		class FailedOpenVolume : public CoreException {
+			public:
+                FailedOpenVolume() {}
+                FailedOpenVolume(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+			protected:
+				QFileInfo volumePath;
+				DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, " Opening of volume " + volumePath.canonicalFilePath() + " failed.")
+			DEC_SERIALIZABLE(FailedOpenVolume);
+		};
 	}
 }
 
@@ -115,4 +126,5 @@ SERIALIZABLE(GostCrypt::NewCore::FailedOpenFile)
 SERIALIZABLE(GostCrypt::NewCore::DeviceNotMounted)
 SERIALIZABLE(GostCrypt::NewCore::MissingParam)
 SERIALIZABLE(GostCrypt::NewCore::VolumeAlreadyMounted)
+SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
 #endif // COREEXCEPTION_H
