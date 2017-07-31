@@ -2,6 +2,7 @@
 #define COREPARAMS_H
 #include <QVariant>
 #include <QSharedPointer>
+#include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
 #include "Volume/Keyfile.h"
@@ -36,7 +37,7 @@ namespace GostCrypt {
                 outerVolume.reset(new GostCrypt::NewCore::CreateVolumeParams::VolumeParams());
             }
 			struct VolumeParams {
-                VolumeParams(){
+                VolumeParams() {
                     password.reset();
                     keyfiles.reset();
                     volumeHeaderKdf.reset(); // not supposed to be null
@@ -47,14 +48,14 @@ namespace GostCrypt {
                 }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
-				QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
-				QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm; // the algorithm to use (never null)
+                QString volumeHeaderKdf; // derivation key function to use
+                QString encryptionAlgorithm; // the algorithm to use
                 QString filesystem; // the filesystem to use
-				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
-				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
+                quint32 filesystemClusterSize; // watch out for wrong values ! TODO
+                quint32 sectorSize; // watch out for wrong values ! TODO
                 DEC_SERIALIZABLE(VolumeParams);
 			};
-			VolumePath path; // path of the file to create or device to format
+            QFileInfo path; // path of the file to create or device to format
 			VolumeType::Enum type; // Normal or hidden ?
 			quint64 size; // size
 			QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
