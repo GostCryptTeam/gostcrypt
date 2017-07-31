@@ -78,7 +78,7 @@ namespace GostCrypt {
 
 				res->hostDevices.append(hd);
 			}
-
+			file.close();
 
 			return res;
 		}
@@ -109,7 +109,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-				if(params && !params->volumePath.IsEmpty() && mountedVol->Path != params->volumePath)
+				if(params && !params->volumePath.canonicalFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath.canonicalFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -125,7 +125,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-				if(params && !params->volumePath.IsEmpty())
+				if(params && !params->volumePath.canonicalFilePath().isEmpty())
 					break;
 			}
 
@@ -180,9 +180,34 @@ namespace GostCrypt {
 				 throw DeviceNotMountedException(devicePath);
 			return mpl.first()->MountPoint;
 		}
-        QSharedPointer<GetFileSystemTypesResponse> CoreBase::getFileSystemsSupported(QSharedPointer<GetFileSystemTypesParams> params)
+
+		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
+		{
+			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
+			params->volumePath = *volumeFile;
+			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
+		}
+
+        QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {
-            QSharedPointer<GetFileSystemTypesResponse> response(new GetFileSystemTypesResponse);
+            QSharedPointer<GetFileSystemsTypesSupportedResponse> response(new GetFileSystemsTypesSupportedResponse);
+			QFile file("/proc/filesystems");
+
+			if(!file.open(QFile::ReadOnly))
+				throw FailedOpenFileException(QFileInfo("/proc/filesystems"));
+			QByteArray fileContent = file.readAll();
+			QTextStream ts(&fileContent);
+			while(!ts.atEnd()) {
+				QStringList fields = ts.readLine().split("\t");
+
+				if(fields.count() != 2
+					|| fields.at(0) == "nodev") // We filter pseudo filesystems
+					continue;
+
+				response->filesystems.append(fields[1]);
+			}
+			file.close();
+
             return response;
         }
 	}

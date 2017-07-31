@@ -30,6 +30,7 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeResponse : CoreResponse {
+			bool writeDisabled;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 
@@ -47,9 +48,9 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
-        struct GetFileSystemTypesResponse : CoreResponse {
+        struct GetFileSystemsTypesSupportedResponse : CoreResponse {
             QStringList filesystems;
-            DEC_SERIALIZABLE(GetFileSystemTypesResponse);
+            DEC_SERIALIZABLE(GetFileSystemsTypesSupportedResponse);
         };
 
 		struct MountedFilesystem
@@ -76,7 +77,7 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
-SERIALIZABLE(GostCrypt::NewCore::GetFileSystemTypesResponse)
+SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse)
 
 
 

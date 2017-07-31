@@ -79,15 +79,18 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeParams : CoreParams {
+			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
 			bool noFileSystem; // does not mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
-			QSharedPointer <VolumePassword> password; // password of the volume
-			QSharedPointer <DirectoryPath> mountPoint; // mountpoint of the volume
-			QSharedPointer <VolumePath> path; // path of the container or device to mount
+			QSharedPointer <QByteArray> password; // password of the volume
+			QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
+			QSharedPointer <QFileInfo> path; // path of the container or device to mount
 			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
+			QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
+			QSharedPointer <KeyfileList> protectionKeyfiles; // keyfiles to mount the hidden protected volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
 			DEC_SERIALIZABLE(MountVolumeParams);
@@ -103,13 +106,13 @@ namespace GostCrypt {
 		}; // no parameters
 
 		struct GetMountedVolumesParams : CoreParams {
-			VolumePath volumePath; // optional path to select VolumeInfo from one particular volume
+			QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 
-        struct GetFileSystemTypesParams : CoreParams {
+        struct GetFileSystemsTypesSupportedParams : CoreParams {
             QString volumetypefilter; // used to test a specific volumetype
-            DEC_SERIALIZABLE(GetFileSystemTypesParams);
+            DEC_SERIALIZABLE(GetFileSystemsTypesSupportedParams);
         };
 
 	}
@@ -124,6 +127,6 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
-SERIALIZABLE(GostCrypt::NewCore::GetFileSystemTypesParams)
+SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
 
 #endif // COREPARAMS_H

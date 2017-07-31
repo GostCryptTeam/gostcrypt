@@ -84,6 +84,39 @@ namespace GostCrypt {
 				DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, " The device "+device.canonicalFilePath() + " is not mounted.")
 			DEC_SERIALIZABLE(DeviceNotMounted);
 		};
+
+		#define MissingParamException(param) MissingParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
+		class MissingParam : public CoreException {
+			public:
+                MissingParam() {}
+                MissingParam(QString fonction, QString filename, quint32 line, QString param) : CoreException(fonction, filename, line), param(param) {}
+			protected:
+				QString param;
+				DEF_EXCEPTION_WHAT(MissingParam, CoreException, " The parameter " + param + " is mandatory and should be defined.")
+			DEC_SERIALIZABLE(MissingParam);
+		};
+
+		#define VolumeAlreadyMountedException(volumePath) VolumeAlreadyMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+		class VolumeAlreadyMounted : public CoreException {
+			public:
+                VolumeAlreadyMounted() {}
+                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+			protected:
+				QFileInfo volumePath;
+				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath.canonicalFilePath() + " is already mounted.")
+			DEC_SERIALIZABLE(VolumeAlreadyMounted);
+		};
+
+		#define FailedOpenVolumeException(volumePath) FailedOpenVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+		class FailedOpenVolume : public CoreException {
+			public:
+                FailedOpenVolume() {}
+                FailedOpenVolume(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+			protected:
+				QFileInfo volumePath;
+				DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, " Opening of volume " + volumePath.canonicalFilePath() + " failed.")
+			DEC_SERIALIZABLE(FailedOpenVolume);
+		};
 	}
 }
 
@@ -91,4 +124,7 @@ SERIALIZABLE(GostCrypt::NewCore::CoreException)
 SERIALIZABLE(GostCrypt::NewCore::SystemException)
 SERIALIZABLE(GostCrypt::NewCore::FailedOpenFile)
 SERIALIZABLE(GostCrypt::NewCore::DeviceNotMounted)
+SERIALIZABLE(GostCrypt::NewCore::MissingParam)
+SERIALIZABLE(GostCrypt::NewCore::VolumeAlreadyMounted)
+SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
 #endif // COREEXCEPTION_H

@@ -7,6 +7,9 @@ namespace GostCrypt {
 			INIT_SERIALIZE(CoreException);
 			INIT_SERIALIZE(SystemException);
 			INIT_SERIALIZE(FailedOpenFile);
+			INIT_SERIALIZE(MissingParam);
+			INIT_SERIALIZE(VolumeAlreadyMounted);
+			INIT_SERIALIZE(FailedOpenVolume);
 		}
 
 
@@ -52,6 +55,46 @@ namespace GostCrypt {
             in >> static_cast<SystemException&>(Valeur);
             in >> path;
             Valeur.device.setFile(path);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::MissingParam)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::MissingParam & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+			out << Valeur.param;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MissingParam & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.param;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::VolumeAlreadyMounted)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::VolumeAlreadyMounted & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+			out << Valeur.volumePath.canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::VolumeAlreadyMounted & Valeur) {
+            QString path;
+            in >> static_cast<CoreException&>(Valeur);
+            in >> path;
+            Valeur.volumePath.setFile(path);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailedOpenVolume & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+			out << Valeur.volumePath.canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailedOpenVolume & Valeur) {
+            QString path;
+            in >> static_cast<CoreException&>(Valeur);
+            in >> path;
+            Valeur.volumePath.setFile(path);
             return in;
         }
     }

@@ -66,7 +66,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
 
     if (parser.isSet("mountpoint")) {
         const QString mountpoint = parser.value("mountpoint");
-        options->mountPoint.reset(new GostCrypt::DirectoryPath(qPrintable(mountpoint)));
+        options->mountPoint.reset(new QFileInfo(mountpoint));
     }
 
     if (parser.isSet("shared"))
@@ -92,7 +92,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
     if (positionalArguments.size() > 2)
         throw Parser::ParseException("Too many arguments specified.");
 
-    options->path.reset(new GostCrypt::VolumePath(qPrintable(positionalArguments.at(1))));
+    options->path.reset(new QFileInfo(positionalArguments.at(1)));
 }
 
 void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
@@ -102,7 +102,6 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
 	parser.process(app);
 
 	// Parsing all options
-
 	if (parser.isSet("help"))
 		throw Parser::ParseException();
 
