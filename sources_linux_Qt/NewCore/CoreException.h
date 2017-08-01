@@ -99,10 +99,10 @@ namespace GostCrypt {
 		class VolumeAlreadyMounted : public CoreException {
 			public:
                 VolumeAlreadyMounted() {}
-                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
 			protected:
-				QFileInfo volumePath;
-				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath.canonicalFilePath() + " is already mounted.")
+				QSharedPointer<QFileInfo> volumePath;
+				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->canonicalFilePath() + " is already mounted.")
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
 		};
 
