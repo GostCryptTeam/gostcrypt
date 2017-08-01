@@ -82,7 +82,7 @@ namespace GostCrypt {
 			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
-			bool noFileSystem; // does not mount the volume at the end if true
+			bool doMount; // does mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
 			QSharedPointer <QByteArray> password; // password of the volume

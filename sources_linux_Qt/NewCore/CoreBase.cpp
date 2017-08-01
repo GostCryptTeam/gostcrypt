@@ -10,6 +10,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QString>
+#include <QStandardPaths>
 
 #include "Platform/FileStream.h"
 #include "Platform/SharedPtr.h"
@@ -36,6 +37,7 @@ namespace GostCrypt {
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
 		{
+			(void)params;
 			QSharedPointer<GetHostDevicesResponse> res(new GetHostDevicesResponse);
 			QFile file("/proc/partitions");
 
@@ -88,7 +90,7 @@ namespace GostCrypt {
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
 				/* Filter only Fuse FileSystems*/
-                if(!mf->MountPoint->canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
+                if(!mf->MountPoint->canonicalFilePath().startsWith(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX))) {
 					continue;
 				}
 
@@ -197,8 +199,32 @@ namespace GostCrypt {
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
 
+		QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
+		{
+				QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
+
+				for (quint32 i = 1; true; i++) {
+					try {
+						QString path(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX) + QString::number(i));
+
+						for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems) {
+							if(mountedFilesystem->MountPoint->canonicalFilePath() == path)
+								throw MountPointUsedException(mountedFilesystem->MountPoint);
+						}
+
+						return QSharedPointer<QFileInfo>(new QFileInfo(path));
+
+					} catch (MountPointUsed &e) {
+						if(i < 100)
+							continue;
+						throw FailedCreateFuseMountPointException(e.getMountpoint());
+					}
+				}
+		}
+
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {
+            (void)params;
             QSharedPointer<GetFileSystemsTypesSupportedResponse> response(new GetFileSystemsTypesSupportedResponse);
 			QFile file("/proc/filesystems");
 

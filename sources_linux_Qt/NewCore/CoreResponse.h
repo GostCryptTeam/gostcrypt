@@ -31,6 +31,7 @@ namespace GostCrypt {
 
 		struct MountVolumeResponse : CoreResponse {
 			bool writeDisabled;
+			QSharedPointer<VolumeInfo> volumeInfo;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 

@@ -6,7 +6,7 @@
 #include "CoreResponse.h"
 #include "CoreException.h"
 
-#define GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX "/tmp/.gostcrypt_aux_mnt"
+#define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 
 namespace GostCrypt {
 	namespace NewCore {

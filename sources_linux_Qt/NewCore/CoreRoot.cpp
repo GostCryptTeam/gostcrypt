@@ -1,4 +1,7 @@
+#include <QDir>
 #include "CoreRoot.h"
+#include "FuseDriver/FuseService.h"
+
 namespace GostCrypt {
 	namespace NewCore {
 		CoreRoot::CoreRoot()
@@ -41,21 +44,44 @@ namespace GostCrypt {
 					}
                     throw FailedOpenVolumeException(params->path);
 				}
-				params->password->fill('*');
-				params->protectionPassword->fill('*');
+				params->password->fill('\0');
+				params->protectionPassword->fill('\0');
 				break;
 			} while(0);
 
-            if(params->isDevice)
-			{
-				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-                    throw IncorrectSectorSizeException();
-                /* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
-                if(volume->GetSectorSize() != 512)
-                    throw IncorrectSectorSizeException();
-            }
+            try {
+				if(params->isDevice)
+				{
+					if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
+						throw IncorrectSectorSizeException();
+					/* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
+					if(volume->GetSectorSize() != 512)
+						throw IncorrectSectorSizeException();
+				}
 
+				QSharedPointer<QFileInfo> fuseMountPoint = getFreeFuseMountPoint();
+				if(!QDir(fuseMountPoint->canonicalFilePath()).mkdir(QStringLiteral(".")))
+						throw FailedCreateFuseMountPointException(fuseMountPoint);
 
+				try {
+					// TODO recode fuse
+					SharedPtr<Volume> vol(new Volume(*volume));
+					FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->canonicalFilePath().toStdString());
+				} catch (...) {
+					QDir(fuseMountPoint->canonicalFilePath()).rmdir(QStringLiteral("."));
+					throw;
+				}
+			} catch (...) {
+				volume->Close();
+				throw;
+			}
+
+			bool mountDirCreated = false;
+			if(params->doMount) {
+				QDir mountpoint(params->mountPoint->canonicalFilePath());
+				if(!mountpoint.exists())
+					mountpoint.mkdir(QStringLiteral("."));
+			}
 
 
 
