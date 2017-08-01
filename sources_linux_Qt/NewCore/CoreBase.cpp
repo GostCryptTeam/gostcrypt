@@ -60,17 +60,17 @@ namespace GostCrypt {
 				if(!isNumber)
 					continue;
 				QSharedPointer<HostDevice> hd(new HostDevice());
-				hd->devicePath = QFileInfo((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(3));
+                hd->devicePath.reset(new QFileInfo((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(3)));
 				hd->size = fields.at(2).toULongLong(&isNumber)*1024;
 				if(!isNumber)
-					qDebug() << "Fail to read device size for device " << hd->devicePath.canonicalFilePath();
+                    qDebug() << "Fail to read device size for device " << hd->devicePath->canonicalFilePath();
 				try {
 					hd->mountPoint = getDeviceMountPoint(hd->devicePath);
 				} catch(DeviceNotMounted &e) {}
 
 				/* Check if device is partition */
 				if(!res->hostDevices.isEmpty()) {
-					if(hd->devicePath.canonicalFilePath().startsWith(res->hostDevices.last()->devicePath.canonicalFilePath())) {
+                    if(hd->devicePath->canonicalFilePath().startsWith(res->hostDevices.last()->devicePath->canonicalFilePath())) {
 						res->hostDevices.last()->partitions.append(hd);
 						continue;
 					}
@@ -88,7 +88,7 @@ namespace GostCrypt {
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
 				/* Filter only Fuse FileSystems*/
-				if(!mf->MountPoint.canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
+                if(!mf->MountPoint->canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
 					continue;
 				}
 
@@ -98,7 +98,7 @@ namespace GostCrypt {
 				try
 				{
 					shared_ptr <File> controlFile (new File);
-					controlFile->Open (mf->MountPoint.canonicalFilePath().toStdString() + FuseService::GetControlPath());
+                    controlFile->Open (mf->MountPoint->canonicalFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
 					mountedVol.reset(new VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream)));
@@ -113,14 +113,23 @@ namespace GostCrypt {
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
-				mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint.canonicalFilePath().toStdString());
+                mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->canonicalFilePath().toStdString());
 
 				/* Add final mount point information if possible */
-				if(!mountedVol->VirtualDevice.IsEmpty())
-				{
-					QFileInfo device (QString::fromStdString(string(mountedVol->VirtualDevice)));
-					mountedVol->MountPoint = DirectoryPath(getDeviceMountPoint(device).canonicalFilePath().toStdString());
-				}
+                if(!mountedVol->VirtualDevice.IsEmpty())
+                    mountedVol->MountPoint = DirectoryPath(
+                                getDeviceMountPoint(
+                                    QSharedPointer<QFileInfo>(
+                                        new QFileInfo(
+                                            QString::fromStdString(
+                                                string(
+                                                    mountedVol->VirtualDevice
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )->canonicalFilePath().toStdString()
+                                );
 
 				response->volumeInfoList.append(mountedVol);
 
@@ -152,19 +161,19 @@ namespace GostCrypt {
 				QSharedPointer<MountedFilesystem> mf(new MountedFilesystem);
 
 				if (entry->mnt_fsname)
-					mf->Device = QFileInfo (QString(entry->mnt_fsname));
+                    mf->Device.reset(new QFileInfo (QString(entry->mnt_fsname)));
 				else
 					continue;
 
 				if (entry->mnt_dir)
-					mf->MountPoint = QFileInfo(QString(entry->mnt_dir));
+                    mf->MountPoint.reset(new QFileInfo(QString(entry->mnt_dir)));
 
 				if (entry->mnt_type) {
-					mf->Type = QString(entry->mnt_type);
+                    mf->Type.reset(new QString(entry->mnt_type));
 				}
 
-				if ((devicePath.canonicalFilePath().isEmpty() || devicePath == mf->Device) && \
-						(mountPoint.canonicalFilePath().isEmpty() || mountPoint == mf->MountPoint))
+                if ((devicePath.canonicalFilePath().isEmpty() || devicePath == *mf->Device) && \
+                        (mountPoint.canonicalFilePath().isEmpty() || mountPoint == *mf->MountPoint))
 					mountedFilesystems.append(mf);
 			}
 
@@ -173,11 +182,11 @@ namespace GostCrypt {
 			return mountedFilesystems;
 		}
 
-		QFileInfo CoreBase::getDeviceMountPoint(QFileInfo &devicePath)
+        QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)
 		{
-			QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(devicePath);
+            QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(*devicePath);
 			if(mpl.isEmpty())
-				 throw DeviceNotMountedException(devicePath);
+                 throw DeviceNotMountedException(devicePath);
 			return mpl.first()->MountPoint;
 		}
 

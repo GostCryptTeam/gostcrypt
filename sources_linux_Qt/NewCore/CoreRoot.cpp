@@ -13,7 +13,7 @@ namespace GostCrypt {
 				throw MissingParamException("params");
 
 			if(isVolumeMounted(params->path))
-				throw VolumeAlreadyMountedException(*params->path);
+                throw VolumeAlreadyMountedException(params->path);
 
 			QSharedPointer<Volume> volume(new Volume);
 			do {
@@ -39,19 +39,21 @@ namespace GostCrypt {
 						response->writeDisabled = true;
 						continue;
 					}
-					throw;
+                    throw FailedOpenVolumeException(params->path);
 				}
 				params->password->fill('*');
 				params->protectionPassword->fill('*');
 				break;
 			} while(0);
 
-			/*
             if(params->isDevice)
 			{
 				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-					throw;
-			}//*/
+                    throw IncorrectSectorSizeException();
+                /* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
+                if(volume->GetSectorSize() != 512)
+                    throw IncorrectSectorSizeException();
+            }
 
 
 
