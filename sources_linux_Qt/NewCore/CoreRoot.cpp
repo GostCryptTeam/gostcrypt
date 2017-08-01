@@ -19,17 +19,18 @@ namespace GostCrypt {
 			do {
 				try {
 					VolumePath path(params->path->canonicalFilePath().toStdWString());
-					volume->Open(
+                    shared_ptr<KeyfileList> keyfiles(new KeyfileList(*params->keyfiles));
+                    shared_ptr<KeyfileList> protectionKeyfiles(new KeyfileList(*params->protectionKeyfiles));
+                    volume->Open(
 						path,
 						params->preserveTimestamps,
 						SharedPtr<VolumePassword>(new VolumePassword(params->password->constData(), params->password->size())),
-						params->keyfiles,
+                        keyfiles,
 						params->protection,
 						SharedPtr<VolumePassword>(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size())),
-						params->protectionKeyfiles,
+                        protectionKeyfiles,
 						params->useBackupHeaders
 					);
-					Gost
 				} catch(GostCrypt::SystemException &e) {
 					// In case of permission issue try again in read-only
 					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
@@ -40,16 +41,17 @@ namespace GostCrypt {
 					}
 					throw;
 				}
-				params->password->fill("*");
-				params->protectionPassword->fill("*");
+				params->password->fill('*');
+				params->protectionPassword->fill('*');
 				break;
 			} while(0);
 
-			if(params->isDevice)
+			/*
+            if(params->isDevice)
 			{
 				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-					throw
-			}
+					throw;
+			}//*/
 
 
 
