@@ -29,7 +29,6 @@ namespace GostCrypt {
 						params->protectionKeyfiles,
 						params->useBackupHeaders
 					);
-					Gost
 				} catch(GostCrypt::SystemException &e) {
 					// In case of permission issue try again in read-only
 					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
@@ -47,8 +46,8 @@ namespace GostCrypt {
 
 			if(params->isDevice)
 			{
-				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-					throw
+                /*if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
+                    throw*/
 			}
 
 
@@ -64,8 +63,36 @@ namespace GostCrypt {
 
 		}
 
-		QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<DismountVolumeParams> params)
+        QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeParams> params)
 		{
+            QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
+
+            quint64 hostSize = 0;
+            fstream volumefile;
+
+            /*  Steps:
+                    write headers directly in file.
+                    mount with no-filesystem
+                    format the loop device
+                    unmount
+            */
+
+            if(!params)
+                throw MissingParamException("params");
+
+            // this is the CoreRoot class. we are assuming that it is launched as root.
+
+            // opening file (or device)
+            volumefile.open(params->path.absoluteFilePath(), ios::in | ios::out | ios::binary);
+            if(!volumefile.is_open())
+                throw /* TODO add exception here */;
+
+            // getting the outer volume layout to write the header
+            QSharedPointer<VolumeLayout> outerlayout;
+            outerlayout.reset(new VolumeLayoutV2Normal());
+            // getting the outer volume header to fill it
+            QSharedPointer<VolumeHeader> outerheader (Layout->GetHeader()); // TODO
+
 
 		}
 

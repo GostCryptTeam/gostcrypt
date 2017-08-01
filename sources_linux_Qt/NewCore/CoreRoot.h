@@ -2,6 +2,7 @@
 #define COREROOT_H
 
 #include <QSharedPointer>
+#include <fstream>
 #include "CoreBase.h"
 #include "CoreParams.h"
 #include "CoreResponse.h"
