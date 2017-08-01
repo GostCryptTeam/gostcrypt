@@ -40,10 +40,9 @@ namespace GostCrypt {
 				virtual QString getName() const {
 					return "/CoreException";
 				}
-
+                QString fonction;
 				QString filename;
 				quint32 line;
-				QString fonction;
 			DEC_SERIALIZABLE(CoreException);
 		};
 
@@ -77,11 +76,11 @@ namespace GostCrypt {
 		class DeviceNotMounted : public SystemException {
 			public:
                 DeviceNotMounted() {}
-                DeviceNotMounted(QString fonction, QString filename, quint32 line, QFileInfo device) : SystemException(fonction, filename, line), device(device) {}
+                DeviceNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> device) : SystemException(fonction, filename, line), device(device) {}
 			protected:
-				QFileInfo device;
+                QSharedPointer<QFileInfo> device;
 
-				DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, " The device "+device.canonicalFilePath() + " is not mounted.")
+                DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, " The device "+device->canonicalFilePath() + " is not mounted.")
 			DEC_SERIALIZABLE(DeviceNotMounted);
 		};
 
@@ -100,10 +99,10 @@ namespace GostCrypt {
 		class VolumeAlreadyMounted : public CoreException {
 			public:
                 VolumeAlreadyMounted() {}
-                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
 			protected:
-				QFileInfo volumePath;
-				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath.canonicalFilePath() + " is already mounted.")
+				QSharedPointer<QFileInfo> volumePath;
+				DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->canonicalFilePath() + " is already mounted.")
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
 		};
 
@@ -111,12 +110,22 @@ namespace GostCrypt {
 		class FailedOpenVolume : public CoreException {
 			public:
                 FailedOpenVolume() {}
-                FailedOpenVolume(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                FailedOpenVolume(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
 			protected:
-				QFileInfo volumePath;
-				DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, " Opening of volume " + volumePath.canonicalFilePath() + " failed.")
+                QSharedPointer<QFileInfo> volumePath;
+                DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, " Opening of volume " + volumePath->canonicalFilePath() + " failed.")
 			DEC_SERIALIZABLE(FailedOpenVolume);
 		};
+
+        #define IncorrectSectorSizeException() IncorrectSectorSize(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class IncorrectSectorSize : public CoreException {
+            public:
+                IncorrectSectorSize() {}
+                IncorrectSectorSize(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+            protected:
+                DEF_EXCEPTION_WHAT(IncorrectSectorSize, CoreException, "The sector size read from the header does not correspond to the device sector size or is unsupported.")
+            DEC_SERIALIZABLE(IncorrectSectorSize);
+        };
 	}
 }
 
@@ -127,4 +136,5 @@ SERIALIZABLE(GostCrypt::NewCore::DeviceNotMounted)
 SERIALIZABLE(GostCrypt::NewCore::MissingParam)
 SERIALIZABLE(GostCrypt::NewCore::VolumeAlreadyMounted)
 SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
+SERIALIZABLE(GostCrypt::NewCore::IncorrectSectorSize)
 #endif // COREEXCEPTION_H

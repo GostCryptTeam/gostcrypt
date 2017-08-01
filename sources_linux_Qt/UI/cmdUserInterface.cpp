@@ -146,9 +146,9 @@ int handleCLI(int argc, char ** argv){
 								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
 								response = Core->getHostDevices();
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-									qStdOut() << d->devicePath.canonicalFilePath() << "\t" << d->mountPoint.canonicalFilePath() << "\t" << d->size << endl;
+                                    qStdOut() << d->devicePath->canonicalFilePath() << "\t" << d->mountPoint->canonicalFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-										qStdOut()<< "\t" << p->devicePath.canonicalFilePath() << "\t" << p->mountPoint.canonicalFilePath() << "\t" << p->size << endl;
+                                        qStdOut()<< "\t" << p->devicePath->canonicalFilePath() << "\t" << p->mountPoint->canonicalFilePath() << "\t" << p->size << endl;
 									}
 								}
 							}

@@ -55,14 +55,14 @@ namespace GostCrypt {
 
 		struct MountedFilesystem
 		{
-			QFileInfo Device;
-			QFileInfo MountPoint;
-            QString Type;
+            QSharedPointer<QFileInfo> Device;
+            QSharedPointer<QFileInfo> MountPoint;
+            QSharedPointer<QString> Type;
 		};
 
 		struct HostDevice {
-			QFileInfo mountPoint;
-			QFileInfo devicePath;
+            QSharedPointer<QFileInfo> mountPoint;
+            QSharedPointer<QFileInfo> devicePath;
 			quint64 size;
 			QList<QSharedPointer<HostDevice>> partitions;
 		};

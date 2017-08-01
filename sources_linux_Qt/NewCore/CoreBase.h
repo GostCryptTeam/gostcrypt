@@ -26,8 +26,9 @@ namespace GostCrypt {
             QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params = QSharedPointer<GetFileSystemsTypesSupportedParams>());
 		protected:
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
-			QFileInfo getDeviceMountPoint(QFileInfo &devicePath);
+            QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
 			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
+            QSharedPointer<QFileInfo> getFreeFuseMountPoint();
 		};
 		QSharedPointer<CoreBase> getCore();
 	}

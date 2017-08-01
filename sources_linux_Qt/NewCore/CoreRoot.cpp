@@ -13,20 +13,22 @@ namespace GostCrypt {
 				throw MissingParamException("params");
 
 			if(isVolumeMounted(params->path))
-				throw VolumeAlreadyMountedException(*params->path);
+                throw VolumeAlreadyMountedException(params->path);
 
 			QSharedPointer<Volume> volume(new Volume);
 			do {
 				try {
 					VolumePath path(params->path->canonicalFilePath().toStdWString());
-					volume->Open(
+                    shared_ptr<KeyfileList> keyfiles(new KeyfileList(*params->keyfiles));
+                    shared_ptr<KeyfileList> protectionKeyfiles(new KeyfileList(*params->protectionKeyfiles));
+                    volume->Open(
 						path,
 						params->preserveTimestamps,
 						SharedPtr<VolumePassword>(new VolumePassword(params->password->constData(), params->password->size())),
-						params->keyfiles,
+                        keyfiles,
 						params->protection,
 						SharedPtr<VolumePassword>(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size())),
-						params->protectionKeyfiles,
+                        protectionKeyfiles,
 						params->useBackupHeaders
 					);
 				} catch(GostCrypt::SystemException &e) {
@@ -37,23 +39,21 @@ namespace GostCrypt {
 						response->writeDisabled = true;
 						continue;
 					}
-					throw;
+                    throw FailedOpenVolumeException(params->path);
 				}
-				params->password->fill("*");
-				params->protectionPassword->fill("*");
+				params->password->fill('*');
+				params->protectionPassword->fill('*');
 				break;
 			} while(0);
 
-			if(params->isDevice)
+            if(params->isDevice)
 			{
-                /*if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-                    throw*/
-			}
-
-
-
-
-
+				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
+                    throw IncorrectSectorSizeException();
+                /* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
+                if(volume->GetSectorSize() != 512)
+                    throw IncorrectSectorSizeException();
+            }
 
 			return response;
 		}

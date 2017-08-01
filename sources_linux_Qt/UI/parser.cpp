@@ -57,11 +57,12 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
 
     if (parser.isSet("password")) {
         const QString password = parser.value("password");
-        options->password = QSharedPointer<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(password.toStdWString()));
+        options->password = QSharedPointer<QByteArray>(new QByteArray(password.toUtf8()));
+
     } else {
         QString password;
         if(askPassword("volume", password))
-            options->password.reset(new GostCrypt::VolumePassword(password.toUtf8().constData(), password.toUtf8().size()));
+            options->password.reset(new QByteArray(password.toUtf8()));
     }
 
     if (parser.isSet("mountpoint")) {
