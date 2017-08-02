@@ -17,14 +17,14 @@ namespace NewCore {
 			if(!additionalMountOptions.isEmpty())
 				mountOptions += "," + additionalMountOptions;
 
-			if(mount(devicePath->canonicalFilePath().toLocal8Bit().data(), mountPoint->canonicalFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
+            if(mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
 				throw FailMountFilesystemException(errno, mountPoint, devicePath);
         }
 
 
         void MountFilesystemManager::DismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
         {
-			if(umount2(mountPoint->canonicalFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
+            if(umount2(mountPoint->absoluteFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
 				throw FailUnmountFilesystemException(errno, mountPoint);
         }
     }

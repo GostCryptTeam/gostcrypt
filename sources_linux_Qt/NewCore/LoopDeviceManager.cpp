@@ -19,7 +19,7 @@ namespace NewCore {
                     throw FailedAttachLoopDeviceException(imageFile);
                 if(loopcxt_set_flags(&lc, lo_flags))
                     throw FailedAttachLoopDeviceException(imageFile);
-                if(loopcxt_set_backing_file(&lc, imageFile->canonicalFilePath().toLocal8Bit().data()))
+                if(loopcxt_set_backing_file(&lc, imageFile->absoluteFilePath().toLocal8Bit().data()))
                     throw FailedAttachLoopDeviceException(imageFile);
                 if(loopcxt_setup_device(&lc)) {
                     if(errno == EBUSY)
