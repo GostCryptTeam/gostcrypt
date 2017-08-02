@@ -32,6 +32,7 @@ namespace GostCrypt {
 
 		CoreBase::CoreBase()
 		{
+            RandomNumberGenerator::Start();
 		}
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
@@ -179,8 +180,34 @@ namespace GostCrypt {
 
 			endmntent(mtab);
 			mutex.unlock();
-			return mountedFilesystems;
-		}
+            return mountedFilesystems;
+        }
+
+        QSharedPointer<GostCrypt::EncryptionAlgorithm> CoreBase::getEncryptionAlgorithm(QString algorithm)
+        {
+            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
+            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            {
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                    if(algorithm.compare((*ea)->GetName(), Qt::CaseInsensitive))
+                        return (*ea);
+                }
+            }
+            return nullptr;
+        }
+
+        QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
+        {
+            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            {
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                    if(function.compare((*pkcs)->GetName(), Qt::CaseInsensitive))
+                        return (*pkcs);
+                }
+            }
+            return nullptr;
+        }
 
         QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)
 		{
@@ -219,5 +246,7 @@ namespace GostCrypt {
 
             return response;
         }
+
+
 	}
 }

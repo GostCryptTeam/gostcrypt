@@ -53,6 +53,7 @@ namespace GostCrypt {
             out << Valeur.encryptionAlgorithm;
             out << Valeur.filesystem;
             out << Valeur.filesystemClusterSize;
+            out << Valeur.size;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, CreateVolumeParams::VolumeParams & Valeur) {
@@ -62,6 +63,7 @@ namespace GostCrypt {
             in >> Valeur.encryptionAlgorithm;
             in >> Valeur.filesystem;
             in >> Valeur.filesystemClusterSize;
+            in >> Valeur.size;
             return in;
         }
         DEF_SERIALIZABLE(CreateVolumeParams::VolumeParams)

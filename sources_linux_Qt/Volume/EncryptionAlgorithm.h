@@ -17,7 +17,7 @@
 namespace GostCrypt
 {
 	class EncryptionAlgorithm;
-	typedef list < shared_ptr <EncryptionAlgorithm> > EncryptionAlgorithmList;
+    typedef list < shared_ptr <GostCrypt::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
 	{

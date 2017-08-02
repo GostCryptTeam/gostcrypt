@@ -35,7 +35,8 @@ HEADERS += \
     SerializationUtil.h \
     CoreUser.h \
     CoreRoot.h \
-    CoreException.h
+    CoreException.h \
+    RandomNumberGenerator.h
 
 SOURCES += \
     CoreParams.cpp \
@@ -43,4 +44,5 @@ SOURCES += \
     CoreResponse.cpp \
     CoreUser.cpp \
     CoreRoot.cpp \
-    CoreException.cpp
+    CoreException.cpp \
+    RandomNumberGenerator.cpp

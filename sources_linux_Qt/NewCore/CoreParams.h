@@ -30,7 +30,6 @@ namespace GostCrypt {
 
 		struct CreateVolumeParams : CoreParams {
             CreateVolumeParams(){
-                path = VolumePath("");
                 type = VolumeType::Normal;
                 size = 0;
                 innerVolume.reset();
@@ -41,19 +40,21 @@ namespace GostCrypt {
                     password.reset();
                     keyfiles.reset();
                     filesystem = GetFileSystemTypePlatformNative();
+                    size = 0;
                     filesystemClusterSize = 4096; // default value, not supposed to change except for very specific requests
                 }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
+                quint64 size; // size of the volume
                 QString volumeHeaderKdf; // derivation key function to use
                 QString encryptionAlgorithm; // the algorithm to use
                 QString filesystem; // the filesystem to use
                 quint32 filesystemClusterSize; // watch out for wrong values ! TODO
                 DEC_SERIALIZABLE(VolumeParams);
 			};
-            QFileInfo path; // path of the file to create or device to format
+            QSharedPointer <QFileInfo> path; // path of the file to create or device to format
 			VolumeType::Enum type; // Normal or hidden ?
-			quint64 size; // size
+            quint64 size; // size of the container
 			QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
 			QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
 			DEC_SERIALIZABLE(CreateVolumeParams);

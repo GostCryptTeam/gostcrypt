@@ -5,6 +5,8 @@
 #include "CoreParams.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
+#include "Volume/EncryptionAlgorithm.h"
+#include "Volume/Pkcs5Kdf.h"
 
 #define GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX "/tmp/.gostcrypt_aux_mnt"
 
@@ -26,6 +28,8 @@ namespace GostCrypt {
             QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params = QSharedPointer<GetFileSystemsTypesSupportedParams>());
 		protected:
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
+            QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
+            QSharedPointer<Pkcs5Kdf> getDerivationKeyFunction(QString function);
             QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
 			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
