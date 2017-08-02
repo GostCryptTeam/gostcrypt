@@ -38,9 +38,11 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
     }
 
     if (parser.isSet("no-filesystem")) { // nofilesystem
-        options->noFileSystem = true;
+        options->doMount = false;
         if(parser.isSet("filesystem") || parser.isSet("options") || parser.isSet("protection"))
             throw Parser::ParseException("--nofilesystem cannot be used with --filesystem, --protection or --options.");
+    } else {
+        options->doMount = true;
     }
 
     if (parser.isSet("no-preserve-timestamps"))

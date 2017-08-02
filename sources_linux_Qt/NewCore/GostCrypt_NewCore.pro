@@ -35,7 +35,10 @@ HEADERS += \
     SerializationUtil.h \
     CoreUser.h \
     CoreRoot.h \
-    CoreException.h
+    CoreException.h \
+    LoopDeviceManager.h \
+    loopdev.h \
+    MountFilesystemManager.h
 
 SOURCES += \
     CoreParams.cpp \
@@ -43,4 +46,7 @@ SOURCES += \
     CoreResponse.cpp \
     CoreUser.cpp \
     CoreRoot.cpp \
-    CoreException.cpp
+    CoreException.cpp \
+    LoopDeviceManager.cpp \
+    loopdev.c \
+    MountFilesystemManager.cpp
