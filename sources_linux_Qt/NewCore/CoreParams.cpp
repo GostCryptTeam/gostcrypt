@@ -101,7 +101,7 @@ namespace GostCrypt {
         QDataStream & operator << (QDataStream & out, const MountVolumeParams & Valeur) {
             out << Valeur.fileSystemOptions;
             out << Valeur.fileSystemType;
-            out << Valeur.noFileSystem;
+            out << Valeur.doMount;
             out << Valeur.preserveTimestamps;
             //out << Valeur.keyfiles;
             //out << Valeur.password;
@@ -116,7 +116,7 @@ namespace GostCrypt {
             in >> Valeur.fileSystemOptions;
             in >> tmp;
             Valeur.protection = GostCrypt::VolumeProtection::Enum(tmp);
-            in >> Valeur.noFileSystem;
+            in >> Valeur.doMount;
             in >> Valeur.preserveTimestamps;
             //in >> Valeur.keyfiles;
             //in >> Valeur.password;

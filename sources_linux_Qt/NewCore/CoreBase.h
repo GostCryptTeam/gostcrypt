@@ -5,10 +5,12 @@
 #include "CoreParams.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
+#include "RandomNumberGenerator.h"
+#include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/Pkcs5Kdf.h"
 
-#define GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX "/tmp/.gostcrypt_aux_mnt"
+#define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -33,6 +35,8 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
 			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
+            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "");
+            void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
 		};
 		QSharedPointer<CoreBase> getCore();
 	}

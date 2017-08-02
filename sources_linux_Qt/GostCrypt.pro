@@ -8,6 +8,7 @@ SUBDIRS = \
     GostCrypt_Volume \
     GostCrypt_UI
 
+QMAKE_CXX = ccache g++
 
 GostCrypt_Core.file = Core/GostCrypt_Core.pro
 GostCrypt_FuseDriver.file = FuseDriver/GostCrypt_FuseDriver.pro
@@ -19,6 +20,9 @@ GostCrypt_NewCore.file = NewCore/GostCrypt_NewCore.pro
 UI.depends = \
     GostCrypt_NewCore \
     GostCrypt_Platform \
-    GostCrypt_FuserDriver \
-    GostCrypt_Volume
+    GostCrypt_Volume \
+    GostCrypt_FuserDriver
+
+FuserDriver.depends = GostCrypt_Volume
+
 

@@ -79,7 +79,7 @@ namespace GostCrypt {
 			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
-			bool noFileSystem; // does not mount the volume at the end if true
+			bool doMount; // does mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
 			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
 			QSharedPointer <QByteArray> password; // password of the volume
@@ -94,7 +94,7 @@ namespace GostCrypt {
 		};
 
 		struct DismountVolumeParams : CoreParams {
-			QString volumepath; // path of the file mounted, not the mount point
+            QSharedPointer <QFileInfo> volumepath; // path of the file mounted, not the mount point
 			DEC_SERIALIZABLE(DismountVolumeParams);
 		};
 

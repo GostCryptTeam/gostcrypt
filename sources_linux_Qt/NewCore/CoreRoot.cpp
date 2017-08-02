@@ -1,4 +1,7 @@
+#include <QDir>
 #include "CoreRoot.h"
+#include "FuseDriver/FuseService.h"
+
 namespace GostCrypt {
 	namespace NewCore {
 		CoreRoot::CoreRoot()
@@ -41,19 +44,44 @@ namespace GostCrypt {
 					}
                     throw FailedOpenVolumeException(params->path);
 				}
-				params->password->fill('*');
-				params->protectionPassword->fill('*');
+				params->password->fill('\0');
+				params->protectionPassword->fill('\0');
 				break;
 			} while(0);
 
-            if(params->isDevice)
-			{
-				if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
-                    throw IncorrectSectorSizeException();
-                /* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
-                if(volume->GetSectorSize() != 512)
-                    throw IncorrectSectorSizeException();
-            }
+            try {
+				if(params->isDevice)
+				{
+					if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
+						throw IncorrectSectorSizeException();
+					/* GostCrypt suport only 512 sector size, other sector sizes can be use only with kernel crypto */
+					if(volume->GetSectorSize() != 512)
+						throw IncorrectSectorSizeException();
+				}
+
+				QSharedPointer<QFileInfo> fuseMountPoint = getFreeFuseMountPoint();
+				if(!QDir(fuseMountPoint->canonicalFilePath()).mkdir(QStringLiteral(".")))
+						throw FailedCreateFuseMountPointException(fuseMountPoint);
+
+				try {
+					// TODO recode fuse
+					SharedPtr<Volume> vol(new Volume(*volume));
+					FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->canonicalFilePath().toStdString());
+				} catch (...) {
+					QDir(fuseMountPoint->canonicalFilePath()).rmdir(QStringLiteral("."));
+					throw;
+				}
+			} catch (...) {
+				volume->Close();
+				throw;
+			}
+
+			bool mountDirCreated = false;
+			if(params->doMount) {
+				QDir mountpoint(params->mountPoint->canonicalFilePath());
+				if(!mountpoint.exists())
+					mountpoint.mkdir(QStringLiteral("."));
+			}
 
 			return response;
 		}
@@ -138,11 +166,55 @@ namespace GostCrypt {
 
         }
 
+        void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<KeyfileList> keyfiles, QString filesystem)
+        {
+            QString formatter;
+            QStringList convertFS[2] = {
+                {"ext2",      "ext3",      "ext4",      "hfs"        "ufs"   },
+                {"mkfs.ext2", "mkfs.ext3", "mkfs.ext4", "newfs_hfs", "newfs" }
+            };
+
+            uint32 index = convertFS[0].indexOf(QRegExp(filesystem), Qt::CaseInsensitive); // trying to find the filesystem
+            if (index == -1)
+                throw /* TODO filesystemnotfound */;
+            formatter = convertFS[1][index];
+
+            QSharedPointer<MountVolumeResponse> mountresponse;
+            QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
+            mountparams->keyfiles = keyfiles;
+            mountparams->noFileSystem = true;
+            mountparams->password = password;
+            mountparams->path = volume;
+
+            try {
+                mountresponse = mountVolume(mountparams); // TODO don't forget to unmount it if something goes bad
+            } catch (CoreException &e){
+                throw e; // TODO : create a new exception here
+            }
+
+            QStringList arguments;
+            arguments << mountresponse->volumeInfo->LoopDevice;
+
+            QProcess *formatProcess = new QProcess();
+            formatProcess->start(formatter, arguments); // TODO check if failed ?
+
+            if (!formatProcess.waitForFinished())
+                throw /* TODO : processErrorException */;
+
+            QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
+            dismountparams->volumepath = volume;
+
+            try {
+                dismountVolume(dismountparams); // finally dismounting the volume
+            } catch (CoreException &e){
+                throw e; // TODO : create a new exception here
+            }
+        }
+
         QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeParams> params)
 		{
             QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
 
-            quint64 hostSize = 0;
             fstream volumefile;
 
             /*  Steps:
@@ -154,17 +226,23 @@ namespace GostCrypt {
 
             if(!params)
                 throw MissingParamException("params");
+            if(!params->path)
+                throw MissingParamException("params->path");
+            if(!params->outerVolume)
+                throw MissingParamException("params->outervolume");
 
             // this is the CoreRoot class. we are assuming that it is launched as root.
 
+            /*
+             * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME // TODO since it's relative to the layouts, maybe change this
+             */
+
+             createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm);
+
             // opening file (or device)
-            volumefile.open(params->path.absoluteFilePath(), ios::in | ios::out | ios::binary);
+            volumefile.open(params->path->absoluteFilePath(), ios::in | ios::out | ios::binary);
             if(!volumefile.is_open())
                 throw /* TODO add exception here */;
-
-            // making sure the file is of the right size
-            volumefile.seekp(containersize - 1, std::ios_base::beg);
-            volumefile.put('\0');
 
             /*
              * WRITING HEADERS
@@ -176,31 +254,34 @@ namespace GostCrypt {
 
             writeHeaderToFile(volumefile, params->outerVolume, outerlayout, params->size);
 
-            if(params->type == VolumeType::Hidden){ // writing the inner volume headers if any
-                QSharedPointer<VolumeLayout> innerlayout;
-                innerlayout.reset(new VolumeLayoutV2Hidden());
+            QSharedPointer<VolumeLayout> innerlayout;
+            innerlayout.reset(new VolumeLayoutV2Hidden());
 
+            if(params->type == VolumeType::Hidden){ // writing the inner volume headers if any
                 writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);
+            } else { // writing random data to the hidden headers location
+                QSharedPointer<CreateVolumeParams::VolumeParams> randomparams(new CreateVolumeParams::VolumeParams());
+                randomparams->size = params->size / 2;
+                randomparams->encryptionAlgorithm = params->outerVolume->encryptionAlgorithm;
+                randomparams->filesystem = params->outerVolume->filesystem;
+                randomparams->filesystemClusterSize = params->outerVolume->filesystemClusterSize;
+                randomparams->volumeHeaderKdf = params->outerVolume->volumeHeaderKdf;
+                // creating a completely random password for a non-existent hidden volume
+                SecureBuffer pass;
+                pass.Allocate(VolumePassword::MaxSize);
+                RandomNumberGenerator::GetData(pass);
+                randomparams->password = QSharedPointer<VolumePassword>(new VolumePassword(pass.Ptr(), pass.Size()));
+                writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
             }
 
             /*
-             * MOUNTING THE VOLUME WITH no-filesystem (bc there is no filesystem yet)
+             * FORMATTING THE VOLUME
              */
 
-            QSharedPointer<MountVolumeResponse> mountresponse;
-            QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
-            mountparams->keyfiles = params->outerVolume->keyfiles;
-            mountparams->noFileSystem = true;
-            mountparams->password = params->outerVolume->password;
-            mountparams->path = params->path;
+            formatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem);
 
-            try {
-                mountresponse = mountVolume(mountparams);
-            } catch (CoreException &e){
-                throw e; // TODO : create a new exception here
-            }
-
-
+            if(params->type == VolumeType::Hidden)
+                formatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem);
 
 		}
 

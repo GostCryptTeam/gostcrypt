@@ -126,6 +126,29 @@ namespace GostCrypt {
                 DEF_EXCEPTION_WHAT(IncorrectSectorSize, CoreException, "The sector size read from the header does not correspond to the device sector size or is unsupported.")
             DEC_SERIALIZABLE(IncorrectSectorSize);
         };
+
+        #define MountPointUsedException(mountpoint) MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
+        class MountPointUsed : public CoreException {
+            public:
+                MountPointUsed() {}
+                MountPointUsed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), mountpoint(mountpoint) {}
+				QSharedPointer<QFileInfo> getMountpoint() { return mountpoint; }
+            protected:
+                QSharedPointer<QFileInfo> mountpoint;
+                DEF_EXCEPTION_WHAT(MountPointUsed, CoreException, "The directory " + mountpoint->canonicalFilePath() + " is already used")
+            DEC_SERIALIZABLE(MountPointUsed);
+        };
+
+        #define FailedCreateFuseMountPointException(mountpoint) FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
+        class FailedCreateFuseMountPoint : public CoreException {
+            public:
+                FailedCreateFuseMountPoint() {}
+                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), mountpoint(mountpoint) {}
+            protected:
+                QSharedPointer<QFileInfo> mountpoint;
+                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, CoreException, "The directory " + mountpoint->canonicalFilePath() + " is already used")
+            DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
+        };
 	}
 }
 
@@ -137,4 +160,6 @@ SERIALIZABLE(GostCrypt::NewCore::MissingParam)
 SERIALIZABLE(GostCrypt::NewCore::VolumeAlreadyMounted)
 SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSectorSize)
+SERIALIZABLE(GostCrypt::NewCore::MountPointUsed)
+SERIALIZABLE(GostCrypt::NewCore::FailedCreateFuseMountPoint)
 #endif // COREEXCEPTION_H

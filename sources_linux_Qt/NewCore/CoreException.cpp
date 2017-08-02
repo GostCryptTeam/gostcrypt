@@ -11,6 +11,8 @@ namespace GostCrypt {
             INIT_SERIALIZE(VolumeAlreadyMounted);
             INIT_SERIALIZE(FailedOpenVolume);
             INIT_SERIALIZE(IncorrectSectorSize);
+            INIT_SERIALIZE(MountPointUsed);
+            INIT_SERIALIZE(FailedCreateFuseMountPoint);
         }
 
 
@@ -108,6 +110,34 @@ namespace GostCrypt {
             QString path;
             in >> static_cast<CoreException&>(Valeur);
             return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::MountPointUsed)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::MountPointUsed & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.mountpoint->canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MountPointUsed & Valeur) {
+          QString path;
+          in >> static_cast<CoreException&>(Valeur);
+          in >> path;
+          Valeur.mountpoint.reset(new QFileInfo(path));
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailedCreateFuseMountPoint)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailedCreateFuseMountPoint & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.mountpoint->canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailedCreateFuseMountPoint & Valeur) {
+          QString path;
+          in >> static_cast<CoreException&>(Valeur);
+          in >> path;
+          Valeur.mountpoint.reset(new QFileInfo(path));
+          return in;
         }
     }
 }

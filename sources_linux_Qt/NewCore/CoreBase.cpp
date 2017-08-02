@@ -10,6 +10,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QString>
+#include <QStandardPaths>
 
 #include "Platform/FileStream.h"
 #include "Platform/SharedPtr.h"
@@ -37,6 +38,7 @@ namespace GostCrypt {
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
 		{
+			(void)params;
 			QSharedPointer<GetHostDevicesResponse> res(new GetHostDevicesResponse);
 			QFile file("/proc/partitions");
 
@@ -89,7 +91,7 @@ namespace GostCrypt {
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
 				/* Filter only Fuse FileSystems*/
-                if(!mf->MountPoint->canonicalFilePath().startsWith(GOSTCRYPT_FUSE_MOUNTPOINT_PREFIX)) {
+                if(!mf->MountPoint->canonicalFilePath().startsWith(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX))) {
 					continue;
 				}
 
@@ -217,15 +219,94 @@ namespace GostCrypt {
 			return mpl.first()->MountPoint;
 		}
 
+        void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const
+        {
+            SecureBuffer eaKey (encryptionAlgorithm->GetKeySize());
+            RandomNumberGenerator::GetData (eaKey);
+            encryptionAlgorithm->SetKey (eaKey);
+
+            SecureBuffer modeKey (encryptionAlgorithm->GetMode()->GetKeySize());
+            RandomNumberGenerator::GetData (modeKey);
+            encryptionAlgorithm->GetMode()->SetKey (modeKey);
+        }
+
+        void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm)
+        {
+            ostream file;
+
+            if(!path)
+                 throw MissingParamException("path");
+
+            file.open(params->path->absoluteFilePath(), ios::out | ios::binary);
+            if(!file.is_open())
+                throw /* TODO add exception here */;
+
+            QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (nullptr);
+            if(!algorithm.isEmpty()) {
+                ea.reset(getEncryptionAlgorithm());
+                if(!ea)
+                    throw /* TODO */;
+                ea->SetMode(new EncryptionModeXTS());
+
+                // Empty sectors are encrypted with different key to randomize plaintext
+                randomizeEncryptionAlgorithmKey (ea);
+            }
+
+            quint64 dataFragmentLength = 256 * 1024; // TODO define
+            SecureBuffer outputBuffer (dataFragmentLength);
+            quint64 offset = 0; // offset where the data starts
+            quint64 sizetodo = size; // size of the data to override
+
+            while (sizetodo > 0)
+            {
+                if (sizetodo < dataFragmentLength)
+                    dataFragmentLength = sizetodo;
+
+                RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                if(ea)
+                    ea->EncryptSectors (outputBuffer, offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
+                volumefile.write(outputBuffer, (size_t) dataFragmentLength); // writing it
+
+                offset += dataFragmentLength;
+                sizetodo -= dataFragmentLength;
+            }
+
+        }
+
 		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
 		{
-			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
-			params->volumePath = *volumeFile;
+            QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
+
+            params->volumePath = *volumeFile;
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
+		}
+
+		QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
+		{
+				QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
+
+				for (quint32 i = 1; true; i++) {
+					try {
+						QString path(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX) + QString::number(i));
+
+						for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems) {
+							if(mountedFilesystem->MountPoint->canonicalFilePath() == path)
+								throw MountPointUsedException(mountedFilesystem->MountPoint);
+						}
+
+						return QSharedPointer<QFileInfo>(new QFileInfo(path));
+
+					} catch (MountPointUsed &e) {
+						if(i < 100)
+							continue;
+						throw FailedCreateFuseMountPointException(e.getMountpoint());
+					}
+				}
 		}
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {
+            (void)params;
             QSharedPointer<GetFileSystemsTypesSupportedResponse> response(new GetFileSystemsTypesSupportedResponse);
 			QFile file("/proc/filesystems");
 
