@@ -59,10 +59,11 @@ SOURCES += main.cpp \
     parser.cpp \
     cmdUserInterface.cpp
 
-LIBS += ../Platform/libPlatform.a \
-        ../Volume/libVolume.a \
-        ../FuseDriver/libFuseDriver.a \
+LIBS += \
         ../NewCore/libNewCore.a \
+        ../FuseDriver/libFuseDriver.a \
+        ../Volume/libVolume.a \
+        ../Platform/libPlatform.a \
         -ldl \
         -pthread \
         -lfuse
