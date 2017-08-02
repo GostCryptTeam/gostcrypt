@@ -1,8 +1,7 @@
 #include "LoopDeviceManager.h"
-#include "loopdev.h"
+#include "loopdevlib/loopdev.h"
 #include "CoreException.h"
 
-#define FailedAttachLoopDeviceException SystemException
 namespace GostCrypt {
 namespace NewCore {
 
@@ -16,13 +15,13 @@ namespace NewCore {
             do {
                 if(readonly)
                     lo_flags |= LO_FLAGS_READ_ONLY;
-                if(loopcxt_find_unused(lc))
+                if(loopcxt_find_unused(&lc))
                     throw FailedAttachLoopDeviceException(imageFile);
-                if(loopcxt_set_flags(lc, lo_flags))
+                if(loopcxt_set_flags(&lc, lo_flags))
                     throw FailedAttachLoopDeviceException(imageFile);
-                if(loopcxt_set_backing_file(lc, imageFile->canonicalFilePath().toLocal8Bit().data()))
+                if(loopcxt_set_backing_file(&lc, imageFile->canonicalFilePath().toLocal8Bit().data()))
                     throw FailedAttachLoopDeviceException(imageFile);
-                if(loopcxt_setup_device(lc)) {
+                if(loopcxt_setup_device(&lc)) {
                     if(errno == EBUSY)
                         continue;
                     throw FailedAttachLoopDeviceException(imageFile);
@@ -35,7 +34,7 @@ namespace NewCore {
             return response;
         }
 
-        bool LoopDeviceManager::attachLoopDevice(QSharedPointer<QFileInfo> imageFile)
+        bool LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo> imageFile)
         {
             return false;
         }

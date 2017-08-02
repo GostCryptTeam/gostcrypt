@@ -13,6 +13,10 @@ namespace GostCrypt {
             INIT_SERIALIZE(IncorrectSectorSize);
             INIT_SERIALIZE(MountPointUsed);
             INIT_SERIALIZE(FailedCreateFuseMountPoint);
+            INIT_SERIALIZE(MountFilesystemManagerException);
+            INIT_SERIALIZE(FailMountFilesystem);
+            INIT_SERIALIZE(FailUnmountFilesystem);
+            INIT_SERIALIZE(FailedAttachLoopDevice);
         }
 
 
@@ -137,6 +141,61 @@ namespace GostCrypt {
           in >> static_cast<CoreException&>(Valeur);
           in >> path;
           Valeur.mountpoint.reset(new QFileInfo(path));
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::MountFilesystemManagerException)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::MountFilesystemManagerException & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.mountpoint->canonicalFilePath();
+            out << Valeur.error_number;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MountFilesystemManagerException & Valeur) {
+          QString path;
+          in >> static_cast<SystemException&>(Valeur);
+          in >> path;
+          in >> Valeur.error_number;
+          Valeur.mountpoint.reset(new QFileInfo(path));
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailMountFilesystem)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailMountFilesystem & Valeur) {
+            out << static_cast<const MountFilesystemManagerException&>(Valeur);
+            out << Valeur.devicePath->canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailMountFilesystem & Valeur) {
+          QString path;
+          in >> static_cast<MountFilesystemManagerException&>(Valeur);
+          in >> path;
+          Valeur.devicePath.reset(new QFileInfo(path));
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailUnmountFilesystem)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailUnmountFilesystem & Valeur) {
+            out << static_cast<const MountFilesystemManagerException&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailUnmountFilesystem & Valeur) {
+          QString path;
+          in >> static_cast<MountFilesystemManagerException&>(Valeur);
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailedAttachLoopDevice)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailedAttachLoopDevice & Valeur) {
+            out << static_cast<const SystemException&>(Valeur);
+            out << Valeur.imageFile->canonicalFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailedAttachLoopDevice & Valeur) {
+          QString path;
+          in >> static_cast<SystemException&>(Valeur);
+          in >> path;
+          Valeur.imageFile.reset(new QFileInfo(path));
           return in;
         }
     }

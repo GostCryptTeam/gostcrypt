@@ -37,8 +37,7 @@ HEADERS += \
     CoreRoot.h \
     CoreException.h \
     LoopDeviceManager.h \
-    loopdev.h \
-    MountFilesystemManager.h
+    MountFilesystemManager.h \
 
 SOURCES += \
     CoreParams.cpp \
@@ -48,5 +47,4 @@ SOURCES += \
     CoreRoot.cpp \
     CoreException.cpp \
     LoopDeviceManager.cpp \
-    loopdev.c \
-    MountFilesystemManager.cpp
+    MountFilesystemManager.cpp \
