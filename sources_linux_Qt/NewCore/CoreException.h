@@ -128,10 +128,10 @@ namespace GostCrypt {
         };
 
         #define MountPointUsedException(mountpoint) MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
-        class MountPointUsed : public CoreException {
+        class MountPointUsed : public SystemException {
             public:
                 MountPointUsed() {}
-                MountPointUsed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), mountpoint(mountpoint) {}
+                MountPointUsed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), mountpoint(mountpoint) {}
 				QSharedPointer<QFileInfo> getMountpoint() { return mountpoint; }
             protected:
                 QSharedPointer<QFileInfo> mountpoint;
@@ -140,14 +140,60 @@ namespace GostCrypt {
         };
 
         #define FailedCreateFuseMountPointException(mountpoint) FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
-        class FailedCreateFuseMountPoint : public CoreException {
+        class FailedCreateFuseMountPoint : public SystemException {
             public:
                 FailedCreateFuseMountPoint() {}
-                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), mountpoint(mountpoint) {}
+                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), mountpoint(mountpoint) {}
             protected:
                 QSharedPointer<QFileInfo> mountpoint;
-                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, CoreException, "The directory " + mountpoint->canonicalFilePath() + " is already used")
+                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, CoreException, "Creation of fuse mount point " + mountpoint->canonicalFilePath() + " failed")
             DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
+        };
+
+        class MountFilesystemManagerException : public SystemException {
+            public:
+                MountFilesystemManagerException() {}
+                MountFilesystemManagerException(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), error_number(error_number), mountpoint(mountpoint) {}
+            protected:
+                qint32 error_number;
+                QSharedPointer<QFileInfo> mountpoint;
+
+                DEF_EXCEPTION_WHAT(MountFilesystemManagerException, CoreException, "Error while mounting/unmounting filesystem in " + mountpoint->canonicalFilePath() + "("+ QString(strerror(error_number)) + ")")
+            DEC_SERIALIZABLE(MountFilesystemManagerException);
+        };
+
+		#define FailMountFilesystemException(error_number, mountpoint, devicePath) FailMountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint, devicePath);
+        class FailMountFilesystem : public MountFilesystemManagerException {
+            public:
+                FailMountFilesystem() {}
+                FailMountFilesystem(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint, QSharedPointer<QFileInfo> devicePath) : MountFilesystemManagerException(fonction, filename, line, error_number, mountpoint), devicePath(devicePath) {}
+            protected:
+                QSharedPointer<QFileInfo> devicePath;
+
+                DEF_EXCEPTION_WHAT(FailMountFilesystem, MountFilesystemManagerException, "Unable to mount " + devicePath->canonicalFilePath() + " in " + mountpoint->canonicalFilePath() + "("+ QString(strerror(error_number)) + ")")
+            DEC_SERIALIZABLE(FailMountFilesystem);
+        };
+
+        #define FailUnmountFilesystemException(error_number, mountpoint) FailUnmountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint);
+        class FailUnmountFilesystem : public MountFilesystemManagerException {
+            public:
+                FailUnmountFilesystem() {}
+                FailUnmountFilesystem(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint) : MountFilesystemManagerException(fonction, filename, line, error_number, mountpoint) {}
+            protected:
+                DEF_EXCEPTION_WHAT(FailUnmountFilesystem, MountFilesystemManagerException, "Unable to unmount filesystem in " + mountpoint->canonicalFilePath() + "("+ QString(strerror(error_number)) + ")")
+            DEC_SERIALIZABLE(FailUnmountFilesystem);
+        };
+
+		#define FailedAttachLoopDeviceException(imageFile) FailedAttachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, imageFile);
+        class FailedAttachLoopDevice : public SystemException {
+            public:
+                FailedAttachLoopDevice() {}
+                FailedAttachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> imageFile) : SystemException(fonction, filename, line), imageFile(imageFile) {}
+            protected:
+                QSharedPointer<QFileInfo> imageFile;
+
+                DEF_EXCEPTION_WHAT(FailedAttachLoopDevice, SystemException, "Unable to create loop device for image file " + imageFile->canonicalFilePath())
+            DEC_SERIALIZABLE(FailedAttachLoopDevice);
         };
 	}
 }
@@ -162,4 +208,10 @@ SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSectorSize)
 SERIALIZABLE(GostCrypt::NewCore::MountPointUsed)
 SERIALIZABLE(GostCrypt::NewCore::FailedCreateFuseMountPoint)
+SERIALIZABLE(GostCrypt::NewCore::MountFilesystemManagerException)
+SERIALIZABLE(GostCrypt::NewCore::FailMountFilesystem)
+SERIALIZABLE(GostCrypt::NewCore::FailUnmountFilesystem)
+SERIALIZABLE(GostCrypt::NewCore::FailedAttachLoopDevice)
+
+
 #endif // COREEXCEPTION_H

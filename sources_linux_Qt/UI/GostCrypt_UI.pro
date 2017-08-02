@@ -59,13 +59,14 @@ SOURCES += main.cpp \
     parser.cpp \
     cmdUserInterface.cpp
 
-LIBS += ../NewCore/libNewCore.a \
-    ../Volume/libVolume.a \
-    ../Platform/libPlatform.a \
-    ../FuseDriver/libFuseDriver.a \
-    -ldl \
-    -pthread \
-   -lfuse
+LIBS += \
+        ../NewCore/libNewCore.a \
+        ../FuseDriver/libFuseDriver.a \
+        ../Volume/libVolume.a \
+        ../Platform/libPlatform.a \
+        -ldl \
+        -pthread \
+        -lfuse
 
 TARGET = ../GostCrypt
 

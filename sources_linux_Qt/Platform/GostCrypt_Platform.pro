@@ -64,7 +64,7 @@ HEADERS += \
     Exception.h \
     Event.h \
     Directory.h \
-    Buffer.h
+    Buffer.h \
 
 SOURCES += \
     Unix/Time.cpp \
@@ -91,4 +91,4 @@ SOURCES += \
     FileCommon.cpp \
     Exception.cpp \
     Event.cpp \
-    Buffer.cpp
+    Buffer.cpp \
