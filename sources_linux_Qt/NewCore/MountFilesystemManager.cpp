@@ -6,7 +6,7 @@ namespace GostCrypt {
 namespace NewCore {
 
 
-        void MountFilesystemManager::MountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, QString filesystemType, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString &additionalMountOptions)
+        void MountFilesystemManager::mountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, QString filesystemType, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString &additionalMountOptions)
         {
 			quint64 mntflags = MS_NOSUID; //protect against potential privilege escalation using GostCrypt (not sure it is necessary)
 			if(readOnly)
@@ -26,7 +26,7 @@ namespace NewCore {
         }
 
 
-        void MountFilesystemManager::DismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
+        void MountFilesystemManager::dismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
         {
             if(umount2(mountPoint->absoluteFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
 				throw FailUnmountFilesystemException(errno, mountPoint);

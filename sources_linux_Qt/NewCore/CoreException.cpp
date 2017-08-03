@@ -18,6 +18,8 @@ namespace GostCrypt {
             INIT_SERIALIZE(FailUnmountFilesystem);
             INIT_SERIALIZE(FailedAttachLoopDevice);
             INIT_SERIALIZE(FailedCreateDirectory);
+            INIT_SERIALIZE(FailedDetachLoopDevice);
+            INIT_SERIALIZE(VolumeNotMounted);
         }
 
 
@@ -90,6 +92,20 @@ namespace GostCrypt {
             in >> path;
             Valeur.volumePath.reset(new QFileInfo(path));
             return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::VolumeNotMounted)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::VolumeNotMounted & Valeur) {
+          out << static_cast<const CoreException&>(Valeur);
+          out << Valeur.volumePath->absoluteFilePath();
+          return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::VolumeNotMounted & Valeur) {
+          QString path;
+          in >> static_cast<CoreException&>(Valeur);
+          in >> path;
+          Valeur.volumePath.reset(new QFileInfo(path));
+          return in;
         }
 
         DEF_SERIALIZABLE(GostCrypt::NewCore::FailedOpenVolume)
@@ -198,6 +214,19 @@ namespace GostCrypt {
           in >> path;
           Valeur.imageFile.reset(new QFileInfo(path));
           return in;
+        }
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailedDetachLoopDevice)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailedDetachLoopDevice & Valeur) {
+            out << static_cast<const SystemException&>(Valeur);
+            out << Valeur.loopDevice->absoluteFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailedDetachLoopDevice & Valeur) {
+            QString path;
+            in >> static_cast<SystemException&>(Valeur);
+            in >> path;
+            Valeur.loopDevice.reset(new QFileInfo(path));
+            return in;
         }
 
         DEF_SERIALIZABLE(GostCrypt::NewCore::FailedCreateDirectory)

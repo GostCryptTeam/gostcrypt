@@ -57,18 +57,18 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseMount(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response;
                     response = Core->mountVolume(options);
-                    qStdOut() << "Volume Mounted"; // maybe add some more display
-                } /*catch (GostCrypt::PasswordIncorrect &e) { // TODO make this work
-                    qStdOut() << "Wrong password or bad GostCrypt volume." << endl;
-                } catch (GostCrypt::VolumeAlreadyMounted &e) {
-                    qStdOut() << "Volume has already been mounted." << endl;
-                }*/ catch(Parser::ParseException &e){
+                    qStdOut() << "Volume Mounted\n";
+                } catch(Parser::ParseException &e) {
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 } catch(GostCrypt::NewCore::CoreException &e) {
                     qStdOut() << e.qwhat();
-                }catch(...) {
-                    qStdOut() << "Unknown exception raised.";
+                } catch(GostCrypt::PasswordException &e) {
+                    qStdOut() << "Password incorrect\n";
+                } catch(GostCrypt::Exception &e) {
+                    qStdOut() << e.what();
+                } catch(...) {
+                    qStdOut() << "Unknown exception raised \n";
                 }
             }
             break;
@@ -92,7 +92,22 @@ int handleCLI(int argc, char ** argv){
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-            qStdOut() << "Option not supported." << endl; // TODO
+        {
+            QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
+            try {
+                Parser::parseDismount(app, parser, params);
+                Core->dismountVolume(params);
+                qStdOut() << "Volume unmounted\n";
+            } catch(Parser::ParseException &e){
+                qStdOut() << e.getMessage() << endl;
+                parser.showHelp();
+            } catch(GostCrypt::NewCore::CoreException &e) {
+                qStdOut() << e.qwhat();
+            } catch(...) {
+                qStdOut() << "Unknown exception raised.";
+            }
+        }
+            break;
         case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;

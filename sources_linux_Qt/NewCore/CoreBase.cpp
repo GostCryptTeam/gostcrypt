@@ -115,7 +115,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && !params->volumePath.absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath.absoluteFilePath().toStdWString()))
+                if(params && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -140,7 +140,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-                if(params && !params->volumePath.absoluteFilePath().isEmpty())
+                if(params && !params->volumePath->absoluteFilePath().isEmpty())
 					break;
 			}
 
@@ -199,7 +199,7 @@ namespace GostCrypt {
 		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
 		{
 			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
-			params->volumePath = *volumeFile;
+            params->volumePath = volumeFile;
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
 

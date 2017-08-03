@@ -114,6 +114,15 @@ namespace GostCrypt {
                 QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + FuseService::GetVolumeImagePath()));
                 virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
 
+                try {
+                    DirectoryPath fmp(fuseMountPoint->absoluteFilePath().toStdWString());
+                    DirectoryPath vd(virtualDevice->absoluteFilePath().toStdWString());
+                    FuseService::SendAuxDeviceInfo(fmp, vd, vd);
+                } catch(...) {
+                    LoopDeviceManager::detachLoopDevice(virtualDevice);
+                    throw;
+                }
+
                 if(params->doMount) {
                     if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
                         params->mountPoint = getFreeDefaultMountPoint(realUserId);
@@ -125,7 +134,7 @@ namespace GostCrypt {
                             throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
                         mountDirCreated = true;
                     }
-                    MountFilesystemManager::MountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
                 }
             } catch(...) {
                 QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
@@ -141,8 +150,40 @@ namespace GostCrypt {
 
 		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeParams> params)
 		{
+            QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
-		}
+            /* Get mounted volume infos */
+            QSharedPointer<VolumeInfo> mountedVolume;
+            {
+                QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
+                QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
+                getMountedVolumesParams->volumePath = params->volumepath;
+                getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
+                if(getMountedVolumesResponse->volumeInfoList.isEmpty())
+                    throw VolumeNotMountedException(params->volumepath);
+                mountedVolume = getMountedVolumesResponse->volumeInfoList.first();
+            }
+
+            /* Unmount filesystem */
+            if(!mountedVolume->MountPoint.IsEmpty()) {
+                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), params->force);
+            }
+
+            /* Detach loop device */
+            if(!mountedVolume->LoopDevice.IsEmpty()) {
+                LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->LoopDevice)))));
+            }
+
+            // Probably not necessary to update mountedVolume
+
+            /* Unmount Fuse filesystem */
+            MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), params->force);
+
+            /* Delete fuse mount point directory */
+             QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
+
+            return response;
+        }
 
 		QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<DismountVolumeParams> params)
 		{

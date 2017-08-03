@@ -203,6 +203,29 @@ namespace GostCrypt {
 
             DEC_SERIALIZABLE(FailedAttachLoopDevice);
         };
+
+        #define FailedDetachLoopDeviceException(loopDevice) FailedDetachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, loopDevice);
+        class FailedDetachLoopDevice : public SystemException {
+            public:
+                FailedDetachLoopDevice() {}
+                FailedDetachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> loopDevice) : SystemException(fonction, filename, line), loopDevice(loopDevice) { }
+                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, SystemException, QStringLiteral("Unable to detack loop device ") + loopDevice->absoluteFilePath() + "\n")
+            protected:
+                QSharedPointer<QFileInfo> loopDevice;
+
+            DEC_SERIALIZABLE(FailedDetachLoopDevice);
+        };
+
+        #define VolumeNotMountedException(volumePath) VolumeNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+        class VolumeNotMounted : public CoreException {
+            public:
+                VolumeNotMounted() {}
+                VolumeNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
+            protected:
+                QSharedPointer<QFileInfo> volumePath;
+            DEC_SERIALIZABLE(VolumeNotMounted);
+        };
 	}
 }
 
@@ -221,6 +244,8 @@ SERIALIZABLE(GostCrypt::NewCore::FailMountFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::FailUnmountFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::FailedAttachLoopDevice)
 SERIALIZABLE(GostCrypt::NewCore::FailedCreateDirectory)
+SERIALIZABLE(GostCrypt::NewCore::FailedDetachLoopDevice)
+SERIALIZABLE(GostCrypt::NewCore::VolumeNotMounted)
 
 
 
