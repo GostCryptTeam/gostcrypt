@@ -6,7 +6,7 @@ namespace GostCrypt {
 namespace NewCore {
 
 
-        void MountFilesystemManager::MountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, const QString &filesystemType, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString additionalMountOptions)
+        void MountFilesystemManager::mountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, QString filesystemType, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString &additionalMountOptions)
         {
 			quint64 mntflags = MS_NOSUID; //protect against potential privilege escalation using GostCrypt (not sure it is necessary)
 			if(readOnly)
@@ -17,14 +17,18 @@ namespace NewCore {
 			if(!additionalMountOptions.isEmpty())
 				mountOptions += "," + additionalMountOptions;
 
-			if(mount(devicePath->canonicalFilePath().toLocal8Bit().data(), mountPoint->canonicalFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
+            if(filesystemType.isNull() || filesystemType.isEmpty()) {
+                //TODO use blkid libs to detect filesystem if not specified
+                filesystemType = QString("vfat");
+            }
+            if(mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
 				throw FailMountFilesystemException(errno, mountPoint, devicePath);
         }
 
 
-        void MountFilesystemManager::DismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
+        void MountFilesystemManager::dismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
         {
-			if(umount2(mountPoint->canonicalFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
+            if(umount2(mountPoint->absoluteFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
 				throw FailUnmountFilesystemException(errno, mountPoint);
         }
     }

@@ -16,6 +16,9 @@
 #include "Platform/SharedPtr.h"
 #include "FuseDriver/FuseService.h"
 
+#include <sys/types.h>
+#include <pwd.h>
+
 namespace GostCrypt {
 	namespace NewCore {
 
@@ -24,10 +27,11 @@ namespace GostCrypt {
 			initCoreParams();
 			initCoreResponse();
 			initCoreException();
-			if(getuid()) {
-				return QSharedPointer<CoreBase>(new CoreRoot());
+
+            if(getuid()) {
+                return QSharedPointer<CoreBase>(new CoreUser());
 			} else {
-				return QSharedPointer<CoreBase>(new CoreUser());
+                return QSharedPointer<CoreBase>(new CoreRoot());
 			}
 		}
 
@@ -65,14 +69,14 @@ namespace GostCrypt {
                 hd->devicePath.reset(new QFileInfo((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(3)));
 				hd->size = fields.at(2).toULongLong(&isNumber)*1024;
 				if(!isNumber)
-                    qDebug() << "Fail to read device size for device " << hd->devicePath->canonicalFilePath();
+                    qDebug() << "Fail to read device size for device " << hd->devicePath->absoluteFilePath();
 				try {
 					hd->mountPoint = getDeviceMountPoint(hd->devicePath);
 				} catch(DeviceNotMounted &e) {}
 
 				/* Check if device is partition */
 				if(!res->hostDevices.isEmpty()) {
-                    if(hd->devicePath->canonicalFilePath().startsWith(res->hostDevices.last()->devicePath->canonicalFilePath())) {
+                    if(hd->devicePath->absoluteFilePath().startsWith(res->hostDevices.last()->devicePath->absoluteFilePath())) {
 						res->hostDevices.last()->partitions.append(hd);
 						continue;
 					}
@@ -90,7 +94,7 @@ namespace GostCrypt {
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
 				/* Filter only Fuse FileSystems*/
-                if(!mf->MountPoint->canonicalFilePath().startsWith(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX))) {
+                if(!mf->MountPoint->absoluteFilePath().startsWith(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX))) {
 					continue;
 				}
 
@@ -100,7 +104,7 @@ namespace GostCrypt {
 				try
 				{
 					shared_ptr <File> controlFile (new File);
-                    controlFile->Open (mf->MountPoint->canonicalFilePath().toStdString() + FuseService::GetControlPath());
+                    controlFile->Open (mf->MountPoint->absoluteFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
 					mountedVol.reset(new VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream)));
@@ -111,11 +115,11 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-				if(params && !params->volumePath.canonicalFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath.canonicalFilePath().toStdWString()))
+                if(params && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
-                mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->canonicalFilePath().toStdString());
+                mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->absoluteFilePath().toStdString());
 
 				/* Add final mount point information if possible */
                 if(!mountedVol->VirtualDevice.IsEmpty())
@@ -130,13 +134,13 @@ namespace GostCrypt {
                                                 )
                                             )
                                         )
-                                    )->canonicalFilePath().toStdString()
+                                    )->absoluteFilePath().toStdString()
                                 );
 
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-				if(params && !params->volumePath.canonicalFilePath().isEmpty())
+                if(params && !params->volumePath->absoluteFilePath().isEmpty())
 					break;
 			}
 
@@ -174,8 +178,8 @@ namespace GostCrypt {
                     mf->Type.reset(new QString(entry->mnt_type));
 				}
 
-                if ((devicePath.canonicalFilePath().isEmpty() || devicePath == *mf->Device) && \
-                        (mountPoint.canonicalFilePath().isEmpty() || mountPoint == *mf->MountPoint))
+                if ((devicePath.absoluteFilePath().isEmpty() || devicePath == *mf->Device) && \
+                        (mountPoint.absoluteFilePath().isEmpty() || mountPoint == *mf->MountPoint))
 					mountedFilesystems.append(mf);
 			}
 
@@ -195,7 +199,7 @@ namespace GostCrypt {
 		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
 		{
 			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
-			params->volumePath = *volumeFile;
+            params->volumePath = volumeFile;
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
 
@@ -205,10 +209,10 @@ namespace GostCrypt {
 
 				for (quint32 i = 1; true; i++) {
 					try {
-						QString path(QStandardPaths::displayName(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX) + QString::number(i));
+                        QString path(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX) + QString::number(i));
 
 						for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems) {
-							if(mountedFilesystem->MountPoint->canonicalFilePath() == path)
+                            if(mountedFilesystem->MountPoint->absoluteFilePath() == path)
 								throw MountPointUsedException(mountedFilesystem->MountPoint);
 						}
 
@@ -219,8 +223,33 @@ namespace GostCrypt {
 							continue;
 						throw FailedCreateFuseMountPointException(e.getMountpoint());
 					}
-				}
-		}
+                }
+        }
+
+        QSharedPointer<QFileInfo> CoreBase::getFreeDefaultMountPoint(uid_t userId)
+        {
+            passwd* userinfo = getpwuid(userId);
+            QString mountPointbase = QStringLiteral("/media/") + QString(userinfo->pw_name) + QStringLiteral("/gostcrypt");
+            QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
+
+            for (quint32 i = 1; true; i++) {
+                try {
+                    QString path = mountPointbase + QString::number(i);
+
+                    for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems) {
+                        if(mountedFilesystem->MountPoint->absoluteFilePath() == path)
+                            throw MountPointUsedException(mountedFilesystem->MountPoint);
+                    }
+
+                    return QSharedPointer<QFileInfo>(new QFileInfo(path));
+
+                } catch (MountPointUsed &e) {
+                    if(i < 100)
+                        continue;
+                    throw FailedCreateFuseMountPointException(e.getMountpoint());
+                }
+            }
+        }
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {

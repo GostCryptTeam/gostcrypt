@@ -1,4 +1,5 @@
 #include "cmdUserInterface.h"
+#include "Core/CoreException.h"
 
 const QStringList FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
@@ -56,16 +57,18 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseMount(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response;
                     response = Core->mountVolume(options);
-                    qStdOut() << "Volume Mounted"; // maybe add some more display
-                } /*catch (GostCrypt::PasswordIncorrect &e) { // TODO make this work
-                    qStdOut() << "Wrong password or bad GostCrypt volume." << endl;
-                } catch (GostCrypt::VolumeAlreadyMounted &e) {
-                    qStdOut() << "Volume has already been mounted." << endl;
-                }*/ catch(Parser::ParseException &e){
+                    qStdOut() << "Volume Mounted\n";
+                } catch(Parser::ParseException &e) {
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
+                } catch(GostCrypt::NewCore::CoreException &e) {
+                    qStdOut() << e.qwhat();
+                } catch(GostCrypt::PasswordException &e) {
+                    qStdOut() << "Password incorrect\n";
+                } catch(GostCrypt::Exception &e) {
+                    qStdOut() << e.what();
                 } catch(...) {
-                    qStdOut() << "Unknown exception raised.";
+                    qStdOut() << "Unknown exception raised \n";
                 }
             }
             break;
@@ -89,7 +92,22 @@ int handleCLI(int argc, char ** argv){
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-            qStdOut() << "Option not supported." << endl; // TODO
+        {
+            QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
+            try {
+                Parser::parseDismount(app, parser, params);
+                Core->dismountVolume(params);
+                qStdOut() << "Volume unmounted\n";
+            } catch(Parser::ParseException &e){
+                qStdOut() << e.getMessage() << endl;
+                parser.showHelp();
+            } catch(GostCrypt::NewCore::CoreException &e) {
+                qStdOut() << e.qwhat();
+            } catch(...) {
+                qStdOut() << "Unknown exception raised.";
+            }
+        }
+            break;
         case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
@@ -146,9 +164,9 @@ int handleCLI(int argc, char ** argv){
 								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
 								response = Core->getHostDevices();
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-                                    qStdOut() << d->devicePath->canonicalFilePath() << "\t" << d->mountPoint->canonicalFilePath() << "\t" << d->size << endl;
+                                    qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut()<< "\t" << p->devicePath->canonicalFilePath() << "\t" << p->mountPoint->canonicalFilePath() << "\t" << p->size << endl;
+                                        qStdOut()<< "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
 									}
 								}
 							}

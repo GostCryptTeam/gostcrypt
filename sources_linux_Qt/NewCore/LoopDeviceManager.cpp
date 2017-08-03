@@ -1,16 +1,17 @@
 #include "LoopDeviceManager.h"
+extern "C" {
 #include "loopdevlib/loopdev.h"
+}
 #include "CoreException.h"
 
 namespace GostCrypt {
 namespace NewCore {
 
-        QSharedPointer<QFileInfo> LoopDeviceManager::attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly)
-        {
+        QSharedPointer<QFileInfo> LoopDeviceManager::attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly) {
             loopdev_cxt lc;
             quint32 lo_flags = 0;
 
-            if(!loopcxt_init(&lc, 0)) //not sure necessary
+            if(loopcxt_init(&lc, 0)) //not sure necessary
                 throw FailedAttachLoopDeviceException(imageFile);
             do {
                 if(readonly)
@@ -19,7 +20,7 @@ namespace NewCore {
                     throw FailedAttachLoopDeviceException(imageFile);
                 if(loopcxt_set_flags(&lc, lo_flags))
                     throw FailedAttachLoopDeviceException(imageFile);
-                if(loopcxt_set_backing_file(&lc, imageFile->canonicalFilePath().toLocal8Bit().data()))
+                if(loopcxt_set_backing_file(&lc, imageFile->absoluteFilePath().toLocal8Bit().data()))
                     throw FailedAttachLoopDeviceException(imageFile);
                 if(loopcxt_setup_device(&lc)) {
                     if(errno == EBUSY)
@@ -34,9 +35,20 @@ namespace NewCore {
             return response;
         }
 
-        bool LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo> imageFile)
+        void LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo> loopDevice)
         {
-            return false;
+            loopdev_cxt lc;
+
+            if(loopcxt_init(&lc, 0))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(!is_loopdev(loopDevice->absoluteFilePath().toLocal8Bit().data()))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(loopcxt_set_device(&lc, loopDevice->absoluteFilePath().toLocal8Bit().data()))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(loopcxt_delete_device(&lc))
+                throw FailedDetachLoopDeviceException(loopDevice);
+
+            loopcxt_deinit(&lc);
         }
 
     }

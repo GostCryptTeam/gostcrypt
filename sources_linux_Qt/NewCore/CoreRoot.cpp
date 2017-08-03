@@ -1,11 +1,24 @@
 #include <QDir>
 #include "CoreRoot.h"
 #include "FuseDriver/FuseService.h"
+#include "LoopDeviceManager.h"
+#include "MountFilesystemManager.h"
 
 namespace GostCrypt {
 	namespace NewCore {
 		CoreRoot::CoreRoot()
 		{
+            realGroupId = static_cast <gid_t>(0);
+            realUserId = static_cast <gid_t>(0);
+
+            const char *envSudoGID = getenv ("SUDO_GID");
+            if (envSudoGID) {
+                realGroupId =  static_cast <gid_t> (QString(envSudoGID).toLong());
+            }
+            const char *envSudoUID = getenv ("SUDO_UID");
+            if (envSudoUID) {
+                realUserId =  static_cast <gid_t> (QString(envSudoUID).toLong());
+            }
 		}
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)
@@ -19,18 +32,34 @@ namespace GostCrypt {
                 throw VolumeAlreadyMountedException(params->path);
 
 			QSharedPointer<Volume> volume(new Volume);
+            QSharedPointer<QFileInfo> fuseMountPoint;
+
 			do {
 				try {
-					VolumePath path(params->path->canonicalFilePath().toStdWString());
-                    shared_ptr<KeyfileList> keyfiles(new KeyfileList(*params->keyfiles));
-                    shared_ptr<KeyfileList> protectionKeyfiles(new KeyfileList(*params->protectionKeyfiles));
+                    VolumePath path(params->path->absoluteFilePath().toStdWString());
+                    shared_ptr<KeyfileList> keyfiles;
+                    shared_ptr<KeyfileList> protectionKeyfiles;
+                    shared_ptr<VolumePassword> password;
+                    shared_ptr<VolumePassword> protectionPassword;
+
+                    if(!params->keyfiles.isNull())
+                       keyfiles.reset(new KeyfileList(*params->keyfiles));
+                    if(!params->protectionKeyfiles.isNull())
+                        protectionKeyfiles.reset(new KeyfileList(*params->protectionKeyfiles));
+                    if(!params->password.isNull() && !params->password->isNull())
+                        password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+                    else
+                        throw MissingParamException("password");
+                    if(!params->protectionPassword.isNull() && !params->protectionPassword->isNull())
+                        protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
+
                     volume->Open(
 						path,
 						params->preserveTimestamps,
-						SharedPtr<VolumePassword>(new VolumePassword(params->password->constData(), params->password->size())),
+                        password,
                         keyfiles,
 						params->protection,
-						SharedPtr<VolumePassword>(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size())),
+                        protectionPassword,
                         protectionKeyfiles,
 						params->useBackupHeaders
 					);
@@ -45,7 +74,8 @@ namespace GostCrypt {
                     throw FailedOpenVolumeException(params->path);
 				}
 				params->password->fill('\0');
-				params->protectionPassword->fill('\0');
+                if(!params->protectionPassword.isNull())
+                    params->protectionPassword->fill('\0');
 				break;
 			} while(0);
 
@@ -59,16 +89,17 @@ namespace GostCrypt {
 						throw IncorrectSectorSizeException();
 				}
 
-				QSharedPointer<QFileInfo> fuseMountPoint = getFreeFuseMountPoint();
-				if(!QDir(fuseMountPoint->canonicalFilePath()).mkdir(QStringLiteral(".")))
+                fuseMountPoint = getFreeFuseMountPoint();
+                QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
+                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
 						throw FailedCreateFuseMountPointException(fuseMountPoint);
 
 				try {
 					// TODO recode fuse
 					SharedPtr<Volume> vol(new Volume(*volume));
-					FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->canonicalFilePath().toStdString());
+                    FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->absoluteFilePath().toStdString());
 				} catch (...) {
-					QDir(fuseMountPoint->canonicalFilePath()).rmdir(QStringLiteral("."));
+                    QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
 					throw;
 				}
 			} catch (...) {
@@ -76,23 +107,83 @@ namespace GostCrypt {
 				throw;
 			}
 
-			bool mountDirCreated = false;
-			if(params->doMount) {
-				QDir mountpoint(params->mountPoint->canonicalFilePath());
-				if(!mountpoint.exists())
-					mountpoint.mkdir(QStringLiteral("."));
-			}
+            bool mountDirCreated = false;
+            try {
 
+                QSharedPointer<QFileInfo> virtualDevice;
+                QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + FuseService::GetVolumeImagePath()));
+                virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
 
+                try {
+                    DirectoryPath fmp(fuseMountPoint->absoluteFilePath().toStdWString());
+                    DirectoryPath vd(virtualDevice->absoluteFilePath().toStdWString());
+                    FuseService::SendAuxDeviceInfo(fmp, vd, vd);
+                } catch(...) {
+                    LoopDeviceManager::detachLoopDevice(virtualDevice);
+                    throw;
+                }
 
+                if(params->doMount) {
+                    if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
+                        params->mountPoint = getFreeDefaultMountPoint(realUserId);
+                    }
+
+                    QDir mountpoint(params->mountPoint->absoluteFilePath());
+                    if(!mountpoint.exists()) {
+                        if(!mountpoint.mkpath(params->mountPoint->absoluteFilePath()))
+                            throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
+                        mountDirCreated = true;
+                    }
+                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                }
+            } catch(...) {
+                QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
+                dismountParams->volumepath = params->path;
+                dismountVolume(dismountParams);
+                if(mountDirCreated)
+                    QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
+                throw;
+            }
 
 			return response;
 		}
 
 		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeParams> params)
 		{
+            QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
-		}
+            /* Get mounted volume infos */
+            QSharedPointer<VolumeInfo> mountedVolume;
+            {
+                QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
+                QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
+                getMountedVolumesParams->volumePath = params->volumepath;
+                getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
+                if(getMountedVolumesResponse->volumeInfoList.isEmpty())
+                    throw VolumeNotMountedException(params->volumepath);
+                mountedVolume = getMountedVolumesResponse->volumeInfoList.first();
+            }
+
+            /* Unmount filesystem */
+            if(!mountedVolume->MountPoint.IsEmpty()) {
+                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), params->force);
+            }
+
+            /* Detach loop device */
+            if(!mountedVolume->LoopDevice.IsEmpty()) {
+                LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->LoopDevice)))));
+            }
+
+            // Probably not necessary to update mountedVolume
+
+            /* Unmount Fuse filesystem */
+            MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), params->force);
+
+            /* Delete fuse mount point directory */
+             QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
+
+            return response;
+        }
 
 		QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<DismountVolumeParams> params)
 		{
