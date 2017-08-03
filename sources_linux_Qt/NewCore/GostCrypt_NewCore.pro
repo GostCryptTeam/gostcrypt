@@ -13,7 +13,7 @@ CONFIG += staticlib
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing
 
-DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH
+DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH HAVE_NANOSLEEP
 unix {
     DEFINES += GST_UNIX
     linux-g++ {
@@ -38,6 +38,14 @@ HEADERS += \
     CoreException.h \
     LoopDeviceManager.h \
     MountFilesystemManager.h \
+    loopdevlib/at.h \
+    loopdevlib/blkdev.h \
+    loopdevlib/c.h \
+    loopdevlib/canonicalize.h \
+    loopdevlib/linux_version.h \
+    loopdevlib/loopdev.h \
+    loopdevlib/pathnames.h \
+    loopdevlib/sysfs.h
 
 SOURCES += \
     CoreParams.cpp \
@@ -48,3 +56,9 @@ SOURCES += \
     CoreException.cpp \
     LoopDeviceManager.cpp \
     MountFilesystemManager.cpp \
+    loopdevlib/at.c \
+    loopdevlib/blkdev.c \
+    loopdevlib/canonicalize.c \
+    loopdevlib/linux_version.c \
+    loopdevlib/loopdev.c \
+    loopdevlib/sysfs.c

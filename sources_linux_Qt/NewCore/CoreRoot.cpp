@@ -1,11 +1,24 @@
 #include <QDir>
 #include "CoreRoot.h"
 #include "FuseDriver/FuseService.h"
+#include "LoopDeviceManager.h"
+#include "MountFilesystemManager.h"
 
 namespace GostCrypt {
 	namespace NewCore {
 		CoreRoot::CoreRoot()
 		{
+            realGroupId = static_cast <gid_t>(0);
+            realUserId = static_cast <gid_t>(0);
+
+            const char *envSudoGID = getenv ("SUDO_GID");
+            if (envSudoGID) {
+                realGroupId =  static_cast <gid_t> (QString(envSudoGID).toLong());
+            }
+            const char *envSudoUID = getenv ("SUDO_UID");
+            if (envSudoUID) {
+                realUserId =  static_cast <gid_t> (QString(envSudoUID).toLong());
+            }
 		}
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)
@@ -19,6 +32,8 @@ namespace GostCrypt {
                 throw VolumeAlreadyMountedException(params->path);
 
 			QSharedPointer<Volume> volume(new Volume);
+            QSharedPointer<QFileInfo> fuseMountPoint;
+
 			do {
 				try {
                     VolumePath path(params->path->absoluteFilePath().toStdWString());
@@ -74,10 +89,9 @@ namespace GostCrypt {
 						throw IncorrectSectorSizeException();
 				}
 
-				QSharedPointer<QFileInfo> fuseMountPoint = getFreeFuseMountPoint();
-                QString fuseMountPointPath = fuseMountPoint->absoluteFilePath();
-                QDir fuseMountPointDir(fuseMountPointPath);
-                if(!fuseMountPointDir.mkdir(QStringLiteral(".")))
+                fuseMountPoint = getFreeFuseMountPoint();
+                QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
+                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
 						throw FailedCreateFuseMountPointException(fuseMountPoint);
 
 				try {
@@ -93,15 +107,34 @@ namespace GostCrypt {
 				throw;
 			}
 
-			bool mountDirCreated = false;
-			if(params->doMount) {
-                QDir mountpoint(params->mountPoint->absoluteFilePath());
-				if(!mountpoint.exists())
-					mountpoint.mkdir(QStringLiteral("."));
-			}
+            bool mountDirCreated = false;
+            try {
 
+                QSharedPointer<QFileInfo> virtualDevice;
+                QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + FuseService::GetVolumeImagePath()));
+                virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
 
+                if(params->doMount) {
+                    if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
+                        params->mountPoint = getFreeDefaultMountPoint(realUserId);
+                    }
 
+                    QDir mountpoint(params->mountPoint->absoluteFilePath());
+                    if(!mountpoint.exists()) {
+                        if(!mountpoint.mkpath(params->mountPoint->absoluteFilePath()))
+                            throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
+                        mountDirCreated = true;
+                    }
+                    MountFilesystemManager::MountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                }
+            } catch(...) {
+                QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
+                dismountParams->volumepath = params->path;
+                dismountVolume(dismountParams);
+                if(mountDirCreated)
+                    QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
+                throw;
+            }
 
 			return response;
 		}

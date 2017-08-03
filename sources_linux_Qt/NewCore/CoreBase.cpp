@@ -16,6 +16,9 @@
 #include "Platform/SharedPtr.h"
 #include "FuseDriver/FuseService.h"
 
+#include <sys/types.h>
+#include <pwd.h>
+
 namespace GostCrypt {
 	namespace NewCore {
 
@@ -220,8 +223,33 @@ namespace GostCrypt {
 							continue;
 						throw FailedCreateFuseMountPointException(e.getMountpoint());
 					}
-				}
-		}
+                }
+        }
+
+        QSharedPointer<QFileInfo> CoreBase::getFreeDefaultMountPoint(uid_t userId)
+        {
+            passwd* userinfo = getpwuid(userId);
+            QString mountPointbase = QStringLiteral("/media/") + QString(userinfo->pw_name) + QStringLiteral("/gostcrypt");
+            QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
+
+            for (quint32 i = 1; true; i++) {
+                try {
+                    QString path = mountPointbase + QString::number(i);
+
+                    for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems) {
+                        if(mountedFilesystem->MountPoint->absoluteFilePath() == path)
+                            throw MountPointUsedException(mountedFilesystem->MountPoint);
+                    }
+
+                    return QSharedPointer<QFileInfo>(new QFileInfo(path));
+
+                } catch (MountPointUsed &e) {
+                    if(i < 100)
+                        continue;
+                    throw FailedCreateFuseMountPointException(e.getMountpoint());
+                }
+            }
+        }
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {

@@ -116,7 +116,7 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
 	if (positionalArguments.size() > 2)
 		throw Parser::ParseException("Too many arguments specified.");
 
-	volume->volumepath = positionalArguments.at(1);
+    volume->volumepath.reset(new QFileInfo(positionalArguments.at(1)));
 }
 
 void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item)

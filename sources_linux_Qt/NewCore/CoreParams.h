@@ -97,7 +97,7 @@ namespace GostCrypt {
 		};
 
 		struct DismountVolumeParams : CoreParams {
-			QString volumepath; // path of the file mounted, not the mount point
+            QSharedPointer<QFileInfo> volumepath; // path of the file mounted, not the mount point
 			DEC_SERIALIZABLE(DismountVolumeParams);
 		};
 

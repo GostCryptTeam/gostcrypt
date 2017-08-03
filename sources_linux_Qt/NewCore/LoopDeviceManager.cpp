@@ -1,16 +1,17 @@
 #include "LoopDeviceManager.h"
+extern "C" {
 #include "loopdevlib/loopdev.h"
+}
 #include "CoreException.h"
 
 namespace GostCrypt {
 namespace NewCore {
 
-        QSharedPointer<QFileInfo> LoopDeviceManager::attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly)
-        {
+        QSharedPointer<QFileInfo> LoopDeviceManager::attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly) {
             loopdev_cxt lc;
             quint32 lo_flags = 0;
 
-            if(!loopcxt_init(&lc, 0)) //not sure necessary
+            if(loopcxt_init(&lc, 0)) //not sure necessary
                 throw FailedAttachLoopDeviceException(imageFile);
             do {
                 if(readonly)

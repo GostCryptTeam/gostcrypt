@@ -29,7 +29,8 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
 			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
-		};
+            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+        };
 		QSharedPointer<CoreBase> getCore();
 	}
 }

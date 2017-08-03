@@ -17,6 +17,9 @@ namespace GostCrypt {
 			virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<DismountVolumeParams> params);
 			virtual QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
 			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params);
+        private:
+            uid_t realUserId;
+            gid_t realGroupId;
 		};
 	}
 }
