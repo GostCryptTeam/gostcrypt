@@ -72,7 +72,12 @@ namespace GostCrypt {
 						continue;
 					}
                     throw FailedOpenVolumeException(params->path);
-				}
+                } catch(GostCrypt::PasswordException &e) {
+                    throw ExceptionFromVolumeException("Incorrect password\n")
+                } catch(GostCrypt::Exception &e) {
+                    throw ExceptionFromVolumeException(e.what());
+                }
+
 				params->password->fill('\0');
                 if(!params->protectionPassword.isNull())
                     params->protectionPassword->fill('\0');

@@ -9,7 +9,10 @@ namespace NewCore {
 
         QSharedPointer<MountVolumeResponse> CoreUser::mountVolume(QSharedPointer<MountVolumeParams> params)
         {
+            QSharedPointer<MountVolumeResponse> response;
 
+            forwardRoot(QVariant::fromValue(params));
+            return response;
         }
 
         QSharedPointer<DismountVolumeResponse> CoreUser::dismountVolume(QSharedPointer<DismountVolumeParams> params)
@@ -32,7 +35,12 @@ namespace NewCore {
 
         }
 
-        QSharedPointer<CoreResponse> CoreUser::forwardRoot(QSharedPointer<CoreParams> params)
+        QVariant CoreUser::forwardRoot(QVariant params)
+        {
+
+        }
+
+        void CoreUser::sendAdminPassword()
         {
 
         }

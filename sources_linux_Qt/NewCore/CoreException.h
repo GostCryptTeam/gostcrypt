@@ -11,9 +11,12 @@
 	virtual QString getName() const { \
 		return parent::getName() + "/"#exceptionName; \
 	} \
-	virtual QString qwhat() const { \
-        return parent::qwhat() + message; \
-	}
+    virtual QString getMessage() const{ \
+        return message; \
+    } \
+    virtual QString qwhat() const { \
+        return parent::qwhat() + getMessage(); \
+    } \
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -224,6 +227,17 @@ namespace GostCrypt {
                 DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
             protected:
                 QSharedPointer<QFileInfo> volumePath;
+            DEC_SERIALIZABLE(VolumeNotMounted);
+        };
+
+        #define ExceptionFromVolumeException(message) ExceptionFromVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, message);
+        class ExceptionFromVolume : public CoreException {
+            public:
+                ExceptionFromVolume() {}
+                ExceptionFromVolume(QString fonction, QString filename, quint32 line, QString message) : CoreException(fonction, filename, line), message(message) {}
+                DEF_EXCEPTION_WHAT(ExceptionFromVolume, CoreException, message)
+            protected:
+                QString message;
             DEC_SERIALIZABLE(VolumeNotMounted);
         };
 	}

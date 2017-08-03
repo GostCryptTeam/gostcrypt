@@ -18,7 +18,7 @@ namespace GostCrypt {
 			virtual QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
 			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params);
 		protected:
-			QSharedPointer<CoreResponse> forwardRoot(QSharedPointer<CoreParams> params);
+            QVariant forwardRoot(QVariant params);
 		signals:
 			void askAdminPassword();
 		public slots:

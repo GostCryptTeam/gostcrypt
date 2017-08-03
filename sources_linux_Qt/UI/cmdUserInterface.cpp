@@ -63,10 +63,6 @@ int handleCLI(int argc, char ** argv){
                     parser.showHelp();
                 } catch(GostCrypt::NewCore::CoreException &e) {
                     qStdOut() << e.qwhat();
-                } catch(GostCrypt::PasswordException &e) {
-                    qStdOut() << "Password incorrect\n";
-                } catch(GostCrypt::Exception &e) {
-                    qStdOut() << e.what();
                 } catch(...) {
                     qStdOut() << "Unknown exception raised \n";
                 }
