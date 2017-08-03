@@ -54,7 +54,7 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GostCrypt::NewCore::DeviceNotMounted)
         QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::DeviceNotMounted & Valeur) {
             out << static_cast<const SystemException&>(Valeur);
-            out << Valeur.device->canonicalPath();
+            out << Valeur.device->canonicalFilePath();
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::DeviceNotMounted & Valeur) {

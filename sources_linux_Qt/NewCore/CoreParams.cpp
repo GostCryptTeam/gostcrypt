@@ -15,6 +15,7 @@ namespace GostCrypt {
 			INIT_SERIALIZE(GetHostDevicesParams);
 			INIT_SERIALIZE(GetMountedVolumesParams);
             INIT_SERIALIZE(GetFileSystemsTypesSupportedParams);
+            INIT_SERIALIZE(QFileInfo);
             return true;
 		}
 
@@ -167,3 +168,17 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GetFileSystemsTypesSupportedParams)
     }
 }
+
+
+QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur){
+    out << Valeur.canonicalFilePath();
+    return out;
+}
+
+QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur){
+    QString path;
+    in >> path;
+    Valeur = QFileInfo(path);
+    return in;
+}
+DEF_SERIALIZABLE(QFileInfo)

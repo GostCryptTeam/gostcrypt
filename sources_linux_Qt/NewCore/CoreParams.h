@@ -115,6 +115,11 @@ namespace GostCrypt {
 	}
 }
 
+
+QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
 SERIALIZABLE(GostCrypt::NewCore::CoreParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
@@ -125,5 +130,6 @@ SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
+Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
 
 #endif // COREPARAMS_H
