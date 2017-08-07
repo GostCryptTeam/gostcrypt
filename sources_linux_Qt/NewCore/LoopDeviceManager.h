@@ -10,7 +10,7 @@ namespace GostCrypt {
         {
         public:
             static QSharedPointer<QFileInfo> attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly);
-            static bool detachLoopDevice(QSharedPointer<QFileInfo> imageFile);
+            static void detachLoopDevice(QSharedPointer<QFileInfo> loopDevice);
         };
     }
 }

@@ -35,9 +35,20 @@ namespace NewCore {
             return response;
         }
 
-        bool LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo> imageFile)
+        void LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo> loopDevice)
         {
-            return false;
+            loopdev_cxt lc;
+
+            if(loopcxt_init(&lc, 0))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(!is_loopdev(loopDevice->absoluteFilePath().toLocal8Bit().data()))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(loopcxt_set_device(&lc, loopDevice->absoluteFilePath().toLocal8Bit().data()))
+                throw FailedDetachLoopDeviceException(loopDevice);
+            if(loopcxt_delete_device(&lc))
+                throw FailedDetachLoopDeviceException(loopDevice);
+
+            loopcxt_deinit(&lc);
         }
 
     }

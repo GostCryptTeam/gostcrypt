@@ -11,9 +11,12 @@
 	virtual QString getName() const { \
 		return parent::getName() + "/"#exceptionName; \
 	} \
-	virtual QString qwhat() const { \
-        return parent::qwhat() + message; \
-	}
+    virtual QString getMessage() const{ \
+        return message; \
+    } \
+    virtual QString qwhat() const { \
+        return parent::qwhat() + getMessage(); \
+    } \
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -203,6 +206,51 @@ namespace GostCrypt {
 
             DEC_SERIALIZABLE(FailedAttachLoopDevice);
         };
+
+        #define FailedDetachLoopDeviceException(loopDevice) FailedDetachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, loopDevice);
+        class FailedDetachLoopDevice : public SystemException {
+            public:
+                FailedDetachLoopDevice() {}
+                FailedDetachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> loopDevice) : SystemException(fonction, filename, line), loopDevice(loopDevice) { }
+                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, SystemException, QStringLiteral("Unable to detack loop device ") + loopDevice->absoluteFilePath() + "\n")
+            protected:
+                QSharedPointer<QFileInfo> loopDevice;
+
+            DEC_SERIALIZABLE(FailedDetachLoopDevice);
+        };
+
+        #define VolumeNotMountedException(volumePath) VolumeNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+        class VolumeNotMounted : public CoreException {
+            public:
+                VolumeNotMounted() {}
+                VolumeNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
+            protected:
+                QSharedPointer<QFileInfo> volumePath;
+            DEC_SERIALIZABLE(VolumeNotMounted);
+        };
+
+        #define ExceptionFromVolumeException(message) ExceptionFromVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, message);
+        class ExceptionFromVolume : public CoreException {
+            public:
+                ExceptionFromVolume() {}
+                ExceptionFromVolume(QString fonction, QString filename, quint32 line, QString message) : CoreException(fonction, filename, line), message(message) {}
+                DEF_EXCEPTION_WHAT(ExceptionFromVolume, CoreException, message)
+            protected:
+                QString message;
+            DEC_SERIALIZABLE(ExceptionFromVolume);
+        };
+
+        #define UnrecognisedResponseException(res) UnrecognisedResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, res);
+        class UnrecognisedResponse : public CoreException {
+            public:
+                UnrecognisedResponse() {}
+                UnrecognisedResponse(QString fonction, QString filename, quint32 line, QVariant res) : CoreException(fonction, filename, line), res(res) {}
+                DEF_EXCEPTION_WHAT(UnrecognisedResponse, CoreException, "Response from root process not recognised, type of response: " + res.typeName())
+            protected:
+                QVariant res;
+            DEC_SERIALIZABLE(UnrecognisedResponse);
+        };
 	}
 }
 
@@ -221,6 +269,8 @@ SERIALIZABLE(GostCrypt::NewCore::FailMountFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::FailUnmountFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::FailedAttachLoopDevice)
 SERIALIZABLE(GostCrypt::NewCore::FailedCreateDirectory)
+SERIALIZABLE(GostCrypt::NewCore::FailedDetachLoopDevice)
+SERIALIZABLE(GostCrypt::NewCore::VolumeNotMounted)
 
 
 

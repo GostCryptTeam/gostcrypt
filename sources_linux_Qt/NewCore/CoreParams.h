@@ -95,7 +95,8 @@ namespace GostCrypt {
 
 		struct DismountVolumeParams : CoreParams {
             QSharedPointer<QFileInfo> volumepath; // path of the file mounted, not the mount point
-			DEC_SERIALIZABLE(DismountVolumeParams);
+            bool force;
+            DEC_SERIALIZABLE(DismountVolumeParams);
 		};
 
 		struct GetHostDevicesParams : CoreParams {
@@ -103,7 +104,7 @@ namespace GostCrypt {
 		}; // no parameters
 
 		struct GetMountedVolumesParams : CoreParams {
-			QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
+            QSharedPointer<QFileInfo> volumePath; // optional path to select VolumeInfo from one particular volume
 			DEC_SERIALIZABLE(GetMountedVolumesParams);
 		};
 

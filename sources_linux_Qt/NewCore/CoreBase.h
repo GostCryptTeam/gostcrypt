@@ -2,6 +2,7 @@
 #define COREBASE_H
 
 #include <QObject>
+#include <QCoreApplication>
 #include "CoreParams.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
@@ -39,7 +40,7 @@ namespace GostCrypt {
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
         };
-		QSharedPointer<CoreBase> getCore();
+        QSharedPointer<CoreBase> getCore(QCoreApplication *a);
 	}
 }
 
