@@ -12,7 +12,7 @@
 		return parent::getName() + "/"#exceptionName; \
 	} \
     virtual QString getMessage() const{ \
-        return message; \
+        return QString() + message; \
     } \
     virtual QString qwhat() const { \
         return parent::qwhat() + getMessage(); \
