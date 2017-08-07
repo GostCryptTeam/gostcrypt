@@ -13,6 +13,7 @@
 #include "Platform/Platform.h"
 #include "Platform/Stream.h"
 #include "VolumePassword.h"
+#include <QSharedPointer>
 
 namespace GostCrypt
 {
@@ -26,7 +27,7 @@ namespace GostCrypt
 		virtual ~Keyfile () { };
 
 		operator FilesystemPath () const { return Path; }
-		static shared_ptr <VolumePassword> ApplyListToPassword (shared_ptr <KeyfileList> keyfiles, shared_ptr <VolumePassword> password);
+        static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
 		static shared_ptr <KeyfileList> DeserializeList (shared_ptr <Stream> stream, const string &name);
 		static void SerializeList (shared_ptr <Stream> stream, const string &name, shared_ptr <KeyfileList> keyfiles);
 		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }

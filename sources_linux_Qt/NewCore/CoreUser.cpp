@@ -17,7 +17,7 @@ namespace NewCore {
 
         }
 
-        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<DismountVolumeParams> params)
+        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<CreateVolumeParams> params)
         {
 
         }

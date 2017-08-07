@@ -22,7 +22,7 @@ namespace GostCrypt {
 
 			virtual QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeParams> params) = 0;
 			virtual QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeParams> params) = 0;
-			virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<DismountVolumeParams> params) = 0;
+            virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<CreateVolumeParams> params) = 0;
 			virtual QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params) = 0;
 			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params) = 0;
 			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesParams> params = QSharedPointer<GetHostDevicesParams>());
@@ -37,7 +37,8 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
             void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "");
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
-		};
+            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+        };
 		QSharedPointer<CoreBase> getCore();
 	}
 }

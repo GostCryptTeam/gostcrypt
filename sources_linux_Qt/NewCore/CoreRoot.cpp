@@ -1,11 +1,24 @@
 #include <QDir>
 #include "CoreRoot.h"
 #include "FuseDriver/FuseService.h"
+#include "LoopDeviceManager.h"
+#include "MountFilesystemManager.h"
 
 namespace GostCrypt {
 	namespace NewCore {
 		CoreRoot::CoreRoot()
 		{
+            realGroupId = static_cast <gid_t>(0);
+            realUserId = static_cast <gid_t>(0);
+
+            const char *envSudoGID = getenv ("SUDO_GID");
+            if (envSudoGID) {
+                realGroupId =  static_cast <gid_t> (QString(envSudoGID).toLong());
+            }
+            const char *envSudoUID = getenv ("SUDO_UID");
+            if (envSudoUID) {
+                realUserId =  static_cast <gid_t> (QString(envSudoUID).toLong());
+            }
 		}
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)
@@ -19,18 +32,34 @@ namespace GostCrypt {
                 throw VolumeAlreadyMountedException(params->path);
 
 			QSharedPointer<Volume> volume(new Volume);
+            QSharedPointer<QFileInfo> fuseMountPoint;
+
 			do {
 				try {
-					VolumePath path(params->path->canonicalFilePath().toStdWString());
-                    shared_ptr<KeyfileList> keyfiles(new KeyfileList(*params->keyfiles));
-                    shared_ptr<KeyfileList> protectionKeyfiles(new KeyfileList(*params->protectionKeyfiles));
+                    VolumePath path(params->path->absoluteFilePath().toStdWString());
+                    shared_ptr<KeyfileList> keyfiles;
+                    shared_ptr<KeyfileList> protectionKeyfiles;
+                    shared_ptr<VolumePassword> password;
+                    shared_ptr<VolumePassword> protectionPassword;
+
+                    if(!params->keyfiles.isNull())
+                       keyfiles.reset(new KeyfileList(*params->keyfiles));
+                    if(!params->protectionKeyfiles.isNull())
+                        protectionKeyfiles.reset(new KeyfileList(*params->protectionKeyfiles));
+                    if(!params->password.isNull() && !params->password->isNull())
+                        password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+                    else
+                        throw MissingParamException("password");
+                    if(!params->protectionPassword.isNull() && !params->protectionPassword->isNull())
+                        protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
+
                     volume->Open(
 						path,
 						params->preserveTimestamps,
-						SharedPtr<VolumePassword>(new VolumePassword(params->password->constData(), params->password->size())),
+                        password,
                         keyfiles,
 						params->protection,
-						SharedPtr<VolumePassword>(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size())),
+                        protectionPassword,
                         protectionKeyfiles,
 						params->useBackupHeaders
 					);
@@ -45,7 +74,8 @@ namespace GostCrypt {
                     throw FailedOpenVolumeException(params->path);
 				}
 				params->password->fill('\0');
-				params->protectionPassword->fill('\0');
+                if(!params->protectionPassword.isNull())
+                    params->protectionPassword->fill('\0');
 				break;
 			} while(0);
 
@@ -59,16 +89,17 @@ namespace GostCrypt {
 						throw IncorrectSectorSizeException();
 				}
 
-				QSharedPointer<QFileInfo> fuseMountPoint = getFreeFuseMountPoint();
-				if(!QDir(fuseMountPoint->canonicalFilePath()).mkdir(QStringLiteral(".")))
+                fuseMountPoint = getFreeFuseMountPoint();
+                QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
+                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
 						throw FailedCreateFuseMountPointException(fuseMountPoint);
 
 				try {
 					// TODO recode fuse
 					SharedPtr<Volume> vol(new Volume(*volume));
-					FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->canonicalFilePath().toStdString());
+                    FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->absoluteFilePath().toStdString());
 				} catch (...) {
-					QDir(fuseMountPoint->canonicalFilePath()).rmdir(QStringLiteral("."));
+                    QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
 					throw;
 				}
 			} catch (...) {
@@ -76,12 +107,34 @@ namespace GostCrypt {
 				throw;
 			}
 
-			bool mountDirCreated = false;
-			if(params->doMount) {
-				QDir mountpoint(params->mountPoint->canonicalFilePath());
-				if(!mountpoint.exists())
-					mountpoint.mkdir(QStringLiteral("."));
-			}
+            bool mountDirCreated = false;
+            try {
+
+                QSharedPointer<QFileInfo> virtualDevice;
+                QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + FuseService::GetVolumeImagePath()));
+                virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
+
+                if(params->doMount) {
+                    if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
+                        params->mountPoint = getFreeDefaultMountPoint(realUserId);
+                    }
+
+                    QDir mountpoint(params->mountPoint->absoluteFilePath());
+                    if(!mountpoint.exists()) {
+                        if(!mountpoint.mkpath(params->mountPoint->absoluteFilePath()))
+                            throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
+                        mountDirCreated = true;
+                    }
+                    MountFilesystemManager::MountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                }
+            } catch(...) {
+                QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
+                dismountParams->volumepath = params->path;
+                dismountVolume(dismountParams);
+                if(mountDirCreated)
+                    QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
+                throw;
+            }
 
 			return response;
 		}
@@ -95,14 +148,14 @@ namespace GostCrypt {
         {
             // getting the volume header to fill it
             QSharedPointer<VolumeHeader> header (layout->GetHeader());
-            QSharedPointer<EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
+            QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
             QSharedPointer<Pkcs5Kdf> Kdf (getDerivationKeyFunction(params->volumeHeaderKdf));
 
             if(!ea || !Kdf)
                 throw /* TODO AlgorithmNotFoundException */;
 
             VolumeHeaderCreationOptions options;
-            options.EA = ea;
+            options.EA = ea->GetNew();
             options.Kdf = Kdf;
             options.Type = layout->GetType();
             options.SectorSize = 512; // TODO : ALWAYS 512 !
@@ -125,8 +178,8 @@ namespace GostCrypt {
 
             // Master data key
             masterkey.Allocate (options.EA->GetKeySize() * 2);
-            RandomNumberGenerator::GetData (MasterKey);
-            options.DataKey = MasterKey;
+            RandomNumberGenerator::GetData (masterkey);
+            options.DataKey = masterkey;
 
             // PKCS5 salt
             salt.Allocate (VolumeHeader::GetSaltSize());
@@ -135,18 +188,18 @@ namespace GostCrypt {
 
             // Header key
             headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
-            shared_ptr <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (options->Keyfiles, options->Password); // TODO : no shared_ptr please
-            options->VolumeHeaderKdf->DeriveKey (headerKey, *passwordkey, salt);
-            options.HeaderKey = headerKey;
+            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (params->keyfiles, params->password); // TODO : no shared_ptr please
+            options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+            options.HeaderKey = headerkey;
 
-            header->Create (headerBuffer, headerOptions); // header created !
+            header->Create (headerBuffer, options); // header created !
 
             // Write The Header
             if (layout->GetHeaderOffset() >= 0)
                 file.seekp(layout->GetHeaderOffset(), std::ios_base::beg);
             else
                 file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg); // TODO : check if headeroffset > headersize so it doesnt affects the containersize ?
-            file.write(headerBuffer.Ptr(), headerBuffer.Size()); // writing header
+            file.write((char*)headerBuffer.Ptr(), headerBuffer.Size()); // writing header
 
             if(!layout->HasBackupHeader())
                 return;
@@ -154,15 +207,15 @@ namespace GostCrypt {
             // Write The Backup Header if any
 
             RandomNumberGenerator::GetData (salt); // getting new salt
-            options->VolumeHeaderKdf->DeriveKey (headerKey, *passwordkey, salt);
-            options.HeaderKey = headerKey;
-            header->Create (headerBuffer, headerOptions); // creating new header
+            options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+            options.HeaderKey = headerkey;
+            header->Create (headerBuffer, options); // creating new header
 
             if (layout->GetBackupHeaderOffset() >= 0)
                 file.seekp(layout->GetBackupHeaderOffset(), std::ios_base::beg);
             else
                 file.seekp(containersize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
-            file.write(headerBuffer.Ptr(), headerBuffer.Size()); // writing backup header crypted with new salt
+            file.write((char *)headerBuffer.Ptr(), headerBuffer.Size()); // writing backup header crypted with new salt
 
         }
 
@@ -174,7 +227,7 @@ namespace GostCrypt {
                 {"mkfs.ext2", "mkfs.ext3", "mkfs.ext4", "newfs_hfs", "newfs" }
             };
 
-            uint32 index = convertFS[0].indexOf(QRegExp(filesystem), Qt::CaseInsensitive); // trying to find the filesystem
+            int32 index = convertFS[0].indexOf(QRegExp(filesystem), Qt::CaseInsensitive); // trying to find the filesystem
             if (index == -1)
                 throw /* TODO filesystemnotfound */;
             formatter = convertFS[1][index];
@@ -182,7 +235,7 @@ namespace GostCrypt {
             QSharedPointer<MountVolumeResponse> mountresponse;
             QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
             mountparams->keyfiles = keyfiles;
-            mountparams->noFileSystem = true;
+            mountparams->doMount = false;
             mountparams->password = password;
             mountparams->path = volume;
 
@@ -193,12 +246,12 @@ namespace GostCrypt {
             }
 
             QStringList arguments;
-            arguments << mountresponse->volumeInfo->LoopDevice;
+            arguments << QString::fromStdWString(wstring(mountresponse->volumeInfo->LoopDevice));
 
             QProcess *formatProcess = new QProcess();
             formatProcess->start(formatter, arguments); // TODO check if failed ?
 
-            if (!formatProcess.waitForFinished())
+            if (!formatProcess->waitForFinished())
                 throw /* TODO : processErrorException */;
 
             QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
@@ -240,7 +293,7 @@ namespace GostCrypt {
              createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm);
 
             // opening file (or device)
-            volumefile.open(params->path->absoluteFilePath(), ios::in | ios::out | ios::binary);
+            volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
             if(!volumefile.is_open())
                 throw /* TODO add exception here */;
 
@@ -285,7 +338,7 @@ namespace GostCrypt {
 
 		}
 
-		QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
+        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
 		{
 
 		}

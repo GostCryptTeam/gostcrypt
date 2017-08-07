@@ -1,4 +1,5 @@
 #include "cmdUserInterface.h"
+#include "Core/CoreException.h"
 
 const QStringList FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
@@ -64,7 +65,9 @@ int handleCLI(int argc, char ** argv){
                 }*/ catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
-                } catch(...) {
+                } catch(GostCrypt::NewCore::CoreException &e) {
+                    qStdOut() << e.qwhat();
+                }catch(...) {
                     qStdOut() << "Unknown exception raised.";
                 }
             }
@@ -149,9 +152,9 @@ int handleCLI(int argc, char ** argv){
 								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
 								response = Core->getHostDevices();
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-                                    qStdOut() << d->devicePath->canonicalFilePath() << "\t" << d->mountPoint->canonicalFilePath() << "\t" << d->size << endl;
+                                    qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut()<< "\t" << p->devicePath->canonicalFilePath() << "\t" << p->mountPoint->canonicalFilePath() << "\t" << p->size << endl;
+                                        qStdOut()<< "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
 									}
 								}
 							}

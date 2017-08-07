@@ -130,11 +130,11 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(MountVolumeParams)
 
         QDataStream & operator << (QDataStream & out, const DismountVolumeParams & Valeur) {
-            out << Valeur.volumepath;
+            //out << Valeur.volumepath;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, DismountVolumeParams & Valeur) {
-            in >> Valeur.volumepath;
+            //in >> Valeur.volumepath;
             return in;
         }
         DEF_SERIALIZABLE(DismountVolumeParams)
