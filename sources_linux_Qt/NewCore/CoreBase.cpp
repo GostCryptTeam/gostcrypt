@@ -22,14 +22,14 @@
 namespace GostCrypt {
 	namespace NewCore {
 
-		QSharedPointer<CoreBase> getCore()
+        QSharedPointer<CoreBase> getCore(QCoreApplication *a)
 		{
 			initCoreParams();
 			initCoreResponse();
 			initCoreException();
 
             if(getuid()) {
-                return QSharedPointer<CoreBase>(new CoreUser());
+                return QSharedPointer<CoreBase>(new CoreUser(a));
 			} else {
                 return QSharedPointer<CoreBase>(new CoreRoot());
 			}

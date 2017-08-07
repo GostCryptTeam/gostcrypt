@@ -132,7 +132,8 @@ int parentProcess(int argc, char *argv[])
 	p.start();
 	p.waitForStarted();
 	qDebug() << p.pid();
-	QDataStream stream(&p);
+    QDataStream stream;
+    stream.setDevice(&p);
 
 
 	//*

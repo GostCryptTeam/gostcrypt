@@ -2,6 +2,7 @@
 #define COREBASE_H
 
 #include <QObject>
+#include <QCoreApplication>
 #include "CoreParams.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
@@ -31,7 +32,7 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
         };
-		QSharedPointer<CoreBase> getCore();
+        QSharedPointer<CoreBase> getCore(QCoreApplication *a);
 	}
 }
 

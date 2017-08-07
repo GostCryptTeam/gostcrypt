@@ -25,7 +25,7 @@ int handleCLI(int argc, char ** argv){
     QCoreApplication app(argc, argv);
     QCommandLineParser parser;
 
-    QSharedPointer<GostCrypt::NewCore::CoreBase> Core = GostCrypt::NewCore::getCore();
+    QSharedPointer<GostCrypt::NewCore::CoreBase> Core = GostCrypt::NewCore::getCore(&app);
 
     QCoreApplication::setApplicationName("GostCrypt");
     parser.setApplicationDescription("This is the command line interface for the GostCrypt library.");

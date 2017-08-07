@@ -238,7 +238,18 @@ namespace GostCrypt {
                 DEF_EXCEPTION_WHAT(ExceptionFromVolume, CoreException, message)
             protected:
                 QString message;
-            DEC_SERIALIZABLE(VolumeNotMounted);
+            DEC_SERIALIZABLE(ExceptionFromVolume);
+        };
+
+        #define UnrecognisedResponseException(res) UnrecognisedResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, res);
+        class UnrecognisedResponse : public CoreException {
+            public:
+                UnrecognisedResponse() {}
+                UnrecognisedResponse(QString fonction, QString filename, quint32 line, QVariant res) : CoreException(fonction, filename, line), res(res) {}
+                DEF_EXCEPTION_WHAT(UnrecognisedResponse, CoreException, "Response from root process not recognised, type of response: " + res.typeName())
+            protected:
+                QVariant res;
+            DEC_SERIALIZABLE(UnrecognisedResponse);
         };
 	}
 }
