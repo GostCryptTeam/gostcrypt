@@ -83,7 +83,7 @@ done:
 			throw InsufficientData (SRC_POS, Path);
 	}
 
-    QSharedPointer <VolumePassword> Keyfile::ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password)
+    shared_ptr <VolumePassword> Keyfile::ApplyListToPassword (shared_ptr <KeyfileList> keyfiles, shared_ptr <VolumePassword> password)
 	{
 		if (!password)
 			password.reset (new VolumePassword);

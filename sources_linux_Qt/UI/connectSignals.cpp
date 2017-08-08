@@ -100,7 +100,7 @@ void ConnectSignals::getAllMountedVolumes()
     }*/
 }
 
-void ConnectSignals::changepassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, GostCrypt::SharedPtr<GostCrypt::KeyfileList> oldKeyfiles, GostCrypt::SharedPtr<GostCrypt::KeyfileList> newKeyfiles)
+void ConnectSignals::changepassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr<GostCrypt::KeyfileList> oldKeyfiles, shared_ptr<GostCrypt::KeyfileList> newKeyfiles)
 {
     mGUI->receiveChangePassword(volumePath, oldPassword, newPassword, oldKeyfiles, newKeyfiles);
 }

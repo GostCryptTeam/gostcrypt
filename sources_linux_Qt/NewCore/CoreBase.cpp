@@ -196,10 +196,10 @@ namespace GostCrypt {
             {
                 if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
                     if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
-                        return QSharedPointer<GostCrypt::EncryptionAlgorithm>((*ea).get());
+                        return *ea;
                 }
             }
-            return nullptr;
+            throw /* TODO AlgorithmNotFoundException */;
         }
 
         QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
@@ -209,10 +209,10 @@ namespace GostCrypt {
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
-                        return QSharedPointer<Pkcs5Kdf>((*pkcs).get());
+                        return *pkcs;
                 }
             }
-            return nullptr;
+            throw /* TODO AlgorithmNotFoundException */;
         }
 
         QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)

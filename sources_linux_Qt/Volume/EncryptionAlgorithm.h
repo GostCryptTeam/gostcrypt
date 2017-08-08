@@ -13,7 +13,6 @@
 #include "Platform/Platform.h"
 #include "Cipher.h"
 #include "EncryptionMode.h"
-#include <QSharedPointer>
 
 namespace GostCrypt
 {
@@ -33,7 +32,7 @@ namespace GostCrypt
 		virtual void EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
 		static EncryptionAlgorithmList GetAvailableAlgorithms ();
 		virtual const CipherList &GetCiphers () const { return Ciphers; }
-        virtual QSharedPointer <EncryptionAlgorithm> GetNew () const = 0;
+        virtual shared_ptr <EncryptionAlgorithm> GetNew () const = 0;
 		virtual size_t GetMaxBlockSize () const;
 		virtual size_t GetMinBlockSize () const;
 		static size_t GetLargestKeySize (const EncryptionAlgorithmList &algorithms);
@@ -68,7 +67,7 @@ namespace GostCrypt
 		NAME (); \
 		virtual ~NAME () { } \
 \
-        virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new NAME()); } \
+        virtual shared_ptr <EncryptionAlgorithm> GetNew () const { return shared_ptr <EncryptionAlgorithm> (new NAME()); } \
 \
 	private: \
 		NAME (const NAME &); \

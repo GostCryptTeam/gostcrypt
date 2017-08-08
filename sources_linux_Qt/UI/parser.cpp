@@ -190,7 +190,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     if (positionalArguments.size() > 2)
         throw Parser::ParseException("Too many arguments specified.");
 
-    options->path = GostCrypt::VolumePath(qPrintable(positionalArguments.at(1)));
+    options->path = QSharedPointer<QFileInfo>(new QFileInfo(positionalArguments.at(1)));
 
     // Parsing all options
 

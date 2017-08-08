@@ -114,7 +114,7 @@ namespace GostCrypt
 
 	shared_ptr <EncryptionMode> EncryptionAlgorithm::GetMode () const
 	{
-		if (Mode.get() == nullptr)
+        if (Mode.isNull())
 			throw NotInitialized (SRC_POS);
 
 		return Mode;
@@ -187,7 +187,7 @@ namespace GostCrypt
 
 	void EncryptionAlgorithm::ValidateState () const
 	{
-		if (Ciphers.size() < 1 || Mode.get() == nullptr)
+        if (Ciphers.size() < 1 || Mode.isNull())
 			throw NotInitialized (SRC_POS);
 	}
 	

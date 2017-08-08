@@ -123,13 +123,13 @@ namespace GostCrypt
 		firstFragmentWorkItem->ItemCompletedEvent.Wait();
 		
 		shared_ptr <Exception> itemException;
-		if (firstFragmentWorkItem->ItemException.get())
+        if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
 
 		firstFragmentWorkItem->State.Set (WorkItem::State::Free);
 		WorkItemCompletedEvent.Signal();
 
-		if (itemException.get())
+        if (!itemException.isNull())
 			itemException->Throw();
 	}
 

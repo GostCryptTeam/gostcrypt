@@ -27,7 +27,7 @@ namespace GostCrypt
 		virtual ~Keyfile () { };
 
 		operator FilesystemPath () const { return Path; }
-        static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
+        static shared_ptr <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
 		static shared_ptr <KeyfileList> DeserializeList (shared_ptr <Stream> stream, const string &name);
 		static void SerializeList (shared_ptr <Stream> stream, const string &name, shared_ptr <KeyfileList> keyfiles);
 		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }

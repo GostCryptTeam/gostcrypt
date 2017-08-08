@@ -101,7 +101,7 @@ namespace GostCrypt {
 
 				try {
 					// TODO recode fuse
-					SharedPtr<Volume> vol(new Volume(*volume));
+                    shared_ptr<Volume> vol(new Volume(*volume));
                     FuseService::Mount (vol, (VolumeSlotNumber)1, fuseMountPoint->absoluteFilePath().toStdString());
 				} catch (...) {
                     QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
@@ -197,12 +197,9 @@ namespace GostCrypt {
             QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
             QSharedPointer<Pkcs5Kdf> Kdf (getDerivationKeyFunction(params->volumeHeaderKdf));
 
-            if(!ea || !Kdf)
-                throw /* TODO AlgorithmNotFoundException */;
-
             VolumeHeaderCreationOptions options;
             options.EA = ea->GetNew();
-            options.Kdf = Kdf;
+            options.Kdf = Kdf->GetAlgorithm(Kdf->GetName()); // TODO very nasty
             options.Type = layout->GetType();
             options.SectorSize = 512; // TODO : ALWAYS 512 !
 
@@ -282,7 +279,7 @@ namespace GostCrypt {
             QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
             mountparams->keyfiles = keyfiles;
             mountparams->doMount = false;
-            mountparams->password = password;
+            mountparams->password.reset(new QByteArray((char*)password->DataPtr(), password->Size()));
             mountparams->path = volume;
 
             try {
@@ -333,7 +330,7 @@ namespace GostCrypt {
             // this is the CoreRoot class. we are assuming that it is launched as root.
 
             /*
-             * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME // TODO since it's relative to the layouts, maybe change this
+             * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME
              */
 
              createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm);
@@ -369,7 +366,7 @@ namespace GostCrypt {
                 SecureBuffer pass;
                 pass.Allocate(VolumePassword::MaxSize);
                 RandomNumberGenerator::GetData(pass);
-                randomparams->password = QSharedPointer<VolumePassword>(new VolumePassword(pass.Ptr(), pass.Size()));
+                randomparams->password.reset(new VolumePassword(pass.Ptr(), pass.Size()));
                 writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
             }
 
@@ -382,6 +379,7 @@ namespace GostCrypt {
             if(params->type == VolumeType::Hidden)
                 formatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem);
 
+            return response;
 		}
 
         QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)

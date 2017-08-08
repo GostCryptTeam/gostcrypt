@@ -40,8 +40,8 @@ namespace GostCrypt
 	struct VolumeHeaderCreationOptions
 	{
 		ConstBufferPtr DataKey;
-        QSharedPointer <EncryptionAlgorithm> EA;
-        QSharedPointer <Pkcs5Kdf> Kdf;
+        shared_ptr <EncryptionAlgorithm> EA;
+        shared_ptr <Pkcs5Kdf> Kdf;
 		ConstBufferPtr HeaderKey;
 		ConstBufferPtr Salt;
 		uint32 SectorSize;
