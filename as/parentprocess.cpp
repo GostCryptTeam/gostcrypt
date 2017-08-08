@@ -11,9 +11,7 @@ int ParentProcess::start(int argc, char **argv)
 {
 	QCoreApplication app(argc, argv);
 
-	INIT_SERIALIZE(BaseClass);
-	INIT_SERIALIZE(ChildCLass1);
-	INIT_SERIALIZE(ChildCLass2);
+	initSerializables();
 
 	a = &app;
 	QCoreApplication::setApplicationName("parent");
@@ -21,57 +19,75 @@ int ParentProcess::start(int argc, char **argv)
 	a->connect(&workerProcess, SIGNAL(started()), this, SLOT(workerProcessStarted()));
 	a->connect(&workerProcess, SIGNAL(finished(int)), this, SLOT(finish()));
 	a->connect(&workerProcess, SIGNAL(bytesWritten(qint64)), this, SLOT(dbg_bytesWritten(qint64)));
-	ChildCLass1 c1;
-	c1.a = 3;
-	c1.b = 4;
-	this->currentRequest = QVariant::fromValue(c1);
-	workerProcessStream.setDevice(&workerProcess);
 
-	workerProcess.setProgram(QCoreApplication::applicationFilePath());
-	workerProcess.setArguments({"slave"});
-	workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
-	workerProcess.start();
-
+	min(3, 4);
+	exit();
 	return a->exec();
+}
+
+void ParentProcess::min(quint32 a, quint32 b)
+{
+	MinRequest request;
+
+	qDebug() << "Sending min request";
+	request.a = a;
+	request.b = b;
+	this->waitingRequests.enqueue(QVariant::fromValue(request));
+	sendRequests();
+}
+
+void ParentProcess::max(quint32 a, quint32 b)
+{
+	MaxRequest request;
+
+	qDebug() << "Sending max request";
+	request.a = a;
+	request.b = b;
+	this->waitingRequests.enqueue(QVariant::fromValue(request));
+	sendRequests();
+}
+
+void ParentProcess::exit()
+{
+	ExitRequest request;
+
+	qDebug() << "Sending exit request";
+	this->waitingRequests.enqueue(QVariant::fromValue(request));
+	sendRequests();
 }
 
 void ParentProcess::receiveResponse()
 {
 	QVariant response;
 
-	qDebug() << "something received";
+	qDebug() << "Receiving response(s)";
 	workerProcessStream.startTransaction();
 	workerProcessStream >> response;
 	if(!workerProcessStream.commitTransaction())
 		return;
 
-	if(response.canConvert<ChildCLass1>()) {
-		response.value<ChildCLass1>().print();
-	} else if(response.canConvert<ChildCLass2>()) {
-		ChildCLass2 c2;
-		c2 = response.value<ChildCLass2>();
-		c2.print();
+	if(response.canConvert<MinResponse>()) {
+		response.value<MinResponse>().print();
+	} else if(response.canConvert<MaxResponse>()) {
+		response.value<MaxResponse>().print();
 	} else {
 		qDebug() << "Unknow object : " << response.typeName();
 	}
-
-	/* Send finish instruction */
-	ChildCLass1 c1;
-	c1.a = c1.b = 0;
-	currentRequest = QVariant::fromValue(c1);
-	sendRequest();
-
 }
 
-void ParentProcess::sendRequest()
+void ParentProcess::sendRequests()
 {
-	this->workerProcessStream << currentRequest;
-	currentRequest = QVariant();
-	qDebug() << "Request sent";
+	if(workerProcess.state() != QProcess::QProcess::Running)
+		return startWorkerProcess();
+
+	while(!waitingRequests.isEmpty())
+		workerProcessStream << waitingRequests.dequeue();
+	qDebug() << "Requests sent";
 }
 
 void ParentProcess::finish()
 {
+	qDebug() << "Worker process finished, exiting.";
 	a->quit();
 }
 
@@ -83,5 +99,18 @@ void ParentProcess::dbg_bytesWritten(qint64 bytes)
 void ParentProcess::workerProcessStarted()
 {
 	qDebug() << "Worker process (" << workerProcess.processId() << ") started.";
-	sendRequest();
+	sendRequests();
+}
+
+void ParentProcess::startWorkerProcess()
+{
+	if(workerProcess.state() == QProcess::Starting)
+		return;
+
+	qDebug() << "Start worker process";
+	workerProcessStream.setDevice(&workerProcess);
+	workerProcess.setProgram(QCoreApplication::applicationFilePath());
+	workerProcess.setArguments({"slave"});
+	workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
+	workerProcess.start();
 }

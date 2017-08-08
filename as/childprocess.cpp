@@ -12,9 +12,7 @@ int ChildProcess::start(int argc, char **argv)
 	QCoreApplication app(argc, argv);
 	QFile inputFile;
 
-	INIT_SERIALIZE(BaseClass);
-	INIT_SERIALIZE(ChildCLass1);
-	INIT_SERIALIZE(ChildCLass2);
+	initSerializables();
 
 	a = &app;
 	QCoreApplication::setApplicationName("child");
@@ -33,26 +31,25 @@ bool ChildProcess::handleRequest(QVariant &v)
 {
 	qDebug() << "Handling request";
 
-	if(v.canConvert<ChildCLass1>()) {
-		ChildCLass1 c1;
-		c1 = v.value<ChildCLass1>();
-		c1.print();
-		if(c1.a == 0 && c1.b == 0)
-			return false;
-		c1.a *= 2;
-		c1.b *= 2;
-		outputStream << QVariant::fromValue(c1);
+	if(v.canConvert<MaxRequest>()) {
+		MaxRequest request;
+		MaxResponse response;
+		request = v.value<MaxRequest>();
+		request.print();
+		response.res = (request.a > request.b) ? request.a : request.b;
+		outputStream << QVariant::fromValue(response);
 		outputFile.flush();
-	} else if(v.canConvert<ChildCLass2>()) {
-		ChildCLass2 c2;
-		c2 = v.value<ChildCLass2>();
-		c2.print();
-		if(c2.a == 0 && c2.c == 0)
-			return false;
-		c2.a *= 2;
-		c2.c *= 2;
-		outputStream << QVariant::fromValue(c2);
+	} else if(v.canConvert<MinRequest>()) {
+		MinRequest request;
+		MinResponse response;
+		request = v.value<MinRequest>();
+		request.print();
+		response.res = (request.a < request.b) ? request.a : request.b;
+		outputStream << QVariant::fromValue(response);
 		outputFile.flush();
+	} else if(v.canConvert<ExitRequest>()) {
+		qDebug() << "Received Exit Request";
+		return false;
 	} else {
 		qDebug() << "Unknow object : " << v.typeName();
 	}

@@ -23,37 +23,51 @@
 	Q_DECLARE_METATYPE(ClassName) \
 	Q_DECLARE_METATYPE(QSharedPointer<ClassName>)
 
-#define INIT_SERIALIZE(ClassName) \
+#define INIT_SERIALIZABLE(ClassName) \
     qRegisterMetaTypeStreamOperators<ClassName>(#ClassName); \
     qRegisterMetaTypeStreamOperators<QSharedPointer<ClassName>>("QSharedPointer<"#ClassName">"); \
 	qMetaTypeId<ClassName>(); \
 	qMetaTypeId<QSharedPointer<ClassName>>()
 
-struct BaseClass {
+struct BaseRequest {};
+struct MaxRequest : BaseRequest {
 	qint32 a;
-	void print() {
-		qDebug() << a;
-	}
-};
-
-struct ChildCLass1 : BaseClass {
 	qint32 b;
 	void print() {
-		BaseClass::print();
-		qDebug() << b;
+		qDebug() << QString() + "max(" + QString::number(a) + "," + QString::number(b) + ")";
+
 	}
 };
-
-struct ChildCLass2 : BaseClass {
-	qreal c;
+struct MinRequest : BaseRequest {
+	qint32 a;
+	qint32 b;
 	void print() {
-		BaseClass::print();
-		qDebug() << c;
+		qDebug() << QString() + "min(" + QString::number(a) + "," + QString::number(b) + ")";
+	}
+};
+struct ExitRequest : BaseRequest {};
+struct BaseResponse {};
+struct MaxResponse : BaseResponse {
+	qint32 res;
+	void print() {
+		qDebug() << QString() + "max = " + QString::number(res);
+	}
+};
+struct MinResponse : BaseResponse {
+	qint32 res;
+	void print() {
+		qDebug() << QString() + "min = " + QString::number(res);
 	}
 };
 
-DEC_SERIALIZABLE(BaseClass)
-DEC_SERIALIZABLE(ChildCLass1)
-DEC_SERIALIZABLE(ChildCLass2)
+DEC_SERIALIZABLE(BaseRequest)
+DEC_SERIALIZABLE(MaxRequest)
+DEC_SERIALIZABLE(MinRequest)
+DEC_SERIALIZABLE(ExitRequest)
+DEC_SERIALIZABLE(BaseResponse)
+DEC_SERIALIZABLE(MaxResponse)
+DEC_SERIALIZABLE(MinResponse)
+
+void initSerializables();
 
 #endif // SERIALIZABLECLASSES_H
