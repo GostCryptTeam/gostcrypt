@@ -123,20 +123,22 @@ namespace GostCrypt {
                 mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->absoluteFilePath().toStdString());
 
 				/* Add final mount point information if possible */
-                if(!mountedVol->VirtualDevice.IsEmpty())
-                    mountedVol->MountPoint = DirectoryPath(
-                                getDeviceMountPoint(
-                                    QSharedPointer<QFileInfo>(
-                                        new QFileInfo(
-                                            QString::fromStdString(
-                                                string(
-                                                    mountedVol->VirtualDevice
+                try {
+                    if(!mountedVol->VirtualDevice.IsEmpty())
+                        mountedVol->MountPoint = DirectoryPath(
+                                    getDeviceMountPoint(
+                                        QSharedPointer<QFileInfo>(
+                                            new QFileInfo(
+                                                QString::fromStdString(
+                                                    string(
+                                                        mountedVol->VirtualDevice
+                                                        )
                                                     )
                                                 )
                                             )
-                                        )
-                                    )->absoluteFilePath().toStdString()
-                                );
+                                        )->absoluteFilePath().toStdString()
+                                    );
+                } catch(DeviceNotMounted) {} //There is no mountpoint, the virtual device is not mounted
 
 				response->volumeInfoList.append(mountedVol);
 
@@ -234,7 +236,7 @@ namespace GostCrypt {
             encryptionAlgorithm->GetMode()->SetKey (modeKey);
         }
 
-        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm)
+        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm, bool random)
         {
             fstream file;
 
@@ -256,7 +258,12 @@ namespace GostCrypt {
                 randomizeEncryptionAlgorithmKey (ea);
             }
 
-            quint64 dataFragmentLength = 256 * 1024; // TODO define
+            quint64 dataFragmentLength = File::GetOptimalWriteSize(); // TODO define
+
+            // we can't get more than the pool size a each run. Very slow.
+            if(random && dataFragmentLength > RandomNumberGenerator::PoolSize) // TODO maybe find a better way ?
+                dataFragmentLength = RandomNumberGenerator::PoolSize;
+
             SecureBuffer outputBuffer (dataFragmentLength);
             quint64 offset = 0; // offset where the data starts
             quint64 sizetodo = size; // size of the data to override
@@ -264,9 +271,13 @@ namespace GostCrypt {
             while (sizetodo > 0)
             {
                 if (sizetodo < dataFragmentLength)
-                    dataFragmentLength = sizetodo;
+                    dataFragmentLength = sizetodo;//RandomNumberGenerator::PoolSize
 
-                RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                if(random)
+                    RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                else
+                    outputBuffer.Zero();
+
                 if(ea)
                     ea->EncryptSectors (outputBuffer, offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
                 file.write((char *)outputBuffer.Ptr(), (size_t) dataFragmentLength); // writing it

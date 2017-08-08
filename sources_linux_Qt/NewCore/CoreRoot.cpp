@@ -144,6 +144,13 @@ namespace GostCrypt {
                 throw;
             }
 
+            QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
+            QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
+            getMountedVolumesParams->volumePath = params->path;
+
+            getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
+            response->volumeInfo = getMountedVolumesResponse->volumeInfoList.first();
+
 			return response;
 		}
 
@@ -203,9 +210,10 @@ namespace GostCrypt {
                 options.VolumeDataStart = layout->GetHeaderSize() * 2;
             }
 
-            if(params->size > layout->GetMaxDataSize(containersize)) // we have to leave space for the headers
-                    throw /* TODO SizeTooLargeException */;
-            options.VolumeDataSize = params->size; // unlike truecrypt, we let the user set its own size
+            if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1] ??
+                    throw /* TODO SizeInvalidException */;
+
+            options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
             GostCrypt::SecureBuffer masterkey;  // decrypts the whole filesystem
             GostCrypt::SecureBuffer salt;       // salt to encrypt the header.
@@ -258,16 +266,7 @@ namespace GostCrypt {
 
         void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<KeyfileList> keyfiles, QString filesystem)
         {
-            QString formatter;
-            QStringList convertFS[2] = {
-                {"ext2",      "ext3",      "ext4",      "hfs"        "ufs"   },
-                {"mkfs.ext2", "mkfs.ext3", "mkfs.ext4", "newfs_hfs", "newfs" }
-            };
-
-            int32 index = convertFS[0].indexOf(QRegExp(filesystem), Qt::CaseInsensitive); // trying to find the filesystem
-            if (index == -1)
-                throw /* TODO filesystemnotfound */;
-            formatter = convertFS[1][index];
+            QString formatter = "mkfs."+filesystem; // TODO check if exists
 
             QSharedPointer<MountVolumeResponse> mountresponse;
             QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
@@ -327,7 +326,7 @@ namespace GostCrypt {
              * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME
              */
 
-             createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm);
+            createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
 
             // opening file (or device)
             volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
@@ -351,10 +350,9 @@ namespace GostCrypt {
                 writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);
             } else { // writing random data to the hidden headers location
                 QSharedPointer<CreateVolumeParams::VolumeParams> randomparams(new CreateVolumeParams::VolumeParams());
-                randomparams->size = params->size / 2;
+                randomparams->size = 0.5;
                 randomparams->encryptionAlgorithm = params->outerVolume->encryptionAlgorithm;
                 randomparams->filesystem = params->outerVolume->filesystem;
-                randomparams->filesystemClusterSize = params->outerVolume->filesystemClusterSize;
                 randomparams->volumeHeaderKdf = params->outerVolume->volumeHeaderKdf;
                 // creating a completely random password for a non-existent hidden volume
                 SecureBuffer pass;

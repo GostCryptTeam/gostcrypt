@@ -41,15 +41,13 @@ namespace GostCrypt {
                     keyfiles.reset();
                     filesystem = GetFileSystemTypePlatformNative();
                     size = 0;
-                    filesystemClusterSize = 4096; // default value, not supposed to change except for very specific requests
                 }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
-                quint64 size; // size of the volume
+                qreal size; // size of the volume in percentage
                 QString volumeHeaderKdf; // derivation key function to use
                 QString encryptionAlgorithm; // the algorithm to use
                 QString filesystem; // the filesystem to use
-                quint32 filesystemClusterSize; // watch out for wrong values ! TODO
                 DEC_SERIALIZABLE(VolumeParams);
 			};
             QSharedPointer <QFileInfo> path; // path of the file to create or device to format

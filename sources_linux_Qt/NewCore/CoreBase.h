@@ -36,7 +36,7 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
 			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
             QSharedPointer<QFileInfo> getFreeFuseMountPoint();
-            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "");
+            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "", bool random = true);
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
         };

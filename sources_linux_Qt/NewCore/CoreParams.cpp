@@ -53,7 +53,7 @@ namespace GostCrypt {
             out << Valeur.volumeHeaderKdf;
             out << Valeur.encryptionAlgorithm;
             out << Valeur.filesystem;
-            out << Valeur.filesystemClusterSize;
+            //out << Valeur.filesystemClusterSize;
             out << Valeur.size;
             return out;
         }
@@ -63,7 +63,7 @@ namespace GostCrypt {
             in >> Valeur.volumeHeaderKdf;
             in >> Valeur.encryptionAlgorithm;
             in >> Valeur.filesystem;
-            in >> Valeur.filesystemClusterSize;
+            //in >> Valeur.filesystemClusterSize;
             in >> Valeur.size;
             return in;
         }

@@ -77,15 +77,17 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseCreate(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
                     response = Core->createVolume(options);
-
+                    qStdOut() << "Volume Created\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
-                } catch(GostCrypt::NewCore::CoreException &e){
+                } /*catch(GostCrypt::NewCore::CoreException &e){
                     qStdOut() << e.qwhat();
+                }catch(GostCrypt::Exception &e){
+                    qStdOut() << e.what();
                 } catch(...) {
                     qStdOut() << "Unknown exception raised.";
-                }
+                }//*/
             }
             break;
         case FirstCMD::umount://"umount":
