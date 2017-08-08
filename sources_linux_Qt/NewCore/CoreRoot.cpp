@@ -37,15 +37,9 @@ namespace GostCrypt {
 			do {
 				try {
                     VolumePath path(params->path->absoluteFilePath().toStdWString());
-                    shared_ptr<KeyfileList> keyfiles;
-                    shared_ptr<KeyfileList> protectionKeyfiles;
                     shared_ptr<VolumePassword> password;
                     shared_ptr<VolumePassword> protectionPassword;
 
-                    if(!params->keyfiles.isNull())
-                       keyfiles.reset(new KeyfileList(*params->keyfiles));
-                    if(!params->protectionKeyfiles.isNull())
-                        protectionKeyfiles.reset(new KeyfileList(*params->protectionKeyfiles));
                     if(!params->password.isNull() && !params->password->isNull())
                         password.reset(new VolumePassword(params->password->constData(), params->password->size()));
                     else
@@ -57,10 +51,10 @@ namespace GostCrypt {
 						path,
 						params->preserveTimestamps,
                         password,
-                        keyfiles,
+                        params->keyfiles,
 						params->protection,
                         protectionPassword,
-                        protectionKeyfiles,
+                        params->protectionKeyfiles,
 						params->useBackupHeaders
 					);
 				} catch(GostCrypt::SystemException &e) {
