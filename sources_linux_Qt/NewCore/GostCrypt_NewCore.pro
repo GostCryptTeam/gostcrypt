@@ -36,6 +36,7 @@ HEADERS += \
     CoreUser.h \
     CoreRoot.h \
     CoreException.h \
+    RandomNumberGenerator.h \
     LoopDeviceManager.h \
     MountFilesystemManager.h \
     loopdevlib/at.h \
@@ -54,6 +55,7 @@ SOURCES += \
     CoreUser.cpp \
     CoreRoot.cpp \
     CoreException.cpp \
+    RandomNumberGenerator.cpp \
     LoopDeviceManager.cpp \
     MountFilesystemManager.cpp \
     loopdevlib/at.c \

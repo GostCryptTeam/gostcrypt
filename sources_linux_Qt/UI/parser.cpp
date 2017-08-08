@@ -21,10 +21,20 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
                       });
     parser.process(app);
 
-    // Parsing all options
-
     if (parser.isSet("help"))
         throw Parser::ParseException(); // throwing an empty exception shows the help only
+
+    // parsing positional arguments
+
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Argument 'volumepath' missed.");
+    if (positionalArguments.size() > 2)
+        throw Parser::ParseException("Too many arguments specified.");
+
+    options->path.reset(new QFileInfo(positionalArguments.at(1)));
+
+    // Parsing all options
 
     if (parser.isSet("options")) {
         const QStringList opts = parser.values("options");
@@ -86,16 +96,6 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
         else if(protection != "none")
             throw Parser::ParseException("Protection type not found : "+ protection);
     }
-
-    // parsing positional arguments
-
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
-
-    options->path.reset(new QFileInfo(positionalArguments.at(1)));
 }
 
 void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
@@ -180,10 +180,19 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     //parser.process(app);
     parser.parse(QCoreApplication::arguments());
 
-    // Parsing all options
-
     if (parser.isSet("help"))
         throw Parser::ParseException(); // if help requested we throw an empty exception, showing the help and exiting
+
+    // parsing positional arguments
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Argument 'volumepath' missed.");
+    if (positionalArguments.size() > 2)
+        throw Parser::ParseException("Too many arguments specified.");
+
+    options->path = QSharedPointer<QFileInfo>(new QFileInfo(positionalArguments.at(1)));
+
+    // Parsing all options
 
     if(parser.isSet("type")){
         const QString type = parser.value("type");
@@ -282,16 +291,6 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         if (!ok)
             throw Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
     }
-
-    // parsing positional arguments
-
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
-
-    options->path = GostCrypt::VolumePath(qPrintable(positionalArguments.at(1)));
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){

@@ -30,7 +30,6 @@ unix {
 
 HEADERS += \
     VolumeCreator.h \
-    RandomNumberGenerator.h \
     MountOptions.h \
     HostDevice.h \
     FatFormatter.h \
@@ -74,7 +73,6 @@ unix {
 
 SOURCES += \
     VolumeCreator.cpp \
-    RandomNumberGenerator.cpp \
     MountOptions.cpp \
     HostDevice.cpp \
     FatFormatter.cpp \

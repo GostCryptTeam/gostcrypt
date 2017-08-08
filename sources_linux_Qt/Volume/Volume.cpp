@@ -43,7 +43,7 @@ namespace GostCrypt
 
 	void Volume::Close ()
 	{
-		if (VolumeFile.get() == nullptr)
+        if (VolumeFile.isNull())
 			throw NotInitialized (SRC_POS);
 		
 		VolumeFile.reset();
@@ -337,7 +337,7 @@ namespace GostCrypt
 
 	void Volume::ValidateState () const
 	{
-		if (VolumeFile.get() == nullptr)
+        if (VolumeFile.isNull())
 			throw NotInitialized (SRC_POS);
 	}
 

@@ -47,9 +47,9 @@ namespace GostCrypt
 		return layouts;
 	}
 
-	shared_ptr <VolumeHeader> VolumeLayout::GetHeader ()
+    QSharedPointer <VolumeHeader> VolumeLayout::GetHeader ()
 	{
-		if (Header.get() == nullptr)
+        if (Header.isNull())
 			Header.reset (new VolumeHeader (GetHeaderSize()));
 
 		return Header;

@@ -37,6 +37,7 @@ namespace GostCrypt {
 
 		CoreBase::CoreBase()
 		{
+            RandomNumberGenerator::Start();
 		}
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
@@ -185,8 +186,34 @@ namespace GostCrypt {
 
 			endmntent(mtab);
 			mutex.unlock();
-			return mountedFilesystems;
-		}
+            return mountedFilesystems;
+        }
+
+        QSharedPointer<GostCrypt::EncryptionAlgorithm> CoreBase::getEncryptionAlgorithm(QString algorithm)
+        {
+            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
+            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            {
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                    if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
+                        return *ea;
+                }
+            }
+            throw /* TODO AlgorithmNotFoundException */;
+        }
+
+        QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
+        {
+            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            {
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                    if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
+                        return *pkcs;
+                }
+            }
+            throw /* TODO AlgorithmNotFoundException */;
+        }
 
         QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)
 		{
@@ -195,6 +222,60 @@ namespace GostCrypt {
                  throw DeviceNotMountedException(devicePath);
 			return mpl.first()->MountPoint;
 		}
+
+        void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const
+        {
+            SecureBuffer eaKey (encryptionAlgorithm->GetKeySize());
+            RandomNumberGenerator::GetData (eaKey);
+            encryptionAlgorithm->SetKey (eaKey);
+
+            SecureBuffer modeKey (encryptionAlgorithm->GetMode()->GetKeySize());
+            RandomNumberGenerator::GetData (modeKey);
+            encryptionAlgorithm->GetMode()->SetKey (modeKey);
+        }
+
+        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm)
+        {
+            fstream file;
+
+            if(!path)
+                 throw MissingParamException("path");
+
+            file.open(path->absoluteFilePath().toStdString(), ios::out | ios::binary);
+            if(!file.is_open())
+                throw /* TODO add exception here */;
+
+            QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (nullptr);
+            if(!algorithm.isEmpty()) {
+                ea = getEncryptionAlgorithm(algorithm);
+                if(!ea)
+                    throw /* TODO */;
+                ea->SetMode(shared_ptr<EncryptionMode>(new EncryptionModeXTS()));
+
+                // Empty sectors are encrypted with different key to randomize plaintext
+                randomizeEncryptionAlgorithmKey (ea);
+            }
+
+            quint64 dataFragmentLength = 256 * 1024; // TODO define
+            SecureBuffer outputBuffer (dataFragmentLength);
+            quint64 offset = 0; // offset where the data starts
+            quint64 sizetodo = size; // size of the data to override
+
+            while (sizetodo > 0)
+            {
+                if (sizetodo < dataFragmentLength)
+                    dataFragmentLength = sizetodo;
+
+                RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                if(ea)
+                    ea->EncryptSectors (outputBuffer, offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
+                file.write((char *)outputBuffer.Ptr(), (size_t) dataFragmentLength); // writing it
+
+                offset += dataFragmentLength;
+                sizetodo -= dataFragmentLength;
+            }
+
+        }
 
 		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
 		{
@@ -274,5 +355,7 @@ namespace GostCrypt {
 
             return response;
         }
+
+
 	}
 }

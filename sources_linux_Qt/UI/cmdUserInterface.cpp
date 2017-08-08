@@ -75,11 +75,14 @@ int handleCLI(int argc, char ** argv){
                 options.reset(new GostCrypt::NewCore::CreateVolumeParams());
                 try {
                     Parser::parseCreate(app, parser, options);
-                    //QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
-                    // TODO : call Core !
+                    QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
+                    response = Core->createVolume(options);
+
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
+                } catch(GostCrypt::NewCore::CoreException &e){
+                    qStdOut() << e.qwhat();
                 } catch(...) {
                     qStdOut() << "Unknown exception raised.";
                 }

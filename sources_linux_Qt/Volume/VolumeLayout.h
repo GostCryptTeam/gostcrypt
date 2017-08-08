@@ -30,7 +30,7 @@ namespace GostCrypt
 		virtual int GetBackupHeaderOffset () const { return BackupHeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const = 0;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const = 0;
-		virtual shared_ptr <VolumeHeader> GetHeader ();
+        virtual QSharedPointer <VolumeHeader> GetHeader ();
 		virtual int GetHeaderOffset () const { return HeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
 		virtual uint32 GetHeaderSize () const { return HeaderSize; }
 		virtual uint64 GetMaxDataSize (uint64 volumeSize) const = 0;
@@ -40,7 +40,7 @@ namespace GostCrypt
 		virtual VolumeType::Enum GetType () const { return Type; }
 		virtual bool HasBackupHeader () const = 0;
 		virtual bool HasDriveHeader () const { return false; }
-		virtual void SetHeader (shared_ptr <VolumeHeader> header) { Header = header; }
+        virtual void SetHeader (QSharedPointer <VolumeHeader> header) { Header = header; }
 
 	protected:
 		VolumeLayout ();
@@ -53,7 +53,7 @@ namespace GostCrypt
 		uint32 HeaderSize;
 		VolumeType::Enum Type;
 
-		shared_ptr <VolumeHeader> Header;
+        QSharedPointer <VolumeHeader> Header;
 
 	private:
 		VolumeLayout (const VolumeLayout &);

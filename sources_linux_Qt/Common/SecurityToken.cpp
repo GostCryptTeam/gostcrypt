@@ -366,7 +366,7 @@ namespace GostCrypt
 	{
 		CheckLibraryStatus();
 
-		list <CK_SLOT_ID> slots;
+        list <CK_SLOT_ID> gslots;
 		CK_ULONG slotCount;
 
 		CK_RV status = Pkcs11Functions->C_GetSlotList (TRUE, NULL_PTR, &slotCount);
@@ -388,11 +388,11 @@ namespace GostCrypt
 				if (status != CKR_OK || !(slotInfo.flags & CKF_TOKEN_PRESENT))
 					continue;
 
-				slots.push_back (slotArray[i]);
+                gslots.push_back (slotArray[i]);
 			}
 		}
 
-		return slots;
+        return gslots;
 	}
 
 	bool SecurityToken::IsKeyfilePathValid (const wstring &securityTokenKeyfilePath)

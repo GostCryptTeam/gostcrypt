@@ -19,7 +19,7 @@
 #include "Volume/VolumePassword.h"
 #include "Volume/Pkcs5Kdf.h"
 #include "Version.h"
-
+#include <QSharedPointer>
 
 // For specifications of the volume header see Common/Volumes.c
 
@@ -40,8 +40,8 @@ namespace GostCrypt
 	struct VolumeHeaderCreationOptions
 	{
 		ConstBufferPtr DataKey;
-		shared_ptr <EncryptionAlgorithm> EA;
-		shared_ptr <Pkcs5Kdf> Kdf;
+        shared_ptr <EncryptionAlgorithm> EA;
+        shared_ptr <Pkcs5Kdf> Kdf;
 		ConstBufferPtr HeaderKey;
 		ConstBufferPtr Salt;
 		uint32 SectorSize;

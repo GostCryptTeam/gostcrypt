@@ -13,7 +13,7 @@ namespace NewCore {
             return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<DismountVolumeResponse>>();
         }
 
-        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<DismountVolumeParams> params)
+        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<CreateVolumeParams> params)
         {
             return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<CreateVolumeResponse>>();
         }
