@@ -392,11 +392,6 @@ namespace GostCrypt {
             return response;
 		}
 
-        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
-		{
-
-		}
-
 		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params)
 		{
 

@@ -69,7 +69,7 @@ namespace GostCrypt {
 		};
 
 		struct CreateKeyFileParams : CoreParams {
-			FilePath file; // the path of the file to fill with random data
+            QSharedPointer<QFileInfo> file; // the path of the file to fill with random data
 			DEC_SERIALIZABLE(CreateKeyFileParams);
 		};
 

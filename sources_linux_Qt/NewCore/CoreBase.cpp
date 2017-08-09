@@ -279,7 +279,7 @@ namespace GostCrypt {
                     outputBuffer.Zero();
 
                 if(ea)
-                    ea->EncryptSectors (outputBuffer, offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
+                    ea->EncryptSectors (outputBuffer.Ptr(), offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
                 file.write((char *)outputBuffer.Ptr(), (size_t) dataFragmentLength); // writing it
 
                 offset += dataFragmentLength;
@@ -367,6 +367,10 @@ namespace GostCrypt {
             return response;
         }
 
+        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
+        {
+            CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
+        }
 
 	}
 }
