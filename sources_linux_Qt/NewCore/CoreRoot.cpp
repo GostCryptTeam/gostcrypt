@@ -199,8 +199,8 @@ namespace GostCrypt {
             QSharedPointer<Pkcs5Kdf> Kdf (getDerivationKeyFunction(params->volumeHeaderKdf));
 
             VolumeHeaderCreationOptions options;
-            options.EA = ea->GetNew();
-            options.Kdf = Kdf->GetAlgorithm(Kdf->GetName()); // TODO very nasty
+            options.EA = ea;
+            options.Kdf = Kdf;
             options.Type = layout->GetType();
             options.SectorSize = 512; // TODO : ALWAYS 512 !
 
@@ -211,7 +211,7 @@ namespace GostCrypt {
             }
 
             if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1] ??
-                    throw /* TODO SizeInvalidException */;
+                throw ContentSizeInvalidException(params->size);
 
             options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
@@ -233,17 +233,20 @@ namespace GostCrypt {
 
             // Header key
             headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
-            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (params->keyfiles, params->password); // TODO : no shared_ptr please
+            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (params->keyfiles, params->password);
             options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
             options.HeaderKey = headerkey;
 
             header->Create (headerBuffer, options); // header created !
 
             // Write The Header
-            if (layout->GetHeaderOffset() >= 0)
+            if (layout->GetHeaderOffset() >= 0){
                 file.seekp(layout->GetHeaderOffset(), std::ios_base::beg);
-            else
-                file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg); // TODO : check if headeroffset > headersize so it doesnt affects the containersize ?
+            }else{
+                if(layout->GetHeaderSize() + layout->GetHeaderOffset() < 0)
+                    throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
+                file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
+            }
             file.write((char*)headerBuffer.Ptr(), headerBuffer.Size()); // writing header
 
             if(!layout->HasBackupHeader())
@@ -266,7 +269,7 @@ namespace GostCrypt {
 
         void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<KeyfileList> keyfiles, QString filesystem)
         {
-            QString formatter = "mkfs."+filesystem; // TODO check if exists
+            QString formatter = "mkfs."+filesystem;
 
             QSharedPointer<MountVolumeResponse> mountresponse;
             QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
@@ -276,19 +279,34 @@ namespace GostCrypt {
             mountparams->path = volume;
 
             try {
-                mountresponse = mountVolume(mountparams); // TODO don't forget to unmount it if something goes bad
+                mountresponse = mountVolume(mountparams);
             } catch (CoreException &e){
-                throw e; // TODO : create a new exception here
+                throw FormattingSubExceptionException(e);
             }
 
             QStringList arguments;
             arguments << QString::fromStdWString(wstring(mountresponse->volumeInfo->LoopDevice));
 
             QProcess *formatProcess = new QProcess();
-            formatProcess->start(formatter, arguments); // TODO check if failed ?
+            formatProcess->start(formatter, arguments);
 
-            if (!formatProcess->waitForFinished())
-                throw /* TODO : processErrorException */;
+            if (!formatProcess->waitForFinished() || formatProcess->exitStatus() != QProcess::NormalExit){
+                try {
+                    dismountVolume(dismountparams);
+                } catch (CoreException &e){
+                    throw FormattingSubExceptionException(e);
+                }
+                throw ProcessFailedException();
+            }
+
+            if (formatProcess->exitCode() == 127){ // command not found
+                try {
+                    dismountVolume(dismountparams);
+                } catch (CoreException &e){
+                    throw FormattingSubExceptionException(e);
+                }
+                throw FilesystemNotSupportedException(filesystem);
+            }
 
             QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
             dismountparams->volumepath = volume;
@@ -296,7 +314,7 @@ namespace GostCrypt {
             try {
                 dismountVolume(dismountparams); // finally dismounting the volume
             } catch (CoreException &e){
-                throw e; // TODO : create a new exception here
+                throw FormattingSubExceptionException(e);
             }
         }
 
@@ -331,7 +349,7 @@ namespace GostCrypt {
             // opening file (or device)
             volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
             if(!volumefile.is_open())
-                throw /* TODO add exception here */;
+                throw FailedOpenVolumeException(params->path);
 
             /*
              * WRITING HEADERS
@@ -339,12 +357,12 @@ namespace GostCrypt {
 
             // getting the outer volume layout to write the header
             QSharedPointer<VolumeLayout> outerlayout;
-            outerlayout.reset(new VolumeLayoutV2Normal());
+            outerlayout.reset(new VolumeLayoutV2Normal()); // we only use the V2
 
             writeHeaderToFile(volumefile, params->outerVolume, outerlayout, params->size);
 
             QSharedPointer<VolumeLayout> innerlayout;
-            innerlayout.reset(new VolumeLayoutV2Hidden());
+            innerlayout.reset(new VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it just can be a fake one
 
             if(params->type == VolumeType::Hidden){ // writing the inner volume headers if any
                 writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);

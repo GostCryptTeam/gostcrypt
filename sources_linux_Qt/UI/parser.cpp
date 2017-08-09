@@ -323,7 +323,7 @@ quint64 Parser::parseSize(QString s, bool *ok){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024;
 	}
-	if(s.data()[s.size()-2] == "G"){
+    if(s.data()[s.size()-2] == "G"){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024*1024;
 	}

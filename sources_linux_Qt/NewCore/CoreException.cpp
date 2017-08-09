@@ -20,6 +20,11 @@ namespace GostCrypt {
             INIT_SERIALIZE(FailedCreateDirectory);
             INIT_SERIALIZE(FailedDetachLoopDevice);
             INIT_SERIALIZE(VolumeNotMounted);
+            INIT_SERIALIZE(ContentSizeInvalid);
+            INIT_SERIALIZE(InvalidHeaderOffset);
+            INIT_SERIALIZE(FormattingSubException);
+            INIT_SERIALIZE(ProcessFailed);
+            INIT_SERIALIZE(FilesystemNotSupported);
         }
 
 
@@ -128,7 +133,6 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::IncorrectSectorSize & Valeur) {
-            QString path;
             in >> static_cast<CoreException&>(Valeur);
             return in;
         }
@@ -240,6 +244,66 @@ namespace GostCrypt {
             in >> static_cast<SystemException&>(Valeur);
             in >> path;
             Valeur.dir.reset(new QFileInfo(path));
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::ContentSizeInvalid)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ContentSizeInvalid & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.size;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ContentSizeInvalid & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.size;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::InvalidHeaderOffset)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::InvalidHeaderOffset & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.headeroffset;
+            out << Valeur.headersize;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::InvalidHeaderOffset & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.headeroffset;
+            in >> Valeur.headersize;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FormattingSubException)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FormattingSubException & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.e;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FormattingSubException & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.e;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::ProcessFailed)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ProcessFailed & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ProcessFailed & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FilesystemNotSupported & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.filesystem;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FilesystemNotSupported & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.filesystem;
             return in;
         }
     }
