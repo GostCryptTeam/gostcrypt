@@ -38,7 +38,33 @@ namespace GostCrypt {
 		CoreBase::CoreBase()
 		{
             RandomNumberGenerator::Start();
-		}
+        }
+
+        QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
+        {
+            QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse);
+            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
+            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            {
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
+                    response->algorithms.append(QString::fromStdWString((*ea)->GetName()));
+                }
+            }
+            return response;
+        }
+
+        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params)
+        {
+            QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
+            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            {
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
+                    response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
+                }
+            }
+            return response;
+        }
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
 		{
@@ -58,7 +84,7 @@ namespace GostCrypt {
 					|| fields.at(3).startsWith("cloop")
 					|| fields.at(3).startsWith("ram")	// skip RAM devices
 					|| fields.at(3).startsWith("dm-")	// skip device mapper devices
-					|| fields.at(2) == 1				// skip extended partitions
+                    || fields.at(2) == 1				// skip extended partitions
 					)
 					continue;
 
@@ -123,20 +149,22 @@ namespace GostCrypt {
                 mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->absoluteFilePath().toStdString());
 
 				/* Add final mount point information if possible */
-                if(!mountedVol->VirtualDevice.IsEmpty())
-                    mountedVol->MountPoint = DirectoryPath(
-                                getDeviceMountPoint(
-                                    QSharedPointer<QFileInfo>(
-                                        new QFileInfo(
-                                            QString::fromStdString(
-                                                string(
-                                                    mountedVol->VirtualDevice
+                try {
+                    if(!mountedVol->VirtualDevice.IsEmpty())
+                        mountedVol->MountPoint = DirectoryPath(
+                                    getDeviceMountPoint(
+                                        QSharedPointer<QFileInfo>(
+                                            new QFileInfo(
+                                                QString::fromStdString(
+                                                    string(
+                                                        mountedVol->VirtualDevice
+                                                        )
                                                     )
                                                 )
                                             )
-                                        )
-                                    )->absoluteFilePath().toStdString()
-                                );
+                                        )->absoluteFilePath().toStdString()
+                                    );
+                } catch(DeviceNotMounted) {} //There is no mountpoint, the virtual device is not mounted
 
 				response->volumeInfoList.append(mountedVol);
 
@@ -194,12 +222,12 @@ namespace GostCrypt {
             GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
             for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
             {
-                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
                         return *ea;
                 }
             }
-            throw /* TODO AlgorithmNotFoundException */;
+            throw AlgorithmNotFoundException(algorithm);
         }
 
         QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
@@ -207,12 +235,12 @@ namespace GostCrypt {
             GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
             for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
-                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
                         return *pkcs;
                 }
             }
-            throw /* TODO AlgorithmNotFoundException */;
+            throw AlgorithmNotFoundException(function);
         }
 
         QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)
@@ -220,8 +248,19 @@ namespace GostCrypt {
             QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(*devicePath);
 			if(mpl.isEmpty())
                  throw DeviceNotMountedException(devicePath);
-			return mpl.first()->MountPoint;
-		}
+            return mpl.first()->MountPoint;
+        }
+
+        bool CoreBase::isDevice(QString path)
+        {
+            QSharedPointer<GetHostDevicesResponse> response;
+            response = getHostDevices();
+            for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
+                if(d->devicePath->canonicalFilePath() == path)
+                    return true;
+            }
+            return false;
+        }
 
         void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const
         {
@@ -234,7 +273,7 @@ namespace GostCrypt {
             encryptionAlgorithm->GetMode()->SetKey (modeKey);
         }
 
-        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm)
+        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm, bool random)
         {
             fstream file;
 
@@ -256,7 +295,12 @@ namespace GostCrypt {
                 randomizeEncryptionAlgorithmKey (ea);
             }
 
-            quint64 dataFragmentLength = 256 * 1024; // TODO define
+            quint64 dataFragmentLength = File::GetOptimalWriteSize(); // TODO define
+
+            // we can't get more than the pool size a each run. Very slow.
+            if(random && dataFragmentLength > RandomNumberGenerator::PoolSize) // TODO maybe find a better way ?
+                dataFragmentLength = RandomNumberGenerator::PoolSize;
+
             SecureBuffer outputBuffer (dataFragmentLength);
             quint64 offset = 0; // offset where the data starts
             quint64 sizetodo = size; // size of the data to override
@@ -264,11 +308,15 @@ namespace GostCrypt {
             while (sizetodo > 0)
             {
                 if (sizetodo < dataFragmentLength)
-                    dataFragmentLength = sizetodo;
+                    dataFragmentLength = sizetodo;//RandomNumberGenerator::PoolSize
 
-                RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                if(random)
+                    RandomNumberGenerator::GetData(outputBuffer); // getting random data
+                else
+                    outputBuffer.Zero();
+
                 if(ea)
-                    ea->EncryptSectors (outputBuffer, offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
+                    ea->EncryptSectors (outputBuffer.Ptr(), offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
                 file.write((char *)outputBuffer.Ptr(), (size_t) dataFragmentLength); // writing it
 
                 offset += dataFragmentLength;
@@ -356,6 +404,13 @@ namespace GostCrypt {
             return response;
         }
 
+        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
+        {
+            if(!params)
+                throw MissingParamException("params");
+            CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
+            return QSharedPointer<CreateKeyFileResponse>(nullptr); // nothing to return...
+        }
 
 	}
 }

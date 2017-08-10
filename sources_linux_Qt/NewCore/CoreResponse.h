@@ -54,6 +54,16 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(GetFileSystemsTypesSupportedResponse);
         };
 
+        struct GetEncryptionAlgorithmsResponse : CoreResponse {
+            QStringList algorithms;
+            DEC_SERIALIZABLE(GetEncryptionAlgorithmsResponse);
+        };
+
+        struct GetDerivationFunctionsResponse : CoreResponse {
+            QStringList algorithms;
+            DEC_SERIALIZABLE(GetDerivationFunctionsResponse);
+        };
+
 		struct MountedFilesystem
 		{
             QSharedPointer<QFileInfo> Device;
@@ -79,7 +89,8 @@ SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse)
-
+SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
+SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
 
 
 

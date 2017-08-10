@@ -46,7 +46,7 @@ int handleCLI(int argc, char ** argv){
 
     parser.clearPositionalArguments();
 
-    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
+    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
 
     switch(value){
         case FirstCMD::mount: //"mount":
@@ -77,12 +77,14 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseCreate(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
                     response = Core->createVolume(options);
-
+                    qStdOut() << "Volume Created\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 } catch(GostCrypt::NewCore::CoreException &e){
                     qStdOut() << e.qwhat();
+                } catch(GostCrypt::Exception &e){
+                    qStdOut() << e.what();
                 } catch(...) {
                     qStdOut() << "Unknown exception raised.";
                 }
@@ -91,21 +93,21 @@ int handleCLI(int argc, char ** argv){
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-        {
-            QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
-            try {
-                Parser::parseDismount(app, parser, params);
-                Core->dismountVolume(params);
-                qStdOut() << "Volume unmounted\n";
-            } catch(Parser::ParseException &e){
-                qStdOut() << e.getMessage() << endl;
-                parser.showHelp();
-            } catch(GostCrypt::NewCore::CoreException &e) {
-                qStdOut() << e.qwhat();
-            } catch(...) {
-                qStdOut() << "Unknown exception raised.";
+            {
+                QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
+                try {
+                    Parser::parseDismount(app, parser, params);
+                    Core->dismountVolume(params);
+                    qStdOut() << "Volume unmounted\n";
+                } catch(Parser::ParseException &e){
+                    qStdOut() << e.getMessage() << endl;
+                    parser.showHelp();
+                } catch(GostCrypt::NewCore::CoreException &e) {
+                    qStdOut() << e.qwhat();
+                } catch(...) {
+                    qStdOut() << "Unknown exception raised.";
+                }
             }
-        }
             break;
         case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
@@ -144,10 +146,22 @@ int handleCLI(int argc, char ** argv){
                             }
                             break;
                         case Parser::Algorithms:
-                            qStdOut() << "Option not supported." << endl; // TODO
+                            {
+                                QSharedPointer <GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response(new GostCrypt::NewCore::GetEncryptionAlgorithmsResponse);
+                                response = Core->getEncryptionAlgorithms();
+                                for(QString algo : response->algorithms) {
+                                    qStdOut() << algo << endl;
+                                }
+                            }
                             break;
                         case Parser::Hashs:
-                            qStdOut() << "Option not supported." << endl; // TODO
+                            {
+                                QSharedPointer <GostCrypt::NewCore::GetDerivationFunctionsResponse> response(new GostCrypt::NewCore::GetDerivationFunctionsResponse);
+                                response = Core->getDerivationFunctions();
+                                for(QString algo : response->algorithms) {
+                                    qStdOut() << algo << endl;
+                                }
+                            }
                             break;
                         case Parser::FileSystems:
                             {
@@ -165,7 +179,7 @@ int handleCLI(int argc, char ** argv){
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
                                     qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut()<< "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
+                                        qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
 									}
 								}
 							}
