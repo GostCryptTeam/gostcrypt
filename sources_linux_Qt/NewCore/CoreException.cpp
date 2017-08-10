@@ -236,14 +236,12 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GostCrypt::NewCore::FailedCreateDirectory)
         QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailedCreateDirectory & Valeur) {
             out << static_cast<const SystemException&>(Valeur);
-            out << Valeur.dir->absoluteFilePath();
+            out << Valeur.dir;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailedCreateDirectory & Valeur) {
-            QString path;
             in >> static_cast<SystemException&>(Valeur);
-            in >> path;
-            Valeur.dir.reset(new QFileInfo(path));
+            in >> Valeur.dir;
             return in;
         }
 

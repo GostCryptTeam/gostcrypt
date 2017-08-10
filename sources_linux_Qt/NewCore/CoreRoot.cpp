@@ -210,7 +210,7 @@ namespace GostCrypt {
                 options.VolumeDataStart = layout->GetHeaderSize() * 2;
             }
 
-            if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1] ??
+            if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1]
                 throw ContentSizeInvalidException(params->size);
 
             options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
@@ -278,6 +278,9 @@ namespace GostCrypt {
             mountparams->password.reset(new QByteArray((char*)password->DataPtr(), password->Size()));
             mountparams->path = volume;
 
+            QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
+            dismountparams->volumepath = volume;
+
             try {
                 mountresponse = mountVolume(mountparams);
             } catch (CoreException &e){
@@ -307,9 +310,6 @@ namespace GostCrypt {
                 }
                 throw FilesystemNotSupportedException(filesystem);
             }
-
-            QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
-            dismountparams->volumepath = volume;
 
             try {
                 dismountVolume(dismountparams); // finally dismounting the volume

@@ -77,10 +77,10 @@ namespace GostCrypt {
         class FailedCreateDirectory : public SystemException {
             public:
                 FailedCreateDirectory() {}
-                FailedCreateDirectory(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), dir(dir) {}
-                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, " Fail to create directory \"" + dir->absoluteFilePath() + "\".\n")
+                FailedCreateDirectory(QString fonction, QString filename, quint32 line, QString dir) : SystemException(fonction, filename, line), dir(dir) {}
+                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, " Fail to create directory \"" + dir + "\".\n")
             protected:
-                QSharedPointer<QFileInfo> dir;
+                QString dir;
             DEC_SERIALIZABLE(FailedCreateDirectory);
         };
 
@@ -268,7 +268,7 @@ namespace GostCrypt {
             public:
                 InvalidHeaderOffset() {}
                 InvalidHeaderOffset(QString fonction, QString filename, quint32 line, qint32 headeroffset, quint32 headersize) : CoreException(fonction, filename, line), headeroffset(headeroffset), headersize(headersize) { }
-                DEF_EXCEPTION_WHAT(InvalidHeaderOffset, SystemException, "Header size ("+headersize+") not compatible with header offset ("+headeroffset+") ! This error comes from the Layout definition.\n")
+                DEF_EXCEPTION_WHAT(InvalidHeaderOffset, CoreException, "Header size ("+headersize+") not compatible with header offset ("+headeroffset+") ! This error comes from the Layout definition.\n")
             protected:
                 qint32 headeroffset;
                 quint32 headersize;
@@ -296,7 +296,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(ProcessFailed);
         };
 
-        #define FilesystemNotSupportedException(filesystem) ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, filesystem);
+        #define FilesystemNotSupportedException(filesystem) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, filesystem);
         class FilesystemNotSupported : public CoreException {
             public:
                 FilesystemNotSupported() {}

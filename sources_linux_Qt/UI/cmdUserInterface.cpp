@@ -46,7 +46,7 @@ int handleCLI(int argc, char ** argv){
 
     parser.clearPositionalArguments();
 
-    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
+    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
 
     switch(value){
         case FirstCMD::mount: //"mount":
@@ -81,33 +81,33 @@ int handleCLI(int argc, char ** argv){
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
-                } /*catch(GostCrypt::NewCore::CoreException &e){
+                } catch(GostCrypt::NewCore::CoreException &e){
                     qStdOut() << e.qwhat();
-                }catch(GostCrypt::Exception &e){
+                } catch(GostCrypt::Exception &e){
                     qStdOut() << e.what();
                 } catch(...) {
                     qStdOut() << "Unknown exception raised.";
-                }//*/
+                }
             }
             break;
         case FirstCMD::umount://"umount":
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
-        {
-            QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
-            try {
-                Parser::parseDismount(app, parser, params);
-                Core->dismountVolume(params);
-                qStdOut() << "Volume unmounted\n";
-            } catch(Parser::ParseException &e){
-                qStdOut() << e.getMessage() << endl;
-                parser.showHelp();
-            } catch(GostCrypt::NewCore::CoreException &e) {
-                qStdOut() << e.qwhat();
-            } catch(...) {
-                qStdOut() << "Unknown exception raised.";
+            {
+                QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
+                try {
+                    Parser::parseDismount(app, parser, params);
+                    Core->dismountVolume(params);
+                    qStdOut() << "Volume unmounted\n";
+                } catch(Parser::ParseException &e){
+                    qStdOut() << e.getMessage() << endl;
+                    parser.showHelp();
+                } catch(GostCrypt::NewCore::CoreException &e) {
+                    qStdOut() << e.qwhat();
+                } catch(...) {
+                    qStdOut() << "Unknown exception raised.";
+                }
             }
-        }
             break;
         case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
