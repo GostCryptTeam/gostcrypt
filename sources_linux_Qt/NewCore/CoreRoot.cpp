@@ -79,7 +79,7 @@ namespace GostCrypt {
 			} while(0);
 
             try {
-				if(params->isDevice)
+                if(isDevice(params->path->canonicalFilePath()))
 				{
 					if(volume->GetFile()->GetDeviceSectorSize() != volume->GetSectorSize())
 						throw IncorrectSectorSizeException();
@@ -362,7 +362,7 @@ namespace GostCrypt {
             writeHeaderToFile(volumefile, params->outerVolume, outerlayout, params->size);
 
             QSharedPointer<VolumeLayout> innerlayout;
-            innerlayout.reset(new VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it just can be a fake one
+            innerlayout.reset(new VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it can just be a fake one
 
             if(params->type == VolumeType::Hidden){ // writing the inner volume headers if any
                 writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);

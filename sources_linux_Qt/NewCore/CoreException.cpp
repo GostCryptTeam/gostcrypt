@@ -304,5 +304,17 @@ namespace GostCrypt {
             in >> Valeur.filesystem;
             return in;
         }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::AlgorithmNotFound & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.algorithm;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::AlgorithmNotFound & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.algorithm;
+            return in;
+        }
     }
 }

@@ -146,10 +146,22 @@ int handleCLI(int argc, char ** argv){
                             }
                             break;
                         case Parser::Algorithms:
-                            qStdOut() << "Option not supported." << endl; // TODO
+                            {
+                                QSharedPointer <GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response(new GostCrypt::NewCore::GetEncryptionAlgorithmsResponse);
+                                response = Core->getEncryptionAlgorithms();
+                                for(QString algo : response->algorithms) {
+                                    qStdOut() << algo << endl;
+                                }
+                            }
                             break;
                         case Parser::Hashs:
-                            qStdOut() << "Option not supported." << endl; // TODO
+                            {
+                                QSharedPointer <GostCrypt::NewCore::GetDerivationFunctionsResponse> response(new GostCrypt::NewCore::GetDerivationFunctionsResponse);
+                                response = Core->getDerivationFunctions();
+                                for(QString algo : response->algorithms) {
+                                    qStdOut() << algo << endl;
+                                }
+                            }
                             break;
                         case Parser::FileSystems:
                             {
@@ -167,7 +179,7 @@ int handleCLI(int argc, char ** argv){
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
                                     qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut()<< "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
+                                        qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
 									}
 								}
 							}

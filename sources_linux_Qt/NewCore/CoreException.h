@@ -306,6 +306,17 @@ namespace GostCrypt {
                 QString filesystem;
             DEC_SERIALIZABLE(FilesystemNotSupported);
         };
+
+        #define AlgorithmNotFoundException(algorithm) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, algorithm);
+        class AlgorithmNotFound : public CoreException {
+            public:
+                AlgorithmNotFound() {}
+                AlgorithmNotFound(QString fonction, QString filename, quint32 line, QString algorithm) : CoreException(fonction, filename, line), algorithm(algorithm) {}
+                DEF_EXCEPTION_WHAT(AlgorithmNotFound, CoreException, "Filesystem not supported : "+algorithm+"\n")
+            protected:
+                QString algorithm;
+            DEC_SERIALIZABLE(AlgorithmNotFound);
+        };
 	}
 }
 
@@ -331,5 +342,6 @@ SERIALIZABLE(GostCrypt::NewCore::InvalidHeaderOffset)
 SERIALIZABLE(GostCrypt::NewCore::FormattingSubException)
 SERIALIZABLE(GostCrypt::NewCore::ProcessFailed)
 SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
+SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 
 #endif // COREEXCEPTION_H

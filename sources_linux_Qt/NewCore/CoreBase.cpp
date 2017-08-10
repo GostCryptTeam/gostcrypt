@@ -38,7 +38,33 @@ namespace GostCrypt {
 		CoreBase::CoreBase()
 		{
             RandomNumberGenerator::Start();
-		}
+        }
+
+        QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
+        {
+            QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse);
+            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
+            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            {
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
+                    response->algorithms.append(QString::fromStdWString((*ea)->GetName()));
+                }
+            }
+            return response;
+        }
+
+        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params)
+        {
+            QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
+            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            {
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
+                    response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
+                }
+            }
+            return response;
+        }
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
 		{
@@ -196,12 +222,12 @@ namespace GostCrypt {
             GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
             for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
             {
-                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
                         return *ea;
                 }
             }
-            throw /* TODO AlgorithmNotFoundException */;
+            throw AlgorithmNotFoundException(algorithm);
         }
 
         QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
@@ -209,12 +235,12 @@ namespace GostCrypt {
             GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
             for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
-                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms when creating a new volume
+                if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
                         return *pkcs;
                 }
             }
-            throw /* TODO AlgorithmNotFoundException */;
+            throw AlgorithmNotFoundException(function);
         }
 
         QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath)
@@ -222,8 +248,19 @@ namespace GostCrypt {
             QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(*devicePath);
 			if(mpl.isEmpty())
                  throw DeviceNotMountedException(devicePath);
-			return mpl.first()->MountPoint;
-		}
+            return mpl.first()->MountPoint;
+        }
+
+        bool CoreBase::isDevice(QString path)
+        {
+            QSharedPointer<GetHostDevicesResponse> response;
+            response = getHostDevices();
+            for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
+                if(d->devicePath->canonicalFilePath() == path)
+                    return true;
+            }
+            return false;
+        }
 
         void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const
         {
@@ -369,7 +406,10 @@ namespace GostCrypt {
 
         QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
         {
+            if(!params)
+                throw MissingParamException("params");
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
+            return QSharedPointer<CreateKeyFileResponse>(nullptr); // nothing to return...
         }
 
 	}

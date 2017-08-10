@@ -74,7 +74,6 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeParams : CoreParams {
-			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
 			bool doMount; // does mount the volume at the end if true
@@ -111,6 +110,14 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(GetFileSystemsTypesSupportedParams);
         };
 
+        struct GetEncryptionAlgorithmsParams : CoreParams {
+            DEC_SERIALIZABLE(GetEncryptionAlgorithmsParams);
+        }; // no parameters
+
+        struct GetDerivationFunctionsParams : CoreParams {
+            DEC_SERIALIZABLE(GetDerivationFunctionsParams);
+        }; // no parameters
+
 	}
 }
 
@@ -129,6 +136,8 @@ SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
+SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsParams)
+SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsParams)
 Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
 
 #endif // COREPARAMS_H

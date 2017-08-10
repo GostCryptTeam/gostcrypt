@@ -16,6 +16,8 @@ namespace GostCrypt {
 			INIT_SERIALIZE(GetMountedVolumesParams);
             INIT_SERIALIZE(GetFileSystemsTypesSupportedParams);
             INIT_SERIALIZE(QFileInfo);
+            INIT_SERIALIZE(GetEncryptionAlgorithmsParams);
+            INIT_SERIALIZE(GetDerivationFunctionsParams);
             return true;
 		}
 
@@ -166,6 +168,22 @@ namespace GostCrypt {
             return in;
         }
         DEF_SERIALIZABLE(GetFileSystemsTypesSupportedParams)
+
+        QDataStream & operator << (QDataStream & out, const GetEncryptionAlgorithmsParams & Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GetEncryptionAlgorithmsParams & Valeur) {
+            return in;
+        }
+        DEF_SERIALIZABLE(GetEncryptionAlgorithmsParams)
+
+        QDataStream & operator << (QDataStream & out, const GetDerivationFunctionsParams & Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GetDerivationFunctionsParams & Valeur) {
+            return in;
+        }
+        DEF_SERIALIZABLE(GetDerivationFunctionsParams)
     }
 }
 
