@@ -10,7 +10,7 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-        bool initCoreResponse();
+        void initCoreResponse();
 
 		struct HostDevice;
 		struct CoreResponse {

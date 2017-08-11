@@ -25,13 +25,13 @@ int fstat_at(int dir, const char *dirname __attribute__ ((__unused__)),
 int fstat_at(int dir, const char *dirname, const char *filename,
 				struct stat *st, int nofollow)
 {
-
+	(void)dir;
 	if (*filename != '/') {
 		char path[PATH_MAX];
 		int len;
 
 		len = snprintf(path, sizeof(path), "%s/%s", dirname, filename);
-		if (len < 0 || len + 1 > sizeof(path))
+		if (len < 0 || (unsigned int)len + 1 > sizeof(path))
 			return -1;
 
 		return nofollow ? lstat(path, st) : stat(path, st);
@@ -50,12 +50,13 @@ int open_at(int dir, const char *dirname __attribute__ ((__unused__)),
 #else
 int open_at(int dir, const char *dirname, const char *filename, int flags)
 {
+	(void)dir;
 	if (*filename != '/') {
 		char path[PATH_MAX];
 		int len;
 
 		len = snprintf(path, sizeof(path), "%s/%s", dirname, filename);
-		if (len < 0 || len + 1 > sizeof(path))
+		if (len < 0 || (unsigned int)len + 1 > sizeof(path))
 			return -1;
 
 		return open(path, flags);
@@ -85,12 +86,13 @@ ssize_t readlink_at(int dir, const char *dirname __attribute__ ((__unused__)),
 ssize_t readlink_at(int dir, const char *dirname, const char *pathname,
 		    char *buf, size_t bufsiz)
 {
+	(void)dir;
 	if (*pathname != '/') {
 		char path[PATH_MAX];
 		int len;
 
 		len = snprintf(path, sizeof(path), "%s/%s", dirname, pathname);
-		if (len < 0 || len + 1 > sizeof(path))
+		if (len < 0 || (unsigned int)len + 1 > sizeof(path))
 			return -1;
 
 		return readlink(path, buf, bufsiz);

@@ -105,6 +105,7 @@ void GraphicUserInterface::receiveDismountAll()
 GostCrypt::VolumeInfoList GraphicUserInterface::receiveGetAllVolumes()
 {
 //    return GostCrypt::Core->GetMountedVolumes();
+	return GostCrypt::VolumeInfoList();
 }
 
 void GraphicUserInterface::receiveSudoPassword(const QString &aPwd)
@@ -129,6 +130,11 @@ void GraphicUserInterface::receiveDismount(const QString& aStr)
 }
 
 void GraphicUserInterface::receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles){
+(void)volumePath;
+(void)oldPassword;
+(void)newPassword;
+(void)oldKeyFiles;
+(void)newKeyFiles;
 /*    GostCrypt::Core->ChangePassword(shared_ptr<GostCrypt::VolumePath>(new GostCrypt::VolumePath(volumePath.toStdWString())),
                                     true,
                                     shared_ptr<GostCrypt::VolumePassword>(new GostCrypt::VolumePassword(oldPassword.toStdString().c_str(),oldPassword.size())),
@@ -141,6 +147,7 @@ void GraphicUserInterface::receiveCreateVolume(shared_ptr <GostCrypt::NewCore::C
 #ifdef QT_DEBUG
     qDebug() << "Création de volume";
 #endif
+    (void)aCreate;
     QString cmd = "createGSVolume";
 
 /*    system(cmd.toStdString().c_str());

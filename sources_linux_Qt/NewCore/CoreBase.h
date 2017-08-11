@@ -50,7 +50,7 @@ namespace GostCrypt {
 			void exited();
 			void askSudoPassword();
         };
-        QSharedPointer<CoreBase> getCore(QCoreApplication *a);
+        QSharedPointer<CoreBase> getCore();
 	}
 }
 

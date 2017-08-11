@@ -77,22 +77,32 @@ namespace GostCrypt {
                     VolumePath path(params->path->absoluteFilePath().toStdWString());
                     shared_ptr<VolumePassword> password;
                     shared_ptr<VolumePassword> protectionPassword;
+                    shared_ptr <KeyfileList> keyfiles;
+                    shared_ptr <KeyfileList> protectionKeyfiles;
 
+
+                    /* Conversions :( */
                     if(!params->password.isNull() && !params->password->isNull())
                         password.reset(new VolumePassword(params->password->constData(), params->password->size()));
                     else
                         throw MissingParamException("password");
                     if(!params->protectionPassword.isNull() && !params->protectionPassword->isNull())
                         protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
+					for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+						keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+					}
+					for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
+						protectionKeyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+					}
 
                     volume->Open(
 						path,
 						params->preserveTimestamps,
                         password,
-                        params->keyfiles,
+                        keyfiles,
 						params->protection,
                         protectionPassword,
-                        params->protectionKeyfiles,
+                        protectionKeyfiles,
 						params->useBackupHeaders
 					);
                 } catch(GostCrypt::PasswordException &e) {
@@ -280,7 +290,11 @@ namespace GostCrypt {
 
             // Header key
             headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
-            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (params->keyfiles, params->password);
+            shared_ptr <KeyfileList> keyfiles;
+			for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+				keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+			}
+            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (keyfiles, params->password);
             options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
             options.HeaderKey = headerkey;
 
@@ -290,7 +304,7 @@ namespace GostCrypt {
             if (layout->GetHeaderOffset() >= 0){
                 file.seekp(layout->GetHeaderOffset(), std::ios_base::beg);
             }else{
-                if(layout->GetHeaderSize() + layout->GetHeaderOffset() < 0)
+                if((int64)layout->GetHeaderSize() + layout->GetHeaderOffset() < 0)
                     throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
                 file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
             }
@@ -314,7 +328,7 @@ namespace GostCrypt {
 
         }
 
-        void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<KeyfileList> keyfiles, QString filesystem)
+        void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem)
         {
             QString formatter = "mkfs."+filesystem;
 
@@ -441,7 +455,11 @@ namespace GostCrypt {
 
 		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params)
 		{
+			QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
 
+			(void)params;
+			//TODO
+			return response;
         }
 
 	}

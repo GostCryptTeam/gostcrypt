@@ -3,7 +3,7 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-        bool initCoreException() {
+        void initCoreException() {
             INIT_SERIALIZE(CoreException);
             INIT_SERIALIZE(SystemException);
             INIT_SERIALIZE(FailedOpenFile);
@@ -25,6 +25,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(FormattingSubException);
             INIT_SERIALIZE(ProcessFailed);
             INIT_SERIALIZE(FilesystemNotSupported);
+            INIT_SERIALIZE(IncorrectSudoPassword);
         }
 
 
@@ -314,6 +315,16 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::AlgorithmNotFound & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             in >> Valeur.algorithm;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::IncorrectSudoPassword & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::IncorrectSudoPassword & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
             return in;
         }
     }

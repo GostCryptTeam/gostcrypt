@@ -137,7 +137,7 @@ namespace GostCrypt
 		CoreService ();
 	};
 
-#define GST_CORE_SERVICE_CMDLINE_OPTION "--core-service"
+#define GST_CORE_SERVICE_CMDLINE_OPTION "coreservice"
 }
 
 #endif // GST_HEADER_Core_Unix_CoreService

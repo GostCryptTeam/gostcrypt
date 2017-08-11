@@ -22,14 +22,14 @@
 namespace GostCrypt {
 	namespace NewCore {
 
-        QSharedPointer<CoreBase> getCore(QCoreApplication *a)
+        QSharedPointer<CoreBase> getCore()
 		{
 			initCoreParams();
 			initCoreResponse();
 			initCoreException();
 
             if(getuid()) {
-                return QSharedPointer<CoreBase>(new CoreUser(a));
+                return QSharedPointer<CoreBase>(new CoreUser());
 			} else {
                 return QSharedPointer<CoreBase>(new CoreRoot());
 			}
@@ -46,6 +46,8 @@ namespace GostCrypt {
         {
             QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
             GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+
+            (void)params;
             for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms

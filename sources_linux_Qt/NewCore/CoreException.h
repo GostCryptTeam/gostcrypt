@@ -20,7 +20,7 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-        bool initCoreException();
+        void initCoreException();
 
 		class CoreException : public QException {
 			public:
@@ -140,6 +140,16 @@ namespace GostCrypt {
                 DEF_EXCEPTION_WHAT(IncorrectSectorSize, CoreException, "The sector size read from the header does not correspond to the device sector size or is unsupported.\n")
             protected:
             DEC_SERIALIZABLE(IncorrectSectorSize);
+        };
+
+        #define IncorrectSudoPasswordException() IncorrectSudoPassword(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class IncorrectSudoPassword : public CoreException {
+            public:
+                IncorrectSudoPassword() {}
+                IncorrectSudoPassword(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+                DEF_EXCEPTION_WHAT(IncorrectSudoPassword, CoreException, "The given passwords are wrong, can't execute request.\n")
+            protected:
+            DEC_SERIALIZABLE(IncorrectSudoPassword);
         };
 
         #define MountPointUsedException(mountpoint) MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
@@ -346,5 +356,6 @@ SERIALIZABLE(GostCrypt::NewCore::FormattingSubException)
 SERIALIZABLE(GostCrypt::NewCore::ProcessFailed)
 SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
 SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
+SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
 
 #endif // COREEXCEPTION_H

@@ -12,7 +12,7 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-        bool initCoreParams();
+        void initCoreParams();
 
         static QString GetFileSystemTypePlatformNative () {
 #ifdef GST_LINUX
@@ -43,7 +43,7 @@ namespace GostCrypt {
                     size = 0;
                 }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
-				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
+				QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to use
                 qreal size; // size of the volume in percentage
                 QString volumeHeaderKdf; // derivation key function to use
                 QString encryptionAlgorithm; // the algorithm to use
@@ -59,7 +59,7 @@ namespace GostCrypt {
 		};
 
 		struct ChangeVolumePasswordParams : CoreParams {
-			QSharedPointer <VolumePath> path; // path of the volume we want to change the password (never null)
+			QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
 			QSharedPointer <VolumePassword> password; // old password, optional if volume is already opened
 			QSharedPointer <KeyfileList> keyfiles; // old keyfiles, optional if volume is already opened
 			QSharedPointer <Pkcs5Kdf> newVolumeHeaderKdf; // new key derivation function (never null)
@@ -78,13 +78,13 @@ namespace GostCrypt {
             QString fileSystemType; // Impose a filesystem
 			bool doMount; // does mount the volume at the end if true
 			bool preserveTimestamps; // Preserve timestamps of file ?
-			QSharedPointer <KeyfileList> keyfiles; // keyfiles to mount the volume
+			QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
 			QSharedPointer <QByteArray> password; // password of the volume
 			QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
 			QSharedPointer <QFileInfo> path; // path of the container or device to mount
 			VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
 			QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
-			QSharedPointer <KeyfileList> protectionKeyfiles; // keyfiles to mount the hidden protected volume
+			QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; // keyfiles to mount the hidden protected volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
 			DEC_SERIALIZABLE(MountVolumeParams);
@@ -130,6 +130,8 @@ QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
 QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
 QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
 QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & Valeur);
 SERIALIZABLE(GostCrypt::NewCore::CoreParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
@@ -144,5 +146,6 @@ SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsParams)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsParams)
 SERIALIZABLE(GostCrypt::NewCore::ExitParams)
 Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
+Q_DECLARE_METATYPE(QSharedPointer<QByteArray>)
 
 #endif // COREPARAMS_H

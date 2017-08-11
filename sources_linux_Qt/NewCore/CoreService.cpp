@@ -9,8 +9,8 @@ namespace GostCrypt {
 		{
 			QCoreApplication app(argc, argv);
 
-			initCoreResponse();
 			initCoreParams();
+			initCoreResponse();
 			initCoreException();
 
 			a = &app; //should be removed
@@ -31,6 +31,7 @@ namespace GostCrypt {
 			app.connect(this, SIGNAL(exit()), &core, SLOT(exit()));
 			app.connect(this, SIGNAL(request(QVariant)), &core, SLOT(request(QVariant)));
 
+			qDebug() << "Sending Init Request";
 			InitResponse init;
 			sendResponse(QVariant::fromValue(init));
 

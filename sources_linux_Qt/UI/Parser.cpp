@@ -60,11 +60,10 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
 
     if (parser.isSet("file")) {
         const QStringList files = parser.values("file");
-        GostCrypt::KeyfileList* keyfiles = new GostCrypt::KeyfileList();
+        options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
         for(QString file : files){
-            keyfiles->push_back(shared_ptr<GostCrypt::Keyfile>(new GostCrypt::Keyfile(file.toStdString())));
+            options->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
         }
-        options->keyfiles.reset(keyfiles);
     }
 
     if (parser.isSet("password")) {

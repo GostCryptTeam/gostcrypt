@@ -1,4 +1,5 @@
 #include "CmdLineInterface.h"
+#include "NewCore/CoreException.h"
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
@@ -15,14 +16,14 @@ QTextStream &CmdLineInterface::qStdOut() {
 int CmdLineInterface::start(int argc, char **argv)
 {
     MyApplication app(argc, argv);
-    core = GostCrypt::NewCore::getCore(&app);
+    core = GostCrypt::NewCore::getCore();
 
     MyApplication::setApplicationName("GostCrypt");
 
     /* Connecting all signals */
 
     /* Connecting responses from Core to display from this */
-    app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeParams>)));
+    app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)));
     app.connect(core.data(), SIGNAL(sendMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)), this, SLOT(printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)));
     app.connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
     app.connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
@@ -236,8 +237,13 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch (QException ) { // TODO : handle exceptions here
+    } catch(GostCrypt::NewCore::CoreException &e) {
         qDebug() << "Exception catched !";
+        qDebug() << e.what();
+        emit exit();
+    } catch (QException &e) { // TODO : handle exceptions here
+        qDebug() << "Exception catched !";
+        qDebug() << e.what();
         emit exit();
     }
     return done;
@@ -246,18 +252,21 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
 void CmdLineInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> r)
 {
     qStdOut() << "Volume Created." << endl;
+    (void)r;
     emit exit();
 }
 
 void CmdLineInterface::printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> r)
 {
     qStdOut() << "Volume Mounted." << endl;
+    (void)r;
     emit exit();
 }
 
 void CmdLineInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> r)
 {
     qStdOut() << "Volume Dismounted." << endl;
+    (void)r;
     emit exit();
 }
 

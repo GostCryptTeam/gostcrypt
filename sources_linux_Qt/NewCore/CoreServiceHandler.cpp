@@ -4,8 +4,8 @@
 #include <QProcess>
 #include <QMetaEnum>
 #include <QTimer>
-#include <QException>
 #include <QDebug>
+#include "CoreException.h"
 
 namespace GostCrypt {
     namespace NewCore {
@@ -36,7 +36,7 @@ namespace GostCrypt {
 			workerProcess.write("\n");
 			password->fill('\0');
 			if((workerProcess.state() == QProcess::NotRunning) || workerProcess.waitForFinished(3000))
-				throw QException(); //TODO throw Incorrect sudo password exception
+				throw IncorrectSudoPasswordException(); //TODO throw Incorrect sudo password exception
 
 			QTimer::singleShot(1000, this, SLOT(checkInitReceived()));
 		}
@@ -54,6 +54,7 @@ namespace GostCrypt {
 					qDebug() << "Worker process initialized";
 					processInitialized = true;
 					sendRequests();
+					return;
 			}
 
 			emit sendResponse(response);
