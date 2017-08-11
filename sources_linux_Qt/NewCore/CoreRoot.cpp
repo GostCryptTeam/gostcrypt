@@ -158,7 +158,7 @@ namespace GostCrypt {
             QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
             /* Get mounted volume infos */
-            QSharedPointer<VolumeInfo> mountedVolume;
+            QList<QSharedPointer<VolumeInfo>> mountedVolumes;
             {
                 QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
@@ -166,27 +166,27 @@ namespace GostCrypt {
                 getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
                 if(getMountedVolumesResponse->volumeInfoList.isEmpty())
                     throw VolumeNotMountedException(params->volumepath);
-                mountedVolume = getMountedVolumesResponse->volumeInfoList.first();
+                mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
+            for (QSharedPointer<VolumeInfo> mountedVolume : mountedVolumes) {
+                /* Unmount filesystem */
+                if(!mountedVolume->MountPoint.IsEmpty()) {
+                    MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), params->force);
+                }
 
-            /* Unmount filesystem */
-            if(!mountedVolume->MountPoint.IsEmpty()) {
-                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), params->force);
+                /* Detach loop device */
+                if(!mountedVolume->LoopDevice.IsEmpty()) {
+                    LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->LoopDevice)))));
+                }
+
+                // Probably not necessary to update mountedVolume
+
+                /* Unmount Fuse filesystem */
+                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), params->force);
+
+                /* Delete fuse mount point directory */
+                 QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
             }
-
-            /* Detach loop device */
-            if(!mountedVolume->LoopDevice.IsEmpty()) {
-                LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->LoopDevice)))));
-            }
-
-            // Probably not necessary to update mountedVolume
-
-            /* Unmount Fuse filesystem */
-            MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), params->force);
-
-            /* Delete fuse mount point directory */
-             QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
-
             return response;
         }
 
