@@ -16,6 +16,7 @@ public slots:
 		emit exited();
 	}
 	virtual void request(QVariant request);
+	virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
 
 
 private:

@@ -4,6 +4,8 @@
 CoreUser::CoreUser(QObject *parent) : CoreBase(parent)
 {
 	connect(&csh, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
+	connect(&csh, SIGNAL(askSudoPassword()), this, SIGNAL(askSudoPassword()));
+	connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), &csh, SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
 }
 
 void CoreUser::exit()
@@ -48,4 +50,9 @@ void CoreUser::request(QVariant r)
 		csh.sendToCoreService(r);
 	}
 
+}
+
+void CoreUser::receiveSudoPassword(QSharedPointer<QByteArray> password)
+{
+		emit sendSudoPassword(password);
 }

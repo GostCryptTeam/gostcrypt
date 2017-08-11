@@ -382,7 +382,6 @@ namespace GostCrypt {
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {
-            (void)params;
             QSharedPointer<GetFileSystemsTypesSupportedResponse> response(new GetFileSystemsTypesSupportedResponse);
 			QFile file("/proc/filesystems");
 
@@ -395,6 +394,9 @@ namespace GostCrypt {
 
 				if(fields.count() != 2
 					|| fields.at(0) == "nodev") // We filter pseudo filesystems
+					continue;
+
+				if(params && !params->volumetypefilter.isEmpty() && fields[1] != params->volumetypefilter)
 					continue;
 
 				response->filesystems.append(fields[1]);

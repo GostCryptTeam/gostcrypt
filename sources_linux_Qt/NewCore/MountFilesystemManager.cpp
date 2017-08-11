@@ -6,8 +6,9 @@ namespace GostCrypt {
 namespace NewCore {
 
 
-        void MountFilesystemManager::mountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, QString filesystemType, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString &additionalMountOptions)
+        void MountFilesystemManager::mountFilesystem(const QSharedPointer<QFileInfo> devicePath, const QSharedPointer<QFileInfo> mountPoint, QStringList possiblefilesystemTypes, bool readOnly, const uid_t ownerUID, const gid_t ownerGID, const QString &additionalMountOptions)
         {
+			bool mounted = false;
 			quint64 mntflags = MS_NOSUID; //protect against potential privilege escalation using GostCrypt (not sure it is necessary)
 			if(readOnly)
 				mntflags |= MS_RDONLY;
@@ -17,11 +18,13 @@ namespace NewCore {
 			if(!additionalMountOptions.isEmpty())
 				mountOptions += "," + additionalMountOptions;
 
-            if(filesystemType.isNull() || filesystemType.isEmpty()) {
-                //TODO use blkid libs to detect filesystem if not specified
-                filesystemType = QString("vfat");
-            }
-            if(mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
+            for (QString filesystemType : possiblefilesystemTypes) {
+				if(!mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data())) {
+					mounted = true;
+					break;
+				}
+			}
+			if(!mounted)
 				throw FailMountFilesystemException(errno, mountPoint, devicePath);
         }
 

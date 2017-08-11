@@ -2,6 +2,8 @@
 #include "serializableclasses.h"
 #include <QProcess>
 #include <QMetaEnum>
+#include <QTimer>
+#include <QException>
 
 
 CoreServiceHandler::CoreServiceHandler()
@@ -26,6 +28,17 @@ bool CoreServiceHandler::isRunning()
 	return (workerProcess.state() != QProcess::NotRunning);
 }
 
+void CoreServiceHandler::receiveSudoPassword(QSharedPointer<QByteArray> password)
+{
+	workerProcess.write(*password);
+	workerProcess.write("\n");
+	password->fill('\0');
+	if((workerProcess.state() == QProcess::NotRunning) || workerProcess.waitForFinished(3000))
+		throw QException(); //TODO throw Incorrect sudo password exception
+
+	QTimer::singleShot(1000, this, SLOT(checkInitReceived()));
+}
+
 void CoreServiceHandler::receiveResponse()
 {
 	QVariant response;
@@ -35,6 +48,11 @@ void CoreServiceHandler::receiveResponse()
 	workerProcessStream >> response;
 	if(!workerProcessStream.commitTransaction())
 		return;
+	if(response.canConvert<InitResponse>()) {
+			qDebug() << "Worker process initialized";
+			processInitialized = true;
+			sendRequests();
+	}
 
 	emit sendResponse(response);
 }
@@ -65,18 +83,28 @@ void CoreServiceHandler::dbg_bytesWritten(qint64 bytes)
 void CoreServiceHandler::workerProcessStarted()
 {
 	qDebug() << "Worker process (" << workerProcess.processId() << ") started.";
-	sendRequests();
+	processInitialized = false;
+	emit askSudoPassword();
+}
+
+void CoreServiceHandler::checkInitReceived()
+{
+	if(processInitialized)
+		return;
+	emit askSudoPassword();
 }
 
 void CoreServiceHandler::startWorkerProcess()
 {
+	QStringList args;
 	if(workerProcess.state() == QProcess::Starting)
 		return;
 
 	qDebug() << "Start worker process";
 	workerProcessStream.setDevice(&workerProcess);
-	workerProcess.setProgram(QCoreApplication::applicationFilePath());
-	workerProcess.setArguments({"slave"});
+	workerProcess.setProgram("/usr/bin/sudo");
+	args << "-S" << "-p" << "" << QCoreApplication::applicationFilePath() << "coreservice";
+	workerProcess.setArguments(args);
 	workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
 	workerProcess.start();
 }

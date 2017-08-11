@@ -13,7 +13,7 @@ public:
 public slots:
 	virtual void request(QVariant request) = 0;
 	virtual void exit() = 0;
-
+	virtual void receiveSudoPassword(QSharedPointer<QByteArray> password) = 0;
 protected:
 	virtual QSharedPointer<MinResponse> min(QSharedPointer<MinRequest> r);
 
@@ -21,6 +21,8 @@ signals:
 	void sendMin(QSharedPointer<MinResponse> r);
 	void sendMax(QSharedPointer<MaxResponse> r);
 	void exited();
+	void askSudoPassword();
+
 };
 
 #endif // COREBASE_H

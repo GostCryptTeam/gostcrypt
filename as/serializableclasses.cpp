@@ -7,6 +7,7 @@ DEF_SERIALIZABLE(ExitRequest)
 DEF_SERIALIZABLE(BaseResponse)
 DEF_SERIALIZABLE(MaxResponse)
 DEF_SERIALIZABLE(MinResponse)
+DEF_SERIALIZABLE(InitResponse)
 
 QDataStream & operator << (QDataStream & out, const BaseRequest & Valeur) {
 	(void)Valeur;
@@ -74,6 +75,15 @@ QDataStream & operator >> (QDataStream & in, MinResponse & Valeur) {
 	return in;
 }
 
+QDataStream & operator << (QDataStream & out, const InitResponse & Valeur) {
+	out << static_cast<const BaseResponse&>(Valeur);
+	return out;
+}
+QDataStream & operator >> (QDataStream & in, InitResponse & Valeur) {
+	in >> static_cast<BaseResponse&>(Valeur);
+	return in;
+}
+
 QDataStream & operator << (QDataStream & out, const ExitRequest & Valeur) {
 	out << static_cast<const BaseRequest&>(Valeur);
 	return out;
@@ -92,4 +102,5 @@ void initSerializables()
 	INIT_SERIALIZABLE(BaseResponse);
 	INIT_SERIALIZABLE(MaxResponse);
 	INIT_SERIALIZABLE(MinResponse);
+	INIT_SERIALIZABLE(InitResponse);
 }
