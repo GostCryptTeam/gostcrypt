@@ -131,7 +131,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
+                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -158,7 +158,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-                if(params && !params->volumePath->absoluteFilePath().isEmpty())
+                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty())
 					break;
 			}
 
@@ -395,8 +395,7 @@ namespace GostCrypt {
             return response;
         }
 
-        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
-        {
+        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileParams> params) {
             if(!params)
                 throw MissingParamException("params");
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random

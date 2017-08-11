@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
+void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
     parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
@@ -19,7 +19,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
                           {{"s","shared"}, "Allows shared access."},
                           {{"b","backup-headers"}, "Use backup headers."},
                       });
-    parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
     if (parser.isSet("help"))
         throw Parser::ParseException(); // throwing an empty exception shows the help only
@@ -98,11 +98,11 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
     }
 }
 
-void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
+void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
 {
 	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
 	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
-	parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
 	// Parsing all options
 	if (parser.isSet("help"))
@@ -122,11 +122,11 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
     //TODO add force option
 }
 
-void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item)
+void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 {
 	parser.addPositionalArgument("list", "Mounts a volume.", "list");
 	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
-	parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
 	// Parsing all options
 
@@ -157,7 +157,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
 		throw Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
+void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path"); // TODO add default values to description
@@ -170,7 +170,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
                           {{"hhash","hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
                           {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
+                          {"filesystem", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
                           {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
                           //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
                           //{"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
@@ -179,7 +179,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
                           {{"is", "inner-size"}, "Sets the partition size for the inner volume in percentage of the max size. default is 0.7", "percentage"},
                           {{"t", "type"}, "Sets the volume type.", "{Normal|Hidden}"}
                       });
-    //parser.process(app);
+
     parser.parse(QCoreApplication::arguments());
 
     if (parser.isSet("help"))
@@ -282,8 +282,8 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM; // default value
     }
 
-    if (parser.isSet("file-system")) {
-        options->outerVolume->filesystem = parser.value("file-system");
+    if (parser.isSet("filesystem")) {
+        options->outerVolume->filesystem = parser.value("filesystem");
     }else{
         options->outerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
     }
@@ -307,6 +307,27 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     }else{
         options->size = DEFAULT_SIZE; // default value is 10Mio
     }
+}
+
+void Parser::parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files)
+{
+    parser.addPositionalArgument("createkeyfiles", "Creates a keyfile", "createkeyfiles");
+    parser.addPositionalArgument("paths", "Paths of the keyfiles to create", "path0 [path1] ...");
+    parser.parse(QCoreApplication::arguments());
+
+    // Parsing all options
+
+    if (parser.isSet("help"))
+        throw Parser::ParseException();
+
+    // parsing positional arguments
+
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Please Specify the path of at least one keyfile to create.");
+    if (positionalArguments.size() >= 2)
+        for(int i=1; i<positionalArguments.size(); i++)
+            files.append(positionalArguments.at(i));
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){

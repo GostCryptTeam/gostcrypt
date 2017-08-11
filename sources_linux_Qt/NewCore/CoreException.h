@@ -37,12 +37,15 @@ namespace GostCrypt {
                 virtual QString qwhat() const {
                     return "\n\nException:\t" + getName() + "\nFonction:\t" + fonction + "\nFile position:\t" + getPosition() + "\nMessage:\t";
                 }
+                virtual QString getName() const {
+                    return "/CoreException";
+                }
+                virtual QString getMessage() const{
+                    return QString();
+                }
 			protected:
 				QString getPosition() const {
 					return filename+":"+QString::number(line);
-				}
-				virtual QString getName() const {
-					return "/CoreException";
 				}
                 QString fonction;
 				QString filename;
@@ -67,7 +70,7 @@ namespace GostCrypt {
 			public:
                 FailedOpenFile() {}
                 FailedOpenFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
-                DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, " Unable to open file \""+file.absoluteFilePath() + "\".\n")
+                DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file.absoluteFilePath() + "\".\n")
             protected:
 				QFileInfo file;
 			DEC_SERIALIZABLE(FailedOpenFile);
@@ -78,7 +81,7 @@ namespace GostCrypt {
             public:
                 FailedCreateDirectory() {}
                 FailedCreateDirectory(QString fonction, QString filename, quint32 line, QString dir) : SystemException(fonction, filename, line), dir(dir) {}
-                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, " Fail to create directory \"" + dir + "\".\n")
+                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, "Fail to create directory \"" + dir + "\".\n")
             protected:
                 QString dir;
             DEC_SERIALIZABLE(FailedCreateDirectory);
@@ -89,7 +92,7 @@ namespace GostCrypt {
 			public:
                 DeviceNotMounted() {}
                 DeviceNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> device) : SystemException(fonction, filename, line), device(device) {}
-                DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, " The device "+device->absoluteFilePath() + " is not mounted.\n")
+                DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, "The device "+device->absoluteFilePath() + " is not mounted.\n")
 			protected:
                 QSharedPointer<QFileInfo> device;
 
@@ -101,7 +104,7 @@ namespace GostCrypt {
 			public:
                 MissingParam() {}
                 MissingParam(QString fonction, QString filename, quint32 line, QString param) : CoreException(fonction, filename, line), param(param) {}
-                DEF_EXCEPTION_WHAT(MissingParam, CoreException, " The parameter " + param + " is mandatory and should be defined.\n")
+                DEF_EXCEPTION_WHAT(MissingParam, CoreException, "The parameter " + param + " is mandatory and should be defined.\n")
 			protected:
 				QString param;
 			DEC_SERIALIZABLE(MissingParam);
@@ -112,7 +115,7 @@ namespace GostCrypt {
 			public:
                 VolumeAlreadyMounted() {}
                 VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->absoluteFilePath() + " is already mounted.\n")
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath->absoluteFilePath() + " is already mounted.\n")
 			protected:
 				QSharedPointer<QFileInfo> volumePath;
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
@@ -123,7 +126,7 @@ namespace GostCrypt {
 			public:
                 FailedOpenVolume() {}
                 FailedOpenVolume(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, " Opening of volume " + volumePath->absoluteFilePath() + " failed.\n")
+                DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, "Opening of volume " + volumePath->absoluteFilePath() + " failed.\n")
 			protected:
                 QSharedPointer<QFileInfo> volumePath;
 			DEC_SERIALIZABLE(FailedOpenVolume);
@@ -212,7 +215,7 @@ namespace GostCrypt {
             public:
                 FailedDetachLoopDevice() {}
                 FailedDetachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> loopDevice) : SystemException(fonction, filename, line), loopDevice(loopDevice) { }
-                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, SystemException, QStringLiteral("Unable to detack loop device ") + loopDevice->absoluteFilePath() + "\n")
+                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, SystemException, QStringLiteral("Unable to detach loop device ") + loopDevice->absoluteFilePath() + "\n")
             protected:
                 QSharedPointer<QFileInfo> loopDevice;
 
@@ -224,7 +227,7 @@ namespace GostCrypt {
             public:
                 VolumeNotMounted() {}
                 VolumeNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, " The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
             protected:
                 QSharedPointer<QFileInfo> volumePath;
             DEC_SERIALIZABLE(VolumeNotMounted);
