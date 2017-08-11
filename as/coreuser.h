@@ -13,10 +13,13 @@ public:
 public slots:
 		virtual void exit();
 		virtual void request(QVariant request);
+		virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
 private slots:
 	void receiveResponse(QVariant &response);
 private:
 	CoreServiceHandler csh;
+signals:
+	void sendSudoPassword(QSharedPointer<QByteArray> password);
 };
 
 #endif // COREUSER_H

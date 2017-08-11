@@ -29,3 +29,8 @@ void CoreRoot::request(QVariant r)
 	}
 
 }
+
+void CoreRoot::receiveSudoPassword(QSharedPointer<QByteArray> password)
+{
+	password->fill('\0');
+}

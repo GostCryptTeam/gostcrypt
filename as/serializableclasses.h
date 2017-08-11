@@ -47,6 +47,7 @@ struct MinRequest : BaseRequest {
 };
 struct ExitRequest : BaseRequest {};
 struct BaseResponse {};
+struct InitResponse : BaseResponse {};
 struct MaxResponse : BaseResponse {
 	qint32 res;
 	void print() {
@@ -66,6 +67,7 @@ DEC_SERIALIZABLE(MinRequest)
 DEC_SERIALIZABLE(ExitRequest)
 DEC_SERIALIZABLE(BaseResponse)
 DEC_SERIALIZABLE(MaxResponse)
+DEC_SERIALIZABLE(InitResponse)
 DEC_SERIALIZABLE(MinResponse)
 
 void initSerializables();

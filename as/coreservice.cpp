@@ -29,6 +29,9 @@ int CoreService::start(int argc, char **argv)
 	app.connect(this, SIGNAL(exit()), &core, SLOT(exit()));
 	app.connect(this, SIGNAL(request(QVariant)), &core, SLOT(request(QVariant)));
 
+	InitResponse init;
+	sendResponse(QVariant::fromValue(init));
+
 	while(receiveRequest());
 
 	// No need for app.exec() since all signals use direct connection

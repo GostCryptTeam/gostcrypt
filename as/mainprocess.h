@@ -16,11 +16,24 @@ public:
 signals:
 	void request(QVariant request);
 	void exit();
-public slots:
+	void sendSudoPassword(QSharedPointer<QByteArray> password);
+private slots:
 	void printMin(QSharedPointer<MinResponse> res);
 	void printMax(QSharedPointer<MaxResponse> res);
+	void askSudoPassword();
+
 private:
 	QSharedPointer<CoreBase> core;
 };
+
+class MyApplication : public QCoreApplication {
+Q_OBJECT
+public:
+	MyApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
+	bool notify(QObject* receiver, QEvent* event);
+signals:
+	void exit();
+};
+QTextStream &qStdOut();
 
 #endif // PARENTPROCESS_H
