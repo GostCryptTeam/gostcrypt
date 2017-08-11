@@ -30,34 +30,29 @@ namespace GostCrypt {
 
 		struct CreateVolumeParams : CoreParams {
             CreateVolumeParams(){
-                path = VolumePath("");
                 type = VolumeType::Normal;
                 size = 0;
                 innerVolume.reset();
                 outerVolume.reset(new GostCrypt::NewCore::CreateVolumeParams::VolumeParams());
             }
 			struct VolumeParams {
-                VolumeParams(){
+                VolumeParams() {
                     password.reset();
                     keyfiles.reset();
-                    volumeHeaderKdf.reset(); // not supposed to be null
-                    encryptionAlgorithm.reset(); // not supposed to be null
                     filesystem = GetFileSystemTypePlatformNative();
-                    filesystemClusterSize = 4096; // default value, not supposed to change except for very specific requests
-                    sectorSize = 512; // default value, not supposed to change except for very specific requests
+                    size = 0;
                 }
 				QSharedPointer <VolumePassword> password; // password of the volume (never null)
 				QSharedPointer <KeyfileList> keyfiles; // keyfiles to use
-				QSharedPointer <Pkcs5Kdf> volumeHeaderKdf; // derivation key function to use (never null)
-				QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm; // the algorithm to use (never null)
+                qreal size; // size of the volume in percentage
+                QString volumeHeaderKdf; // derivation key function to use
+                QString encryptionAlgorithm; // the algorithm to use
                 QString filesystem; // the filesystem to use
-				uint32 filesystemClusterSize; // filesystem dependant. watch out for wrong values ! TODO
-				uint32 sectorSize; // filesystem dependant. watch out for wrong values ! TODO
                 DEC_SERIALIZABLE(VolumeParams);
 			};
-			VolumePath path; // path of the file to create or device to format
+            QSharedPointer <QFileInfo> path; // path of the file to create or device to format
 			VolumeType::Enum type; // Normal or hidden ?
-			quint64 size; // size
+            quint64 size; // size of the container
 			QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
 			QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
 			DEC_SERIALIZABLE(CreateVolumeParams);
@@ -74,12 +69,11 @@ namespace GostCrypt {
 		};
 
 		struct CreateKeyFileParams : CoreParams {
-			FilePath file; // the path of the file to fill with random data
+            QSharedPointer<QFileInfo> file; // the path of the file to fill with random data
 			DEC_SERIALIZABLE(CreateKeyFileParams);
 		};
 
 		struct MountVolumeParams : CoreParams {
-			bool isDevice;
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
 			bool doMount; // does mount the volume at the end if true
@@ -116,9 +110,22 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(GetFileSystemsTypesSupportedParams);
         };
 
+        struct GetEncryptionAlgorithmsParams : CoreParams {
+            DEC_SERIALIZABLE(GetEncryptionAlgorithmsParams);
+        }; // no parameters
+
+        struct GetDerivationFunctionsParams : CoreParams {
+            DEC_SERIALIZABLE(GetDerivationFunctionsParams);
+        }; // no parameters
+
 	}
 }
 
+
+QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
 SERIALIZABLE(GostCrypt::NewCore::CoreParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
@@ -129,5 +136,8 @@ SERIALIZABLE(GostCrypt::NewCore::DismountVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
+SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsParams)
+SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsParams)
+Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
 
 #endif // COREPARAMS_H

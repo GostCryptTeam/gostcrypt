@@ -1,4 +1,5 @@
 #include "CoreUser.h"
+#include <QThread>
 
 namespace GostCrypt {
 namespace NewCore {
@@ -12,7 +13,7 @@ namespace NewCore {
             return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<DismountVolumeResponse>>();
         }
 
-        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<DismountVolumeParams> params)
+        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<CreateVolumeParams> params)
         {
             return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<CreateVolumeResponse>>();
         }
@@ -31,16 +32,16 @@ namespace NewCore {
         {
             QVariant v;
 
-            if(rootProcess.state != QProcess::Running)
+            if(rootProcess.state() != QProcess::Running)
             {}    //start it
             rootProcessStream << params;
 
             while(v.isNull()) {
-                stream >> v;
+                rootProcessStream >> v;
                 QThread::msleep(100);
                 app->processEvents();
             }
-            if(v.canConvert<QSharedPointer<CoreResponse>())
+            if(v.canConvert<QSharedPointer<CoreResponse>>())
                 return v;
             if(v.canConvert<CoreException>())
                 throw v.value<CoreException>();

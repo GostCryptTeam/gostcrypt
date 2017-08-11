@@ -336,11 +336,11 @@ namespace GostCrypt
 		if (MountedVolume)
 		{
 			// This process will exit before the use count of MountedVolume reaches zero
-			if (MountedVolume->GetFile().use_count() > 1)
+            //if (MountedVolume->GetFile().use_count() > 1)
 				MountedVolume->GetFile()->Close();
 
-			if (MountedVolume.use_count() > 1)
-				delete MountedVolume.get();
+            /*if (MountedVolume.use_count() > 1)
+                delete MountedVolume.get();*/
 
 			MountedVolume.reset();
 		}

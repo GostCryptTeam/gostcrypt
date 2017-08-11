@@ -21,10 +21,20 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
                       });
     parser.process(app);
 
-    // Parsing all options
-
     if (parser.isSet("help"))
         throw Parser::ParseException(); // throwing an empty exception shows the help only
+
+    // parsing positional arguments
+
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Argument 'volumepath' missed.");
+    if (positionalArguments.size() > 2)
+        throw Parser::ParseException("Too many arguments specified.");
+
+    options->path.reset(new QFileInfo(positionalArguments.at(1)));
+
+    // Parsing all options
 
     if (parser.isSet("options")) {
         const QStringList opts = parser.values("options");
@@ -86,16 +96,6 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
         else if(protection != "none")
             throw Parser::ParseException("Protection type not found : "+ protection);
     }
-
-    // parsing positional arguments
-
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
-
-    options->path.reset(new QFileInfo(positionalArguments.at(1)));
 }
 
 void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
@@ -160,30 +160,41 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
 void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
-    parser.addPositionalArgument("volumepath", "Path of the volume to create", "path");
+    parser.addPositionalArgument("volumepath", "Path of the volume to create", "path"); // TODO add default values to description
     parser.addOptions({
                           {{"p","password"}, "Specify an inline password.", "password"},
                           {{"hpassword","hidden-password"}, "Specify an inline hidden password.", "password"},
                           {{"f", "file", "keyfile"}, "Adds a keyfile.", "file"},
                           {{"hfile", "hkeyfile"/*,"hidden-file", "hidden-keyfile"*/}, "Adds a keyfile for the hidden volume.", "file"},
-                          {{"h", "hash"}, "Chooses the hash function. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
+                          {"hash", "Chooses the hash function. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"hhash","hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
                           {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities."},
-                          {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities."},
+                          {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
+                          {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
                           //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
                           //{"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
                           {{"s", "size", "volume-size"}, "Sets the wanted size of the created volume. For hidden volumes, the size will be asked later.", "size{B|KB|MB|GB}"},
+                          {{"os", "outer-size"}, "Sets the partition size for the outer volume in percentage of the max size. default is 0.5", "percentage"},
+                          {{"is", "inner-size"}, "Sets the partition size for the inner volume in percentage of the max size. default is 0.7", "percentage"},
                           {{"t", "type"}, "Sets the volume type.", "{Normal|Hidden}"}
                       });
     //parser.process(app);
     parser.parse(QCoreApplication::arguments());
 
-    // Parsing all options
-
     if (parser.isSet("help"))
         throw Parser::ParseException(); // if help requested we throw an empty exception, showing the help and exiting
+
+    // parsing positional arguments
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Argument 'volumepath' missed.");
+    if (positionalArguments.size() > 2)
+        throw Parser::ParseException("Too many arguments specified.");
+
+    options->path = QSharedPointer<QFileInfo>(new QFileInfo(positionalArguments.at(1)));
+
+    // Parsing all options
 
     if(parser.isSet("type")){
         const QString type = parser.value("type");
@@ -226,18 +237,32 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
             throw Parser::ParseException("keyfiles not implemented yet");
         }
 
-        if (parser.isSet("hhash")) { // TODO
-            const QString myhash = parser.value("hhash");
-            throw Parser::ParseException("hashs not supported yet.");
+        if (parser.isSet("hhash")) {
+            options->innerVolume->volumeHeaderKdf = parser.value("hhash");
+        }else{
+            options->innerVolume->volumeHeaderKdf = DEFAULT_KDF; // default value
         }
 
-        if (parser.isSet("halgorithm")) { // TODO
-            const QString myalgorithm = parser.value("halgorithm");
-            throw Parser::ParseException("algorithms not supported yet.");
+        if (parser.isSet("halgorithm")) {
+            options->innerVolume->encryptionAlgorithm = parser.value("halgorithm");
+        }else{
+            options->innerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM; // default value
         }
 
         if (parser.isSet("hfile-system")) {
-            options->innerVolume->filesystem = parser.value("hfile-system"); // TODO check if ok
+            options->innerVolume->filesystem = parser.value("hfile-system");
+        }else{
+            options->innerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
+        }
+
+        if (parser.isSet("inner-size")) {
+            const QString number = parser.value("inner-size");
+            bool ok = false;
+            options->innerVolume->size = number.toDouble(&ok);
+            if (!ok)
+                throw Parser::ParseException("'size' must be a percentage like 0.5, not 50%.");
+        }else{
+            options->innerVolume->size = DEFAULT_INNER_SIZE; // default value
         }
     }
 
@@ -245,35 +270,33 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         throw Parser::ParseException("keyfiles not implemented yet");
     }
 
-    if (parser.isSet("hash")) { // TODO
-        const QString myhash = parser.value("hash");
-        throw Parser::ParseException("hashs not supported yet.");
+    if (parser.isSet("hash")) {
+        options->outerVolume->volumeHeaderKdf = parser.value("hash");
+    }else{
+        options->outerVolume->volumeHeaderKdf = DEFAULT_KDF; // default value
     }
 
-    if (parser.isSet("algorithm")) { // TODO
-        const QString myalgorithm = parser.value("algorithm");
-        throw Parser::ParseException("algorithms not supported yet.");
+    if (parser.isSet("algorithm")) {
+        options->outerVolume->encryptionAlgorithm = parser.value("algorithm");
+    }else{
+        options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM; // default value
     }
 
     if (parser.isSet("file-system")) {
-        options->outerVolume->filesystem = parser.value("file-system"); // TODO check if ok
+        options->outerVolume->filesystem = parser.value("file-system");
+    }else{
+        options->outerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
     }
 
-    /*if (parser.isSet("cluster-size")) {  // reserved for the core for now
-        const QString number = parser.value("cluster-size");
+    if (parser.isSet("outer-size")) {
+        const QString number = parser.value("outer-size");
         bool ok = false;
-        options->FilesystemClusterSize = number.toInt(&ok);
+        options->outerVolume->size = number.toDouble(&ok);
         if (!ok)
-            throw Parser::ParseException("'cluster-size' must be a number !");
+            throw Parser::ParseException("'size' must be a percentage like 0.5, not 50%.");
+    }else{
+        options->outerVolume->size = DEFAULT_OUTER_SIZE; // default value
     }
-
-    if (parser.isSet("sector-size")) {
-        const QString number = parser.value("sector-size");
-        bool ok = false;
-        options->SectorSize = number.toInt(&ok);
-        if (!ok)
-            throw Parser::ParseException("'sector-size' must be a number !");
-    }*/
 
     if (parser.isSet("size")) {
         const QString number = parser.value("size");
@@ -281,17 +304,9 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         options->size = parseSize(number, &ok);
         if (!ok)
             throw Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
+    }else{
+        options->size = DEFAULT_SIZE; // default value is 10Mio
     }
-
-    // parsing positional arguments
-
-    const QStringList positionalArguments = parser.positionalArguments();
-    if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
-    if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
-
-    options->path = GostCrypt::VolumePath(qPrintable(positionalArguments.at(1)));
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){
@@ -308,7 +323,7 @@ quint64 Parser::parseSize(QString s, bool *ok){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024;
 	}
-	if(s.data()[s.size()-2] == "G"){
+    if(s.data()[s.size()-2] == "G"){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024*1024;
 	}

@@ -12,7 +12,7 @@
 		return parent::getName() + "/"#exceptionName; \
 	} \
     virtual QString getMessage() const{ \
-        return message; \
+        return QString() + message; \
     } \
     virtual QString qwhat() const { \
         return parent::qwhat() + getMessage(); \
@@ -77,10 +77,10 @@ namespace GostCrypt {
         class FailedCreateDirectory : public SystemException {
             public:
                 FailedCreateDirectory() {}
-                FailedCreateDirectory(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), dir(dir) {}
-                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, " Fail to create directory \"" + dir->absoluteFilePath() + "\".\n")
+                FailedCreateDirectory(QString fonction, QString filename, quint32 line, QString dir) : SystemException(fonction, filename, line), dir(dir) {}
+                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, " Fail to create directory \"" + dir + "\".\n")
             protected:
-                QSharedPointer<QFileInfo> dir;
+                QString dir;
             DEC_SERIALIZABLE(FailedCreateDirectory);
         };
 
@@ -251,6 +251,72 @@ namespace GostCrypt {
                 QVariant res;
             DEC_SERIALIZABLE(UnrecognisedResponse);
         };
+
+        #define ContentSizeInvalidException(size) ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, size);
+        class ContentSizeInvalid : public CoreException {
+            public:
+                ContentSizeInvalid() {}
+                ContentSizeInvalid(QString fonction, QString filename, quint32 line, qreal size) : CoreException(fonction, filename, line), size(size) {}
+                DEF_EXCEPTION_WHAT(ContentSizeInvalid, CoreException, "Content size is invalid, must be between 0 and 1. Found : "+size+"\n")
+            protected:
+                qreal size;
+            DEC_SERIALIZABLE(ContentSizeInvalid);
+        };
+
+        #define InvalidHeaderOffsetException(headersize, headeroffset) InvalidHeaderOffset(__PRETTY_FUNCTION__, __FILE__, __LINE__, headersize, headeroffset);
+        class InvalidHeaderOffset : public CoreException {
+            public:
+                InvalidHeaderOffset() {}
+                InvalidHeaderOffset(QString fonction, QString filename, quint32 line, qint32 headeroffset, quint32 headersize) : CoreException(fonction, filename, line), headeroffset(headeroffset), headersize(headersize) { }
+                DEF_EXCEPTION_WHAT(InvalidHeaderOffset, CoreException, "Header size ("+headersize+") not compatible with header offset ("+headeroffset+") ! This error comes from the Layout definition.\n")
+            protected:
+                qint32 headeroffset;
+                quint32 headersize;
+            DEC_SERIALIZABLE(InvalidHeaderOffset);
+        };
+
+        #define FormattingSubExceptionException(exception) FormattingSubException(__PRETTY_FUNCTION__, __FILE__, __LINE__, exception);
+        class FormattingSubException : public CoreException {
+            public:
+                FormattingSubException() {}
+                FormattingSubException(QString fonction, QString filename, quint32 line, CoreException e) : CoreException(fonction, filename, line), e(e) {}
+                DEF_EXCEPTION_WHAT(FormattingSubException, CoreException, "Exception occured during formatting:\n"+e.qwhat()+"--------------\n")
+            protected:
+                CoreException e;
+            DEC_SERIALIZABLE(FormattingSubException);
+        };
+
+        #define ProcessFailedException() ProcessFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class ProcessFailed : public CoreException {
+            public:
+                ProcessFailed() {}
+                ProcessFailed(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+                DEF_EXCEPTION_WHAT(ProcessFailed, CoreException, "The executed process was shut down or failed unexpectedly.\n")
+            protected:
+            DEC_SERIALIZABLE(ProcessFailed);
+        };
+
+        #define FilesystemNotSupportedException(filesystem) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, filesystem);
+        class FilesystemNotSupported : public CoreException {
+            public:
+                FilesystemNotSupported() {}
+                FilesystemNotSupported(QString fonction, QString filename, quint32 line, QString filesystem) : CoreException(fonction, filename, line), filesystem(filesystem) {}
+                DEF_EXCEPTION_WHAT(FilesystemNotSupported, CoreException, "Filesystem not supported : "+filesystem+"\n")
+            protected:
+                QString filesystem;
+            DEC_SERIALIZABLE(FilesystemNotSupported);
+        };
+
+        #define AlgorithmNotFoundException(algorithm) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, algorithm);
+        class AlgorithmNotFound : public CoreException {
+            public:
+                AlgorithmNotFound() {}
+                AlgorithmNotFound(QString fonction, QString filename, quint32 line, QString algorithm) : CoreException(fonction, filename, line), algorithm(algorithm) {}
+                DEF_EXCEPTION_WHAT(AlgorithmNotFound, CoreException, "Filesystem not supported : "+algorithm+"\n")
+            protected:
+                QString algorithm;
+            DEC_SERIALIZABLE(AlgorithmNotFound);
+        };
 	}
 }
 
@@ -271,7 +337,11 @@ SERIALIZABLE(GostCrypt::NewCore::FailedAttachLoopDevice)
 SERIALIZABLE(GostCrypt::NewCore::FailedCreateDirectory)
 SERIALIZABLE(GostCrypt::NewCore::FailedDetachLoopDevice)
 SERIALIZABLE(GostCrypt::NewCore::VolumeNotMounted)
-
-
+SERIALIZABLE(GostCrypt::NewCore::ContentSizeInvalid)
+SERIALIZABLE(GostCrypt::NewCore::InvalidHeaderOffset)
+SERIALIZABLE(GostCrypt::NewCore::FormattingSubException)
+SERIALIZABLE(GostCrypt::NewCore::ProcessFailed)
+SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
+SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 
 #endif // COREEXCEPTION_H
