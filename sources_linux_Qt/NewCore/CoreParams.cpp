@@ -18,6 +18,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(QFileInfo);
             INIT_SERIALIZE(GetEncryptionAlgorithmsParams);
             INIT_SERIALIZE(GetDerivationFunctionsParams);
+            INIT_SERIALIZE(ExitParams);
             return true;
 		}
 
@@ -184,6 +185,14 @@ namespace GostCrypt {
             return in;
         }
         DEF_SERIALIZABLE(GetDerivationFunctionsParams)
+
+        QDataStream & operator << (QDataStream & out, const ExitParams & Valeur) {
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ExitParams & Valeur) {
+            return in;
+        }
+        DEF_SERIALIZABLE(ExitParams)
     }
 }
 

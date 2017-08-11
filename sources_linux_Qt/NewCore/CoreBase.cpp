@@ -35,23 +35,12 @@ namespace GostCrypt {
 			}
 		}
 
-		CoreBase::CoreBase()
+		CoreBase::CoreBase(QObject *parent) : QObject(parent)
 		{
-            RandomNumberGenerator::Start();
-        }
+			RandomNumberGenerator::Start();
+		}
 
-        QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
-        {
-            QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse);
-            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
-            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
-            {
-                if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
-                    response->algorithms.append(QString::fromStdWString((*ea)->GetName()));
-                }
-            }
-            return response;
-        }
+
 
         QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params)
         {

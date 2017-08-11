@@ -56,7 +56,7 @@ int handleCLI(int argc, char ** argv){
                 try {
                     Parser::parseMount(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response;
-                    response = Core->mountVolume(options);
+                    //response = Core->mountVolume(options);
                     qStdOut() << "Volume Mounted\n";
                 } catch(Parser::ParseException &e) {
                     qStdOut() << e.getMessage() << endl;
@@ -76,7 +76,7 @@ int handleCLI(int argc, char ** argv){
                 try {
                     Parser::parseCreate(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
-                    response = Core->createVolume(options);
+                    //response = Core->createVolume(options);
                     qStdOut() << "Volume Created\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
@@ -97,7 +97,7 @@ int handleCLI(int argc, char ** argv){
                 QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
                 try {
                     Parser::parseDismount(app, parser, params);
-                    Core->dismountVolume(params);
+                    //Core->dismountVolume(params);
                     qStdOut() << "Volume unmounted\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
@@ -135,7 +135,7 @@ int handleCLI(int argc, char ** argv){
                                 QSharedPointer <GostCrypt::NewCore::GetMountedVolumesParams> params;
                                 QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
                                 params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
-                                response = Core->getMountedVolumes(params);
+                                //response = Core->getMountedVolumes(params);
                                 for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
                                     qStdOut() << "----------------------------------------------------------------" << endl; // TODO : upgrade display
                                     qStdOut() << "Name: " << QString::fromStdString(string((*v)->Path))             << endl;
@@ -148,7 +148,7 @@ int handleCLI(int argc, char ** argv){
                         case Parser::Algorithms:
                             {
                                 QSharedPointer <GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response(new GostCrypt::NewCore::GetEncryptionAlgorithmsResponse);
-                                response = Core->getEncryptionAlgorithms();
+                                //response = Core->getEncryptionAlgorithms();
                                 for(QString algo : response->algorithms) {
                                     qStdOut() << algo << endl;
                                 }
@@ -157,7 +157,7 @@ int handleCLI(int argc, char ** argv){
                         case Parser::Hashs:
                             {
                                 QSharedPointer <GostCrypt::NewCore::GetDerivationFunctionsResponse> response(new GostCrypt::NewCore::GetDerivationFunctionsResponse);
-                                response = Core->getDerivationFunctions();
+                                //response = Core->getDerivationFunctions();
                                 for(QString algo : response->algorithms) {
                                     qStdOut() << algo << endl;
                                 }
@@ -166,7 +166,7 @@ int handleCLI(int argc, char ** argv){
                         case Parser::FileSystems:
                             {
 								QSharedPointer <GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse> response(new GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse);
-								response = Core->getFileSystemsTypesSupported();
+//								response = Core->getFileSystemsTypesSupported();
 								for(QString fst : response->filesystems) {
 									qStdOut() << fst << endl;
 								}
@@ -175,7 +175,7 @@ int handleCLI(int argc, char ** argv){
                         case Parser::Devices:
 							{
 								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
-								response = Core->getHostDevices();
+//								response = Core->getHostDevices();
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
                                     qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {

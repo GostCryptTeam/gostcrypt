@@ -17,6 +17,10 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(CoreResponse);
 		};
 
+		struct InitResponse : CoreResponse {
+			DEC_SERIALIZABLE(InitResponse);
+		};
+
 		struct CreateVolumeResponse : CoreResponse {
 			DEC_SERIALIZABLE(CreateVolumeResponse);
 		};
@@ -91,6 +95,8 @@ SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
+SERIALIZABLE(GostCrypt::NewCore::InitResponse)
+
 
 
 

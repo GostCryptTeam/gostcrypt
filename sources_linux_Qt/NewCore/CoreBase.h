@@ -19,19 +19,19 @@ namespace GostCrypt {
 		{
 			Q_OBJECT
 		public:
-			CoreBase();
-
-			virtual QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeParams> params) = 0;
-			virtual QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeParams> params) = 0;
-            virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<CreateVolumeParams> params) = 0;
-			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params) = 0;
+			explicit CoreBase(QObject *parent = nullptr);
+		public slots:
+			virtual void request(QVariant request) = 0;
+			virtual void exit() = 0;
+			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password) = 0;
+		protected:
             QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params = QSharedPointer<GetEncryptionAlgorithmsParams>());
             QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params = QSharedPointer<GetDerivationFunctionsParams>());
 			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesParams> params = QSharedPointer<GetHostDevicesParams>());
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params = QSharedPointer<GetMountedVolumesParams>());
             QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params = QSharedPointer<GetFileSystemsTypesSupportedParams>());
             QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
-		protected:
+
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
             QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
             QSharedPointer<Pkcs5Kdf> getDerivationKeyFunction(QString function);
@@ -42,6 +42,13 @@ namespace GostCrypt {
             void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "", bool random = true);
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+		signals:
+			void sendMountVolume(QSharedPointer<MountVolumeResponse> r);
+			void sendDismountVolume(QSharedPointer<DismountVolumeResponse> r);
+			void sendCreateVolume(QSharedPointer<CreateVolumeResponse> r);
+			void sendGetMountedVolumes(QSharedPointer<GetMountedVolumesResponse> r);
+			void exited();
+			void askSudoPassword();
         };
         QSharedPointer<CoreBase> getCore(QCoreApplication *a);
 	}

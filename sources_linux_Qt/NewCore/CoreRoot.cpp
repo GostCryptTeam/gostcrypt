@@ -6,7 +6,8 @@
 
 namespace GostCrypt {
 	namespace NewCore {
-		CoreRoot::CoreRoot()
+
+		CoreRoot::CoreRoot(QObject *parent): CoreBase(parent)
 		{
             realGroupId = static_cast <gid_t>(0);
             realUserId = static_cast <gid_t>(0);
@@ -18,7 +19,44 @@ namespace GostCrypt {
             const char *envSudoUID = getenv ("SUDO_UID");
             if (envSudoUID) {
                 realUserId =  static_cast <gid_t> (QString(envSudoUID).toLong());
-            }
+			}
+		}
+
+		void CoreRoot::request(QVariant r)
+		{
+			//TODO add all requests
+			if(r.canConvert<QSharedPointer<GetMountedVolumesParams>>()) {
+				QSharedPointer<GetMountedVolumesParams> request;
+				QSharedPointer<GetMountedVolumesResponse> response;
+				request = r.value<QSharedPointer<GetMountedVolumesParams>>();
+				response = getMountedVolumes(request);
+				emit sendGetMountedVolumes(response);
+			} else if(r.canConvert<QSharedPointer<MountVolumeParams>>()) {
+				QSharedPointer<MountVolumeParams> request;
+				QSharedPointer<MountVolumeResponse> response;
+				request = r.value<QSharedPointer<MountVolumeParams>>();
+				response  = mountVolume(request);
+				emit sendMountVolume(response);
+			} else if(r.canConvert<QSharedPointer<DismountVolumeParams>>()) {
+				QSharedPointer<DismountVolumeParams> request;
+				QSharedPointer<DismountVolumeResponse> response;
+				request = r.value<QSharedPointer<DismountVolumeParams>>();
+				response = dismountVolume(request);
+				emit sendDismountVolume(response);
+			} else if(r.canConvert<QSharedPointer<CreateVolumeParams>>()) {
+				QSharedPointer<CreateVolumeParams> request;
+				QSharedPointer<CreateVolumeResponse> response;
+				request = r.value<QSharedPointer<CreateVolumeParams>>();
+				response = createVolume(request);
+				emit sendCreateVolume(response);
+			} else {
+				qDebug() << "Unknow request : " << r.typeName();
+			}
+		}
+
+		void CoreRoot::receiveSudoPassword(QSharedPointer<QByteArray> password)
+		{
+				password->fill('\0');
 		}
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)

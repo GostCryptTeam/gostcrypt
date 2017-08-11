@@ -13,8 +13,17 @@ namespace GostCrypt {
 	namespace NewCore {
 		class CoreRoot : public CoreBase
 		{
+		Q_OBJECT
 		public:
-			CoreRoot();
+			explicit CoreRoot(QObject *parent = nullptr);
+		public slots:
+			virtual void exit() {
+				qDebug() << "CoreRoot exiting";
+				emit exited();
+			}
+			virtual void request(QVariant r);
+			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
+		public: //make protected
 			virtual QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeParams> params);
 			virtual QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeParams> params);
             virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<CreateVolumeParams> params);

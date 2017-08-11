@@ -2,34 +2,28 @@
 #define COREUSER_H
 
 #include <QSharedPointer>
-#include <QProcess>
-#include <QDataStream>
 #include "CoreResponse.h"
 #include "CoreParams.h"
 #include "CoreBase.h"
+#include "CoreServiceHandler.h"
 
 namespace GostCrypt {
 	namespace NewCore {
 		class CoreUser : public CoreBase
 		{
+		Q_OBJECT
 		public:
-            CoreUser(QCoreApplication *a) : app(a) {}
-			virtual QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeParams> params);
-			virtual QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeParams> params);
-            virtual QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<CreateVolumeParams> params);
-			virtual QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
-			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params);
-		protected:
-            QVariant forwardRoot(const QVariant params);
-            void launchRootProcess();
-		signals:
-			void askAdminPassword();
-		public slots:
-			void sendAdminPassword();
+            explicit CoreUser(QObject *parent = nullptr);
+        public slots:
+			virtual void exit();
+			virtual void request(QVariant r);
+			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
+        private slots:
+			void receiveResponse(QVariant &response);
         private:
-            QProcess rootProcess;
-            QDataStream rootProcessStream;
-            QCoreApplication *app;
+			CoreServiceHandler csh;
+		signals:
+			void sendSudoPassword(QSharedPointer<QByteArray> password);
 		};
 
 	}

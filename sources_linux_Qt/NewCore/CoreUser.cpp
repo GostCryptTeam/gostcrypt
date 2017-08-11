@@ -2,67 +2,69 @@
 #include <QThread>
 
 namespace GostCrypt {
-namespace NewCore {
-        QSharedPointer<MountVolumeResponse> CoreUser::mountVolume(QSharedPointer<MountVolumeParams> params)
-        {
-            return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<MountVolumeResponse>>();
-        }
+	namespace NewCore {
+		CoreUser::CoreUser(QObject *parent) : CoreBase(parent)
+		{
+			connect(&csh, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
+			connect(&csh, SIGNAL(askSudoPassword()), this, SIGNAL(askSudoPassword()));
+			connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), &csh, SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
+		}
 
-        QSharedPointer<DismountVolumeResponse> CoreUser::dismountVolume(QSharedPointer<DismountVolumeParams> params)
-        {
-            return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<DismountVolumeResponse>>();
-        }
+		void CoreUser::exit()
+		{
+			ExitParams request;
 
-        QSharedPointer<CreateVolumeResponse> CoreUser::createVolume(QSharedPointer<CreateVolumeParams> params)
-        {
-            return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<CreateVolumeResponse>>();
-        }
+			if(csh.isRunning()) {
+				qDebug() << "Sending exit request";
+				connect(&csh, SIGNAL(workerProcessFinished()), this, SIGNAL(exited()));
+				csh.sendToCoreService(QVariant::fromValue(request));
+			} else {
+				// The main loop was not started, so an imediate call to app.quit() would not be working.
+				QMetaObject::invokeMethod(this, "exited", Qt::QueuedConnection);
+			}
+		}
 
-        QSharedPointer<CreateKeyFileResponse> CoreUser::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
-        {
-            return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<CreateKeyFileResponse>>();
-        }
+		void CoreUser::request(QVariant r)
+		{
+			//TODO add other non-root requests
+			if(r.canConvert<QSharedPointer<GetMountedVolumesParams>>()) {
+				QSharedPointer<GetMountedVolumesParams> request;
+				QSharedPointer<GetMountedVolumesResponse> response;
+				request = r.value<QSharedPointer<GetMountedVolumesParams>>();
+				response = getMountedVolumes(request);
+				emit sendGetMountedVolumes(response);
+			} else {
+				csh.sendToCoreService(r);
+			}
+		}
 
-        QSharedPointer<ChangeVolumePasswordResponse> CoreUser::changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params)
-        {
-            return forwardRoot(QVariant::fromValue(params)).value<QSharedPointer<ChangeVolumePasswordResponse>>();
-        }
+		void CoreUser::receiveSudoPassword(QSharedPointer<QByteArray> password)
+		{
+			emit sendSudoPassword(password);
+		}
 
-        QVariant CoreUser::forwardRoot(const QVariant params)
-        {
-            QVariant v;
-
-            if(rootProcess.state() != QProcess::Running)
-            {}    //start it
-            rootProcessStream << params;
-
-            while(v.isNull()) {
-                rootProcessStream >> v;
-                QThread::msleep(100);
-                app->processEvents();
-            }
-            if(v.canConvert<QSharedPointer<CoreResponse>>())
-                return v;
-            if(v.canConvert<CoreException>())
-                throw v.value<CoreException>();
-            throw UnrecognisedResponseException(v);
-        }
-
-        void CoreUser::launchRootProcess()
-        {
-            char *password = "a";
-            rootProcess.setProgram("/usr/bin/sudo");
-            rootProcess.setArguments({QCoreApplication::applicationFilePath(), "coreservice"});
-            rootProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
-            rootProcess.start();
-            rootProcess.waitForStarted();
-            rootProcess.write(password);
-            rootProcessStream.setDevice(&rootProcess);
-        }
-
-        void CoreUser::sendAdminPassword()
-        {
-
-        }
+		void CoreUser::receiveResponse(QVariant &r)
+		{
+			//TODO add all responses
+			if(r.canConvert<QSharedPointer<GetMountedVolumesResponse>>()) {
+				QSharedPointer<GetMountedVolumesResponse> response;
+				response = r.value<QSharedPointer<GetMountedVolumesResponse>>();
+				emit sendGetMountedVolumes(response);
+			} else if(r.canConvert<QSharedPointer<MountVolumeResponse>>()) {
+				QSharedPointer<MountVolumeResponse> response;
+				response = r.value<QSharedPointer<MountVolumeResponse>>();
+				emit sendMountVolume(response);
+			} else if(r.canConvert<QSharedPointer<DismountVolumeResponse>>()) {
+				QSharedPointer<DismountVolumeResponse> response;
+				response = r.value<QSharedPointer<DismountVolumeResponse>>();
+				emit sendDismountVolume(response);
+			} else if(r.canConvert<QSharedPointer<CreateVolumeResponse>>()) {
+				QSharedPointer<CreateVolumeResponse> response;
+				response = r.value<QSharedPointer<CreateVolumeResponse>>();
+				emit sendCreateVolume(response);
+			} else {
+				qDebug() << "Unknow object : " << r.typeName();
+			}
+		}
 	}
 }

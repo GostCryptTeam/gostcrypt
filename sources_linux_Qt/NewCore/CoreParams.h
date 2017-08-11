@@ -118,6 +118,10 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(GetDerivationFunctionsParams);
         }; // no parameters
 
+        struct ExitParams : CoreParams {
+            DEC_SERIALIZABLE(ExitParams);
+        }; // no parameters
+
 	}
 }
 
@@ -138,6 +142,7 @@ SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedParams)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsParams)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsParams)
+SERIALIZABLE(GostCrypt::NewCore::ExitParams)
 Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
 
 #endif // COREPARAMS_H

@@ -46,7 +46,9 @@ HEADERS += \
     loopdevlib/linux_version.h \
     loopdevlib/loopdev.h \
     loopdevlib/pathnames.h \
-    loopdevlib/sysfs.h
+    loopdevlib/sysfs.h \
+    CoreServiceHandler.h \
+    CoreService.h
 
 SOURCES += \
     CoreParams.cpp \
@@ -63,4 +65,6 @@ SOURCES += \
     loopdevlib/canonicalize.c \
     loopdevlib/linux_version.c \
     loopdevlib/loopdev.c \
-    loopdevlib/sysfs.c
+    loopdevlib/sysfs.c \
+    CoreServiceHandler.cpp \
+    CoreService.cpp
