@@ -10,7 +10,7 @@
 #include "Platform/SystemLog.h"
 #include "DragWindowProvider.h"
 #include "volumecreation.h"
-#include "cmdUserInterface.h"
+#include "CmdLineInterface.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
             #ifdef QT_DEBUG // QML debbuger has its own arguments
                 if(!(argc == 2 && strncmp(argv[argc-1], "-qmljs", 6) == 0)){
             #endif
-                    return handleCLI(argc, argv);
+                    CmdLineInterface interface;
+                    return interface.start(argc, argv);;
             #ifdef QT_DEBUG
                 }
             #endif

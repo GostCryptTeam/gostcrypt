@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "Parser.h"
 #include <termios.h>
 #include <unistd.h>
 
