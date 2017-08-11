@@ -54,17 +54,17 @@ int handleCLI(int argc, char ** argv){
                 QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options;
                 options.reset(new GostCrypt::NewCore::MountVolumeParams());
                 try {
-                    Parser::parseMount(app, parser, options);
+                    Parser::parseMount(parser, options);
                     QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response;
                     response = Core->mountVolume(options);
-                    qStdOut() << "Volume Mounted\n";
+                    qStdOut() << "Volume Mounted." << endl;
                 } catch(Parser::ParseException &e) {
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
                 } catch(GostCrypt::NewCore::CoreException &e) {
                     qStdOut() << e.qwhat();
                 } catch(...) {
-                    qStdOut() << "Unknown exception raised \n";
+                    qStdOut() << "Unknown exception raised." << endl;
                 }
             }
             break;
@@ -74,10 +74,10 @@ int handleCLI(int argc, char ** argv){
                 QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options;
                 options.reset(new GostCrypt::NewCore::CreateVolumeParams());
                 try {
-                    Parser::parseCreate(app, parser, options);
+                    Parser::parseCreate(parser, options);
                     QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
                     response = Core->createVolume(options);
-                    qStdOut() << "Volume Created.\n";
+                    qStdOut() << "Volume Created." << endl;
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
@@ -86,7 +86,7 @@ int handleCLI(int argc, char ** argv){
                 } catch(GostCrypt::Exception &e){
                     qStdOut() << e.what();
                 } catch(...) {
-                    qStdOut() << "Unknown exception raised.";
+                    qStdOut() << "Unknown exception raised" << endl;
                 }
             }
             break;
@@ -96,18 +96,16 @@ int handleCLI(int argc, char ** argv){
             {
                 QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> params(new GostCrypt::NewCore::DismountVolumeParams);
                 try {
-                    Parser::parseDismount(app, parser, params);
+                    Parser::parseDismount(parser, params);
                     Core->dismountVolume(params);
-                    qStdOut() << "Volume unmounted.\n";
+                    qStdOut() << "Volume unmounted." << endl;
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
-                } catch(GostCrypt::NewCore::VolumeNotMounted &e) {
-                    qStdOut() << "Volume already dismounted.\n";
                 } catch(GostCrypt::NewCore::CoreException &e) {
                     qStdOut() << e.qwhat();
                 } catch(...) {
-                    qStdOut() << "Unknown exception raised.";
+                    qStdOut() << "Unknown exception raised." << endl;
                 }
             }
             break;
@@ -115,7 +113,16 @@ int handleCLI(int argc, char ** argv){
             qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::dismountall://"dismountall":
-            qStdOut() << "Option not supported." << endl; // TODO
+            {
+                try {
+                    Core->dismountVolume();
+                    qStdOut() << "All volumes dismounted." << endl;
+                } catch(GostCrypt::NewCore::CoreException &e) {
+                    qStdOut() << e.qwhat();
+                } catch(...) {
+                    qStdOut() << "Unknown exception raised.";
+                }
+            }
             break;
         case FirstCMD::automount://"automount":
             qStdOut() << "Option not supported." << endl; // TODO
@@ -124,13 +131,23 @@ int handleCLI(int argc, char ** argv){
             qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::createkeyfiles://"createkeyfiles":
-            qStdOut() << "Option not supported." << endl; // TODO
+            {
+                QStringList files;
+                Parser::parseCreateKeyFiles(parser, files);
+                QSharedPointer <GostCrypt::NewCore::CreateKeyFileParams> params;
+                params.reset(new GostCrypt::NewCore::CreateKeyFileParams());
+                for(QStringList::Iterator file = files.begin(); file != files.end(); file++){
+                    params->file.reset(new QFileInfo(*file));
+                    Core->createKeyFile(params);
+                }
+                qStdOut() << "All keyfiles created." << endl;
+            }
             break;
         case FirstCMD::list://"list":
             {
                 Parser::WhatToList item;
                 try {
-                    Parser::parseList(app,parser,&item);
+                    Parser::parseList(parser, &item);
                     switch(item){
                         case Parser::Volumes:
                             {

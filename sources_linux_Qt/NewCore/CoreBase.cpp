@@ -404,8 +404,7 @@ namespace GostCrypt {
             return response;
         }
 
-        QSharedPointer<CreateKeyFileResponse> CoreRoot::createKeyFile(QSharedPointer<CreateKeyFileParams> params)
-        {
+        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileParams> params) {
             if(!params)
                 throw MissingParamException("params");
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random

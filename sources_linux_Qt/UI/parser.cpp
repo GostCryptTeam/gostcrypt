@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
+void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
     parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
@@ -98,7 +98,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
     }
 }
 
-void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
+void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
 {
 	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
 	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
@@ -122,7 +122,7 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
     //TODO add force option
 }
 
-void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item)
+void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 {
 	parser.addPositionalArgument("list", "Mounts a volume.", "list");
 	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
@@ -157,7 +157,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
 		throw Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
+void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path"); // TODO add default values to description
@@ -307,6 +307,27 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
     }else{
         options->size = DEFAULT_SIZE; // default value is 10Mio
     }
+}
+
+void Parser::parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files)
+{
+    parser.addPositionalArgument("createkeyfiles", "Creates a keyfile", "createkeyfiles");
+    parser.addPositionalArgument("paths", "Paths of the keyfiles to create", "path0 [path1] ...");
+    parser.parse(QCoreApplication::arguments());
+
+    // Parsing all options
+
+    if (parser.isSet("help"))
+        throw Parser::ParseException();
+
+    // parsing positional arguments
+
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() < 2)
+        throw Parser::ParseException("Please Specify the path of at least one keyfile to create.");
+    if (positionalArguments.size() >= 2)
+        for(int i=1; i<positionalArguments.size(); i++)
+            files.append(positionalArguments.at(i));
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){

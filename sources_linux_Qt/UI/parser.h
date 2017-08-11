@@ -36,11 +36,11 @@ namespace Parser {
         Devices
     } WhatToList;
 
-    void parseMount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options);
-    void parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options);
-    void parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> options);
-    void parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item);
-    //void parseCreateKeyFiles()
+    void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options);
+    void parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options);
+    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> options);
+    void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
+    void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
 
     quint64 parseSize(QString s, bool *ok);
     bool askPassword(string volume, QString &p);

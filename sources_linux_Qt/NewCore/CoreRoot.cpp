@@ -163,16 +163,17 @@ namespace GostCrypt {
             {
                 QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
-                getMountedVolumesParams->volumePath = params->volumepath;
+                if(params)
+                    getMountedVolumesParams->volumePath = params->volumepath;
                 getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-                if(getMountedVolumesResponse->volumeInfoList.isEmpty())
+                if(params && params->volumepath && getMountedVolumesResponse->volumeInfoList.isEmpty())
                     throw VolumeNotMountedException(params->volumepath);
                 mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
             for (QSharedPointer<VolumeInfo> mountedVolume : mountedVolumes) {
                 /* Unmount filesystem */
                 if(!mountedVolume->MountPoint.IsEmpty()) {
-                    MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), params->force);
+                    MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), (params) ? params->force : false);
                 }
 
                 /* Detach loop device */
@@ -183,7 +184,7 @@ namespace GostCrypt {
                 // Probably not necessary to update mountedVolume
 
                 /* Unmount Fuse filesystem */
-                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), params->force);
+                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), (params) ? params->force : false);
 
                 /* Delete fuse mount point directory */
                  QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
@@ -281,11 +282,11 @@ namespace GostCrypt {
             QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
             dismountparams->volumepath = volume;
 
-            try {
+            //try {
                 mountresponse = mountVolume(mountparams);
-            } catch (CoreException &e){
-                throw FormattingSubExceptionException(e);
-            }
+            //} catch (CoreException &e){
+            //    throw FormattingSubExceptionException(e);
+            //}
 
             QStringList arguments;
             arguments << QString::fromStdWString(wstring(mountresponse->volumeInfo->LoopDevice));
