@@ -1,5 +1,5 @@
-#ifndef PARENTPROCESS_H
-#define PARENTPROCESS_H
+#ifndef CORESERVICEHANDLER_H
+#define CORESERVICEHANDLER_H
 
 #include <QObject>
 #include <QCoreApplication>
@@ -8,31 +8,28 @@
 #include <QVariant>
 #include <QQueue>
 
-class ParentProcess : QObject
+class CoreServiceHandler : public QObject
 {
 	Q_OBJECT
 public:
-	ParentProcess();
-	int start(int argc, char **argv);
+	CoreServiceHandler();
+	void sendToCoreService(QVariant request);
+	bool isRunning();
 private:
 	void sendRequests();
 	void startWorkerProcess();
 
-	QCoreApplication *a;
 	QDataStream workerProcessStream;
 	QProcess workerProcess;
 	QQueue<QVariant> waitingRequests;
-public slots:
-	void min(quint32 a, quint32 b);
-	void max(quint32 a, quint32 b);
-	void exit();
 private slots: // private for direct call but still connectable => Need for communicating class
 	void receiveResponse();
-	void finish();
+	void workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 	void dbg_bytesWritten(qint64 bytes);
 	void workerProcessStarted();
-
-
+signals:
+	void sendResponse(QVariant &response);
+	void workerProcessFinished();
 };
 
-#endif // PARENTPROCESS_H
+#endif // CORESERVICEHANDLER_H

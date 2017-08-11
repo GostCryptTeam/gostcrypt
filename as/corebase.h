@@ -2,19 +2,25 @@
 #define COREBASE_H
 
 #include <QObject>
+#include <QCoreApplication>
+#include "serializableclasses.h"
 
-class CoreBase : QObject
+class CoreBase : public QObject
 {
 	Q_OBJECT
 public:
-	CoreBase(QCoreApplication &app);
+	explicit CoreBase(QObject *parent = nullptr) : QObject(parent) {}
 public slots:
-	void min(quint32 a, quint32 b);
-	void max(quint32 a, quint32 b);
-	void exit();
-private:
-	WorkerProcessHandler wph;
-	QCoreApplication *app;
+	virtual void request(QVariant request) = 0;
+	virtual void exit() = 0;
+
+protected:
+	virtual QSharedPointer<MinResponse> min(QSharedPointer<MinRequest> r);
+
+signals:
+	void sendMin(QSharedPointer<MinResponse> r);
+	void sendMax(QSharedPointer<MaxResponse> r);
+	void exited();
 };
 
 #endif // COREBASE_H
