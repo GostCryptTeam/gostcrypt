@@ -8,16 +8,15 @@ namespace GostCrypt {
 			connect(&csh, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
 			connect(&csh, SIGNAL(askSudoPassword()), this, SIGNAL(askSudoPassword()));
 			connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), &csh, SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
+			connect(&csh, SIGNAL(exited()), this, SIGNAL(exited()));
+
 		}
 
 		void CoreUser::exit()
 		{
-			ExitParams request;
-
 			if(csh.isRunning()) {
 				qDebug() << "Sending exit request";
-				connect(&csh, SIGNAL(workerProcessFinished()), this, SIGNAL(exited()));
-				csh.sendToCoreService(QVariant::fromValue(request));
+				csh.exit();
 			} else {
 				// The main loop was not started, so an imediate call to app.quit() would not be working.
 				QMetaObject::invokeMethod(this, "exited", Qt::QueuedConnection);

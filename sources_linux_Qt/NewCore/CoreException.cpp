@@ -26,6 +26,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(ProcessFailed);
             INIT_SERIALIZE(FilesystemNotSupported);
             INIT_SERIALIZE(IncorrectSudoPassword);
+            INIT_SERIALIZE(WorkerProcessCrashed);
         }
 
 
@@ -324,6 +325,16 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::IncorrectSudoPassword & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::WorkerProcessCrashed)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::WorkerProcessCrashed & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::WorkerProcessCrashed & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             return in;
         }

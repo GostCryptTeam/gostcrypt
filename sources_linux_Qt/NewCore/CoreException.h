@@ -152,6 +152,16 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(IncorrectSudoPassword);
         };
 
+        #define WorkerProcessCrashedException() WorkerProcessCrashed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class WorkerProcessCrashed : public CoreException {
+            public:
+                WorkerProcessCrashed() {}
+                WorkerProcessCrashed(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+                DEF_EXCEPTION_WHAT(WorkerProcessCrashed, CoreException, "The worker process crashed unexpectedly.\n")
+            protected:
+            DEC_SERIALIZABLE(WorkerProcessCrashed);
+        };
+
         #define MountPointUsedException(mountpoint) MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
         class MountPointUsed : public SystemException {
             public:
@@ -357,5 +367,6 @@ SERIALIZABLE(GostCrypt::NewCore::ProcessFailed)
 SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
 SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
+SERIALIZABLE(GostCrypt::NewCore::WorkerProcessCrashed)
 
 #endif // COREEXCEPTION_H

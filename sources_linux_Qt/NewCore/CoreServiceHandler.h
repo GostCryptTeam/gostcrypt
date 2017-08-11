@@ -17,6 +17,7 @@ namespace GostCrypt {
 			CoreServiceHandler();
 			void sendToCoreService(QVariant request);
 			bool isRunning();
+			void exit();
 		public slots:
 			void receiveSudoPassword(QSharedPointer<QByteArray> password);
 		private:
@@ -27,6 +28,7 @@ namespace GostCrypt {
 			QProcess workerProcess;
 			QQueue<QVariant> waitingRequests;
 			bool processInitialized;
+			bool askedToQuit;
 		private slots: // private for direct call but still connectable => Need for communicating class
 			void receiveResponse();
 			void workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
@@ -35,7 +37,7 @@ namespace GostCrypt {
 			void checkInitReceived();
 		signals:
 			void sendResponse(QVariant &response);
-			void workerProcessFinished();
+			void exited();
 			void askSudoPassword();
 		};
 	}

@@ -30,14 +30,22 @@ namespace GostCrypt {
 			return (workerProcess.state() != QProcess::NotRunning);
 		}
 
+		void CoreServiceHandler::exit()
+		{
+			ExitParams request;
+			askedToQuit = true;
+			sendToCoreService(QVariant::fromValue(request));
+		}
+
 		void CoreServiceHandler::receiveSudoPassword(QSharedPointer<QByteArray> password)
 		{
+			// No need for password then
+			if(processInitialized)
+				return;
+
 			workerProcess.write(*password);
 			workerProcess.write("\n");
 			password->fill('\0');
-			if((workerProcess.state() == QProcess::NotRunning) || workerProcess.waitForFinished(3000))
-				throw IncorrectSudoPasswordException(); //TODO throw Incorrect sudo password exception
-
 			QTimer::singleShot(1000, this, SLOT(checkInitReceived()));
 		}
 
@@ -75,7 +83,13 @@ namespace GostCrypt {
 			(void)exitCode;
 			QMetaEnum metaEnum = QMetaEnum::fromType<QProcess::ExitStatus>();
 			qDebug() << "Worker process finished:" << metaEnum.valueToKey(exitStatus);
-			emit workerProcessFinished();
+			if(askedToQuit) {
+				emit exited();
+			} else if (!processInitialized) {
+				throw IncorrectSudoPasswordException();
+			} else {
+				throw WorkerProcessCrashedException();
+			}
 		}
 
 		void CoreServiceHandler::dbg_bytesWritten(qint64 bytes)
@@ -87,12 +101,13 @@ namespace GostCrypt {
 		{
 			qDebug() << "Worker process (" << workerProcess.processId() << ") started.";
 			processInitialized = false;
+			//Sudo might already have the password in cache
 			emit askSudoPassword();
 		}
 
 		void CoreServiceHandler::checkInitReceived()
 		{
-			if(processInitialized)
+			if(processInitialized || (workerProcess.state() == QProcess::NotRunning))
 				return;
 			emit askSudoPassword();
 		}
@@ -100,13 +115,14 @@ namespace GostCrypt {
 		void CoreServiceHandler::startWorkerProcess()
 		{
 			QStringList args;
+			askedToQuit = false;
 			if(workerProcess.state() == QProcess::Starting)
 				return;
 
 			qDebug() << "Start worker process";
 			workerProcessStream.setDevice(&workerProcess);
 			workerProcess.setProgram("/usr/bin/sudo");
-			args << "-S" << "-p" << "" << QCoreApplication::applicationFilePath() << "coreservice";
+			args << "-k" << "-S" << "-p" << "" << QCoreApplication::applicationFilePath() << "coreservice";
 			workerProcess.setArguments(args);
 			workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
 			workerProcess.start();
