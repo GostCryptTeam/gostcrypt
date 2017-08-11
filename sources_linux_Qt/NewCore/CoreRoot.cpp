@@ -133,7 +133,15 @@ namespace GostCrypt {
                             throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
                         mountDirCreated = true;
                     }
-                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                    QStringList possibleFilesystemTypes;
+                    if(params && !params->fileSystemType.isEmpty())
+						possibleFilesystemTypes.append(params->fileSystemType);
+					else {
+						QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupportedResponse;
+						getFileSystemsTypesSupportedResponse = getFileSystemsTypesSupported();
+						possibleFilesystemTypes = getFileSystemsTypesSupportedResponse->filesystems;
+					}
+                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, possibleFilesystemTypes, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
                 }
             } catch(...) {
                 QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
