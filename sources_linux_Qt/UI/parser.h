@@ -9,6 +9,7 @@
 
 namespace Parser {
 
+    // default values for creating a volume
     #define DEFAULT_ALGORITHM "Gost Grasshopper"
     #define DEFAULT_KDF "HMAC-Whirlpool"
     #define DEFAULT_SIZE 10485760 // 10Mio
@@ -39,6 +40,7 @@ namespace Parser {
     void parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options);
     void parseDismount(QCoreApplication &app, QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> options);
     void parseList(QCoreApplication &app, QCommandLineParser &parser, Parser::WhatToList *item);
+    //void parseCreateKeyFiles()
 
     quint64 parseSize(QString s, bool *ok);
     bool askPassword(string volume, QString &p);

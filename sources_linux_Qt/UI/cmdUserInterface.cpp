@@ -77,7 +77,7 @@ int handleCLI(int argc, char ** argv){
                     Parser::parseCreate(app, parser, options);
                     QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response;
                     response = Core->createVolume(options);
-                    qStdOut() << "Volume Created\n";
+                    qStdOut() << "Volume Created.\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
@@ -98,10 +98,12 @@ int handleCLI(int argc, char ** argv){
                 try {
                     Parser::parseDismount(app, parser, params);
                     Core->dismountVolume(params);
-                    qStdOut() << "Volume unmounted\n";
+                    qStdOut() << "Volume unmounted.\n";
                 } catch(Parser::ParseException &e){
                     qStdOut() << e.getMessage() << endl;
                     parser.showHelp();
+                } catch(GostCrypt::NewCore::VolumeNotMounted &e) {
+                    qStdOut() << "Volume already dismounted.\n";
                 } catch(GostCrypt::NewCore::CoreException &e) {
                     qStdOut() << e.qwhat();
                 } catch(...) {
@@ -112,16 +114,16 @@ int handleCLI(int argc, char ** argv){
         case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
-        case FirstCMD::dismountall://"dismount-all":
+        case FirstCMD::dismountall://"dismountall":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
-        case FirstCMD::automount://"auto-mount":
+        case FirstCMD::automount://"automount":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
-        case FirstCMD::backupheaders://"backup-headers":
+        case FirstCMD::backupheaders://"backupheaders":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
-        case FirstCMD::createkeyfiles://"create-keyfiles":
+        case FirstCMD::createkeyfiles://"createkeyfiles":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::list://"list":
@@ -137,11 +139,10 @@ int handleCLI(int argc, char ** argv){
                                 params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
                                 response = Core->getMountedVolumes(params);
                                 for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
-                                    qStdOut() << "----------------------------------------------------------------" << endl; // TODO : upgrade display
-                                    qStdOut() << "Name: " << QString::fromStdString(string((*v)->Path))             << endl;
-                                    qStdOut() << "Mountpoint: " << QString::fromStdString(string((*v)->MountPoint)) << endl;
-                                    qStdOut() << "Size: " << (*v)->Size                                             << endl;
-                                    //qStdOut() << "Algorithm: " << string((*v)->EncryptionAlgorithmName) << endl;
+                                    qStdOut() << QString::fromStdString(string((*v)->Path)) << "\t";
+                                    qStdOut() << QString::fromStdString(string((*v)->MountPoint)) << "\t";
+                                    qStdOut() << (*v)->Size << "\t";
+                                    qStdOut() << QString::fromStdWString((*v)->EncryptionAlgorithmName) << endl;
                                 }
                             }
                             break;
@@ -177,9 +178,19 @@ int handleCLI(int argc, char ** argv){
 								QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
 								response = Core->getHostDevices();
 								for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-                                    qStdOut() << d->devicePath->absoluteFilePath() << "\t" << d->mountPoint->absoluteFilePath() << "\t" << d->size << endl;
+                                    qStdOut() << d->devicePath->absoluteFilePath() << "\t";
+                                    if(d->mountPoint)
+                                        qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
+                                    else
+                                        qStdOut() << "no mountpoint\t";
+                                    qStdOut() << d->size << endl;
 									for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t" << p->mountPoint->absoluteFilePath() << "\t" << p->size << endl;
+                                        qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
+                                        if(p->mountPoint)
+                                            qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
+                                        else
+                                            qStdOut() << "no mountpoint\t";
+                                        qStdOut() << p->size << endl;
 									}
 								}
 							}

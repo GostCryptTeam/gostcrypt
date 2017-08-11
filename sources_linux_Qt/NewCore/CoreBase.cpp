@@ -142,7 +142,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
+                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -169,7 +169,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-                if(params && !params->volumePath->absoluteFilePath().isEmpty())
+                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty())
 					break;
 			}
 

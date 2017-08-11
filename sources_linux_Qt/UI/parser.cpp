@@ -19,7 +19,7 @@ void Parser::parseMount(QCoreApplication &app, QCommandLineParser &parser, QShar
                           {{"s","shared"}, "Allows shared access."},
                           {{"b","backup-headers"}, "Use backup headers."},
                       });
-    parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
     if (parser.isSet("help"))
         throw Parser::ParseException(); // throwing an empty exception shows the help only
@@ -102,7 +102,7 @@ void Parser::parseDismount(QCoreApplication &app, QCommandLineParser &parser, QS
 {
 	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
 	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
-	parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
 	// Parsing all options
 	if (parser.isSet("help"))
@@ -126,7 +126,7 @@ void Parser::parseList(QCoreApplication &app, QCommandLineParser &parser, Parser
 {
 	parser.addPositionalArgument("list", "Mounts a volume.", "list");
 	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
-	parser.process(app);
+    parser.parse(QCoreApplication::arguments());
 
 	// Parsing all options
 
@@ -170,7 +170,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
                           {{"hhash","hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
                           {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
                           {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-                          {"file-system", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
+                          {"filesystem", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
                           {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
                           //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
                           //{"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
@@ -179,7 +179,7 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
                           {{"is", "inner-size"}, "Sets the partition size for the inner volume in percentage of the max size. default is 0.7", "percentage"},
                           {{"t", "type"}, "Sets the volume type.", "{Normal|Hidden}"}
                       });
-    //parser.process(app);
+
     parser.parse(QCoreApplication::arguments());
 
     if (parser.isSet("help"))
@@ -282,8 +282,8 @@ void Parser::parseCreate(QCoreApplication &app, QCommandLineParser &parser, QSha
         options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM; // default value
     }
 
-    if (parser.isSet("file-system")) {
-        options->outerVolume->filesystem = parser.value("file-system");
+    if (parser.isSet("filesystem")) {
+        options->outerVolume->filesystem = parser.value("filesystem");
     }else{
         options->outerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
     }
