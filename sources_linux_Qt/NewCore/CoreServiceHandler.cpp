@@ -53,7 +53,6 @@ namespace GostCrypt {
 		{
 			QVariant response;
 
-			qDebug() << "Receiving response(s)";
 			workerProcessStream.startTransaction();
 			workerProcessStream >> response;
 			if(!workerProcessStream.commitTransaction())
@@ -64,7 +63,7 @@ namespace GostCrypt {
 					sendRequests();
 					return;
 			}
-
+			qDebug() << "Receiving reseponse: " << response.typeName();
 			emit sendResponse(response);
 		}
 
@@ -121,8 +120,14 @@ namespace GostCrypt {
 
 			qDebug() << "Start worker process";
 			workerProcessStream.setDevice(&workerProcess);
+			//*
 			workerProcess.setProgram("/usr/bin/sudo");
 			args << "-k" << "-S" << "-p" << "" << QCoreApplication::applicationFilePath() << "coreservice";
+			//*/
+			/*
+			workerProcess.setProgram(QCoreApplication::applicationFilePath());
+			args << "coreservice";
+			//*/
 			workerProcess.setArguments(args);
 			workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
 			workerProcess.start();

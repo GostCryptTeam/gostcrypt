@@ -28,6 +28,9 @@ namespace GostCrypt {
 			initCoreResponse();
 			initCoreException();
 
+            //for debug purpose
+            //return QSharedPointer<CoreBase>(new CoreUser());
+
             if(getuid()) {
                 return QSharedPointer<CoreBase>(new CoreUser());
 			} else {

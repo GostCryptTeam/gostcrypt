@@ -88,12 +88,16 @@ namespace GostCrypt {
                         throw MissingParamException("password");
                     if(!params->protectionPassword.isNull() && !params->protectionPassword->isNull())
                         protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
-					for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-						keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
-					}
-					for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-						protectionKeyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
-					}
+                    if(!params->keyfiles.isNull()) {
+                        for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+                            keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                        }
+                    }
+                    if(!params->protectionKeyfiles.isNull()) {
+                        for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
+                            protectionKeyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                        }
+                    }
 
                     volume->Open(
 						path,
@@ -188,6 +192,7 @@ namespace GostCrypt {
 						QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupportedResponse;
 						getFileSystemsTypesSupportedResponse = getFileSystemsTypesSupported();
 						possibleFilesystemTypes = getFileSystemsTypesSupportedResponse->filesystems;
+                        possibleFilesystemTypes << "vfat";
 					}
                     MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, possibleFilesystemTypes, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
                 }

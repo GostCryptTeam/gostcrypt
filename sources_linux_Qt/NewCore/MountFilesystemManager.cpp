@@ -18,14 +18,16 @@ namespace NewCore {
 			if(!additionalMountOptions.isEmpty())
 				mountOptions += "," + additionalMountOptions;
 
+            int prev_errno;
             for (QString filesystemType : possiblefilesystemTypes) {
 				if(!mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data())) {
 					mounted = true;
 					break;
 				}
+                prev_errno = errno;
 			}
 			if(!mounted)
-				throw FailMountFilesystemException(errno, mountPoint, devicePath);
+                throw FailMountFilesystemException(prev_errno, mountPoint, devicePath);
         }
 
 

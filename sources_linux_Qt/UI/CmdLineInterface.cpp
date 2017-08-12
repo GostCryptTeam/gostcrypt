@@ -41,7 +41,15 @@ int CmdLineInterface::start(int argc, char **argv)
     app.connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), core.data(), SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
 
     /* Processing the commands passed */
-    processRequest();
+    try {
+        processRequest();
+    } catch(GostCrypt::NewCore::CoreException &e) {
+        qDebug().noquote() << e.qwhat();
+        return -1;
+    } catch (QException &e) { // TODO : handle exceptions here
+        qDebug() << e.what();
+        return -1;
+    }
 
     return app.exec();
 }
@@ -238,11 +246,9 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     try {
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::CoreException &e) {
-        qDebug() << "Exception catched !";
-        qDebug() << e.what();
+        qDebug().noquote() << e.what();
         emit exit();
     } catch (QException &e) { // TODO : handle exceptions here
-        qDebug() << "Exception catched !";
         qDebug() << e.what();
         emit exit();
     }

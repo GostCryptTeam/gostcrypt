@@ -7,14 +7,13 @@ namespace GostCrypt {
     namespace NewCore {
 		int CoreService::start(int argc, char **argv)
 		{
-			QCoreApplication app(argc, argv);
+			CoreServiceApplication app(argc, argv);
 
 			initCoreParams();
 			initCoreResponse();
 			initCoreException();
 
-			a = &app; //should be removed
-			QCoreApplication::setApplicationName("coreservice");
+			CoreServiceApplication::setApplicationName("coreservice");
 			qDebug() << "CoreService started";
 
 			inputStream.setDevice(&inputFile);
@@ -29,13 +28,22 @@ namespace GostCrypt {
 			CONNECT_RESPONSE_SLOT(GetMountedVolumes);
 
 			app.connect(this, SIGNAL(exit()), &core, SLOT(exit()));
+			app.connect(&app, SIGNAL(exit()), &core, SLOT(exit()));
 			app.connect(this, SIGNAL(request(QVariant)), &core, SLOT(request(QVariant)));
 
 			qDebug() << "Sending Init Request";
 			InitResponse init;
 			sendResponse(QVariant::fromValue(init));
 
-			while(receiveRequest());
+			try {
+				while(receiveRequest());
+			} catch(GostCrypt::NewCore::CoreException &e) {
+				qDebug().noquote() << e.qwhat();
+				return -1;
+			} catch (QException &e) { // TODO : handle exceptions here
+				qDebug() << e.what();
+				return -1;
+			}
 
 			// No need for app.exec() since all signals use direct connection
 			return 0;
@@ -69,6 +77,22 @@ namespace GostCrypt {
 			outputStream << response;
 			outputFile.flush();
 		}
+
+		bool CoreServiceApplication::notify(QObject *receiver, QEvent *event)
+		{
+			    bool done = true;
+				try {
+					done = QCoreApplication::notify(receiver, event);
+				} catch(GostCrypt::NewCore::CoreException &e) {
+					qDebug().noquote() << e.qwhat();
+					emit exit();
+				} catch (QException &e) { // TODO : handle exceptions here
+					qDebug() << e.what();
+					emit exit();
+				}
+				return done;
+		}
+
 	}
 }
 

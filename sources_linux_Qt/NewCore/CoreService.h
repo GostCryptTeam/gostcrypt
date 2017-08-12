@@ -25,7 +25,6 @@ namespace GostCrypt {
 			CoreService() {}
 			int start(int argc, char **argv);
 		private:
-			QCoreApplication *a;
 			QFile outputFile;
 			QFile inputFile;
 			QDataStream inputStream;
@@ -41,6 +40,16 @@ namespace GostCrypt {
 			DEF_RESPONSE_SLOT(GetMountedVolumes)
 		signals:
 			void request(QVariant request);
+			void exit();
+		};
+
+		// redefines the notify function of QCoreApplication to catch all exceptions at once
+		class CoreServiceApplication : public QCoreApplication {
+		Q_OBJECT
+		public:
+			CoreServiceApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
+			bool notify(QObject* receiver, QEvent* event);
+		signals:
 			void exit();
 		};
 	}
