@@ -39,7 +39,6 @@ namespace GostCrypt {
             QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params = QSharedPointer<GetDerivationFunctionsParams>());
 			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesParams> params = QSharedPointer<GetHostDevicesParams>());
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params = QSharedPointer<GetMountedVolumesParams>());
-            QSharedPointer<GetFileSystemsTypesSupportedResponse> getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params = QSharedPointer<GetFileSystemsTypesSupportedParams>());
             QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
 
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
@@ -62,7 +61,6 @@ namespace GostCrypt {
 			DEC_REQUEST_SIGNAL(GetDerivationFunctions);
 			DEC_REQUEST_SIGNAL(GetHostDevices);
 			DEC_REQUEST_SIGNAL(GetMountedVolumes);
-			DEC_REQUEST_SIGNAL(GetFileSystemsTypesSupported);
 			DEC_REQUEST_SIGNAL(CreateKeyFile);
 			void exited();
 			void askSudoPassword();

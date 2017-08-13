@@ -14,7 +14,6 @@ namespace GostCrypt {
 			INIT_SERIALIZE(DismountVolumeResponse);
 			INIT_SERIALIZE(GetHostDevicesResponse);
 			INIT_SERIALIZE(GetMountedVolumesResponse);
-            INIT_SERIALIZE(GetFileSystemsTypesSupportedResponse);
             INIT_SERIALIZE(GetEncryptionAlgorithmsResponse);
             INIT_SERIALIZE(GetDerivationFunctionsResponse);
             INIT_SERIALIZE(InitResponse);
@@ -118,18 +117,6 @@ namespace GostCrypt {
         }
         QDataStream & operator >> (QDataStream & in, GetMountedVolumesResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GetFileSystemsTypesSupportedResponse)
-        QDataStream & operator << (QDataStream & out, const GetFileSystemsTypesSupportedResponse& Valeur) {
-            out << static_cast<const CoreResponse&>(Valeur);
-            out << Valeur.filesystems;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GetFileSystemsTypesSupportedResponse & Valeur) {
-            in >> static_cast<CoreResponse&>(Valeur);
-            in >> Valeur.filesystems;
             return in;
         }
 

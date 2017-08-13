@@ -391,39 +391,12 @@ namespace GostCrypt {
 			HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
 			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
 			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
-			else HANDLE_REQUEST(GetFileSystemsTypesSupported, getFileSystemsTypesSupported)
 			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
 			else {
 				return false;
 			}
 			return true;
 		}
-
-        QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
-        {
-            QSharedPointer<GetFileSystemsTypesSupportedResponse> response(new GetFileSystemsTypesSupportedResponse);
-			QFile file("/proc/filesystems");
-
-			if(!file.open(QFile::ReadOnly))
-				throw FailedOpenFileException(QFileInfo("/proc/filesystems"));
-			QByteArray fileContent = file.readAll();
-			QTextStream ts(&fileContent);
-			while(!ts.atEnd()) {
-				QStringList fields = ts.readLine().split("\t");
-
-				if(fields.count() != 2
-					|| fields.at(0) == "nodev") // We filter pseudo filesystems
-					continue;
-
-				if(params && !params->volumetypefilter.isEmpty() && fields[1] != params->volumetypefilter)
-					continue;
-
-				response->filesystems.append(fields[1]);
-			}
-			file.close();
-
-            return response;
-        }
 
         QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileParams> params) {
             if(!params)

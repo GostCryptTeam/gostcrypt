@@ -59,11 +59,6 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
-        struct GetFileSystemsTypesSupportedResponse : CoreResponse {
-            QStringList filesystems;
-            DEC_SERIALIZABLE(GetFileSystemsTypesSupportedResponse);
-        };
-
         struct GetEncryptionAlgorithmsResponse : CoreResponse {
             QStringList algorithms;
             DEC_SERIALIZABLE(GetEncryptionAlgorithmsResponse);
@@ -98,7 +93,6 @@ SERIALIZABLE(GostCrypt::NewCore::MountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::DismountVolumeResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
-SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
 SERIALIZABLE(GostCrypt::NewCore::InitResponse)

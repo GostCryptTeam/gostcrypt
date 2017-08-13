@@ -44,7 +44,6 @@ namespace GostCrypt {
 			DEF_RESPONSE_SLOT(GetDerivationFunctions)
 			DEF_RESPONSE_SLOT(GetHostDevices)
 			DEF_RESPONSE_SLOT(GetMountedVolumes)
-			DEF_RESPONSE_SLOT(GetFileSystemsTypesSupported)
 			DEF_RESPONSE_SLOT(CreateKeyFile)
 		private slots:
 			void sendException(CoreException &e);
