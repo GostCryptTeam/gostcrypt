@@ -12,6 +12,16 @@
 #include "Volume/Pkcs5Kdf.h"
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
+#define HANDLE_REQUEST(requestName, fct) \
+	if(r.canConvert<QSharedPointer<requestName ## Params>>()) { \
+		QSharedPointer<requestName ## Params> request; \
+		QSharedPointer<requestName ## Response> response; \
+		request = r.value<QSharedPointer<requestName ## Params>>(); \
+		response = fct (request); \
+		emit send ## requestName (response); \
+	}
+#define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
+
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -42,11 +52,18 @@ namespace GostCrypt {
             void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "", bool random = true);
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+            bool processNonRootRequest(QVariant r);
 		signals:
-			void sendMountVolume(QSharedPointer<MountVolumeResponse> r);
-			void sendDismountVolume(QSharedPointer<DismountVolumeResponse> r);
-			void sendCreateVolume(QSharedPointer<CreateVolumeResponse> r);
-			void sendGetMountedVolumes(QSharedPointer<GetMountedVolumesResponse> r);
+			DEC_REQUEST_SIGNAL(CreateVolume);
+			DEC_REQUEST_SIGNAL(MountVolume);
+			DEC_REQUEST_SIGNAL(DismountVolume);
+			DEC_REQUEST_SIGNAL(ChangeVolumePassword);
+			DEC_REQUEST_SIGNAL(GetEncryptionAlgorithms);
+			DEC_REQUEST_SIGNAL(GetDerivationFunctions);
+			DEC_REQUEST_SIGNAL(GetHostDevices);
+			DEC_REQUEST_SIGNAL(GetMountedVolumes);
+			DEC_REQUEST_SIGNAL(GetFileSystemsTypesSupported);
+			DEC_REQUEST_SIGNAL(CreateKeyFile);
 			void exited();
 			void askSudoPassword();
         };

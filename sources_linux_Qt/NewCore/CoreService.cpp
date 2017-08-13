@@ -28,7 +28,13 @@ namespace GostCrypt {
 			CONNECT_RESPONSE_SLOT(CreateVolume);
 			CONNECT_RESPONSE_SLOT(MountVolume);
 			CONNECT_RESPONSE_SLOT(DismountVolume);
+			CONNECT_RESPONSE_SLOT(ChangeVolumePassword);
+			CONNECT_RESPONSE_SLOT(GetEncryptionAlgorithms);
+			CONNECT_RESPONSE_SLOT(GetDerivationFunctions);
+			CONNECT_RESPONSE_SLOT(GetHostDevices);
 			CONNECT_RESPONSE_SLOT(GetMountedVolumes);
+			CONNECT_RESPONSE_SLOT(GetFileSystemsTypesSupported);
+			CONNECT_RESPONSE_SLOT(CreateKeyFile);
 
 			app.connect(this, SIGNAL(exit()), &core, SLOT(exit()));
 			app.connect(&app, SIGNAL(exit()), &core, SLOT(exit()));

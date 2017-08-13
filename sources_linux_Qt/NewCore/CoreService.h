@@ -39,7 +39,13 @@ namespace GostCrypt {
 			DEF_RESPONSE_SLOT(CreateVolume)
 			DEF_RESPONSE_SLOT(MountVolume)
 			DEF_RESPONSE_SLOT(DismountVolume)
+			DEF_RESPONSE_SLOT(ChangeVolumePassword)
+			DEF_RESPONSE_SLOT(GetEncryptionAlgorithms)
+			DEF_RESPONSE_SLOT(GetDerivationFunctions)
+			DEF_RESPONSE_SLOT(GetHostDevices)
 			DEF_RESPONSE_SLOT(GetMountedVolumes)
+			DEF_RESPONSE_SLOT(GetFileSystemsTypesSupported)
+			DEF_RESPONSE_SLOT(CreateKeyFile)
 		private slots:
 			void sendException(CoreException &e);
 		signals:

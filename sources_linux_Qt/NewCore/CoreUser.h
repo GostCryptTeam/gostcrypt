@@ -7,6 +7,13 @@
 #include "CoreBase.h"
 #include "CoreServiceHandler.h"
 
+#define HANDLE_RESPONSE(requestName) \
+	if(r.canConvert<QSharedPointer<requestName ## Response>>()) { \
+		QSharedPointer<requestName ## Response> response; \
+		response = r.value<QSharedPointer<requestName ## Response>>(); \
+		emit send ## requestName (response); \
+	}
+
 namespace GostCrypt {
 	namespace NewCore {
 		class CoreUser : public CoreBase

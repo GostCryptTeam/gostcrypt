@@ -26,16 +26,9 @@ namespace GostCrypt {
 
 		void CoreUser::request(QVariant r)
 		{
-			//TODO add other non-root requests
-			if(r.canConvert<QSharedPointer<GetMountedVolumesParams>>()) {
-				QSharedPointer<GetMountedVolumesParams> request;
-				QSharedPointer<GetMountedVolumesResponse> response;
-				request = r.value<QSharedPointer<GetMountedVolumesParams>>();
-				response = getMountedVolumes(request);
-				emit sendGetMountedVolumes(response);
-			} else {
+		//TODO add other non-root requests
+			if(!processNonRootRequest(r))
 				csh.sendToCoreService(r);
-			}
 		}
 
 		void CoreUser::receiveSudoPassword(QSharedPointer<QByteArray> password)
@@ -45,24 +38,11 @@ namespace GostCrypt {
 
 		void CoreUser::receiveResponse(QVariant &r)
 		{
-			//TODO add all responses
-			if(r.canConvert<QSharedPointer<GetMountedVolumesResponse>>()) {
-				QSharedPointer<GetMountedVolumesResponse> response;
-				response = r.value<QSharedPointer<GetMountedVolumesResponse>>();
-				emit sendGetMountedVolumes(response);
-			} else if(r.canConvert<QSharedPointer<MountVolumeResponse>>()) {
-				QSharedPointer<MountVolumeResponse> response;
-				response = r.value<QSharedPointer<MountVolumeResponse>>();
-				emit sendMountVolume(response);
-			} else if(r.canConvert<QSharedPointer<DismountVolumeResponse>>()) {
-				QSharedPointer<DismountVolumeResponse> response;
-				response = r.value<QSharedPointer<DismountVolumeResponse>>();
-				emit sendDismountVolume(response);
-			} else if(r.canConvert<QSharedPointer<CreateVolumeResponse>>()) {
-				QSharedPointer<CreateVolumeResponse> response;
-				response = r.value<QSharedPointer<CreateVolumeResponse>>();
-				emit sendCreateVolume(response);
-			} else {
+			HANDLE_RESPONSE(MountVolume)
+			else HANDLE_RESPONSE(DismountVolume)
+			else HANDLE_RESPONSE(CreateVolume)
+			else HANDLE_RESPONSE(ChangeVolumePassword)
+			else {
 				throw UnknowResponseException(r.typeName());
 			}
 		}

@@ -28,9 +28,6 @@ namespace GostCrypt {
 			initCoreResponse();
 			initCoreException();
 
-            //for debug purpose
-            //return QSharedPointer<CoreBase>(new CoreUser());
-
             if(getuid()) {
                 return QSharedPointer<CoreBase>(new CoreUser());
 			} else {
@@ -41,6 +38,13 @@ namespace GostCrypt {
 		CoreBase::CoreBase(QObject *parent) : QObject(parent)
 		{
 			RandomNumberGenerator::Start();
+		}
+
+		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
+		{
+			QSharedPointer<GetEncryptionAlgorithmsResponse> response;
+			(void)params;//TODO
+			return response;
 		}
 
 
@@ -371,8 +375,21 @@ namespace GostCrypt {
                         continue;
                     throw FailedCreateFuseMountPointException(e.getMountpoint());
                 }
-            }
-        }
+			}
+		}
+
+		bool CoreBase::processNonRootRequest(QVariant r)
+		{
+			HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
+			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
+			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
+			else HANDLE_REQUEST(GetFileSystemsTypesSupported, getFileSystemsTypesSupported)
+			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
+			else {
+				return false;
+			}
+			return true;
+		}
 
         QSharedPointer<GetFileSystemsTypesSupportedResponse> CoreBase::getFileSystemsTypesSupported(QSharedPointer<GetFileSystemsTypesSupportedParams> params)
         {

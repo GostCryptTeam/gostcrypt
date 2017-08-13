@@ -32,31 +32,11 @@ namespace GostCrypt {
 		void CoreRoot::request(QVariant r)
 		{
 			//TODO add all requests
-			if(r.canConvert<QSharedPointer<GetMountedVolumesParams>>()) {
-				QSharedPointer<GetMountedVolumesParams> request;
-				QSharedPointer<GetMountedVolumesResponse> response;
-				request = r.value<QSharedPointer<GetMountedVolumesParams>>();
-				response = getMountedVolumes(request);
-				emit sendGetMountedVolumes(response);
-			} else if(r.canConvert<QSharedPointer<MountVolumeParams>>()) {
-				QSharedPointer<MountVolumeParams> request;
-				QSharedPointer<MountVolumeResponse> response;
-				request = r.value<QSharedPointer<MountVolumeParams>>();
-				response  = mountVolume(request);
-				emit sendMountVolume(response);
-			} else if(r.canConvert<QSharedPointer<DismountVolumeParams>>()) {
-				QSharedPointer<DismountVolumeParams> request;
-				QSharedPointer<DismountVolumeResponse> response;
-				request = r.value<QSharedPointer<DismountVolumeParams>>();
-				response = dismountVolume(request);
-				emit sendDismountVolume(response);
-			} else if(r.canConvert<QSharedPointer<CreateVolumeParams>>()) {
-				QSharedPointer<CreateVolumeParams> request;
-				QSharedPointer<CreateVolumeResponse> response;
-				request = r.value<QSharedPointer<CreateVolumeParams>>();
-				response = createVolume(request);
-				emit sendCreateVolume(response);
-			} else {
+			HANDLE_REQUEST(MountVolume, mountVolume)
+			else HANDLE_REQUEST(DismountVolume, dismountVolume)
+			else HANDLE_REQUEST(CreateVolume, createVolume)
+			else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
+			else if(!processNonRootRequest(r)) {
 				throw UnknowRequestException(r.typeName());
 			}
 		}
