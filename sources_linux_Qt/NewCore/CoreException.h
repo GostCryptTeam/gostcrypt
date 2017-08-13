@@ -17,6 +17,12 @@
     virtual QString qwhat() const { \
         return parent::qwhat() + getMessage(); \
     } \
+    virtual QVariant toQVariant() const { \
+		return QVariant::fromValue(*this); \
+	} \
+	virtual void raise() const { \
+		throw *this; \
+	}
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -29,13 +35,12 @@ namespace GostCrypt {
 				quint32 getLine() const {return line; }
 				QString getFilename() const {return filename; }
 				QString getFonction() const {return fonction; }
-				void raise() const { throw *this; }
 				CoreException *clone() const { return new CoreException(*this); }
 				const char * what () const throw () {
 					return qwhat().toLocal8Bit().data();
 				}
                 virtual QString qwhat() const {
-                    return "\n\nException:\t" + getName() + "\nFonction:\t" + fonction + "\nFile position:\t" + getPosition() + "\nMessage:\t";
+                    return "\nException:\t" + getName() + "\nFonction:\t" + fonction + "\nFile position:\t" + getPosition() + "\nMessage:\t";
                 }
                 virtual QString getName() const {
                     return "/CoreException";
@@ -43,6 +48,20 @@ namespace GostCrypt {
                 virtual QString getMessage() const{
                     return QString();
                 }
+                virtual QVariant toQVariant() const {
+					return QVariant::fromValue(*this);
+				}
+				virtual void raise() const {
+					throw *this;
+				}
+				QString displayedMessage() {
+#ifdef QT_DEBUG
+					return qwhat();
+#else
+					return getMessage();
+#endif
+				}
+
 			protected:
 				QString getPosition() const {
 					return filename+":"+QString::number(line);
@@ -340,6 +359,29 @@ namespace GostCrypt {
                 QString algorithm;
             DEC_SERIALIZABLE(AlgorithmNotFound);
         };
+
+        #define UnknowRequestException(requestTypeName) UnknowRequest(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
+        class UnknowRequest : public CoreException {
+            public:
+                UnknowRequest() {}
+                UnknowRequest(QString fonction, QString filename, quint32 line, const char *requestTypeName) : CoreException(fonction, filename, line), requestTypeName(requestTypeName) {}
+                DEF_EXCEPTION_WHAT(UnknowRequest, CoreException, "Core received an unknown request (" + requestTypeName + ")")
+            protected:
+            QString requestTypeName;
+            DEC_SERIALIZABLE(UnknowRequest);
+        };
+
+        #define UnknowResponseException(requestTypeName) UnknowResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
+        class UnknowResponse : public CoreException {
+            public:
+                UnknowResponse() {}
+                UnknowResponse(QString fonction, QString filename, quint32 line, const char *responseTypeName) : CoreException(fonction, filename, line), responseTypeName(responseTypeName) {}
+                DEF_EXCEPTION_WHAT(UnknowResponse, CoreException, "Unknow reponse received from workr process (" + responseTypeName + ")")
+            protected:
+            QString responseTypeName;
+            DEC_SERIALIZABLE(UnknowResponse);
+        };
+
 	}
 }
 
@@ -368,5 +410,9 @@ SERIALIZABLE(GostCrypt::NewCore::FilesystemNotSupported)
 SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
 SERIALIZABLE(GostCrypt::NewCore::WorkerProcessCrashed)
+SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
+SERIALIZABLE(GostCrypt::NewCore::UnrecognisedResponse)
+SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
+SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
 
 #endif // COREEXCEPTION_H

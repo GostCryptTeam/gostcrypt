@@ -13,8 +13,27 @@
 #include "CmdLineInterface.h"
 #include "NewCore/CoreService.h"
 
+
+#include "NewCore/CoreException.h"
+
 int main(int argc, char *argv[])
 {
+	/*
+	try {
+		try {
+			throw GostCrypt::NewCore::ExceptionFromVolumeException("test");
+		} catch (GostCrypt::NewCore::CoreException &e) {
+			qDebug().noquote() << e.qwhat();
+			QVariant v = e.toQVariant();
+			const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(v.constData());
+			exceptionPtr->raise();
+		}
+	} catch (GostCrypt::NewCore::CoreException &e) {
+			qDebug().noquote() << e.qwhat();
+	}
+	return 0;//*/
+
+
     qSetMessagePattern("%{appname}: %{message}");
     if (argc > 1)
     {

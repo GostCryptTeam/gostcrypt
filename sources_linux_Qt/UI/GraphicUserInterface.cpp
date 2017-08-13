@@ -29,6 +29,8 @@ void GraphicUserInterface::receive(const QString& str)
 {
 #ifdef QT_DEBUG
     qDebug() << str;
+#else
+	(void)str;
 #endif
 }
 
@@ -41,6 +43,7 @@ void GraphicUserInterface::receiveMount(QString aPath, const QString& aPassword)
 #ifdef QT_DEBUG
     qDebug() << "Monter : " << aPath << " " << aPassword;
 #endif
+	(void)aPassword;
     GostCrypt::NewCore::MountVolumeParams options;
     //options.Password.reset(new GostCrypt::VolumePassword(aPassword.toStdWString()));
     //options.Path.reset(new GostCrypt::VolumePath(aPath.toStdString()));

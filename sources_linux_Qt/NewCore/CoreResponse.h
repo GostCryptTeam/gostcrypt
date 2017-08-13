@@ -7,6 +7,7 @@
 #include "SerializationUtil.h"
 #include "Volume/VolumeInfo.h"
 #include "CoreParams.h"
+#include "CoreException.h"
 
 namespace GostCrypt {
 	namespace NewCore {
@@ -19,6 +20,10 @@ namespace GostCrypt {
 
 		struct InitResponse : CoreResponse {
 			DEC_SERIALIZABLE(InitResponse);
+		};
+
+		struct ExceptionResponse : CoreResponse {
+			DEC_SERIALIZABLE(ExceptionResponse);
 		};
 
 		struct CreateVolumeResponse : CoreResponse {
@@ -96,12 +101,6 @@ SERIALIZABLE(GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
 SERIALIZABLE(GostCrypt::NewCore::InitResponse)
-
-
-
-
-
-
-
+SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
 
 #endif // CORERESPONSE_H

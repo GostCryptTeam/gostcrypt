@@ -18,6 +18,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(GetEncryptionAlgorithmsResponse);
             INIT_SERIALIZE(GetDerivationFunctionsResponse);
             INIT_SERIALIZE(InitResponse);
+            INIT_SERIALIZE(ExceptionResponse);
 		}
 
         DEF_SERIALIZABLE(CoreResponse)
@@ -36,6 +37,16 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, InitResponse & Valeur) {
+            in >> static_cast<CoreResponse&>(Valeur);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(ExceptionResponse)
+        QDataStream & operator << (QDataStream & out, const ExceptionResponse& Valeur) {
+            out << static_cast<const CoreResponse&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ExceptionResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
             return in;
         }

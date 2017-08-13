@@ -22,6 +22,13 @@ namespace GostCrypt {
 			}
 		}
 
+		void CoreRoot::exit() {
+#ifdef DEBUG_CORESERVICE_HANDLER
+			qDebug() << "CoreRoot exiting";
+#endif
+			emit exited();
+		}
+
 		void CoreRoot::request(QVariant r)
 		{
 			//TODO add all requests
@@ -50,7 +57,7 @@ namespace GostCrypt {
 				response = createVolume(request);
 				emit sendCreateVolume(response);
 			} else {
-				qDebug() << "Unknow request : " << r.typeName();
+				throw UnknowRequestException(r.typeName());
 			}
 		}
 

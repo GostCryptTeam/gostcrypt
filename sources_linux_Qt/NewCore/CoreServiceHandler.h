@@ -8,6 +8,8 @@
 #include <QVariant>
 #include <QQueue>
 
+//#define DEBUG_CORESERVICE_HANDLER
+
 namespace GostCrypt {
     namespace NewCore {
 		class CoreServiceHandler : public QObject
@@ -29,8 +31,9 @@ namespace GostCrypt {
 			QQueue<QVariant> waitingRequests;
 			bool processInitialized;
 			bool askedToQuit;
+			bool exceptionToRead;
 		private slots: // private for direct call but still connectable => Need for communicating class
-			void receiveResponse();
+			void receive();
 			void workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 			void dbg_bytesWritten(qint64 bytes);
 			void workerProcessStarted();

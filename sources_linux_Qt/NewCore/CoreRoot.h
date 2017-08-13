@@ -17,10 +17,7 @@ namespace GostCrypt {
 		public:
 			explicit CoreRoot(QObject *parent = nullptr);
 		public slots:
-			virtual void exit() {
-				qDebug() << "CoreRoot exiting";
-				emit exited();
-			}
+			virtual void exit();
 			virtual void request(QVariant r);
 			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
 		public: //make protected

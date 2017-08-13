@@ -9,6 +9,8 @@
 #include "CoreResponse.h"
 #include "CoreRoot.h"
 
+//#define DEBUG_CORESERVICE
+
 #define DEF_RESPONSE_SLOT(request) \
 	void send ## request (QSharedPointer< request ## Response> response) { \
 		sendResponse(QVariant::fromValue(response)); \
@@ -38,6 +40,8 @@ namespace GostCrypt {
 			DEF_RESPONSE_SLOT(MountVolume)
 			DEF_RESPONSE_SLOT(DismountVolume)
 			DEF_RESPONSE_SLOT(GetMountedVolumes)
+		private slots:
+			void sendException(CoreException &e);
 		signals:
 			void request(QVariant request);
 			void exit();
@@ -51,6 +55,7 @@ namespace GostCrypt {
 			bool notify(QObject* receiver, QEvent* event);
 		signals:
 			void exit();
+			void sendException(CoreException &e);
 		};
 	}
 }

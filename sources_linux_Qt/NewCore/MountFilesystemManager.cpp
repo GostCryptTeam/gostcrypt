@@ -18,7 +18,7 @@ namespace NewCore {
 			if(!additionalMountOptions.isEmpty())
 				mountOptions += "," + additionalMountOptions;
 
-            int prev_errno;
+            int prev_errno = 0;
             for (QString filesystemType : possiblefilesystemTypes) {
 				if(!mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data())) {
 					mounted = true;

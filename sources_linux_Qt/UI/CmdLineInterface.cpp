@@ -235,7 +235,6 @@ void CmdLineInterface::askSudoPassword()
     *password = line.toUtf8();
     line.fill('\0');
 
-    qDebug() << QString(*password);
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the previous configuration
     emit sendSudoPassword(password);
 }
@@ -246,10 +245,10 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     try {
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::CoreException &e) {
-        qDebug().noquote() << e.what();
+        CmdLineInterface::qStdOut() << e.displayedMessage();
         emit exit();
     } catch (QException &e) { // TODO : handle exceptions here
-        qDebug() << e.what();
+		CmdLineInterface::qStdOut() << e.what();
         emit exit();
     }
     return done;

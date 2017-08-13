@@ -2,6 +2,7 @@
 #include "CoreResponse.h"
 #include "CoreParams.h"
 #include <QFile>
+#include <QThread>
 
 namespace GostCrypt {
     namespace NewCore {
@@ -14,7 +15,9 @@ namespace GostCrypt {
 			initCoreException();
 
 			CoreServiceApplication::setApplicationName("coreservice");
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "CoreService started";
+			#endif
 
 			inputStream.setDevice(&inputFile);
 			outputStream.setDevice(&outputFile);
@@ -29,21 +32,16 @@ namespace GostCrypt {
 
 			app.connect(this, SIGNAL(exit()), &core, SLOT(exit()));
 			app.connect(&app, SIGNAL(exit()), &core, SLOT(exit()));
+			app.connect(&app, SIGNAL(sendException(CoreException&)), this, SLOT(sendException(CoreException&)));
 			app.connect(this, SIGNAL(request(QVariant)), &core, SLOT(request(QVariant)));
 
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Sending Init Request";
+			#endif
 			InitResponse init;
 			sendResponse(QVariant::fromValue(init));
 
-			try {
-				while(receiveRequest());
-			} catch(GostCrypt::NewCore::CoreException &e) {
-				qDebug().noquote() << e.qwhat();
-				return -1;
-			} catch (QException &e) { // TODO : handle exceptions here
-				qDebug() << e.what();
-				return -1;
-			}
+			while(receiveRequest());
 
 			// No need for app.exec() since all signals use direct connection
 			return 0;
@@ -54,28 +52,53 @@ namespace GostCrypt {
 			QVariant request;
 
 			/* Deserialize request */
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Reading...";
+			#endif
 			inputStream.startTransaction();
 			inputStream >> request;
 			if(!inputStream.commitTransaction()) {
+				#ifdef DEBUG_CORESERVICE_HANDLER
 				qDebug() << "Not enough data";
+				#endif
 				return true;
 			}
 
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Handling request";
+			#endif
 			if(request.canConvert<ExitParams>()) {
+				#ifdef DEBUG_CORESERVICE_HANDLER
 				qDebug() << "Received Exit Request";
+				#endif
 				emit exit();
 				return false;
 			}
-			emit this->request(request);
+
+			try {
+				emit this->request(request);
+			} catch(GostCrypt::NewCore::CoreException &e) {
+				sendException(e);
+			}
+			QThread::msleep(100);
+
 			return true;
 		}
 
 		void CoreService::sendResponse(QVariant response)
 		{
+			#ifdef DEBUG_CORESERVICE_HANDLER
+			qDebug() << "Sending:" << response.typeName();
+			#endif
 			outputStream << response;
 			outputFile.flush();
+		}
+
+		void CoreService::sendException(CoreException &e)
+		{
+			ExceptionResponse r;
+			sendResponse(QVariant::fromValue(r));
+			sendResponse(e.toQVariant());
 		}
 
 		bool CoreServiceApplication::notify(QObject *receiver, QEvent *event)
@@ -84,9 +107,8 @@ namespace GostCrypt {
 				try {
 					done = QCoreApplication::notify(receiver, event);
 				} catch(GostCrypt::NewCore::CoreException &e) {
-					qDebug().noquote() << e.qwhat();
-					emit exit();
-				} catch (QException &e) { // TODO : handle exceptions here
+					emit sendException(e);
+				} catch (QException &e) {
 					qDebug() << e.what();
 					emit exit();
 				}

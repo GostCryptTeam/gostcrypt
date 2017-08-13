@@ -12,11 +12,13 @@ namespace GostCrypt {
 
 		CoreServiceHandler::CoreServiceHandler()
 		{
-
-			connect(&workerProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(receiveResponse()));
+			connect(&workerProcess, SIGNAL(readyReadStandardOutput()), this, SLOT(receive()));
 			connect(&workerProcess, SIGNAL(started()), this, SLOT(workerProcessStarted()));
 			connect(&workerProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(workerProcessExited(int,QProcess::ExitStatus)));
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			connect(&workerProcess, SIGNAL(bytesWritten(qint64)), this, SLOT(dbg_bytesWritten(qint64)));
+			#endif
+			exceptionToRead = false;
 		}
 
 		void CoreServiceHandler::sendToCoreService(QVariant request)
@@ -34,6 +36,9 @@ namespace GostCrypt {
 		{
 			ExitParams request;
 			askedToQuit = true;
+			#ifdef DEBUG_CORESERVICE_HANDLER
+			qDebug() << "Sending exit request";
+			#endif
 			sendToCoreService(QVariant::fromValue(request));
 		}
 
@@ -49,22 +54,42 @@ namespace GostCrypt {
 			QTimer::singleShot(1000, this, SLOT(checkInitReceived()));
 		}
 
-		void CoreServiceHandler::receiveResponse()
+		void CoreServiceHandler::receive()
 		{
-			QVariant response;
+			QVariant v;
 
 			workerProcessStream.startTransaction();
-			workerProcessStream >> response;
+			workerProcessStream >> v;
 			if(!workerProcessStream.commitTransaction())
 				return;
-			if(response.canConvert<InitResponse>()) {
+
+			if(exceptionToRead) {
+				const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(v.constData());
+				exceptionToRead = false;
+				exceptionPtr->raise();
+			}
+
+			if(v.canConvert<InitResponse>()) {
+					#ifdef DEBUG_CORESERVICE_HANDLER
 					qDebug() << "Worker process initialized";
+					#endif
 					processInitialized = true;
 					sendRequests();
 					return;
 			}
-			qDebug() << "Receiving reseponse: " << response.typeName();
-			emit sendResponse(response);
+
+			if(v.canConvert<ExceptionResponse>()) {
+					#ifdef DEBUG_CORESERVICE_HANDLER
+					qDebug() << "Exception occured";
+					#endif
+					exceptionToRead = true;
+					return receive();
+			}
+
+			#ifdef DEBUG_CORESERVICE_HANDLER
+			qDebug() << "Receiving response: " << v.typeName();
+			#endif
+			emit sendResponse(v);
 		}
 
 		void CoreServiceHandler::sendRequests()
@@ -74,14 +99,20 @@ namespace GostCrypt {
 
 			while(!waitingRequests.isEmpty())
 				workerProcessStream << waitingRequests.dequeue();
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Requests sent";
+			#endif
 		}
 
 		void CoreServiceHandler::workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus)
 		{
 			(void)exitCode;
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			QMetaEnum metaEnum = QMetaEnum::fromType<QProcess::ExitStatus>();
 			qDebug() << "Worker process finished:" << metaEnum.valueToKey(exitStatus);
+			#else
+			(void)exitStatus;
+			#endif
 			if(askedToQuit) {
 				emit exited();
 			} else if (!processInitialized) {
@@ -98,7 +129,9 @@ namespace GostCrypt {
 
 		void CoreServiceHandler::workerProcessStarted()
 		{
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Worker process (" << workerProcess.processId() << ") started.";
+			#endif
 			processInitialized = false;
 			//Sudo might already have the password in cache
 			emit askSudoPassword();
@@ -118,7 +151,9 @@ namespace GostCrypt {
 			if(workerProcess.state() == QProcess::Starting)
 				return;
 
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Start worker process";
+			#endif
 			workerProcessStream.setDevice(&workerProcess);
 			//*
 			workerProcess.setProgram("/usr/bin/sudo");
@@ -129,7 +164,12 @@ namespace GostCrypt {
 			args << "coreservice";
 			//*/
 			workerProcess.setArguments(args);
+			#ifdef DEBUG_CORESERVICE_HANDLER
 			workerProcess.setProcessChannelMode(QProcess::ForwardedErrorChannel);
+			#else
+			workerProcess.setProcessChannelMode(QProcess::SeparateChannels);
+			workerProcess.setReadChannel(QProcess::StandardOutput);
+			#endif
 			workerProcess.start();
 		}
 	}

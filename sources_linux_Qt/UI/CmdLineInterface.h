@@ -43,7 +43,7 @@ class CmdLineInterface : public QObject {
 Q_OBJECT
 public:
     explicit CmdLineInterface(QObject *parent = nullptr);
-    QTextStream &qStdOut();
+    static QTextStream &qStdOut();
     int start(int argc, char **argv);
 signals:
     void request(QVariant request);

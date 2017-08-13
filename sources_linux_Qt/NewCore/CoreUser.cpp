@@ -1,6 +1,8 @@
 #include "CoreUser.h"
 #include <QThread>
 
+
+
 namespace GostCrypt {
 	namespace NewCore {
 		CoreUser::CoreUser(QObject *parent) : CoreBase(parent)
@@ -15,7 +17,6 @@ namespace GostCrypt {
 		void CoreUser::exit()
 		{
 			if(csh.isRunning()) {
-				qDebug() << "Sending exit request";
 				csh.exit();
 			} else {
 				// The main loop was not started, so an imediate call to app.quit() would not be working.
@@ -62,7 +63,7 @@ namespace GostCrypt {
 				response = r.value<QSharedPointer<CreateVolumeResponse>>();
 				emit sendCreateVolume(response);
 			} else {
-				qDebug() << "Unknow object : " << r.typeName();
+				throw UnknowResponseException(r.typeName());
 			}
 		}
 	}
