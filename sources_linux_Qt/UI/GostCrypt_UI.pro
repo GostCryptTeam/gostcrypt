@@ -66,7 +66,8 @@ LIBS += \
         ../Platform/libPlatform.a \
         -ldl \
         -pthread \
-        -lfuse
+        -lfuse \
+        -lblkid
 
 TARGET = ../GostCrypt
 

@@ -228,6 +228,18 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailMountFilesystem);
         };
 
+        #define FailFindFilesystemTypeException(devicePath) FailFindFilesystemType(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
+        class FailFindFilesystemType : public SystemException {
+            public:
+                FailFindFilesystemType() {}
+                FailFindFilesystemType(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> devicePath) : SystemException(fonction, filename, line), devicePath(devicePath) {}
+                DEF_EXCEPTION_WHAT(FailFindFilesystemType, SystemException, "Unable to mount " + devicePath->absoluteFilePath() + ": Failed to find filesystem type.")
+            protected:
+                QSharedPointer<QFileInfo> devicePath;
+
+            DEC_SERIALIZABLE(FailFindFilesystemType);
+        };
+
         #define FailUnmountFilesystemException(error_number, mountpoint) FailUnmountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint);
         class FailUnmountFilesystem : public MountFilesystemManagerException {
             public:
@@ -414,5 +426,6 @@ SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
 SERIALIZABLE(GostCrypt::NewCore::UnrecognisedResponse)
 SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
+SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
 
 #endif // COREEXCEPTION_H

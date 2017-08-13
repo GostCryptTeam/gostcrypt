@@ -29,6 +29,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(WorkerProcessCrashed);
             INIT_SERIALIZE(UnknowRequest);
             INIT_SERIALIZE(UnknowResponse);
+            INIT_SERIALIZE(FailFindFilesystemType);
         }
 
 
@@ -198,6 +199,20 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailMountFilesystem & Valeur) {
           QString path;
           in >> static_cast<MountFilesystemManagerException&>(Valeur);
+          in >> path;
+          Valeur.devicePath.reset(new QFileInfo(path));
+          return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
+            out << static_cast<const SystemException&>(Valeur);
+            out << Valeur.devicePath->absoluteFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
+          QString path;
+          in >> static_cast<SystemException&>(Valeur);
           in >> path;
           Valeur.devicePath.reset(new QFileInfo(path));
           return in;
