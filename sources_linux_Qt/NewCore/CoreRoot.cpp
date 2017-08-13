@@ -31,7 +31,6 @@ namespace GostCrypt {
 
 		void CoreRoot::request(QVariant r)
 		{
-			//TODO add all requests
 			HANDLE_REQUEST(MountVolume, mountVolume)
 			else HANDLE_REQUEST(DismountVolume, dismountVolume)
 			else HANDLE_REQUEST(CreateVolume, createVolume)

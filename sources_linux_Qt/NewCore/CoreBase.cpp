@@ -43,7 +43,15 @@ namespace GostCrypt {
 		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
 		{
 			QSharedPointer<GetEncryptionAlgorithmsResponse> response;
-			(void)params;//TODO
+			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
+			(void)params;
+			for(GostCrypt::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
+			{
+				if (!(*algorithm)->IsDeprecated()){ // we don't allow deprecated algorithms
+                    response->algorithms.append(QString::fromStdWString((*algorithm)->GetName()));
+                }
+			}
+
 			return response;
 		}
 
