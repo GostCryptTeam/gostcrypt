@@ -18,6 +18,9 @@ namespace GostCrypt {
             INIT_SERIALIZE(GetDerivationFunctionsResponse);
             INIT_SERIALIZE(InitResponse);
             INIT_SERIALIZE(ExceptionResponse);
+            INIT_SERIALIZE(HostDevice);
+            INIT_SERIALIZE(MountedFilesystem);
+            INIT_SERIALIZE(VolumeInformations);
 		}
 
         DEF_SERIALIZABLE(CoreResponse)
@@ -63,10 +66,12 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(ChangeVolumePasswordResponse)
         QDataStream & operator << (QDataStream & out, const ChangeVolumePasswordResponse& Valeur) {
             out << static_cast<const CoreResponse&>(Valeur);
+            out << Valeur.changeMasterKey;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, ChangeVolumePasswordResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
+            in >> Valeur.changeMasterKey;
             return in;
         }
 
@@ -83,10 +88,14 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(MountVolumeResponse)
         QDataStream & operator << (QDataStream & out, const MountVolumeResponse& Valeur) {
             out << static_cast<const CoreResponse&>(Valeur);
+            out << Valeur.writeDisabled;
+            out << Valeur.volumeInfo;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, MountVolumeResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
+            in >> Valeur.writeDisabled;
+            in >> Valeur.volumeInfo;
             return in;
         }
 
@@ -103,20 +112,24 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GetHostDevicesResponse)
         QDataStream & operator << (QDataStream & out, const GetHostDevicesResponse& Valeur) {
             out << static_cast<const CoreResponse&>(Valeur);
+            out << Valeur.hostDevices;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GetHostDevicesResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
+            in >> Valeur.hostDevices;
             return in;
         }
 
         DEF_SERIALIZABLE(GetMountedVolumesResponse)
         QDataStream & operator << (QDataStream & out, const GetMountedVolumesResponse& Valeur) {
             out << static_cast<const CoreResponse&>(Valeur);
+            out << Valeur.volumeInfoList;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GetMountedVolumesResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
+            in >> Valeur.volumeInfoList;
             return in;
         }
 
@@ -144,5 +157,78 @@ namespace GostCrypt {
             return in;
         }
 
+        DEF_SERIALIZABLE(HostDevice)
+        QDataStream & operator << (QDataStream & out, const HostDevice& Valeur) {
+			out << Valeur.mountPoint;
+			out << Valeur.devicePath;
+			out << Valeur.size;
+			out << Valeur.partitions;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, HostDevice & Valeur) {
+			in >> Valeur.mountPoint;
+			in >> Valeur.devicePath;
+			in >> Valeur.size;
+			in >> Valeur.partitions;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(MountedFilesystem)
+        QDataStream & operator << (QDataStream & out, const MountedFilesystem& Valeur) {
+			out << Valeur.Device;
+			out << Valeur.MountPoint;
+			out << Valeur.Type;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, MountedFilesystem & Valeur) {
+			in >> Valeur.Device;
+			in >> Valeur.MountPoint;
+			in >> Valeur.Type;
+            return in;
+        }
+
+        DEF_SERIALIZABLE(VolumeInformations)
+        QDataStream & operator << (QDataStream & out, const VolumeInformations& Valeur) {
+			out << Valeur.encryptionAlgorithmName;
+			out << Valeur.fuseMountPoint;
+			out << Valeur.mountPoint;
+			out << (quint32)Valeur.protection;
+			out << Valeur.size;
+			out << (quint32)Valeur.type;
+			out << Valeur.virtualDevice;
+			out << Valeur.volumePath;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, VolumeInformations & Valeur) {
+			quint32 protection, type;
+
+			in >> Valeur.encryptionAlgorithmName;
+			in >> Valeur.fuseMountPoint;
+			in >> Valeur.mountPoint;
+			in >> protection;
+			Valeur.protection = VolumeProtection::Enum(protection);
+			in >> Valeur.size;
+			in >> type;
+			Valeur.type = VolumeType::Enum(type);
+			in >> Valeur.virtualDevice;
+			in >> Valeur.volumePath;
+			return in;
+		}
+
+		VolumeInformations::VolumeInformations(VolumeInfo v)
+		{
+			encryptionAlgorithmName = QString::fromStdWString(v.EncryptionAlgorithmName);
+			if(!v.AuxMountPoint.IsEmpty())
+				fuseMountPoint.reset(new QFileInfo(QString::fromStdWString(v.AuxMountPoint)));
+			if(!v.MountPoint.IsEmpty())
+				mountPoint.reset(new QFileInfo(QString::fromStdWString(v.MountPoint)));
+			protection = v.Protection;
+			size = v.Size;
+			type = v.Type;
+			if(!v.VirtualDevice.IsEmpty())
+				virtualDevice.reset(new QFileInfo(QString::fromStdWString(v.VirtualDevice)));
+			if(!v.Path.IsEmpty())
+				volumePath.reset(new QFileInfo(QString::fromStdWString(v.Path)));
+		}
     }
 }

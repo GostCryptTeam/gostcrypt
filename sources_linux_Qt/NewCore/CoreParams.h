@@ -42,7 +42,7 @@ namespace GostCrypt {
                     filesystem = GetFileSystemTypePlatformNative();
                     size = 0;
                 }
-				QSharedPointer <VolumePassword> password; // password of the volume (never null)
+				QSharedPointer <QByteArray> password; // password of the volume (never null)
 				QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to use
                 qreal size; // size of the volume in percentage
                 QString volumeHeaderKdf; // derivation key function to use
@@ -60,11 +60,11 @@ namespace GostCrypt {
 
 		struct ChangeVolumePasswordParams : CoreParams {
 			QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
-			QSharedPointer <VolumePassword> password; // old password, optional if volume is already opened
-			QSharedPointer <KeyfileList> keyfiles; // old keyfiles, optional if volume is already opened
-			QSharedPointer <Pkcs5Kdf> newVolumeHeaderKdf; // new key derivation function (never null)
-			QSharedPointer <VolumePassword> newPassword; // new password (never null)
-			QSharedPointer <KeyfileList> newKeyfiles; // new keyfiles
+			QSharedPointer <QByteArray> password; // old password, optional if volume is already opened
+			QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // old keyfiles, optional if volume is already opened
+			QString newVolumeHeaderKdf; // new key derivation function (never null)
+			QSharedPointer <QByteArray> newPassword; // new password (never null)
+			QSharedPointer <QList<QSharedPointer<QFileInfo>>> newKeyfiles; // new keyfiles
 			DEC_SERIALIZABLE(ChangeVolumePasswordParams);
 		};
 
@@ -120,13 +120,6 @@ namespace GostCrypt {
 	}
 }
 
-
-QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
-QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
-QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
-QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
-QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
-QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & Valeur);
 SERIALIZABLE(GostCrypt::NewCore::CoreParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams)
 SERIALIZABLE(GostCrypt::NewCore::CreateVolumeParams::VolumeParams)
@@ -139,7 +132,5 @@ SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesParams)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsParams)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsParams)
 SERIALIZABLE(GostCrypt::NewCore::ExitParams)
-Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
-Q_DECLARE_METATYPE(QSharedPointer<QByteArray>)
 
 #endif // COREPARAMS_H

@@ -207,15 +207,15 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
 
     if (parser.isSet("password")) {
         const QString password = parser.value("password");
-        options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
+        options->outerVolume->password.reset(new QByteArray(password.toUtf8()));
     }else{
         QString password;
         if(options->type != GostCrypt::VolumeType::Hidden){
             if(askPassword("volume", password))
-                options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
+                options->outerVolume->password.reset(new QByteArray(password.toUtf8()));
         } else {
             if(askPassword("outer volume", password))
-                options->outerVolume->password.reset(new GostCrypt::VolumePassword(password.toStdWString()));
+                options->outerVolume->password.reset(new QByteArray(password.toUtf8()));
         }
     }
 
@@ -225,11 +225,11 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     } else {
         if (parser.isSet("hpassword")) {
             const QString hpassword = parser.value("hpassword");
-            options->innerVolume->password.reset(new GostCrypt::VolumePassword(hpassword.toStdWString()));
+            options->innerVolume->password.reset(new QByteArray(hpassword.toUtf8()));
         }else{
             QString hpassword;
             if(askPassword("inner volume", hpassword))
-                options->innerVolume->password.reset(new GostCrypt::VolumePassword(hpassword.toStdWString()));
+                options->innerVolume->password.reset(new QByteArray(hpassword.toUtf8()));
         }
 
         if (parser.isSet("hfile")) { // TODO

@@ -55,8 +55,6 @@ namespace GostCrypt {
 			return response;
 		}
 
-
-
         QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params)
         {
             QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
@@ -131,7 +129,7 @@ namespace GostCrypt {
 					continue;
 				}
 
-				QSharedPointer<VolumeInfo> mountedVol;
+				QSharedPointer<VolumeInformations> mountedVol;
 
 				/* TODO : Replace by Qt serialization in the future */
 				try
@@ -140,7 +138,7 @@ namespace GostCrypt {
                     controlFile->Open (mf->MountPoint->absoluteFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
-					mountedVol.reset(new VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream)));
+					mountedVol.reset(new VolumeInformations(VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream))));
 				}
 				catch (...)
 				{
@@ -148,29 +146,17 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->Path != VolumePath(params->volumePath->absoluteFilePath().toStdWString()))
+                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->volumePath->absoluteFilePath() != params->volumePath->absoluteFilePath())
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
-                mountedVol->AuxMountPoint = DirectoryPath(mf->MountPoint->absoluteFilePath().toStdString());
+                mountedVol->fuseMountPoint = mf->MountPoint;
 
 				/* Add final mount point information if possible */
                 try {
-                    if(!mountedVol->VirtualDevice.IsEmpty())
-                        mountedVol->MountPoint = DirectoryPath(
-                                    getDeviceMountPoint(
-                                        QSharedPointer<QFileInfo>(
-                                            new QFileInfo(
-                                                QString::fromStdString(
-                                                    string(
-                                                        mountedVol->VirtualDevice
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )->absoluteFilePath().toStdString()
-                                    );
-                } catch(DeviceNotMounted) {} //There is no mountpoint, the virtual device is not mounted
+                    if(!mountedVol->virtualDevice->absoluteFilePath().isEmpty())
+						mountedVol->mountPoint = getDeviceMountPoint(mountedVol->virtualDevice);
+                } catch(DeviceNotMounted) {} //There is no mountpoint since the virtual device is not mounted
 
 				response->volumeInfoList.append(mountedVol);
 
@@ -210,7 +196,7 @@ namespace GostCrypt {
                     mf->MountPoint.reset(new QFileInfo(QString(entry->mnt_dir)));
 
 				if (entry->mnt_type) {
-                    mf->Type.reset(new QString(entry->mnt_type));
+                    mf->Type = QString(entry->mnt_type);
 				}
 
                 if ((devicePath.absoluteFilePath().isEmpty() || devicePath == *mf->Device) && \

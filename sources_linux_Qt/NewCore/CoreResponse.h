@@ -14,6 +14,7 @@ namespace GostCrypt {
         void initCoreResponse();
 
 		struct HostDevice;
+		struct VolumeInformations;
 		struct CoreResponse {
 			DEC_SERIALIZABLE(CoreResponse);
 		};
@@ -41,7 +42,7 @@ namespace GostCrypt {
 
 		struct MountVolumeResponse : CoreResponse {
 			bool writeDisabled;
-			QSharedPointer<VolumeInfo> volumeInfo;
+			QSharedPointer<VolumeInformations> volumeInfo;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 
@@ -55,7 +56,7 @@ namespace GostCrypt {
 		};
 
 		struct GetMountedVolumesResponse : CoreResponse {
-			QList<QSharedPointer<VolumeInfo>> volumeInfoList;
+			QList<QSharedPointer<VolumeInformations>> volumeInfoList;
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
@@ -73,7 +74,8 @@ namespace GostCrypt {
 		{
             QSharedPointer<QFileInfo> Device;
             QSharedPointer<QFileInfo> MountPoint;
-            QSharedPointer<QString> Type;
+            QString Type;
+            DEC_SERIALIZABLE(MountedFilesystem);
 		};
 
 		struct HostDevice {
@@ -81,6 +83,21 @@ namespace GostCrypt {
             QSharedPointer<QFileInfo> devicePath;
 			quint64 size;
 			QList<QSharedPointer<HostDevice>> partitions;
+			DEC_SERIALIZABLE(HostDevice);
+		};
+
+		struct VolumeInformations {
+			VolumeInformations() = default;
+			VolumeInformations(VolumeInfo v);
+			QSharedPointer<QFileInfo> fuseMountPoint;
+			QString encryptionAlgorithmName;
+			QSharedPointer<QFileInfo> virtualDevice;
+			QSharedPointer<QFileInfo> mountPoint;
+			QSharedPointer<QFileInfo> volumePath;
+			VolumeProtection::Enum protection;
+			quint64 size;
+			VolumeType::Enum type;
+			DEC_SERIALIZABLE(VolumeInformations);
 		};
 	}
 }
@@ -97,5 +114,8 @@ SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
 SERIALIZABLE(GostCrypt::NewCore::InitResponse)
 SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
+SERIALIZABLE(GostCrypt::NewCore::HostDevice)
+SERIALIZABLE(GostCrypt::NewCore::MountedFilesystem)
+SERIALIZABLE(GostCrypt::NewCore::VolumeInformations)
 
 #endif // CORERESPONSE_H

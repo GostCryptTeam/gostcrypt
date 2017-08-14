@@ -68,11 +68,11 @@ namespace GostCrypt {
 
 
                     /* Conversions :( */
-                    if(!params->password.isNull() && !params->password->isNull())
+                    if(!params->password.isNull())
                         password.reset(new VolumePassword(params->password->constData(), params->password->size()));
                     else
                         throw MissingParamException("password");
-                    if(!params->protectionPassword.isNull() && !params->protectionPassword->isNull())
+                    if(!params->protectionPassword.isNull())
                         protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
@@ -197,7 +197,7 @@ namespace GostCrypt {
             QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
             /* Get mounted volume infos */
-            QList<QSharedPointer<VolumeInfo>> mountedVolumes;
+            QList<QSharedPointer<VolumeInformations>> mountedVolumes;
             {
                 QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
@@ -208,24 +208,24 @@ namespace GostCrypt {
                     throw VolumeNotMountedException(params->volumepath);
                 mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
-            for (QSharedPointer<VolumeInfo> mountedVolume : mountedVolumes) {
+            for (QSharedPointer<VolumeInformations> mountedVolume : mountedVolumes) {
                 /* Unmount filesystem */
-                if(!mountedVolume->MountPoint.IsEmpty()) {
-                    MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->MountPoint)))), (params) ? params->force : false);
+                if(mountedVolume->mountPoint) {
+                    MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
                 }
 
                 /* Detach loop device */
-                if(!mountedVolume->LoopDevice.IsEmpty()) {
-                    LoopDeviceManager::detachLoopDevice(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->LoopDevice)))));
+                if(mountedVolume->virtualDevice) {
+                    LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
                 }
 
                 // Probably not necessary to update mountedVolume
 
                 /* Unmount Fuse filesystem */
-                MountFilesystemManager::dismountFilesystem(QSharedPointer<QFileInfo>(new QFileInfo(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)))), (params) ? params->force : false);
+                MountFilesystemManager::dismountFilesystem(mountedVolume->fuseMountPoint, (params) ? params->force : false);
 
                 /* Delete fuse mount point directory */
-                 QDir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint))).rmdir(QString::fromStdWString(wstring(mountedVolume->AuxMountPoint)));
+                QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
             }
             return response;
         }
@@ -276,7 +276,12 @@ namespace GostCrypt {
 			for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
 				keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
 			}
-            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (keyfiles, params->password);
+			shared_ptr<VolumePassword> password;
+			if(!params->password.isNull())
+				password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+			else
+				throw MissingParamException("password");
+            QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (keyfiles, password);
             options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
             options.HeaderKey = headerkey;
 
@@ -310,7 +315,7 @@ namespace GostCrypt {
 
         }
 
-        void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem)
+        void CoreRoot::formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem)
         {
             QString formatter = "mkfs."+filesystem;
 
@@ -318,7 +323,7 @@ namespace GostCrypt {
             QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
             mountparams->keyfiles = keyfiles;
             mountparams->doMount = false;
-            mountparams->password.reset(new QByteArray((char*)password->DataPtr(), password->Size()));
+            mountparams->password = password;
             mountparams->path = volume;
 
             QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
@@ -331,7 +336,7 @@ namespace GostCrypt {
             //}
 
             QStringList arguments;
-            arguments << QString::fromStdWString(wstring(mountresponse->volumeInfo->LoopDevice));
+            arguments << mountresponse->volumeInfo->virtualDevice->absoluteFilePath();
 
             QProcess *formatProcess = new QProcess();
             formatProcess->start(formatter, arguments);
@@ -419,7 +424,7 @@ namespace GostCrypt {
                 SecureBuffer pass;
                 pass.Allocate(VolumePassword::MaxSize);
                 RandomNumberGenerator::GetData(pass);
-                randomparams->password.reset(new VolumePassword(pass.Ptr(), pass.Size()));
+                randomparams->password.reset(new QByteArray((char *)pass.Ptr(), pass.Size()));
                 writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
             }
 

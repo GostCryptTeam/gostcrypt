@@ -3,6 +3,7 @@
 
 #include <QDataStream>
 #include <QSharedPointer>
+#include <QFileInfo>
 
 #define SERIALIZABLE(ClassName) \
 	Q_DECLARE_METATYPE(ClassName) \
@@ -39,5 +40,19 @@ QDataStream & operator>> (QDataStream & in, QSharedPointer<ClassName> & Valeur) 
     qRegisterMetaTypeStreamOperators<QSharedPointer<ClassName>>("QSharedPointer<"#ClassName">"); \
 	qMetaTypeId<ClassName>(); \
 	qMetaTypeId<QSharedPointer<ClassName>>()
+
+
+QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & Valeur);
+QDataStream & operator>> (QDataStream & in, QSharedPointer <QList<QSharedPointer<QFileInfo>>> & Valeur);
+QDataStream & operator<< (QDataStream & out, const QSharedPointer <QList<QSharedPointer<QFileInfo>>> & Valeur);
+Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
+Q_DECLARE_METATYPE(QSharedPointer<QByteArray>)
+Q_DECLARE_METATYPE(QSharedPointer <QList<QSharedPointer<QFileInfo>>>)
+
 
 #endif // SERIALIZEUTIL_H

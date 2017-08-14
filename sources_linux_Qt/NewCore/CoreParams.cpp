@@ -32,9 +32,9 @@ namespace GostCrypt {
 
         QDataStream & operator << (QDataStream & out, const CreateVolumeParams & Valeur) {
             out << static_cast<const CoreParams&>(Valeur);
+            out << Valeur.path;
             out << (quint32)Valeur.type;
             out << Valeur.size;
-            out << Valeur.path;
             out << Valeur.outerVolume;
             out << Valeur.innerVolume;
             return out;
@@ -42,10 +42,10 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, CreateVolumeParams & Valeur) {
             quint32 tmp;
             in >> static_cast<CoreParams&>(Valeur);
+            in >> Valeur.path;
             in >> tmp;
             Valeur.type = VolumeType::Enum(tmp);
             in >> Valeur.size;
-            in >> Valeur.path;
             in >> Valeur.outerVolume;
             in >> Valeur.innerVolume;
             return in;
@@ -53,23 +53,21 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(CreateVolumeParams)
 
         QDataStream & operator << (QDataStream & out, const CreateVolumeParams::VolumeParams & Valeur) {
-        //    out << Valeur.password;
-        //    out << Valeur.keyfiles;
+            out << Valeur.password;
+            out << Valeur.keyfiles;
+            out << Valeur.size;
             out << Valeur.volumeHeaderKdf;
             out << Valeur.encryptionAlgorithm;
             out << Valeur.filesystem;
-            //out << Valeur.filesystemClusterSize;
-            out << Valeur.size;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, CreateVolumeParams::VolumeParams & Valeur) {
-        //    in >> Valeur.password;
-        //    in >> Valeur.keyfiles;
+            in >> Valeur.password;
+            in >> Valeur.keyfiles;
+			in >> Valeur.size;
             in >> Valeur.volumeHeaderKdf;
             in >> Valeur.encryptionAlgorithm;
             in >> Valeur.filesystem;
-            //in >> Valeur.filesystemClusterSize;
-            in >> Valeur.size;
             return in;
         }
         DEF_SERIALIZABLE(CreateVolumeParams::VolumeParams)
@@ -77,21 +75,21 @@ namespace GostCrypt {
         QDataStream & operator << (QDataStream & out, const ChangeVolumePasswordParams & Valeur) {
             out << static_cast<const CoreParams&>(Valeur);
 			out << Valeur.path;
-        //    out << Valeur.password;
-        //    out << Valeur.keyfiles;
-        //    out << Valeur.newVolumeHeaderKdf;
-        //    out << Valeur.newPassword;
-        //    out << Valeur.newKeyfiles;
+            out << Valeur.password;
+            out << Valeur.keyfiles;
+            out << Valeur.newVolumeHeaderKdf;
+            out << Valeur.newPassword;
+            out << Valeur.newKeyfiles;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, ChangeVolumePasswordParams & Valeur) {
 			in >> static_cast<CoreParams&>(Valeur);
             in >> Valeur.path;
-        //    in >> Valeur.password;
-        //    in >> Valeur.keyfiles;
-        //    in >> Valeur.newVolumeHeaderKdf;
-        //    in >> Valeur.newPassword;
-        //    in >> Valeur.newKeyfiles;
+            in >> Valeur.password;
+            in >> Valeur.keyfiles;
+            in >> Valeur.newVolumeHeaderKdf;
+            in >> Valeur.newPassword;
+            in >> Valeur.newKeyfiles;
             return in;
         }
         DEF_SERIALIZABLE(ChangeVolumePasswordParams)
@@ -114,12 +112,13 @@ namespace GostCrypt {
             out << Valeur.fileSystemType;
             out << Valeur.doMount;
             out << Valeur.preserveTimestamps;
-            //+out << Valeur.keyfiles;
+            out << Valeur.keyfiles;
             out << Valeur.password;
+            out << Valeur.mountPoint;
             out << Valeur.path;
             out << (quint32)Valeur.protection;
             out << Valeur.protectionPassword;
-            //out << Valeur.protectionKeyfiles;
+            out << Valeur.protectionKeyfiles;
             out << Valeur.useBackupHeaders;
             out << Valeur.sharedAccessAllowed;
             return out;
@@ -131,13 +130,14 @@ namespace GostCrypt {
             in >> Valeur.fileSystemType;
             in >> Valeur.doMount;
             in >> Valeur.preserveTimestamps;
-            //in >> Valeur.keyfiles;
+            in >> Valeur.keyfiles;
             in >> Valeur.password;
+            in >> Valeur.mountPoint;
             in >> Valeur.path;
             in >> tmp;
             Valeur.protection = GostCrypt::VolumeProtection::Enum(tmp);
             in >> Valeur.protectionPassword;
-            //in >> Valeur.protectionKeyfiles;
+            in >> Valeur.protectionKeyfiles;
             in >> Valeur.useBackupHeaders;
             in >> Valeur.sharedAccessAllowed;
             return in;
@@ -211,18 +211,3 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(ExitParams)
     }
 }
-
-
-QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur){
-    out << Valeur.canonicalFilePath();
-    return out;
-}
-
-QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur){
-    QString path;
-    in >> path;
-    Valeur = QFileInfo(path);
-    return in;
-}
-DEF_SERIALIZABLE(QFileInfo)
-DEF_SERIALIZABLE(QByteArray)

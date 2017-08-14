@@ -4,6 +4,7 @@
 #include <QSharedPointer>
 #include <fstream>
 #include <QProcess>
+#include <QByteArray>
 #include "CoreBase.h"
 #include "CoreParams.h"
 #include "CoreResponse.h"
@@ -27,7 +28,7 @@ namespace GostCrypt {
 			virtual QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params);
         private:
             void writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeParams::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize);
-            void formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<VolumePassword> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem);
+            void formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem);
             uid_t realUserId;
             gid_t realGroupId;
 		};

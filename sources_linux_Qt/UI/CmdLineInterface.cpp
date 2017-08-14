@@ -1,5 +1,6 @@
 #include "CmdLineInterface.h"
 #include "NewCore/CoreException.h"
+#include "NewCore/CoreResponse.h"
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
@@ -279,11 +280,11 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
 {
     if(!r)
         qStdOut() << "Invalid response received." << endl;
-    for(auto v = r->volumeInfoList.begin(); v < r->volumeInfoList.end(); ++v){
-        qStdOut() << QString::fromStdString(string((*v)->Path)) << "\t";
-        qStdOut() << QString::fromStdString(string((*v)->MountPoint)) << "\t";
-        qStdOut() << (*v)->Size << "\t";
-        qStdOut() << QString::fromStdWString((*v)->EncryptionAlgorithmName) << endl;
+    for(QSharedPointer<GostCrypt::NewCore::VolumeInformations> v : r->volumeInfoList){
+        qStdOut() << v->volumePath->absoluteFilePath() << "\t";
+        qStdOut() << v->mountPoint->absoluteFilePath() << "\t";
+        qStdOut() << v->size << "\t";
+        qStdOut() << v->encryptionAlgorithmName << endl;
     }
     emit exit();
 }

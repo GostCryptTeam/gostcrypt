@@ -67,4 +67,5 @@ SOURCES += \
     loopdevlib/loopdev.c \
     loopdevlib/sysfs.c \
     CoreServiceHandler.cpp \
-    CoreService.cpp
+    CoreService.cpp \
+    SerializationUtil.cpp
