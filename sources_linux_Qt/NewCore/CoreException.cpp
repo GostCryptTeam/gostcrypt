@@ -7,6 +7,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(CoreException);
             INIT_SERIALIZE(SystemException);
             INIT_SERIALIZE(FailedOpenFile);
+            INIT_SERIALIZE(DeviceNotMounted);
             INIT_SERIALIZE(MissingParam);
             INIT_SERIALIZE(VolumeAlreadyMounted);
             INIT_SERIALIZE(FailedOpenVolume);
@@ -25,8 +26,10 @@ namespace GostCrypt {
             INIT_SERIALIZE(FormattingSubException);
             INIT_SERIALIZE(ProcessFailed);
             INIT_SERIALIZE(FilesystemNotSupported);
+            INIT_SERIALIZE(AlgorithmNotFound);
             INIT_SERIALIZE(IncorrectSudoPassword);
             INIT_SERIALIZE(WorkerProcessCrashed);
+			INIT_SERIALIZE(ExceptionFromVolume);
             INIT_SERIALIZE(UnknowRequest);
             INIT_SERIALIZE(UnknowResponse);
             INIT_SERIALIZE(FailFindFilesystemType);
@@ -204,18 +207,17 @@ namespace GostCrypt {
           return in;
         }
 
-        DEF_SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
-            out << static_cast<const SystemException&>(Valeur);
-            out << Valeur.devicePath->absoluteFilePath();
+        DEF_SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::ExceptionFromVolume & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.message;
             return out;
         }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
-          QString path;
-          in >> static_cast<SystemException&>(Valeur);
-          in >> path;
-          Valeur.devicePath.reset(new QFileInfo(path));
-          return in;
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::ExceptionFromVolume & Valeur) {
+			QString path;
+			in >> static_cast<CoreException&>(Valeur);
+			in >> Valeur.message;
+			return in;
         }
 
         DEF_SERIALIZABLE(GostCrypt::NewCore::FailUnmountFilesystem)
@@ -381,6 +383,18 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::UnknowResponse & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             in >> Valeur.responseTypeName;
+            return in;
+        }
+
+		DEF_SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
+            out << static_cast<const SystemException&>(Valeur);
+            out << Valeur.devicePath;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FailFindFilesystemType & Valeur) {
+            in >> static_cast<SystemException&>(Valeur);
+            in >> Valeur.devicePath;
             return in;
         }
     }

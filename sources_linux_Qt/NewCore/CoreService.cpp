@@ -66,6 +66,7 @@ namespace GostCrypt {
 				#ifdef DEBUG_CORESERVICE_HANDLER
 				qDebug() << "Not enough data";
 				#endif
+				QThread::msleep(100);
 				return true;
 			}
 
@@ -85,7 +86,6 @@ namespace GostCrypt {
 			} catch(GostCrypt::NewCore::CoreException &e) {
 				sendException(e);
 			}
-			QThread::msleep(100);
 
 			return true;
 		}

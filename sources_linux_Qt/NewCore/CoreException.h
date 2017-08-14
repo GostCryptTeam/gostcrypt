@@ -295,17 +295,6 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(ExceptionFromVolume);
         };
 
-        #define UnrecognisedResponseException(res) UnrecognisedResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, res);
-        class UnrecognisedResponse : public CoreException {
-            public:
-                UnrecognisedResponse() {}
-                UnrecognisedResponse(QString fonction, QString filename, quint32 line, QVariant res) : CoreException(fonction, filename, line), res(res) {}
-                DEF_EXCEPTION_WHAT(UnrecognisedResponse, CoreException, "Response from root process not recognised, type of response: " + res.typeName())
-            protected:
-                QVariant res;
-            DEC_SERIALIZABLE(UnrecognisedResponse);
-        };
-
         #define ContentSizeInvalidException(size) ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, size);
         class ContentSizeInvalid : public CoreException {
             public:
@@ -423,7 +412,6 @@ SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
 SERIALIZABLE(GostCrypt::NewCore::WorkerProcessCrashed)
 SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
-SERIALIZABLE(GostCrypt::NewCore::UnrecognisedResponse)
 SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
 SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
