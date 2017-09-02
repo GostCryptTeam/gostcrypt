@@ -102,8 +102,8 @@ namespace GostCrypt {
 		void CoreService::sendException(CoreException &e)
 		{
 			ExceptionResponse r;
+			r.exception = e.toQVariant();
 			sendResponse(QVariant::fromValue(r));
-			sendResponse(e.toQVariant());
 		}
 
 		bool CoreServiceApplication::notify(QObject *receiver, QEvent *event)

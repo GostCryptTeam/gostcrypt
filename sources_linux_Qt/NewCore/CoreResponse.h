@@ -24,6 +24,7 @@ namespace GostCrypt {
 		};
 
 		struct ExceptionResponse : CoreResponse {
+			QVariant exception;
 			DEC_SERIALIZABLE(ExceptionResponse);
 		};
 
