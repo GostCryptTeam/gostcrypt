@@ -1,7 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "NewCore/CoreParams.h"
+#include "NewCore/CoreRequest.h"
 #include "Volume/VolumePassword.h"
 #include <iostream>
 #include <QCommandLineParser>
@@ -36,9 +36,9 @@ namespace Parser {
         Devices
     } WhatToList;
 
-    void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options);
-    void parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options);
-    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> options);
+    void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options);
+    void parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options);
+    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeRequest> options);
     void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
 

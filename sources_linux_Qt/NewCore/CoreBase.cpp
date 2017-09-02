@@ -4,7 +4,7 @@
 #include "CoreUser.h"
 #include "CoreRoot.h"
 #include "CoreResponse.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include "CoreException.h"
 #include <QMutex>
 #include <QTextStream>
@@ -24,7 +24,7 @@ namespace GostCrypt {
 
         QSharedPointer<CoreBase> getCore()
 		{
-			initCoreParams();
+			initCoreRequest();
 			initCoreResponse();
 			initCoreException();
 
@@ -40,7 +40,7 @@ namespace GostCrypt {
 			RandomNumberGenerator::Start();
 		}
 
-		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params)
+		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
 		{
 			QSharedPointer<GetEncryptionAlgorithmsResponse> response;
 			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
@@ -55,7 +55,7 @@ namespace GostCrypt {
 			return response;
 		}
 
-        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params)
+        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params)
         {
             QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
             GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
@@ -70,7 +70,7 @@ namespace GostCrypt {
             return response;
         }
 
-		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesParams> params)
+		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesRequest> params)
 		{
 			(void)params;
 			QSharedPointer<GetHostDevicesResponse> res(new GetHostDevicesResponse);
@@ -120,7 +120,7 @@ namespace GostCrypt {
 			return res;
 		}
 
-		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params)
+		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params)
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
@@ -319,7 +319,7 @@ namespace GostCrypt {
 
 		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
 		{
-			QSharedPointer<GetMountedVolumesParams> params(new GetMountedVolumesParams);
+			QSharedPointer<GetMountedVolumesRequest> params(new GetMountedVolumesRequest);
             params->volumePath = volumeFile;
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
@@ -384,7 +384,7 @@ namespace GostCrypt {
 			return true;
 		}
 
-        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileParams> params) {
+        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params) {
             if(!params)
                 throw MissingParamException("params");
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random

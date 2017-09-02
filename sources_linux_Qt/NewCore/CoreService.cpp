@@ -1,6 +1,6 @@
 #include "CoreService.h"
 #include "CoreResponse.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include <QFile>
 #include <QThread>
 
@@ -10,7 +10,7 @@ namespace GostCrypt {
 		{
 			CoreServiceApplication app(argc, argv);
 
-			initCoreParams();
+			initCoreRequest();
 			initCoreResponse();
 			initCoreException();
 
@@ -73,7 +73,7 @@ namespace GostCrypt {
 			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Handling request";
 			#endif
-			if(request.canConvert<ExitParams>()) {
+			if(request.canConvert<ExitRequest>()) {
 				#ifdef DEBUG_CORESERVICE_HANDLER
 				qDebug() << "Received Exit Request";
 				#endif

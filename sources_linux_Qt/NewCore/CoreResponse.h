@@ -6,7 +6,7 @@
 #include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/VolumeInfo.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include "CoreException.h"
 
 namespace GostCrypt {

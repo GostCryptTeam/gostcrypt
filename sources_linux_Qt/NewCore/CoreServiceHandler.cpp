@@ -1,6 +1,6 @@
 #include "CoreServiceHandler.h"
 #include "CoreResponse.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include <QProcess>
 #include <QMetaEnum>
 #include <QTimer>
@@ -33,7 +33,7 @@ namespace GostCrypt {
 
 		void CoreServiceHandler::exit()
 		{
-			ExitParams request;
+			ExitRequest request;
 			askedToQuit = true;
 			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Sending exit request";

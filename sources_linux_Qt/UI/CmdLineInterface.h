@@ -9,7 +9,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include "Parser.h"
-#include "NewCore/CoreParams.h"
+#include "NewCore/CoreRequest.h"
 #include "NewCore/CoreBase.h"
 
 #define MK_ENUM(name) name // TODO move to external file ?

@@ -3,7 +3,7 @@
 
 #include <QSharedPointer>
 #include "CoreResponse.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include "CoreBase.h"
 #include "CoreServiceHandler.h"
 

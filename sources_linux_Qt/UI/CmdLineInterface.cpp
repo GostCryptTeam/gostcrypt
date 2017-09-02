@@ -78,7 +78,7 @@ void CmdLineInterface::processRequest(){
     switch(value){
         case FirstCMD::mount: //"mount":
             {
-                QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options(new GostCrypt::NewCore::MountVolumeParams);
+                QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
                 Parser::parseMount(parser, options);
                 emit request(QVariant::fromValue(options));
             }
@@ -86,7 +86,7 @@ void CmdLineInterface::processRequest(){
         case FirstCMD::createvolume://"create-volume":
         case FirstCMD::create://"create":
             {
-                QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options(new GostCrypt::NewCore::CreateVolumeParams);
+                QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options(new GostCrypt::NewCore::CreateVolumeRequest);
                 Parser::parseCreate(parser, options);
                 emit request(QVariant::fromValue(options));
             }
@@ -95,7 +95,7 @@ void CmdLineInterface::processRequest(){
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
             {
-                QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> options(new GostCrypt::NewCore::DismountVolumeParams);
+                QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
                 Parser::parseDismount(parser, options);
                 emit request(QVariant::fromValue(options));
             }
