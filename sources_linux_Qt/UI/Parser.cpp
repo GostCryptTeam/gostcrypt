@@ -148,8 +148,6 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 		*item = Algorithms;
 	else if (volume == "hashs")
 		*item = Hashs;
-	else if (volume == "filesystems")
-		*item = FileSystems;
 	else if (volume == "devices")
 		*item = Devices;
 	else

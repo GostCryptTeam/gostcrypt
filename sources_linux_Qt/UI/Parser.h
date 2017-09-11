@@ -32,7 +32,6 @@ namespace Parser {
         Volumes,
         Algorithms,
         Hashs,
-        FileSystems,
         Devices
     } WhatToList;
 
