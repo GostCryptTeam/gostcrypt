@@ -9,7 +9,7 @@
 #include "Volume/Volume.h"
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumeInfo.h"
-#include "NewCore/CoreParams.h"
+#include "NewCore/CoreRequest.h"
 //#include "Core/VolumeCreator.h"
 
 class GraphicUserInterface : public QObject
@@ -30,11 +30,11 @@ public slots:
     void receiveDismountAll();
     void receiveSudoPassword(const QString& aPwd);
     void receiveSudoEndPassword();
-    void receiveCreateVolume(shared_ptr <GostCrypt::NewCore::CreateVolumeParams> options);
+    void receiveCreateVolume(shared_ptr <GostCrypt::NewCore::CreateVolumeRequest> options);
     void receiveChangePassword(const QString &volumePath, const QString &oldPassword, const QString &newPassword, shared_ptr <GostCrypt::KeyfileList> oldKeyFiles, shared_ptr <GostCrypt::KeyfileList> newKeyFiles);
 
 signals:
-    void sendVolume(GostCrypt::NewCore::MountVolumeParams aOptions);
+    void sendVolume(GostCrypt::NewCore::MountVolumeRequest aOptions);
     void askSudoPassword();
     void sendVolumeInfos(string AuxMountPoint, wstring EncryptionAlgorithmName, string Path, uint64 Size);
     void confirmSudoPassword();

@@ -46,10 +46,12 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(ExceptionResponse)
         QDataStream & operator << (QDataStream & out, const ExceptionResponse& Valeur) {
             out << static_cast<const CoreResponse&>(Valeur);
+            out << Valeur.exception;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, ExceptionResponse & Valeur) {
             in >> static_cast<CoreResponse&>(Valeur);
+            in >> Valeur.exception;
             return in;
         }
 

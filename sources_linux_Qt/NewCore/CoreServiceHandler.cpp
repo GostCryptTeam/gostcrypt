@@ -1,6 +1,6 @@
 #include "CoreServiceHandler.h"
 #include "CoreResponse.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include <QProcess>
 #include <QMetaEnum>
 #include <QTimer>
@@ -18,7 +18,6 @@ namespace GostCrypt {
 			#ifdef DEBUG_CORESERVICE_HANDLER
 			connect(&workerProcess, SIGNAL(bytesWritten(qint64)), this, SLOT(dbg_bytesWritten(qint64)));
 			#endif
-			exceptionToRead = false;
 		}
 
 		void CoreServiceHandler::sendToCoreService(QVariant request)
@@ -34,7 +33,7 @@ namespace GostCrypt {
 
 		void CoreServiceHandler::exit()
 		{
-			ExitParams request;
+			ExitRequest request;
 			askedToQuit = true;
 			#ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "Sending exit request";
@@ -63,12 +62,6 @@ namespace GostCrypt {
 			if(!workerProcessStream.commitTransaction())
 				return;
 
-			if(exceptionToRead) {
-				const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(v.constData());
-				exceptionToRead = false;
-				exceptionPtr->raise();
-			}
-
 			if(v.canConvert<InitResponse>()) {
 					#ifdef DEBUG_CORESERVICE_HANDLER
 					qDebug() << "Worker process initialized";
@@ -79,11 +72,13 @@ namespace GostCrypt {
 			}
 
 			if(v.canConvert<ExceptionResponse>()) {
+					ExceptionResponse er = v.value<ExceptionResponse>();
 					#ifdef DEBUG_CORESERVICE_HANDLER
 					qDebug() << "Exception occured";
 					#endif
-					exceptionToRead = true;
-					return receive();
+					const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(er.exception.constData());
+					exceptionPtr->raise();
+					return;
 			}
 
 			#ifdef DEBUG_CORESERVICE_HANDLER

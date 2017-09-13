@@ -6,7 +6,7 @@
 #include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/VolumeInfo.h"
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include "CoreException.h"
 
 namespace GostCrypt {
@@ -24,6 +24,7 @@ namespace GostCrypt {
 		};
 
 		struct ExceptionResponse : CoreResponse {
+			QVariant exception;
 			DEC_SERIALIZABLE(ExceptionResponse);
 		};
 

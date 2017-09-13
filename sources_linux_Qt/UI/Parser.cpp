@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeParams> options)
+void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
     parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
@@ -97,7 +97,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
     }
 }
 
-void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeParams> volume)
+void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeRequest> volume)
 {
 	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
 	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
@@ -154,7 +154,7 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 		throw Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeParams> options)
+void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path"); // TODO add default values to description
@@ -197,7 +197,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         const QString type = parser.value("type");
         if(!type.compare("Hidden",Qt::CaseInsensitive)){
             options->type = GostCrypt::VolumeType::Hidden;
-            options->innerVolume.reset(new GostCrypt::NewCore::CreateVolumeParams::VolumeParams());
+            options->innerVolume.reset(new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams());
         } else if(type.compare("Normal",Qt::CaseInsensitive)){
             throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
         }

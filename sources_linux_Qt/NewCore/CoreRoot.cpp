@@ -45,7 +45,7 @@ namespace GostCrypt {
 				password->fill('\0');
 		}
 
-		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeParams> params)
+		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 		{
 			QSharedPointer<MountVolumeResponse> response(new MountVolumeResponse);
 
@@ -174,7 +174,7 @@ namespace GostCrypt {
                     MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
                 }
             } catch(...) {
-                QSharedPointer<DismountVolumeParams> dismountParams(new DismountVolumeParams);
+                QSharedPointer<DismountVolumeRequest> dismountParams(new DismountVolumeRequest);
                 dismountParams->volumepath = params->path;
                 dismountVolume(dismountParams);
                 if(mountDirCreated)
@@ -182,7 +182,7 @@ namespace GostCrypt {
                 throw;
             }
 
-            QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
+            QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
             QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
             getMountedVolumesParams->volumePath = params->path;
 
@@ -192,14 +192,14 @@ namespace GostCrypt {
 			return response;
 		}
 
-		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeParams> params)
+		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeRequest> params)
 		{
             QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
             /* Get mounted volume infos */
             QList<QSharedPointer<VolumeInformations>> mountedVolumes;
             {
-                QSharedPointer<GetMountedVolumesParams> getMountedVolumesParams(new GetMountedVolumesParams);
+                QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
                 if(params)
                     getMountedVolumesParams->volumePath = params->volumepath;
@@ -230,7 +230,7 @@ namespace GostCrypt {
             return response;
         }
 
-        void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeParams::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize)
+        void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize)
         {
             // getting the volume header to fill it
             QSharedPointer<VolumeHeader> header (layout->GetHeader());
@@ -320,13 +320,13 @@ namespace GostCrypt {
             QString formatter = "mkfs."+filesystem;
 
             QSharedPointer<MountVolumeResponse> mountresponse;
-            QSharedPointer<MountVolumeParams> mountparams(new MountVolumeParams());
+            QSharedPointer<MountVolumeRequest> mountparams(new MountVolumeRequest());
             mountparams->keyfiles = keyfiles;
             mountparams->doMount = false;
             mountparams->password = password;
             mountparams->path = volume;
 
-            QSharedPointer<DismountVolumeParams> dismountparams(new DismountVolumeParams());
+            QSharedPointer<DismountVolumeRequest> dismountparams(new DismountVolumeRequest());
             dismountparams->volumepath = volume;
 
             //try {
@@ -366,7 +366,7 @@ namespace GostCrypt {
             }
         }
 
-        QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeParams> params)
+        QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 		{
             QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
 
@@ -415,7 +415,7 @@ namespace GostCrypt {
             if(params->type == VolumeType::Hidden){ // writing the inner volume headers if any
                 writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);
             } else { // writing random data to the hidden headers location
-                QSharedPointer<CreateVolumeParams::VolumeParams> randomparams(new CreateVolumeParams::VolumeParams());
+                QSharedPointer<CreateVolumeRequest::VolumeParams> randomparams(new CreateVolumeRequest::VolumeParams());
                 randomparams->size = 0.5;
                 randomparams->encryptionAlgorithm = params->outerVolume->encryptionAlgorithm;
                 randomparams->filesystem = params->outerVolume->filesystem;
@@ -440,7 +440,7 @@ namespace GostCrypt {
             return response;
 		}
 
-		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordParams> params)
+		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
 		{
 			QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
 

@@ -29,7 +29,6 @@ unix {
 }
 
 HEADERS += \
-    CoreParams.h \
     CoreBase.h \
     CoreResponse.h \
     SerializationUtil.h \
@@ -48,10 +47,10 @@ HEADERS += \
     loopdevlib/pathnames.h \
     loopdevlib/sysfs.h \
     CoreServiceHandler.h \
-    CoreService.h
+    CoreService.h \
+    CoreRequest.h
 
 SOURCES += \
-    CoreParams.cpp \
     CoreBase.cpp \
     CoreResponse.cpp \
     CoreUser.cpp \
@@ -68,4 +67,5 @@ SOURCES += \
     loopdevlib/sysfs.c \
     CoreServiceHandler.cpp \
     CoreService.cpp \
-    SerializationUtil.cpp
+    SerializationUtil.cpp \
+    CoreRequest.cpp

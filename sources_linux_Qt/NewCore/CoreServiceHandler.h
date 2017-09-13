@@ -31,7 +31,6 @@ namespace GostCrypt {
 			QQueue<QVariant> waitingRequests;
 			bool processInitialized;
 			bool askedToQuit;
-			bool exceptionToRead;
 		private slots: // private for direct call but still connectable => Need for communicating class
 			void receive();
 			void workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus);

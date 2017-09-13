@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QCoreApplication>
-#include "CoreParams.h"
+#include "CoreRequest.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
 #include "RandomNumberGenerator.h"
@@ -13,10 +13,10 @@
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 #define HANDLE_REQUEST(requestName, fct) \
-	if(r.canConvert<QSharedPointer<requestName ## Params>>()) { \
-		QSharedPointer<requestName ## Params> request; \
+	if(r.canConvert<QSharedPointer<requestName ## Request>>()) { \
+		QSharedPointer<requestName ## Request> request; \
 		QSharedPointer<requestName ## Response> response; \
-		request = r.value<QSharedPointer<requestName ## Params>>(); \
+		request = r.value<QSharedPointer<requestName ## Request>>(); \
 		response = fct (request); \
 		emit send ## requestName (response); \
 	}
@@ -35,11 +35,11 @@ namespace GostCrypt {
 			virtual void exit() = 0;
 			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password) = 0;
 		protected:
-            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsParams> params = QSharedPointer<GetEncryptionAlgorithmsParams>());
-            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsParams> params = QSharedPointer<GetDerivationFunctionsParams>());
-			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesParams> params = QSharedPointer<GetHostDevicesParams>());
-			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesParams> params = QSharedPointer<GetMountedVolumesParams>());
-            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileParams> params);
+            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
+            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());
+			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>());
+			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
+            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params);
 
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
             QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
