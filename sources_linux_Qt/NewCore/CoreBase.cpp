@@ -391,11 +391,11 @@ namespace GostCrypt {
 
 		uid_t CoreBase::getUserId(QString username)
 		{
-			struct passwd *paswdPtr;
-			paswdPtr = getpwnam(username.toLocal8Bit().data());
-			if(!passwd)
+			struct passwd *passwdPtr;
+			passwdPtr = getpwnam(username.toLocal8Bit().data());
+			if(!passwdPtr)
 				throw InvalidParamException("mountForUser");
-			return paswdPtr->pw_uid;
+			return passwdPtr->pw_uid;
 		}
 
 		gid_t CoreBase::getGroupId(QString groupname)
