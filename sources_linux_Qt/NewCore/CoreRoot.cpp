@@ -222,13 +222,25 @@ namespace GostCrypt {
             }
             for (QSharedPointer<VolumeInformation> mountedVolume : mountedVolumes) {
                 /* Unmount filesystem */
-                if(mountedVolume->mountPoint) {
-                    MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
+                try {
+                    if(mountedVolume->mountPoint) {
+                        MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
+                    }
+                }catch(FailUnmountFilesystem &e){
+               #ifdef QT_DEBUG
+                    qDebug().noquote() << e.qwhat();
+               #endif
                 }
 
                 /* Detach loop device */
-                if(mountedVolume->virtualDevice) {
-                    LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
+                try {
+                    if(mountedVolume->virtualDevice) {
+                        LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
+                    }
+                }catch(FailedDetachLoopDevice &e){
+               #ifdef QT_DEBUG
+                    qDebug().noquote() << e.qwhat();
+               #endif
                 }
 
                 // Probably not necessary to update mountedVolume
@@ -285,9 +297,10 @@ namespace GostCrypt {
             // Header key
             headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
             shared_ptr <KeyfileList> keyfiles;
-			for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-				keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
-			}
+            if(params->keyfiles)
+                for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+                    keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                }
 			shared_ptr<VolumePassword> password;
 			if(!params->password.isNull())
 				password.reset(new VolumePassword(params->password->constData(), params->password->size()));

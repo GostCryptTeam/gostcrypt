@@ -43,7 +43,7 @@ namespace GostCrypt {
 
 		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
 		{
-			QSharedPointer<GetEncryptionAlgorithmsResponse> response;
+            QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse());
 			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
 			(void)params;
 			for(GostCrypt::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
@@ -89,7 +89,7 @@ namespace GostCrypt {
 					|| fields.at(3).startsWith("cloop")
 					|| fields.at(3).startsWith("ram")	// skip RAM devices
 					|| fields.at(3).startsWith("dm-")	// skip device mapper devices
-                    || fields.at(2) == 1				// skip extended partitions
+                    || fields.at(2) == "1"			// skip extended partitions
 					)
 					continue;
 
@@ -379,6 +379,10 @@ namespace GostCrypt {
 			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
 			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
+            else HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
+            else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
+            else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
+            else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else {
 				return false;
 			}
