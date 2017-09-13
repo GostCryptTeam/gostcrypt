@@ -328,21 +328,21 @@ void Parser::parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files)
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){
-	s.data()[s.size()-1]='\0';
+    s.chop(1);
 	if(ok)
 		*ok = true;
-	if(s.data()[s.size()-2].isNumber())
+    if(s.at(s.size()-1).isNumber())
 		return s.toInt();
-    if(s.data()[s.size()-2] == 'K'){
-		s.data()[s.size()-2]='\0';
+    if(s.at(s.size()-1) == 'K'){
+        s.chop(1);
 		return s.toInt()*1024;
 	}
-    if(s.data()[s.size()-2] == 'M'){
-		s.data()[s.size()-2]='\0';
-		return s.toInt()*1024*1024;
+    if(s.at(s.size()-1) == 'M'){
+        s.chop(1);
+        return s.toInt()*1024*1024;
 	}
-    if(s.data()[s.size()-2] == 'G'){
-		s.data()[s.size()-2]='\0';
+    if(s.at(s.size()-1) == 'G'){
+        s.chop(1);
 		return s.toInt()*1024*1024*1024;
 	}
 	if(ok)
