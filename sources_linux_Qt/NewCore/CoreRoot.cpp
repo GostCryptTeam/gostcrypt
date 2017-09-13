@@ -210,13 +210,25 @@ namespace GostCrypt {
             }
             for (QSharedPointer<VolumeInformations> mountedVolume : mountedVolumes) {
                 /* Unmount filesystem */
-                if(mountedVolume->mountPoint) {
-                    MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
+                try {
+                    if(mountedVolume->mountPoint) {
+                        MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
+                    }
+                }catch(FailUnmountFilesystem &e){
+               #ifdef QT_DEBUG
+                    qDebug() << e.qwhat();
+               #endif
                 }
 
                 /* Detach loop device */
-                if(mountedVolume->virtualDevice) {
-                    LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
+                try {
+                    if(mountedVolume->virtualDevice) {
+                        LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
+                    }
+                }catch(FailedDetachLoopDevice &e){
+               #ifdef QT_DEBUG
+                    qDebug() << e.qwhat();
+               #endif
                 }
 
                 // Probably not necessary to update mountedVolume
