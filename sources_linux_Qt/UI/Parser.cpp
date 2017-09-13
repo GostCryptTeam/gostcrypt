@@ -333,15 +333,15 @@ quint64 Parser::parseSize(QString s, bool *ok){
 		*ok = true;
 	if(s.data()[s.size()-2].isNumber())
 		return s.toInt();
-	if(s.data()[s.size()-2] == "K"){
+    if(s.data()[s.size()-2] == 'K'){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024;
 	}
-	if(s.data()[s.size()-2] == "M"){
+    if(s.data()[s.size()-2] == 'M'){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024;
 	}
-    if(s.data()[s.size()-2] == "G"){
+    if(s.data()[s.size()-2] == 'G'){
 		s.data()[s.size()-2]='\0';
 		return s.toInt()*1024*1024*1024;
 	}
