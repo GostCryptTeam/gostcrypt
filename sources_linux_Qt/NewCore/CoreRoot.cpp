@@ -48,12 +48,24 @@ namespace GostCrypt {
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 		{
 			QSharedPointer<MountVolumeResponse> response(new MountVolumeResponse);
+			uid_t mountedForUserId;
+			gid_t mountedForGroupId;
 
 			if(!params)
 				throw MissingParamException("params");
 
 			if(isVolumeMounted(params->path))
                 throw VolumeAlreadyMountedException(params->path);
+
+            if(params->mountedForUser.isEmpty())
+				mountedForUserId = realUserId;
+			else
+				mountedForUserId = getUserId(params->mountedForUser);
+
+			if(params->mountedForGroup.isEmpty())
+				mountedForGroupId = realGroupId;
+			else
+				mountedForGroupId = getGroupId(params->mountedForUser);
 
 			QSharedPointer<Volume> volume(new Volume);
             QSharedPointer<QFileInfo> fuseMountPoint;
@@ -162,7 +174,7 @@ namespace GostCrypt {
 
                 if(params->doMount) {
                     if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
-                        params->mountPoint = getFreeDefaultMountPoint(realUserId);
+                        params->mountPoint = getFreeDefaultMountPoint(mountedForUserId);
                     }
 
                     QDir mountpoint(params->mountPoint->absoluteFilePath());
@@ -171,7 +183,7 @@ namespace GostCrypt {
                             throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
                         mountDirCreated = true;
                     }
-                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, realUserId, realGroupId, params->fileSystemOptions);
+                    MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
                 }
             } catch(...) {
                 QSharedPointer<DismountVolumeRequest> dismountParams(new DismountVolumeRequest);
@@ -197,7 +209,7 @@ namespace GostCrypt {
             QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
             /* Get mounted volume infos */
-            QList<QSharedPointer<VolumeInformations>> mountedVolumes;
+            QList<QSharedPointer<VolumeInformation>> mountedVolumes;
             {
                 QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
@@ -208,7 +220,7 @@ namespace GostCrypt {
                     throw VolumeNotMountedException(params->volumepath);
                 mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
-            for (QSharedPointer<VolumeInformations> mountedVolume : mountedVolumes) {
+            for (QSharedPointer<VolumeInformation> mountedVolume : mountedVolumes) {
                 /* Unmount filesystem */
                 if(mountedVolume->mountPoint) {
                     MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);

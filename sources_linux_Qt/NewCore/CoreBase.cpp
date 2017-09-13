@@ -15,6 +15,7 @@
 #include "Platform/FileStream.h"
 #include "Platform/SharedPtr.h"
 #include "FuseDriver/FuseService.h"
+#include <grp.h>
 
 #include <sys/types.h>
 #include <pwd.h>
@@ -129,7 +130,7 @@ namespace GostCrypt {
 					continue;
 				}
 
-				QSharedPointer<VolumeInformations> mountedVol;
+				QSharedPointer<VolumeInformation> mountedVol;
 
 				/* TODO : Replace by Qt serialization in the future */
 				try
@@ -138,7 +139,7 @@ namespace GostCrypt {
                     controlFile->Open (mf->MountPoint->absoluteFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
-					mountedVol.reset(new VolumeInformations(VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream))));
+					mountedVol.reset(new VolumeInformation(VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream))));
 				}
 				catch (...)
 				{
@@ -382,6 +383,24 @@ namespace GostCrypt {
 				return false;
 			}
 			return true;
+		}
+
+		uid_t CoreBase::getUserId(QString username)
+		{
+			struct passwd *paswdPtr;
+			paswdPtr = getpwnam(username.toLocal8Bit().data());
+			if(!passwd)
+				throw InvalidParamException("mountForUser");
+			return paswdPtr->pw_uid;
+		}
+
+		gid_t CoreBase::getGroupId(QString groupname)
+		{
+			struct group *groupPtr;
+			groupPtr = getgrnam(groupname.toLocal8Bit().data());
+			if(!groupPtr)
+				throw InvalidParamException("mountForGroup");
+			return groupPtr->gr_gid;
 		}
 
         QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params) {

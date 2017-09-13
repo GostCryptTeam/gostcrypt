@@ -34,7 +34,6 @@ int CmdLineInterface::start(int argc, char **argv)
 
     /* Connecting few exit signals to close the program apropriately */
     app.connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
-    app.connect(&app, SIGNAL(exit()), core.data(), SLOT(exit()));
     app.connect(core.data(), SIGNAL(exited()), &app, SLOT(quit()));
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
@@ -280,7 +279,7 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
 {
     if(!r)
         qStdOut() << "Invalid response received." << endl;
-    for(QSharedPointer<GostCrypt::NewCore::VolumeInformations> v : r->volumeInfoList){
+    for(QSharedPointer<GostCrypt::NewCore::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath->absoluteFilePath() << "\t";
         qStdOut() << v->mountPoint->absoluteFilePath() << "\t";
         qStdOut() << v->size << "\t";

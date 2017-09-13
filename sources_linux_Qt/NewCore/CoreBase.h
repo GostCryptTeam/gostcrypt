@@ -52,6 +52,8 @@ namespace GostCrypt {
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
             bool processNonRootRequest(QVariant r);
+            uid_t getUserId(QString username);
+            gid_t getGroupId(QString groupname);
 		signals:
 			DEC_REQUEST_SIGNAL(CreateVolume);
 			DEC_REQUEST_SIGNAL(MountVolume);

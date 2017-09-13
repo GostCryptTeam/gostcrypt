@@ -129,6 +129,17 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(MissingParam);
 		};
 
+		#define InvalidParamException(param) InvalidParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
+		class InvalidParam : public CoreException {
+			public:
+                InvalidParam() {}
+                InvalidParam(QString fonction, QString filename, quint32 line, QString param) : CoreException(fonction, filename, line), param(param) {}
+                DEF_EXCEPTION_WHAT(MissingParam, CoreException, "The parameter " + param + " is invalid.\n")
+			protected:
+				QString param;
+			DEC_SERIALIZABLE(InvalidParam);
+		};
+
 		#define VolumeAlreadyMountedException(volumePath) VolumeAlreadyMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
 		class VolumeAlreadyMounted : public CoreException {
 			public:
@@ -415,5 +426,6 @@ SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
 SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
 SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
+SERIALIZABLE(GostCrypt::NewCore::InvalidParam)
 
 #endif // COREEXCEPTION_H

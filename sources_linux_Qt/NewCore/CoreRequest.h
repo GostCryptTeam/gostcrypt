@@ -87,6 +87,8 @@ namespace GostCrypt {
 			QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; // keyfiles to mount the hidden protected volume
 			bool useBackupHeaders; // open the volume with its backup header.
 			bool sharedAccessAllowed; // do we allow shared access to the container ?
+			QString mountedForUser;
+			QString mountedForGroup;
 			DEC_SERIALIZABLE(MountVolumeRequest);
 		};
 
