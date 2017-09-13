@@ -88,7 +88,7 @@ namespace GostCrypt {
 					|| fields.at(3).startsWith("cloop")
 					|| fields.at(3).startsWith("ram")	// skip RAM devices
 					|| fields.at(3).startsWith("dm-")	// skip device mapper devices
-                    || fields.at(2) == '1'			// skip extended partitions
+                    || fields.at(2) == "1"			// skip extended partitions
 					)
 					continue;
 
