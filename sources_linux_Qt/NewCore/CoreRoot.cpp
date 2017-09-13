@@ -216,7 +216,7 @@ namespace GostCrypt {
                     }
                 }catch(FailUnmountFilesystem &e){
                #ifdef QT_DEBUG
-                    qDebug() << e.qwhat();
+                    qDebug().noquote() << e.qwhat();
                #endif
                 }
 
@@ -227,7 +227,7 @@ namespace GostCrypt {
                     }
                 }catch(FailedDetachLoopDevice &e){
                #ifdef QT_DEBUG
-                    qDebug() << e.qwhat();
+                    qDebug().noquote() << e.qwhat();
                #endif
                 }
 
