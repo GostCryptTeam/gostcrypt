@@ -273,9 +273,10 @@ namespace GostCrypt {
             // Header key
             headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
             shared_ptr <KeyfileList> keyfiles;
-			for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-				keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
-			}
+            if(params->keyfiles)
+                for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+                    keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                }
 			shared_ptr<VolumePassword> password;
 			if(!params->password.isNull())
 				password.reset(new VolumePassword(params->password->constData(), params->password->size()));

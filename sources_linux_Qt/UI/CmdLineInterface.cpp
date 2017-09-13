@@ -60,7 +60,8 @@ int CmdLineInterface::start(int argc, char **argv)
         return -1;
     }
 
-    return app.exec();
+    // No need for app.exec()since all signals use direct connection
+    return 0;
 }
 
 void CmdLineInterface::processRequest(){
@@ -110,7 +111,7 @@ void CmdLineInterface::processRequest(){
             break;
         case FirstCMD::dismountall://"dismountall":
             {
-                QSharedPointer<GostCrypt::NewCore::DismountVolumeParams> options(new GostCrypt::NewCore::DismountVolumeParams);
+                QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
                 emit request(QVariant::fromValue(options)); // dismount-all is just a dismount with no params.
             }
             break;
@@ -118,7 +119,7 @@ void CmdLineInterface::processRequest(){
             {
                 QStringList files;
                 Parser::parseCreateKeyFiles(parser, files); // TODO multiple keyfiles not supported yet
-                QSharedPointer <GostCrypt::NewCore::CreateKeyFileParams> options(new GostCrypt::NewCore::CreateKeyFileParams());
+                QSharedPointer <GostCrypt::NewCore::CreateKeyFileRequest> options(new GostCrypt::NewCore::CreateKeyFileRequest());
                 for(QStringList::Iterator file = files.begin(); file != files.end(); file++) {
                     options->file.reset(new QFileInfo(*file));
                     emit request(QVariant::fromValue(options));
@@ -132,25 +133,25 @@ void CmdLineInterface::processRequest(){
                 switch(item){
                     case Parser::Volumes:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetMountedVolumesParams> options(new GostCrypt::NewCore::GetMountedVolumesParams);
+                            QSharedPointer<GostCrypt::NewCore::GetMountedVolumesRequest> options(new GostCrypt::NewCore::GetMountedVolumesRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Algorithms:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsParams> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsParams);
+                            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Hashs:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsParams> options(new GostCrypt::NewCore::GetDerivationFunctionsParams);
+                            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsRequest> options(new GostCrypt::NewCore::GetDerivationFunctionsRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Devices:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetHostDevicesParams> options(new GostCrypt::NewCore::GetHostDevicesParams);
+                            QSharedPointer<GostCrypt::NewCore::GetHostDevicesRequest> options(new GostCrypt::NewCore::GetHostDevicesRequest);
                             emit request(QVariant::fromValue(options));
                         }
                 }

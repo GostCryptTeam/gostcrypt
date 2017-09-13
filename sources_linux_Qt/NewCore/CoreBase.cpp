@@ -378,6 +378,10 @@ namespace GostCrypt {
 			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
 			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
+            else HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
+            else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
+            else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
+            else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else {
 				return false;
 			}
