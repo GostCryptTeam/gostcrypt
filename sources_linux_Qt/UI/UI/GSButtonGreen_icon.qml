@@ -10,7 +10,7 @@ Button {
     //Partie texte
     contentItem: Text {
         leftPadding: 37
-        text: buttonGreenIcon.text
+        text: buttonGreenIcon.text + Translation.tr
         font.pixelSize: 13
         color: buttonGreenIcon.down ? "#ffffff" : "#ffffff"
         horizontalAlignment: Text.AlignHCenter

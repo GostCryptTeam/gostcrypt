@@ -1,94 +1,125 @@
 import QtQuick 2.7
-import QtQuick.Dialogs 1.2
-
 import "../" as UI
 
 Item {
     id: top
-    property string path: ""
+    property variant algoHash: [Wizard.getAlgos()[0], Wizard.getHashs()[0]]
+    property int type: 0
+    Rectangle {
+        id: algo_
+        color: "transparent"
+        border.width: 1
+        border.color: palette.border
+        radius: 5
+        width: top.width-100
+        height: top.height -150
+        anchors.horizontalCenter: top.horizontalCenter
 
-    UI.GSCustomComboBox {
-        id: combo
-        x: 60
-        y: 10
-        width: parent.width - 250
-        model: {
-            var paths = UserSettings.getVolumePaths(1)
-            return paths;
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y:5
+            color: palette.text
+            text: qsTr("Encryption Algorithm") + Translation.tr
         }
-        onActivated: {
-            path = currentText
+
+        UI.GSCustomComboBox {
+            id: algo
+            model: Wizard.getAlgos();
+            x: 40
+            y: 25
+            width: parent.width - 170
+            onActivated: {
+                description.text = Wizard.getAlgosDescription(algo.currentIndex);
+                algoHash[0] = algo.currentIndex
+            }
         }
+
+        UI.GSButtonBordered {
+            color_: palette.green
+            text: qsTr("Test")
+            x: algo.x + algo.width + 20
+            y: algo.y
+            width: 70
+            height: 40
+            onClicked: {
+                //TODO
+            }
+        }
+
+        Text {
+            id: description
+            x: algo.x
+            y: 80
+            horizontalAlignment: Text.AlignJustify
+            wrapMode: Text.WordWrap
+            width: parent.width - 170 - 30
+            text: Wizard.getAlgosDescription(algo.currentIndex);
+            color: palette.text
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.NoButton
+                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+            }
+        }
+
+        UI.GSButtonBordered {
+            color_: palette.green
+            text: qsTr("Benchmark")
+            x: algo.x + algo.width
+            y:100
+            width: 90
+            onClicked: {
+                //TODO
+            }
+        }
+
     }
-    UI.GSButtonBordered {
-        id: buttonOpen
-        x: combo.x + combo.width + 15
-        y: combo.y
-        height: combo.height
-        text: "Select File..."
-        width: 100
-        onClicked: fileDialog.open()
-        color_: palette.green
-    }
-    UI.GSCheckBox {
-        id: historique
-        text_: qsTr("Never save history")
-        checked: {
-            var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-            return (isChecked == 1) ? true : false;
+
+    Rectangle {
+        color: "transparent"
+        border.width: 1
+        border.color: palette.border
+        radius: 5
+        width: algo_.width
+        height: 90
+        y: algo_.y + algo_.height + 10
+        anchors.horizontalCenter: top.horizontalCenter
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            y:5
+            color: palette.text
+            text: qsTr("Hash Algorithm") + Translation.tr
         }
-        x: combo.x
-        y: combo.y + 50
-        height: combo.height
-        onCheckedChanged: {
-            if(historique.checked == true)
-                UserSettings.setSetting("MountV-SaveHistory", 1)
-            else
-                UserSettings.setSetting("MountV-SaveHistory", 0)
-            if(historique.checked === true) {
-                UserSettings.erasePaths()
-                UserSettings.getVolumePaths(1)
+
+        UI.GSCustomComboBox {
+            id: hash
+            model: Wizard.getHashs();
+            x: 40
+            y: 35
+            width: parent.width *0.5
+            onActivated: {
+                algoHash[1] = hash.currentIndex
+            }
+        }
+        Text {
+            id: link
+            x: hash.x + hash.width + 10
+            y: 45
+            horizontalAlignment: Text.AlignJustify
+            wrapMode: Text.WordWrap
+            width: parent.width *0.5
+            text: qsTr("<font color='#719c24'><a href='#'>Information on hash algorithms</a></font>") + Translation.tr
+            color: palette.text
+            font.pixelSize: 12
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.NoButton
+                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
             }
         }
     }
-
-    FileDialog {
-        id: fileDialog
-        title: "Please choose a file"
-        folder: shortcuts.home
-        onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
-            if(historique.pressed === false)
-                UserSettings.addVolumePath(fileDialog.fileUrl)
-            combo.model = UserSettings.getVolumePaths(0)
-            path = fileDialog.fileUrl
-        }
-        onRejected: {
-            console.log("Canceled")
-        }
-    }
-
-    Text {
-        id:description2
-        width: top.width-120
-        font.pixelSize: 12
-        text: qsTr("Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)"
-                   +"<br>"
-                   +"A GostCrypt volume can reside in a file (called GostCrypt container),"
-                   +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
-                   +" container is just like any normal file (it can be, for example, moved or deleted as"
-                   +" any normal file). Click 'Select File' to choose a filename for the container and"
-                   +" to select the location where you wish the container to be created.<br><b>WARNING</b>: If you select"
-                   +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                   +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
-                   +" on) by moving them to the GostCrypt container that you are about to create now.")
-        y: 110
-        x: 60
-        color: palette.text
-        horizontalAlignment: Text.AlignJustify
-        wrapMode: Text.WordWrap
-    }
-
 
 
 }

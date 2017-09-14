@@ -30,7 +30,7 @@ Rectangle{
 
         Text {
             id: text
-            text: qsTr("GostCrypt 2.0")
+            text: qsTr("GostCrypt 2.0") + Translation.tr
             color: palette.text
             x:20
             font.pixelSize: 13
