@@ -10,7 +10,7 @@ Button {
 
     //Partie texte
     contentItem: Text {
-        text: buttonBordered.text
+        text: buttonBordered.text + Translation.tr
         //font: buttonBorderedIcon.font
         font.pixelSize: 13
         color: palette.textLight
@@ -67,5 +67,14 @@ Button {
 
     transitions: Transition {
         ColorAnimation { duration:100 }
+    }
+
+    function setDisable(bool)
+    {
+        if(bool){
+            buttonBordered_rect.border.color = palette.darkThird
+        }else{
+            buttonBordered_rect.border.color = color_
+        }
     }
 }

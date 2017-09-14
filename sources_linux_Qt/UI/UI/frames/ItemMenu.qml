@@ -44,7 +44,7 @@ Item {
     }
 
     Text {
-        text: text_
+        text: text_ + Translation.tr
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: textAlign.verticalCenter
         lineHeight: 0.75
@@ -55,7 +55,7 @@ Item {
         wrapMode: Text.WordWrap
     }
     Text {
-        text: description_
+        text: description_ + Translation.tr
         color: palette.darkInput
         font.pixelSize: 11
         anchors.horizontalCenter: parent.horizontalCenter

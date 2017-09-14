@@ -13,7 +13,7 @@ CheckBox {
             leftPadding: leftPadding_
             font.pointSize: sizeText
             color: "white"
-            text: text_
+            text: text_ + Translation.tr
         }
         indicator: Rectangle {
             implicitWidth: 30

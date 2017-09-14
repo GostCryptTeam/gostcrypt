@@ -9,7 +9,7 @@ Rectangle {
     width: parent.width
     Text {
         anchors.centerIn: parent
-        text: text_
+        text: text_ + Translation.tr
         color: palette.text
         font.pixelSize: 12
     }
