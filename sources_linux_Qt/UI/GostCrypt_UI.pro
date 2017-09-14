@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += qml quick
+QT += qml quick widgets
 
 TARGET = GostCrypt
 TEMPLATE = app
@@ -43,21 +43,21 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    GraphicUserInterface.h \
-    connectSignals.h \
     UserSettings.h \
     DragWindowProvider.h \
     volumecreation.h \
+    TranslationApp.h \
     Parser.h \
-    CmdLineInterface.h
+    CmdLineInterface.h \
+    GraphicInterface.h
 
 SOURCES += main.cpp \
-    GraphicUserInterface.cpp \
-    connectSignals.cpp \
     UserSettings.cpp \
     volumecreation.cpp \
+    TranslationApp.cpp \
     Parser.cpp \
-    CmdLineInterface.cpp
+    CmdLineInterface.cpp \
+    GraphicInterface.cpp
 
 LIBS += \
         ../NewCore/libNewCore.a \
@@ -75,3 +75,28 @@ PRE_TARGETDEPS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a
+
+lupdate_hack{
+    SOURCES += qml/*.qml \
+        qml/*.js
+}
+TRANSLATIONS =  translations/gostcrypt_en.ts \
+                translations/gostcrypt_fr.ts \
+                translations/gostcrypt_es.ts \
+                translations/gostcrypt_it.ts \
+                translations/gostcrypt_ru.ts \
+                translations/gostcrypt_ar.ts
+
+translation {
+    SOURCES += UI/* \
+               UI/dialogs/* \
+               UI/frames/* \
+               UI/ressource/* \
+               UI/wizard/* \
+}
+
+DISTFILES += \
+    UI/ressource/separator.png \
+    UI/dialogs/GSLanguage.qml
+
+

@@ -15,7 +15,7 @@ Item {
         color: palette.text
         anchors.horizontalCenter: parent.horizontalCenter
         y: 20
-        text: "Volume"
+        text: qsTr("Volume") + Translation.tr
     }
 
     Grid {

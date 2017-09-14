@@ -2,6 +2,7 @@ import QtQuick 2.0
 import "LoadVolume.js" as LoadVolume
 
 Item {
+
     /*!
         \title Connections
         \brief QML slots that receive C++ signals
@@ -11,6 +12,11 @@ Item {
           Connects the C++ object (connectSignals.h) to the window
           */
         target: ConnectSignals;
+
+        onConnectFinished: {
+            qmlTest(["a", {"nom":"a"}]);
+        }
+
         onSendSubWindowVolumeInfos: {
             subWindow.catchClose();
             pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
@@ -34,5 +40,6 @@ Item {
         onSendSubWindowErrorMessage: {
             openErrorMessage(aTitle, aContent);
         }
+
     }
 }

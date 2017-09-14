@@ -5,6 +5,9 @@ import "../" as UI
 Item {
     id: top
     property string path: ""
+    property string message: ""
+    property int type: 0
+
     UI.GSCustomComboBox {
         id: combo
         x: 60
@@ -23,7 +26,7 @@ Item {
         x: combo.x + combo.width + 15
         y: combo.y
         height: combo.height
-        text: "Select File..."
+        text: qsTr("Select File...")
         width: 100
         onClicked: fileDialog.open()
         color_: palette.green
@@ -52,10 +55,16 @@ Item {
 
     FileDialog {
         id: fileDialog
-        title: "Please choose a file"
+        title: qsTr("Please choose a file") + Translation.tr
         folder: shortcuts.home
+        selectExisting: {
+            if(type !== 2)
+                return false
+            else
+                return true
+        }
         onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
+            console.log("Your chose: " + fileDialog.fileUrl)
             if(historique.pressed === false)
                 UserSettings.addVolumePath(fileDialog.fileUrl)
             combo.model = UserSettings.getVolumePaths(0)
@@ -70,19 +79,16 @@ Item {
         id:description2
         width: top.width-120
         font.pixelSize: 12
-        text: qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
-                   +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
-                   +" container is just like any normal file (it can be, for example, moved or deleted as"
-                   +" any normal file). Click 'Select File' to choose a filename for the container and"
-                   +" to select the location where you wish the container to be created.<br><br><b>WARNING</b>: If you select"
-                   +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
-                   +" the newly created GostCrypt container. You will be able to encrypt existing giles (later"
-                   +" on) by moving them to the GostCrypt container that you are about to create now.")
+        text: message
         y: 110
         x: 60
         color: palette.text
         horizontalAlignment: Text.AlignJustify
         wrapMode: Text.WordWrap
+    }
+
+    function setFileDialog(bool) {
+        fileDialog.selectExisting = bool
     }
 
 }
