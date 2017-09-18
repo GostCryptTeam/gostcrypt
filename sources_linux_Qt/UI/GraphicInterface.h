@@ -1,4 +1,3 @@
-
 #ifndef GRAPHIC_INTERFACE
 #define GRAPHIC_INTERFACE
 
@@ -17,6 +16,24 @@
 #include <QUrl>
 #include <QString>
 
+#define GI_ENUM(name) name // TODO move to external file ?
+#define GI_STRTAB(name) #name
+#define GI_ALL_COMMANDS(func) { \
+    func(mount), \
+    func(createvolume), \
+    func(create), \
+    func(umount), \
+    func(unmount), \
+    func(dismount), \
+    func(dismountall), \
+    func(automount), \
+    func(backupheaders), \
+    func(createkeyfiles), \
+    func(mountedvolumes), \
+    func(openmountpoint) \
+}
+#define GI_KEY(variant, key) variant.toMap().value(key)
+
 class MyGuiApplication : public QGuiApplication {
 Q_OBJECT
 public:
@@ -32,21 +49,31 @@ public:
     explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
     int start();
 
-public slots:
-    void receiveSignal(QVariant);
-   /* void sGetAllMountedVolumes();
-    void sAutoMount(const QString&);
-    void sDismount(const QString&);
-    void sDismountAll();
-    void sConnectSudo();
-    void sConnectEndSudo();*/
-
+private slots:
+    /*!
+     * \brief receiveSignal
+     * Binds the signals from QML to the Core side
+     */
+    void receiveSignal(QString, QVariant);
+    /*!
+     * \brief printGetMountedVolumes
+     * retrieves the list of mounted volumes sent from the core
+     * \param result a pointer of the list of mounted volumes
+     */
+    void printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>);
+    void askSudoPassword();
+    //void sendSudoStatus(); TODO
 
 signals:
+    void request(QVariant request);
     void connectFinished();
+    //Signals that are called after the Core response :
+    void sPrintGetMountedVolumes(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
+    void sendSudoPassword(QString password);
+    void getSudoPassword();
 
 private:
-    Q_INVOKABLE void connectSignals(/*QObject* aQml*/);
+    Q_INVOKABLE void connectSignals();
     QGuiApplication* mApp;
     QQmlApplicationEngine mEngine;
     QSharedPointer<GostCrypt::NewCore::CoreBase> core;
@@ -54,6 +81,11 @@ private:
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
     VolumeCreation mWizard;
+
+    struct FirstGI {
+        enum Enum GI_ALL_COMMANDS(GI_ENUM);
+        static const QStringList Str;
+    };
 };
 
 #endif

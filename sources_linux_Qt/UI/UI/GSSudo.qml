@@ -6,20 +6,12 @@ import QtQuick.Controls.Styles 1.4
 Item {
     id: connectSudo_Form
     anchors.fill : parent
-    signal connection(string password)
     property string title: ""
     property string contentText: ""
     property bool isVisible: false
 
     MouseArea {
         anchors.fill:parent
-    }
-
-    Connections {
-        target: connectSudo_Form
-        onConnection: {
-            ConnectSignals.connectSudo(password);
-        }
     }
 
     Behavior on y {
@@ -88,7 +80,7 @@ Item {
         onAccepted:
         {
             app.toggleSudo(0)
-            connectSudo_Form.connection(password_value.text);
+            sendSudoPassword(password_value.text);
         }
         focus: true
     }

@@ -14,32 +14,29 @@ Item {
         target: ConnectSignals;
 
         onConnectFinished: {
-            qmlTest(["a", {"nom":"a"}]);
+            qmlRequest("mountedvolumes", "dummy");
         }
 
-        onSendSubWindowVolumeInfos: {
+        //Receiving the list of mounted volumes
+        onSPrintGetMountedVolumes: {
             subWindow.catchClose();
             pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
         }
-        onSendSubWindowAskSudoPassword: {
-            /*subWindow.opacity = subWindow.opacity = 1.0
-            subWindow.visible = subWindow.visible = true
-            if(subWindow.w !== "../dialogs/GSConnectSudo.qml")
-            {
-                subWindow.w = "../dialogs/GSConnectSudo.qml"
-                subWindow.title = 'Enter your password'
-                subWindow.loadForm()
-                subWindow.changeSubWindowHeight(200);
-            }*/
+
+       /* onSendSubWindowVolumeInfos: {
+            subWindow.catchClose();
+            pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
+        }*/
+        onGetSudoPassword: {
             console.log("Demande de sudo");
             app.toggleSudo(1)
         }
-        onSendSubWindowConfirmSudoPassword:  {
+        /*onSendSubWindowConfirmSudoPassword:  {
             subWindow.catchClose();
         }
         onSendSubWindowErrorMessage: {
             openErrorMessage(aTitle, aContent);
-        }
+        }*/
 
     }
 }
