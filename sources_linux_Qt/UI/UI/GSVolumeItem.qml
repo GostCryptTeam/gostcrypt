@@ -465,10 +465,10 @@ Component {
                 cursorShape = Qt.ArrowCursor
             }
             onClicked: {
-                ConnectSignals.openPath(MountPoint_);
+                qmlRequest("openmountpoint", {"path": MountPoint_});
             }
             onDoubleClicked: {
-                ConnectSignals.openPath(MountPoint_);
+                qmlRequest("openmountpoint", {"path": MountPoint_});
             }
 
             ToolTip {

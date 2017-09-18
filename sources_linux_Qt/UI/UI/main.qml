@@ -139,8 +139,8 @@ Window {
      */
     property real rotate
 
-    signal signalQML(variant content)
-
+    signal qmlRequest(string command, variant params)
+    signal sendSudoPassword(string password)
 
 
     /*************************************

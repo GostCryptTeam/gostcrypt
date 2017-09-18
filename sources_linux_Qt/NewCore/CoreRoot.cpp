@@ -40,10 +40,11 @@ namespace GostCrypt {
 			}
 		}
 
-		void CoreRoot::receiveSudoPassword(QSharedPointer<QByteArray> password)
+        //TODO
+        void CoreRoot::receiveSudoPassword(QString password)//QSharedPointer<QByteArray> password)
 		{
-				password->fill('\0');
-		}
+                password.fill('\0');
+        }
 
 		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 		{

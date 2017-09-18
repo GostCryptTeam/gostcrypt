@@ -20,7 +20,7 @@ namespace GostCrypt {
 		public slots:
 			virtual void exit();
 			virtual void request(QVariant r);
-			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
+            virtual void receiveSudoPassword(QString password); //TODO
 		public: //make protected
 			virtual QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeRequest> params);
             virtual QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>());
