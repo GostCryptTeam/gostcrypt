@@ -118,7 +118,7 @@ Item {
             width:200
             onClicked:
             {
-                ConnectSignals.connectReceiveAutoMount("dummy")
+                qmlRequest("automount", "dummy");
             }
             color_:palette.green
         }
@@ -131,7 +131,7 @@ Item {
             color_:palette.blue
             width:200
             onClicked: {
-                ConnectSignals.connectReceiveDismountAll()
+                qmlRequest("dismountall", "dummy");
                 listOfVolumes.clear()
                 helpStart.visible = true
             }

@@ -62,5 +62,12 @@
         <file>UI/wizard/Page11.qml</file>
         <file>UI/GSHelpButton.qml</file>
         <file>UI/wizard/PageEnd.qml</file>
+        <file>UI/ressource/separator.png</file>
+        <file>UI/ressource/volumeFavorite.png</file>
+        <file>UI/ressource/volumeFavoriteHover.png</file>
+        <file>UI/ressource/volumeProperties.png</file>
+        <file>UI/ressource/volumePropertiesHover.png</file>
+        <file>UI/ressource/volumeTools.png</file>
+        <file>UI/ressource/volumeToolsHover.png</file>
     </qresource>
 </RCC>
