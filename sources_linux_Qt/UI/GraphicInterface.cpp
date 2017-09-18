@@ -1,5 +1,7 @@
 #include "GraphicInterface.h"
 
+const QStringList GraphicInterface::FirstGI::Str = GI_ALL_COMMANDS(GI_STRTAB);
+
 ///*! converts byte to MB, GB, KB */
 //QString formatSize(uint64 sizeInByte) {
 //    if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
@@ -48,19 +50,10 @@ int GraphicInterface::start()
     mEngine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
 
     /* Connecting all signals */
-    //connectSignals(engine.rootObjects().first());
     QMetaObject::invokeMethod(this, "connectSignals", Qt::QueuedConnection);
 
     return mApp->exec();
 }
-
-//void GraphicInterface::sGetAllMountedVolumes()
-//{
-//    /*GostCrypt::VolumeInfoList volumes = mGUI->receiveGetAllVolumes();
-//    for(GostCrypt::SharedPtr<GostCrypt::VolumeInfo> volume : volumes){
-//        this->subWindowSendVolumeInfos(volume->MountPoint, volume->EncryptionAlgorithmName, volume->Path, volume->Size);
-//    }*/
-//}
 
 /*!
  * \brief GraphicInterface::receiveSignal
@@ -68,23 +61,96 @@ int GraphicInterface::start()
  * Analyzes the signal content to call the right
  * GostCrypt function
  */
-void GraphicInterface::receiveSignal(QVariant aContent)
+void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 {
-    qDebug() << "Signal reçu de qml = " << aContent.toStringList();
+#ifdef QT_DEBUG
+    qDebug() << "Command requested by QML = " << command;
+#endif
+    //using the mix between a QString tab and a enumeration.
+    uint32 value = FirstGI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
+
+    switch(value){
+    case FirstGI::mountedvolumes: //"mountedvolumes" command
+        {
+            QSharedPointer <GostCrypt::NewCore::GetMountedVolumesRequest> options(new GostCrypt::NewCore::GetMountedVolumesRequest);
+            emit request(QVariant::fromValue(options));
+        }
+        break;
+    case FirstGI::openmountpoint: //"openmountpoint" command
+        {
+#ifdef Q_WS_WIN
+            if (QFileInfo(aContent["path"]).isDir())
+                QProcess::startDetached("explorer", QStringList(GI_KEY(aContent, "path").toString()));
+            else
+#else
+        QDesktopServices::openUrl(QUrl(GI_KEY(aContent, "path").toString()));
+#endif
+        }
+        break;
+    case FirstGI::automount: //"automount" command
+        {
+            //TODO : automount
+        }
+        break;
+    case FirstGI::dismountall: //"dismountall" command
+        {
+            QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
+            emit request(QVariant::fromValue(options));
+        }
+        break;
+    }
+}
+
+void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse> response)
+{
+#ifdef QT_DEBUG
+    qDebug() << "[Debug] : Receiving the list of mounted volumes.";
+#endif
+    for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
+        this->sPrintGetMountedVolumes((*v)->mountPoint->filePath(), (*v)->encryptionAlgorithmName, (*v)->volumePath->filePath(), QString::number((*v)->size));
+    }
+}
+
+void GraphicInterface::askSudoPassword()
+{
+#ifdef QT_DEBUG
+    qDebug() << "Sudo password asked";
+#endif
+    emit getSudoPassword();
 }
 
 /*!
  * \brief GraphicInterface::connectSignals Binds the signals between the
  * GostCrypt core and the QML interface
  */
-void GraphicInterface::connectSignals(/*QObject* aQml*/)
+void GraphicInterface::connectSignals()
 {
+    /************* QML -----> C++ ************
+     * Connects every signals from QML to the
+     * "receiveSignal" slot of
+     * the current class
+    ******************************************/
     QObject* qml = mEngine.rootObjects().first();
-    //Connects every signals from QML to the "receiveSignal" slot of
-    //the current class
-    qDebug() << "A";
-    //QML -----> C++
-    connect(qml, SIGNAL(qmlTest(QVariant)), this, SLOT(receiveSignal(QVariant)));
+    connect(qml, SIGNAL(qmlRequest(QString, QVariant)), this, SLOT(receiveSignal(QString,QVariant)));
+
+
+    /***** GraphicInterface -----> Core ******
+     *
+    ******************************************/
+    //Connecting request from here to request switch from Core
+    mApp->connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
+
+    /***** Core -----> GraphicInterface ******
+     *
+    ******************************************/
+    mApp->connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
+
+    /* Connecting the signals to get the sudo request from Core and send it to Core */
+    mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
+    mApp->connect(qml, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
+    //mApp->connect(core.data(), SIGNAL(sudoPasswordSuccess()), this, SLOT(sendSudoStatus()));
+
+
 
     //Notifying the QML that the signals are binded
     emit connectFinished();

@@ -24,13 +24,13 @@ namespace GostCrypt {
         public slots:
 			virtual void exit();
 			virtual void request(QVariant r);
-			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password);
+            virtual void receiveSudoPassword(QString password); //TODO
         private slots:
 			void receiveResponse(QVariant &response);
         private:
 			CoreServiceHandler csh;
 		signals:
-			void sendSudoPassword(QSharedPointer<QByteArray> password);
+            void sendSudoPassword(QSharedPointer<QByteArray> password);
 		};
 
 	}
