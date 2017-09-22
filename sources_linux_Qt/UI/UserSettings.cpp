@@ -4,6 +4,7 @@
 
 UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
 {
+    qRegisterMetaTypeStreamOperators<QList<QString>> ("QList<QString>");
     //Checking if the setting file is empty
     if (mSettings.contains("default")) {
         qDebug() << "[Debug] : QSettings file exists.";
@@ -14,7 +15,7 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         mSettings.setValue("MountV-SaveHistory", 0);
         mSettings.setValue("MountV-CachePwd", 0);
         mSettings.setValue("MountV-UseKeyFiles", 0);
-
+        mSettings.setValue("Favorite-Volumes", QVariant::fromValue(QList<QString>()));
         for(int i=0; i<NB_PATH; i++)
              mSettings.setValue("MountV-path"+QString::number(i), "");
     }
@@ -72,4 +73,43 @@ void UserSettings::erasePaths()
 {
     for(int i=0; i<NB_PATH; i++)
         mSettings.setValue("MountV-path"+ QString::number(i), "");
+}
+
+bool UserSettings::isFavorite(const QString& aPath) const
+{
+    QList<QString> favoritePath = mSettings.value("Favorite-Volumes").value<QList<QString>>();
+    for(auto i : favoritePath)
+        if(i == aPath) return true;
+    return false;
+}
+
+QVariantList UserSettings::getFavoritesVolumes() const
+{
+    QList<QString> favoritePath = mSettings.value("Favorite-Volumes").value<QList<QString>>();
+    QVariantList qVariant;
+    for(auto i : favoritePath)
+        qVariant << i;
+    return qVariant;
+}
+
+void UserSettings::setFavoritesVolumes(QString aPath)
+{
+    QList<QString> favoritePath = mSettings.value("Favorite-Volumes").value<QList<QString>>();
+    for(auto i : favoritePath)
+        if(i == aPath)
+        {
+            favoritePath.removeOne(i);
+            mSettings.setValue("Favorite-Volumes", QVariant::fromValue(favoritePath));
+            mSettings.sync();
+#ifdef QT_DEBUG
+            qDebug() << "[DEBUG] : This volume is already in favorites. Removing it... (" << aPath << ")";
+#endif
+            return;
+        }
+    favoritePath.append(aPath);
+    mSettings.setValue("Favorite-Volumes", QVariant::fromValue(favoritePath));
+    mSettings.sync();
+#ifdef QT_DEBUG
+            qDebug() << "[DEBUG] : Adding a new volume to the favorites. (" << aPath << ")";
+#endif
 }

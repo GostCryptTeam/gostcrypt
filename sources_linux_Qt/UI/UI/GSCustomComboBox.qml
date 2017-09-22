@@ -11,7 +11,7 @@ ComboBox {
         id: item
         width: control.width
         contentItem: Text {
-            text: modelData
+            text: modelData + Translation.tr
             color: palette.green
             font: control.font
             elide: Text.ElideRight
@@ -52,7 +52,7 @@ ComboBox {
     contentItem: Text {
         leftPadding: 20
         rightPadding: control.indicator.width + control.spacing
-        text: control.displayText
+        text: control.displayText + Translation.tr
         font: control.font
         color: control.pressed ? "#5e7d25" : "#719c24"
         horizontalAlignment: Text.AlignLeft

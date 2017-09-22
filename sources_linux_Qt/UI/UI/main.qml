@@ -32,7 +32,7 @@ Window {
         \property title
         \brief GostCrypt program name
      */
-    title: qsTr("GostCrypt 2.0")
+    title: qsTr("GostCrypt 2.0") + Translation.tr
     /*!
         \property visible
         \brief Displaying main window
@@ -139,24 +139,33 @@ Window {
      */
     property real rotate
 
-
-
-
+    signal qmlRequest(string command, variant params)
+    signal sendSudoPassword(string password)
 
 
     /*************************************
      **********  Window content **********
      *************************************/
 
-    signal menuCHanged(string name, int index)
+    signal menuChanged(string name, int index)
 
     Loader {
         id: pageLoader
         source: "frames/HomeFrame.qml"
         y:40
         x:0
+        onSourceChanged: animation.running = true
         onLoaded: {
             pageLoader.item.mainWindow_ = app
+        }
+        NumberAnimation {
+            id: animation
+            target: pageLoader.item
+            property: "opacity"
+            from: 0
+            to: 1.0
+            duration: app.duration/4
+            easing.type: Easing.InExpo
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
@@ -164,7 +173,8 @@ Window {
     Connections {
         target: gs_Menu
         onMenuChanged: {
-            pageLoader.source = name
+            if(name !== "")
+                pageLoader.source = name
             gs_Menu.selected = index
         }
     }
@@ -172,37 +182,36 @@ Window {
     Connections {
         target: pageLoader.item
         onMenuChanged: {
-            pageLoader.source = name
-            gs_Menu.selected = index
+            if(pageLoader.source !== name)
+                pageLoader.source = name
+            if(name === "frames/Home.qml")
+            {
+                pageLoader.item.clearVolumes()
+                ConnectSignals.getAllMountedVolumes();
+            }
         }
     }
-
-    /*GSFrame.VolumeFrame {
-        id: content_
-        x: 0
-        y: 40
-        mainWindow_: app
-
-    }*/
 
 
 
     /*************************************
      *************  Signals  *************
      *************************************/
-
     /*!
       \signal mountVolume : sending a signal
         to Gostcrypt to mount a volume
      */
-
+    signal qmlTest(variant a)
     signal mountVolume(string path, string password)
 
     /*!
         \brief Receive all the mounted volumes after
         the window is successfully loaded
      */
-    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
+    Component.onCompleted: {
+       // app.signalQML({"content": "getAllMountedVolumes"})
+       // console.log("TODO: get all mounted volumes")//ConnectSignals.getAllMountedVolumes()
+    }
 
     //TODO : add all the signals QML->C++ here
     /*!
@@ -241,16 +250,32 @@ Window {
      *********  Static window  ***********
      *************************************/
 
-    /*!
-        \class GSMenu
-        \brief Menu zone on the left
-     */
-    GSMenu{
-        id: gs_Menu
-        height: app.height-40
+
+    Rectangle {
+        id: fullSizeSubMenu
+        x:0
         y:40
-        selected: 0
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+        width: app.width
+        height: app.height-40
+        color: "#000000"
+        opacity: 0.0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: app.duration/2;
+                easing.type: Easing.OutQuad
+            }
+        }
+        MouseArea {
+            id: mouseAreaMenu
+            anchors.fill: parent
+            enabled: false
+            visible: false
+            propagateComposedEvents: false
+            hoverEnabled: true
+            onClicked: {
+                toggleMenu()
+            }
+        }
     }
 
     /*!
@@ -263,13 +288,35 @@ Window {
         x: 20
         y: 55
         value: rotate
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+        Behavior on x {
+            NumberAnimation {
+                duration: app.duration;
+                easing.type: Easing.OutQuad
+            }
+        }
         //Changing the rotation value following the width
         onXChanged: {
-            rotate = (1-Math.abs(gs_Menu.x/gs_Menu.width))
-            menuButton.value = rotate
+            if(x<=185) {
+                rotate = (1-Math.abs(gs_Menu.x/gs_Menu.width))
+                menuButton.value = rotate
+            }
         }
     }
+
+
+    /*!
+        \class GSMenu
+        \brief Menu zone on the left
+     */
+    GSMenu{
+        id: gs_Menu
+        height: app.height-40
+        y:40
+        selected: 0
+        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    }
+
+
 
     TitleBar  {
         x:0
@@ -315,8 +362,8 @@ Window {
         isVisible: false
         visible: false
         opacity: 0.0
-        title: "Message d'erreur"
-        contentError: "Description du message d'erreur.\n Le message spécifique s'affichera donc ici."
+        title: qsTr("Message d'erreur")
+        contentError: qsTr("Description du message d'erreur.\n Le message spécifique s'affichera donc ici.")
     }
 
 
@@ -342,11 +389,15 @@ Window {
         Returns nothing.
      */
     function toggleMenu() {
-        gs_Menu.x = app.shown ? -gs_Menu.width : 0
-        pageLoader.x = app.shown ? 0 : 75
-        menuButton.x = app.shown ? 20 : 165
+        gs_Menu.selected = 0
+        gs_Menu.toggleSubMenu(false)
+        gs_Menu.x = app.shown ? -gs_Menu.width-1 : 0
+        pageLoader.x = app.shown ? 0 : 85
+        menuButton.x = app.shown ? 20 : 185
         app.shown = !app.shown
         menuButton.value = !menuButton.value;
+        //gs_Menu.selected = 0 TODO
+        //TODO setting home as active is nothing was selected
     }
 
     function openSubWindow(path, title, name, height, parameter) {
@@ -374,7 +425,8 @@ Window {
         }
     }
 
-    function openErrorMessage(title, content) {
+    function openErrorMessage(title, content, size) {
+        if(size !== undefined) errorMessage.size = size
         if(errorMessage.isVisible == false){
             errorMessage.isVisible = true;
             errorMessage.opacity = 1.0;
@@ -406,5 +458,6 @@ Window {
             sudo_.isVisible = false
         }
     }
+
 
 }

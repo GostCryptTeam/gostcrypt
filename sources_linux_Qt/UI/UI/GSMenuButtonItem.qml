@@ -1,53 +1,62 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
 
 Button {
-    id: buttonGreen
+    id: buttonMenu
     signal clicked()
-    width: 150
+    width: 170
     height: 60
     property string iconPath_
     property bool selected_: false
 
     Image {
-        x:10
+        id: form
+        x:parent.width-42
         y:14
         fillMode: Image.PreserveAspectFit
         source: iconPath_
         height:32
+        ToolTip {
+            parent: form
+            text: buttonMenu.text
+            visible: buttonMenu_mouseArea.containsMouse
+            delay: 500
+            timeout: 5000
+        }
     }
 
     //Partie texte
     contentItem: Text {
-        text: buttonGreen.text
+        text: buttonMenu.text + Translation.tr
         font.pixelSize: 12
         color: palette.text
-        horizontalAlignment: Text.AlignLeft
+        horizontalAlignment: Text.AlignRight
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
-        leftPadding: 47
+        rightPadding: 47
         font.capitalization: Font.AllUppercase
     }
 
     //Fond + icon
     background: Rectangle {
-        id: buttonGreen_rect
+        id: buttonMenu_rect
         color: (selected_ == true) ? palette.darkInput : palette.darkThird
         width:parent.width
         height:59
     }
 
     Rectangle {
-        anchors.top: buttonGreen_rect.bottom
-        width: 150
+        anchors.top: buttonMenu_rect.bottom
+        width: 170
         height: 1
         color: palette.border
     }
 
     //Capture du curseur
     MouseArea {
-        id: buttonGreen_mouseArea
-        onClicked: buttonGreen.clicked()
+        id: buttonMenu_mouseArea
+        onClicked: buttonMenu.clicked()
         anchors.fill: parent
         hoverEnabled: true
     }
@@ -55,25 +64,25 @@ Button {
     states: [
         State {
             name: "hover"
-            when: buttonGreen_mouseArea.containsMouse && !buttonGreen_mouseArea.pressed
+            when: buttonMenu_mouseArea.containsMouse && !buttonMenu_mouseArea.pressed
             PropertyChanges {
-                target: buttonGreen_rect
+                target: buttonMenu_rect
                 color : palette.border
             }
         },
         State {
             name: "pressed"
-            when: buttonGreen_mouseArea.pressed
+            when: buttonMenu_mouseArea.pressed
             PropertyChanges {
-                target: buttonGreen_rect
+                target: buttonMenu_rect
                 color : palette.darkInput
             }
         },
         State {
             name: "exit"
-            when: !buttonGreen_mouseArea.containsMouse
+            when: !buttonMenu_mouseArea.containsMouse
             PropertyChanges {
-                target: buttonGreen_rect
+                target: buttonMenu_rect
                 color: (selected_ == true) ? palette.darkInput : palette.darkThird
             }
         }

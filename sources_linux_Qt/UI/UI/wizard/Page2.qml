@@ -28,7 +28,8 @@ Item {
             Text {
                 id:description
                 width: top.width-60
-                text: qsTr("Select this option if you want to create a normal GostCrypt volume.")
+                font.pixelSize: 12
+                text: qsTr("Select this option if you want to create a normal GostCrypt volume.") + Translation.tr
                 anchors.top:stdGVol.bottom
                 color: palette.text
                 leftPadding: 40
@@ -50,11 +51,12 @@ Item {
             Text {
                 id:description3
                 width: top.width-60
+                font.pixelSize: 12
                 text: qsTr( "It may happen that you are forced by somebody to reveal the"+
                             " password of an encrypted volume. There are many situations where"+
                             " you cannot refuse to reveal the password (for example, due to extorsion) "+
                             ". Using a so-called hidden volume allows you to solve such situations without revealing the password of your volume."+
-                            "<br><font color='#719c24'><a href=\"#\">More information about hidden volumes</a></font>")
+                            "<br><font color='#719c24'><a href=\"#\">More information about hidden volumes</a></font>") + Translation.tr
                 anchors.top:hiddenVol.bottom
                 color: palette.text
                 leftPadding: 40

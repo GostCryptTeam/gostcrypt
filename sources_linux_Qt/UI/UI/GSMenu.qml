@@ -1,28 +1,628 @@
-import QtQuick 2.0
+import QtQuick 2.7
+import QtQuick.Controls 2.2
+import QtGraphicalEffects 1.0
 
 Item {
-    x:-150
-    width: 150
+    id: top
+    x: -170
+    width: 170
     property variant icons: [
         "ressource/menu_home.png",
         "ressource/menu_volume.png",
         "ressource/menu_system.png",
+        "ressource/menu_favorite.png",
         "ressource/menu_tools.png",
         "ressource/menu_settings.png",
-        "ressource/menu_favorite.png",
         "ressource/menu_help.png"]
-    property int selected: 0
-    signal menuChanged(string name, int index)
-    /*
-    RectangularGlow {
-        id: effect
-        anchors.fill: rect
-        glowRadius: 10
-        spread: 0.2
-        color: palette.darkSecond
-        cornerRadius: rect.radius + glowRadius
-    }*/
+    property variant menus: {
+        "HOME": 0,
+        "FAVORITE": 1,
+        "TOOLS": 2,
+        "SETTINGS": 3,
+        "HELP": 4
+    }
 
+    property int selected: 0
+    property string titleSubMenuText_: ""
+    signal menuChanged(string name, int index)
+
+    /********************
+         SUBMENU PART
+     ********************/
+    Rectangle {
+        id: subMenu
+        x:-231
+        width: 230
+        height: parent.height
+        color: palette.border
+        border.color: palette.darkInput
+        border.width: 1
+        Behavior on x {
+            NumberAnimation {
+                duration: app.duration/2;
+                easing.type: Easing.OutQuad;
+            }
+        }
+        Rectangle {
+            color: "transparent"
+            width: 230
+            x:1
+            height: 50
+            Text {
+                id: text_
+                text: titleSubMenuText_ + Translation.tr
+                color: palette.text
+                anchors.centerIn: parent
+                font.pixelSize: 15
+                font.capitalization: Font.AllUppercase
+            }
+            Rectangle {
+                height: 1
+                width: parent.width-2
+                color: palette.dark
+                y:49
+            }
+        }
+
+        Component {
+            id: subMenuDelegateHead
+            Rectangle {
+                width: 228
+                x: 1
+                height:25
+                color:palette.darkInput
+                Text {
+                    x:15
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: section
+                    font.pixelSize: 11
+                    color: "#C9C9C9"
+                    font.capitalization: Font.AllUppercase
+                }
+                Rectangle {
+                    height: 1
+                    width: parent.width
+                    color: palette.dark
+                    y:24
+                }
+            }
+        }
+        Item {
+            id: loaderSub
+            anchors.fill:parent
+            visible: false
+            Component {
+                id: subMenuDelegate
+                Item {
+                    width: 228;
+                    x: 1
+                    height: {
+                        if(size === "small")
+                            if(finale !== undefined) 28;
+                            else return 32
+                        else if(size ==="medium")
+                            if(finale !== undefined) 39;
+                            else return 43
+                        else
+                            if(finale !== undefined) 50;
+                            else return 54
+                    }
+                    Rectangle {
+                        id: elementSubMenu
+                        width: parent.width
+                        height: {
+                            if(finale !== undefined) parent.height;
+                            else return parent.height - 4
+                        }
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: palette.darkThird
+                        Text {
+                            horizontalAlignment: Text.AlignLeft
+                            text: message + Translation.tr
+                            color: palette.text
+                            font.pixelSize: 14
+                            wrapMode: Text.WordWrap
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: 20
+                            width: 200
+                        }
+                        MouseArea {
+                            id: elementSubMenu_MouseArea
+                            anchors.fill: elementSubMenu
+                            hoverEnabled: true
+                            onClicked: {
+                                openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
+                                toggleMenu()
+                            }
+                        }
+                        states: [
+                            State {
+                                name: "hover"
+                                when: elementSubMenu_MouseArea.containsMouse && !elementSubMenu_MouseArea.pressed
+                                PropertyChanges {
+                                    target: elementSubMenu
+                                    color : palette.dark
+                                }
+                            },
+                            State {
+                                name: "pressed"
+                                when: elementSubMenu_MouseArea.pressed
+
+                            },
+                            State {
+                                name: "exit"
+                                when: !elementSubMenu_MouseArea.containsMouse
+                                PropertyChanges {
+                                    target: elementSubMenu
+                                    color: palette.darkThird
+                                }
+                            }
+                        ]
+
+                        transitions: Transition {
+                            ColorAnimation { duration:100 }
+                        }
+
+                    }
+                    Rectangle {
+                        height: {
+                            if(finale !== undefined) return 0
+                            else return 4
+                        }
+                        width: 228
+                        anchors {
+                            left: elementSubMenu.left
+                            right: elementSubMenu.right
+                            top: elementSubMenu.bottom
+                        }
+                        color: palette.darkThird
+                        Image {
+                            height: parent.height
+                            fillMode: Image.TileHorizontally
+                            x:10
+                            width: parent.width-20
+                            horizontalAlignment: Image.AlignLeft
+                            verticalAlignment: Image.AlignTop
+                            source: "ressource/separator.png"
+                        }
+                    }
+                }
+
+            }
+
+            ListModel {
+                id: listSubMenuModel
+            }
+
+            ListView {
+                id: listOfSubMenu
+                y:50
+                width: parent.width
+                height: parent.height-50
+                delegate: subMenuDelegate
+                model: listSubMenuModel
+                focus: true
+                snapMode: ScrollBar.SnapAlways
+                clip: true
+                anchors.topMargin: 50
+                anchors.bottomMargin: 10
+                boundsBehavior: Flickable.DragOverBounds
+                ScrollBar.vertical:
+                    ScrollBar {
+                    snapMode: ScrollBar.SnapOnRelease
+                  //  contentItem.opacity: 0.1
+                    policy: ScrollBar.AsNeeded
+                    parent: listOfSubMenu.parent
+                    anchors.top: listOfSubMenu.top
+                    anchors.left: listOfSubMenu.left
+                    anchors.bottom: listOfSubMenu.bottom
+                    }
+                section.property: "type"
+                section.criteria: ViewSection.FullString
+                section.delegate: subMenuDelegateHead
+            }
+        }
+        Item {
+            id: loaderFavoriteSub
+            visible: false
+            anchors.fill:parent
+            Rectangle {
+                y: subMenu.y + subMenu.height - 129
+                x: 1
+                width: 1
+                height:100
+                color: palette.darkThird
+            }
+            Rectangle {
+                y: subMenu.y + subMenu.height - 130
+                x: 1
+                width: parent.width-2
+                height:1
+                color: palette.dark
+            }
+            Rectangle {
+                x:2
+                width: parent.width-2
+                height:149
+                y: subMenu.y + subMenu.height - 129
+                color: palette.darkInput
+                Text {
+                    y: 10
+                    x: 10
+                    text: "Double-click on a path to<br>mount the volume.<br>Or mount all favorite volumes :"
+                    color: palette.text
+                    width: parent.width - 20
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: 13
+                }
+                GSButtonBordered {
+                    text: qsTr("Mount favorite volumes") + Translation.tr
+                    color_: palette.green
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: 75
+                    onClicked: {
+                        //Mount all favorite volumes
+                        var volumes = UserSettings.getFavoritesVolumes()
+                        //TODO
+                    }
+                }
+
+            }
+            Rectangle {
+                y: subMenu.y + subMenu.height - 130
+                x: parent.width-2
+                width: 1
+                height:100
+                color: palette.darkThird
+            }
+
+
+            Component {
+                id: subMenuDelegateFavorite
+                Item {
+                    y:1
+                    width: 228;
+                    x: 1
+                    height: 60
+                    Rectangle {
+                        id: favoriteElement
+                        anchors.fill:parent;
+                        color: {
+                            if(mounted === false) return palette.darkThird
+                            return palette.darkInput
+                        }
+                        Text {
+                            id: textInfos
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: 10
+                            width: 180
+                            text: path
+                            color: palette.text
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            visible: {
+                                if(mounted === false) return false
+                                else return true
+                            }
+                            text : qsTr("(Mounted)")
+                            anchors {
+                                bottom: parent.bottom
+                                left: parent.left
+                                leftMargin: 10
+                                bottomMargin: 10
+                            }
+                            horizontalAlignment: Text.AlignRight
+                            font.pixelSize: 11
+                            color: palette.text
+                            opacity: 0.5
+                        }
+
+                        ToolTip {
+                            parent: favoriteElement
+                            text: path
+                            visible: favoriteElementMouseArea.containsMouse && !unFavButtonArea.containsMouse && !toolFavArea.containsMouse
+                            delay: 500
+                            timeout: 5000
+                        }
+                        Text {
+                            id: unFavButton
+                            anchors.right: parent.right
+                            y: -5
+                            anchors.rightMargin: 15
+                            text: "×"
+                            color: palette.text
+                            font.pixelSize: 30
+                            opacity: 0.0
+
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: app.duration/2;
+                                    easing.type: Easing.OutQuad;
+                                }
+                            }
+                            ToolTip {
+                                parent: unFavButton
+                                text: qsTr("Remove from favorites...")
+                                visible: unFavButtonArea.containsMouse
+                                delay: 500
+                                timeout: 5000
+                            }
+                        }
+
+                        Image {
+                            id: propertiesFav
+                            source: "ressource/volumeTools.png"
+                            anchors.right: parent.right
+                            anchors.rightMargin: 12
+                            x:0
+                            y:32
+                            width:20
+                            height:20
+                            opacity: 0.0
+                            Behavior on opacity {
+                                NumberAnimation {
+                                    duration: app.duration/2;
+                                    easing.type: Easing.OutQuad;
+                                }
+                            }
+                            ToolTip {
+                                parent: toolFavArea
+                                text: qsTr("Favorite Volume options...")
+                                visible: toolFavArea.containsMouse
+                                delay: 500
+                                timeout: 5000
+                            }
+                        }
+
+                        ColorOverlay{
+                            id: overlayImage
+                            anchors.fill: propertiesFav
+                            source:propertiesFav
+                            color: palette.blue
+                            visible: false
+                            antialiasing: true
+                        }
+                    }
+
+                    MouseArea {
+                        id: favoriteElementMouseArea
+                        anchors.fill: favoriteElement
+                        hoverEnabled: true
+                        propagateComposedEvents: false
+                        onEntered: {
+                            unFavButton.opacity = 1.0
+                            propertiesFav.opacity = 1.0
+                        }
+                        onExited: {
+                            unFavButton.opacity = 0.0
+                            propertiesFav.opacity = 0.0
+                        }
+                        onDoubleClicked: {
+                            //TODO
+                            if(mounted === false){
+                                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
+                                toggleMenu();
+                            }
+                            else ConnectSignals.openPath(mountPoint);
+
+                        }
+
+                        MouseArea {
+                            id:unFavButtonArea
+                            width: 50
+                            height: 30
+                            x: 178
+                            hoverEnabled: true
+                            onEntered: unFavButton.color = palette.blue
+                            onExited: unFavButton.color = palette.text
+                            onClicked: {
+                                //TODO : unfav path
+                                UserSettings.setFavoritesVolumes(path);
+                                listSubMenuModelFavorite.clear();
+                                manageSubMenu(menus.FAVORITE)
+
+                                //check if favorite un homeframe
+
+                            }
+                        }
+                        MouseArea {
+                            id: toolFavArea
+                            width:50
+                            height: 30
+                            x: 178
+                            y: 30
+                            hoverEnabled: true
+                            onEntered: overlayImage.visible = true
+                            onExited: overlayImage.visible = false
+                            onClicked: {
+                                //TODO: open subwindow
+                            }
+                        }
+
+                    }
+                    states: [
+                        State {
+                            name: "hover"
+                            when: favoriteElementMouseArea.containsMouse && !favoriteElementMouseArea.pressed
+                            PropertyChanges {
+                                target: favoriteElement
+                                color : {
+                                    if(mounted === false) return palette.dark
+                                    return palette.darkInput
+                                }
+                            }
+                        },
+                        State {
+                            name: "pressed"
+                            when: favoriteElementMouseArea.pressed
+
+                        },
+                        State {
+                            name: "exit"
+                            when: !favoriteElementMouseArea.containsMouse
+                            PropertyChanges {
+                                target: favoriteElement
+                                color: {
+                                    if(mounted === false) return palette.darkThird
+                                    return palette.darkInput
+                                }
+                            }
+                        }
+                    ]
+
+                    transitions: Transition {
+                        ColorAnimation { duration:100 }
+                    }
+                }
+
+            }
+
+            ListModel {
+                id: listSubMenuModelFavorite
+            }
+
+            ListView {
+                id: listOfSubMenuFavorite
+                y:50
+                width: parent.width
+                height: parent.height-180
+                delegate: subMenuDelegateFavorite
+                model: listSubMenuModelFavorite
+                focus: true
+                snapMode: ScrollBar.SnapAlways
+                clip: true
+                anchors.topMargin: 50
+                anchors.bottomMargin: 10
+                boundsBehavior: Flickable.DragOverBounds
+                ScrollBar.vertical:
+                    ScrollBar {
+                    snapMode: ScrollBar.SnapOnRelease
+                    policy: ScrollBar.AsNeeded
+                    parent: listOfSubMenuFavorite.parent
+                    anchors.top: listOfSubMenuFavorite.top
+                    anchors.left: listOfSubMenuFavorite.left
+                    anchors.bottom: listOfSubMenuFavorite.bottom
+                    }
+            }
+        }
+
+    }
+
+
+    function toggleSubMenu(open){
+        //Toggle case
+        if(open === undefined)
+        {
+            fullSizeSubMenu.opacity = fullSizeSubMenu.opacity === 0.0 ? 0.5 : 0.0
+            mouseAreaMenu.enabled = mouseAreaMenu.enabled === true ? false : true
+            mouseAreaMenu.visible = mouseAreaMenu.visible === true ? false : true
+            if(subMenu.x > 0) {
+                subMenu.x = -231
+                top.x = 0
+            }else{
+                top.x = -120
+                subMenu.x = 170
+            }
+            return
+        }
+        //Forced case
+        if(open === true) {
+            fullSizeSubMenu.opacity = 0.5
+            mouseAreaMenu.enabled = true
+            mouseAreaMenu.visible = true
+            top.x = -120
+            subMenu.x = 170
+        }
+        else {
+            fullSizeSubMenu.opacity = 0.0
+            mouseAreaMenu.enabled = false
+            mouseAreaMenu.visible = false
+            top.x = 0
+            subMenu.x = -231
+        }
+    }
+
+    function manageSubMenu(index) {
+        //filling the submenu zone
+        listSubMenuModel.clear()
+        listSubMenuModelFavorite.clear()
+        loaderSub.visible = true
+        loaderFavoriteSub.visible = false
+        switch(index) {
+        case menus.HOME:
+            //nothing here (?)
+            app.toggleMenu()
+            break;
+        case menus.FAVORITE:
+            loaderSub.visible = false
+            loaderFavoriteSub.visible = true
+            titleSubMenuText_ = qsTr("favorite")
+            /*listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), subtype: "1", size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
+            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
+            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})*/
+            var favorites = UserSettings.getFavoritesVolumes()
+            var isMounted = false;
+            for(var i = 0; i< favorites.length; i++) {
+                listSubMenuModelFavorite.append({path: favorites[i], mounted: ConnectSignals.isMounted(favorites[i]), mountPoint: ConnectSignals.getMountPoint(favorites[i])});
+            }
+            break;
+        case menus.TOOLS:
+            titleSubMenuText_ = qsTr("tools")
+            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
+
+            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "medium", type: qsTr("other"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            break;
+        case menus.SETTINGS:
+            titleSubMenuText_ = qsTr("settings")
+            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
+            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
+            //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
+
+            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            break;
+        case menus.HELP:
+            titleSubMenuText_ = qsTr("help")
+            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: qsTr("help"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+
+            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("About"), size: "small", type: qsTr("information"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            break;
+        }
+    }
+
+
+    /********************
+          MENU PART
+     ********************/
     Rectangle {
         id: rect
         color: palette.darkThird
@@ -30,78 +630,98 @@ Item {
         width: parent.width
         height: parent.height
         radius: 0
+        border {
+            color:palette.border
+            width: 1
+        }
     }
 
     GSMenuButtonItem {
         id: home
         y: 1
-        text: qsTr("Home")
+        text: qsTr("Home") + Translation.tr
         iconPath_: icons[0]
         selected_: (selected == 0) ? true : false
         onClicked: {
-            menuChanged("frames/HomeFrame.qml", 0)
-            //loading the mounted volumes
-            ConnectSignals.getAllMountedVolumes()
+            selected = menus.HOME
+            manageSubMenu(selected)
+            menuChanged("frames/HomeFrame.qml", menus.HOME)
         }
     }
-    GSMenuButtonItem {
-        id: buttonVolumes
-        y: home.y + 60
-        text: qsTr("Volumes")
-        iconPath_: icons[1]
-        selected_: (selected == 1) ? true : false
-        onClicked: {
-            menuChanged("frames/VolumeFrame.qml", 1)
-        }
-    }
-    GSMenuButtonItem {
-        id: buttonSystem
-        y: buttonVolumes.y + 60
-        text: qsTr("System")
-        iconPath_: icons[2]
-        selected_: (selected == 2) ? true : false
-        onClicked: {
-            menuChanged("frames/SystemFrame.qml", 2)
-        }
-    }
+
     GSMenuButtonItem {
         id: buttonFavorites
-        y: buttonSystem.y + 60
-        text: qsTr("Favorites")
+        y: home.y + 60
+        text: qsTr("Favorites") + Translation.tr
         iconPath_: icons[3]
-        selected_: (selected == 3) ? true : false
+        selected_: (selected === menus.FAVORITE) ? true : false
         onClicked: {
-            menuChanged("frames/FavoritesFrame.qml", 3)
+            if(selected === menus.FAVORITE) {
+                toggleSubMenu();
+                menuChanged("", menus.HOME)
+            }else{
+                loaderSub.visible = false
+                loaderFavoriteSub.visible = true
+                selected = menus.FAVORITE
+                manageSubMenu(selected)
+                toggleSubMenu(true);
+                menuChanged("", menus.FAVORITE)
+            }
+
         }
     }
     GSMenuButtonItem {
         id: buttonTools
         y: buttonFavorites.y + 60
-        text: qsTr("Tools")
+        text: qsTr("Tools") + Translation.tr
         iconPath_: icons[4]
-        selected_: (selected == 4) ? true : false
+        selected_: (selected === menus.TOOLS) ? true : false
         onClicked: {
-            menuChanged("frames/ToolsFrame.qml", 4)
+            if(selected === menus.TOOLS) {
+                toggleSubMenu();
+                menuChanged("", menus.HOME)
+            }else{
+                selected = menus.TOOLS
+                manageSubMenu(selected)
+                toggleSubMenu(true);
+                menuChanged("", menus.TOOLS)
+            }
         }
     }
     GSMenuButtonItem {
         id: buttonSettings
         y: buttonTools.y + 60
-        text: qsTr("Settings")
+        text: qsTr("Settings") + Translation.tr
         iconPath_: icons[5]
-        selected_: (selected == 5) ? true : false
+        selected_: (selected === menus.SETTINGS) ? true : false
         onClicked: {
-            menuChanged("frames/SettingsFrame.qml", 5)
+            if(selected === menus.SETTINGS) {
+                toggleSubMenu();
+                menuChanged("", menus.HOME)
+            }else{
+                selected = menus.SETTINGS
+                manageSubMenu(selected)
+                toggleSubMenu(true);
+                menuChanged("", menus.SETTINGS)
+            }
         }
     }
     GSMenuButtonItem {
         id: buttonHelp
         y: buttonSettings.y + 60
-        text: qsTr("Help")
+        text: qsTr("Help") + Translation.tr
         iconPath_: icons[6]
-        selected_: (selected == 6) ? true : false
+        selected_: (selected === menus.HELP) ? true : false
         onClicked: {
-            menuChanged("frames/HelpFrame.qml", 6)
+            if(selected === menus.HELP) {
+                toggleSubMenu();
+                menuChanged("", menus.HOME)
+            }else{
+                selected = menus.HELP
+                manageSubMenu(selected)
+                toggleSubMenu(true);
+                menuChanged("", menus.HELP)
+            }
         }
     }
 }

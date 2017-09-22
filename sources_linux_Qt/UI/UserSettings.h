@@ -47,6 +47,10 @@ public:
 
     Q_INVOKABLE void erasePaths();
 
+    Q_INVOKABLE QVariantList getFavoritesVolumes() const;
+    Q_INVOKABLE void setFavoritesVolumes(QString);
+    Q_INVOKABLE bool isFavorite(const QString&) const;
+
 private:
     QSettings mSettings;
 

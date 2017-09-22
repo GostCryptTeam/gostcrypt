@@ -33,7 +33,7 @@ namespace GostCrypt {
 		public slots:
 			virtual void request(QVariant request) = 0;
 			virtual void exit() = 0;
-			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password) = 0;
+            virtual void receiveSudoPassword(QString password) = 0;//QSharedPointer<QByteArray> password) = 0;
 		protected:
             QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
             QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());

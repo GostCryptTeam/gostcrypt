@@ -31,10 +31,11 @@ namespace GostCrypt {
 				csh.sendToCoreService(r);
 		}
 
-		void CoreUser::receiveSudoPassword(QSharedPointer<QByteArray> password)
+        //TODO : remove the QSTRING with a c++ password class
+        void CoreUser::receiveSudoPassword(QString password)//QSharedPointer<QByteArray> password)
 		{
-			emit sendSudoPassword(password);
-		}
+            emit sendSudoPassword(QSharedPointer<QByteArray>(new QByteArray(password.toLocal8Bit())));
+        }
 
 		void CoreUser::receiveResponse(QVariant &r)
 		{

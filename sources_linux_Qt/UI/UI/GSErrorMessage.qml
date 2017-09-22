@@ -10,11 +10,12 @@ Item {
     property string title: ""
     property string contentError: ""
     property bool isVisible: false
+    property int size: 15
 
     Behavior on opacity {
         NumberAnimation {
             id: animation
-            duration: app.duration;
+            duration: app.duration/3;
             easing.type: Easing.OutQuad;
             onRunningChanged: {
                 if(!animation.running && errorLayer.isVisible == false) {
@@ -40,7 +41,7 @@ Item {
 
     Text {
         id: titleText
-        text: title
+        text: title + Translation.tr
         y: 50
         width: errorLayer.width
         //width: errorLayer.width
@@ -52,14 +53,14 @@ Item {
 
     Text {
         id: contentText
-        text: contentError
+        text: contentError + Translation.tr
         y: 100
         width: errorLayer.width
         anchors.horizontalCenter: parent.horizontalCenter
         //width: errorLayer.width
         horizontalAlignment: Text.AlignHCenter
         font.family: "Helvetica"
-        font.pointSize: 14
+        font.pixelSize: size
         color: "#ffffff"
         leftPadding: errorLayer.width/4
         rightPadding: errorLayer.width/4
@@ -71,7 +72,7 @@ Item {
         id: exitButton
         anchors.horizontalCenter: errorLayer.horizontalCenter
         anchors.top: contentText.bottom
-        text: qsTr("OK")
+        text: qsTr("OK") + Translation.tr
         color_: palette.blue
         onClicked: {
             closeErrorMessage();
