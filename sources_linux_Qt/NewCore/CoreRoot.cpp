@@ -176,7 +176,7 @@ namespace GostCrypt {
                 }
             } catch(...) {
                 QSharedPointer<DismountVolumeRequest> dismountParams(new DismountVolumeRequest);
-                dismountParams->volumepath = params->path;
+                dismountParams->volumePath = params->path;
                 dismountVolume(dismountParams);
                 if(mountDirCreated)
                     QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
@@ -203,10 +203,10 @@ namespace GostCrypt {
                 QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
                 if(params)
-                    getMountedVolumesParams->volumePath = params->volumepath;
+                    getMountedVolumesParams->volumePath = params->volumePath;
                 getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-                if(params && params->volumepath && getMountedVolumesResponse->volumeInfoList.isEmpty())
-                    throw VolumeNotMountedException(params->volumepath);
+                if(params && params->volumePath && getMountedVolumesResponse->volumeInfoList.isEmpty())
+                    throw VolumeNotMountedException(params->volumePath);
                 mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
             for (QSharedPointer<VolumeInformations> mountedVolume : mountedVolumes) {
@@ -227,6 +227,7 @@ namespace GostCrypt {
 
                 /* Delete fuse mount point directory */
                 QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
+                response->volumePath.append(mountedVolume->volumePath);
             }
             return response;
         }
@@ -328,7 +329,7 @@ namespace GostCrypt {
             mountparams->path = volume;
 
             QSharedPointer<DismountVolumeRequest> dismountparams(new DismountVolumeRequest());
-            dismountparams->volumepath = volume;
+            dismountparams->volumePath = volume;
 
             //try {
                 mountresponse = mountVolume(mountparams);
