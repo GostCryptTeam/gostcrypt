@@ -429,8 +429,6 @@ Component {
                 font.pixelSize: 20
             }
 
-
-
             Behavior on opacity {
                 NumberAnimation {
                     id: animation
@@ -495,14 +493,18 @@ Component {
 
                 onClicked: {
                     console.log("Dismount volume");
-                    ConnectSignals.connectReceiveDismount(Path_);
-                    listOfVolumes.remove(index);
-                    if(listOfVolumes.count == 0) helpStart.visible = true;
+                    qmlRequest("dismount", {"volumepath": Path_});
                 }
             }
         }
+        function getPath()
+        {
+            return Path_;
+        }
 
     }
+
+
 
 
 }

@@ -23,20 +23,15 @@ Item {
             pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
         }
 
-       /* onSendSubWindowVolumeInfos: {
-            subWindow.catchClose();
-            pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
-        }*/
         onGetSudoPassword: {
-            console.log("Demande de sudo");
             app.toggleSudo(1)
         }
-        /*onSendSubWindowConfirmSudoPassword:  {
-            subWindow.catchClose();
+
+        onSPrintDismountVolume: {
+            for(var p in mountPoints)
+                pageLoader.item.dismountVolume(mountPoints[p]);
         }
-        onSendSubWindowErrorMessage: {
-            openErrorMessage(aTitle, aContent);
-        }*/
+
 
     }
 }

@@ -22,8 +22,6 @@
     func(mount), \
     func(createvolume), \
     func(create), \
-    func(umount), \
-    func(unmount), \
     func(dismount), \
     func(dismountall), \
     func(automount), \
@@ -61,6 +59,7 @@ private slots:
      * \param result a pointer of the list of mounted volumes
      */
     void printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>);
+    void printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>);
     void askSudoPassword();
     //void sendSudoStatus(); TODO
 
@@ -69,6 +68,7 @@ signals:
     void connectFinished();
     //Signals that are called after the Core response :
     void sPrintGetMountedVolumes(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
+    void sPrintDismountVolume(QVariant mountPoints);
     void sendSudoPassword(QString password);
     void getSudoPassword();
 
