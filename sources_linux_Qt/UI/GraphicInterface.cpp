@@ -98,6 +98,17 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
+    case FirstGI::dismount: //"dismount" command
+        {
+            QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
+            if(GI_KEY(aContent, "volumepath") != "") {
+                options.data()->volumepath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
+                emit request(QVariant::fromValue(options));
+            }else{
+                //TODO : send error to QML
+            }
+        }
+        break;
     }
 }
 
@@ -109,6 +120,16 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
     for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
         this->sPrintGetMountedVolumes((*v)->mountPoint->filePath(), (*v)->encryptionAlgorithmName, (*v)->volumePath->filePath(), QString::number((*v)->size));
     }
+}
+
+void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> res)
+{
+    //res.data()->DismountVolumeResponse
+    //emit sPrintDismountVolume(res->DismountVolumeResponse.volumePath);
+    QStringList a;
+    a << "a";
+    a << "b";
+    emit sPrintDismountVolume(QVariant::fromValue(a));
 }
 
 void GraphicInterface::askSudoPassword()
@@ -144,6 +165,8 @@ void GraphicInterface::connectSignals()
      *
     ******************************************/
     mApp->connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
+    mApp->connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
+
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
