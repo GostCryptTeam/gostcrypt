@@ -251,9 +251,7 @@ namespace GostCrypt {
 
                 /* Delete fuse mount point directory */
                 QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
-
-                /* Saving the volume path to confirm to the QML that the volume was successfully dismounted */
-                response.data()->volumePath.append(mountedVolume->volumePath);
+                response->volumePath.append(mountedVolume->volumePath);
             }
             return response;
         }
