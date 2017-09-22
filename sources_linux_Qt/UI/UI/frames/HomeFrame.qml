@@ -132,8 +132,6 @@ Item {
             width:200
             onClicked: {
                 qmlRequest("dismountall", "dummy");
-                listOfVolumes.clear()
-                helpStart.visible = true
             }
         }
         /*!
@@ -431,6 +429,19 @@ Item {
 
     function clearVolumes() {
         listOfVolumes.clear();
+    }
+
+    function dismountVolume(path) {
+        //listOfVolumes.
+        console.log("On démonte : " + path);
+        for(var i =0; i<listOfVolumes.count; i++) {
+            console.log(listOfVolumes.get(i).Path_);
+            console.log(path);
+            if(listOfVolumes.get(i).Path_ == path)
+                listOfVolumes.remove(i);
+        }
+        if(listOfVolumes.count == 0) helpStart.visible = true;
+
     }
 
 }
