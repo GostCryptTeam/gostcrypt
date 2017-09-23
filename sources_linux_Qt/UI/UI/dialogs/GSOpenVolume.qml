@@ -21,9 +21,9 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length != 0)
             {
-                //console.log("volumePath vaut ici " +volumePath)
-                mountVolume(volumePath, password_value.text);
-                var password_blank = Array(password_value.length+1).join('#');
+                //mountVolume(volumePath, password_value.text);
+                qmlRequest("mountVolume", {"path": volumePath, "password": password_value.text});
+                var password_blank = new Array(password_value.length+1).join('#');
                 console.log("Mot de passe : "+password_blank);
                 password_value.text = password_blank
                 password_value.text = ""
@@ -292,8 +292,7 @@ Item {
             if(sudo_.isVisible === false)
             {
                 sendInfoVolume()
-                var password_blank = Array(password_value.length+1).join('#');
-                console.log("Mot de passe : "+password_blank);
+                var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
             }
         }

@@ -33,13 +33,18 @@
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
 
+class GraphicInterface;
+
 class MyGuiApplication : public QGuiApplication {
 Q_OBJECT
 public:
     MyGuiApplication(int& argc, char** argv) : QGuiApplication(argc, argv) {}
     bool notify(QObject* receiver, QEvent* event);
+    void setGI(GraphicInterface* gi) { mGI = gi; }
 signals:
     void exit();
+private:
+    GraphicInterface* mGI;
 };
 
 class GraphicInterface : public QObject {
@@ -74,11 +79,11 @@ signals:
     void getSudoPassword();
     void volumePasswordIncorrect();
     void exit();
-    void sendError(QString title, QString content);
+    void sendError(QString aTitle, QString aContent);
 
 private:
     Q_INVOKABLE void connectSignals();
-    QGuiApplication* mApp;
+    MyGuiApplication* mApp;
     QQmlApplicationEngine mEngine;
     QSharedPointer<GostCrypt::NewCore::CoreBase> core;
     UserSettings mSettings;

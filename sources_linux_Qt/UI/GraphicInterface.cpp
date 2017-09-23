@@ -29,6 +29,7 @@ GraphicInterface::GraphicInterface(MyGuiApplication* aApp, QObject *parent)
     : QObject(parent)
 {
     mApp = aApp;
+    mApp->setGI(this);
 }
 
 int GraphicInterface::start()
@@ -117,6 +118,16 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 qDebug() << volume.toString();
             }
         }
+        break;
+    case FirstGI::mount: //"mount"
+        {
+        qDebug() << "AH";
+            QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
+            options->path.reset(new QFileInfo(GI_KEY(aContent, "path").toString()));
+            options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
+            emit request(QVariant::fromValue(options));
+        }
+        break;
     }
 }
 
@@ -198,6 +209,11 @@ bool MyGuiApplication::notify(QObject *receiver, QEvent *event)
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::CoreException &e) {
         //CmdLineInterface::qStdOut() << e.displayedMessage();
+        emit mGI->sendError("Exception catch", "An unexpected error occured. \n"
+#ifdef QT_DEBUG
+        +QString::fromUtf8(e.what())
+#endif
+        );
         emit exit();
     } catch (QException &e) { // TODO : handle exceptions here
        // CmdLineInterface::qStdOut() << e.what();

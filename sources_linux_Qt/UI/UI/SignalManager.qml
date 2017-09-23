@@ -32,6 +32,10 @@ Item {
         onSPrintDismountVolume: {
             qmlRequest("mountedvolumes", "")
         }
+
+        onSendError: {
+            openErrorMessage(aTitle, aContent);
+        }
     }
 
     function manageModel(volumes)
