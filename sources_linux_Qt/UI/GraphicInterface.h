@@ -28,7 +28,8 @@
     func(backupheaders), \
     func(createkeyfiles), \
     func(mountedvolumes), \
-    func(openmountpoint) \
+    func(openmountpoint), \
+    func(listoffavorites) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
 
@@ -67,11 +68,13 @@ signals:
     void request(QVariant request);
     void connectFinished();
     //Signals that are called after the Core response :
-    void sPrintGetMountedVolumes(const QString& aMount, const QString& aAlgo, const QString& aPath, const QString& aSize);
-    void sPrintDismountVolume(QVariant mountPoints);
+    void sPrintGetMountedVolumes(QVariantList volumes);
+    void sPrintDismountVolume();
     void sendSudoPassword(QString password);
     void getSudoPassword();
+    void volumePasswordIncorrect();
     void exit();
+    void sendError(QString title, QString content);
 
 private:
     Q_INVOKABLE void connectSignals();

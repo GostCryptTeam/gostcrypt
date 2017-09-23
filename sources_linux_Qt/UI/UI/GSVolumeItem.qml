@@ -492,7 +492,6 @@ Component {
                 }
 
                 onClicked: {
-                    console.log("Dismount volume");
                     qmlRequest("dismount", {"volumepath": Path_});
                 }
             }

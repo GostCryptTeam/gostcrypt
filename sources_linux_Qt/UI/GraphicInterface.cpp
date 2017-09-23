@@ -2,28 +2,28 @@
 
 const QStringList GraphicInterface::FirstGI::Str = GI_ALL_COMMANDS(GI_STRTAB);
 
-///*! converts byte to MB, GB, KB */
-//QString formatSize(uint64 sizeInByte) {
-//    if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
-//        + QString::number(sizeInByte)
-//        + QString("</font>")
-//        + QString(" B"));
+/*! converts byte to MB, GB, KB */
+QString formatSize(uint64 sizeInByte) {
+    if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
+        + QString::number(sizeInByte)
+        + QString("</font>")
+        + QString(" B"));
 
-//    else if (sizeInByte < 1048576) return QString("<font color=#6e9f45>")
-//        + QString::number((float)sizeInByte / (float)1024, 'f', 1)
-//        + QString("</font>")
-//        + QString(" KB");
+    else if (sizeInByte < 1048576) return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1024, 'f', 1)
+        + QString("</font>")
+        + QString(" KB");
 
-//    else if (sizeInByte < 1073741824) return QString("<font color=#6e9f45>")
-//        + QString::number((float)sizeInByte / (float)1048576, 'f', 1)
-//        + QString("</font>")
-//        + QString(" MB");
+    else if (sizeInByte < 1073741824) return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1048576, 'f', 1)
+        + QString("</font>")
+        + QString(" MB");
 
-//    else return QString("<font color=#6e9f45>")
-//        + QString::number((float)sizeInByte / (float)1073741824, 'f', 1)
-//        + QString("</font>")
-//        + QString(" GB");
-//}
+    else return QString("<font color=#6e9f45>")
+        + QString::number((float)sizeInByte / (float)1073741824, 'f', 1)
+        + QString("</font>")
+        + QString(" GB");
+}
 
 GraphicInterface::GraphicInterface(MyGuiApplication* aApp, QObject *parent)
     : QObject(parent)
@@ -109,6 +109,14 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
         }
         break;
+    case FirstGI::listoffavorites: //"listoffavorites"
+        {
+            QVariantList list = mSettings.getFavoritesVolumes();
+            for(QVariant volume : list)
+            {
+                qDebug() << volume.toString();
+            }
+        }
     }
 }
 
@@ -117,21 +125,23 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
 #ifdef QT_DEBUG
     qDebug() << "[Debug] : Receiving the list of mounted volumes.";
 #endif
-    for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
-        this->sPrintGetMountedVolumes((*v)->mountPoint->filePath(), (*v)->encryptionAlgorithmName, (*v)->volumePath->filePath(), QString::number((*v)->size));
+    QVariantList list;
+    for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v)
+    {
+       QVariantMap vol;
+       vol.insert("mountPoint", (*v)->mountPoint->filePath());
+       vol.insert("algo", (*v)->encryptionAlgorithmName);
+       vol.insert("volumePath", (*v)->volumePath->filePath());
+       vol.insert("volumeSize", formatSize((*v)->size));
+       list.append(vol);
     }
+    sPrintGetMountedVolumes(list);
 }
 
-void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> res)
+void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> response)
 {
-    QList<QString> list;
-    qDebug() << res->DismountVolumeResponse::volumePath.size();
-    for(int i = 0; i<res.data()->volumePath.size(); i++){
-        qDebug() << "a" << res.data()->volumePath.at(i)->canonicalFilePath();
-        list << res.data()->volumePath.at(i)->canonicalFilePath();
-    }
-
-    emit sPrintDismountVolume(QVariant::fromValue(list));
+    (void)response;
+    emit sPrintDismountVolume();
 }
 
 void GraphicInterface::askSudoPassword()
@@ -156,16 +166,11 @@ void GraphicInterface::connectSignals()
     QObject* qml = mEngine.rootObjects().first();
     connect(qml, SIGNAL(qmlRequest(QString, QVariant)), this, SLOT(receiveSignal(QString,QVariant)));
 
-
-    /***** GraphicInterface -----> Core ******
-     *
-    ******************************************/
+    /***** GraphicInterface -----> Core ******/
     //Connecting request from here to request switch from Core
     mApp->connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
 
-    /***** Core -----> GraphicInterface ******
-     *
-    ******************************************/
+    /***** Core -----> GraphicInterface ******/
     mApp->connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
     mApp->connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
 

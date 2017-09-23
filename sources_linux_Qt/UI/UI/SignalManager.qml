@@ -2,7 +2,6 @@ import QtQuick 2.0
 import "LoadVolume.js" as LoadVolume
 
 Item {
-
     /*!
         \title Connections
         \brief QML slots that receive C++ signals
@@ -14,13 +13,16 @@ Item {
         target: ConnectSignals;
 
         onConnectFinished: {
-            qmlRequest("mountedvolumes", "dummy");
+            qmlRequest("mountedvolumes", "");
         }
 
         //Receiving the list of mounted volumes
         onSPrintGetMountedVolumes: {
             subWindow.catchClose();
-            pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
+            //clear all the volumes
+            pageLoader.item.clearVolumes();
+            //Updating the model
+            manageModel(volumes);
         }
 
         onGetSudoPassword: {
@@ -28,11 +30,21 @@ Item {
         }
 
         onSPrintDismountVolume: {
-            console.log(mountPoints);
-            for(var p in mountPoints)
-                pageLoader.item.dismountVolume(mountPoints[p]);
+            qmlRequest("mountedvolumes", "")
         }
+    }
 
-
+    function manageModel(volumes)
+    {
+        app.model = volumes;
+        //Delete all the model entries that are not in the volumes array
+        for(var k in volumes)
+        {
+            pageLoader.item.loadVolume(
+                        volumes[k]["mountPoint"],
+                        volumes[k]["algo"],
+                        volumes[k]["volumePath"],
+                        volumes[k]["volumeSize"]);
+        }
     }
 }

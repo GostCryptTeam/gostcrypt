@@ -139,6 +139,12 @@ Window {
      */
     property real rotate
 
+    /*!
+      \property model
+      \brief The list of mounted volumes
+    */
+    property variant model
+
     signal qmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
 
@@ -197,13 +203,6 @@ Window {
     /*************************************
      *************  Signals  *************
      *************************************/
-    /*!
-      \signal mountVolume : sending a signal
-        to Gostcrypt to mount a volume
-     */
-    signal qmlTest(variant a)
-    signal mountVolume(string path, string password)
-
     /*!
         \brief Receive all the mounted volumes after
         the window is successfully loaded

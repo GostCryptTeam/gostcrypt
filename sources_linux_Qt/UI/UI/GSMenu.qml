@@ -404,7 +404,8 @@ Item {
                                 openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
                                 toggleMenu();
                             }
-                            else ConnectSignals.openPath(mountPoint);
+                            else qmlRequest("openmountpoint", {"path": mountPoint});
+                            console.log(mountPoint);
 
                         }
 
@@ -563,11 +564,8 @@ Item {
             listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
             listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})*/
-            var favorites = UserSettings.getFavoritesVolumes()
-            var isMounted = false;
-            for(var i = 0; i< favorites.length; i++) {
-                listSubMenuModelFavorite.append({path: favorites[i], mounted: ConnectSignals.isMounted(favorites[i]), mountPoint: ConnectSignals.getMountPoint(favorites[i])});
-            }
+            updateFavorites();
+            qmlRequest("mountedvolumes", "");
             break;
         case menus.TOOLS:
             titleSubMenuText_ = qsTr("tools")
@@ -619,6 +617,25 @@ Item {
         }
     }
 
+    function updateFavorites()
+    {
+        var favorites = UserSettings.getFavoritesVolumes()
+        var isMounted = false;
+        loop1:
+        for(var i = 0; i< favorites.length; i++) {
+            for(var k in app.model)
+            {
+                if(app.model[k]["volumePath"] === favorites[i])
+                {
+                    //The volume is mounted
+                    listSubMenuModelFavorite.append({path: favorites[i], mounted: true, mountPoint: app.model[k]["mountPoint"]});
+                    continue loop1;
+                }
+            }
+            //the volume is not mounted
+            listSubMenuModelFavorite.append({path: favorites[i], mounted: false, mountPoint: ""});
+        }
+    }
 
     /********************
           MENU PART
