@@ -102,7 +102,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         {
             QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
             if(GI_KEY(aContent, "volumepath") != "") {
-                options.data()->volumepath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
+                options.data()->volumePath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
                 emit request(QVariant::fromValue(options));
             }else{
                 //TODO : send error to QML
@@ -124,12 +124,14 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
 
 void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> res)
 {
-    //res.data()->DismountVolumeResponse
-    //emit sPrintDismountVolume(res->DismountVolumeResponse.volumePath);
-    QStringList a;
-    a << "a";
-    a << "b";
-    emit sPrintDismountVolume(QVariant::fromValue(a));
+    QList<QString> list;
+    qDebug() << res->DismountVolumeResponse::volumePath.size();
+    for(int i = 0; i<res.data()->volumePath.size(); i++){
+        qDebug() << "a" << res.data()->volumePath.at(i)->canonicalFilePath();
+        list << res.data()->volumePath.at(i)->canonicalFilePath();
+    }
+
+    emit sPrintDismountVolume(QVariant::fromValue(list));
 }
 
 void GraphicInterface::askSudoPassword()
@@ -173,6 +175,11 @@ void GraphicInterface::connectSignals()
     mApp->connect(qml, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
     //mApp->connect(core.data(), SIGNAL(sudoPasswordSuccess()), this, SLOT(sendSudoStatus()));
 
+
+    /* Connecting few exit signals to close the program apropriately */
+    mApp->connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
+    mApp->connect(mApp, SIGNAL(exit()), core.data(), SLOT(exit()));
+    mApp->connect(core.data(), SIGNAL(exited()), mApp, SLOT(quit()));
 
 
     //Notifying the QML that the signals are binded
