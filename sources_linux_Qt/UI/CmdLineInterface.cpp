@@ -46,21 +46,22 @@ int CmdLineInterface::start(int argc, char **argv)
     app.connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
     app.connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), core.data(), SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
 
+	app.connect(&app, SIGNAL(askExit()), this, SIGNAL(exit()));
+
     /* Processing the commands passed */
     try {
         processRequest();
     } catch(Parser::ParseException &e) {
         qDebug().noquote() << e.getMessage();
     } catch(GostCrypt::NewCore::CoreException &e) {
-        qDebug().noquote() << e.qwhat();
+        qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
         qDebug() << e.what();
         return -1;
     }
 
-    // No need for app.exec()since all signals use direct connection
-    return 0;
+    return app.exec();
 }
 
 void CmdLineInterface::processRequest(){
@@ -202,10 +203,10 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::CoreException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
-        emit exit();
+        emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here
         CmdLineInterface::qStdOut() << e.what();
-        emit exit();
+        emit askExit();
     }
     return done;
 }

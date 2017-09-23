@@ -73,10 +73,12 @@ namespace GostCrypt {
 
 			if(v.canConvert<ExceptionResponse>()) {
 					ExceptionResponse er = v.value<ExceptionResponse>();
+
+					const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(er.exception.constData());
 					#ifdef DEBUG_CORESERVICE_HANDLER
 					qDebug() << "Exception occured";
+					qDebug().noquote() << exceptionPtr->qwhat();
 					#endif
-					const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(er.exception.constData());
 					exceptionPtr->raise();
 					return;
 			}

@@ -37,7 +37,7 @@ public:
     MyApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
     bool notify(QObject* receiver, QEvent* event);
 signals:
-    void exit();
+    void askExit();
 };
 
 class CmdLineInterface : public QObject {
