@@ -28,6 +28,7 @@ Item {
         }
 
         onSPrintDismountVolume: {
+            console.log(mountPoints);
             for(var p in mountPoints)
                 pageLoader.item.dismountVolume(mountPoints[p]);
         }
