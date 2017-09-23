@@ -33,6 +33,10 @@ Item {
             qmlRequest("mountedvolumes", "")
         }
 
+        onSPrintVolumeMounted: {
+            qmlRequest("mountedvolumes", "")
+        }
+
         onSendError: {
             openErrorMessage(aTitle, aContent);
         }

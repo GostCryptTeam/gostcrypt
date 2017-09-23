@@ -110,21 +110,12 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
         }
         break;
-    case FirstGI::listoffavorites: //"listoffavorites"
-        {
-            QVariantList list = mSettings.getFavoritesVolumes();
-            for(QVariant volume : list)
-            {
-                qDebug() << volume.toString();
-            }
-        }
-        break;
     case FirstGI::mount: //"mount"
         {
-        qDebug() << "AH";
             QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
-            options->path.reset(new QFileInfo(GI_KEY(aContent, "path").toString()));
+            options->path.reset(new QFileInfo(QUrl(GI_KEY(aContent, "path").toString()).toLocalFile()));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
+            options->doMount = true;
             emit request(QVariant::fromValue(options));
         }
         break;
@@ -153,6 +144,12 @@ void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::Di
 {
     (void)response;
     emit sPrintDismountVolume();
+}
+
+void GraphicInterface::printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response)
+{
+    (void)response;
+    emit sPrintVolumeMounted();
 }
 
 void GraphicInterface::askSudoPassword()
@@ -184,6 +181,7 @@ void GraphicInterface::connectSignals()
     /***** Core -----> GraphicInterface ******/
     mApp->connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
     mApp->connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
+    mApp->connect(core.data(), SIGNAL(sendMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)), this, SLOT(printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)));
 
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */

@@ -28,8 +28,7 @@
     func(backupheaders), \
     func(createkeyfiles), \
     func(mountedvolumes), \
-    func(openmountpoint), \
-    func(listoffavorites) \
+    func(openmountpoint) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
 
@@ -66,6 +65,7 @@ private slots:
      */
     void printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>);
     void printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>);
+    void printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>);
     void askSudoPassword();
     //void sendSudoStatus(); TODO
 
@@ -75,6 +75,7 @@ signals:
     //Signals that are called after the Core response :
     void sPrintGetMountedVolumes(QVariantList volumes);
     void sPrintDismountVolume();
+    void sPrintVolumeMounted();
     void sendSudoPassword(QString password);
     void getSudoPassword();
     void volumePasswordIncorrect();
