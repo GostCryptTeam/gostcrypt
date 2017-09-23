@@ -44,7 +44,7 @@ int CmdLineInterface::start(int argc, char **argv)
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     app.connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
-    app.connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), core.data(), SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
+    app.connect(this, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
 
 	app.connect(&app, SIGNAL(askExit()), this, SIGNAL(exit()));
 
@@ -193,7 +193,7 @@ void CmdLineInterface::askSudoPassword()
     line.fill('\0');
 
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the previous configuration
-    emit sendSudoPassword(password);
+    emit sendSudoPassword(QString(*password));
 }
 
 bool MyApplication::notify(QObject *receiver, QEvent *event)
