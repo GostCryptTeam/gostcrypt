@@ -146,13 +146,13 @@ namespace GostCrypt {
 
         QDataStream & operator << (QDataStream & out, const DismountVolumeRequest & Valeur) {
             out << static_cast<const CoreRequest&>(Valeur);
-            out << Valeur.volumepath;
+            out << Valeur.volumePath;
             out << Valeur.force;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, DismountVolumeRequest & Valeur) {
 			in >> static_cast<CoreRequest&>(Valeur);
-            in >> Valeur.volumepath;
+            in >> Valeur.volumePath;
             in >> Valeur.force;
             return in;
         }
