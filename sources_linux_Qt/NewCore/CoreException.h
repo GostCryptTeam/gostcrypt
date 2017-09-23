@@ -377,7 +377,7 @@ namespace GostCrypt {
             public:
                 UnknowRequest() {}
                 UnknowRequest(QString fonction, QString filename, quint32 line, const char *requestTypeName) : CoreException(fonction, filename, line), requestTypeName(requestTypeName) {}
-                DEF_EXCEPTION_WHAT(UnknowRequest, CoreException, "Core received an unknown request (" + requestTypeName + ")")
+                DEF_EXCEPTION_WHAT(UnknowRequest, CoreException, "Core received an unknown request (" + requestTypeName + ")\n")
             protected:
             QString requestTypeName;
             DEC_SERIALIZABLE(UnknowRequest);
@@ -388,7 +388,7 @@ namespace GostCrypt {
             public:
                 UnknowResponse() {}
                 UnknowResponse(QString fonction, QString filename, quint32 line, const char *responseTypeName) : CoreException(fonction, filename, line), responseTypeName(responseTypeName) {}
-                DEF_EXCEPTION_WHAT(UnknowResponse, CoreException, "Unknow reponse received from workr process (" + responseTypeName + ")")
+                DEF_EXCEPTION_WHAT(UnknowResponse, CoreException, "Unknow reponse received from workr process (" + responseTypeName + ")\n")
             protected:
             QString responseTypeName;
             DEC_SERIALIZABLE(UnknowResponse);
@@ -399,7 +399,7 @@ namespace GostCrypt {
             public:
                 IncorrectVolumePassword() {}
                 IncorrectVolumePassword(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(IncorrectVolumePassword, CoreException, "The given password for the volume " + volumePath->canonicalFilePath() + " is incorrect.")
+                DEF_EXCEPTION_WHAT(IncorrectVolumePassword, CoreException, "The given password for the volume " + volumePath->canonicalFilePath() + " is incorrect.\n")
             protected:
             QSharedPointer<QFileInfo> volumePath;
             DEC_SERIALIZABLE(IncorrectVolumePassword);
