@@ -71,6 +71,7 @@ signals:
     void sPrintDismountVolume(QVariant mountPoints);
     void sendSudoPassword(QString password);
     void getSudoPassword();
+    void exit();
 
 private:
     Q_INVOKABLE void connectSignals();
