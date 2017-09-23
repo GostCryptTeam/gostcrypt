@@ -21,13 +21,14 @@
     func(umount), \
     func(unmount), \
     func(dismount), \
-    func(test), \
     func(dismountall), \
-    func(automount), \
-    func(backupheaders), \
     func(createkeyfiles), \
-    func(list) \
+    func(list), \
 }
+
+#define CONNECT_SIGNAL(requestName) app.connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)))
+#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response> r)
+
 
 // redefines the notify function of QCoreApplication to catch all exceptions at once
 class MyApplication : public QCoreApplication {
@@ -36,7 +37,7 @@ public:
     MyApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
     bool notify(QObject* receiver, QEvent* event);
 signals:
-    void exit();
+    void askExit();
 };
 
 class CmdLineInterface : public QObject {
@@ -48,12 +49,17 @@ public:
 signals:
     void request(QVariant request);
     void exit();
-    void sendSudoPassword(QSharedPointer<QByteArray> password);
+    void sendSudoPassword(QString password);
 private slots:
-    void printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> res);
-    void printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> res);
-    void printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> res);
-    void printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse> res);
+    DEC_PRINT_SLOT(CreateVolume);
+    DEC_PRINT_SLOT(MountVolume);
+    DEC_PRINT_SLOT(DismountVolume);
+    DEC_PRINT_SLOT(GetMountedVolumes);
+    DEC_PRINT_SLOT(GetEncryptionAlgorithms);
+    DEC_PRINT_SLOT(GetDerivationFunctions);
+    DEC_PRINT_SLOT(GetHostDevices);
+    DEC_PRINT_SLOT(CreateKeyFile);
+    DEC_PRINT_SLOT(ChangeVolumePassword);
     void askSudoPassword();
 
 private:

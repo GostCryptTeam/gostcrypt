@@ -20,7 +20,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(ExceptionResponse);
             INIT_SERIALIZE(HostDevice);
             INIT_SERIALIZE(MountedFilesystem);
-            INIT_SERIALIZE(VolumeInformations);
+            INIT_SERIALIZE(VolumeInformation);
 		}
 
         DEF_SERIALIZABLE(CoreResponse)
@@ -189,8 +189,8 @@ namespace GostCrypt {
             return in;
         }
 
-        DEF_SERIALIZABLE(VolumeInformations)
-        QDataStream & operator << (QDataStream & out, const VolumeInformations& Valeur) {
+        DEF_SERIALIZABLE(VolumeInformation)
+        QDataStream & operator << (QDataStream & out, const VolumeInformation& Valeur) {
 			out << Valeur.encryptionAlgorithmName;
 			out << Valeur.fuseMountPoint;
 			out << Valeur.mountPoint;
@@ -201,7 +201,7 @@ namespace GostCrypt {
 			out << Valeur.volumePath;
             return out;
         }
-        QDataStream & operator >> (QDataStream & in, VolumeInformations & Valeur) {
+        QDataStream & operator >> (QDataStream & in, VolumeInformation & Valeur) {
 			quint32 protection, type;
 
 			in >> Valeur.encryptionAlgorithmName;
@@ -217,7 +217,7 @@ namespace GostCrypt {
 			return in;
 		}
 
-		VolumeInformations::VolumeInformations(VolumeInfo v)
+		VolumeInformation::VolumeInformation(VolumeInfo v)
 		{
 			encryptionAlgorithmName = QString::fromStdWString(v.EncryptionAlgorithmName);
 			if(!v.AuxMountPoint.IsEmpty())

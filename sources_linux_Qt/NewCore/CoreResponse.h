@@ -14,7 +14,7 @@ namespace GostCrypt {
         void initCoreResponse();
 
 		struct HostDevice;
-		struct VolumeInformations;
+		struct VolumeInformation;
 		struct CoreResponse {
 			DEC_SERIALIZABLE(CoreResponse);
 		};
@@ -43,7 +43,7 @@ namespace GostCrypt {
 
 		struct MountVolumeResponse : CoreResponse {
 			bool writeDisabled;
-			QSharedPointer<VolumeInformations> volumeInfo;
+			QSharedPointer<VolumeInformation> volumeInfo;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 
@@ -58,7 +58,7 @@ namespace GostCrypt {
 		};
 
 		struct GetMountedVolumesResponse : CoreResponse {
-			QList<QSharedPointer<VolumeInformations>> volumeInfoList;
+			QList<QSharedPointer<VolumeInformation>> volumeInfoList;
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
@@ -88,9 +88,9 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(HostDevice);
 		};
 
-		struct VolumeInformations {
-			VolumeInformations() = default;
-			VolumeInformations(VolumeInfo v);
+		struct VolumeInformation {
+			VolumeInformation() = default;
+			VolumeInformation(VolumeInfo v);
 			QSharedPointer<QFileInfo> fuseMountPoint;
 			QString encryptionAlgorithmName;
 			QSharedPointer<QFileInfo> virtualDevice;
@@ -99,7 +99,7 @@ namespace GostCrypt {
 			VolumeProtection::Enum protection;
 			quint64 size;
 			VolumeType::Enum type;
-			DEC_SERIALIZABLE(VolumeInformations);
+			DEC_SERIALIZABLE(VolumeInformation);
 		};
 	}
 }
@@ -118,6 +118,6 @@ SERIALIZABLE(GostCrypt::NewCore::InitResponse)
 SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
 SERIALIZABLE(GostCrypt::NewCore::HostDevice)
 SERIALIZABLE(GostCrypt::NewCore::MountedFilesystem)
-SERIALIZABLE(GostCrypt::NewCore::VolumeInformations)
+SERIALIZABLE(GostCrypt::NewCore::VolumeInformation)
 
 #endif // CORERESPONSE_H

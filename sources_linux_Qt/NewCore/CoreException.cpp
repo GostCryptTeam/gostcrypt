@@ -33,6 +33,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(UnknowRequest);
             INIT_SERIALIZE(UnknowResponse);
             INIT_SERIALIZE(FailFindFilesystemType);
+            INIT_SERIALIZE(InvalidParam);
         }
 
 
@@ -92,6 +93,18 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::MissingParam & Valeur) {
+            in >> static_cast<CoreException&>(Valeur);
+            in >> Valeur.param;
+            return in;
+        }
+
+		DEF_SERIALIZABLE(GostCrypt::NewCore::InvalidParam)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::InvalidParam & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.param;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::InvalidParam & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             in >> Valeur.param;
             return in;

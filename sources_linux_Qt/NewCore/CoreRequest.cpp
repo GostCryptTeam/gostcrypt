@@ -121,6 +121,8 @@ namespace GostCrypt {
             out << Valeur.protectionKeyfiles;
             out << Valeur.useBackupHeaders;
             out << Valeur.sharedAccessAllowed;
+            out << Valeur.mountedForUser;
+            out << Valeur.mountedForGroup;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, MountVolumeRequest & Valeur) {
@@ -140,6 +142,8 @@ namespace GostCrypt {
             in >> Valeur.protectionKeyfiles;
             in >> Valeur.useBackupHeaders;
             in >> Valeur.sharedAccessAllowed;
+            in >> Valeur.mountedForUser;
+            in >> Valeur.mountedForGroup;
             return in;
         }
         DEF_SERIALIZABLE(MountVolumeRequest)

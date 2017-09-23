@@ -15,6 +15,7 @@
 #include "Platform/FileStream.h"
 #include "Platform/SharedPtr.h"
 #include "FuseDriver/FuseService.h"
+#include <grp.h>
 
 #include <sys/types.h>
 #include <pwd.h>
@@ -42,7 +43,7 @@ namespace GostCrypt {
 
 		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
 		{
-			QSharedPointer<GetEncryptionAlgorithmsResponse> response;
+            QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse());
 			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
 			(void)params;
 			for(GostCrypt::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
@@ -88,7 +89,7 @@ namespace GostCrypt {
 					|| fields.at(3).startsWith("cloop")
 					|| fields.at(3).startsWith("ram")	// skip RAM devices
 					|| fields.at(3).startsWith("dm-")	// skip device mapper devices
-                    || fields.at(2) == 1				// skip extended partitions
+                    || fields.at(2) == "1"			// skip extended partitions
 					)
 					continue;
 
@@ -129,7 +130,7 @@ namespace GostCrypt {
 					continue;
 				}
 
-				QSharedPointer<VolumeInformations> mountedVol;
+				QSharedPointer<VolumeInformation> mountedVol;
 
 				/* TODO : Replace by Qt serialization in the future */
 				try
@@ -138,7 +139,7 @@ namespace GostCrypt {
                     controlFile->Open (mf->MountPoint->absoluteFilePath().toStdString() + FuseService::GetControlPath());
 
 					shared_ptr <Stream> controlFileStream (new FileStream (controlFile));
-					mountedVol.reset(new VolumeInformations(VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream))));
+					mountedVol.reset(new VolumeInformation(VolumeInfo(*Serializable::DeserializeNew <VolumeInfo> (controlFileStream))));
 				}
 				catch (...)
 				{
@@ -378,10 +379,32 @@ namespace GostCrypt {
 			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
 			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
+            else HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
+            else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
+            else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
+            else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else {
 				return false;
 			}
 			return true;
+		}
+
+		uid_t CoreBase::getUserId(QString username)
+		{
+			struct passwd *passwdPtr;
+			passwdPtr = getpwnam(username.toLocal8Bit().data());
+			if(!passwdPtr)
+				throw InvalidParamException("mountForUser");
+			return passwdPtr->pw_uid;
+		}
+
+		gid_t CoreBase::getGroupId(QString groupname)
+		{
+			struct group *groupPtr;
+			groupPtr = getgrnam(groupname.toLocal8Bit().data());
+			if(!groupPtr)
+				throw InvalidParamException("mountForGroup");
+			return groupPtr->gr_gid;
 		}
 
         QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params) {

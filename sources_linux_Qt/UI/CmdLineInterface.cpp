@@ -24,28 +24,37 @@ int CmdLineInterface::start(int argc, char **argv)
     /* Connecting all signals */
 
     /* Connecting responses from Core to display from this */
-    app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)));
-    app.connect(core.data(), SIGNAL(sendMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)), this, SLOT(printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)));
-    app.connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
-    app.connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
+    CONNECT_SIGNAL(CreateVolume);
+    CONNECT_SIGNAL(MountVolume);
+    CONNECT_SIGNAL(DismountVolume);
+    CONNECT_SIGNAL(GetMountedVolumes);
+    CONNECT_SIGNAL(GetEncryptionAlgorithms);
+    CONNECT_SIGNAL(GetDerivationFunctions);
+    CONNECT_SIGNAL(GetHostDevices);
+    CONNECT_SIGNAL(CreateKeyFile);
+    CONNECT_SIGNAL(ChangeVolumePassword);
+    /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)));*/
 
     /* Connecting request from here to request switch from Core */
     app.connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
 
     /* Connecting few exit signals to close the program apropriately */
     app.connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
-    app.connect(&app, SIGNAL(exit()), core.data(), SLOT(exit()));
     app.connect(core.data(), SIGNAL(exited()), &app, SLOT(quit()));
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     app.connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
-    app.connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), core.data(), SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
+    app.connect(this, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
+
+	app.connect(&app, SIGNAL(askExit()), this, SIGNAL(exit()));
 
     /* Processing the commands passed */
     try {
         processRequest();
+    } catch(Parser::ParseException &e) {
+        qDebug().noquote() << e.getMessage();
     } catch(GostCrypt::NewCore::CoreException &e) {
-        qDebug().noquote() << e.qwhat();
+        qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
         qDebug() << e.what();
@@ -100,115 +109,62 @@ void CmdLineInterface::processRequest(){
                 emit request(QVariant::fromValue(options));
             }
             break;
-        /*case FirstCMD::test://"test":
-            qStdOut() << "Option not supported." << endl; // TODO
-            break;
         case FirstCMD::dismountall://"dismountall":
             {
-                try {
-                    Core->dismountVolume();
-                    qStdOut() << "All volumes dismounted." << endl;
-                } catch(GostCrypt::NewCore::CoreException &e) {
-                    qStdOut() << e.qwhat();
-                } catch(...) {
-                    qStdOut() << "Unknown exception raised.";
+                QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
+                emit request(QVariant::fromValue(options)); // dismount-all is just a dismount with no params.
+            }
+            break;
+        case FirstCMD::createkeyfiles://"createkeyfiles":
+            {
+                QStringList files;
+                Parser::parseCreateKeyFiles(parser, files); // TODO multiple keyfiles not supported yet
+                QSharedPointer <GostCrypt::NewCore::CreateKeyFileRequest> options(new GostCrypt::NewCore::CreateKeyFileRequest());
+                for(QStringList::Iterator file = files.begin(); file != files.end(); file++) {
+                    options->file.reset(new QFileInfo(*file));
+                    emit request(QVariant::fromValue(options));
                 }
             }
+            break;
+        case FirstCMD::list://"list":
+            {
+                Parser::WhatToList item;
+                Parser::parseList(parser, &item);
+                switch(item){
+                    case Parser::Volumes:
+                        {
+                            QSharedPointer<GostCrypt::NewCore::GetMountedVolumesRequest> options(new GostCrypt::NewCore::GetMountedVolumesRequest);
+                            emit request(QVariant::fromValue(options));
+                        }
+                        break;
+                    case Parser::Algorithms:
+                        {
+                            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
+                            emit request(QVariant::fromValue(options));
+                        }
+                        break;
+                    case Parser::Hashs:
+                        {
+                            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsRequest> options(new GostCrypt::NewCore::GetDerivationFunctionsRequest);
+                            emit request(QVariant::fromValue(options));
+                        }
+                        break;
+                    case Parser::Devices:
+                        {
+                            QSharedPointer<GostCrypt::NewCore::GetHostDevicesRequest> options(new GostCrypt::NewCore::GetHostDevicesRequest);
+                            emit request(QVariant::fromValue(options));
+                        }
+                }
+            }
+            break;
+        /*case FirstCMD::test://"test":
+            qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::automount://"automount":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
         case FirstCMD::backupheaders://"backupheaders":
             qStdOut() << "Option not supported." << endl; // TODO
-            break;
-        case FirstCMD::createkeyfiles://"createkeyfiles":
-            {
-                QStringList files;
-                Parser::parseCreateKeyFiles(parser, files);
-                QSharedPointer <GostCrypt::NewCore::CreateKeyFileParams> params;
-                params.reset(new GostCrypt::NewCore::CreateKeyFileParams());
-                for(QStringList::Iterator file = files.begin(); file != files.end(); file++){
-                    params->file.reset(new QFileInfo(*file));
-                    Core->createKeyFile(params);
-                }
-                qStdOut() << "All keyfiles created." << endl;
-            }
-            break;
-        case FirstCMD::list://"list":
-            {
-                Parser::WhatToList item;
-                try {
-                    Parser::parseList(parser, &item);
-                    switch(item){
-                        case Parser::Volumes:
-                            {
-                                QSharedPointer <GostCrypt::NewCore::GetMountedVolumesParams> params;
-                                QSharedPointer <GostCrypt::NewCore::GetMountedVolumesResponse> response;
-                                params.reset(new GostCrypt::NewCore::GetMountedVolumesParams());
-                                response = Core->getMountedVolumes(params);
-                                for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v){
-                                    qStdOut() << QString::fromStdString(string((*v)->Path)) << "\t";
-                                    qStdOut() << QString::fromStdString(string((*v)->MountPoint)) << "\t";
-                                    qStdOut() << (*v)->Size << "\t";
-                                    qStdOut() << QString::fromStdWString((*v)->EncryptionAlgorithmName) << endl;
-                                }
-                            }
-                            break;
-                        case Parser::Algorithms:
-                            {
-                                QSharedPointer <GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response(new GostCrypt::NewCore::GetEncryptionAlgorithmsResponse);
-                                response = Core->getEncryptionAlgorithms();
-                                for(QString algo : response->algorithms) {
-                                    qStdOut() << algo << endl;
-                                }
-                            }
-                            break;
-                        case Parser::Hashs:
-                            {
-                                QSharedPointer <GostCrypt::NewCore::GetDerivationFunctionsResponse> response(new GostCrypt::NewCore::GetDerivationFunctionsResponse);
-                                response = Core->getDerivationFunctions();
-                                for(QString algo : response->algorithms) {
-                                    qStdOut() << algo << endl;
-                                }
-                            }
-                            break;
-                        case Parser::FileSystems:
-                            {
-                                QSharedPointer <GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse> response(new GostCrypt::NewCore::GetFileSystemsTypesSupportedResponse);
-                                response = Core->getFileSystemsTypesSupported();
-                                for(QString fst : response->filesystems) {
-                                    qStdOut() << fst << endl;
-                                }
-                            }
-                            break;
-                        case Parser::Devices:
-                            {
-                                QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response(new GostCrypt::NewCore::GetHostDevicesResponse);
-                                response = Core->getHostDevices();
-                                for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
-                                    qStdOut() << d->devicePath->absoluteFilePath() << "\t";
-                                    if(d->mountPoint)
-                                        qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
-                                    else
-                                        qStdOut() << "no mountpoint\t";
-                                    qStdOut() << d->size << endl;
-                                    for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
-                                        qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
-                                        if(p->mountPoint)
-                                            qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
-                                        else
-                                            qStdOut() << "no mountpoint\t";
-                                        qStdOut() << p->size << endl;
-                                    }
-                                }
-                            }
-                    }
-
-                } catch(Parser::ParseException &e){
-                    qStdOut() << e.getMessage() << endl;
-                    parser.showHelp();
-                }
-            }
             break;*/
         default:
             qStdOut() << "Not a valid command. Try --help for help." << endl;
@@ -237,7 +193,7 @@ void CmdLineInterface::askSudoPassword()
     line.fill('\0');
 
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // reset back the previous configuration
-    emit sendSudoPassword(password);
+    emit sendSudoPassword(QString(*password));
 }
 
 bool MyApplication::notify(QObject *receiver, QEvent *event)
@@ -247,10 +203,10 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::CoreException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
-        emit exit();
+        emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here
-		CmdLineInterface::qStdOut() << e.what();
-        emit exit();
+        CmdLineInterface::qStdOut() << e.what();
+        emit askExit();
     }
     return done;
 }
@@ -280,11 +236,62 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
 {
     if(!r)
         qStdOut() << "Invalid response received." << endl;
-    for(QSharedPointer<GostCrypt::NewCore::VolumeInformations> v : r->volumeInfoList){
+    for(QSharedPointer<GostCrypt::NewCore::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath->absoluteFilePath() << "\t";
         qStdOut() << v->mountPoint->absoluteFilePath() << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;
     }
+    emit exit();
+}
+
+void CmdLineInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> r)
+{
+    for(QString algo : r->algorithms) {
+        qStdOut() << algo << endl;
+    }
+    emit exit();
+}
+
+void CmdLineInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> r)
+{
+    for(QString algo : r->algorithms) {
+        qStdOut() << algo << endl;
+    }
+    emit exit();
+}
+
+void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> r)
+{
+    for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : r->hostDevices) {
+        qStdOut() << d->devicePath->absoluteFilePath() << "\t";
+        if(d->mountPoint)
+            qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
+        else
+            qStdOut() << "no mountpoint\t";
+        qStdOut() << d->size << endl;
+        for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
+            qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
+            if(p->mountPoint)
+                qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
+            else
+                qStdOut() << "no mountpoint\t";
+            qStdOut() << p->size << endl;
+        }
+    }
+    emit exit();
+}
+
+void CmdLineInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> r)
+{
+    qStdOut() << "KeyFile Created." << endl;
+    (void)r;
+    emit exit(); // TODO only exit when all keyfiles are created
+}
+
+void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::NewCore::ChangeVolumePasswordResponse> r)
+{
+    qStdOut() << "Password successfully changed." << endl;
+    (void)r;
     emit exit();
 }

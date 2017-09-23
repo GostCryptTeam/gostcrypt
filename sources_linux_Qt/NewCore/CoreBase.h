@@ -52,16 +52,18 @@ namespace GostCrypt {
             void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
             QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
             bool processNonRootRequest(QVariant r);
+            uid_t getUserId(QString username);
+            gid_t getGroupId(QString groupname);
 		signals:
 			DEC_REQUEST_SIGNAL(CreateVolume);
 			DEC_REQUEST_SIGNAL(MountVolume);
 			DEC_REQUEST_SIGNAL(DismountVolume);
-			DEC_REQUEST_SIGNAL(ChangeVolumePassword);
+            DEC_REQUEST_SIGNAL(GetMountedVolumes);
 			DEC_REQUEST_SIGNAL(GetEncryptionAlgorithms);
 			DEC_REQUEST_SIGNAL(GetDerivationFunctions);
 			DEC_REQUEST_SIGNAL(GetHostDevices);
-			DEC_REQUEST_SIGNAL(GetMountedVolumes);
-			DEC_REQUEST_SIGNAL(CreateKeyFile);
+            DEC_REQUEST_SIGNAL(CreateKeyFile);
+            DEC_REQUEST_SIGNAL(ChangeVolumePassword);
 			void exited();
 			void askSudoPassword();
         };
