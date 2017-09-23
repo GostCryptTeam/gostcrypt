@@ -394,6 +394,17 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(UnknowResponse);
         };
 
+        #define IncorrectVolumePasswordException(volumePath) IncorrectVolumePassword(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+        class IncorrectVolumePassword : public CoreException {
+            public:
+                IncorrectVolumePassword() {}
+                IncorrectVolumePassword(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(IncorrectVolumePassword, CoreException, "The given password for the volume " + volumePath->canonicalFilePath() + " is incorrect.")
+            protected:
+            QSharedPointer<QFileInfo> volumePath;
+            DEC_SERIALIZABLE(IncorrectVolumePassword);
+        };
+
 	}
 }
 
@@ -427,5 +438,6 @@ SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
 SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
 SERIALIZABLE(GostCrypt::NewCore::InvalidParam)
+SERIALIZABLE(GostCrypt::NewCore::IncorrectVolumePassword)
 
 #endif // COREEXCEPTION_H

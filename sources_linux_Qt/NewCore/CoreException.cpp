@@ -34,6 +34,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(UnknowResponse);
             INIT_SERIALIZE(FailFindFilesystemType);
             INIT_SERIALIZE(InvalidParam);
+            INIT_SERIALIZE(IncorrectVolumePassword);
         }
 
 
@@ -117,6 +118,20 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::VolumeAlreadyMounted & Valeur) {
+            QString path;
+            in >> static_cast<CoreException&>(Valeur);
+            in >> path;
+            Valeur.volumePath.reset(new QFileInfo(path));
+            return in;
+        }
+
+		DEF_SERIALIZABLE(GostCrypt::NewCore::IncorrectVolumePassword)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::IncorrectVolumePassword & Valeur) {
+            out << static_cast<const CoreException&>(Valeur);
+            out << Valeur.volumePath->absoluteFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::IncorrectVolumePassword & Valeur) {
             QString path;
             in >> static_cast<CoreException&>(Valeur);
             in >> path;

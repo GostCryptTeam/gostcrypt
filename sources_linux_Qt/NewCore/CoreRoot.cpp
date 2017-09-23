@@ -109,7 +109,7 @@ namespace GostCrypt {
 						params->useBackupHeaders
 					);
                 } catch(GostCrypt::PasswordException &e) {
-                    throw ExceptionFromVolumeException("Incorrect password\n")
+                    throw IncorrectVolumePasswordException(params->path)
                 } catch(GostCrypt::SystemException &e) {
 					// In case of permission issue try again in read-only
 					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
