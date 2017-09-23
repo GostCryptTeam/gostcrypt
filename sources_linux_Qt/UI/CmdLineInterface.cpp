@@ -53,6 +53,7 @@ int CmdLineInterface::start(int argc, char **argv)
         processRequest();
     } catch(Parser::ParseException &e) {
         qDebug().noquote() << e.getMessage();
+        return -1;
     } catch(GostCrypt::NewCore::CoreException &e) {
         qDebug().noquote() << e.displayedMessage();
         return -1;
