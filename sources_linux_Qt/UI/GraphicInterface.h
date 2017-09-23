@@ -41,7 +41,7 @@ public:
     bool notify(QObject* receiver, QEvent* event);
     void setGI(GraphicInterface* gi) { mGI = gi; }
 signals:
-    void exit();
+    void askExit();
 private:
     GraphicInterface* mGI;
 };

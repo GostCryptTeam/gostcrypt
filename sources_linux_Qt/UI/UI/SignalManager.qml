@@ -38,6 +38,13 @@ Item {
         }
 
         onSendError: {
+            switch(aTitle)
+            {
+            case "badvolumepassword":
+
+                break;
+            }
+
             openErrorMessage(aTitle, aContent);
         }
     }

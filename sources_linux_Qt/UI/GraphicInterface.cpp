@@ -113,7 +113,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     case FirstGI::mount: //"mount"
         {
             QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
-            options->path.reset(new QFileInfo(QUrl(GI_KEY(aContent, "path").toString()).toLocalFile()));
+            options->path.reset(new QFileInfo(GI_KEY(aContent, "path").toString()));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
             emit request(QVariant::fromValue(options));
@@ -173,6 +173,7 @@ void GraphicInterface::connectSignals()
     ******************************************/
     QObject* qml = mEngine.rootObjects().first();
     connect(qml, SIGNAL(qmlRequest(QString, QVariant)), this, SLOT(receiveSignal(QString,QVariant)));
+    connect(qml, SIGNAL(appQuit()), core.data(), SLOT(exit()));
 
     /***** GraphicInterface -----> Core ******/
     //Connecting request from here to request switch from Core
@@ -187,13 +188,15 @@ void GraphicInterface::connectSignals()
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
     mApp->connect(qml, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
+
     //mApp->connect(core.data(), SIGNAL(sudoPasswordSuccess()), this, SLOT(sendSudoStatus()));
 
 
     /* Connecting few exit signals to close the program apropriately */
     mApp->connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
-    mApp->connect(mApp, SIGNAL(exit()), core.data(), SLOT(exit()));
     mApp->connect(core.data(), SIGNAL(exited()), mApp, SLOT(quit()));
+
+    mApp->connect(mApp, SIGNAL(askExit()), this, SIGNAL(exit()));
 
 
     //Notifying the QML that the signals are binded
@@ -202,20 +205,24 @@ void GraphicInterface::connectSignals()
 
 bool MyGuiApplication::notify(QObject *receiver, QEvent *event)
 {
+
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::NewCore::CoreException &e) {
-        //CmdLineInterface::qStdOut() << e.displayedMessage();
+    } catch(GostCrypt::NewCore::IncorrectVolumePassword &e) {
+       emit mGI->volumePasswordIncorrect();
+    } catch (GostCrypt::NewCore::CoreException &e) {
+        emit mGI->sendError(e.getName(), "An unexpected error occured. \n"
+#ifdef QT_DEBUG
+        +e.getMessage()
+#endif
+        );
+    } catch (QException &e) { // TODO : handle exceptions here
         emit mGI->sendError("Exception catch", "An unexpected error occured. \n"
 #ifdef QT_DEBUG
         +QString::fromUtf8(e.what())
 #endif
         );
-        emit exit();
-    } catch (QException &e) { // TODO : handle exceptions here
-       // CmdLineInterface::qStdOut() << e.what();
-        emit exit();
     }
     return done;
 }

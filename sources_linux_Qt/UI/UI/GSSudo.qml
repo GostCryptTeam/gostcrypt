@@ -84,4 +84,9 @@ Item {
         }
         focus: true
     }
+
+    function setFocus()
+    {
+        password_value.focus = true;
+    }
 }

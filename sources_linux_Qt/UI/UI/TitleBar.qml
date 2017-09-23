@@ -73,7 +73,7 @@ Rectangle{
             hoverEnabled: true
             onEntered: appclose.color=palette.darkThird
             onExited: appclose.color=palette.border
-            onClicked: Qt.quit()
+            onClicked: app.appQuit();
         }
     }
 

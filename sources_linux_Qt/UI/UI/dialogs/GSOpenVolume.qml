@@ -36,7 +36,7 @@ Item {
     Connections {
         target: ConnectSignals
         onVolumePasswordIncorrect: {
-            app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
+            //app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
