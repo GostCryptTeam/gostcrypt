@@ -42,6 +42,14 @@ Item {
             }*/
             openErrorMessage(aTitle, aContent);
         }
+
+        onSPrintGetEncryptionAlgorithms:
+        {
+            console.log(algos);
+            subWindow.loadedItem.page.getAlgos(algos);
+            subWindow.loadedItem.page.used[0] = algos[0];
+            subWindow.loadedItem.page.used[1] = algos[1];
+        }
     }
 
     function manageModel(volumes)

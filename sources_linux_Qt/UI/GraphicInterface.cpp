@@ -128,15 +128,36 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             if(type == GostCrypt::VolumeType::Normal)
             {
                 options->type = GostCrypt::VolumeType::Normal;
-                options->path = QSharedPointer <QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));//QSharedPointer <QFileInfo>()
+                options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
+
                 GostCrypt::NewCore::CreateVolumeRequest::VolumeParams *params = new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams;
-                params->size = GI_KEY(aContent, "size").toReal();
-                params->encryptionAlgorithm = GI_KEY(aContent, "encryptionAlgorithm").toString();
-                params->volumeHeaderKdf = GI_KEY(aContent, "volumeHeaderKdf").toString();
-                params->filesystem = GI_KEY(aContent, "filesystem").toString();
-                params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
-                params->password = QSharedPointer <QByteArray>(new QByteArray(GI_KEY(aContent, "password").toByteArray()));
-                options->outerVolume = QSharedPointer<GostCrypt::NewCore::CreateVolumeRequest::VolumeParams>(params);
+                /*QStringList size = GI_KEY(aContent, "size").toStringList();
+                //TODO : améliorer le système de calcul de la taille?
+                if (size.at(1) == "KB")
+                    options->size = size.at(0).toInt()*1024;
+                else if(size.at(1) == "MB")
+                    options->size = size.at(0).toInt()*1048576;
+                else if(size.at(1) == "GB")
+                    options->size = size.at(0).toInt()*103741824;*/
+                options->size = DEFAULT_SIZE; // default value is 10Mio
+
+                params->size = DEFAULT_OUTER_SIZE; // default value
+                params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
+                params->volumeHeaderKdf = DEFAULT_KDF; // default value//GI_KEY(aContent, "volumeHeaderKdf").toString();
+                //params->filesystem = GI_KEY(aContent, "filesystem").toString();
+                params->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
+                //params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
+                params->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8()));
+                options->outerVolume.reset(params);
+
+                qDebug() << options->path->canonicalFilePath() << " "
+                         << options->size << " "
+                         << options->outerVolume->size << " "
+                         << options->outerVolume->encryptionAlgorithm << " "
+                         << options->outerVolume->volumeHeaderKdf << " "
+                         << options->outerVolume->filesystem << " "
+                         << options->outerVolume->password->data() << ", "<< GI_KEY(aContent, "password").toString();
+
             }else if(type == GostCrypt::VolumeType::Hidden)
             {
 
@@ -146,6 +167,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
             emit request(QVariant::fromValue(options));
         }
+        break;
     case FirstGI::algorithms: //"algorithms":
         {
             QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
@@ -206,7 +228,9 @@ void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::Crea
 void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response)
 {
     (void)response;
-    emit sPrintGetEncryptionAlgorithms(response->algorithms); //TODO
+    QVariantList list;
+    for(auto k : response->algorithms) list << k;
+    emit sPrintGetEncryptionAlgorithms(list); //TODO
 }
 
 void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> response)

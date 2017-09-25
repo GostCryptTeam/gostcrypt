@@ -4,24 +4,15 @@ import "../" as UI
 Item {
     id: top
     property variant algoHash: [[],["GOST 34", "Whirlpool"]]
+    property variant used: ["",""]
     property int type: 0
 
-    Connections {
-        /*!
-          Connects the C++ object (connectSignals.h) to the window
-          */
-        target: ConnectSignals;
-
-        onSPrintGetEncryptionAlgorithms:
-        {
-            console.log(algos);
-            algoHash[0] = algos;
-        }
-
-
-
-
+    function getAlgos(algos)
+    {
+        algoHash[0] = algos;
+        algo.model = algoHash[0];
     }
+
     Rectangle {
         id: algo_
         color: "transparent"
@@ -47,8 +38,9 @@ Item {
             width: parent.width - 170
             onActivated: {
                 //description.text = Wizard.getAlgosDescription(algo.currentIndex);
-                algoHash[0] = algo.currentIndex
+                used[0] = algo.currentIndex
             }
+
         }
 
         UI.GSButtonBordered {
@@ -112,12 +104,12 @@ Item {
 
         UI.GSCustomComboBox {
             id: hash
-            model: "Hashs here";
+            model: algoHash[1];
             x: 40
             y: 35
             width: parent.width *0.5
             onActivated: {
-                algoHash[1] = hash.currentIndex
+                used[1] = hash.currentIndex
             }
         }
         Text {

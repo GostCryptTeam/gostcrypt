@@ -4,6 +4,7 @@ import QtQuick.Controls 1.4
 import "../" as UI
 
 Item {
+    property alias page : content.item
     property int currentPage: 1
     property var volumeInfos: {
         "CONTAINER_TYPE": 0,
@@ -219,6 +220,7 @@ Item {
                 switch (content.item.type) {
                 case 0:
                     changePage(7, qsTr("Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
                     break;
                 case 1:
                     changePage(5, qsTr("Volume Password"), currentPage)
@@ -273,6 +275,7 @@ Item {
             if(direction === 1)
             {
                 changePage(7, qsTr("Encryption Options"), currentPage)
+                qmlRequest("algorithms", "")
                 manageProgressBar(6,direction,0)
                 content.item.type = 1
             }else{
@@ -303,9 +306,9 @@ Item {
             manageProgressBar(7,direction,typeBranch)
             //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH
             if(content.item.type !== 2)
-                volumeInfos.ALGORITHM_HASH_NAMES = content.item.algoHash
+                volumeInfos.ALGORITHM_HASH_NAMES = content.item.used
             else
-                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.algoHash
+                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.used
             if(direction === 1)
             {
                 if(typeBranch !== 3 && typeBranch !== 2) {
@@ -390,10 +393,14 @@ Item {
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }else if(direction !== 1){
-                if(typeBranch !== 3 && typeBranch !== 2)
+                if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(7, qsTr("Encryption Options"), currentPage)
-                else
+                    qmlRequest("algorithms", "")
+                }
+                else {
                     changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
+                }
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }
@@ -478,16 +485,7 @@ Item {
                 switch(content.item.type) {
                 case 0:
                     console.log(volumeInfos);
-                    qmlRequest("createvolume", {
-                                   "type": 1,
-                                   "path": volumeInfos.VOLUME_PATH,
-                                   "size": volumeInfos.VOLUME_SIZE,
-                                   "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
-                                   "volumeHeaderKdf": "", //TODO
-                                   "filesystem": volumeInfos.FORMAT_INFOS[0],
-                                   "keyfiles": "", //TODO
-                                   "password": volumeInfos.VOLUME_PWD,
-                               });
+                    createVolume(0);
                     content.source = "PageEnd.qml"
                     //changeSubWindowTitle("V")
                     back_.visible = false
@@ -580,6 +578,26 @@ Item {
         content.source = "Page"+number+".qml"
         changeSubWindowTitle(title)
         currentPage+=(number-current)
+    }
+
+    function createVolume(type)
+    {
+        switch(type)
+        {
+        case 0: //normal without hidden
+            console.log(volumeInfos.VOLUME_PATH + "; " + volumeInfos.VOLUME_SIZE + "; " + volumeInfos.ALGORITHM_HASH_NAMES[0] + "; " + volumeInfos.FORMAT_INFOS[0] + "; " + volumeInfos.VOLUME_NEW_PASSWORD[0]);
+            qmlRequest("createvolume", {
+                           "type": 1,
+                           "path": volumeInfos.VOLUME_PATH,
+                           "size": volumeInfos.VOLUME_SIZE,
+                           "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
+                           "volumeHeaderKdf": "", //TODO
+                           "filesystem": volumeInfos.FORMAT_INFOS[0],
+                           "keyfiles": "", //TODO
+                           "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                       });
+            break;
+        }
     }
 
     /*!
@@ -775,4 +793,5 @@ Item {
             break;
         }
     }
+
 }
