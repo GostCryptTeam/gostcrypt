@@ -16,12 +16,9 @@ Item {
             qmlRequest("mountedvolumes", "");
         }
 
-        //Receiving the list of mounted volumes
-        onSPrintGetMountedVolumes: {
+        onSPrintGetMountVolume: {
             subWindow.catchClose();
-            //clear all the volumes
             pageLoader.item.clearVolumes();
-            //Updating the model
             manageModel(volumes);
         }
 
@@ -33,18 +30,16 @@ Item {
             qmlRequest("mountedvolumes", "")
         }
 
-        onSPrintVolumeMounted: {
+        onSPrintMountVolume: {
             qmlRequest("mountedvolumes", "")
         }
 
         onSendError: {
-            switch(aTitle)
+            /*switch(aTitle)
             {
             case "badvolumepassword":
-
                 break;
-            }
-
+            }*/
             openErrorMessage(aTitle, aContent);
         }
     }

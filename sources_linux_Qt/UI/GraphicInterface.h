@@ -21,16 +21,21 @@
 #define GI_ALL_COMMANDS(func) { \
     func(mount), \
     func(createvolume), \
-    func(create), \
     func(dismount), \
     func(dismountall), \
     func(automount), \
     func(backupheaders), \
     func(createkeyfiles), \
     func(mountedvolumes), \
+    func(algorithms), \
+    func(hashs), \
+    func(devices), \
     func(openmountpoint) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
+#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response> r)
+#define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)))
+#define QML_SIGNAL(requestName) emit sPrint ## requestName ();
 
 class GraphicInterface;
 
@@ -63,23 +68,36 @@ private slots:
      * retrieves the list of mounted volumes sent from the core
      * \param result a pointer of the list of mounted volumes
      */
-    void printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>);
-    void printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>);
-    void printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>);
+    DEC_PRINT_SLOT(CreateVolume);
+    DEC_PRINT_SLOT(MountVolume);
+    DEC_PRINT_SLOT(DismountVolume);
+    DEC_PRINT_SLOT(GetMountedVolumes);
+    DEC_PRINT_SLOT(GetEncryptionAlgorithms);
+    DEC_PRINT_SLOT(GetDerivationFunctions);
+    DEC_PRINT_SLOT(GetHostDevices);
+    DEC_PRINT_SLOT(CreateKeyFile);
+    DEC_PRINT_SLOT(ChangeVolumePassword);
     void askSudoPassword();
     //void sendSudoStatus(); TODO
 
 signals:
     void request(QVariant request);
+    void exit();
+    void sendSudoPassword(QString password);
     void connectFinished();
     //Signals that are called after the Core response :
-    void sPrintGetMountedVolumes(QVariantList volumes);
+    void sPrintCreateVolume();
     void sPrintDismountVolume();
-    void sPrintVolumeMounted();
-    void sendSudoPassword(QString password);
+    void sPrintMountVolume();
+    void sPrintGetMountVolume(QVariantList volumes);
+    void sPrintGetEncryptionAlgorithms(QStringList algos);
+    void sPrintDerivationFunctions(QVariantList functions);
+    void sPrintHostDevices(QVariantList hostDevices);
+    void sPrintCreateKeyFile(QString keyfile);
+    void sPrintChangeVolumePassword();
+
     void getSudoPassword();
     void volumePasswordIncorrect();
-    void exit();
     void sendError(QString aTitle, QString aContent);
 
 private:
@@ -90,7 +108,7 @@ private:
     UserSettings mSettings;
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
-    VolumeCreation mWizard;
+    //VolumeCreation mWizard;
 
     struct FirstGI {
         enum Enum GI_ALL_COMMANDS(GI_ENUM);

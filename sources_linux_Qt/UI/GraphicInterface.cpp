@@ -45,7 +45,7 @@ int GraphicInterface::start()
     ctx->setContextProperty("ConnectSignals", this);
     ctx->setContextProperty("UserSettings", &mSettings);
     ctx->setContextProperty("DragWindowProvider", &mDrag);
-    ctx->setContextProperty("Wizard", &mWizard);
+    //ctx->setContextProperty("Wizard", &mWizard);
     ctx->setContextProperty("Translation", (QObject*)&mTranslation);
 
     mEngine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
@@ -119,6 +119,51 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
+    case FirstGI::createvolume: //"create-volume"
+        {
+            QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options(new GostCrypt::NewCore::CreateVolumeRequest);
+            //Detection of the volume type
+            int type = GI_KEY(aContent, "type").toInt();
+            qDebug() << "type = " << type;//GI_KEY(aContent, "path").toString();
+            if(type == GostCrypt::VolumeType::Normal)
+            {
+                options->type = GostCrypt::VolumeType::Normal;
+                options->path = QSharedPointer <QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));//QSharedPointer <QFileInfo>()
+                GostCrypt::NewCore::CreateVolumeRequest::VolumeParams *params = new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams;
+                params->size = GI_KEY(aContent, "size").toReal();
+                params->encryptionAlgorithm = GI_KEY(aContent, "encryptionAlgorithm").toString();
+                params->volumeHeaderKdf = GI_KEY(aContent, "volumeHeaderKdf").toString();
+                params->filesystem = GI_KEY(aContent, "filesystem").toString();
+                params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
+                params->password = QSharedPointer <QByteArray>(new QByteArray(GI_KEY(aContent, "password").toByteArray()));
+                options->outerVolume = QSharedPointer<GostCrypt::NewCore::CreateVolumeRequest::VolumeParams>(params);
+            }else if(type == GostCrypt::VolumeType::Hidden)
+            {
+
+            }else //Unknown
+            {
+
+            }
+            emit request(QVariant::fromValue(options));
+        }
+    case FirstGI::algorithms: //"algorithms":
+        {
+            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
+            emit request(QVariant::fromValue(options));
+        }
+        break;
+    case FirstGI::hashs: //"hashs":
+        {
+            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsRequest> options(new GostCrypt::NewCore::GetDerivationFunctionsRequest);
+            emit request(QVariant::fromValue(options));
+        }
+        break;
+    case FirstGI::devices: //"devices":
+        {
+            QSharedPointer<GostCrypt::NewCore::GetHostDevicesRequest> options(new GostCrypt::NewCore::GetHostDevicesRequest);
+            emit request(QVariant::fromValue(options));
+        }
+        break;
     }
 }
 
@@ -137,19 +182,55 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
        vol.insert("volumeSize", formatSize((*v)->size));
        list.append(vol);
     }
-    sPrintGetMountedVolumes(list);
+    sPrintGetMountVolume(list);
 }
 
 void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> response)
 {
     (void)response;
-    emit sPrintDismountVolume();
+    QML_SIGNAL(DismountVolume);
 }
 
-void GraphicInterface::printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response)
+void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response)
 {
     (void)response;
-    emit sPrintVolumeMounted();
+    emit sPrintGetMountVolume(QVariantList());//TODO  QVariantList(response->volumeInfo));
+}
+
+void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response)
+{
+    (void)response;
+    QML_SIGNAL(CreateVolume);
+}
+
+void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response)
+{
+    (void)response;
+    emit sPrintGetEncryptionAlgorithms(response->algorithms); //TODO
+}
+
+void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> response)
+{
+    (void)response;
+    emit sPrintDerivationFunctions(QVariantList()); //TODO
+}
+
+void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response)
+{
+    (void)response;
+    emit sPrintHostDevices(QVariantList()); //TODO
+}
+
+void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> response)
+{
+    (void)response;
+    emit sPrintCreateKeyFile(QString()); //TODO
+}
+
+void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::NewCore::ChangeVolumePasswordResponse> response)
+{
+    (void)response;
+    QML_SIGNAL(ChangeVolumePassword);
 }
 
 void GraphicInterface::askSudoPassword()
@@ -180,10 +261,15 @@ void GraphicInterface::connectSignals()
     mApp->connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
 
     /***** Core -----> GraphicInterface ******/
-    mApp->connect(core.data(), SIGNAL(sendGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)), this, SLOT(printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse>)));
-    mApp->connect(core.data(), SIGNAL(sendDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)), this, SLOT(printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse>)));
-    mApp->connect(core.data(), SIGNAL(sendMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)), this, SLOT(printVolumeMounted(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse>)));
-
+    CONNECT_QML_SIGNAL(CreateVolume);
+    CONNECT_QML_SIGNAL(MountVolume);
+    CONNECT_QML_SIGNAL(DismountVolume);
+    CONNECT_QML_SIGNAL(GetMountedVolumes);
+    CONNECT_QML_SIGNAL(GetEncryptionAlgorithms);
+    CONNECT_QML_SIGNAL(GetDerivationFunctions);
+    CONNECT_QML_SIGNAL(GetHostDevices);
+    CONNECT_QML_SIGNAL(CreateKeyFile);
+    CONNECT_QML_SIGNAL(ChangeVolumePassword);
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));

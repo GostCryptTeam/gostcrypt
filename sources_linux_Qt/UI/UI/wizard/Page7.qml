@@ -3,8 +3,25 @@ import "../" as UI
 
 Item {
     id: top
-    property variant algoHash: [Wizard.getAlgos()[0], Wizard.getHashs()[0]]
+    property variant algoHash: [[],["GOST 34", "Whirlpool"]]
     property int type: 0
+
+    Connections {
+        /*!
+          Connects the C++ object (connectSignals.h) to the window
+          */
+        target: ConnectSignals;
+
+        onSPrintGetEncryptionAlgorithms:
+        {
+            console.log(algos);
+            algoHash[0] = algos;
+        }
+
+
+
+
+    }
     Rectangle {
         id: algo_
         color: "transparent"
@@ -24,12 +41,12 @@ Item {
 
         UI.GSCustomComboBox {
             id: algo
-            model: Wizard.getAlgos();
+            model: "Algo name here.";
             x: 40
             y: 25
             width: parent.width - 170
             onActivated: {
-                description.text = Wizard.getAlgosDescription(algo.currentIndex);
+                //description.text = Wizard.getAlgosDescription(algo.currentIndex);
                 algoHash[0] = algo.currentIndex
             }
         }
@@ -53,7 +70,7 @@ Item {
             horizontalAlignment: Text.AlignJustify
             wrapMode: Text.WordWrap
             width: parent.width - 170 - 30
-            text: Wizard.getAlgosDescription(algo.currentIndex);
+            text: "Algo description here";
             color: palette.text
             font.pixelSize: 12
             MouseArea {
@@ -95,7 +112,7 @@ Item {
 
         UI.GSCustomComboBox {
             id: hash
-            model: Wizard.getHashs();
+            model: "Hashs here";
             x: 40
             y: 35
             width: parent.width *0.5
