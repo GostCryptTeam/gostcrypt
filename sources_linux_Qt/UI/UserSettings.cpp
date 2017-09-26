@@ -52,21 +52,22 @@ QStringList UserSettings::getVolumePaths(const bool aEmptyStart)
     return table;
 }
 
-void UserSettings::addVolumePath(const QString &path)
+void UserSettings::addVolumePath(const QUrl &path)
 {
+    QString canonicalPath = path.path();
     //Checks if the path is already in the list
     for(int i=0; i<NB_PATH; i++)
-        if( mSettings.value("MountV-path"+ QString::number(i)).toString() == path/* && i!=0*/)
+        if( mSettings.value("MountV-path"+ QString::number(i)).toString() == canonicalPath/* && i!=0*/)
         {
             //permutate the path with the first element
             mSettings.setValue("MountV-path"+ QString::number(i), mSettings.value("MountV-path0"));
-            mSettings.setValue("MountV-path0", path);
+            mSettings.setValue("MountV-path0", canonicalPath);
             return;
         }
     //Append the new path
     for(int i=NB_PATH-1; i>0; i--)
         mSettings.setValue("MountV-path"+ QString::number(i), mSettings.value("MountV-path"+ QString::number(i-1)));
-    mSettings.setValue("MountV-path0", path);
+    mSettings.setValue("MountV-path0", canonicalPath);
 }
 
 void UserSettings::erasePaths()

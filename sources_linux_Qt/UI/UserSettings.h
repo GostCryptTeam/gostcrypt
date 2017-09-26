@@ -43,7 +43,7 @@ public:
      * \brief addVolumePaths
      * \param path : The path just opened
      */
-    Q_INVOKABLE void addVolumePath(const QString& path);
+    Q_INVOKABLE void addVolumePath(const QUrl& path);
 
     Q_INVOKABLE void erasePaths();
 

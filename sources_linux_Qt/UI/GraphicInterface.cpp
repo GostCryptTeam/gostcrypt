@@ -113,7 +113,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     case FirstGI::mount: //"mount"
         {
             QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
-            options->path.reset(new QFileInfo(GI_KEY(aContent, "path").toString()));
+            QString canonicalPath = GI_KEY(aContent, "path").toUrl().path();
+            options->path.reset(new QFileInfo(canonicalPath));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
             emit request(QVariant::fromValue(options));

@@ -17,6 +17,7 @@ Item {
         }
 
         onSPrintGetMountVolume: {
+            console.log("volumes = " + volumes);
             subWindow.catchClose();
             pageLoader.item.clearVolumes();
             manageModel(volumes);

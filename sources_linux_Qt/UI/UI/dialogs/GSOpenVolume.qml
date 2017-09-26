@@ -22,7 +22,7 @@ Item {
             if(password_value.text.length != 0)
             {
                 //mountVolume(volumePath, password_value.text);
-                qmlRequest("mount", {"path": volumePath, "password": password_value.text});
+                qmlRequest("mount", {"path": fileDialog.fileUrl, "password": password_value.text});
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = ""
@@ -144,9 +144,12 @@ Item {
             title: qsTr("Please choose a file") + Translation.tr
             folder: shortcuts.home
             onAccepted: {
-                openVolume_Form.moving(fileDialog.fileUrl)
+                //var path = fileDialog.fileUrl.toString();
+                //var pathCanonical = /*path.replace("file://", "");*/path.replace(/^(file:\/{2})/, "");
+               // console.log("path = " + pathCanonical);
                 if(historique.pressed === false)
                     UserSettings.addVolumePath(fileDialog.fileUrl)
+                openVolume_Form.moving(fileDialog.fileUrl)
                 combo.model = UserSettings.getVolumePaths(0)
             }
             onRejected: {
