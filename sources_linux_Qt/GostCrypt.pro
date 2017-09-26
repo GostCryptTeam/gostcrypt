@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    #GostCrypt_Core \
     GostCrypt_NewCore \
     GostCrypt_Platform \
     GostCrypt_FuseDriver \
@@ -10,7 +9,6 @@ SUBDIRS = \
 
 QMAKE_CXX = ccache g++
 
-#GostCrypt_Core.file = Core/GostCrypt_Core.pro
 GostCrypt_FuseDriver.file = FuseDriver/GostCrypt_FuseDriver.pro
 GostCrypt_Platform.file = Platform/GostCrypt_Platform.pro
 GostCrypt_Volume.file = Volume/GostCrypt_Volume.pro

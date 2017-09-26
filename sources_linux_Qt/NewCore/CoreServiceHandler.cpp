@@ -7,6 +7,8 @@
 #include <QDebug>
 #include "CoreException.h"
 
+//#define DEBUG_CORESERVICE_HANDLER
+
 namespace GostCrypt {
     namespace NewCore {
 
