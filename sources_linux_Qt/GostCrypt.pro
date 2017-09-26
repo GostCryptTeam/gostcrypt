@@ -22,4 +22,3 @@ GostCrypt_UI.depends = \
     GostCrypt_FuseDriver
 
 
-
