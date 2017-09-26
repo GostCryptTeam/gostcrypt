@@ -17,7 +17,6 @@ Item {
         }
 
         onSPrintGetMountVolume: {
-            console.log("volumes = " + volumes);
             subWindow.catchClose();
             pageLoader.item.clearVolumes();
             manageModel(volumes);
@@ -56,6 +55,7 @@ Item {
     function manageModel(volumes)
     {
         app.model = volumes;
+        console.log(volumes);
         //Delete all the model entries that are not in the volumes array
         for(var k in volumes)
         {

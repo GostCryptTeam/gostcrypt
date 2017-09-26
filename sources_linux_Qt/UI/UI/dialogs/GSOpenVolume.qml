@@ -10,7 +10,7 @@ import "../" as UI
 Item {
     id: openVolume_Form
     property var childOf
-    property string volumePath
+    property url volumePath
     property variant devices
     anchors.fill: childOf
     signal incorrectPassword()
@@ -22,7 +22,7 @@ Item {
             if(password_value.text.length != 0)
             {
                 //mountVolume(volumePath, password_value.text);
-                qmlRequest("mount", {"path": fileDialog.fileUrl, "password": password_value.text});
+                qmlRequest("mount", {"path": volumePath, "password": password_value.text});
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = ""

@@ -146,7 +146,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
                 params->volumeHeaderKdf = DEFAULT_KDF; // default value//GI_KEY(aContent, "volumeHeaderKdf").toString();
                 //params->filesystem = GI_KEY(aContent, "filesystem").toString();
-                params->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
+                params->filesystem = "vfat"; // default value
                 //params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
                 params->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8()));
                 options->outerVolume.reset(params);
@@ -198,12 +198,12 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
     QVariantList list;
     for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v)
     {
-       QVariantMap vol;
-       vol.insert("mountPoint", (*v)->mountPoint->filePath());
-       vol.insert("algo", (*v)->encryptionAlgorithmName);
-       vol.insert("volumePath", (*v)->volumePath->filePath());
-       vol.insert("volumeSize", formatSize((*v)->size));
-       list.append(vol);
+           QVariantMap vol;
+           vol.insert("mountPoint", (*v)->mountPoint->filePath());
+           vol.insert("algo", (*v)->encryptionAlgorithmName);
+           vol.insert("volumePath", (*v)->volumePath->filePath());
+           vol.insert("volumeSize", formatSize((*v)->size));
+           list.append(vol);
     }
     sPrintGetMountVolume(list);
 }
