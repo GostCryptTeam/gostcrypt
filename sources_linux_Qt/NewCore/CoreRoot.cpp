@@ -26,7 +26,8 @@ namespace GostCrypt {
 #ifdef DEBUG_CORESERVICE_HANDLER
 			qDebug() << "CoreRoot exiting";
 #endif
-			emit exited();
+            // The main loop was not started, so an imediate call to app.quit() would not be working.
+            QMetaObject::invokeMethod(this, "exited", Qt::QueuedConnection);
 		}
 
 		void CoreRoot::request(QVariant r)
@@ -410,6 +411,8 @@ namespace GostCrypt {
                 throw MissingParamException("params->path");
             if(!params->outerVolume)
                 throw MissingParamException("params->outervolume");
+            if(isVolumeMounted(params->path))
+                throw VolumeAlreadyMountedException(params->path);
 
             // this is the CoreRoot class. we are assuming that it is launched as root.
 
