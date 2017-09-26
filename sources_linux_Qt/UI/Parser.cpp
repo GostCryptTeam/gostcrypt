@@ -18,6 +18,8 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
                           {"protection", "Specify a special volume protection", "{none|readonly}"},
                           {{"s","shared"}, "Allows shared access."},
                           {{"b","backup-headers"}, "Use backup headers."},
+                          {{"u","user"}, "Gives ownership of the folder to this user.", "user"},
+                          {{"g","group"}, "Gives ownership of the folder to this group.", "group"},
                       });
     parser.parse(QCoreApplication::arguments());
 
@@ -94,6 +96,14 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
                 options->protection = GostCrypt::VolumeProtection::ReadOnly;
         else if(protection != "none")
             throw Parser::ParseException("Protection type not found : "+ protection);
+    }
+
+    if(parser.isSet("user")){
+        options->mountedForUser = parser.value("user");
+    }
+
+    if(parser.isSet("group")){
+        options->mountedForGroup = parser.value("group");
     }
 }
 
