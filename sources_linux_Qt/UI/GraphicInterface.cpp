@@ -146,7 +146,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
                 params->volumeHeaderKdf = DEFAULT_KDF; // default value//GI_KEY(aContent, "volumeHeaderKdf").toString();
                 //params->filesystem = GI_KEY(aContent, "filesystem").toString();
-                params->filesystem = "vfat"; // default value
+                params->filesystem = QString("vfat"); // default value
                 //params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
                 params->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8()));
                 options->outerVolume.reset(params);
