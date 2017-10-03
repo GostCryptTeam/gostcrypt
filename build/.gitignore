@@ -1,1 +1,11 @@
 last.log
+.qmake.stash
+FuseDriver/
+GostCrypt
+Makefile
+NewCore/
+Platform/
+UI/
+Volume/
+make.log
+preparation.log

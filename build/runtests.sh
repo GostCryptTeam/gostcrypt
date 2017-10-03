@@ -24,7 +24,7 @@ cleanall () {
 	fi
 }
 
-GOSTCRYPT=../build-GostCrypt-Desktop_Qt_5_9_0_GCC_64bit-Debug/GostCrypt
+GOSTCRYPT=./GostCrypt
 LOGFILE=last.log
 MOUNTPATH=/media/$USER/gostcrypt1
 
