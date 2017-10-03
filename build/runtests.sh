@@ -32,7 +32,7 @@ MOUNTPATH=/media/$USER/gostcrypt1
 echo "Starting all test cases..." | tee $LOGFILE
 
 $GOSTCRYPT list algorithms 	> algolist.txt
-RESPONSE=$(diff algolist.txt verified/algolist.txt | tee -a $LOGFILE)
+RESPONSE=$(diff algolist.txt expected_outputs/algolist.txt | tee -a $LOGFILE)
 if [[ -z $RESPONSE ]]; then
 	echo "Algorithm list OK.." | tee -a $LOGFILE
 	rm algolist.txt
@@ -41,7 +41,7 @@ else
 fi
 
 $GOSTCRYPT list hashs		> hashlist.txt
-RESPONSE=$(diff hashlist.txt verified/hashlist.txt | tee -a $LOGFILE)
+RESPONSE=$(diff hashlist.txt expected_outputs/hashlist.txt | tee -a $LOGFILE)
 if [[ -z $RESPONSE ]]; then
 	echo "Derivation functions list OK.." | tee -a $LOGFILE
 	rm hashlist.txt
