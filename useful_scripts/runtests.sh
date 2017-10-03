@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $UID -ne 0 ]]; then
+	echo "Tests must be ran as root"
+	exit
+fi
+
 cleanall () {
 	echo "Cleaning Everything..." | tee -a $LOGFILE
 	# dismounting everything...
