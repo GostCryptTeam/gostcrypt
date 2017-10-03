@@ -56,7 +56,7 @@ $GOSTCRYPT create -p pass --filesystem vfat volume >> $LOGFILE
 echo "Mounting volume.." | tee -a $LOGFILE
 $GOSTCRYPT mount -p pass -m $MOUNTPATH -g root volume >> $LOGFILE
 echo "Listing volume.." | tee -a $LOGFILE
-ls -l /home/user/Documents/
+ls -l $MOUNTPATH
 $GOSTCRYPT list volumes
 
 cleanall
