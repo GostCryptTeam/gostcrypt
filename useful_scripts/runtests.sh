@@ -35,6 +35,7 @@ $GOSTCRYPT list algorithms 	> algolist.txt
 RESPONSE=$(diff algolist.txt verified/algolist.txt | tee -a $LOGFILE)
 if [[ -z $RESPONSE ]]; then
 	echo "Algorithm list OK.." | tee -a $LOGFILE
+	rm algolist.txt
 else
 	echo "Algorithm list changed or wrong !" | tee -a $LOGFILE
 fi
@@ -43,6 +44,7 @@ $GOSTCRYPT list hashs		> hashlist.txt
 RESPONSE=$(diff hashlist.txt verified/hashlist.txt | tee -a $LOGFILE)
 if [[ -z $RESPONSE ]]; then
 	echo "Derivation functions list OK.." | tee -a $LOGFILE
+	rm hashlist.txt
 else
 	echo "Derivation functions list changed or wrong !" | tee -a $LOGFILE
 fi
@@ -65,6 +67,6 @@ ls -l $MOUNTPATH
 $GOSTCRYPT list volumes
 
 cleanall
-
+rm volume
 
 
