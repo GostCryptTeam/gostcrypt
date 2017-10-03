@@ -1,9 +1,0 @@
-<map id="GostCrypt::PlatformTest::TestAll" name="GostCrypt::PlatformTest::TestAll">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_string_converter.html#ada0fc4768185c72b861c48904da33d56" title="GostCrypt::StringConverter\l::ToUInt64" alt="" coords="216,5,393,47"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_1_1_string_converter.html#af2aafa018883a06911693cfa6cf051ee" title="GostCrypt::StringConverter\l::FromNumber" alt="" coords="216,71,393,112"/>
-<area shape="rect" id="node4" href="$class_gost_crypt_1_1_string_converter.html#a339be9ee8d5d59aa831e76b12dbbb21f" title="GostCrypt::StringConverter\l::ToUInt32" alt="" coords="216,136,393,177"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_1_1_string_converter.html#a90ae47fd725ce6960c4a93ae79a89806" title="GostCrypt::StringConverter\l::GetTrailingNumber" alt="" coords="216,201,393,243"/>
-<area shape="rect" id="node6" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="285,267,324,294"/>
-<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="441,267,480,294"/>
-<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="528,267,567,294"/>
-</map>

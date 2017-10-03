@@ -1,9 +1,0 @@
-<map id="CipherGetBlockSize" name="CipherGetBlockSize">
-<area shape="rect" id="node2" href="$_crypto_8c.html#aef196af16c4e3947a2f2f79c2bbf4187" title="Encipher blocks. " alt="" coords="239,5,353,32"/>
-<area shape="rect" id="node3" href="$_crypto_8c.html#abd0f290dc18bde1916ad19f117f790be" title="Decipher blocks. " alt="" coords="239,56,353,83"/>
-<area shape="rect" id="node4" href="$_tests_8c.html#a56d230d77b34ccd318135fbaeee388f1" title="Test the legacy mode for boot encryption. " alt="" coords="192,107,400,133"/>
-<area shape="rect" id="node6" href="$_volumes_8c.html#afa713bf1fa27171e0cc0aa16218fe10e" title="Read the volume header using getter from 16 to 64 bits. It permits to load the volume with its parame..." alt="" coords="227,161,365,188"/>
-<area shape="rect" id="node5" href="$_tests_8c.html#a9f2eb67594414b8bea27e345fc69fdef" title="Encrypt same value of data to test if the encryption algorithm woks well. " alt="" coords="458,103,625,129"/>
-<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#a9cce66955923f808f4dd297c7041ac5b" title="Change the password. " alt="" coords="452,154,631,195"/>
-<area shape="rect" id="node8" href="$_cache_8c.html#adf059051b371da0777591dc451201226" title="Attempt to recognize volume using the mount password. " alt="" coords="448,220,635,247"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_gost_crypt_1_1_for_each_1_1_container.html" title="GostCrypt::ForEach\l::Container" alt="" coords="5,39,144,80"/>
-<area shape="rect" id="node2" href="$struct_gost_crypt_1_1_for_each_1_1_container_forward.html" title="GostCrypt::ForEach\l::ContainerForward\&lt; T \&gt;" alt="" coords="192,5,355,47"/>
-<area shape="rect" id="node3" href="$struct_gost_crypt_1_1_for_each_1_1_container_reverse.html" title="GostCrypt::ForEach\l::ContainerReverse\&lt; T \&gt;" alt="" coords="192,71,355,112"/>
-</map>

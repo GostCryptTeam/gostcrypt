@@ -1,5 +1,0 @@
-<map id="ManageStartupSeqWiz" name="ManageStartupSeqWiz">
-<area shape="rect" id="node2" href="$_registry_8c.html#a7c63b7edd24e636366feff9040a8fbaf" title="Getter for the registry key name. " alt="" coords="209,5,375,32"/>
-<area shape="rect" id="node3" href="$_registry_8c.html#a662e574b8cb1c3a3a35bd1afe353e1c2" title="Write a string in the registry. " alt="" coords="225,56,359,83"/>
-<area shape="rect" id="node4" href="$_registry_8c.html#a0dff96f5392b2d33116a03eea6739097" title="Delete a registry value. " alt="" coords="222,107,362,133"/>
-</map>

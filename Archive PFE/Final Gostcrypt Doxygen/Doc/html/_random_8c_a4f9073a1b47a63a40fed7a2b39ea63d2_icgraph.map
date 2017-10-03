@@ -1,5 +1,0 @@
-<map id="RandgetBytes" name="RandgetBytes">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#ae96eefda4ed624bd336f89b4a261b2c1" title="Start the decoy OS wipe. " alt="" coords="169,5,348,47"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#ab87016e42d7f7826282297e50db00742" title="Wipe the fidden OS creation on configuration. " alt="" coords="157,71,360,112"/>
-<area shape="rect" id="node4" href="$_volumes_8c.html#a31bc369dec32aaee5793685da60c640b" title="Writes randomly generated data to unused/reserved header areas. When bPrimaryOnly is TRUE..." alt="" coords="161,136,356,177"/>
-</map>

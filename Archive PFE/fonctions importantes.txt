@@ -1,7 +1,0 @@
-ReadVolumeHeader
-bootencryption.c
-getchecksum
-CheckSysEncMountWithoutPBA ne test pas le checksum ou le CrC
-TestSectorBufEncryption test uniquement si les système de chiffrement fonctionnent (une clé définie)
-
-ntvol.c -> GST open volume appel de ReadVolumeHeader

@@ -1,9 +1,0 @@
-<map id="ValidateIOBufferSize" name="ValidateIOBufferSize">
-<area shape="rect" id="node2" href="$_drive_filter_8c.html#a980e6ff2cd34d815a42715b35cbd62a9" title="Get the boot properties of the volume. " alt="" coords="205,5,406,32"/>
-<area shape="rect" id="node3" href="$_drive_filter_8c.html#aeecf7fc1f7ef05a5a58c30b4353b822a" title="Get the boot encryption status and put into the structure bootEncStatus. " alt="" coords="220,56,391,83"/>
-<area shape="rect" id="node4" href="$_drive_filter_8c.html#ace107a33c76ea5d3e65f3db54bc0ad11" title="Get the boot loader version by sending a packet to the driver. " alt="" coords="229,107,382,133"/>
-<area shape="rect" id="node5" href="$_drive_filter_8c.html#a34bfdfb556e32d0efc8f71e1b270e52b" title="Send a packet to the driver to know the algorithm used. " alt="" coords="195,157,416,184"/>
-<area shape="rect" id="node6" href="$_drive_filter_8c.html#a09f3131778c9e760bc08a93000b5f47c" title="Getter for the decoy wipe system status. " alt="" coords="209,208,402,235"/>
-<area shape="rect" id="node7" href="$_ntdriver_8c.html#ae162ac95122b0275c3e73299278d1eac" title="Depending on the control code of the irp process the associated actions. " alt="" coords="202,259,409,285"/>
-<area shape="rect" id="node8" href="$_ntdriver_8c.html#ab5e2d88a5092ae3bea4ba5ff720f9db4" title="Process the main actions for the control irp code. " alt="" coords="210,309,401,336"/>
-</map>

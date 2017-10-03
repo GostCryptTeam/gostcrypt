@@ -1,4 +1,0 @@
-<map id="mkfulldir_internal" name="mkfulldir_internal">
-<area shape="rect" id="node2" href="$_dir_8c.html#a2f7585c9827a79eaaf338d54db3c02e0" title="Create full directory tree. returns 0 for success, &#45;1 if failure. " alt="" coords="172,5,243,32"/>
-<area shape="rect" id="node3" href="$_self_extract_8c.html#ac03cfb6cd4ef918739df00c094019313" title="This function (that seems called as a thread) to extract the executable files, send a message if succ..." alt="" coords="291,5,437,32"/>
-</map>

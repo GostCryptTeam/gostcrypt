@@ -1,5 +1,0 @@
-<map id="GOSTHASH_init" name="GOSTHASH_init">
-<area shape="rect" id="node2" href="$_pkcs5_8c.html#a28c13a2daed07c552b96258521cfa359" title="Gost hash : encrypt the data thanks to the key with gost algorithm. " alt="" coords="172,5,287,32"/>
-<area shape="rect" id="node3" href="$_tests_8c.html#ae410069dfc9af368167a9b60860e68c5" title="Test the gosthash. " alt="" coords="335,5,477,32"/>
-<area shape="rect" id="node4" href="$_tests_8c.html#a7dca7b0d4c13132eeef1cccbc09cd9e3" title="Test the whole pkcs5. " alt="" coords="525,5,612,32"/>
-</map>

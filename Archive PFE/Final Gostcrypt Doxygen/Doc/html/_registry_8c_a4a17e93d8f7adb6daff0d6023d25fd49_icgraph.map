@@ -1,9 +1,0 @@
-<map id="ReadLocalMachineRegistryString" name="ReadLocalMachineRegistryString">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#ae913150c1b44ae18e3e792b042bfdc19" title="Check if the paging wild card file is active. " alt="" coords="233,109,412,135"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a4683f63544f31aee5130df039402b772" title="Check if the paging file is active. " alt="" coords="460,109,588,135"/>
-<area shape="rect" id="node4" href="$class_base_com.html#a41aa000a52c4c44d20b142c8868ef4ea" title="Check if the paging file is active. " alt="" coords="636,78,829,105"/>
-<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#a60f1f2b0d4b4ada0e8e42eef381f515b" title="Checks if the paging file is active. " alt="" coords="643,132,822,173"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_format_com.html#a267f14ce211adc772463ff5249da4bdc" title="Call BaseCom IsPagingFileActive in basecom object. " alt="" coords="918,5,1067,47"/>
-<area shape="rect" id="node6" href="$class_gost_crypt_main_com.html#afd2c6c9964abf54b5eed75e2fda9ce7b" title="Call the &quot;IsPagingFileActive&quot; of the Basecom object and return it. " alt="" coords="895,71,1090,112"/>
-<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#af434150f29efc685046c3f92502eeb65" title="The initial security checks for hidden OS. " alt="" coords="877,136,1108,177"/>
-</map>

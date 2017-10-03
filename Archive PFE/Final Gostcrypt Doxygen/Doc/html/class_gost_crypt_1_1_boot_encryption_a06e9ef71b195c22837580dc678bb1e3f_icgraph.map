@@ -1,4 +1,0 @@
-<map id="GostCrypt::BootEncryption::SetHiddenOSCreationPhase" name="GostCrypt::BootEncryption::SetHiddenOSCreationPhase">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#ab87016e42d7f7826282297e50db00742" title="Wipe the fidden OS creation on configuration. " alt="" coords="248,5,451,47"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="260,71,439,112"/>
-</map>

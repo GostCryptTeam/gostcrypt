@@ -1,4 +1,0 @@
-<map id="PrintBackspace" name="PrintBackspace">
-<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="193,5,269,32"/>
-<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a83f9361ee8d899e8dbc67d6cc03d5eff" title="Print char at cursor c if screen output is enabled. " alt="" coords="168,56,295,83"/>
-</map>

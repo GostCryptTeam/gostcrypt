@@ -1,4 +1,0 @@
-<map id="GostCrypt::BootEncryption::GetRemarksOnHiddenOS" name="GostCrypt::BootEncryption::GetRemarksOnHiddenOS">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a4af9421f27c8e568add543c8b09602b3" title="Finds the first partition physically located behind the active one and returns its properties..." alt="" coords="232,5,411,47"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#af8f44624d785fff7ce9e8078d71f03a6" title="Checks the hidden OS requirements. " alt="" coords="459,5,665,47"/>
-</map>

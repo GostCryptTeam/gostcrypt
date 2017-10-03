@@ -1,5 +1,0 @@
-<map id="GetElapsedTime" name="GetElapsedTime">
-<area shape="rect" id="node2" href="$_encrypted_io_queue_8c.html#a6ad0720d3b1044c4b1d08a45e24e5399" title="Remove the lock on the queue and add the irp to the main queue then lock it. " alt="" coords="172,5,339,32"/>
-<area shape="rect" id="node3" href="$_drive_filter_8c.html#a76687d443d2ff9f691b7e55750ab2383" title="Read the irp major function and use the right function to manage the type of irp sent. " alt="" coords="387,5,531,32"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#aa2ad3d74581504a31273a0903d590a4f" title="GSTDispatchQueueIRP queues any IRP&#39;s so that they can be processed later by the thread – or in some ..." alt="" coords="579,5,737,32"/>
-</map>

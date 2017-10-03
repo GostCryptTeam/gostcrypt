@@ -1,7 +1,0 @@
-<map id="CipherGetName" name="CipherGetName">
-<area shape="rect" id="node2" href="$_crypto_8c.html#a6c2ad176a3628fde37e21c5028ddfd40" title="Returns name of EA, cascaded cipher names are separated by hyphens. " alt="" coords="168,91,263,118"/>
-<area shape="rect" id="node6" href="$_gstformat_8c.html#a192dea119ef436222c08111c308e96b9" title="EA : encryption algorithm. In the volume creation wizard this function manage the algorithm choice wi..." alt="" coords="349,142,493,169"/>
-<area shape="rect" id="node3" href="$_tests_8c.html#a9f2eb67594414b8bea27e345fc69fdef" title="Encrypt same value of data to test if the encryption algorithm woks well. " alt="" coords="580,15,747,42"/>
-<area shape="rect" id="node4" href="$_tests_8c.html#a56d230d77b34ccd318135fbaeee388f1" title="Test the legacy mode for boot encryption. " alt="" coords="317,41,525,67"/>
-<area shape="rect" id="node5" href="$_drive_filter_8c.html#a34bfdfb556e32d0efc8f71e1b270e52b" title="Send a packet to the driver to know the algorithm used. " alt="" coords="311,91,532,118"/>
-</map>

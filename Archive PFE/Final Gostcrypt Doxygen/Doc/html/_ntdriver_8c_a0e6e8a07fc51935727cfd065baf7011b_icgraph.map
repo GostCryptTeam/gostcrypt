@@ -1,4 +1,0 @@
-<map id="GSTWriteDevice" name="GSTWriteDevice">
-<area shape="rect" id="node2" href="$_drive_filter_8c.html#a23b86125ef582cb2fb62bbe6bfd099c5" title="Write into a soctor of the boot drive. " alt="" coords="176,5,323,32"/>
-<area shape="rect" id="node3" href="$_ntdriver_8c.html#aa95e0ea1d500cdd5c7195ab9faf6cb79" title="Return the number of sectors unreadable in zeroedSectorCount. " alt="" coords="171,56,328,83"/>
-</map>

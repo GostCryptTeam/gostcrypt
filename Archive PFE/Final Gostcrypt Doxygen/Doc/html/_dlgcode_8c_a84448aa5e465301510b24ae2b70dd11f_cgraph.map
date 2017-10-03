@@ -1,7 +1,0 @@
-<map id="CleanLastVisitedMRU" name="CleanLastVisitedMRU">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="222,5,318,32"/>
-<area shape="rect" id="node4" href="$_registry_8c.html#a4b6d586c107c576a4ded6e5bd67d1f1d" title="Read bytes in the registry. " alt="" coords="203,56,337,83"/>
-<area shape="rect" id="node5" href="$_registry_8c.html#a3f278da99f6819a15902f4cdf7bbba81" title="Write bytes in the registry. " alt="" coords="203,107,337,133"/>
-<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="231,157,309,184"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="385,5,525,32"/>
-</map>

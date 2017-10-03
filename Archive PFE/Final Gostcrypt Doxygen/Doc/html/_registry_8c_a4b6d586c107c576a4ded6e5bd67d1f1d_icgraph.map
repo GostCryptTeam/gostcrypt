@@ -1,7 +1,0 @@
-<map id="ReadRegistryBytes" name="ReadRegistryBytes">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a84448aa5e465301510b24ae2b70dd11f" title="Delete the last used Windows file selector path for GostCrypt from the registry. " alt="" coords="188,56,337,83"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a4200737a61fd9ee41717bc4f6acc99b9" title="Browse files in a directory. " alt="" coords="392,31,511,57"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#ac7495cc311e29a9a1135174a1c1f886b" title="Select multiples files. " alt="" coords="385,81,517,108"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a039bb57c7c1c7e5b2a3bb5c2069d1eed" title="Browse files. " alt="" coords="575,5,668,32"/>
-<area shape="rect" id="node5" href="$_mount_8c.html#a4173dd5f017cfa266617c841f4006c6a" title="Handle dialogues on the window handled. manage buttons like create that will copy the wizard..." alt="" coords="565,56,677,83"/>
-</map>

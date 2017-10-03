@@ -1,6 +1,0 @@
-<map id="RestoreDefaultKeyFilesParam" name="RestoreDefaultKeyFilesParam">
-<area shape="rect" id="node2" href="$_keyfiles_8c.html#a8cac8bf07024dc08e525265dd617f396" title="Remove all the keyfiles in the list. " alt="" coords="249,5,376,32"/>
-<area shape="rect" id="node3" href="$_keyfiles_8c.html#a06cec641664068341e751e640ead9433" title="Clone all the keyfiles of the list. " alt="" coords="255,56,370,83"/>
-<area shape="rect" id="node4" href="$_keyfiles_8c.html#ab6950e6171ecddb82ad418423f2ca92b" title="Clone the keyfile in parameter. " alt="" coords="424,31,523,57"/>
-<area shape="rect" id="node5" href="$_keyfiles_8c.html#a9741db7a05b3e06649c12be2c961d6d2" title="return the last keyfile of the keyfile list or and create the next at NULL " alt="" coords="429,81,518,108"/>
-</map>

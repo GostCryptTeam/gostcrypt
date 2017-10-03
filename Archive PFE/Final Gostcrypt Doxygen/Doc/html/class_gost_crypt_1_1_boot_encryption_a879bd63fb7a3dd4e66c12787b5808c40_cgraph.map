@@ -1,9 +1,0 @@
-<map id="GostCrypt::BootEncryption::DeleteFileAdmin" name="GostCrypt::BootEncryption::DeleteFileAdmin">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="633,60,703,87"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a067ed0c600bf924b6621ee79892384d3" title="Check if Uac is supported. " alt="" coords="242,5,357,32"/>
-<area shape="rect" id="node6" href="$class_gost_crypt_1_1_elevator.html#a7436d3b36f4775314d51ea0cc3ec13f3" title="Delete a file. " alt="" coords="232,107,367,149"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="434,5,530,32"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a2268419b7b3915d623fc3e7fed14e20c" title="Check if the os version is a least over the first supported version Returns TRUE if the operating sys..." alt="" coords="598,5,738,32"/>
-<area shape="rect" id="node7" href="$class_gost_crypt_1_1_elevator.html#a0b5a981fa1fa7f2b93f39c55a5ba20e1" title="Elevate the instance. " alt="" coords="415,107,549,149"/>
-<area shape="rect" id="node8" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="597,115,739,141"/>
-</map>

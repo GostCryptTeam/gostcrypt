@@ -1,6 +1,0 @@
-<map id="GostCrypt::StringConverter::ToExceptionString" name="GostCrypt::StringConverter::ToExceptionString">
-<area shape="rect" id="node2" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="300,5,339,32"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_1_1_string_converter.html#a8f57ff107fac8c923470014d26b9681b" title="GostCrypt::StringConverter\l::GetTypeName" alt="" coords="231,57,408,98"/>
-<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="456,5,495,32"/>
-<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="543,5,581,32"/>
-</map>

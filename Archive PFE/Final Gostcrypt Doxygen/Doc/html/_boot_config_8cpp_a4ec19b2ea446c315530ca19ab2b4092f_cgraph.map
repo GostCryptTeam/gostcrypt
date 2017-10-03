@@ -1,5 +1,0 @@
-<map id="ReadBootSectorUserConfiguration" name="ReadBootSectorUserConfiguration">
-<area shape="rect" id="node2" href="$_boot_disk_io_8cpp.html#ae802749641f6e316dd845d44798f3fdf" title="Read and write MBR. " alt="" coords="272,31,384,57"/>
-<area shape="rect" id="node3" href="$_boot_disk_io_8cpp.html#accbe8d628884f347f39f986125f4dc14" title="Write sectors. " alt="" coords="432,5,531,32"/>
-<area shape="rect" id="node4" href="$_boot_disk_io_8cpp.html#a3dd2f97cc0b23a3e50389f301643c4f1" title="Read sectors. " alt="" coords="433,56,530,83"/>
-</map>

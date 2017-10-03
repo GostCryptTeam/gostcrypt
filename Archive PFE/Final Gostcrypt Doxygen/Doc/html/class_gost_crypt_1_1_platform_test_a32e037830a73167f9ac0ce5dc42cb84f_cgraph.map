@@ -1,6 +1,0 @@
-<map id="GostCrypt::PlatformTest::SerializerTest" name="GostCrypt::PlatformTest::SerializerTest">
-<area shape="rect" id="node2" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="285,5,324,32"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_1_1_string_converter.html#ac5fac70dd45743a6bea8b1a1025a5e2d" title="GostCrypt::StringConverter\l::Erase" alt="" coords="216,57,393,98"/>
-<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="441,5,480,32"/>
-<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="528,5,567,32"/>
-</map>

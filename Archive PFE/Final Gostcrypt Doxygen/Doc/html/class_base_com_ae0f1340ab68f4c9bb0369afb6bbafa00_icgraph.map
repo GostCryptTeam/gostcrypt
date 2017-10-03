@@ -1,4 +1,0 @@
-<map id="BaseCom::WriteLocalMachineRegistryDwordValue" name="BaseCom::WriteLocalMachineRegistryDwordValue">
-<area shape="rect" id="node2" href="$class_gost_crypt_format_com.html#a7caf1429158f4ab9531848ab5bc16762" title="Call BaseCom WriteLocalMachineRegistryDwordValue in basecom object. " alt="" coords="261,5,450,61"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_main_com.html#a8dedf36bf770d0929d14bc611743ac07" title="Call the &quot;WriteLocalMachineRegistryDwordValue&quot; of the Basecom object and return it. " alt="" coords="252,86,459,127"/>
-</map>

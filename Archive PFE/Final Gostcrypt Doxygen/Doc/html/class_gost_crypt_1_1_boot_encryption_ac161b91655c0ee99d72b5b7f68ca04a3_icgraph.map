@@ -1,5 +1,0 @@
-<map id="GostCrypt::BootEncryption::WriteBootSectorConfig" name="GostCrypt::BootEncryption::WriteBootSectorConfig">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a06e9ef71b195c22837580dc678bb1e3f" title="Set hidden OS creation page. " alt="" coords="232,39,427,80"/>
-<area shape="rect" id="node3" href="$class_gost_crypt_1_1_boot_encryption.html#ab87016e42d7f7826282297e50db00742" title="Wipe the fidden OS creation on configuration. " alt="" coords="475,5,677,47"/>
-<area shape="rect" id="node4" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="487,71,665,112"/>
-</map>

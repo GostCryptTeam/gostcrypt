@@ -1,5 +1,0 @@
-<map id="GostCrypt::Elevator::IsPagingFileActive" name="GostCrypt::Elevator::IsPagingFileActive">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_elevator.html#a0b5a981fa1fa7f2b93f39c55a5ba20e1" title="Elevate the instance. " alt="" coords="189,23,324,65"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="408,5,477,32"/>
-<area shape="rect" id="node4" href="$_format_com_8cpp.html#aacdc8a1f07f763d7399a4dc5977e3c2f" title="Get the elevated instance (call ComGetInstance) " alt="" coords="372,56,513,83"/>
-</map>

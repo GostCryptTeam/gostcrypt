@@ -1,7 +1,0 @@
-<map id="Int15Filter" name="Int15Filter">
-<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a5d4ecb04d97df5f4d6fa15616090b360" title="Disable the screen output (ScreenOutputDisabled = 1) " alt="" coords="132,5,277,32"/>
-<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="325,107,375,133"/>
-<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="423,81,499,108"/>
-<area shape="rect" id="node5" href="$_boot_console_io_8cpp.html#a7b7ba00b653c510db16d707c4003cc6e" title="Call PrintChar with hexa values. " alt="" coords="169,157,241,184"/>
-<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#a218773774aaa01e4368c444a4fdb4a4e" title="Print the end of line. " alt="" coords="167,208,242,235"/>
-</map>

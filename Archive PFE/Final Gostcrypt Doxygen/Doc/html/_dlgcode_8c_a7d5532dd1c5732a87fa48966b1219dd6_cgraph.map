@@ -1,6 +1,0 @@
-<map id="SecurityTokenPasswordDlgProc" name="SecurityTokenPasswordDlgProc">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#abef313f535b59ccc17ef8eaec7e2f040" title="Localize a Dialog. " alt="" coords="271,5,377,32"/>
-<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="285,56,363,83"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a1770da6ab64df6e8b3e21af48f821bc2" title="Convert Utf8 string to Wide. " alt="" coords="263,107,385,133"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="261,157,387,184"/>
-</map>

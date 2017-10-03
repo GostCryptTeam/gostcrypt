@@ -1,9 +1,0 @@
-<map id="BaseCom::IsPagingFileActive" name="BaseCom::IsPagingFileActive">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a4683f63544f31aee5130df039402b772" title="Check if the paging file is active. " alt="" coords="247,103,375,130"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#ae913150c1b44ae18e3e792b042bfdc19" title="Check if the paging wild card file is active. " alt="" coords="423,27,601,54"/>
-<area shape="rect" id="node5" href="$_registry_8c.html#afa689abc6854e130850c7bbbd7a6455c" title="Query the registry and read multiple strings, ony the size of the data read changes with ReadLocalMac..." alt="" coords="649,71,829,112"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="477,129,547,155"/>
-<area shape="rect" id="node7" href="$_dlgcode_8c.html#ac6c1c4c2429fe0412b658bce13d947a9" title="Abort the process with a local clean up at exit. " alt="" coords="461,179,563,206"/>
-<area shape="rect" id="node4" href="$_registry_8c.html#a4a17e93d8f7adb6daff0d6023d25fd49" title="Query the registry and read a string, ony the size of the data read changes with ReadLocalMachineRegi..." alt="" coords="649,5,829,47"/>
-<area shape="rect" id="node8" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="701,179,778,206"/>
-</map>

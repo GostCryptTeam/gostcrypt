@@ -1,9 +1,0 @@
-<map id="EncryptPartitionInPlaceBegin" name="EncryptPartitionInPlaceBegin">
-<area shape="rect" id="node2" href="$_in_place_8c.html#ae9dfd12e4ac63e5ffa4e47c017607d16" title="Change NonSysInplaceEncStatus value. " alt="" coords="245,5,447,32"/>
-<area shape="rect" id="node3" href="$_in_place_8c.html#a9475a61d76001ed2c478951ea1dc17ca" title="Access the partition Checks if the filesystem is formated in NTFS Checks if the filesystem can be saf..." alt="" coords="244,57,448,98"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a6a253a8a5ffde74f3ee574fce090d45f" title="Returns &#45;1 if there&#39;s an error. " alt="" coords="293,123,399,149"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a980ae61866933e3a3a3b1a2074505341" title="Get all partition informations. " alt="" coords="496,123,607,149"/>
-<area shape="rect" id="node6" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="655,123,693,149"/>
-<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="741,123,780,149"/>
-<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="828,123,867,149"/>
-</map>

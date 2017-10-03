@@ -1,8 +1,0 @@
-<map id="SecurityTokenKeyfileDlgProc" name="SecurityTokenKeyfileDlgProc">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#abef313f535b59ccc17ef8eaec7e2f040" title="Localize a Dialog. " alt="" coords="277,5,383,32"/>
-<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="291,56,369,83"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a6a2f01b88b62683f61043a832225a0ad" title="If the user has a non&#45;default screen DPI, some screen coordinates and sizes must be converted using t..." alt="" coords="269,107,391,133"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a866bfbe498b0b6a65762fba91ec60006" title="Wait cursor mode. " alt="" coords="287,157,373,184"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#a0caa8e8b24b30d89e25a76767c0c5ae4" title="Normal cursor mode. " alt="" coords="279,208,381,235"/>
-<area shape="rect" id="node7" href="$class_gost_crypt_1_1_security_token.html#af193cf5d9f44f9639a44b6b74bec9758" title="Get the available key files. " alt="" coords="244,259,416,301"/>
-</map>

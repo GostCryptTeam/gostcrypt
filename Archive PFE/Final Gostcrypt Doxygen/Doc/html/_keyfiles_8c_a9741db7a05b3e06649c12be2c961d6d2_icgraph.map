@@ -1,6 +1,0 @@
-<map id="KeyFileAdd" name="KeyFileAdd">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a2ee2033216cc7f03924cf529daf29616" title="Load the default key files parameter. " alt="" coords="143,5,321,32"/>
-<area shape="rect" id="node3" href="$_keyfiles_8c.html#a06cec641664068341e751e640ead9433" title="Clone all the keyfiles of the list. " alt="" coords="175,56,289,83"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#aec3d27691355de341fa55a0ed2b0f9d1" title="Restore the default key files parameter. " alt="" coords="369,31,565,57"/>
-<area shape="rect" id="node5" href="$_keyfiles_8c.html#a126a83d7761ba5434270d476f7b0a623" title="manage theGUI interface for the keyFiles " alt="" coords="408,81,527,108"/>
-</map>

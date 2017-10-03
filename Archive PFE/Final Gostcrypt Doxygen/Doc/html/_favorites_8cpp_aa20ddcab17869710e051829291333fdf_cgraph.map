@@ -1,9 +1,0 @@
-<map id="GostCrypt::LoadFavoriteVolumes" name="GostCrypt::LoadFavoriteVolumes">
-<area shape="rect" id="node2" href="$_favorites_8cpp.html#aea85b6a3d1023e96268595a341e0f4aa" title="Load the favorites volumes. " alt="" coords="267,29,480,56"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a256995e04312c10bf559725542d340d6" title="Get the service configuration path. " alt="" coords="299,80,447,107"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="320,131,427,157"/>
-<area shape="rect" id="node8" href="$_dlgcode_8c.html#a7b671acea426352db0ac23c7fd5e6dec" title="Does the user have admin rights. " alt="" coords="339,181,408,208"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a9340c14ff3b48d9363b67cf6b535c1ac" title="Check if the os is 64 bit. " alt="" coords="549,80,628,107"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="528,131,649,157"/>
-<area shape="rect" id="node7" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="541,181,636,208"/>
-</map>

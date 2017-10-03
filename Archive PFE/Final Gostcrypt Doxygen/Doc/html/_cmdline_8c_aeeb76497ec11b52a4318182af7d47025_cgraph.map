@@ -1,6 +1,0 @@
-<map id="CommandHelpDlgProc" name="CommandHelpDlgProc">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#aefa9c53c379eec378fe6c84d734a44f7" title="Apply malloc managing errors. " alt="" coords="219,5,301,32"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#abef313f535b59ccc17ef8eaec7e2f040" title="Localize a Dialog. " alt="" coords="207,56,313,83"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#ac6c1c4c2429fe0412b658bce13d947a9" title="Abort the process with a local clean up at exit. " alt="" coords="361,5,463,32"/>
-<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="511,5,588,32"/>
-</map>

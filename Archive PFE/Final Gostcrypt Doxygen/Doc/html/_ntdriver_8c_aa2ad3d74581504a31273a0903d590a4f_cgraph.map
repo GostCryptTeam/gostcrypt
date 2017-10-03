@@ -1,8 +1,0 @@
-<map id="GSTDispatchQueueIRP" name="GSTDispatchQueueIRP">
-<area shape="rect" id="node2" href="$_drive_filter_8c.html#a76687d443d2ff9f691b7e55750ab2383" title="Read the irp major function and use the right function to manage the type of irp sent. " alt="" coords="220,31,364,57"/>
-<area shape="rect" id="node6" href="$_volume_filter_8c.html#a2e5e6f5f9653e4be76b7a1dbd8b6d55f" title="Send irp to the right dispatcher depending on its value. " alt="" coords="212,81,372,108"/>
-<area shape="rect" id="node7" href="$_ntvol_8c.html#a65a14c883adcc3846c8b707bebf3537b" title="Complete the IRP with data (extra info provide the adresses completed) " alt="" coords="231,132,353,159"/>
-<area shape="rect" id="node3" href="$_encrypted_io_queue_8c.html#a6ad0720d3b1044c4b1d08a45e24e5399" title="Remove the lock on the queue and add the irp to the main queue then lock it. " alt="" coords="420,5,587,32"/>
-<area shape="rect" id="node5" href="$_ntdriver_8c.html#a56a4eeed0b0ce7d4d77ff4cdd72679a3" title="Complete a drisk irp packet. " alt="" coords="432,56,575,83"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#a711c6dc81aaafd64a4e3a23fb5760c2f" title="Returns elapsed time in microseconds since last call. " alt="" coords="635,5,753,32"/>
-</map>

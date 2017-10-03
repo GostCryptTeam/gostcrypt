@@ -1,8 +1,0 @@
-<map id="GSTCloseMutex" name="GSTCloseMutex">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#aa84a337062dcc11c999e16c1a6c47e41" title="Mutex handling to prevent multiple instances of the wizard from dealing with system encryption..." alt="" coords="203,5,340,32"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a7a6c5113b0617a9a8d50106dec7bb5f2" title="Close the hNonSysInplaceEncMutex mutex. " alt="" coords="171,56,372,83"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a669a37fe56e7121130b479089064daf4" title="Close the hDriverSetupMutex mutex. " alt="" coords="193,107,350,133"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#ae39ff54e70651794c6adf998f20b5b46" title="Close the hAppSetupMutex mutex. " alt="" coords="197,157,345,184"/>
-<area shape="rect" id="node6" href="$_setup_8c.html#a75b8fdda5ffaf47399191068d0526f87" title="Call the cleanup function, that will free and close objects. " alt="" coords="420,157,515,184"/>
-<area shape="rect" id="node7" href="$_gstformat_8c.html#a0061eece8e3b46b9710d5a4c285d455e" title="Create the drivers for the coming volume to mount. GUI commands for volume creation. " alt="" coords="563,157,636,184"/>
-</map>

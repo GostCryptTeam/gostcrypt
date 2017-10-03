@@ -1,5 +1,0 @@
-<map id="MountManagerMount" name="MountManagerMount">
-<area shape="rect" id="node2" href="$_ntdriver_8c.html#a44372ad99b9c0e1d1a19dcc619373509" title="Update ntname argument to the name of the drivenumber. " alt="" coords="201,5,395,32"/>
-<area shape="rect" id="node3" href="$_ntdriver_8c.html#a80290d94f2e5a3a545843367057a3b91" title="Build a control request for the device and send it, return the ntstatus to the specified device in ar..." alt="" coords="229,56,367,83"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#a457a75740ed78809ed29a0c6c00f5ff5" title="Update dosname argument to the name of the drivenumber. " alt="" coords="197,107,399,133"/>
-</map>

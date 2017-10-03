@@ -1,8 +1,0 @@
-<map id="GetActivePartition" name="GetActivePartition">
-<area shape="rect" id="node2" href="$_boot_disk_io_8cpp.html#a82efc8114d02c190715eec1f580c409d" title="Get drive partitions. " alt="" coords="180,81,307,108"/>
-<area shape="rect" id="node3" href="$_boot_disk_io_8cpp.html#ae802749641f6e316dd845d44798f3fdf" title="Read and write MBR. " alt="" coords="395,5,507,32"/>
-<area shape="rect" id="node5" href="$_boot_disk_io_8cpp.html#a3dd2f97cc0b23a3e50389f301643c4f1" title="Read sectors. " alt="" coords="595,56,693,83"/>
-<area shape="rect" id="node6" href="$_boot_disk_io_8cpp.html#a093b5daa55846b85f120bc0d0a0c6a15" title="Tranform PartitionEntryMBR to Partition. " alt="" coords="355,107,547,133"/>
-<area shape="rect" id="node7" href="$_boot_disk_io_8cpp.html#a96512106f6a1c2dbb3e3113d07022559" title="Check if Lba is supported. " alt="" coords="395,157,507,184"/>
-<area shape="rect" id="node4" href="$_boot_disk_io_8cpp.html#accbe8d628884f347f39f986125f4dc14" title="Write sectors. " alt="" coords="595,5,693,32"/>
-</map>

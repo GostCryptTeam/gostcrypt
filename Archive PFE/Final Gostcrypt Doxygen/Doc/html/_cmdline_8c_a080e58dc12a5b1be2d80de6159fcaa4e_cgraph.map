@@ -1,6 +1,0 @@
-<map id="Win32CommandLine" name="Win32CommandLine">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="201,5,326,32"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#ac6c1c4c2429fe0412b658bce13d947a9" title="Abort the process with a local clean up at exit. " alt="" coords="213,56,314,83"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a83c08e99c3b80d282db5c770dfce7925" title="Abort the process without message with a local clean up at exit. " alt="" coords="196,107,331,133"/>
-<area shape="rect" id="node4" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="379,56,456,83"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="GostCrypt::BootEncryption::SetDriverConfigurationFlag" name="GostCrypt::BootEncryption::SetDriverConfigurationFlag">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#a7a5ba170d216844b9ff5db5b6368a0e5" title="Register the system favorites service. " alt="" coords="236,72,453,113"/>
-<area shape="rect" id="node7" href="$_mount_8c.html#a0e4953d69f60e3e9d8597bd9151a0853" title="Set driver state and flag to the parameters sent. " alt="" coords="257,138,432,165"/>
-<area shape="rect" id="node3" href="$class_base_com.html#aa5bd0c7ed2b559f9be436622febb3dfb" title="Register the system favorite service. " alt="" coords="501,39,733,80"/>
-<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="528,104,707,145"/>
-<area shape="rect" id="node4" href="$class_gost_crypt_format_com.html#a0ecf79dfffe668439df4ad209095ab9c" title="Call RegisterSystemFavoritesService in basecom object. " alt="" coords="781,5,999,47"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_main_com.html#a25487f06b5cd4f49bc4e214f453fbc9d" title="Call the &quot;RegisterSystemFavoritesService&quot; of the Basecom object and return it. " alt="" coords="794,71,986,112"/>
-</map>

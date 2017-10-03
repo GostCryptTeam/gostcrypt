@@ -1,9 +1,0 @@
-<map id="CipherInit" name="CipherInit">
-<area shape="rect" id="node2" href="$_gost_cipher_8c.html#a894c8f0e07a5614968fca09f7ae1f24b" title="Set the gost key Generate a pseudo random data (based on the key) and set the key. " alt="" coords="153,5,253,32"/>
-<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#a6b136aade799131cab66db1d5d4df8b0" title="Key setup procedure. " alt="" coords="129,56,276,83"/>
-<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="476,31,515,57"/>
-<area shape="rect" id="node7" href="$_grasshopper_cipher_8c.html#a6107e1c52141eb86bb87182173247783" title="Switch opposed bytes (lower byte to upper byte, ...) of unsigned long. " alt="" coords="324,56,428,83"/>
-<area shape="rect" id="node8" href="$_grasshopper_cipher_8c.html#acea73ea2211a8c6ff219e586d742d99f" title="F conversion (used in key setup) " alt="" coords="357,107,395,133"/>
-<area shape="rect" id="node5" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="563,31,601,57"/>
-<area shape="rect" id="node6" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="649,31,688,57"/>
-</map>

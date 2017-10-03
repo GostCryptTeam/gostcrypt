@@ -1,6 +1,0 @@
-<map id="GSTCreateMutex" name="GSTCreateMutex">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a4b618fba1cc6f44f1bc5381a925d9174" title="Mutex handling to prevent multiple instances of the wizard or main app from dealing with system encry..." alt="" coords="208,5,351,32"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a2e3735e9ccc429aa0028863787284b75" title="Returns TRUE if the mutex is (or had been) successfully acquired (otherwise FALSE). " alt="" coords="176,56,383,83"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#ae8cbf212be4c9ba7b8f22e3c9d880104" title="Mutex handling to prevent multiple instances of the wizard or main app from trying to install or regi..." alt="" coords="198,107,361,133"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a39eaa46dee92167c55d423bec70f4453" title="Create the hAppSetupMutex mutex. " alt="" coords="203,157,356,184"/>
-</map>

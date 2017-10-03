@@ -1,7 +1,0 @@
-<map id="DoApplicationDataUninstall" name="DoApplicationDataUninstall">
-<area shape="rect" id="node2" href="$_setup_8c.html#a18e2996580e48d28f95c736bdee7f947" title="Send a message giving information about the status of the window status. " alt="" coords="247,5,361,32"/>
-<area shape="rect" id="node3" href="$_setup_8c.html#a54d41690f486a4e31c65995393c6fa8a" title="Remove txt from the display. " alt="" coords="243,56,365,83"/>
-<area shape="rect" id="node4" href="$_setup_8c.html#acaa2ec8636f04b8dda6b61c0860bab8a" title="Delete the lpszFile (maybe only if empty) " alt="" coords="252,107,356,133"/>
-<area shape="rect" id="node5" href="$_setup_8c.html#a64052226c61187709bd1f0adbfdfff57" title="Delete the lpszDir. " alt="" coords="232,157,376,184"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#acc8513663d1e7dbc6ecdd85ddabf5eb3" title="Handle windows32 errors. " alt="" coords="241,208,367,235"/>
-</map>

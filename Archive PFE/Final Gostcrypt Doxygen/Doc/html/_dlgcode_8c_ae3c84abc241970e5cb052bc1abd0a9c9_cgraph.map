@@ -1,8 +1,0 @@
-<map id="HarddiskVolumePathToPartitionPath" name="HarddiskVolumePathToPartitionPath">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#ae494b4d7309aabb4d4b8ed0f41a1705f" title="Convert a single string to Wide. " alt="" coords="291,5,427,32"/>
-<area shape="rect" id="node3" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="340,56,379,83"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#a298a94adf70e2908284827f565560429" title="Resolv all symbolic link. " alt="" coords="287,107,432,133"/>
-<area shape="rect" id="node7" href="$_dlgcode_8c.html#a4cc54f3841c1f7857a6ab4e0baddbbb4" title="Convert Wide to single string. " alt="" coords="291,157,427,184"/>
-<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="480,56,519,83"/>
-<area shape="rect" id="node5" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="567,56,605,83"/>
-</map>

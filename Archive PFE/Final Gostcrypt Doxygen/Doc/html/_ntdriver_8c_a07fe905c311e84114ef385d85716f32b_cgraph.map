@@ -1,6 +1,0 @@
-<map id="UnmountDevice" name="UnmountDevice">
-<area shape="rect" id="node2" href="$_ntdriver_8c.html#a88334e2f980038d4309e8bb87105af6f" title="Open file volume object. " alt="" coords="165,5,304,32"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#afc9ef476cf0475d4fbcd18be407842ff" title="Check if the os is at least reqMinOS. " alt="" coords="187,56,283,83"/>
-<area shape="rect" id="node5" href="$_ntdriver_8c.html#ae8462f71827de8d7e4db488202009064" title="call the driver with a fileObject " alt="" coords="185,107,284,133"/>
-<area shape="rect" id="node3" href="$_ntdriver_8c.html#a44372ad99b9c0e1d1a19dcc619373509" title="Update ntname argument to the name of the drivenumber. " alt="" coords="352,5,547,32"/>
-</map>

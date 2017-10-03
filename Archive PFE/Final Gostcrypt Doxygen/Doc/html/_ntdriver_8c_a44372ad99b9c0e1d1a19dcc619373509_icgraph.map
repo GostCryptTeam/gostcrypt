@@ -1,8 +1,0 @@
-<map id="GSTGetNTNameFromNumber" name="GSTGetNTNameFromNumber">
-<area shape="rect" id="node2" href="$_ntdriver_8c.html#a6b5e439a815cfb0c2d8378cd33bddf29" title="Create device object and return success. " alt="" coords="270,5,433,32"/>
-<area shape="rect" id="node3" href="$_ntdriver_8c.html#ae162ac95122b0275c3e73299278d1eac" title="Depending on the control code of the irp process the associated actions. " alt="" coords="248,56,455,83"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#a88334e2f980038d4309e8bb87105af6f" title="Open file volume object. " alt="" coords="282,107,421,133"/>
-<area shape="rect" id="node6" href="$_ntdriver_8c.html#a0cc5f231e8ace68008d917ef12509f05" title="Create a link to the drive. " alt="" coords="295,157,407,184"/>
-<area shape="rect" id="node7" href="$_ntdriver_8c.html#a5ea310c4e6c8670b8d43b7d819a5bdc9" title="Mount the manager to mount. " alt="" coords="279,208,423,235"/>
-<area shape="rect" id="node5" href="$_ntdriver_8c.html#a07fe905c311e84114ef385d85716f32b" title="Unmount Device. " alt="" coords="503,107,615,133"/>
-</map>

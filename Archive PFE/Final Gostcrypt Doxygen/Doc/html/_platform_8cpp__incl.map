@@ -1,8 +1,0 @@
-<map id="Boot/Windows/Platform.cpp" name="Boot/Windows/Platform.cpp">
-<area shape="rect" id="node2" href="$_boot_2_windows_2_platform_8h_source.html" title="Platform.h" alt="" coords="56,155,137,181"/>
-<area shape="rect" id="node17" href="$_boot_console_io_8h_source.html" title="BootConsoleIo.h" alt="" coords="86,80,203,107"/>
-<area shape="rect" id="node3" href="$_gstdefs_8h_source.html" title="Gstdefs.h" alt="" coords="19,379,97,405"/>
-<area shape="rect" id="node6" href="$_memory_8h_source.html" title="memory.h" alt="" coords="127,229,207,256"/>
-<area shape="rect" id="node8" href="$_platform_base_8h_source.html" title="PlatformBase.h" alt="" coords="292,304,403,331"/>
-<area shape="rect" id="node16" href="$_endian_8h_source.html" title="endian.h" alt="" coords="165,304,236,331"/>
-</map>

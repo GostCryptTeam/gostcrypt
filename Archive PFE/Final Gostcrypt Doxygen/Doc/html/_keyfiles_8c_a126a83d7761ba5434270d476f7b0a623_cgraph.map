@@ -1,8 +1,0 @@
-<map id="KeyFilesDlgProc" name="KeyFilesDlgProc">
-<area shape="rect" id="node2" href="$_keyfiles_8c.html#a06cec641664068341e751e640ead9433" title="Clone all the keyfiles of the list. " alt="" coords="176,31,291,57"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#abef313f535b59ccc17ef8eaec7e2f040" title="Localize a Dialog. " alt="" coords="180,81,287,108"/>
-<area shape="rect" id="node6" href="$_boot_console_io_8cpp.html#a33007bfd2971c5edeb62670ed938205f" title="Print the string buffer and return the position when escape key is pressed or at the end of the buffe..." alt="" coords="195,132,272,159"/>
-<area shape="rect" id="node7" href="$_dlgcode_8c.html#a6a2f01b88b62683f61043a832225a0ad" title="If the user has a non&#45;default screen DPI, some screen coordinates and sizes must be converted using t..." alt="" coords="172,183,295,209"/>
-<area shape="rect" id="node3" href="$_keyfiles_8c.html#ab6950e6171ecddb82ad418423f2ca92b" title="Clone the keyfile in parameter. " alt="" coords="343,5,441,32"/>
-<area shape="rect" id="node4" href="$_keyfiles_8c.html#a9741db7a05b3e06649c12be2c961d6d2" title="return the last keyfile of the keyfile list or and create the next at NULL " alt="" coords="347,56,437,83"/>
-</map>

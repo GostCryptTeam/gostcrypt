@@ -1,7 +1,0 @@
-<map id="MoveClustersBeforeThreshold" name="MoveClustersBeforeThreshold">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#af678fa10d3bbe8c424ad511817c3d9b3" title="Returns drive letter number assigned to device (&#45;1 if none) " alt="" coords="247,5,415,32"/>
-<area shape="rect" id="node4" href="$_grasshopper_cipher_8c.html#ad7ac77c93d4d2a4f28cf4f053605bef0" title="L conversion (16 iteration of R) " alt="" coords="516,56,555,83"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a298a94adf70e2908284827f565560429" title="Resolv all symbolic link. " alt="" coords="463,5,608,32"/>
-<area shape="rect" id="node5" href="$_grasshopper_cipher_8c.html#abb3e0356548dd4a7ddefbb57b5255eb6" title="Apply R conversion. " alt="" coords="656,56,695,83"/>
-<area shape="rect" id="node6" href="$_grasshopper_cipher_8c.html#a6cbf3c8e29c4398a3dc1fa13e979da17" title="Get conversion value. " alt="" coords="743,56,781,83"/>
-</map>

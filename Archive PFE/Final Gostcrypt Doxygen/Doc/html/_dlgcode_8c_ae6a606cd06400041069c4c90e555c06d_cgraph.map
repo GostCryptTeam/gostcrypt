@@ -1,7 +1,0 @@
-<map id="LoadNonSysInPlaceEncSettings" name="LoadNonSysInPlaceEncSettings">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a34c34fd84e82b5e8d667bd36376db452" title="Returns TRUE if the file or directory exists (both may be enclosed in quotation marks). " alt="" coords="277,5,357,32"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#a3e18df17364bcfc0f378dece8880aaa0" title="Get the configuration path. " alt="" coords="264,56,371,83"/>
-<area shape="rect" id="node6" href="$_dlgcode_8c.html#a4ffbe57c23617a63122d4a7009ddc63d" title="Load a file and returns NULL if there&#39;s any error. Although the buffer can contain binary data..." alt="" coords="282,107,353,133"/>
-<area shape="rect" id="node4" href="$_dlgcode_8c.html#a206c57e989cc33f67c4f9524e33fa60a" title="Check the install mode status. " alt="" coords="419,31,540,57"/>
-<area shape="rect" id="node5" href="$_dlgcode_8c.html#a8738b4ced6bca3b8d0127896585242a5" title="Get the modificated path. " alt="" coords="432,81,527,108"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="PrintEndl" name="PrintEndl">
-<area shape="rect" id="node2" href="$_boot_console_io_8cpp.html#a7108771e3ef11cc8cfd000fc2ed2915a" title="Call Printchar to print the string char by char. " alt="" coords="128,5,177,32"/>
-<area shape="rect" id="node3" href="$_boot_console_io_8cpp.html#aac7233dce0ef357b1ea507667a7b6e07" title="Print char c if screen output is enabled. " alt="" coords="225,5,301,32"/>
-</map>

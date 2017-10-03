@@ -1,9 +1,0 @@
-<map id="GostCrypt::Elevator::SetDriverServiceStartType" name="GostCrypt::Elevator::SetDriverServiceStartType">
-<area shape="rect" id="node2" href="$class_gost_crypt_1_1_boot_encryption.html#ad66126952d3c90239d15fe53b98d98be" title="Set the driver service start type. " alt="" coords="233,133,413,175"/>
-<area shape="rect" id="node3" href="$class_base_com.html#a4c4f6cb8a6560a8a44fa7053d1747ea7" title="Set the driver service strarting type. " alt="" coords="461,71,643,112"/>
-<area shape="rect" id="node6" href="$class_gost_crypt_1_1_boot_encryption.html#a9ac6f366c5a3c03ac5891ba22afe769d" title="Uninstall This operation may take a long time when an antivirus is installed and its real&#45;time protec..." alt="" coords="699,136,878,177"/>
-<area shape="rect" id="node7" href="$class_gost_crypt_1_1_boot_encryption.html#ab800499c17495d75aecfd93cd0942690" title="Register the boot drive. " alt="" coords="463,192,641,233"/>
-<area shape="rect" id="node4" href="$class_gost_crypt_format_com.html#a310342c02b8e6dd3df34b3806198de83" title="Call BaseCom SetDriverServiceStartType in basecom object. " alt="" coords="699,5,879,47"/>
-<area shape="rect" id="node5" href="$class_gost_crypt_main_com.html#a565cd48981c15a30f7c52227e414e61d" title="Call the &quot;SetDriverServiceStartType&quot; of the Basecom object and return it. " alt="" coords="691,71,887,112"/>
-<area shape="rect" id="node8" href="$class_gost_crypt_1_1_boot_encryption.html#afae7ad7d8fb9fb9137395cb5e378a849" title="Install. " alt="" coords="699,201,878,243"/>
-</map>

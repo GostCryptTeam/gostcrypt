@@ -1,6 +1,0 @@
-<map id="test_hmac_stribog" name="test_hmac_stribog">
-<area shape="rect" id="node2" href="$_pkcs5_8c.html#a7e5365dc742aa6f9caa5b6bf29ef79e2" title="Make the derivative of the stribog key (iterate and change bits in it) " alt="" coords="183,56,283,83"/>
-<area shape="rect" id="node3" href="$_stribog_8c.html#a35dd8d9b4aa0af02ddb28c60bb3c3877" title="Initialize ctx variable (v512 = 0x200 or 512 in decimal) " alt="" coords="343,5,445,32"/>
-<area shape="rect" id="node4" href="$_stribog_8c.html#a0ff21cd42b69ce40de0e62e9b7e3b7fb" title="Perform a round on the now 512&#45;bit large remainder While there is more than 64 bytes available..." alt="" coords="341,56,447,83"/>
-<area shape="rect" id="node5" href="$_stribog_8c.html#a5845b664f371f429107cb502511e9c0e" title="Hash the last (padded) message block Add ctx&#45;&gt;left (max value represented by bitmask 0x3FF) to N This..." alt="" coords="331,107,457,133"/>
-</map>

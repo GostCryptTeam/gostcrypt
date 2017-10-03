@@ -1,4 +1,0 @@
-<map id="MutexExistsOnSystem" name="MutexExistsOnSystem">
-<area shape="rect" id="node2" href="$_dlgcode_8c.html#a71b89c7dbed0e13feb2f69c0b4d3b070" title="Returns TRUE if another instance of the wizard is preparing, resuming or performing non&#45;system in&#45;pla..." alt="" coords="211,5,405,47"/>
-<area shape="rect" id="node3" href="$_dlgcode_8c.html#af2d2ecc21ac891601a92d283b722f0b7" title="Is the GostCrypt intaller running ? " alt="" coords="217,71,399,98"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="DumpFilterEntry" name="DumpFilterEntry">
-<area shape="rect" id="node2" href="$_ntdriver_8c.html#a80290d94f2e5a3a545843367057a3b91" title="Build a control request for the device and send it, return the ntstatus to the specified device in ar..." alt="" coords="195,5,333,32"/>
-<area shape="rect" id="node3" href="$_crypto_8c.html#a2ed7a4e1da14e3a1855fb83b7fcb4270" title="Deprecated useless. " alt="" coords="415,56,557,83"/>
-<area shape="rect" id="node4" href="$_tests_8c.html#a3419657af70c95047111e21b37a484b7" title="Launch the auto test algorithm before EnableHwEncryption and after setting it. " alt="" coords="196,107,332,133"/>
-<area shape="rect" id="node6" href="$_ntdriver_8c.html#ac5f43ed33bcbea31d95845b2822734df" title="Send the request control device. " alt="" coords="169,157,359,184"/>
-<area shape="rect" id="node5" href="$_crypto_8c.html#a19902ebd9dff0b82738b690a966b501b" title="Is Hardware encryption enabled. " alt="" coords="407,107,565,133"/>
-</map>

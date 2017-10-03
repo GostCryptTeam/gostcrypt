@@ -1,6 +1,0 @@
-<map id="ZeroUnreadableSectors" name="ZeroUnreadableSectors">
-<area shape="rect" id="node2" href="$_ntdriver_8c.html#a0833d491275e43dd1669efc77565bba6" title="Get the device sector sizes. " alt="" coords="211,5,356,32"/>
-<area shape="rect" id="node4" href="$_ntdriver_8c.html#ac88b9cffd64c55dc13b923f8c883e3c3" title="Read device. " alt="" coords="225,56,341,83"/>
-<area shape="rect" id="node5" href="$_ntdriver_8c.html#a0e6e8a07fc51935727cfd065baf7011b" title="Write device. " alt="" coords="225,107,342,133"/>
-<area shape="rect" id="node3" href="$_ntdriver_8c.html#ac5f43ed33bcbea31d95845b2822734df" title="Send the request control device. " alt="" coords="404,5,593,32"/>
-</map>
