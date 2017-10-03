@@ -14,10 +14,6 @@ Item {
         \brief Contains the background of the
         main window
     */
-   /* GSMainForm {
-        id: mainWindow
-        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }*/
 
     Item {
         id: mainWindow
@@ -27,44 +23,36 @@ Item {
 
         Rectangle {
             id: topBar
-            x: 0
+            x: -100
             y: 0
-            width: 790
+            width: 890
             height: 74
             color: palette.darkSecond
         }
 
         Rectangle {
             id: rectangle1
-            x: 98
+            anchors {
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
             y: 438
-            width: 594
-            height: 92
+            width: 500
+            height: 70
             color: palette.darkSecond
-            border.width: 0
+            border.width: 1
+            border.color: palette.darkInput
         }
 
         Rectangle {
             id: rectangle2
-            x: 98
+            anchors.horizontalCenter: parent.horizontalCenter
             y: 111
-            width: 594
-            height: 303
+            width: 550
+            height: 315
             color: palette.darkSecond
         }
          Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
-    }
-
-    MouseArea {
-        id: area_
-        x:0
-        y:0
-        width: mainWindow.width
-        height: mainWindow.height
-        propagateComposedEvents: true
-        onClicked: {
-            volumeToolsMenu.opacity = 0.0
-        }
     }
 
     /*!
@@ -83,15 +71,14 @@ Item {
             a volume by opening a subwindow.
          */
         UI.GSButtonGreen_icon {
-            text: qsTr("Mount Volume")
+            text: qsTr("Mount Volume") + Translation.tr
             /*!
             \qmlsignal onClicked
             \brief Open the subwindow by clicking on the "Mount volume"
             button. Animation when subwindow appears.
          */
             onClicked: {
-                volumeToolsMenu.opacity = 0.0
-                openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
+                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
             }
         }
         /*!
@@ -100,11 +87,9 @@ Item {
         wizard to create a volume.
      */
         UI.GSButtonBlue_icon {
-            text: qsTr("Create Volume")
+            text: qsTr("Create Volume") + Translation.tr
             onClicked: {
-                ConnectSignals.debug_connectReceiveCreate()
-                volumeToolsMenu.opacity = 0.0
-                openSubWindow("wizard/WizardManager.qml", 'GostCrypt Volume Creation Wizard', "Create a volume", 429, {"name" : "", "value" : ""})
+                openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
             }
         }
         //Smooth fade-in/fade-out animation
@@ -120,20 +105,20 @@ Item {
  */
     Row {
         id: rowBottom
-        spacing: 22
+        spacing: 30
         anchors.horizontalCenter: mainWindow.horizontalCenter
         anchors.bottom: mainWindow.bottom;
-        anchors.bottomMargin: 28
+        anchors.bottomMargin: 15
         /*!
         \class GSButtonBordered
         \brief Auto-mount a device.
      */
         UI.GSButtonBordered {
-            text: qsTr("Auto Mount Device")
+            text: qsTr("Auto Mount Device") + Translation.tr
+            width:200
             onClicked:
             {
-                volumeToolsMenu.opacity = 0.0
-                ConnectSignals.connectReceiveAutoMount("dummy")
+                qmlRequest("automount", "dummy");
             }
             color_:palette.green
         }
@@ -142,22 +127,20 @@ Item {
         \brief Dismount all the devices currently mounted
      */
         UI.GSButtonBordered {
-            text: qsTr("Dismount All")
-            color_:palette.green
+            text: qsTr("Dismount All") + Translation.tr
+            color_:palette.blue
+            width:200
             onClicked: {
-                volumeToolsMenu.opacity = 0.0
-                ConnectSignals.connectReceiveDismountAll()
-                listOfVolumes.clear()
-                helpStart.visible = true
+                qmlRequest("dismountall", "dummy");
             }
         }
         /*!
             \class GSButtonBordered
             \brief Opens the volume tools options.
          */
-        UI.GSButtonBordered {
+        /*UI.GSButtonBordered {
             id: volumeTools
-            text: qsTr("Volume Tools")
+            text: qsTr("Volume Tools") + Translation.tr
             color_:palette.blue
             //TODO : supprimer (tests)
             onClicked: {
@@ -166,7 +149,7 @@ Item {
                 if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true
             }
 
-        }
+        }*/
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
@@ -178,10 +161,10 @@ Item {
      */
     Item {
         id: volumeListElement
-        x: 98
-        y: 111
-        width: 594
-        height: 303
+        x: rectangle2.x
+        y: rectangle2.y
+        width: rectangle2.width
+        height: rectangle2.height
 
         UI.GSVolumeItem {
             id:volumeDelegate
@@ -193,12 +176,13 @@ Item {
 
         GridView {
             id: grid
-            anchors.fill: parent;
+            y: 20
+            x: 25
+            height: volumeListElement.height - 40
+            width: volumeListElement.width - 40
+            //anchors.horizontalCenter: volumeListElement.horizontalCenter
             cellWidth: grid.width/2;
             cellHeight: 100
-            anchors.leftMargin: 35
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
             delegate: volumeDelegate
             focus: true
             model: listOfVolumes
@@ -210,6 +194,129 @@ Item {
             }
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+
+        //Volume Tools menu
+        Rectangle {
+            id: volumeToolsMenuLayer
+            color: "black"
+            x: 0
+            y: 0
+            width: rectangle2.width
+            height: rectangle2.height
+            opacity: 0.0
+            visible: false
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: {
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    id: animLayer_;
+                    duration: app.duration/2;
+                    easing.type: Easing.OutQuad;
+                    onRunningChanged: {
+                        if(!animLayer_.running && volumeToolsMenuLayer.opacity == 0.0) {
+                            volumeToolsMenuLayer.visible = false
+                        }
+                    }
+                }
+            }
+        }
+
+        Rectangle {
+            id: volumeToolsMenu
+            color: palette.darkThird
+            border.width: 2
+            border.color: palette.blue
+            width: 250
+            height: 240
+            anchors.centerIn: parent
+            opacity: 0.0
+            visible: false
+
+            ItemVolumeTools {
+                id: element1
+                x:0
+                y:0
+                text_: qsTr("Change Volume Password...")
+                onClicked: {
+                    //TODO : signal change volume password
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            ItemVolumeTools {
+                id: element2
+                x:0
+                y:40
+                text_: qsTr("Set header key derivation algorithm...")
+                onClicked: {
+                    //TODO : signal header key derivation algo
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            ItemVolumeTools {
+                id: element3
+                x:0
+                y:80
+                text_: qsTr("Add/Remove Keyfiles from/to Volume...")
+                onClicked: {
+                    //TODO : signal Add/Remove Keyfiles from/to Volume
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            ItemVolumeTools {
+                id: element4
+                x:0
+                y:120
+                text_: qsTr("Remove all keyfiles from volume...")
+                onClicked: {
+                    //TODO : signal Remove all keyfiles from volume
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            ItemVolumeTools {
+                id: element5
+                x:0
+                y:160
+                text_: qsTr("Backup volume header...")
+                onClicked: {
+                    //TODO : signal Backup volume header
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            ItemVolumeTools {
+                id: element6
+                x:0
+                y:200
+                text_: qsTr("Reset volume header...")
+                onClicked: {
+                    //TODO : signal Reset volume header
+                    volumeToolsMenu.opacity = 0.0
+                    volumeToolsMenuLayer.opacity = 0.0
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    id: anim_;
+                    duration: app.duration/2;
+                    easing.type: Easing.OutQuad;
+                    onRunningChanged: {
+                        if(!anim_.running && volumeToolsMenu.opacity == 0.0) {
+                            volumeToolsMenu.visible = false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //Default content on start
@@ -218,14 +325,11 @@ Item {
         x: 98
         y: 111
         width: 594
-        height: 303
+        height: 315
         visible: true
         MouseArea {
             anchors.fill: parent
             propagateComposedEvents: true
-            onClicked: {
-                volumeToolsMenu.opacity = 0.0
-            }
         }
         Image {
             width: 594
@@ -237,7 +341,7 @@ Item {
         Text {
             y: 120
             font.pixelSize: 20
-            text: qsTr("Drag & Drop a GostCrypt volume here !")
+            text: qsTr("Drag & Drop a GostCrypt volume here !") + Translation.tr
             anchors.horizontalCenter: helpStart.horizontalCenter
             color: palette.textLowOpacity
             font.bold: true
@@ -245,7 +349,8 @@ Item {
 
         Rectangle {
             id: rect
-            width: 594
+            width: rectangle2.width
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: helpStart.bottom
             height:100
             color: palette.darkThird
@@ -257,7 +362,7 @@ Item {
                 color: palette.textLowOpacity
                 anchors.horizontalCenter: rect.horizontalCenter
                 horizontalAlignment: Text.AlignVCenter
-                text: qsTr("Thank you for using <font color=\"#719c24\">GostCrypt</font> !")
+                text: qsTr("Thank you for using <font color=\"#719c24\">GostCrypt</font> !") + Translation.tr
             }
 
             Text {
@@ -266,111 +371,24 @@ Item {
                 font.pixelSize: 13
                 y: line1.y + 20
                 horizontalAlignment: Text.AlignVCenter
-                text: qsTr("<html>New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
-                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume</html>")
+                text: qsTr("New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
+                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume") + Translation.tr
                 MouseArea {
-                        anchors.fill: parent
-                        acceptedButtons: Qt.NoButton
-                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                    }
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
                 onLinkActivated: {
-                    volumeToolsMenu.opacity = 0.0
                     if(link == "1")
                     {
                         //TODO : right method
                         ConnectSignals.debug_connectReceiveCreate()
                     }else{
-                        openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "", "value" : ""})
+                        openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
                     }
                 }
             }
 
-        }
-    }
-
-    //Volume Tools menu
-    Rectangle {
-        id: volumeToolsMenu
-        color: palette.darkThird
-        border.width: 2
-        border.color: palette.blue
-        width: volumeTools.width * 1.5
-        height: 240
-        x:455
-        y:210
-        opacity: 0.0
-        visible: false
-        ItemVolumeTools {
-            id: element1
-            x:0
-            y:0
-            text_: qsTr("Change Volume Password...")
-            onClicked: {
-                //TODO : signal change volume password
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        ItemVolumeTools {
-            id: element2
-            x:0
-            y:40
-            text_: qsTr("Set header key derivation algorithm...")
-            onClicked: {
-                //TODO : signal header key derivation algo
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        ItemVolumeTools {
-            id: element3
-            x:0
-            y:80
-            text_: qsTr("Add/Remove Keyfiles from/to Volume...")
-            onClicked: {
-                //TODO : signal Add/Remove Keyfiles from/to Volume
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        ItemVolumeTools {
-            id: element4
-            x:0
-            y:120
-            text_: qsTr("Remove all keyfiles from volume...")
-            onClicked: {
-                //TODO : signal Remove all keyfiles from volume
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        ItemVolumeTools {
-            id: element5
-            x:0
-            y:160
-            text_: qsTr("Backup volume header...")
-            onClicked: {
-                //TODO : signal Backup volume header
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        ItemVolumeTools {
-            id: element6
-            x:0
-            y:200
-            text_: qsTr("Reset volume header...")
-            onClicked: {
-                //TODO : signal Reset volume header
-                volumeToolsMenu.opacity = 0.0
-            }
-        }
-        Behavior on opacity {
-            NumberAnimation {
-                id: anim_;
-                duration: app.duration/2;
-                easing.type: Easing.OutQuad;
-                onRunningChanged: {
-                    if(!anim_.running && volumeToolsMenu.opacity == 0.0) {
-                        volumeToolsMenu.visible = false
-                    }
-                }
-            }
         }
     }
 
@@ -392,19 +410,33 @@ Item {
             if (drop.hasText) {
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
                     console.log(drop.text)
-                    openSubWindow("dialogs/GSOpenVolume.qml", 'Open a GostCrypt volume', "Mount a volume", 429, {"name" : "dropVolume", "value" : drop.text.trim()})
+                    openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : drop.text.trim()})
                     drop.acceptProposedAction()
                 }
             }
         }
     }
+
     function loadVolume(MountPoint, EncryptionAlgorithmName, Path, Size) {
         console.log("Ajout du volume");
         if(helpStart !== undefined && helpStart.visible == true)
         {
             helpStart.visible = false
         }
-        listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size})
+        var isFavorite = UserSettings.isFavorite(Path);
+        listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
+    }
+
+    function clearVolumes() {
+        listOfVolumes.clear();
+        helpStart.visible = true;
+    }
+
+    function dismountVolume(path) {
+        for(var i =0; i<listOfVolumes.count; i++)
+            if(listOfVolumes.get(i).Path_ == path)
+                listOfVolumes.remove(i);
+        if(listOfVolumes.count == 0) helpStart.visible = true;
     }
 
 }

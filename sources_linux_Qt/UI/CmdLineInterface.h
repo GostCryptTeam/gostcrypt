@@ -49,7 +49,7 @@ public:
 signals:
     void request(QVariant request);
     void exit();
-    void sendSudoPassword(QSharedPointer<QByteArray> password);
+    void sendSudoPassword(QString password);
 private slots:
     DEC_PRINT_SLOT(CreateVolume);
     DEC_PRINT_SLOT(MountVolume);

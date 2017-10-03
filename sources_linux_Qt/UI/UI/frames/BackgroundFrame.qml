@@ -24,7 +24,7 @@ Item {
         anchors.verticalCenter: topBar.verticalCenter
         anchors.right: bk.right
         y: 5
-        text: "<font color=\"#e1e1e1\"><a href=\"home\">"+qsTr("Home")+"</font></a> > "+ name
+        text: "<font color=\"#e1e1e1\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name
         color: palette.text
         font.pixelSize: 12
 
@@ -35,7 +35,7 @@ Item {
         }
         onLinkActivated: {
             menuChanged("frames/HomeFrame.qml",0)
-
+            ConnectSignals.getAllMountedVolumes()
         }
     }
 }

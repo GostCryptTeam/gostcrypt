@@ -11,28 +11,59 @@ Item {
           Connects the C++ object (connectSignals.h) to the window
           */
         target: ConnectSignals;
-        onSendSubWindowVolumeInfos: {
-            subWindow.catchClose();
-            pageLoader.item.loadVolume(aMount, aAlgo, aPath, aSize);
+
+        onConnectFinished: {
+            qmlRequest("mountedvolumes", "");
         }
-        onSendSubWindowAskSudoPassword: {
-            /*subWindow.opacity = subWindow.opacity = 1.0
-            subWindow.visible = subWindow.visible = true
-            if(subWindow.w !== "../dialogs/GSConnectSudo.qml")
-            {
-                subWindow.w = "../dialogs/GSConnectSudo.qml"
-                subWindow.title = 'Enter your password'
-                subWindow.loadForm()
-                subWindow.changeSubWindowHeight(200);
-            }*/
-            console.log("Demande de sudo");
+
+        onSPrintGetMountVolume: {
+            subWindow.catchClose();
+            pageLoader.item.clearVolumes();
+            manageModel(volumes);
+        }
+
+        onGetSudoPassword: {
             app.toggleSudo(1)
         }
-        onSendSubWindowConfirmSudoPassword:  {
-            subWindow.catchClose();
+
+        onSPrintDismountVolume: {
+            qmlRequest("mountedvolumes", "")
         }
-        onSendSubWindowErrorMessage: {
+
+        onSPrintMountVolume: {
+            qmlRequest("mountedvolumes", "")
+        }
+
+        onSendError: {
+            /*switch(aTitle)
+            {
+            case "badvolumepassword":
+                break;
+            }*/
             openErrorMessage(aTitle, aContent);
+        }
+
+        onSPrintGetEncryptionAlgorithms:
+        {
+            console.log(algos);
+            subWindow.loadedItem.page.getAlgos(algos);
+            subWindow.loadedItem.page.used[0] = algos[0];
+            subWindow.loadedItem.page.used[1] = algos[1];
+        }
+    }
+
+    function manageModel(volumes)
+    {
+        app.model = volumes;
+        console.log(volumes);
+        //Delete all the model entries that are not in the volumes array
+        for(var k in volumes)
+        {
+            pageLoader.item.loadVolume(
+                        volumes[k]["mountPoint"],
+                        volumes[k]["algo"],
+                        volumes[k]["volumePath"],
+                        volumes[k]["volumeSize"]);
         }
     }
 }

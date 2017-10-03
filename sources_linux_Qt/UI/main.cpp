@@ -1,43 +1,15 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <connectSignals.h>
-#include <QIcon>
-#include <GraphicUserInterface.h>
-#include "UserSettings.h"
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
+#include "GraphicInterface.h"
 #include "Platform/SystemLog.h"
-#include "DragWindowProvider.h"
-#include "volumecreation.h"
 #include "CmdLineInterface.h"
 #include "NewCore/CoreService.h"
-
-
 #include "NewCore/CoreException.h"
 
 int main(int argc, char *argv[])
 {
-	/*
-	try {
-		try {
-			throw GostCrypt::NewCore::ExceptionFromVolumeException("test");
-		} catch (GostCrypt::NewCore::CoreException &e) {
-			qDebug().noquote() << e.qwhat();
-			QVariant v = e.toQVariant();
-			const GostCrypt::NewCore::CoreException *exceptionPtr = reinterpret_cast<const GostCrypt::NewCore::CoreException*>(v.constData());
-			exceptionPtr->raise();
-		}
-	} catch (GostCrypt::NewCore::CoreException &e) {
-			qDebug().noquote() << e.qwhat();
-	}
-	return 0;//*/
-
-
     qSetMessagePattern("%{appname}: %{message}");
     if (argc > 1)
     {
-        if(strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0){
+        if(strcmp (argv[1], "coreservice") == 0){
             // Process elevated requests
 			GostCrypt::NewCore::CoreService cs;
 			return cs.start(argc, argv);
@@ -51,27 +23,9 @@ int main(int argc, char *argv[])
                 }
             #endif
         }
+    }else{
+        MyGuiApplication app(argc,argv);
+        GraphicInterface gi(&app);
+        return gi.start();
     }
-
-    // no arguments, starting GUI
-
-    QGuiApplication app(argc, argv);
-    app.setWindowIcon(QIcon(":/logo_gostcrypt.png"));
-    GraphicUserInterface ui;
-    ConnectSignals cs(&ui);
-    UserSettings settings;
-    DragWindowProvider drag;
-    VolumeCreation wizard;
-
-    QQmlApplicationEngine engine;
-    QQmlContext* ctx = engine.rootContext();
-    ctx->setContextProperty("ConnectSignals", &cs);
-    ctx->setContextProperty("UserSettings", &settings);
-    ctx->setContextProperty("DragWindowProvider", &drag);
-    ctx->setContextProperty("Wizard", &wizard);
-
-    engine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
-    cs.init(engine.rootObjects().first());
-
-    return app.exec();
 }

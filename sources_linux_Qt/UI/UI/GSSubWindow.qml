@@ -7,6 +7,7 @@ Item {
     id:subWindow_
     x: 0
     y: 51
+    property alias loadedItem : loader.item
     property string title: ""
     property string w
     property string name: ""
@@ -14,6 +15,13 @@ Item {
     property var heightSubWindow
     property bool isOpen
     property variant parameter: {"name" : "", "value" : ""}
+
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onClicked: {
+        }
+    }
 
     //Black background
     Rectangle {
@@ -29,43 +37,6 @@ Item {
             }
         }
     }
-
-    /*Rectangle {
-        id: closeButton
-        x: parent.width - 100
-        y: containerSub.y + 15
-        width: 34
-        height: 34
-        color: palette.darkSecond
-        radius: 4
-        z: 1
-        visible: true
-        antialiasing: true
-        border.color: palette.blue
-        border.width: 2
-        Image {
-            id: closeButton_Image
-            anchors.centerIn: parent
-            x: 0
-            y: 0
-            width: 30
-            height: 30
-            enabled: false
-            smooth: false
-            source: "ressource/closeSubWindow.png"
-        }
-        MouseArea {
-            id: closeButton_Area
-            //close the subwindow and delete its values
-            anchors.fill: parent
-            hoverEnabled: true
-            z:2
-            onClicked: {
-                catchClose()
-                // ConnectSignals.connectEndSudo();
-            }
-        }
-    }*/
 
     states: [
         State {
@@ -130,7 +101,7 @@ Item {
             topPadding: 5
             anchors.horizontalCenter: parent.horizontalCenter
             y: 5
-            text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home")+"</font></a> > "+ name
+            text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
             color: palette.text
             font.pixelSize: 12
 
@@ -146,7 +117,7 @@ Item {
         Text {
             id: title_
             topPadding: 20
-            text: title
+            text: title + Translation.tr
             font.family: "Helvetica"
             font.pointSize: 17
             color: palette.green
@@ -247,4 +218,5 @@ Item {
     function changeSubWindowTitle(title) {
         title_.text = title
     }
+
 }

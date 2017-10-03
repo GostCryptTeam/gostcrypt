@@ -15,10 +15,8 @@
 #define HANDLE_REQUEST(requestName, fct) \
 	if(r.canConvert<QSharedPointer<requestName ## Request>>()) { \
 		QSharedPointer<requestName ## Request> request; \
-		QSharedPointer<requestName ## Response> response; \
 		request = r.value<QSharedPointer<requestName ## Request>>(); \
-		response = fct (request); \
-		emit send ## requestName (response); \
+		fct (request); \
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
 
@@ -57,7 +55,7 @@ namespace GostCrypt {
 			 *
 			 * @param password
 			 */
-			virtual void receiveSudoPassword(QSharedPointer<QByteArray> password) = 0;
+            		virtual void receiveSudoPassword(QString password) = 0;//QSharedPointer<QByteArray> password) = 0;
 		protected:
             /**
              * @brief Give the supported encryption algorithms names
@@ -65,35 +63,35 @@ namespace GostCrypt {
              * @param params Parameters of the function
              * @return QSharedPointer<GetEncryptionAlgorithmsResponse>, the response of the function
              */
-            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
+            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>(), bool emitResponse = true);
             /**
              * @brief Give the supported key derivation functions names
              *
              * @param params Parameters of the function
              * @return QSharedPointer<GetDerivationFunctionsResponse>, the response of the function
              */
-            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());
+            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>(), bool emitResponse = true);
 			/**
 			 * @brief Give the availables storage devices on the computer (Disks, USB keys, etc)
 			 *
 			 * @param params Parameters of the function
 			 * @return QSharedPointer<GetHostDevicesResponse>, the response of the function
 			 */
-			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>());
+			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>(), bool emitResponse = true);
 			/**
 			 * @brief Give the list of currently mounted volumes
 			 *
 			 * @param params Parameters of the function
 			 * @return QSharedPointer<GetMountedVolumesResponse>, the response of the function
 			 */
-			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
+			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>(), bool emitResponse = true);
             /**
              * @brief Create a random key file
              *
              * @param params Parameters of the function
              * @return QSharedPointer<CreateKeyFileResponse>, the response of the function
              */
-            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params);
+            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params, bool emitResponse = true);
 
 			/**
 			 * @brief Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint.

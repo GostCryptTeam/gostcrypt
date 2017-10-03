@@ -41,12 +41,13 @@ namespace GostCrypt {
 			}
 		}
 
-		void CoreRoot::receiveSudoPassword(QSharedPointer<QByteArray> password)
+        //TODO
+        void CoreRoot::receiveSudoPassword(QString password)//QSharedPointer<QByteArray> password)
 		{
-				password->fill('\0');
-		}
+                password.fill('\0');
+        }
 
-		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
+		QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params, bool emitResponse)
 		{
 			QSharedPointer<MountVolumeResponse> response(new MountVolumeResponse);
 			uid_t mountedForUserId;
@@ -109,7 +110,7 @@ namespace GostCrypt {
 						params->useBackupHeaders
 					);
                 } catch(GostCrypt::PasswordException &e) {
-                    throw ExceptionFromVolumeException("Incorrect password\n")
+                    throw IncorrectVolumePasswordException(params->path)
                 } catch(GostCrypt::SystemException &e) {
 					// In case of permission issue try again in read-only
 					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
@@ -188,7 +189,7 @@ namespace GostCrypt {
                 }
             } catch(...) {
                 QSharedPointer<DismountVolumeRequest> dismountParams(new DismountVolumeRequest);
-                dismountParams->volumepath = params->path;
+                dismountParams->volumePath = params->path;
                 dismountVolume(dismountParams);
                 if(mountDirCreated)
                     QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
@@ -199,13 +200,16 @@ namespace GostCrypt {
             QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
             getMountedVolumesParams->volumePath = params->path;
 
-            getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
+            getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams, false);
             response->volumeInfo = getMountedVolumesResponse->volumeInfoList.first();
+
+			if(emitResponse)
+				emit sendMountVolume(response);
 
 			return response;
 		}
 
-		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeRequest> params)
+		QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeRequest> params, bool emitResponse)
 		{
             QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
 
@@ -215,10 +219,10 @@ namespace GostCrypt {
                 QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
                 QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
                 if(params)
-                    getMountedVolumesParams->volumePath = params->volumepath;
-                getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-                if(params && params->volumepath && getMountedVolumesResponse->volumeInfoList.isEmpty())
-                    throw VolumeNotMountedException(params->volumepath);
+                    getMountedVolumesParams->volumePath = params->volumePath;
+                getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams, false);
+                if(params && params->volumePath && getMountedVolumesResponse->volumeInfoList.isEmpty())
+                    throw VolumeNotMountedException(params->volumePath);
                 mountedVolumes = getMountedVolumesResponse->volumeInfoList;
             }
             for (QSharedPointer<VolumeInformation> mountedVolume : mountedVolumes) {
@@ -251,7 +255,14 @@ namespace GostCrypt {
 
                 /* Delete fuse mount point directory */
                 QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
+
+                /* Saving the volume path to confirm to the QML that the volume was successfully dismounted */
+                response.data()->volumePath.append(mountedVolume->volumePath);
             }
+
+            if(emitResponse)
+				sendDismountVolume(response);
+
             return response;
         }
 
@@ -353,10 +364,10 @@ namespace GostCrypt {
             mountparams->path = volume;
 
             QSharedPointer<DismountVolumeRequest> dismountparams(new DismountVolumeRequest());
-            dismountparams->volumepath = volume;
+            dismountparams->volumePath = volume;
 
             //try {
-                mountresponse = mountVolume(mountparams);
+                mountresponse = mountVolume(mountparams, false);
             //} catch (CoreException &e){
             //    throw FormattingSubExceptionException(e);
             //}
@@ -386,13 +397,13 @@ namespace GostCrypt {
             }
 
             try {
-                dismountVolume(dismountparams); // finally dismounting the volume
+                dismountVolume(dismountparams, false); // finally dismounting the volume
             } catch (CoreException &e){
                 throw FormattingSubExceptionException(e);
             }
         }
 
-        QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
+        QSharedPointer<CreateVolumeResponse> CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params, bool emitResponse)
 		{
             QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
 
@@ -465,15 +476,23 @@ namespace GostCrypt {
             if(params->type == VolumeType::Hidden)
                 formatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem);
 
+            if(emitResponse)
+				sendCreateVolume(response);
+
             return response;
 		}
 
-		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
+		QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params, bool emitResponse)
 		{
 			QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
 
 			(void)params;
+
 			//TODO
+
+			if(emitResponse)
+				emit sendChangeVolumePassword(response);
+
 			return response;
         }
 

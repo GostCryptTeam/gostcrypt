@@ -41,7 +41,7 @@ namespace GostCrypt {
 			RandomNumberGenerator::Start();
 		}
 
-		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
+		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params, bool emitResponse)
 		{
             QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse());
 			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
@@ -53,10 +53,12 @@ namespace GostCrypt {
                 }
 			}
 
+			if(emitResponse)
+				emit sendGetEncryptionAlgorithms(response);
 			return response;
 		}
 
-        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params)
+        QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params, bool emitResponse)
         {
             QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
             GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
@@ -68,13 +70,16 @@ namespace GostCrypt {
                     response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
                 }
             }
-            return response;
+
+           	if(emitResponse)
+	            emit sendGetDerivationFunctions(response);
+	        return response;
         }
 
-		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesRequest> params)
+		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesRequest> params, bool emitResponse)
 		{
 			(void)params;
-			QSharedPointer<GetHostDevicesResponse> res(new GetHostDevicesResponse);
+			QSharedPointer<GetHostDevicesResponse> response(new GetHostDevicesResponse);
 			QFile file("/proc/partitions");
 
 			if(!file.open(QFile::ReadOnly))
@@ -107,21 +112,24 @@ namespace GostCrypt {
 				} catch(DeviceNotMounted &e) {}
 
 				/* Check if device is partition */
-				if(!res->hostDevices.isEmpty()) {
-                    if(hd->devicePath->absoluteFilePath().startsWith(res->hostDevices.last()->devicePath->absoluteFilePath())) {
-						res->hostDevices.last()->partitions.append(hd);
+				if(!response->hostDevices.isEmpty()) {
+                    if(hd->devicePath->absoluteFilePath().startsWith(response->hostDevices.last()->devicePath->absoluteFilePath())) {
+						response->hostDevices.last()->partitions.append(hd);
 						continue;
 					}
 				}
 
-				res->hostDevices.append(hd);
+				response->hostDevices.append(hd);
 			}
 			file.close();
 
-			return res;
+			if(emitResponse)
+				emit sendGetHostDevices(response);
+
+			return response;
 		}
 
-		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params)
+		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params, bool emitResponse)
 		{
 			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 			for(QSharedPointer<MountedFilesystem> mf : getMountedFilesystems()) {
@@ -166,10 +174,12 @@ namespace GostCrypt {
 					break;
 			}
 
+			if(emitResponse)
+				emit sendGetMountedVolumes(response);
 			return response;
 		}
 
-		QList<QSharedPointer<MountedFilesystem> > CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
+		QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
 		{
 			QList<QSharedPointer<MountedFilesystem>> mountedFilesystems;
 			//*
@@ -207,6 +217,7 @@ namespace GostCrypt {
 
 			endmntent(mtab);
 			mutex.unlock();
+
             return mountedFilesystems;
         }
 
@@ -247,7 +258,7 @@ namespace GostCrypt {
         bool CoreBase::isDevice(QString path)
         {
             QSharedPointer<GetHostDevicesResponse> response;
-            response = getHostDevices();
+            response = getHostDevices(QSharedPointer<GetHostDevicesRequest>(), false);
             for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : response->hostDevices) {
                 if(d->devicePath->canonicalFilePath() == path)
                     return true;
@@ -322,7 +333,7 @@ namespace GostCrypt {
 		{
 			QSharedPointer<GetMountedVolumesRequest> params(new GetMountedVolumesRequest);
             params->volumePath = volumeFile;
-			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
+			return !getMountedVolumes(params, false)->volumeInfoList.isEmpty();
 		}
 
 		QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
@@ -407,11 +418,15 @@ namespace GostCrypt {
 			return groupPtr->gr_gid;
 		}
 
-        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params) {
+        QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params, bool emitResponse) {
             if(!params)
                 throw MissingParamException("params");
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
-            return QSharedPointer<CreateKeyFileResponse>(nullptr); // nothing to return...
+
+            if(emitResponse)
+				emit sendCreateKeyFile(QSharedPointer<CreateKeyFileResponse>(nullptr));
+
+            return QSharedPointer<CreateKeyFileResponse>(nullptr);
         }
 
 	}

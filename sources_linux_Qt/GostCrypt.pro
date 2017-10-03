@@ -15,9 +15,10 @@ GostCrypt_Volume.file = Volume/GostCrypt_Volume.pro
 GostCrypt_UI.file = UI/GostCrypt_UI.pro
 GostCrypt_NewCore.file = NewCore/GostCrypt_NewCore.pro
 
-GostCrypt_UI.depends = \
+UI.depends = \
     GostCrypt_NewCore \
     GostCrypt_Platform \
     GostCrypt_Volume \
     GostCrypt_FuseDriver
+
 

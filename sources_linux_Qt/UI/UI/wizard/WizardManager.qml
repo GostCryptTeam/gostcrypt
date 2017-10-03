@@ -4,24 +4,44 @@ import QtQuick.Controls 1.4
 import "../" as UI
 
 Item {
+    property alias page : content.item
     property int currentPage: 1
-    property variant types: [
-        0, //container type
-        0, //volume type
-        0, //normal or direct mode (hidden)
-        0, //volume path (standard volume)
-        "", //volume path (hidden+direct volume)
-        "", //volume password (hidden+direct volume)
-        "", //volume path (hidden+normal volume)
-        ["", ""], //name of the algorithm (standard volume) and name of the hash algorithm
-        [0, ""], //volume size and type (KB, MB, GB) (standard volumes)
-        ["", ""], //volume password with verification (standard volume)
-        ["","", false] //file system, cluster & dynamic(bool) (standard volumes)
-    ]
+    property var volumeInfos: {
+        "CONTAINER_TYPE": 0,
+        "VOLUME_TYPE": 0,
+        "NORMAL_OR_HIDDEN": 0,                  //normal or direct mode (hidden)
+        "VOLUME_PATH": "",                      //volume path (standard/hidden volume)
+        "VOLUME_PWD": "",                       //volume password (hidden+direct volume)
+        "ALGORITHM_HASH_NAMES": ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
+        "VOLUME_SIZE": [0, ""],                 //volume size and type (KB, MB, GB) (standard volumes)
+        "VOLUME_NEW_PASSWORD": ["", ""],        //volume password with verification (standard volume)
+        "FORMAT_INFOS": ["", "", false],        //file system, cluster & dynamic(bool) (standard volumes)
+        "HIDDEN_ALGORITHM_HASH": ["", ""],      //HIDDEN VOLUME : algorithm & hash
+        "HIDDEN_VOLUME_SIZE": [0, ""],          //HIDDEN VOLUME: volume size
+        "HIDDEN_VOLUME_PASSWORD": ["",""],      //HIDDEN VOLUME: volume password (with verification)
+        "HIDDEN_FORMAT_INFOS":  ["","", false]  //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)*/
+    }
+    property var progress: {
+        "VOLUME_TYPE": 1,
+        "VOLUME_ISHIDDEN": 2,
+        "DIRECT_NORMAL": 3,
+        "VOLUME_PATH": 4,
+        "VOLUME_DIRECT_PWD": 5,
+        "VOLUME_OUTER_VOLUME": 6,
+        "VOLUME_ALGO": 7,
+        "VOLUME_SIZE": 8,
+        "VOLUME_PWD": 9,
+        "VOLUME_FORMAT": 10,
+        "VOLUME_OUTER_CONTENTS": 11,
+        "VOLUME_HIDDEN_VOLUME": 12,
+        "VOLUME_END": 666
+    }
+
     signal next()
     signal back()
     signal cancel()
     signal help()
+
     x:0
     y:0
     anchors.topMargin: 0
@@ -35,9 +55,12 @@ Item {
             id: bar
             width: parent.width
             height: 2
-            maximumValue: 7
+            maximumValue: 100
             value: 0
             y:20
+            Behavior on value {
+                NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; }
+            }
             style: ProgressBarStyle {
                 background: Rectangle {
                     implicitWidth: bar.width
@@ -88,234 +111,687 @@ Item {
         }
     }
 
+
     function manageWizard(direction)
     {
+        var typeBranch = 0;
         switch(currentPage)
         {
-        case 1: //mode choice
-            types[0] = content.item.type
-            console.log("Valeur choisie (1) : " + types[0])
+
+
+            /* Page1.qml
+             * * Create an encrypted file container
+             * * Encrypt a non-system partition/volume
+             */
+        case progress.VOLUME_TYPE:
+            volumeInfos.CONTAINER_TYPE = content.item.type
+            manageProgressBar(1,direction,0)
             if(direction === 1)
             {
-                switch(types[0])
+                changePage(2, qsTr("Volume Type"), currentPage)
+                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+            }
+            break;
+
+
+
+            /* Page2.qml
+             * * Standard GostCrypt Volume
+             * * Hidden GostCrypt Volume
+             */
+        case progress.VOLUME_ISHIDDEN:
+            volumeInfos.VOLUME_TYPE = content.item.type
+            manageProgressBar(2,direction,content.item.type)
+            if(direction === 1) //1 => normal
+            {
+                // Choice: Standard GostCrypt Volume
+                if(volumeInfos.VOLUME_TYPE === 0)
                 {
-                    //TODO : bind with C++
+                    changePage(4, qsTr("Volume Location"), currentPage)
+                    content.source = "Page4.qml"
+                    content.item.message = qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
+                                           +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
+                                           +" container is just like any normal file (it can be, for example, moved or deleted as"
+                                           +" any normal file). Click 'Select File' to choose a filename for the container and"
+                                           +" to select the location where you wish the container to be created.<br><br><b>WARNING</b>: If you select"
+                                           +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
+                                           +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
+                                           +" on) by moving them to the GostCrypt container that you are about to create now.")
+                    content.item.type = 0
+                }else //Choice : Hideden GostCrypt Volume
+                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
+            }else{
+                changePage(1, qsTr("GostCrypt Volume Creation Wizard"), currentPage)
+                content.item.setType(volumeInfos.CONTAINER_TYPE ? volumeInfos.CONTAINER_TYPE : 0)
+            }
+            break;
+
+
+
+            /* Page3.qml (hidden volume)
+             * * Normal mode
+             * * Direct mode
+             */
+        case progress.DIRECT_NORMAL:
+            volumeInfos.NORMAL_OR_HIDDEN = content.item.type
+            manageProgressBar(3,direction,volumeInfos.NORMAL_OR_HIDDEN)
+            if(direction === 1) //1 => normal
+            {
+                changePage(4, qsTr("Volume Location"), currentPage)
+                //normal
+                if(volumeInfos.NORMAL_OR_HIDDEN === 0)
+                {
+                    content.item.message = qsTr("Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)"
+                                       +"<br>"
+                                       +"A GostCrypt volume can reside in a file (called GostCrypt container),"
+                                       +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
+                                       +" container is just like any normal file (it can be, for example, moved or deleted as"
+                                       +" any normal file). Click 'Select File' to choose a filename for the container and"
+                                       +" to select the location where you wish the container to be created.<br><b>WARNING</b>: If you select"
+                                       +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
+                                       +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
+                                       +" on) by moving them to the GostCrypt container that you are about to create now.")
+                    content.item.type = 2
+                    content.item.setFileDialog(false)
+                }else{ //direct mode (Quick)
+                    content.item.message = qsTr("Select the location of the GostCrypt volume within which you wish to create a hidden volume.")
+                    content.item.type = 1
+                    content.item.setFileDialog(true)
+                }
+            }else{
+                changePage(2, qsTr("Volume Type"), currentPage)
+                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+            }
+            break;
+
+
+
+            /* Page4.qml
+             * Volume path
+             * type 0 : normal
+             * type 1 : path of an existing volume (hidden)
+             * type 2 : path of a new volume (hidden)
+             */
+        case progress.VOLUME_PATH:
+            volumeInfos.VOLUME_PATH = content.item.path
+            if(direction === 1 && volumeInfos.VOLUME_PATH !== "") //1 => normal
+            {
+                manageProgressBar(4,direction,content.item.type)
+                switch (content.item.type) {
                 case 0:
-                    //Wizard.
+                    changePage(7, qsTr("Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
                     break;
                 case 1:
+                    changePage(5, qsTr("Volume Password"), currentPage)
                     break;
                 case 2:
+                    changePage(6, qsTr("Outer Volume"), currentPage)
                     break;
                 }
-                content.source = "Page2.qml"
-                changeSubWindowTitle("Volume Type")
-                content.item.setType(types[1] ? types[1] : 0)
-                bar.value += 1
-                currentPage++
-            }
-            break;
-
-        case 2: //volume type
-            //the next page depends on the choice
-            types[1] = content.item.type
-            console.log("Valeur choisie (2) : " + types[1])
-            if(direction === 1) //1 => normal
-            {
-                if(types[1] === 0)
-                {
-                    content.source = "Page4.qml"
-                    changeSubWindowTitle("Volume Location")
-                    bar.value += 1
-                    currentPage+=2
-                }else //2 => hidden
-                {
-                    content.source = "Page3.qml"
-                    changeSubWindowTitle("Volume Creation Mode")
-                    bar.value += 1
-                    currentPage++
-                }
-            }else{
-                content.source = "Page1.qml"
-                changeSubWindowTitle("GostCrypt Volume Creation Wizard")
-                content.item.setType(types[0] ? types[0] : 0)
-                bar.value -= 1
-                currentPage--
-            }
-            break;
-
-        case 3: //volume creation mode (hidden)
-            types[2] = content.item.type
-            console.log("Valeur choisie (3) : " + types[2])
-            if(direction === 1) //1 => normal
-            {
-                //normal
-                if(types[2] === 0)
-                {
-                    content.source = "Page7.qml"
-                    changeSubWindowTitle("Volume Location")
-                    currentPage+=4
-                }else{ //direct mode (Quick)
-                    content.source = "Page5.qml"
-                    changeSubWindowTitle("Volume Location")
-                    currentPage+=1
-                }
-            }else{
-                content.source = "Page2.qml"
-                changeSubWindowTitle("Volume Type")
-                content.item.setType(types[1] ? types[1] : 0)
-                bar.value -= 1
-                currentPage--
-            }
-            break;
-
-        case 4: //volume location
-            types[3] = content.item.path
-            console.log("Valeur choisie (4) : " + types[3])
-            if(direction === 1 && types[3] !== "") //1 => normal
-            {
-                content.source = "Page8.qml"
-                changeSubWindowTitle("Encryption Options")
-                bar.value += 1
-                currentPage+=4
             }else if(direction !== 1){
-                content.source = "Page2.qml"
-                changeSubWindowTitle("Volume Type")
-                content.item.setType(types[1] ? types[1] : 0)
-                bar.value -= 1
-                currentPage-=2
+                manageProgressBar(4,direction,content.item.type)
+                switch (content.item.type) {
+                case 0:
+                    changePage(2, qsTr("Volume Type"), currentPage)
+                    content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+                    break;
+                case 1:
+                case 2:
+                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
+                    content.item.setType(volumeInfos.NORMAL_OR_HIDDEN ? volumeInfos.NORMAL_OR_HIDDEN : 0)
+                    break;
+                }
             }
             break;
 
-        case 5: //volume location (hidden/direct)
-            types[4] = content.item.path
-            console.log("Valeur choisie (4) : " + types[4])
-            if(direction === 1 && types[4] !== "") //1 => normal
-            {
-                content.source = "Page6.qml"
-                changeSubWindowTitle("outer Volume Password")
-                currentPage+=1
-            }else{
-                content.source = "Page3.qml"
-                changeSubWindowTitle("Volume Creation Mode")
-                content.item.setType(types[2] ? types[2] : 0)
-                currentPage-=2
-            }
-            break;
 
-        case 6: //pasword volume (hidden/direct)
-            types[5] = content.item.password
-            console.log("Valeur choisie (4) : " + types[4])
-            if(direction === 1 && types[5] !== "") //1 => normal
+            /* Page5.qml
+             * Existing volume password (hidden)
+             */
+        case progress.VOLUME_DIRECT_PWD: //volume password (hidden/direct)
+            volumeInfos.VOLUME_PWD = content.item.password
+            if(direction === 1 && volumeInfos.VOLUME_PWD !== "") //1 => normal
             {
-
-            }else{
-                content.source = "Page5.qml"
-                changeSubWindowTitle("Volume Location")
-                currentPage-=1
-            }
-            break;
-
-        case 7: //volume location (hidden/normal)
-            types[6] = content.item.path
-            if(direction === 1 && types[6] !== "") //1 => normal
-            {
-
-            }else{
-                content.source = "Page3.qml"
-                changeSubWindowTitle("Volume Creation Mode")
-                content.item.setType(types[2] ? types[2] : 0)
-                currentPage-=4
-            }
-            break;
-        case 8: //algorithm & hash (standard volume)
-            types[7] = content.item.algoHash
-            console.log("8 : " + types[7][0] + " "+ types[7][1])
-            if(direction === 1) //1 => normal
-            {
-                content.source = "Page9.qml"
-                changeSubWindowTitle("Volume Size")
-                bar.value += 1
-                currentPage+=1
-            }else{
-                content.source = "Page4.qml"
-                changeSubWindowTitle("Volume Location")
-                bar.value -= 1
-                currentPage-=4
-            }
-            break;
-        case 9: //volume size (standard volume)
-            types[8] = content.item.sizeType
-            console.log("9 : " + types[8][0] + " "+ types[8][1])
-            if(direction === 1 && types[8] && types[8][0] > 0) //1 => normal
-            {
-                content.source = "Page10.qml"
-                changeSubWindowTitle("Volume Password")
-                bar.value += 1
-                currentPage+=1
+                changePage(12, qsTr("Hidden Volume"), currentPage)
+                back_.setDisable(1)
+                manageProgressBar(5,direction,3)
+                content.item.type = 3
             }else if(direction !== 1){
-                content.source = "Page8.qml"
-                changeSubWindowTitle("Encryption Options")
-                bar.value -= 1
-                currentPage-=1
+                changePage(4, qsTr("Volume Location"), currentPage)
+                content.item.message = qsTr("Select the location of the GostCrypt volume within which you wish to create a hidden volume.")
+                content.item.type = 1
+                content.item.setFileDialog(true)
+                manageProgressBar(5,direction,0)
             }
             break;
-        case 10: //volume password (standard volume)
-            types[9] = content.item.password
-            console.log("10 : " + types[9])
+
+
+
+            /* Page6.qml
+             * Outer Volume information (hidden/normal)
+             */
+        case progress.VOLUME_OUTER_VOLUME: //outer volume message (hidden/normal)
+            if(direction === 1)
+            {
+                changePage(7, qsTr("Encryption Options"), currentPage)
+                qmlRequest("algorithms", "")
+                manageProgressBar(6,direction,0)
+                content.item.type = 1
+            }else{
+                changePage(4, qsTr("Volume Location"), currentPage)
+                content.item.message = qsTr("Select the location of the outer volume to be created (within its volume the hidden volume will be created later on)"
+                                   +"<br>"
+                                   +"A GostCrypt volume can reside in a file (called GostCrypt container),"
+                                   +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
+                                   +" container is just like any normal file (it can be, for example, moved or deleted as"
+                                   +" any normal file). Click 'Select File' to choose a filename for the container and"
+                                   +" to select the location where you wish the container to be created.<br><b>WARNING</b>: If you select"
+                                   +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
+                                   +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
+                                   +" on) by moving them to the GostCrypt container that you are about to create now.")
+                content.item.type = 2
+                content.item.setFileDialog(false)
+                manageProgressBar(6,direction,0)
+            }
+            break;
+
+
+
+            /* Page7.qml
+             * Algorithm and hash used to format the current volume
+             */
+        case progress.VOLUME_ALGO: //algorithm & hash (standard volume)
+            typeBranch = content.item.type
+            manageProgressBar(7,direction,typeBranch)
+            //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH
+            if(content.item.type !== 2)
+                volumeInfos.ALGORITHM_HASH_NAMES = content.item.used
+            else
+                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.used
+            if(direction === 1)
+            {
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(8, qsTr("Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Free space on drive : ") + "50Go"/*Wizard.getfreeSpace()*/+"</b>",
+                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                                              +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
+                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                }
+                else {
+                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + "50Go"/*Wizard.getfreeSpace()*/+"</b>"),
+                                         qsTr("Please specify the size of the hidden volume to create. The minimum possible "
+                                              +"size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). "
+                                              +"The maximum possible size you can specify for the hidden volume is displayed above."))
+                }
+                content.item.type = typeBranch
+            }else{
+                switch(content.item.type) {
+                case 0:
+                    changePage(4, qsTr("Volume Location"), currentPage)
+                    content.item.message = qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
+                                           +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
+                                           +" container is just like any normal file (it can be, for example, moved or deleted as"
+                                           +" any normal file). Click 'Select File' to choose a filename for the container and"
+                                           +" to select the location where you wish the container to be created.<br><br><b>WARNING</b>: If you select"
+                                           +" an existing file, GostCrypt will NOT encrypt it; the file will be deleted and replaced with"
+                                           +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
+                                           +" on) by moving them to the GostCrypt container that you are about to create now.")
+                    content.item.type = 0
+                    content.item.setFileDialog(false)
+                    break;
+                case 1:
+                    changePage(6, qsTr("Outer Volume"), currentPage)
+                    break;
+                case 2:
+                case 3:
+                    changePage(12, qsTr("Hidden Volume"), currentPage)
+                    back_.setDisable(1)
+                    content.item.type = typeBranch
+                    break;
+                }
+            }
+            break;
+
+
+
+
+            /* Page8.qml
+             * Volume size
+             * in KB, MB or GB
+             */
+        case progress.VOLUME_SIZE://volume size (standard volume)
+            typeBranch = content.item.type
+            //type 0 & 1 (normal) => volumeInfos.VOLUME_SIZE, else volumeInfos.HIDDEN_VOLUME_SIZE
+            if(content.item.type !== 2)
+                volumeInfos.VOLUME_SIZE = content.item.sizeType
+            else
+                volumeInfos.HIDDEN_VOLUME_SIZE = content.item.sizeType
+            if(direction === 1
+                    && content.item.sizeType
+                    && content.item.sizeType[0] > 0) //1 => normal
+            {
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(9, qsTr("Volume Password"), currentPage)
+                    content.item.setText(qsTr("     It is very important that you choose a good password. You should avoid"
+                                              +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
+                                              +" It should not contain any names or dates of birth. It sould not be easy to guess."
+                                              +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
+                                              +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
+                                              +" The maximum possible length is 64 characters."))
+                }
+                else {
+                    changePage(9, qsTr("Hidden Volume Password"), currentPage)
+                    content.item.setText(qsTr(" Please choose a password for the hidden volume. It is very important that you choose a good password. You should avoid"
+                                              +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
+                                              +" It should not contain any names or dates of birth. It sould not be easy to guess."
+                                              +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
+                                              +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
+                                              +" The maximum possible length is 64 characters."))
+                }
+                manageProgressBar(8,direction,typeBranch)
+                content.item.type = typeBranch
+            }else if(direction !== 1){
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(7, qsTr("Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
+                }
+                else {
+                    changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
+                }
+                manageProgressBar(8,direction,typeBranch)
+                content.item.type = typeBranch
+            }
+            break;
+
+
+
+
+            /* Page9.qml
+             * Volume password (twice)
+             * TODO : use keyfiles
+             */
+        case progress.VOLUME_PWD: //volume password (standard volume)
+            typeBranch = content.item.type
+
+            //type 0 & 1 (normal) => volumeInfos.VOLUME_NEW_PASSWORD, else volumeInfos.HIDDEN_VOLUME_PASSWORD
+            if(content.item.type !== 2) {
+                volumeInfos.VOLUME_NEW_PASSWORD[0] = content.item.password[0]
+                volumeInfos.VOLUME_NEW_PASSWORD[1] = content.item.password[1]
+            }else {
+                volumeInfos.HIDDEN_VOLUME_PASSWORD[0] = content.item.password[0]
+                volumeInfos.HIDDEN_VOLUME_PASSWORD[1] = content.item.password[1]
+            }
             //TODO : short password
-            if(direction === 1 && types[9][0] !== "" && types[9][0] === types[9][1]) //1 => normal
+            if(direction === 1
+                    && content.item.password[0] !== ""
+                    && content.item.password[0] === content.item.password[1]) //1 => normal
             {
-                content.source = "Page11.qml"
-                changeSubWindowTitle("Volume Format")
+                if(typeBranch !== 3 && typeBranch !== 2)
+                    changePage(10, qsTr("Volume Format"), currentPage)
+                else
+                    changePage(10, qsTr("Hidden Volume Format"), currentPage)
+                manageProgressBar(9,direction,typeBranch)
+                content.item.type = typeBranch
+                //if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
                 next_.text = qsTr("Format")
-                bar.value += 1
-                currentPage+=1
             }else if(direction !== 1){
-                content.source = "Page9.qml"
-                changeSubWindowTitle("Volume Password")
-                bar.value -= 1
-                currentPage-=1
-            }else{
-                openErrorMessage("Different passwords", "The passwords are different or empties. <br>Please try again.")
-            }
+                if(typeBranch !== 3 && typeBranch !== 2) {
+                    changePage(8, qsTr("Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                                              +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
+                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                }
+                else {
+                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + Wizard.getfreeSpace()+"</b>"),
+                                         qsTr("Please specify the size of the hidden volume to create. The minimum possible "
+                                              +"size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). "
+                                              +"The maximum possible size you can specify for the hidden volume is displayed above."))
+                }
 
+                manageProgressBar(9,direction,typeBranch)
+                content.item.type = typeBranch
+            }else{
+                openErrorMessage(qsTr("Different passwords"), qsTr("The passwords are different or empties. <br>Please try again."))
+            }
             break;
-        case 11: //format volume (standard volume)
-            types[10] = content.item.format
-            console.log("11 : " + types[9])
+
+
+
+
+            /* Page10.qml
+             * Volume format : random, filesystem, cluster, dynamic
+             */
+        case progress.VOLUME_FORMAT:
+             //format volume (standard volume)
+            if(content.item.type !== 2) {
+                volumeInfos.FORMAT_INFOS[0] = content.item.format[0]
+                volumeInfos.FORMAT_INFOS[1] = content.item.format[1]
+                volumeInfos.FORMAT_INFOS[2] = content.item.format[2]
+            }else {
+                volumeInfos.HIDDEN_FORMAT_INFOS[0] = content.item.format[0]
+                volumeInfos.HIDDEN_FORMAT_INFOS[1] = content.item.format[1]
+                volumeInfos.HIDDEN_FORMAT_INFOS[2] = content.item.format[2]
+            }
+            typeBranch = content.item.type
+            manageProgressBar(10,direction,typeBranch)
             //TODO : create volume here
             if(direction === 1) //1 => normal
             {
-                content.source = "PageEnd.qml"
-                changeSubWindowTitle("GostCrypt Volume Creation Wizard")
-                back_.visible = false
-                next_.visible = false
-                help_.visible = false
-                bar.value += 1
-                currentPage+=1
+                switch(content.item.type) {
+                case 0:
+                    console.log(volumeInfos);
+                    createVolume(0);
+                    content.source = "PageEnd.qml"
+                    //changeSubWindowTitle("V")
+                    back_.visible = false
+                    next_.visible = false
+                    help_.visible = false
+                    break;
+                case 1:
+                    changePage(11, qsTr("Outer Volume Contents"), currentPage)
+                    next_.text = qsTr("Next >")
+                    back_.setDisable(1)
+                    break;
+                case 2:
+                case 3:
+                    //TODO : create hidden volume here
+                    openErrorMessage(qsTr("Warning"),
+                                     qsTr("The hidden GostCrypt volume has been successfully created and is ready for use. If all "
+                                          + "the instructions have been followed and if the precautions and requirements listed in the section "
+                                          + "\"Security Requirements and Precautions Pertaining to Hidden Volumes\" in the GostCrypt User's Guide "
+                                          + "are followed, it should be impossible to prove that the hidden volume exists, event when the outer "
+                                          + "volume is mounted.<br><br>WARNING: IF YOU DO NOT PROTECT THE HIDDEN VOLUME (FOR INFORMATION ON HOW "
+                                          + "TO DO SO, REFER TO THE SECTION \"PROTECTION OF HIDDEN VOLUMES AGAINST DAMAGE\" IN THE GOSTCRYPT USER'S "
+                                          + "GUIDE), DO NOT WRITE TO THE OUTER VOLUME. OTHERWISE, YOU MAY OVERWRITE AND DAMAGE THE HIDDEN VOLUME!"), 13)
+                    content.source = "PageEnd.qml"
+                    changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
+                    back_.visible = false
+                    next_.visible = false
+                    help_.visible = false
+                    break;
+                }
             }else if(direction !== 1){
-                content.source = "Page10.qml"
-                changeSubWindowTitle("Volume password")
+                if(typeBranch !== 3 && typeBranch !== 2)
+                    changePage(9, qsTr("Volume password"), currentPage)
+                else
+                    changePage(9, qsTr("Hidden Volume password"), currentPage)
                 next_.text = qsTr("Next >")
-                bar.value -= 1
-                currentPage-=1
+                content.item.type = typeBranch
             }
             break;
-        case 12: //Done !
-            //TODO : create volume here
-            if(direction !== 1){
-                content.source = "Page11.qml"
-                changeSubWindowTitle("Volume Format")
-                next_.text = qsTr("Format")
-                back_.visible = false
-                next_.visible = false
-                help_.visible = false
-                bar.value -= 1
-                currentPage-=1
+
+
+
+
+            /* Page11.qml
+             * Outer Volume Contents
+             */
+        case progress.VOLUME_OUTER_CONTENTS:
+            typeBranch = content.item.type
+            manageProgressBar(11,direction,0)
+            if(direction === 1) //1 => normal
+            {
+                changePage(12, qsTr("Hidden Volume"), currentPage)
+                back_.setDisable(1)
+                content.item.type = typeBranch
             }
+            break;
+
+
+
+
+            /* Page12.qml
+             * AHidden Volume part (information)
+             */
+        case progress.VOLUME_HIDDEN_VOLUME:
+            typeBranch = content.item.type
+            manageProgressBar(12,direction,typeBranch)
+            if(direction === 1) //1 => normal
+            {
+                changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                back_.setDisable(0)
+                content.item.type = typeBranch
+            }
+            break;
+
+
+
+            /* PageEnd.qml
+             * Done !
+             */
+        case progress.VOLUME_END:
+
             break;
         }
 
     }
+
+    /*!
+      * Fn : manages the page loading
+      */
+    function changePage(number, title, current) {
+        content.source = "Page"+number+".qml"
+        changeSubWindowTitle(title)
+        currentPage+=(number-current)
+    }
+
+    function createVolume(type)
+    {
+        switch(type)
+        {
+        case 0: //normal without hidden
+            console.log(volumeInfos.VOLUME_PATH + "; " + volumeInfos.VOLUME_SIZE + "; " + volumeInfos.ALGORITHM_HASH_NAMES[0] + "; " + volumeInfos.FORMAT_INFOS[0] + "; " + volumeInfos.VOLUME_NEW_PASSWORD[0]);
+            qmlRequest("createvolume", {
+                           "type": 1,
+                           "path": volumeInfos.VOLUME_PATH,
+                           "size": volumeInfos.VOLUME_SIZE,
+                           "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
+                           "volumeHeaderKdf": "", //TODO
+                           "filesystem": volumeInfos.FORMAT_INFOS[0],
+                           "keyfiles": "", //TODO
+                           "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                       });
+            break;
+        }
+    }
+
+    /*!
+      * Fn : manages the loading bar
+      */
+    function manageProgressBar(posInitial, direction, branch)
+    {
+        switch(posInitial) {
+        case 1:
+            if(direction === 1)
+                bar.value = 5
+            break;
+        case 2:
+            if(direction === 1)
+                if(branch === 0)
+                    bar.value = 20
+                else
+                    bar.value = 10
+             else
+                bar.value = 0
+            break;
+        case 3:
+            if(direction === 1)
+                bar.value = 20
+            else
+                bar.value = 5
+            break;
+        case 4:
+            if(direction === 1) {
+                switch(branch){
+                case 0:
+                    bar.value = 40
+                    break;
+                case 1:
+                    bar.value = 25
+                    break;
+                case 2:
+                    bar.value = 30
+                    break;
+                }
+            }else{
+                switch(branch){
+                case 0:
+                    bar.value = 5
+                    break;
+                case 1:
+                    bar.value = 10
+                    break;
+                case 2:
+                    bar.value = 10
+                    break;
+                }
+            }
+            break;
+        case 5:
+            if(direction === 1)
+                bar.value = 35
+            else
+                bar.value = 20
+            break;
+        case 6:
+            if(direction === 1)
+                bar.value = 40
+            else
+                bar.value = 20
+            break;
+        case 7:
+            if(direction === 1) {
+                switch(branch){
+                case 0:
+                    bar.value = 50
+                    break;
+                case 1:
+                case 3:
+                    bar.value = 50
+                    break;
+                case 2:
+                    bar.value = 88
+                    break;
+                }
+            }else{
+                switch(branch){
+                case 0:
+                    bar.value = 20
+                    break;
+                case 1:
+                case 3:
+                    bar.value = 30
+                    break;
+                case 2:
+                    bar.value = 80
+                    break;
+                }
+            }
+            break;
+        case 8:
+            if(direction === 1) {
+                switch(branch){
+                case 0:
+                    bar.value = 60
+                    break;
+                case 1:
+                case 3:
+                    bar.value = 60
+                    break;
+                case 2:
+                    bar.value = 92
+                    break;
+                }
+            }else{
+                switch(branch){
+                case 0:
+                    bar.value = 40
+                    break;
+                case 1:
+                case 3:
+                    bar.value = 40
+                    break;
+                case 2:
+                    bar.value = 82
+                    break;
+                }
+            }
+            break;
+        case 9:
+            if(direction === 1) {
+                switch(branch){
+                case 0:
+                case 3:
+                    bar.value = 85
+                    break;
+                case 1:
+                    bar.value = 70
+                    break;
+                case 2:
+                    bar.value = 96
+                    break;
+                }
+            }else{
+                switch(branch){
+                case 0:
+                    bar.value = 50
+                    break;
+                case 1:
+                case 3:
+                    bar.value = 50
+                    break;
+                case 2:
+                    bar.value = 88
+                    break;
+                }
+            }
+            break;
+        case 10:
+            if(direction === 1) {
+                switch(branch){
+                case 0:
+                case 3:
+                    bar.value = 100
+                    break;
+                case 1:
+                    bar.value = 75
+                    break;
+                case 2:
+                    bar.value = 100
+                    break;
+                }
+            }else{
+                switch(branch){
+                case 0:
+                case 3:
+                    bar.value = 60
+                    break;
+                case 1:
+                    bar.value = 60
+                    break;
+                case 2:
+                    bar.value = 92
+                    break;
+                }
+            }
+            break;
+        case 11:
+            if(direction === 1)
+                bar.value = 80
+            break;
+        case 12:
+            if(direction === 1)
+                if(branch !== 3)
+                    bar.value = 82
+                else
+                    bar.value = 40
+            break;
+        }
+    }
+
 }

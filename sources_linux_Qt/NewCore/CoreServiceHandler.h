@@ -8,8 +8,6 @@
 #include <QVariant>
 #include <QQueue>
 
-//#define DEBUG_CORESERVICE_HANDLER
-
 namespace GostCrypt {
     namespace NewCore {
 		class CoreServiceHandler : public QObject
