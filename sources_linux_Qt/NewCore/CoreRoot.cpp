@@ -67,7 +67,7 @@ namespace GostCrypt {
 			if(params->mountedForGroup.isEmpty())
 				mountedForGroupId = realGroupId;
 			else
-				mountedForGroupId = getGroupId(params->mountedForUser);
+				mountedForGroupId = getGroupId(params->mountedForGroup);
 
 			QSharedPointer<Volume> volume(new Volume);
             QSharedPointer<QFileInfo> fuseMountPoint;
