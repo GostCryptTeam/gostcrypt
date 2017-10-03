@@ -29,7 +29,7 @@
 #include "Platform/Unix/Pipe.h"
 #include "Platform/Unix/Poller.h"
 #include "Volume/EncryptionThreadPool.h"
-#include "Core/Core.h"
+
 
 /*
  * Contrairement à ce que je pensais au départ, on utilise fuse non pas pour monter le système de fichier final dans le système (ce qui nous permettrais a priori de ne pas avoir besoin des privileges), mais pour pouvoir gérer le chiffrement.

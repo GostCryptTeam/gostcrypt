@@ -15,10 +15,8 @@
 #define HANDLE_REQUEST(requestName, fct) \
 	if(r.canConvert<QSharedPointer<requestName ## Request>>()) { \
 		QSharedPointer<requestName ## Request> request; \
-		QSharedPointer<requestName ## Response> response; \
 		request = r.value<QSharedPointer<requestName ## Request>>(); \
-		response = fct (request); \
-		emit send ## requestName (response); \
+		fct (request); \
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
 
@@ -35,11 +33,11 @@ namespace GostCrypt {
 			virtual void exit() = 0;
             virtual void receiveSudoPassword(QString password) = 0;//QSharedPointer<QByteArray> password) = 0;
 		protected:
-            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
-            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());
-			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>());
-			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
-            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params);
+            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>(), bool emitResponse = true);
+            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>(), bool emitResponse = true);
+			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>(), bool emitResponse = true);
+			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>(), bool emitResponse = true);
+            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params, bool emitResponse = true);
 
 			QList<QSharedPointer<MountedFilesystem>> getMountedFilesystems(const QFileInfo &devicePath = QFileInfo(), const QFileInfo &mountPoint = QFileInfo());
             QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);

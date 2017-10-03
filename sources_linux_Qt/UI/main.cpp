@@ -1,6 +1,4 @@
 #include "GraphicInterface.h"
-#include "Core/Core.h"
-#include "Core/Unix/CoreService.h"
 #include "Platform/SystemLog.h"
 #include "CmdLineInterface.h"
 #include "NewCore/CoreService.h"
@@ -11,7 +9,7 @@ int main(int argc, char *argv[])
     qSetMessagePattern("%{appname}: %{message}");
     if (argc > 1)
     {
-        if(strcmp (argv[1], GST_CORE_SERVICE_CMDLINE_OPTION) == 0){
+        if(strcmp (argv[1], "coreservice") == 0){
             // Process elevated requests
 			GostCrypt::NewCore::CoreService cs;
 			return cs.start(argc, argv);
