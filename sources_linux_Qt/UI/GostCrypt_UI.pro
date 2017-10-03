@@ -43,35 +43,38 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    GraphicUserInterface.h \
-    connectSignals.h \
     UserSettings.h \
     DragWindowProvider.h \
     volumecreation.h \
-    TranslationApp.h
+    TranslationApp.h \
+    Parser.h \
+    CmdLineInterface.h \
+    GraphicInterface.h
 
 SOURCES += main.cpp \
-    GraphicUserInterface.cpp \
-    connectSignals.cpp \
     UserSettings.cpp \
     volumecreation.cpp \
-    TranslationApp.cpp
+    TranslationApp.cpp \
+    Parser.cpp \
+    CmdLineInterface.cpp \
+    GraphicInterface.cpp
 
-LIBS += ../Core/libCore.a \
-    ../Volume/libVolume.a \
-    ../Platform/libPlatform.a \
-    ../FuseDriver/libFuseDriver.a \
-    -ldl \
-    -pthread \
-   -lfuse
+LIBS += \
+        ../NewCore/libNewCore.a \
+        ../FuseDriver/libFuseDriver.a \
+        ../Volume/libVolume.a \
+        ../Platform/libPlatform.a \
+        -ldl \
+        -pthread \
+        -lfuse \
+        -lblkid
 
 TARGET = ../GostCrypt
 
-PRE_TARGETDEPS += ../Core/libCore.a \
+PRE_TARGETDEPS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../FuseDriver/libFuseDriver.a
-
 
 lupdate_hack{
     SOURCES += qml/*.qml \
@@ -95,3 +98,5 @@ translation {
 DISTFILES += \
     UI/ressource/separator.png \
     UI/dialogs/GSLanguage.qml
+
+

@@ -429,8 +429,6 @@ Component {
                 font.pixelSize: 20
             }
 
-
-
             Behavior on opacity {
                 NumberAnimation {
                     id: animation
@@ -465,10 +463,10 @@ Component {
                 cursorShape = Qt.ArrowCursor
             }
             onClicked: {
-                ConnectSignals.openPath(MountPoint_);
+                qmlRequest("openmountpoint", {"path": MountPoint_});
             }
             onDoubleClicked: {
-                ConnectSignals.openPath(MountPoint_);
+                qmlRequest("openmountpoint", {"path": MountPoint_});
             }
 
             ToolTip {
@@ -494,15 +492,18 @@ Component {
                 }
 
                 onClicked: {
-                    console.log("Dismount volume");
-                    ConnectSignals.connectReceiveDismount(Path_);
-                    listOfVolumes.remove(index);
-                    if(listOfVolumes.count == 0) helpStart.visible = true;
+                    qmlRequest("dismount", {"volumepath": Path_});
                 }
             }
         }
+        function getPath()
+        {
+            return Path_;
+        }
 
     }
+
+
 
 
 }

@@ -3,8 +3,16 @@ import "../" as UI
 
 Item {
     id: top
-    property variant algoHash: [Wizard.getAlgos()[0], Wizard.getHashs()[0]]
+    property variant algoHash: [[],["GOST 34", "Whirlpool"]]
+    property variant used: ["",""]
     property int type: 0
+
+    function getAlgos(algos)
+    {
+        algoHash[0] = algos;
+        algo.model = algoHash[0];
+    }
+
     Rectangle {
         id: algo_
         color: "transparent"
@@ -24,14 +32,15 @@ Item {
 
         UI.GSCustomComboBox {
             id: algo
-            model: Wizard.getAlgos();
+            model: "Algo name here.";
             x: 40
             y: 25
             width: parent.width - 170
             onActivated: {
-                description.text = Wizard.getAlgosDescription(algo.currentIndex);
-                algoHash[0] = algo.currentIndex
+                //description.text = Wizard.getAlgosDescription(algo.currentIndex);
+                used[0] = algo.currentIndex
             }
+
         }
 
         UI.GSButtonBordered {
@@ -53,7 +62,7 @@ Item {
             horizontalAlignment: Text.AlignJustify
             wrapMode: Text.WordWrap
             width: parent.width - 170 - 30
-            text: Wizard.getAlgosDescription(algo.currentIndex);
+            text: "Algo description here";
             color: palette.text
             font.pixelSize: 12
             MouseArea {
@@ -95,12 +104,12 @@ Item {
 
         UI.GSCustomComboBox {
             id: hash
-            model: Wizard.getHashs();
+            model: algoHash[1];
             x: 40
             y: 35
             width: parent.width *0.5
             onActivated: {
-                algoHash[1] = hash.currentIndex
+                used[1] = hash.currentIndex
             }
         }
         Text {

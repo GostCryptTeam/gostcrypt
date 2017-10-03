@@ -139,6 +139,15 @@ Window {
      */
     property real rotate
 
+    /*!
+      \property model
+      \brief The list of mounted volumes
+    */
+    property variant model
+
+    signal qmlRequest(string command, variant params)
+    signal sendSudoPassword(string password)
+    signal appQuit()
 
 
     /*************************************
@@ -190,32 +199,19 @@ Window {
         }
     }
 
-    /*GSFrame.VolumeFrame {
-        id: content_
-        x: 0
-        y: 40
-        mainWindow_: app
-
-    }*/
-
 
 
     /*************************************
      *************  Signals  *************
      *************************************/
-
-    /*!
-      \signal mountVolume : sending a signal
-        to Gostcrypt to mount a volume
-     */
-
-    signal mountVolume(string path, string password)
-
     /*!
         \brief Receive all the mounted volumes after
         the window is successfully loaded
      */
-    Component.onCompleted: ConnectSignals.getAllMountedVolumes()
+    Component.onCompleted: {
+       // app.signalQML({"content": "getAllMountedVolumes"})
+       // console.log("TODO: get all mounted volumes")//ConnectSignals.getAllMountedVolumes()
+    }
 
     //TODO : add all the signals QML->C++ here
     /*!
@@ -452,8 +448,10 @@ Window {
     }
 
     function toggleSudo(choice) {
-        if(choice == true)
+        console.log("choice ==" + choice);
+        if(choice === true || choice === 1)
         {
+            console.log("[QML] : sudo password asked")
             sudo_.opacity = 1.0
             sudo_.isVisible = true
             sudo_.visible = true

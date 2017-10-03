@@ -112,14 +112,14 @@ namespace GostCrypt
 		VolumeType::Enum Type;
 		shared_ptr <File> VolumeFile;
 		uint64 VolumeHostSize;
-		uint64 VolumeDataOffset; 
+		uint64 VolumeDataOffset;
 		uint64 VolumeDataSize;
 		uint64 TopWriteOffset;
 		uint64 TotalDataRead;
 		uint64 TotalDataWritten;
 
 	private:
-		Volume (const Volume &);
+		//Volume (const Volume &);
 		Volume &operator= (const Volume &);
 	};
 }

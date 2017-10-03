@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       -= gui
 
 TARGET = Platform
 TEMPLATE = lib
@@ -13,7 +13,7 @@ CONFIG += staticlib
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing
 
-DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES
+DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH
 unix {
     DEFINES += GST_UNIX
     linux-g++ {
@@ -64,7 +64,7 @@ HEADERS += \
     Exception.h \
     Event.h \
     Directory.h \
-    Buffer.h
+    Buffer.h \
 
 SOURCES += \
     Unix/Time.cpp \
@@ -91,4 +91,4 @@ SOURCES += \
     FileCommon.cpp \
     Exception.cpp \
     Event.cpp \
-    Buffer.cpp
+    Buffer.cpp \

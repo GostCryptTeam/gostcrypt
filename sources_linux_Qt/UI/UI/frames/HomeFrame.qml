@@ -118,7 +118,7 @@ Item {
             width:200
             onClicked:
             {
-                ConnectSignals.connectReceiveAutoMount("dummy")
+                qmlRequest("automount", "dummy");
             }
             color_:palette.green
         }
@@ -131,9 +131,7 @@ Item {
             color_:palette.blue
             width:200
             onClicked: {
-                ConnectSignals.connectReceiveDismountAll()
-                listOfVolumes.clear()
-                helpStart.visible = true
+                qmlRequest("dismountall", "dummy");
             }
         }
         /*!
@@ -431,6 +429,14 @@ Item {
 
     function clearVolumes() {
         listOfVolumes.clear();
+        helpStart.visible = true;
+    }
+
+    function dismountVolume(path) {
+        for(var i =0; i<listOfVolumes.count; i++)
+            if(listOfVolumes.get(i).Path_ == path)
+                listOfVolumes.remove(i);
+        if(listOfVolumes.count == 0) helpStart.visible = true;
     }
 
 }

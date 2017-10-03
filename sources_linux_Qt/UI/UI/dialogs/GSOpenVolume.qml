@@ -10,7 +10,7 @@ import "../" as UI
 Item {
     id: openVolume_Form
     property var childOf
-    property string volumePath
+    property url volumePath
     property variant devices
     anchors.fill: childOf
     signal incorrectPassword()
@@ -21,10 +21,9 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length != 0)
             {
-                //console.log("volumePath vaut ici " +volumePath)
-                mountVolume(volumePath, password_value.text);
-                var password_blank = Array(password_value.length+1).join('#');
-                console.log("Mot de passe : "+password_blank);
+                //mountVolume(volumePath, password_value.text);
+                qmlRequest("mount", {"path": volumePath, "password": password_value.text});
+                var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = ""
             }else{
@@ -36,8 +35,8 @@ Item {
 
     Connections {
         target: ConnectSignals
-        onSendSubWindowMountVolumePasswordIncorrect: {
-            app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
+        onVolumePasswordIncorrect: {
+            //app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
@@ -145,9 +144,12 @@ Item {
             title: qsTr("Please choose a file") + Translation.tr
             folder: shortcuts.home
             onAccepted: {
-                openVolume_Form.moving(fileDialog.fileUrl)
+                //var path = fileDialog.fileUrl.toString();
+                //var pathCanonical = /*path.replace("file://", "");*/path.replace(/^(file:\/{2})/, "");
+               // console.log("path = " + pathCanonical);
                 if(historique.pressed === false)
                     UserSettings.addVolumePath(fileDialog.fileUrl)
+                openVolume_Form.moving(fileDialog.fileUrl)
                 combo.model = UserSettings.getVolumePaths(0)
             }
             onRejected: {
@@ -292,8 +294,7 @@ Item {
             if(sudo_.isVisible === false)
             {
                 sendInfoVolume()
-                var password_blank = Array(password_value.length+1).join('#');
-                console.log("Mot de passe : "+password_blank);
+                var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
             }
         }

@@ -29,7 +29,7 @@
 #include "Platform/Unix/Pipe.h"
 #include "Platform/Unix/Poller.h"
 #include "Volume/EncryptionThreadPool.h"
-#include "Core/Core.h"
+
 
 /*
  * Contrairement à ce que je pensais au départ, on utilise fuse non pas pour monter le système de fichier final dans le système (ce qui nous permettrais a priori de ne pas avoir besoin des privileges), mais pour pouvoir gérer le chiffrement.
@@ -330,17 +330,17 @@ namespace GostCrypt
 	{
 		return fuse_get_context()->uid == 0 || fuse_get_context()->uid == UserId;
 	}
-	
+
 	void FuseService::CloseMountedVolume ()
 	{
 		if (MountedVolume)
 		{
 			// This process will exit before the use count of MountedVolume reaches zero
-			if (MountedVolume->GetFile().use_count() > 1)
+            //if (MountedVolume->GetFile().use_count() > 1)
 				MountedVolume->GetFile()->Close();
 
-			if (MountedVolume.use_count() > 1)
-				delete MountedVolume.get();
+            /*if (MountedVolume.use_count() > 1)
+                delete MountedVolume.get();*/
 
 			MountedVolume.reset();
 		}
@@ -413,7 +413,7 @@ namespace GostCrypt
 
 		return outBuf;
 	}
-	
+
 	const char *FuseService::GetVolumeImagePath ()
 	{
 #ifdef GST_MACOSX
@@ -449,7 +449,7 @@ namespace GostCrypt
 			args.push_back ("-o");
 			args.push_back ("allow_other");
 		}
-		
+
 		ExecFunctor execFunctor (openVolume, slotNumber);
 		Process::Execute ("fuse", args, -1, &execFunctor);
 
@@ -508,16 +508,16 @@ namespace GostCrypt
 
 		MountedVolume->WriteSectors (buffer, byteOffset);
 	}
-	
+
 	void FuseService::OnSignal (int signal)
 	{
         (void)signal;
         try
 		{
-			shared_ptr <VolumeInfo> volume = Core->GetMountedVolume (SlotNumber);
-			
-			if (volume)
-				Core->DismountVolume (volume, true);
+			//shared_ptr <VolumeInfo> volume = Core->GetMountedVolume (SlotNumber);
+
+			//if (volume)
+				//Core->DismountVolume (volume, true);
 		}
 		catch (...) { }
 
@@ -535,7 +535,7 @@ namespace GostCrypt
 
 		FuseService::UserId = getuid();
 		FuseService::GroupId = getgid();
-		
+
                 // SUDO_UID est l'UID de l'utilisateur qui a lancé le SUDO, donc la on test si l'utilisateur qui a lancé le sudo est different de root (UID 0)
                 if (getenv ("SUDO_UID"))
 		{

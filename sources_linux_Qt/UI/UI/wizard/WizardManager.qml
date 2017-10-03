@@ -4,6 +4,7 @@ import QtQuick.Controls 1.4
 import "../" as UI
 
 Item {
+    property alias page : content.item
     property int currentPage: 1
     property var volumeInfos: {
         "CONTAINER_TYPE": 0,
@@ -110,19 +111,6 @@ Item {
         }
     }
 
-    function sendAllInfos(){
-        Wizard.setType(volumeInfos.NORMAL_OR_HIDDEN)
-        Wizard.setPath(volumeInfos.VOLUME_PATH)
-        Wizard.setPassword(volumeInfos.HIDDEN_ALGORITHM_HASH)
-        Wizard.setEA(volumeInfos.VOLUME_SIZE[0])
-        Wizard.setVolumeHeaderKdf(volumeInfos.VOLUME_SIZE[1])
-        bytes = volumeInfos.FORMAT_INFOS[0]*1024
-        if(volumeInfos.FORMAT_INFOS[1] === "MB")
-            bytes = bytes*1024
-        if(volumeInfos.FORMAT_INFOS[1] === "GB")
-            bytes = bytes*1024*1024
-        Wizard.setSize(bytes)
-    }
 
     function manageWizard(direction)
     {
@@ -232,6 +220,7 @@ Item {
                 switch (content.item.type) {
                 case 0:
                     changePage(7, qsTr("Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
                     break;
                 case 1:
                     changePage(5, qsTr("Volume Password"), currentPage)
@@ -286,6 +275,7 @@ Item {
             if(direction === 1)
             {
                 changePage(7, qsTr("Encryption Options"), currentPage)
+                qmlRequest("algorithms", "")
                 manageProgressBar(6,direction,0)
                 content.item.type = 1
             }else{
@@ -316,21 +306,21 @@ Item {
             manageProgressBar(7,direction,typeBranch)
             //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH
             if(content.item.type !== 2)
-                volumeInfos.ALGORITHM_HASH_NAMES = content.item.algoHash
+                volumeInfos.ALGORITHM_HASH_NAMES = content.item.used
             else
-                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.algoHash
+                volumeInfos.HIDDEN_ALGORITHM_HASH = content.item.used
             if(direction === 1)
             {
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)
-                    content.item.setText(qsTr("<b>Free space on drive : ") + Wizard.getfreeSpace()+"</b>",
+                    content.item.setText(qsTr("<b>Free space on drive : ") + "50Go"/*Wizard.getfreeSpace()*/+"</b>",
                                          qsTr("Please specify the size of the container you want to create.<br><br>If"
                                               +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
                                               +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
                 }
                 else {
                     changePage(8, qsTr("Hidden Volume Size"), currentPage)
-                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + Wizard.getfreeSpace()+"</b>"),
+                    content.item.setText(qsTr("<b>Maximum possible hidden volume size for this volume is " + "50Go"/*Wizard.getfreeSpace()*/+"</b>"),
                                          qsTr("Please specify the size of the hidden volume to create. The minimum possible "
                                               +"size of a hidden volume is 40KB (or 3664KB if it is fortmatted as NTFS). "
                                               +"The maximum possible size you can specify for the hidden volume is displayed above."))
@@ -403,10 +393,14 @@ Item {
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }else if(direction !== 1){
-                if(typeBranch !== 3 && typeBranch !== 2)
+                if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(7, qsTr("Encryption Options"), currentPage)
-                else
+                    qmlRequest("algorithms", "")
+                }
+                else {
                     changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                    qmlRequest("algorithms", "")
+                }
                 manageProgressBar(8,direction,typeBranch)
                 content.item.type = typeBranch
             }
@@ -490,10 +484,10 @@ Item {
             {
                 switch(content.item.type) {
                 case 0:
-                    sendAllInfos()
-                    Wizard.createVolume()
+                    console.log(volumeInfos);
+                    createVolume(0);
                     content.source = "PageEnd.qml"
-                    changeSubWindowTitle()
+                    //changeSubWindowTitle("V")
                     back_.visible = false
                     next_.visible = false
                     help_.visible = false
@@ -584,6 +578,26 @@ Item {
         content.source = "Page"+number+".qml"
         changeSubWindowTitle(title)
         currentPage+=(number-current)
+    }
+
+    function createVolume(type)
+    {
+        switch(type)
+        {
+        case 0: //normal without hidden
+            console.log(volumeInfos.VOLUME_PATH + "; " + volumeInfos.VOLUME_SIZE + "; " + volumeInfos.ALGORITHM_HASH_NAMES[0] + "; " + volumeInfos.FORMAT_INFOS[0] + "; " + volumeInfos.VOLUME_NEW_PASSWORD[0]);
+            qmlRequest("createvolume", {
+                           "type": 1,
+                           "path": volumeInfos.VOLUME_PATH,
+                           "size": volumeInfos.VOLUME_SIZE,
+                           "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
+                           "volumeHeaderKdf": "", //TODO
+                           "filesystem": volumeInfos.FORMAT_INFOS[0],
+                           "keyfiles": "", //TODO
+                           "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                       });
+            break;
+        }
     }
 
     /*!
@@ -779,4 +793,5 @@ Item {
             break;
         }
     }
+
 }

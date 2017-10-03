@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       -= gui
 
 TARGET = Volume
 TEMPLATE = lib
@@ -13,7 +13,7 @@ CONFIG += staticlib
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing
 
-DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES
+DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH
 unix {
     DEFINES += GST_UNIX
     linux-g++ {

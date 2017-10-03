@@ -7,6 +7,7 @@ Item {
     id:subWindow_
     x: 0
     y: 51
+    property alias loadedItem : loader.item
     property string title: ""
     property string w
     property string name: ""
@@ -217,4 +218,5 @@ Item {
     function changeSubWindowTitle(title) {
         title_.text = title
     }
+
 }

@@ -12,6 +12,7 @@
 
 #include <stdexcept>
 #include "SharedVal.h"
+#include <QSharedPointer>
 
 #ifdef nullptr
 
@@ -136,7 +137,8 @@ namespace GostCrypt
 #ifdef shared_ptr
 #undef shared_ptr
 #endif
-#define shared_ptr GostCrypt::SharedPtr
+//#define shared_ptr GostCrypt::SharedPtr
+#define shared_ptr QSharedPointer
 
 #ifdef make_shared
 #undef make_shared

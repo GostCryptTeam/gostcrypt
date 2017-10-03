@@ -10,7 +10,7 @@ TranslationApp::TranslationApp() :
     qDebug() << "System default language is : " + systemLang;
 #endif
     //Getting the folder translations's path
-    mTranslationpath = QApplication::applicationDirPath();
+    mTranslationpath = qApp->applicationDirPath();
     mTranslationpath.append("/translations/");
     QDir dir(mTranslationpath);
     //Getting all the translations at once
