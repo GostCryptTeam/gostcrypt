@@ -286,7 +286,7 @@ static struct dirent *xreaddir(DIR *dp)
 
 int sysfs_is_partition_dirent(DIR *dir, struct dirent *d, const char *parent_name)
 {
-	char path[256];
+	char path[262];
 
 #ifdef _DIRENT_HAVE_D_TYPE
 	if (d->d_type != DT_DIR &&
@@ -334,7 +334,7 @@ dev_t sysfs_partno_to_devno(struct sysfs_cxt *cxt, int partno)
 {
 	DIR *dir;
 	struct dirent *d;
-	char path[256];
+	char path[266];
 	dev_t devno = 0;
 
 	dir = sysfs_opendir(cxt, NULL);

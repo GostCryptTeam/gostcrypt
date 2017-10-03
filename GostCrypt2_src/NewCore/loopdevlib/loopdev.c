@@ -537,7 +537,7 @@ static int loopcxt_next_from_sysfs(struct loopdev_cxt *lc)
 	fd = dirfd(iter->sysblock);
 
 	while ((d = readdir(iter->sysblock))) {
-		char name[256];
+		char name[274];
 		struct stat st;
 
 		DBG(lc, loopdev_debug("iter: check %s", d->d_name));
