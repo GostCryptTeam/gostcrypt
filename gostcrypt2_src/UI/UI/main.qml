@@ -121,7 +121,7 @@ Window {
         \property duration
         \brief Duration of animations
      */
-    property int duration: 500
+    property int duration: 1000
     /*!
         \property menuWidth
         \brief The width of the left-sided menu
@@ -144,6 +144,7 @@ Window {
       \brief The list of mounted volumes
     */
     property variant model
+
 
     signal qmlRequest(string command, variant params)
     signal sendSudoPassword(string password)

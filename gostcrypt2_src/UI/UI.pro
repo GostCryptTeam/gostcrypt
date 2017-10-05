@@ -49,7 +49,8 @@ HEADERS += \
     TranslationApp.h \
     Parser.h \
     CmdLineInterface.h \
-    GraphicInterface.h
+    GraphicInterface.h \
+    SecureTextField.h
 
 SOURCES += main.cpp \
     UserSettings.cpp \

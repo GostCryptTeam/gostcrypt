@@ -69,5 +69,6 @@
         <file>UI/ressource/volumePropertiesHover.png</file>
         <file>UI/ressource/volumeTools.png</file>
         <file>UI/ressource/volumeToolsHover.png</file>
+        <file>UI/dialogs/GSLanguage.qml</file>
     </qresource>
 </RCC>

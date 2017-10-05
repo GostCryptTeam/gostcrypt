@@ -65,18 +65,9 @@ Item {
         }
     ]
 
-    RectangularGlow {
-        id: effect
-        anchors.fill: containerSub
-        glowRadius: 10
-        spread: 0.2
-        color: palette.shadow
-        cornerRadius: containerSub.radius + glowRadius
-    }
-
     Rectangle {
         id: containerSub
-        color: "transparent"//palette.darkSecond
+        color: palette.shadow
         anchors.centerIn: parent
         width: parent.width - 80
         height: heightSubWindow
@@ -84,17 +75,17 @@ Item {
         radius: 0
         Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
         Rectangle {
-            width:parent.width
-            x:0
-            y:0
+            width:parent.width-2
+            x:1
+            y:1
             height: 70
             color: palette.darkThird
         }
         Rectangle {
-            width:parent.width
-            x:0
+            width:parent.width-2
+            x:1
             y:70
-            height: parent.height-70
+            height: parent.height-71
             color: palette.dark
         }
         Text {
@@ -139,7 +130,7 @@ Item {
                 color: palette.text
                 text: "×"
                 anchors.centerIn: parent
-                font.pointSize: 20
+                font.pointSize: 15
             }
             MouseArea{
                 width: parent.width
@@ -217,6 +208,11 @@ Item {
 
     function changeSubWindowTitle(title) {
         title_.text = title
+    }
+
+    function getLoader()
+    {
+        return loader;
     }
 
 }

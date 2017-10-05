@@ -30,6 +30,7 @@ Rectangle{
 
         Text {
             id: text
+            anchors.verticalCenter: parent.verticalCenter
             text: qsTr("GostCrypt 2.0") + Translation.tr
             color: palette.text
             x:20
@@ -38,11 +39,10 @@ Rectangle{
 
         Image {
             id: link
-            y: -2
-            x: 110
+            anchors.verticalCenter: parent.verticalCenter
+            x: text.x + text.width + 10
             fillMode: Image.PreserveAspectFit
             source: "ressource/link.png"
-            height:22
             width:22
             MouseArea {
                 anchors.fill: link
@@ -64,8 +64,8 @@ Rectangle{
         Text{
             color: palette.text
             text: "×"
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pointSize: 20
+            anchors.centerIn: parent
+            font.pointSize: 15
         }
         MouseArea{
             width: parent.width

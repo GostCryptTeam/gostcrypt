@@ -7,6 +7,7 @@ CheckBox {
     property string text_
     property int sizeText: 11
     property int leftPadding_: 15
+    property int size_: 30
 
     style: CheckBoxStyle {
         label: Text {
@@ -16,9 +17,9 @@ CheckBox {
             text: text_ + Translation.tr
         }
         indicator: Rectangle {
-            implicitWidth: 30
-            implicitHeight: 30
-            radius: 15
+            implicitWidth: size_
+            implicitHeight: size_
+            radius: size_/2
             border.color: control.activeFocus ? "#719c24" : "#191919"
             border.width: 1
             color: palette.bkCheckBox

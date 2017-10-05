@@ -47,6 +47,7 @@ int GraphicInterface::start()
     ctx->setContextProperty("DragWindowProvider", &mDrag);
     //ctx->setContextProperty("Wizard", &mWizard);
     ctx->setContextProperty("Translation", (QObject*)&mTranslation);
+    qmlRegisterType<SecureTextField>("gostcrypt.ui.secureInput", 1, 0, "SecureTextField");
 
     mEngine.load(QUrl(QStringLiteral("qrc:/UI/main.qml")));
 
@@ -132,16 +133,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
 
                 GostCrypt::NewCore::CreateVolumeRequest::VolumeParams *params = new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams;
-                /*QStringList size = GI_KEY(aContent, "size").toStringList();
-                //TODO : améliorer le système de calcul de la taille?
-                if (size.at(1) == "KB")
-                    options->size = size.at(0).toInt()*1024;
-                else if(size.at(1) == "MB")
-                    options->size = size.at(0).toInt()*1048576;
-                else if(size.at(1) == "GB")
-                    options->size = size.at(0).toInt()*103741824;*/
                 options->size = DEFAULT_SIZE; // default value is 10Mio
-
                 params->size = DEFAULT_OUTER_SIZE; // default value
                 params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
                 params->volumeHeaderKdf = DEFAULT_KDF; // default value//GI_KEY(aContent, "volumeHeaderKdf").toString();
@@ -242,8 +234,29 @@ void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::New
 
 void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response)
 {
-    (void)response;
-    emit sPrintHostDevices(QVariantList()); //TODO
+    QVariantList list;
+    for(auto v = response->hostDevices.begin(); v < response->hostDevices.end(); ++v)
+    {
+        if((*v)->mountPoint)
+        {
+            QVariantMap device;
+            device.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
+            device.insert("path", (*v)->devicePath->absoluteFilePath());
+            device.insert("size", formatSize((*v)->size));
+            list.append(device);
+        }
+        for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : (*v)->partitions) {
+            if(p->mountPoint)
+            {
+                QVariantMap device;
+                device.insert("mountPoint", p->mountPoint->absoluteFilePath());
+                device.insert("path", p->devicePath->absoluteFilePath());
+                device.insert("size", formatSize(p->size));
+                list.append(device);
+            }
+        }
+    }
+    emit sPrintHostDevices(list);
 }
 
 void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> response)

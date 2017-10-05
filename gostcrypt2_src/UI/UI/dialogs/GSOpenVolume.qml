@@ -7,12 +7,13 @@ import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
 import "../" as UI
 
+import gostcrypt.ui.secureInput 1.0
+
 Item {
     id: openVolume_Form
-    property var childOf
+
     property url volumePath
     property variant devices
-    anchors.fill: childOf
     signal incorrectPassword()
     signal sendInfoVolume()
 
@@ -21,42 +22,48 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length != 0)
             {
-                //mountVolume(volumePath, password_value.text);
                 qmlRequest("mount", {"path": volumePath, "password": password_value.text});
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
-                password_value.text = ""
+                password_value.text = "" //TODO: stock password in C++
             }else{
                 app.openErrorMessage("Empty password", "Please enter a password.");
             }
         }
-
     }
 
     Connections {
         target: ConnectSignals
         onVolumePasswordIncorrect: {
-            //app.openErrorMessage(qsTr("Bad password"),qsTr("Incorrect password or not a GostCrypt volume."))
             password_value.style = Qt.createComponent("textFieldRed.qml");
         }
     }
 
     Item {
         id: item
-        anchors.fill: parent
-        anchors.topMargin: 40
-        Image {
-            id: img
-            x: 50
-            asynchronous: true
-            source: "../ressource/logo_gostcrypt.png"
+        height: 170
+        anchors.centerIn: parent
+
+        SecureTextField {
+            id: securePwd
+        }
+
+        Text {
+            id: textTop
+            text: qsTr("Please open a GostCrypt volume :") + Translation.tr
+            font.pointSize: 11
+            color: palette.textLight
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Behavior on opacity { NumberAnimation { id: animTextTop; duration: app.duration; easing.type: Easing.OutQuad; } }
         }
 
         UI.GSCustomComboBox {
             id: combo
-            x: 100
-            y: 10
-            width: parent.width - 250
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: openVolume_Form.width - 250
+            y: textTop.y + textTop.height + 10
+            height: 40
             model: {
                 var paths = UserSettings.getVolumePaths(1)
                 return paths;
@@ -67,27 +74,17 @@ Item {
             }
         }
 
-        UI.GSButtonBordered {
-            id: buttonOpen
-            x: combo.x + combo.width + 15
-            y: combo.y
-            height: combo.height
-            text: qsTr("Open...") + Translation.tr
-            width: 100
-            onClicked: fileDialog.open()
-            color_: palette.green
-        }
-
         UI.GSCheckBox {
             id: historique
             text_: qsTr("Never save history")
+            y: combo.y + combo.height + 5
+            height: combo.height
+            anchors.horizontalCenter: parent.horizontalCenter
+            size_: 20
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-                return (isChecked == 1) ? true : false;
+                return (isChecked === 1) ? true : false;
             }
-            x: combo.x
-            y: img.y + 60
-            height: combo.height
             onCheckedChanged: {
                 if(historique.checked == true)
                     UserSettings.setSetting("MountV-SaveHistory", 1)
@@ -100,53 +97,50 @@ Item {
             }
         }
 
-        UI.GSButtonBordered {
-            id: buttonTools
-            x: combo.x + combo.width - 140
-            y: historique.y
-            height: combo.height
-            text: qsTr("Volume Tools")
-            width: 120
-            color_: palette.green
-        }
+        Row {
+            id: buttonsOpenVolume
+            spacing: 25
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: historique.y + historique.height + 5
 
-        UI.GSButtonBordered {
-            id: buttonDevide
-            x: buttonTools.x + buttonTools.width + 15
-            y: buttonTools.y
-            height: combo.height
-            text: qsTr("Select Device")
-            width: 120
-            color_: palette.green
-            onClicked: {
-                devices = ConnectSignals.getListOfDevices()
-                changeSubWindowTitle(qsTr("Please select a device"))
-                devicesSelection.opacity = 1.0
-                var i = 0
-                while(devices[i] !== undefined) {
-                    listDeviceModel.append(
-                                {
-                                    number: i,
-                                    mountPoint: devices[i][0],
-                                    name: devices[i][1],
-                                    path: devices[i][2],
-                                    removable: devices[i][3],
-                                    size: devices[i][4],
-                                    systemNumber: devices[i][5]
-                                })
-                    i++;
+            UI.GSButtonBordered {
+                id: buttonOpen
+                height: combo.height
+                text: qsTr("Open...") + Translation.tr
+                width: 120
+                onClicked: fileDialog.open()
+                color_: palette.green
+            }
+
+            UI.GSButtonBordered {
+                id: buttonTools
+                height: combo.height
+                text: qsTr("Volume Tools")
+                width: 120
+                color_: palette.green
+            }
+
+            UI.GSButtonBordered {
+                id: buttonDevide
+                height: combo.height
+                text: qsTr("Select Device")
+                width: 120
+                color_: palette.green
+                onClicked: {
+                    qmlRequest("devices", "")
+                    changeSubWindowTitle(qsTr("Please select a device"))
+                    devicesSelection.opacity = 1.0
                 }
             }
         }
+
+
 
         FileDialog {
             id: fileDialog
             title: qsTr("Please choose a file") + Translation.tr
             folder: shortcuts.home
             onAccepted: {
-                //var path = fileDialog.fileUrl.toString();
-                //var pathCanonical = /*path.replace("file://", "");*/path.replace(/^(file:\/{2})/, "");
-               // console.log("path = " + pathCanonical);
                 if(historique.pressed === false)
                     UserSettings.addVolumePath(fileDialog.fileUrl)
                 openVolume_Form.moving(fileDialog.fileUrl)
@@ -156,33 +150,33 @@ Item {
                 console.log("Canceled")
             }
         }
-        Behavior on anchors.topMargin { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
+        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
     }
 
     Item {
         id: password
         visible: false
-        y: buttonTools.y + buttonTools.height + 30
-        anchors.topMargin: 00
+        y: item.y + item.height
+        anchors.horizontalCenter: parent.horizontalCenter
         opacity: 0.0
 
         Text {
             id: password_txt
-            y: 10 //TODO lineheight
-            width: 95
-            leftPadding: 20
+            y: 0
+            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Password: ")  + Translation.tr
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
             horizontalAlignment: Text.AlignRight
-            lineHeight: combo.height
+            lineHeight: 15
             color: '#719c24'
         }
 
         ControlsOld.TextField {
             id: password_value
-            x: combo.x
-            width: combo.width + 118
+            y: password_txt.y + password_txt.height + 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: combo.width
             horizontalAlignment: TextInput.AlignHCenter
             echoMode: TextInput.Password
             height: combo.height
@@ -205,11 +199,13 @@ Item {
             id: cache
             text_: qsTr("Cache password and keyfiles in memory")  + Translation.tr
             x: combo.x
-            y: password_txt.y + 40
-            height: combo.height
+            y: password_value.y + password_value.height + 5
+            height: 20
+            size_: 20
+            sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-CachePwd")
-                return (isChecked == 1) ? true : false;
+                return (isChecked === 1) ? true : false;
             }
             onCheckedChanged: {
                 if(cache.checked == true)
@@ -224,11 +220,13 @@ Item {
             id: display
             text_: qsTr("Display password")  + Translation.tr
             x: combo.x
-            y: cache.y + 40
-            height: combo.height
+            y: cache.y + 22
+            height: 20
+            size_: 20
+            sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-                return (isChecked == 1) ? true : false;
+                return (isChecked === 1) ? true : false;
             }
             onCheckedChanged: {
                 if(display.checked == true) {
@@ -246,11 +244,13 @@ Item {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles") + Translation.tr
             x: combo.x
-            y: display.y + 40
-            height: combo.height
+            y: display.y + 22
+            height: 20
+            size_: 20
+            sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-                return (isChecked == 1) ? true : false;
+                return (isChecked === 1) ? true : false;
             }
             onCheckedChanged: {
                 //TODO : action
@@ -264,9 +264,9 @@ Item {
 
         UI.GSButtonBordered {
             id: buttonKeyfiles
-            x: buttonDevide.x - 30
+            anchors.right: password_value.right
             y: cache.y
-            height: combo.height
+            height: 30
             text: qsTr("Keyfiles...") + Translation.tr
             width: 150
             color_: palette.green
@@ -274,9 +274,9 @@ Item {
 
         UI.GSButtonBordered {
             id: buttonMountOption
-            x: buttonDevide.x - 30
-            y: display.y + 20
-            height: combo.height
+            anchors.right: password_value.right
+            y: buttonKeyfiles.y + buttonKeyfiles.height + 5
+            height: 30
             text: qsTr("Mount Options...") + Translation.tr
             width: 150
             color_: palette.green
@@ -289,6 +289,7 @@ Item {
         anchors.horizontalCenter: openVolume_Form.horizontalCenter
         anchors.bottom: openVolume_Form.bottom
         text: qsTr("Mount Volume") + Translation.tr
+        opacity: 0.0
         color_: palette.blue
         onClicked: {
             if(sudo_.isVisible === false)
@@ -298,6 +299,7 @@ Item {
                 password_value.text = password_blank
             }
         }
+        Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
     }
 
     // Device part
@@ -363,23 +365,10 @@ Item {
                             Text {
                                 font.pixelSize: 11
                                 color:palette.text;
-                                text: '<b>Removable:</b> ' + removable
+                                text: '<b>Mount point:</b> ' + mountPoint
                             }
                         }
-                        /*Item {
-                            x: 70
-                            y: 5
-                            width: parent.width -10
-                            height: parent.height -10
-                            Column {
-                                Text { color:palette.text; text: '<b>MountPoint:</b> ' + mountPoint }
-                                Text { color:palette.text; text: '<b>Name:</b> ' + name }
 
-                                Text { color:palette.text; text: '<b>Removable:</b> ' + removable }
-
-                                Text { color:palette.text; text: '<b>SystemNumber:</b> ' + systemNumber }
-                            }
-                        }*/
                         MouseArea {
                             id:area
                             anchors.fill:parent
@@ -428,19 +417,29 @@ Item {
     }
 
     function moving(url) {
-        item.anchors.topMargin = 20
+        textTop.opacity = 0.0
+        combo.y = 15
+        item.anchors.centerIn = undefined;
+        item.y = 0
+        item.height = 155
         volumePath = url
     }
 
     function appendPassword() {
         password.visible = true
         password.opacity = 1.0
+        validation.opacity = 1.0
     }
 
     function initDrag(parameter) {
         moving(parameter.value)
         UserSettings.addVolumePath(parameter.value)
         combo.model = UserSettings.getVolumePaths(0)
+    }
+
+    function addHostDevice(device)
+    {
+        listDeviceModel.append(device)
     }
 
 }

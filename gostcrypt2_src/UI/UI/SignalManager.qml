@@ -45,17 +45,31 @@ Item {
 
         onSPrintGetEncryptionAlgorithms:
         {
-            console.log(algos);
             subWindow.loadedItem.page.getAlgos(algos);
             subWindow.loadedItem.page.used[0] = algos[0];
             subWindow.loadedItem.page.used[1] = algos[1];
+        }
+
+        onSPrintHostDevices:
+        {
+            var i = 0
+            for(var a in hostDevices)
+            {
+                subWindow.getLoader().item.addHostDevice(
+                                        {
+                                            number: i,
+                                            mountPoint: hostDevices[i]["mountPoint"],
+                                            path: hostDevices[i]["path"],
+                                            size: hostDevices[i]["size"]
+                                        })
+                i++;
+            }
         }
     }
 
     function manageModel(volumes)
     {
         app.model = volumes;
-        console.log(volumes);
         //Delete all the model entries that are not in the volumes array
         for(var k in volumes)
         {

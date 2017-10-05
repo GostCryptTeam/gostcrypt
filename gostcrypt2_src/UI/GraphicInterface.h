@@ -13,6 +13,7 @@
 #include "volumecreation.h"
 #include "UserSettings.h"
 #include "TranslationApp.h"
+#include "SecureTextField.h"
 #include <QUrl>
 #include <QString>
 
@@ -45,10 +46,10 @@
 
 class GraphicInterface;
 
-class MyGuiApplication : public QGuiApplication {
+class MyGuiApplication : public QApplication {
 Q_OBJECT
 public:
-    MyGuiApplication(int& argc, char** argv) : QGuiApplication(argc, argv) {}
+    MyGuiApplication(int& argc, char** argv) : QApplication(argc, argv) {}
     bool notify(QObject* receiver, QEvent* event);
     void setGI(GraphicInterface* gi) { mGI = gi; }
 signals:

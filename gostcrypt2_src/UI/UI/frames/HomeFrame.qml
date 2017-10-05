@@ -397,10 +397,10 @@ Item {
         anchors.fill:mainWindow
 
         Rectangle {
-            x: 98
-            y: 111
-            width: 594
-            height: 303
+            x: rectangle2.x
+            y: rectangle2.y
+            width: rectangle2.width
+            height: rectangle2.height
             color: palette.textLowOpacity
             opacity: 0.5
             visible: parent.containsDrag
