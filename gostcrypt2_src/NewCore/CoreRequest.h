@@ -74,6 +74,7 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeRequest : CoreRequest {
+            MountVolumeRequest();
 			QString fileSystemOptions; // additional options for fuse
             QString fileSystemType; // Impose a filesystem
 			bool doMount; // does mount the volume at the end if true

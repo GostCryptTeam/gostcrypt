@@ -213,5 +213,17 @@ namespace GostCrypt {
             return in;
         }
         DEF_SERIALIZABLE(ExitRequest)
+
+        MountVolumeRequest::MountVolumeRequest()
+        {
+            this->doMount = true;
+            this->fileSystemOptions = "";
+            this->fileSystemType = "vfat";
+            this->protection = VolumeProtection::Enum::None;
+            this->useBackupHeaders = false;
+            this->sharedAccessAllowed = false;
+            this->preserveTimestamps = false;
+        }
+
     }
 }
