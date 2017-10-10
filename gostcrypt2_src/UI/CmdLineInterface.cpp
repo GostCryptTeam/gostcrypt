@@ -33,6 +33,8 @@ int CmdLineInterface::start(int argc, char **argv)
     CONNECT_SIGNAL(GetHostDevices);
     CONNECT_SIGNAL(CreateKeyFile);
     CONNECT_SIGNAL(ChangeVolumePassword);
+    CONNECT_SIGNAL(ProgressUpdate);
+
     /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)));*/
 
     /* Connecting request from here to request switch from Core */
@@ -210,6 +212,10 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
         emit askExit();
     }
     return done;
+}
+
+void CmdLineInterface::printProgressUpdapte(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r) {
+    qStdOut() << "\r" << r->progress*100 << "%";
 }
 
 void CmdLineInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> r)

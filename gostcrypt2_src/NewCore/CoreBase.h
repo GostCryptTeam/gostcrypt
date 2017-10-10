@@ -19,6 +19,8 @@
 		fct (request); \
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
+#define UPDATE_PROGRESS(p) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(params->id.requestId,params->id.end*p+params->id.start*(1-p))))
+
 
 
 namespace GostCrypt {
@@ -187,6 +189,7 @@ namespace GostCrypt {
 			DEC_REQUEST_SIGNAL(GetHostDevices);
 			DEC_REQUEST_SIGNAL(GetMountedVolumes);
 			DEC_REQUEST_SIGNAL(CreateKeyFile);
+            DEC_REQUEST_SIGNAL(ProgressUpdate);
 			/**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)
 			 *

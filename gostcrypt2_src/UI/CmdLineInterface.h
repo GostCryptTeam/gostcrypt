@@ -60,6 +60,7 @@ private slots:
     DEC_PRINT_SLOT(GetHostDevices);
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
+    DEC_PRINT_SLOT(ProgressUpdapte);
     void askSudoPassword();
 
 private:

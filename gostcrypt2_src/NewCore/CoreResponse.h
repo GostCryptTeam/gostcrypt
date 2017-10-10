@@ -4,6 +4,7 @@
 #include <QList>
 #include <QSharedPointer>
 #include <QFileInfo>
+#include <QtGlobal>
 #include "SerializationUtil.h"
 #include "Volume/VolumeInfo.h"
 #include "CoreRequest.h"
@@ -101,6 +102,14 @@ namespace GostCrypt {
 			VolumeType::Enum type;
 			DEC_SERIALIZABLE(VolumeInformation);
 		};
+
+        struct ProgressUpdateResponse : CoreResponse {
+            ProgressUpdateResponse() {}
+            ProgressUpdateResponse(quint32 requestId, qreal progress) : requestId(requestId), progress(progress) {}
+            qint32 requestId;
+            qreal progress;
+            DEC_SERIALIZABLE(ProgressUpdateResponse);
+        };
 	}
 }
 
@@ -119,5 +128,6 @@ SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
 SERIALIZABLE(GostCrypt::NewCore::HostDevice)
 SERIALIZABLE(GostCrypt::NewCore::MountedFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::VolumeInformation)
+SERIALIZABLE(GostCrypt::NewCore::ProgressUpdateResponse)
 
 #endif // CORERESPONSE_H
