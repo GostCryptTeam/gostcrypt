@@ -21,7 +21,19 @@
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
 #define UPDATE_PROGRESS(p) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(params->id.requestId,params->id.end*p+params->id.start*(1-p))))
 
-
+/* Progress tracking analysis helpers */
+#define TRACK track_result.append(QPair<QString,int>(QString(__FILE__) + QString(":") + QString::number(__LINE__), t.elapsed()));
+#define START_TRACK \
+    QTime t; \
+    t.start(); \
+    QList<QPair<QString,int>> track_result; \
+    TRACK
+#define FINISH_TRACK \
+	TRACK \
+	for(QPair<QString,int> p : track_result) { \
+		qDebug().noquote() << p.first << " " << (float)p.second/track_result.last().second; \
+	}
+/* END */
 
 namespace GostCrypt {
 	namespace NewCore {

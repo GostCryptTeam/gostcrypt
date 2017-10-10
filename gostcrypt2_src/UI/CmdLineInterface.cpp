@@ -214,8 +214,9 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     return done;
 }
 
-void CmdLineInterface::printProgressUpdapte(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r) {
-    qStdOut() << "\r" << r->progress*100 << "%";
+void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r) {
+    //qStdOut() << "\r" << r->progress*100 << "%";
+    Q_UNUSED(r)
 }
 
 void CmdLineInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> r)
