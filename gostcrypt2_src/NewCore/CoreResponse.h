@@ -17,16 +17,8 @@ namespace GostCrypt {
 		struct HostDevice;
 		struct VolumeInformation;
 		struct CoreResponse {
+			QVariantMap passThrough;
 			DEC_SERIALIZABLE(CoreResponse);
-		};
-
-		struct InitResponse : CoreResponse {
-			DEC_SERIALIZABLE(InitResponse);
-		};
-
-		struct ExceptionResponse : CoreResponse {
-			QVariant exception;
-			DEC_SERIALIZABLE(ExceptionResponse);
 		};
 
 		struct CreateVolumeResponse : CoreResponse {
@@ -43,7 +35,8 @@ namespace GostCrypt {
 		};
 
 		struct MountVolumeResponse : CoreResponse {
-			bool writeDisabled;
+			MountVolumeResponse();
+			bool readOnlyFailover;
 			QSharedPointer<VolumeInformation> volumeInfo;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
@@ -123,8 +116,6 @@ SERIALIZABLE(GostCrypt::NewCore::GetHostDevicesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetMountedVolumesResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::NewCore::GetDerivationFunctionsResponse)
-SERIALIZABLE(GostCrypt::NewCore::InitResponse)
-SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
 SERIALIZABLE(GostCrypt::NewCore::HostDevice)
 SERIALIZABLE(GostCrypt::NewCore::MountedFilesystem)
 SERIALIZABLE(GostCrypt::NewCore::VolumeInformation)

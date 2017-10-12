@@ -1,7 +1,7 @@
 #include "SerializationUtil.h"
 
 QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur){
-    out << Valeur.canonicalFilePath();
+    out << Valeur.absoluteFilePath();
     return out;
 }
 

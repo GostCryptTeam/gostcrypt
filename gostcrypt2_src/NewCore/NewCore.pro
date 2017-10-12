@@ -48,7 +48,9 @@ HEADERS += \
     loopdevlib/sysfs.h \
     CoreServiceHandler.h \
     CoreService.h \
-    CoreRequest.h
+    CoreRequest.h \
+    Service.h \
+    ServiceHandler.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -68,4 +70,6 @@ SOURCES += \
     CoreServiceHandler.cpp \
     CoreService.cpp \
     SerializationUtil.cpp \
-    CoreRequest.cpp
+    CoreRequest.cpp \
+    Service.cpp \
+    ServiceHandler.cpp

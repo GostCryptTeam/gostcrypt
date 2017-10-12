@@ -8,6 +8,7 @@
 #include <QVariant>
 #include "CoreResponse.h"
 #include "CoreRoot.h"
+#include "Service.h"
 
 //#define DEBUG_CORESERVICE
 
@@ -16,25 +17,19 @@
 		sendResponse(QVariant::fromValue(response)); \
 	}
 #define CONNECT_RESPONSE_SLOT(request) \
-	app.connect(&core, SIGNAL(send ## request (QSharedPointer< request ## Response>)), this, SLOT(send ## request (QSharedPointer< request ## Response>)))
+	connect(core.data(), SIGNAL(send ## request (QSharedPointer< request ## Response>)), this, SLOT(send ## request (QSharedPointer< request ## Response>)))
 
 namespace GostCrypt {
     namespace NewCore {
-		class CoreService : QObject
+		class CoreService : public Service
 		{
 			Q_OBJECT
 		public:
-			CoreService() {}
-			int start(int argc, char **argv);
+			CoreService() : Service("CoreService") {}
 		private:
-			QFile outputFile;
-			QFile inputFile;
-			QDataStream inputStream;
-			QDataStream outputStream;
-			CoreRoot core;
-			bool receiveRequest();
-			void sendResponse(QVariant r);
-
+			QSharedPointer<CoreRoot> core;
+			virtual void connectRequestHandlingSignals();
+			virtual void initSerializables();
 		public slots:
 			DEF_RESPONSE_SLOT(CreateVolume)
 			DEF_RESPONSE_SLOT(MountVolume)
@@ -45,22 +40,6 @@ namespace GostCrypt {
 			DEF_RESPONSE_SLOT(GetHostDevices)
 			DEF_RESPONSE_SLOT(GetMountedVolumes)
 			DEF_RESPONSE_SLOT(CreateKeyFile)
-		private slots:
-			void sendException(CoreException &e);
-		signals:
-			void request(QVariant request);
-			void exit();
-		};
-
-		// redefines the notify function of QCoreApplication to catch all exceptions at once
-		class CoreServiceApplication : public QCoreApplication {
-		Q_OBJECT
-		public:
-			CoreServiceApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
-			bool notify(QObject* receiver, QEvent* event);
-		signals:
-			void exit();
-			void sendException(CoreException &e);
 		};
 	}
 }

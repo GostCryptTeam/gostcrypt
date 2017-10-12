@@ -77,35 +77,35 @@ namespace GostCrypt {
              * @param params Parameters of the function
              * @return QSharedPointer<GetEncryptionAlgorithmsResponse>, the response of the function
              */
-            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>(), bool emitResponse = true);
+            QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
             /**
              * @brief Give the supported key derivation functions names
              *
              * @param params Parameters of the function
              * @return QSharedPointer<GetDerivationFunctionsResponse>, the response of the function
              */
-            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>(), bool emitResponse = true);
+            QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());
 			/**
 			 * @brief Give the availables storage devices on the computer (Disks, USB keys, etc)
 			 *
 			 * @param params Parameters of the function
 			 * @return QSharedPointer<GetHostDevicesResponse>, the response of the function
 			 */
-			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>(), bool emitResponse = true);
+			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>());
 			/**
 			 * @brief Give the list of currently mounted volumes
 			 *
 			 * @param params Parameters of the function
 			 * @return QSharedPointer<GetMountedVolumesResponse>, the response of the function
 			 */
-			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>(), bool emitResponse = true);
+			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
             /**
              * @brief Create a random key file
              *
              * @param params Parameters of the function
              * @return QSharedPointer<CreateKeyFileResponse>, the response of the function
              */
-            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params, bool emitResponse = true);
+            QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params = QSharedPointer<CreateKeyFileRequest>());
 
 			/**
 			 * @brief Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint.
@@ -188,9 +188,6 @@ namespace GostCrypt {
              */
             bool processNonRootRequest(QVariant r);
 
-			uid_t getUserId(QString username);
-			gid_t getGroupId(QString groupname);
-
 		signals:
 			DEC_REQUEST_SIGNAL(CreateVolume);
 			DEC_REQUEST_SIGNAL(MountVolume);
@@ -213,6 +210,11 @@ namespace GostCrypt {
 			 */
 			void askSudoPassword();
         };
+
+
+		uid_t getUserId(QString username);
+		gid_t getGroupId(QString groupname);
+
         /**
          * @brief Give the core object to use (CoreRoot instance if current user is root, CoreUser instance otherwise).
          *

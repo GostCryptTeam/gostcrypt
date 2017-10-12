@@ -4,6 +4,8 @@
 namespace GostCrypt {
 	namespace NewCore {
         void initCoreException() {
+            INIT_SERIALIZE(GostCryptException);
+
             INIT_SERIALIZE(CoreException);
             INIT_SERIALIZE(SystemException);
             INIT_SERIALIZE(FailedOpenFile);
@@ -30,27 +32,36 @@ namespace GostCrypt {
             INIT_SERIALIZE(IncorrectSudoPassword);
             INIT_SERIALIZE(WorkerProcessCrashed);
 			INIT_SERIALIZE(ExceptionFromVolume);
-            INIT_SERIALIZE(UnknowRequest);
-            INIT_SERIALIZE(UnknowResponse);
             INIT_SERIALIZE(FailFindFilesystemType);
             INIT_SERIALIZE(InvalidParam);
             INIT_SERIALIZE(IncorrectVolumePassword);
         }
 
 
-        DEF_SERIALIZABLE(GostCrypt::NewCore::CoreException)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CoreException & Valeur) {
+        DEF_SERIALIZABLE(GostCrypt::NewCore::GostCryptException)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::GostCryptException & Valeur) {
             out << Valeur.filename;
             out << Valeur.line;
             out << Valeur.fonction;
             return out;
         }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CoreException & Valeur) {
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::GostCryptException & Valeur) {
             in >> Valeur.filename;
             in >> Valeur.line;
             in >> Valeur.fonction;
             return in;
         }
+
+        DEF_SERIALIZABLE(GostCrypt::NewCore::CoreException)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::CoreException & Valeur) {
+            out << static_cast<const GostCryptException&>(Valeur);
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::CoreException & Valeur) {
+            in >> static_cast<GostCryptException&>(Valeur);
+            return in;
+        }
+
         DEF_SERIALIZABLE(GostCrypt::NewCore::SystemException)
         QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::SystemException & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
@@ -327,12 +338,12 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GostCrypt::NewCore::FormattingSubException)
         QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::FormattingSubException & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.e;
+            out << Valeur.subExceptionString;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::FormattingSubException & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.e;
+            in >> Valeur.subExceptionString;
             return in;
         }
 
@@ -387,30 +398,6 @@ namespace GostCrypt {
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::WorkerProcessCrashed & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::UnknowRequest & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.requestTypeName;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::UnknowRequest & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.requestTypeName;
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::NewCore::UnknowResponse & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.responseTypeName;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::NewCore::UnknowResponse & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.responseTypeName;
             return in;
         }
 

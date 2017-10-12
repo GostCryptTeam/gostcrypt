@@ -7,37 +7,21 @@
 #include <QProcess>
 #include <QVariant>
 #include <QQueue>
+#include "ServiceHandler.h"
 
 namespace GostCrypt {
     namespace NewCore {
-		class CoreServiceHandler : public QObject
+		class CoreServiceHandler : public ServiceHandler
 		{
 			Q_OBJECT
 		public:
 			CoreServiceHandler();
-			void sendToCoreService(QVariant request);
-			bool isRunning();
-			void exit();
 		public slots:
 			void receiveSudoPassword(QSharedPointer<QByteArray> password);
-		private:
-			void sendRequests();
-			void startWorkerProcess();
-
-			QDataStream workerProcessStream;
-			QProcess workerProcess;
-			QQueue<QVariant> waitingRequests;
-			bool processInitialized;
-			bool askedToQuit;
-		private slots: // private for direct call but still connectable => Need for communicating class
-			void receive();
-			void workerProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
-			void dbg_bytesWritten(qint64 bytes);
-			void workerProcessStarted();
 			void checkInitReceived();
+		private:
+			virtual void processCrashedBeforeInitialization();
 		signals:
-			void sendResponse(QVariant &response);
-			void exited();
 			void askSudoPassword();
 		};
 	}

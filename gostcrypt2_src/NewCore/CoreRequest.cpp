@@ -1,5 +1,5 @@
 #include "CoreRequest.h"
-
+#include <QDebug>
 namespace GostCrypt {
     namespace NewCore {
 
@@ -17,15 +17,16 @@ namespace GostCrypt {
             INIT_SERIALIZE(QFileInfo);
             INIT_SERIALIZE(GetEncryptionAlgorithmsRequest);
             INIT_SERIALIZE(GetDerivationFunctionsRequest);
-            INIT_SERIALIZE(ExitRequest);
             INIT_SERIALIZE(ProgressTrackingParameters);
 		}
 
         QDataStream & operator<< (QDataStream & out, const CoreRequest & Valeur) {
-            out << Valeur.id;
-            return out;
+           out << Valeur.emitResponse;
+           out << Valeur.id;
+           return out;
         }
         QDataStream & operator>> (QDataStream & in, CoreRequest & Valeur) {
+            in >> Valeur.emitResponse;
             in >> Valeur.id;
             return in;
         }
@@ -112,11 +113,13 @@ namespace GostCrypt {
             out << Valeur.fileSystemOptions;
             out << Valeur.fileSystemType;
             out << Valeur.doMount;
+            out << Valeur.isDevice;
             out << Valeur.preserveTimestamps;
             out << Valeur.keyfiles;
             out << Valeur.password;
             out << Valeur.mountPoint;
             out << Valeur.path;
+            out << Valeur.fuseMountPoint;
             out << (quint32)Valeur.protection;
             out << Valeur.protectionPassword;
             out << Valeur.protectionKeyfiles;
@@ -124,6 +127,7 @@ namespace GostCrypt {
             out << Valeur.sharedAccessAllowed;
             out << Valeur.mountedForUser;
             out << Valeur.mountedForGroup;
+            out << Valeur.forVolumeCreation;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, MountVolumeRequest & Valeur) {
@@ -132,11 +136,13 @@ namespace GostCrypt {
             in >> Valeur.fileSystemOptions;
             in >> Valeur.fileSystemType;
             in >> Valeur.doMount;
+            in >> Valeur.isDevice;
             in >> Valeur.preserveTimestamps;
             in >> Valeur.keyfiles;
             in >> Valeur.password;
             in >> Valeur.mountPoint;
             in >> Valeur.path;
+            in >> Valeur.fuseMountPoint;
             in >> tmp;
             Valeur.protection = GostCrypt::VolumeProtection::Enum(tmp);
             in >> Valeur.protectionPassword;
@@ -145,6 +151,7 @@ namespace GostCrypt {
             in >> Valeur.sharedAccessAllowed;
             in >> Valeur.mountedForUser;
             in >> Valeur.mountedForGroup;
+            in >> Valeur.forVolumeCreation;
             return in;
         }
         DEF_SERIALIZABLE(MountVolumeRequest)
@@ -153,12 +160,14 @@ namespace GostCrypt {
             out << static_cast<const CoreRequest&>(Valeur);
             out << Valeur.volumePath;
             out << Valeur.force;
+            out << Valeur.forVolumeCreation;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, DismountVolumeRequest & Valeur) {
 			in >> static_cast<CoreRequest&>(Valeur);
             in >> Valeur.volumePath;
             in >> Valeur.force;
+            in >> Valeur.forVolumeCreation;
             return in;
         }
         DEF_SERIALIZABLE(DismountVolumeRequest)
@@ -205,16 +214,6 @@ namespace GostCrypt {
         }
         DEF_SERIALIZABLE(GetDerivationFunctionsRequest)
 
-        QDataStream & operator << (QDataStream & out, const ExitRequest & Valeur) {
-            out << static_cast<const CoreRequest&>(Valeur);
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, ExitRequest & Valeur) {
-			in >> static_cast<CoreRequest&>(Valeur);
-            return in;
-        }
-        DEF_SERIALIZABLE(ExitRequest)
-
         QDataStream & operator << (QDataStream & out, const ProgressTrackingParameters & Valeur) {
             out << Valeur.requestId;
             out << Valeur.start;
@@ -229,17 +228,22 @@ namespace GostCrypt {
         }
         DEF_SERIALIZABLE(ProgressTrackingParameters)
 
+	MountVolumeRequest::MountVolumeRequest()
+		{
+			this->doMount = true;
+			this->fileSystemType = "vfat";
+			this->preserveTimestamps = false;
+			this->protection = VolumeProtection::Enum::None;
+			this->sharedAccessAllowed = false;
+			this->useBackupHeaders = false;
+								  this->forVolumeCreation = false;
+	}
 
-        MountVolumeRequest::MountVolumeRequest()
-        {
-            this->doMount = true;
-            this->fileSystemOptions = "";
-            this->fileSystemType = "vfat";
-            this->protection = VolumeProtection::Enum::None;
-            this->useBackupHeaders = false;
-            this->sharedAccessAllowed = false;
-            this->preserveTimestamps = false;
-        }
+								  DismountVolumeRequest::DismountVolumeRequest()
+		{
+								  this->force = false;
+								  this->forVolumeCreation = false;
+	}
 
     }
 }

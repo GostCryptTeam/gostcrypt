@@ -15,7 +15,7 @@
         return QString() + message; \
     } \
     virtual QString qwhat() const { \
-        return parent::qwhat() + getMessage(); \
+        return parent::qwhat() + message; \
     } \
     virtual QVariant toQVariant() const { \
 		return QVariant::fromValue(*this); \
@@ -32,55 +32,15 @@ namespace GostCrypt {
          */
         void initCoreException();
 
-        /**
-         * @brief Class defining the core exception which the basic class exception for the other specific known execptions
-         *
-         */
-        class CoreException : public QException {
+		class GostCryptException : public QException {
 			public:
-                /**
-                 * @brief Default Constructor
-                 *
-                 */
-                CoreException() {}
-                /**
-                 * @brief Constructor with initializer list
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 */
-                CoreException(QString fonction, QString filename, quint32 line) : fonction(fonction), filename(QFileInfo(filename).fileName()), line(line) {}
-                /**
-                 * @brief fonction used to get a line
-                 *
-                 * @return quint32 return the line
-                 */
-                quint32 getLine() const {return line; }
-                /**
-                 * @brief fonction used get the name  of file
-                 *
-                 * @return QString return the name of the file
-                 */
-                QString getFilename() const {return filename; }
-                /**
-                 * @brief fonction used to get a fonction
-                 *
-                 * @return QString return the fonction
-                 */
-                QString getFonction() const {return fonction; }
-                /**
-                 * @brief focntion which clone the execption and copy it in another place
-                 *
-                 * @return CoreException copy constructor
-                 */
-                CoreException *clone() const { return new CoreException(*this); }
-                /**
-                 * @brief
-                 *
-                 * @return const char
-                 */
-                const char * what () const throw () {
+                GostCryptException() {}
+                GostCryptException(QString fonction, QString filename, quint32 line) : fonction(fonction), filename(QFileInfo(filename).fileName()), line(line) {}
+				quint32 getLine() const {return line; }
+				QString getFilename() const {return filename; }
+				QString getFonction() const {return fonction; }
+				GostCryptException *clone() const { return new GostCryptException(*this); }
+				const char * what () const throw () {
 					return qwhat().toLocal8Bit().data();
 				}
                 /**
@@ -97,7 +57,7 @@ namespace GostCrypt {
                  * @return QString return the name of the esception
                  */
                 virtual QString getName() const {
-                    return "/CoreException";
+                    return "";
                 }
                 /**
                  * @brief fonction used to get a message
@@ -127,7 +87,7 @@ namespace GostCrypt {
                  *
                  * @return QString return the exception name
                  */
-                QString displayedMessage() {
+                QString displayedMessage() const {
 #ifdef QT_DEBUG
 					return qwhat();
 #else
@@ -144,9 +104,18 @@ namespace GostCrypt {
                 QString getPosition() const {
 					return filename+":"+QString::number(line);
 				}
-                QString fonction; /**< TODO: describe */
-                QString filename; /**< TODO: describe */
-                quint32 line; /**< TODO: describe */
+                QString fonction;
+				QString filename;
+				quint32 line;
+			DEC_SERIALIZABLE(GostCryptException);
+		};
+
+		class CoreException : public GostCryptException {
+			public:
+				CoreException() {}
+				CoreException(QString fonction, QString filename, quint32 line) : GostCryptException(fonction, filename, line) {}
+				DEF_EXCEPTION_WHAT(CoreException, GostCryptException, "")
+
 			DEC_SERIALIZABLE(CoreException);
 		};
 
@@ -173,7 +142,7 @@ namespace GostCrypt {
 
 
 
-		#define FailedOpenFileException(file) FailedOpenFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+		#define FailedOpenFileException(file) GostCrypt::NewCore::FailedOpenFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
         /**
          * @brief
          *
@@ -200,7 +169,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(FailedOpenFile);
 		};
 
-        #define FailedCreateDirectoryException(dir) FailedCreateDirectory(__PRETTY_FUNCTION__, __FILE__, __LINE__, dir);
+        #define FailedCreateDirectoryException(dir) GostCrypt::NewCore::FailedCreateDirectory(__PRETTY_FUNCTION__, __FILE__, __LINE__, dir);
         /**
          * @brief
          *
@@ -227,7 +196,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailedCreateDirectory);
         };
 
-		#define DeviceNotMountedException(devicePath) DeviceNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
+		#define DeviceNotMountedException(devicePath) GostCrypt::NewCore::DeviceNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
         /**
          * @brief
          *
@@ -255,7 +224,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(DeviceNotMounted);
 		};
 
-		#define MissingParamException(param) MissingParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
+		#define MissingParamException(param) GostCrypt::NewCore::MissingParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
         /**
          * @brief
          *
@@ -282,7 +251,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(MissingParam);
 		};
 
-		#define InvalidParamException(param) InvalidParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
+		#define InvalidParamException(param) GostCrypt::NewCore::InvalidParam(__PRETTY_FUNCTION__, __FILE__, __LINE__, param);
         /**
          * @brief
          *
@@ -309,7 +278,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(InvalidParam);
 		};
 
-		#define VolumeAlreadyMountedException(volumePath) VolumeAlreadyMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+		#define VolumeAlreadyMountedException(volumePath) GostCrypt::NewCore::VolumeAlreadyMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
         /**
          * @brief
          *
@@ -336,7 +305,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
 		};
 
-		#define FailedOpenVolumeException(volumePath) FailedOpenVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+		#define FailedOpenVolumeException(volumePath) GostCrypt::NewCore::FailedOpenVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
         /**
          * @brief
          *
@@ -363,7 +332,7 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(FailedOpenVolume);
 		};
 
-        #define IncorrectSectorSizeException() IncorrectSectorSize(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        #define IncorrectSectorSizeException() GostCrypt::NewCore::IncorrectSectorSize(__PRETTY_FUNCTION__, __FILE__, __LINE__);
         /**
          * @brief
          *
@@ -388,7 +357,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(IncorrectSectorSize);
         };
 
-        #define IncorrectSudoPasswordException() IncorrectSudoPassword(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        #define IncorrectSudoPasswordException() GostCrypt::NewCore::IncorrectSudoPassword(__PRETTY_FUNCTION__, __FILE__, __LINE__);
         /**
          * @brief
          *
@@ -413,7 +382,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(IncorrectSudoPassword);
         };
 
-        #define WorkerProcessCrashedException() WorkerProcessCrashed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        #define WorkerProcessCrashedException() GostCrypt::NewCore::WorkerProcessCrashed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
         /**
          * @brief
          *
@@ -438,7 +407,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(WorkerProcessCrashed);
         };
 
-        #define MountPointUsedException(mountpoint) MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
+        #define MountPointUsedException(mountpoint) GostCrypt::NewCore::MountPointUsed(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
         /**
          * @brief
          *
@@ -471,7 +440,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(MountPointUsed);
         };
 
-        #define FailedCreateFuseMountPointException(mountpoint) FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
+        #define FailedCreateFuseMountPointException(mountpoint) GostCrypt::NewCore::FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
         /**
          * @brief
          *
@@ -527,7 +496,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(MountFilesystemManagerException);
         };
 
-		#define FailMountFilesystemException(error_number, mountpoint, devicePath) FailMountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint, devicePath);
+		#define FailMountFilesystemException(error_number, mountpoint, devicePath) GostCrypt::NewCore::FailMountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint, devicePath);
         /**
          * @brief
          *
@@ -557,7 +526,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailMountFilesystem);
         };
 
-        #define FailFindFilesystemTypeException(devicePath) FailFindFilesystemType(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
+        #define FailFindFilesystemTypeException(devicePath) GostCrypt::NewCore::FailFindFilesystemType(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
         /**
          * @brief
          *
@@ -585,7 +554,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailFindFilesystemType);
         };
 
-        #define FailUnmountFilesystemException(error_number, mountpoint) FailUnmountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint);
+        #define FailUnmountFilesystemException(error_number, mountpoint) GostCrypt::NewCore::FailUnmountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint);
         /**
          * @brief
          *
@@ -611,7 +580,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailUnmountFilesystem);
         };
 
-		#define FailedAttachLoopDeviceException(imageFile) FailedAttachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, imageFile);
+		#define FailedAttachLoopDeviceException(imageFile) GostCrypt::NewCore::FailedAttachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, imageFile);
         /**
          * @brief
          *
@@ -639,7 +608,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailedAttachLoopDevice);
         };
 
-        #define FailedDetachLoopDeviceException(loopDevice) FailedDetachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, loopDevice);
+        #define FailedDetachLoopDeviceException(loopDevice) GostCrypt::NewCore::FailedDetachLoopDevice(__PRETTY_FUNCTION__, __FILE__, __LINE__, loopDevice);
         /**
          * @brief
          *
@@ -667,7 +636,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FailedDetachLoopDevice);
         };
 
-        #define VolumeNotMountedException(volumePath) VolumeNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
+        #define VolumeNotMountedException(volumePath) GostCrypt::NewCore::VolumeNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
         /**
          * @brief
          *
@@ -694,7 +663,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(VolumeNotMounted);
         };
 
-        #define ExceptionFromVolumeException(message) ExceptionFromVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, message);
+        #define ExceptionFromVolumeException(message) GostCrypt::NewCore::ExceptionFromVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, message);
         /**
          * @brief
          *
@@ -721,7 +690,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(ExceptionFromVolume);
         };
 
-        #define ContentSizeInvalidException(size) ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, size);
+        #define ContentSizeInvalidException(size) GostCrypt::NewCore::ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, size);
         /**
          * @brief
          *
@@ -742,13 +711,13 @@ namespace GostCrypt {
                  * @param size
                  */
                 ContentSizeInvalid(QString fonction, QString filename, quint32 line, qreal size) : CoreException(fonction, filename, line), size(size) {}
-                DEF_EXCEPTION_WHAT(ContentSizeInvalid, CoreException, "Content size is invalid, must be between 0 and 1. Found : "+size+"\n")
+                DEF_EXCEPTION_WHAT(ContentSizeInvalid, CoreException, "Content size is invalid, must be between 0 and 1. Found : "+QString::number(size)+"\n")
             protected:
                 qreal size; /**< TODO: describe */
             DEC_SERIALIZABLE(ContentSizeInvalid);
         };
 
-        #define InvalidHeaderOffsetException(headersize, headeroffset) InvalidHeaderOffset(__PRETTY_FUNCTION__, __FILE__, __LINE__, headersize, headeroffset);
+        #define InvalidHeaderOffsetException(headersize, headeroffset) GostCrypt::NewCore::InvalidHeaderOffset(__PRETTY_FUNCTION__, __FILE__, __LINE__, headersize, headeroffset);
         /**
          * @brief
          *
@@ -770,14 +739,14 @@ namespace GostCrypt {
                  * @param headersize
                  */
                 InvalidHeaderOffset(QString fonction, QString filename, quint32 line, qint32 headeroffset, quint32 headersize) : CoreException(fonction, filename, line), headeroffset(headeroffset), headersize(headersize) { }
-                DEF_EXCEPTION_WHAT(InvalidHeaderOffset, CoreException, "Header size ("+headersize+") not compatible with header offset ("+headeroffset+") ! This error comes from the Layout definition.\n")
+                DEF_EXCEPTION_WHAT(InvalidHeaderOffset, CoreException, "Header size ("+ QString::number(headersize)+") not compatible with header offset ("+QString::number(headeroffset)+") ! This error comes from the Layout definition.\n")
             protected:
                 qint32 headeroffset; /**< TODO: describe */
                 quint32 headersize; /**< TODO: describe */
             DEC_SERIALIZABLE(InvalidHeaderOffset);
         };
 
-        #define FormattingSubExceptionException(exception) FormattingSubException(__PRETTY_FUNCTION__, __FILE__, __LINE__, exception);
+        #define FormattingSubExceptionException(subExceptionString) GostCrypt::NewCore::FormattingSubException(__PRETTY_FUNCTION__, __FILE__, __LINE__, subExceptionString);
         /**
          * @brief
          *
@@ -789,22 +758,15 @@ namespace GostCrypt {
                  *
                  */
                 FormattingSubException() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param e
-                 */
-                FormattingSubException(QString fonction, QString filename, quint32 line, CoreException e) : CoreException(fonction, filename, line), e(e) {}
-                DEF_EXCEPTION_WHAT(FormattingSubException, CoreException, "Exception occured during formatting:\n"+e.qwhat()+"--------------\n")
+                
+FormattingSubException(QString fonction, QString filename, quint32 line, QString subExceptionString) : CoreException(fonction, filename, line), subExceptionString(subExceptionString){}
+                DEF_EXCEPTION_WHAT(FormattingSubException, CoreException, "Exception occured during formatting:\n"+ subExceptionString +"--------------\n")
             protected:
-                CoreException e; /**< TODO: describe */
+                QString subExceptionString;
             DEC_SERIALIZABLE(FormattingSubException);
         };
 
-        #define ProcessFailedException() ProcessFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        #define ProcessFailedException() GostCrypt::NewCore::ProcessFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__);
         /**
          * @brief
          *
@@ -829,7 +791,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(ProcessFailed);
         };
 
-        #define FilesystemNotSupportedException(filesystem) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, filesystem);
+        #define FilesystemNotSupportedException(filesystem) GostCrypt::NewCore::FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, filesystem);
         /**
          * @brief
          *
@@ -856,11 +818,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(FilesystemNotSupported);
         };
 
-        #define AlgorithmNotFoundException(algorithm) FilesystemNotSupported(__PRETTY_FUNCTION__, __FILE__, __LINE__, algorithm);
-        /**
-         * @brief
-         *
-         */
+        #define AlgorithmNotFoundException(algorithm) GostCrypt::NewCore::AlgorithmNotFound(__PRETTY_FUNCTION__, __FILE__, __LINE__, algorithm);
         class AlgorithmNotFound : public CoreException {
             public:
                 /**
@@ -882,66 +840,7 @@ namespace GostCrypt {
                 QString algorithm; /**< TODO: describe */
             DEC_SERIALIZABLE(AlgorithmNotFound);
         };
-
-        #define UnknowRequestException(requestTypeName) UnknowRequest(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
-        /**
-         * @brief
-         *
-         */
-        class UnknowRequest : public CoreException {
-            public:
-                /**
-                 * @brief
-                 *
-                 */
-                UnknowRequest() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param requestTypeName
-                 */
-                UnknowRequest(QString fonction, QString filename, quint32 line, const char *requestTypeName) : CoreException(fonction, filename, line), requestTypeName(requestTypeName) {}
-                DEF_EXCEPTION_WHAT(UnknowRequest, CoreException, "Core received an unknown request (" + requestTypeName + ")\n")
-            protected:
-            QString requestTypeName; /**< TODO: describe */
-            DEC_SERIALIZABLE(UnknowRequest);
-        };
-
-        #define UnknowResponseException(requestTypeName) UnknowResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
-        /**
-         * @brief
-         *
-         */
-        class UnknowResponse : public CoreException {
-            public:
-                /**
-                 * @brief
-                 *
-                 */
-                UnknowResponse() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param responseTypeName
-                 */
-                UnknowResponse(QString fonction, QString filename, quint32 line, const char *responseTypeName) : CoreException(fonction, filename, line), responseTypeName(responseTypeName) {}
-                DEF_EXCEPTION_WHAT(UnknowResponse, CoreException, "Unknow reponse received from workr process (" + responseTypeName + ")\n")
-            protected:
-            QString responseTypeName; /**< TODO: describe */
-            DEC_SERIALIZABLE(UnknowResponse);
-        };
-
-        #define IncorrectVolumePasswordException(volumePath) IncorrectVolumePassword(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
-        /**
-         * @brief
-         *
-         */
+        #define IncorrectVolumePasswordException(volumePath) GostCrypt::NewCore::IncorrectVolumePassword(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
         class IncorrectVolumePassword : public CoreException {
             public:
                 /**
@@ -967,6 +866,7 @@ namespace GostCrypt {
 	}
 }
 
+SERIALIZABLE(GostCrypt::NewCore::GostCryptException)
 SERIALIZABLE(GostCrypt::NewCore::CoreException)
 SERIALIZABLE(GostCrypt::NewCore::SystemException)
 SERIALIZABLE(GostCrypt::NewCore::FailedOpenFile)
@@ -993,8 +893,6 @@ SERIALIZABLE(GostCrypt::NewCore::AlgorithmNotFound)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectSudoPassword)
 SERIALIZABLE(GostCrypt::NewCore::WorkerProcessCrashed)
 SERIALIZABLE(GostCrypt::NewCore::ExceptionFromVolume)
-SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
-SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
 SERIALIZABLE(GostCrypt::NewCore::FailFindFilesystemType)
 SERIALIZABLE(GostCrypt::NewCore::InvalidParam)
 SERIALIZABLE(GostCrypt::NewCore::IncorrectVolumePassword)

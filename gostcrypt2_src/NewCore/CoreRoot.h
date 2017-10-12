@@ -8,6 +8,7 @@
 #include "CoreBase.h"
 #include "CoreRequest.h"
 #include "CoreResponse.h"
+#include "NewFuseService/FuseServiceHandler.h"
 #include "RandomNumberGenerator.h"
 
 namespace GostCrypt {
@@ -21,16 +22,26 @@ namespace GostCrypt {
 			virtual void exit();
 			virtual void request(QVariant r);
             virtual void receiveSudoPassword(QString password); //TODO
+        private slots:
+        	void continueMountVolume(QSharedPointer<NewCore::MountVolumeRequest> params, QSharedPointer<NewCore::MountVolumeResponse> response);
+        	void continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+        	void finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+        	void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse);
+        	void continueDismountFormat(QSharedPointer<DismountVolumeResponse> dismountResponse);
 		private:
-			QSharedPointer<MountVolumeResponse> mountVolume(QSharedPointer<MountVolumeRequest> params, bool emitResponse = true);
-            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>(), bool emitResponse = true);
-            QSharedPointer<CreateVolumeResponse> createVolume(QSharedPointer<CreateVolumeRequest> params, bool emitResponse = true);
-			QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params, bool emitResponse = true);
+			void mountVolume(QSharedPointer<MountVolumeRequest> params);
+            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>());
+            void createVolume(QSharedPointer<CreateVolumeRequest> params);
+			QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
 
             void writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize);
-            void formatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem);
+            void mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse);
             uid_t realUserId;
             gid_t realGroupId;
+            GostCrypt::NewFuseDriver::FuseServiceHandler fuseServiceHandler;
+        signals:
+			void formatVolumeDone(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+
 		};
 	}
 }

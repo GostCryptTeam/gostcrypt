@@ -52,7 +52,8 @@ HEADERS += \
     GraphicInterface.h \
     SecureTextField.h
 
-SOURCES += main.cpp \
+SOURCES += \
+    main.cpp \
     UserSettings.cpp \
     volumecreation.cpp \
     TranslationApp.cpp \
@@ -62,7 +63,7 @@ SOURCES += main.cpp \
 
 LIBS += \
         ../NewCore/libNewCore.a \
-        ../FuseDriver/libFuseDriver.a \
+        ../NewFuseService/libNewFuseService.a \
         ../Volume/libVolume.a \
         ../Platform/libPlatform.a \
         -ldl \
@@ -75,29 +76,4 @@ TARGET = ../GostCrypt
 PRE_TARGETDEPS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
-    ../FuseDriver/libFuseDriver.a
-
-lupdate_hack{
-    SOURCES += qml/*.qml \
-        qml/*.js
-}
-TRANSLATIONS =  translations/gostcrypt_en.ts \
-                translations/gostcrypt_fr.ts \
-                translations/gostcrypt_es.ts \
-                translations/gostcrypt_it.ts \
-                translations/gostcrypt_ru.ts \
-                translations/gostcrypt_ar.ts
-
-translation {
-    SOURCES += UI/* \
-               UI/dialogs/* \
-               UI/frames/* \
-               UI/ressource/* \
-               UI/wizard/* \
-}
-
-DISTFILES += \
-    UI/ressource/separator.png \
-    UI/dialogs/GSLanguage.qml
-
-
+    ../NewFuseService/libNewFuseService.a

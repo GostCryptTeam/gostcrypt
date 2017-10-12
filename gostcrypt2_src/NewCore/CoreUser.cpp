@@ -1,6 +1,6 @@
 #include "CoreUser.h"
 #include <QThread>
-
+#include "Service.h"
 
 
 namespace GostCrypt {
@@ -28,7 +28,7 @@ namespace GostCrypt {
 		{
 		//TODO add other non-root requests
 			if(!processNonRootRequest(r))
-				csh.sendToCoreService(r);
+				csh.sendToService(r);
 		}
 
         //TODO : remove the QSTRING with a c++ password class

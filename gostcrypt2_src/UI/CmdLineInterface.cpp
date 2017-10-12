@@ -1,5 +1,6 @@
 #include "CmdLineInterface.h"
 #include "NewCore/CoreException.h"
+#include "NewFuseService/FuseException.h"
 #include "NewCore/CoreResponse.h"
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
@@ -56,7 +57,7 @@ int CmdLineInterface::start(int argc, char **argv)
     } catch(Parser::ParseException &e) {
         qDebug().noquote() << e.getMessage();
         return -1;
-    } catch(GostCrypt::NewCore::CoreException &e) {
+    } catch(GostCrypt::NewCore::GostCryptException &e) {
         qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
@@ -204,7 +205,7 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::NewCore::CoreException &e) {
+    } catch(GostCrypt::NewCore::GostCryptException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
         emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here
@@ -245,7 +246,7 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
         qStdOut() << "Invalid response received." << endl;
     for(QSharedPointer<GostCrypt::NewCore::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath->absoluteFilePath() << "\t";
-        qStdOut() << v->mountPoint->absoluteFilePath() << "\t";
+        qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;
     }
