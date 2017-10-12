@@ -9,6 +9,7 @@ Rectangle{
     color: palette.border
     anchors.bottomMargin: 1
 
+
     Rectangle {
             anchors.top: titlebar.bottom
             height: 1
@@ -52,7 +53,6 @@ Rectangle{
             }
         }
     }
-
 
     Rectangle{
         id:appclose
@@ -98,5 +98,101 @@ Rectangle{
             onExited: appminimize.color=palette.border
             onClicked: app.visibility = Window.Minimized
         }
+    }
+
+    Rectangle {
+        property bool checked: false
+        id: notifications
+        y:0
+        height: height_
+        width: height_
+        anchors.right: appminimize.left
+        x: 20
+        color: palette.border
+
+        Image {
+            id: notifications_image
+            anchors.centerIn: parent
+            fillMode: Image.PreserveAspectFit
+            source: "ressource/notification.png"
+            height: 20
+            width: 20
+        }
+
+        Rectangle {
+            id: unread_notifs
+            //visible: false
+            width: 10
+            height: 10
+            color: palette.green
+            radius: 10
+            x:20
+            y:25
+            border.width: 1
+            border.color: "#1a1a1a"
+        }
+
+        MouseArea {
+            id: area
+            width: parent.width
+            height: parent.height
+            hoverEnabled: true
+        }
+
+        states: [
+            State {
+                name: "hover"
+                when: area.containsMouse && !area.pressed
+                PropertyChanges {
+                    target: notifications
+                    color : {
+                        notifications.color=palette.green
+                    }
+                }
+            },
+            State {
+                name: "pressed"
+                when: area.pressed
+                PropertyChanges {
+                    target: notifications
+                    color : {
+                        title.changeNotif(!notifications.checked)
+                    }
+                }
+            },
+            State {
+                name: "exit"
+                when: !area.containsMouse
+                PropertyChanges {
+                    target: notifications
+                    color : {
+                        if(notifications.checked)
+                            notifications.color=palette.green
+                        else
+                            notifications.color=palette.border
+                    }
+                }
+            }
+        ]
+
+        transitions: Transition {
+            ColorAnimation { duration:app.duration/2 }
+        }
+
+    }
+
+    function changeNotif(bool) {
+        if(!notifications.checked) {
+            notifications.color=palette.green
+            notifs.opacity = 1.0
+            notifs.printNotification();
+            notifs.drawNotification();
+        }
+        else {
+           notifications.color=palette.border
+           notifs.opacity = 0.0
+        }
+        notifications.checked = bool
+        bk_notifs.enabled = false
     }
 }

@@ -45,7 +45,6 @@ int GraphicInterface::start()
     ctx->setContextProperty("ConnectSignals", this);
     ctx->setContextProperty("UserSettings", &mSettings);
     ctx->setContextProperty("DragWindowProvider", &mDrag);
-    //ctx->setContextProperty("Wizard", &mWizard);
     ctx->setContextProperty("Translation", (QObject*)&mTranslation);
     qmlRegisterType<SecureTextField>("gostcrypt.ui.secureInput", 1, 0, "SecureTextField");
 

@@ -65,6 +65,11 @@ Item {
                 i++;
             }
         }
+
+        onSPercentChanged:
+        {
+            notifs.updateNotification(id, percent);
+        }
     }
 
     function manageModel(volumes)

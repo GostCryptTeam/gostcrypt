@@ -41,7 +41,6 @@ Item {
                 hoverEnabled: true
                 onClicked: {
                     //change language here
-                    console.log("Setting language as : "+name+ " ("+code+")")
                     Translation.setLanguage(code)
                     catchClose() //closing the subwindow
                 }
@@ -109,7 +108,6 @@ Item {
     function getLanguageList() {
         var list = Translation.getAvaibleLanguages()
         for(var i = 0; i<list.length; i+=2) {
-            console.log("name is : " + list[i])
             modelLanguage.append({"name": list[i], "code": list[i+1]})
         }
     }

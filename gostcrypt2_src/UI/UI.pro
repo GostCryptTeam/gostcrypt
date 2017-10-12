@@ -59,7 +59,8 @@ SOURCES += \
     TranslationApp.cpp \
     Parser.cpp \
     CmdLineInterface.cpp \
-    GraphicInterface.cpp
+    GraphicInterface.cpp \
+    SecureTextField.cpp
 
 LIBS += \
         ../NewCore/libNewCore.a \
@@ -77,3 +78,27 @@ PRE_TARGETDEPS += ../NewCore/libNewCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
     ../NewFuseService/libNewFuseService.a
+
+lupdate_hack{
+    SOURCES += qml/*.qml \
+        qml/*.js
+}
+TRANSLATIONS =  translations/gostcrypt_en.ts \
+                translations/gostcrypt_fr.ts \
+                translations/gostcrypt_es.ts \
+                translations/gostcrypt_it.ts \
+                translations/gostcrypt_ru.ts \
+                translations/gostcrypt_ar.ts
+
+translation {
+    SOURCES += UI/* \
+               UI/dialogs/* \
+               UI/frames/* \
+               UI/ressource/* \
+               UI/wizard/* \
+}
+
+DISTFILES += \
+    UI/ressource/separator.png \
+    UI/dialogs/GSLanguage.qml \
+    UI/SecureTextField.qml

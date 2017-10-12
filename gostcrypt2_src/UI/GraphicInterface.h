@@ -6,7 +6,6 @@
 #include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QGuiApplication>
 #include "NewCore/CoreRequest.h"
 #include "NewCore/CoreBase.h"
 #include "DragWindowProvider.h"
@@ -115,7 +114,6 @@ private:
     UserSettings mSettings;
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
-    //VolumeCreation mWizard;
 
     struct FirstGI {
         enum Enum GI_ALL_COMMANDS(GI_ENUM);

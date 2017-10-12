@@ -189,7 +189,6 @@ Component {
                             anchors.fill: volumeFavorite
                             hoverEnabled: true
                             onClicked: {
-                                console.log("Volume favorite");
                                 if(Favorite === false)
                                 {
                                     UserSettings.setFavoritesVolumes(Path_)
@@ -265,7 +264,6 @@ Component {
                             anchors.fill: volumeProperties
                             hoverEnabled: true
                             onClicked: {
-                                console.log("Volume properties");
                             }
                             onEntered: {
                                 cursorShape = Qt.PointingHandCursor
@@ -326,7 +324,6 @@ Component {
                             anchors.fill: volumeTools_
                             hoverEnabled: true
                             onClicked: {
-                                console.log("Volume tools");
                                 //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
                                 volumeToolsMenu.opacity = (volumeToolsMenu.opacity == 0.0) ? 1.0 : 0.0
                                 if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true

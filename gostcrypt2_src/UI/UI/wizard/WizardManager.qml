@@ -48,8 +48,9 @@ Item {
 
     Rectangle {
         color: palette.darkThird
-        width: parent.width
+        width: parent.width-2
         height: 20
+        x: 1
 
         ProgressBar {
             id: bar
@@ -484,10 +485,8 @@ Item {
             {
                 switch(content.item.type) {
                 case 0:
-                    console.log(volumeInfos);
                     createVolume(0);
                     content.source = "PageEnd.qml"
-                    //changeSubWindowTitle("V")
                     back_.visible = false
                     next_.visible = false
                     help_.visible = false
@@ -585,7 +584,6 @@ Item {
         switch(type)
         {
         case 0: //normal without hidden
-            console.log(volumeInfos.VOLUME_PATH + "; " + volumeInfos.VOLUME_SIZE + "; " + volumeInfos.ALGORITHM_HASH_NAMES[0] + "; " + volumeInfos.FORMAT_INFOS[0] + "; " + volumeInfos.VOLUME_NEW_PASSWORD[0]);
             qmlRequest("createvolume", {
                            "type": 1,
                            "path": volumeInfos.VOLUME_PATH,

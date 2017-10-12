@@ -26,7 +26,6 @@
         <file>UI/ressource/lock.gif</file>
         <file>UI/ressource/logo_gostcrypt.png</file>
         <file>UI/ressource/logoMenu.png</file>
-        <file>UI/OpenVolume.js</file>
         <file>UI/GSButtonBordered.qml</file>
         <file>UI/ressource/menu_favorite.png</file>
         <file>UI/ressource/menu_help.png</file>
@@ -70,5 +69,10 @@
         <file>UI/ressource/volumeTools.png</file>
         <file>UI/ressource/volumeToolsHover.png</file>
         <file>UI/dialogs/GSLanguage.qml</file>
+        <file>UI/SecureTextField.qml</file>
+        <file>UI/ressource/notification.png</file>
+        <file>UI/NotificationBox.qml</file>
+        <file>UI/ressource/triangle_notif.png</file>
+        <file>UI/CircleLoadingBar.qml</file>
     </qresource>
 </RCC>

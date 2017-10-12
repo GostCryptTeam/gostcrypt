@@ -68,7 +68,7 @@ Item {
             }
         }
 
-        UI.GSCheckBox {
+        /*UI.GSCheckBox {
             id: system
             text_: qsTr("Encrypt the system partition or entire system drive")
             checked: false
@@ -99,7 +99,7 @@ Item {
                     cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
                 }
             }
-        }
+        }*/
     }
 
     function setType(value)

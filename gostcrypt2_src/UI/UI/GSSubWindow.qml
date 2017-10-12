@@ -173,11 +173,11 @@ Item {
         var component = Qt.createComponent(w);
         var parent = scrollArea;
         if (component.status == QML.Component.Ready) {
-            console.log("Chargement de la forme " + w);
+            console.log("[DEBUG] : Loading component " + w);
             loader.setSource(w);
         }else if (component.status == Component.Error) {
             // Error Handling
-            console.log("Error loading component:", component.errorString());
+            console.log("[DEBUG] : Error loading component:", component.errorString());
         }
     }
 

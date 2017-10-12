@@ -1,33 +1,18 @@
 #ifndef SECURETEXTFIELD_H
 #define SECURETEXTFIELD_H
-#include <QQuickItem>
+#include <QApplication>
+#include <QSharedPointer>
 
-class SecureTextField : public QQuickItem
+class SecureTextField : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
 public:
-    SecureTextField() {
+    SecureTextField(QObject *parent = 0) { (void)parent; }
 
-    }
-    ~SecureTextField() {
-
-    }
-
-    void setPassword(const QString aPwd) {
-        mPwd = QByteArray::fromStdString(aPwd.toStdString());
-    }
-
-    QString password()
-    {
-        return QString(mPwd).fill(QChar('*'));
-    }
-
-signals:
-    void passwordChanged();
+    //Q_INVOKABLE void addCharacter(const QString* aCharacter);
 
 private:
-    QByteArray mPwd;
+    QSharedPointer<QByteArray> m_password;
 };
 
 #endif // SECURETEXTFIELD_H
