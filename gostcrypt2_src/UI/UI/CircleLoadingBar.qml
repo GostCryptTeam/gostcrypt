@@ -12,6 +12,7 @@ Item {
     property real percent: 0 //percent
     property real lineWidth: 5
     property color colorLine: palette.blue
+    property color colorBackground: palette.darkInput
     property string title: ""
 
     //Animation
@@ -43,6 +44,13 @@ Item {
             var x = width/2, y = height/2;
             var start = 0, end = Math.PI * (parent.percent/50);
             ctx.reset();
+            //background
+            ctx.beginPath();
+            ctx.arc(x, y, x - parent.lineWidth / 2, 0, Math.PI * 2, false)
+            ctx.lineWidth = root.lineWidth
+            ctx.strokeStyle = root.colorBackground
+            ctx.stroke()
+            //bar
             ctx.beginPath();
             ctx.arc(x,y, x - parent.lineWidth/2, start, end, false);
             ctx.lineWidth = root.lineWidth;

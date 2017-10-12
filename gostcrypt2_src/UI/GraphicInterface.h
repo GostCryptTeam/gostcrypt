@@ -6,7 +6,6 @@
 #include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QGuiApplication>
 #include "NewCore/CoreRequest.h"
 #include "NewCore/CoreBase.h"
 #include "DragWindowProvider.h"

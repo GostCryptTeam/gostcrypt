@@ -18,11 +18,11 @@ Item {
         {
            notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
         }
-        for(var i=0;i<2;i++) addNotification(i, "test"+i, Math.floor(Math.random()*100));
+        for(var i=0;i<2;i++) addNotification(i, "test"+i, Math.floor(Math.random()*100), "kquheka h hd dqf ghu hfkzhf kzhef zh feoijfi efho z");
     }
 
-    function addNotification(id, name, percent) {
-        notifications.push([id,name,percent]);
+    function addNotification(id, name, percent,desc) {
+        notifications.push([id,name,percent,desc]);
     }
 
 
@@ -33,11 +33,13 @@ Item {
 
         for(var notif in notifications)
         {
-            listOfNotifications.append(
+            listOfNotifications.insert(
+                        0,
                         {
                             Notif_id: Number(notifications[notif][0]),
                             Notif_name: String(notifications[notif][1]),
-                            Notif_percent: String(notifications[notif][2])
+                            Notif_percent: String(notifications[notif][2]),
+                            Notif_desc: String(notifications[notif][3])
                         });
         }
     }
@@ -97,12 +99,22 @@ Item {
                     color: "transparent"
                     width: 248
 
+                    Text {
+                        text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
+                        wrapMode: Text.WordWrap
+                        width: parent.width - 50
+                        leftPadding: 10
+                        rightPadding: 20
+                        x: 60
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: palette.text                    }
+
                     CircleLoadingBar {
                         id: circle
                         anchors.verticalCenter: parent.verticalCenter
                         x: 10
                         size: 50
-                        colorLine: palette.green
+                        //colorLine: palette.green
                         percent: Notif_percent
                         title: Notif_name
                     }
