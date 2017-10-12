@@ -115,7 +115,6 @@ private:
     UserSettings mSettings;
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
-    //VolumeCreation mWizard;
 
     struct FirstGI {
         enum Enum GI_ALL_COMMANDS(GI_ENUM);

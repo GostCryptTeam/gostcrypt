@@ -9,6 +9,7 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
+import QtGraphicalEffects 1.0
 import "LoadVolume.js" as LoadVolume
 import "./frames" as GSFrame
 
@@ -145,6 +146,11 @@ Window {
     */
     property variant model
 
+    /*!
+      \property is_notification_unread
+      \brief Indicate if there are some notification(s) unreaded
+    */
+    property bool is_notification_unread: false
 
     signal qmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
@@ -209,12 +215,8 @@ Window {
         \brief Receive all the mounted volumes after
         the window is successfully loaded
      */
-    Component.onCompleted: {
-       // app.signalQML({"content": "getAllMountedVolumes"})
-       // console.log("TODO: get all mounted volumes")//ConnectSignals.getAllMountedVolumes()
-    }
 
-    //TODO : add all the signals QML->C++ here
+
     /*!
         \class SignalManager
         \brief Manages the received signals
@@ -222,7 +224,6 @@ Window {
     SignalManager {
         id: signalManager
     }
-
 
 
     /*************************************
@@ -320,6 +321,7 @@ Window {
 
 
     TitleBar  {
+        id: title
         x:0
         y:0
         height:40
@@ -367,6 +369,29 @@ Window {
         contentError: qsTr("Description du message d'erreur.\n Le message spécifique s'affichera donc ici.")
     }
 
+    /*************************************
+     *************  Notifs ***************
+     *************************************/
+
+    MouseArea {
+        id: bk_notifs
+        x:0
+        y:40
+        width: app.width
+        height: app.height - 40
+        enabled: false
+        onClicked: {
+            bk_notifs.enabled = false
+            title.changeNotif(false)
+        }
+    }
+
+    NotificationBox {
+        id: notifs
+        x: app.width - 290
+        y: 35
+        opacity: 0
+    }
 
 
     /*************************************
@@ -409,20 +434,19 @@ Window {
             subWindow.isOpen = true
             subWindow.w = path
             subWindow.name = name
-            subWindow.title = title
             subWindow.parameter = parameter
             subWindow.loadForm()
             subWindow.changeSubWindowHeight(height);
+            subWindow.changeSubWindowTitle(title);
         }
         else
         {
             subWindow.w = path
-            subWindow.title = title
             subWindow.name = name
             subWindow.parameter = parameter
             subWindow.loadForm()
             subWindow.changeSubWindowHeight(height);
-            console.log("Taille changée en "+height+"px !")
+            subWindow.changeSubWindowTitle(title);
         }
     }
 
@@ -449,10 +473,8 @@ Window {
     }
 
     function toggleSudo(choice) {
-        console.log("choice ==" + choice);
         if(choice === true || choice === 1)
         {
-            console.log("[QML] : sudo password asked")
             sudo_.opacity = 1.0
             sudo_.isVisible = true
             sudo_.visible = true

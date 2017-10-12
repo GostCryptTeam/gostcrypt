@@ -64,14 +64,12 @@ Item {
                 return true
         }
         onAccepted: {
-            console.log("Your chose: " + fileDialog.fileUrl)
             if(historique.pressed === false)
                 UserSettings.addVolumePath(fileDialog.fileUrl)
             combo.model = UserSettings.getVolumePaths(0)
             path = fileDialog.fileUrl
         }
         onRejected: {
-            console.log("Canceled")
         }
     }
 

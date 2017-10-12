@@ -1,5 +1,4 @@
 import QtQuick 2.7
-import QtQuick.Controls 1.2 as ControlsOld
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
@@ -43,10 +42,6 @@ Item {
         id: item
         height: 170
         anchors.centerIn: parent
-
-        SecureTextField {
-            id: securePwd
-        }
 
         Text {
             id: textTop
@@ -112,13 +107,13 @@ Item {
                 color_: palette.green
             }
 
-            UI.GSButtonBordered {
+            /*UI.GSButtonBordered {
                 id: buttonTools
                 height: combo.height
                 text: qsTr("Volume Tools")
                 width: 120
                 color_: palette.green
-            }
+            }*/
 
             UI.GSButtonBordered {
                 id: buttonDevide
@@ -147,7 +142,6 @@ Item {
                 combo.model = UserSettings.getVolumePaths(0)
             }
             onRejected: {
-                console.log("Canceled")
             }
         }
         Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
@@ -172,27 +166,13 @@ Item {
             color: '#719c24'
         }
 
-        ControlsOld.TextField {
+        UI.SecureTextField {
             id: password_value
             y: password_txt.y + password_txt.height + 10
             anchors.horizontalCenter: parent.horizontalCenter
             width: combo.width
             horizontalAlignment: TextInput.AlignHCenter
-            echoMode: TextInput.Password
             height: combo.height
-            focus: true
-            style: TextFieldStyle {
-                textColor: "#e1e1e1"
-                background: Rectangle {
-                    id: password_value_style
-                    radius: 5
-                    implicitWidth: 100
-                    implicitHeight: 24
-                    border.color: "#333"
-                    border.width: 1
-                    color: palette.darkInput
-                }
-            }
         }
 
         UI.GSCheckBox {

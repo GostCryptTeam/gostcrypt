@@ -405,9 +405,7 @@ Item {
                                 toggleMenu();
                             }
                             else qmlRequest("openmountpoint", {"path": mountPoint});
-                            console.log(mountPoint);
-
-                        }
+                         }
 
                         MouseArea {
                             id:unFavButtonArea

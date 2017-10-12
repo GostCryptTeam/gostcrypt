@@ -189,9 +189,6 @@ Item {
             ScrollBar.vertical: ScrollBar { snapMode: ScrollBar.SnapOnRelease }
             snapMode: GridView.SnapToRow
             clip: true
-            onCurrentIndexChanged: {
-                console.log("Item select = " + currentIndex);
-            }
         }
         Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
 
@@ -381,8 +378,7 @@ Item {
                 onLinkActivated: {
                     if(link == "1")
                     {
-                        //TODO : right method
-                        ConnectSignals.debug_connectReceiveCreate()
+                        openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
                     }else{
                         openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
                     }
@@ -409,7 +405,6 @@ Item {
         onDropped: {
             if (drop.hasText) {
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
-                    console.log(drop.text)
                     openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : drop.text.trim()})
                     drop.acceptProposedAction()
                 }
@@ -418,11 +413,8 @@ Item {
     }
 
     function loadVolume(MountPoint, EncryptionAlgorithmName, Path, Size) {
-        console.log("Ajout du volume");
         if(helpStart !== undefined && helpStart.visible == true)
-        {
             helpStart.visible = false
-        }
         var isFavorite = UserSettings.isFavorite(Path);
         listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
     }

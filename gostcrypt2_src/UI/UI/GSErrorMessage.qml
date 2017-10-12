@@ -28,7 +28,6 @@ Item {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            console.log("Clic catch");
         }
     }
 

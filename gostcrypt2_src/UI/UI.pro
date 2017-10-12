@@ -58,7 +58,8 @@ SOURCES += main.cpp \
     TranslationApp.cpp \
     Parser.cpp \
     CmdLineInterface.cpp \
-    GraphicInterface.cpp
+    GraphicInterface.cpp \
+    SecureTextField.cpp
 
 LIBS += \
         ../NewCore/libNewCore.a \
@@ -98,6 +99,7 @@ translation {
 
 DISTFILES += \
     UI/ressource/separator.png \
-    UI/dialogs/GSLanguage.qml
+    UI/dialogs/GSLanguage.qml \
+    UI/SecureTextField.qml
 
 
