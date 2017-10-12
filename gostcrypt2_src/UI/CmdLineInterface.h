@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "Parser.h"
 #include "NewCore/CoreRequest.h"
+#include "NewCore/CoreResponse.h"
 #include "NewCore/CoreBase.h"
 
 #define MK_ENUM(name) name // TODO move to external file ?
@@ -60,6 +61,7 @@ private slots:
     DEC_PRINT_SLOT(GetHostDevices);
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
+    DEC_PRINT_SLOT(ProgressUpdate);
     void askSudoPassword();
 
 private:

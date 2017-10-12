@@ -21,6 +21,8 @@ namespace GostCrypt {
             INIT_SERIALIZE(HostDevice);
             INIT_SERIALIZE(MountedFilesystem);
             INIT_SERIALIZE(VolumeInformation);
+            INIT_SERIALIZE(ProgressUpdateResponse);
+
 		}
 
         DEF_SERIALIZABLE(CoreResponse)
@@ -157,6 +159,20 @@ namespace GostCrypt {
             in >> static_cast<CoreResponse&>(Valeur);
             in >> Valeur.algorithms;
             return in;
+        }
+
+        DEF_SERIALIZABLE(ProgressUpdateResponse)
+        QDataStream & operator << (QDataStream & out, const ProgressUpdateResponse& Valeur) {
+          out << static_cast<const CoreResponse&>(Valeur);
+          out << Valeur.progress;
+          out << Valeur.requestId;
+          return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ProgressUpdateResponse & Valeur) {
+          in >> static_cast<CoreResponse&>(Valeur);
+          in >> Valeur.progress;
+          in >> Valeur.requestId;
+          return in;
         }
 
         DEF_SERIALIZABLE(HostDevice)

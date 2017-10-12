@@ -18,14 +18,15 @@ namespace GostCrypt {
             INIT_SERIALIZE(GetEncryptionAlgorithmsRequest);
             INIT_SERIALIZE(GetDerivationFunctionsRequest);
             INIT_SERIALIZE(ExitRequest);
+            INIT_SERIALIZE(ProgressTrackingParameters);
 		}
 
         QDataStream & operator<< (QDataStream & out, const CoreRequest & Valeur) {
-           (void)Valeur;
-           return out;
+            out << Valeur.id;
+            return out;
         }
         QDataStream & operator>> (QDataStream & in, CoreRequest & Valeur) {
-            (void)Valeur;
+            in >> Valeur.id;
             return in;
         }
         DEF_SERIALIZABLE(CoreRequest)
@@ -213,6 +214,21 @@ namespace GostCrypt {
             return in;
         }
         DEF_SERIALIZABLE(ExitRequest)
+
+        QDataStream & operator << (QDataStream & out, const ProgressTrackingParameters & Valeur) {
+            out << Valeur.requestId;
+            out << Valeur.start;
+            out << Valeur.end;
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ProgressTrackingParameters & Valeur){
+            in >> Valeur.requestId;
+            in >> Valeur.start;
+            in >> Valeur.end;
+            return in;
+        }
+        DEF_SERIALIZABLE(ProgressTrackingParameters)
+
 
         MountVolumeRequest::MountVolumeRequest()
         {
