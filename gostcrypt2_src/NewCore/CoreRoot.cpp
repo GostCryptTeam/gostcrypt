@@ -1,4 +1,5 @@
 #include <QDir>
+#include <QTime>
 #include "CoreRoot.h"
 #include "FuseDriver/FuseService.h"
 #include "LoopDeviceManager.h"
@@ -60,7 +61,12 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
     uid_t mountedForUserId;
     gid_t mountedForGroupId;
 
-    UPDATE_PROGRESS(0);
+    //#define TRACKING
+    #ifdef TRACKING
+    START_TRACK
+    #endif
+
+
     if (!params)
     {
         throw MissingParamException("params");
@@ -133,7 +139,6 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
                                                       keyfile->absoluteFilePath().toStdWString()))));
                 }
             }
-
             volume->Open(
                 path,
                 params->preserveTimestamps,
@@ -172,8 +177,12 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
             params->protectionPassword->fill('\0');
         }
         break;
-    }
-    while (0);
+    } while (0);
+    #ifdef TRACKING
+	TRACK
+	#endif
+    UPDATE_PROGRESS(0.293814433);
+
 
     try
     {
@@ -208,13 +217,17 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
             QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
             throw;
         }
+
     }
     catch (...)
     {
         volume->Close();
         throw;
     }
-
+	UPDATE_PROGRESS(0.806701031);
+    #ifdef TRACKING
+	TRACK
+	#endif
     bool mountDirCreated = false;
     try
     {
@@ -236,6 +249,10 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
             LoopDeviceManager::detachLoopDevice(virtualDevice);
             throw;
         }
+		UPDATE_PROGRESS(0.961340206);
+		#ifdef TRACKING
+		TRACK
+		#endif
 
         if (params->doMount)
         {
@@ -257,6 +274,10 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
                                                     params->protection == VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId,
                                                     params->fileSystemOptions);
         }
+		UPDATE_PROGRESS(0.974226804);
+		#ifdef TRACKING
+		TRACK
+		#endif
     }
     catch (...)
     {
@@ -277,7 +298,13 @@ QSharedPointer<MountVolumeResponse> CoreRoot::mountVolume(QSharedPointer<MountVo
     getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams, false);
     response->volumeInfo = getMountedVolumesResponse->volumeInfoList.first();
 
-    if (emitResponse)
+	UPDATE_PROGRESS(1.0);
+	#ifdef TRACKING
+	FINISH_TRACK
+	#undef TRACKING
+	#endif
+
+	if (emitResponse)
     {
         emit sendMountVolume(response);
     }
