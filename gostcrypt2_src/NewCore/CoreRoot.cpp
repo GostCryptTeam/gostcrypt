@@ -65,17 +65,6 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     START_TRACK
     #endif
 
-
-    if (!params)
-    {
-        throw MissingParamException("params");
-    }
-
-    if (isVolumeMounted(params->path))
-    {
-        throw VolumeAlreadyMountedException(params->path);
-    }
-
     if (params->mountedForUser.isEmpty())
     {
         mountedForUserId = realUserId;

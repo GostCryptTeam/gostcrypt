@@ -21,6 +21,7 @@ void initCoreResponse()
     INIT_SERIALIZE(HostDevice);
     INIT_SERIALIZE(MountedFilesystem);
     INIT_SERIALIZE(VolumeInformation);
+    INIT_SERIALIZE(ProgressUpdateResponse);
 }
 
 DEF_SERIALIZABLE(CoreResponse)

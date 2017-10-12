@@ -4,6 +4,7 @@ FuseDriver/
 GostCrypt
 Makefile
 NewCore/
+NewFuseService/
 Platform/
 UI/
 Volume/

@@ -199,6 +199,7 @@ namespace GostCrypt {
 			DEC_REQUEST_SIGNAL(GetMountedVolumes);
 			DEC_REQUEST_SIGNAL(CreateKeyFile);
             DEC_REQUEST_SIGNAL(ProgressUpdate);
+
 			/**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)
 			 *
