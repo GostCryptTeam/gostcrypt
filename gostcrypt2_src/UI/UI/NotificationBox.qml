@@ -53,6 +53,13 @@ Item {
         notifications.push([id,name,percent,desc]);
     }
 
+
+    MouseArea {
+        id: no_hover
+        anchors.fill: parent
+        hoverEnabled: true
+    }
+
     Rectangle {
         id: form
         y: 11
