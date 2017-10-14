@@ -231,6 +231,11 @@ void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::New
     emit sPrintDerivationFunctions(QVariantList()); //TODO
 }
 
+void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r)
+{
+    emit sPrintProgressUpdate(QVariant(r));
+}
+
 void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response)
 {
     QVariantList list;
@@ -307,6 +312,7 @@ void GraphicInterface::connectSignals()
     CONNECT_QML_SIGNAL(GetHostDevices);
     CONNECT_QML_SIGNAL(CreateKeyFile);
     CONNECT_QML_SIGNAL(ChangeVolumePassword);
+    CONNECT_QML_SIGNAL(ProgressUpdate);
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));

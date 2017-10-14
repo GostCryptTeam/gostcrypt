@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.8
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.2
 
@@ -6,25 +6,21 @@ Item {
     id: top
     width: 250
     height:292
-    property int nb_notification: 0
+
     property var notifications: []
-    property int a: 5
 
     function printNotification() {
-        if(nb_notification > 1)
-        {
-            notif_title.text = nb_notification + " " + qsTr("NOTIFICATIONS") + Translation.tr;
-        }else
-        {
+        if(notifications.length > 0)
+            notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
+        else
            notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
-        }
-        for(var i=0;i<2;i++) addNotification(i, "test"+i, Math.floor(Math.random()*100), "kquheka h hd dqf ghu hfkzhf kzhef zh feoijfi efho z");
-    }
+        for(var i=0;i<2;i++)
+                notifs.updateNotification(i,
+                                   Math.floor(Math.random()*100),
+                                   "test"+i,
+                                   "kquheka h hd dqf ghu hfkzhf kzhef zh feoijfi efho z");
 
-    function addNotification(id, name, percent,desc) {
-        notifications.push([id,name,percent,desc]);
     }
-
 
     function drawNotification() {
         //Removing all the delegate items to clear the listOfNotifications
@@ -44,11 +40,17 @@ Item {
         }
     }
 
-    function updateNotification(id, percent)
+    function updateNotification(id,percent,name,desc)
     {
+        //Checking if the notification exists
         for(var i = 0; i < listOfNotifications.count; ++i)
-            if(listOfNotifications.get(i).Notif_id === id)
+            if(listOfNotifications.get(i).Notif_id === id) {
+                notifications[i][2] = percent
                 listOfNotifications.setProperty(i, "Notif_percent", percent)
+                return;
+            }
+        //if the notification doesn't exists, we have to add it to the list
+        notifications.push([id,name,percent,desc]);
     }
 
     Rectangle {
@@ -89,41 +91,104 @@ Item {
 
         Component {
             id: notification_delegate
-            Item {
+            SwipeDelegate {
+                id: delegate
                 property int id: Notif_id
                 width: 248; height: 70
-                Rectangle { //body
-                    id: body
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.fill: parent
-                    color: "transparent"
-                    width: 248
+                clip: true
+                background: Item {
+                    Rectangle { //body
+                        id: body
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.fill: parent
+                        color: palette.darkSecond
 
-                    Text {
-                        text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
-                        wrapMode: Text.WordWrap
-                        width: parent.width - 50
-                        leftPadding: 10
-                        rightPadding: 20
-                        x: 60
-                        anchors.verticalCenter: parent.verticalCenter
-                        color: palette.text                    }
+                        Text {
+                            text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
+                            wrapMode: Text.WordWrap
+                            width: parent.width - 50
+                            leftPadding: 10
+                            rightPadding: 20
+                            x: 60
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: palette.text                    }
 
-                    CircleLoadingBar {
-                        id: circle
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: 10
-                        size: 50
-                        //colorLine: palette.green
-                        percent: Notif_percent
-                        title: Notif_name
+                        CircleLoadingBar {
+                            id: circle
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: 10
+                            size: 50
+                            percent: Notif_percent
+                        }
+                    }
+                    Rectangle { //border
+                        height:1
+                        width: 248
+                        anchors.bottom: parent.bottom
+                        color: palette.border
+                    }
+                     SwipeDelegate.onClicked: console.log("Moving...")
+                }
+
+                enabled: Notif_percent == 100 ? true : false
+                swipe.right: removeComponent
+                swipe.onCompleted: {
+                    if(swipe.position === -1.0 && index !== -1) listOfNotifications.remove(index)
+                    for(var i = 0; i<notifications.length; i++)
+                        if (notifications[i][0] === delegate.id)
+                            notifications.splice(i, 1)
+                    printNotification();
+                }
+
+                Component {
+                    id: removeComponent
+                    Label {
+                        id: deleteLabel
+                        text: qsTr("Removing the notification...")
+                        color: "white"
+                        verticalAlignment: Label.AlignVCenter
+                        padding: 12
+                        height: parent.height
+                        width: parent.width
+                        anchors.right: parent.right
+
+                        background: Rectangle {
+                            color: palette.darkInput
+                        }
                     }
                 }
-                Rectangle { //border
-                    height:1
-                    width: 248
-                    anchors.bottom: parent.bottom
-                    color: palette.border
+
+                swipe.transition:
+                    Transition {
+                        SmoothedAnimation {
+                            velocity: 3;
+                            easing.type:
+                                Easing.InOutCubic
+                        }
+                    }
+
+                ListView.onRemove: SequentialAnimation {
+                    PropertyAction {
+                        target: delegate
+                        property: "ListView.delayRemove"
+                        value: true
+                    }
+                    NumberAnimation {
+                        target: delegate
+                        property: "height"
+                        to: 0
+                        easing.type: Easing.InOutQuad
+                        duration: {
+                            //Prevent graphical issue
+                            if(notifs.opacity !== 1.0) return 0
+                            else return app.duration/2
+                        }
+                    }
+                    PropertyAction {
+                        target: delegate;
+                        property: "ListView.delayRemove";
+                        value: false
+                    }
                 }
             }
         }
@@ -142,7 +207,6 @@ Item {
             }
             clip: true
         }
-
     }
 
     Rectangle {

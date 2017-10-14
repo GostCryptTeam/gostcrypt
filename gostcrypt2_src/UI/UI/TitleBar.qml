@@ -121,7 +121,7 @@ Rectangle{
 
         Rectangle {
             id: unread_notifs
-            //visible: false
+            visible: false
             width: 10
             height: 10
             color: palette.green
@@ -179,20 +179,30 @@ Rectangle{
             ColorAnimation { duration:app.duration/2 }
         }
 
+
+    }
+
+    function showIcon(bool)
+    {
+       unread_notifs.visible = bool;
     }
 
     function changeNotif(bool) {
-        if(!notifications.checked) {
-            notifications.color=palette.green
-            notifs.opacity = 1.0
+        if(bool) {
+            notifications.color=palette.green;
+            notifs.opacity = 1.0;
+            notifications.checked = true;
+            bk_notifs.enabled = true;
             notifs.printNotification();
             notifs.drawNotification();
+            showIcon(false);
         }
-        else {
-           notifications.color=palette.border
-           notifs.opacity = 0.0
-        }
-        notifications.checked = bool
-        bk_notifs.enabled = false
+        else
+        {
+           notifications.color=palette.border;
+           notifs.opacity = 0.0;
+           bk_notifs.enabled = false;
+           notifications.checked = false;
+        }       
     }
 }

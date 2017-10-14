@@ -28,9 +28,6 @@ Item {
         NumberAnimation {
             duration: app.duration
             easing.type: Easing.InOutCubic
-            onRunningChanged: {
-                console.log(percent)
-            }
         }
     }
 

@@ -122,7 +122,7 @@ Window {
         \property duration
         \brief Duration of animations
      */
-    property int duration: 1000
+    property int duration: 500
     /*!
         \property menuWidth
         \brief The width of the left-sided menu
@@ -146,16 +146,9 @@ Window {
     */
     property variant model
 
-    /*!
-      \property is_notification_unread
-      \brief Indicate if there are some notification(s) unreaded
-    */
-    property bool is_notification_unread: false
-
     signal qmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
     signal appQuit()
-
 
     /*************************************
      **********  Window content **********
@@ -381,8 +374,7 @@ Window {
         height: app.height - 40
         enabled: false
         onClicked: {
-            bk_notifs.enabled = false
-            title.changeNotif(false)
+            title.changeNotif();
         }
     }
 
@@ -391,6 +383,7 @@ Window {
         x: app.width - 290
         y: 35
         opacity: 0
+        visible: false
     }
 
 

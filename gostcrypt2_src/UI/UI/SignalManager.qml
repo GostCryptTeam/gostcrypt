@@ -66,9 +66,10 @@ Item {
             }
         }
 
-        onSPercentChanged:
+        onSPrintProgressUpdate:
         {
-            notifs.updateNotification(id, percent);
+            notifs.updateNotification(id,percent,title,name);
+            if(notifs.visible === false) title.showIcon(true);
         }
     }
 

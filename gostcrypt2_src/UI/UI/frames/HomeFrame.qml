@@ -98,11 +98,11 @@ Item {
 
 
     /*!
-    \qmlclass Row
-    \brief Contains the buttons "Auto Mount Device",
-    "Dismount All" and "Volume Tools".
-    These buttons are centered.
- */
+        \qmlclass Row
+        \brief Contains the buttons "Auto Mount Device",
+        "Dismount All" and "Volume Tools".
+        These buttons are centered.
+     */
     Row {
         id: rowBottom
         spacing: 30
@@ -110,9 +110,9 @@ Item {
         anchors.bottom: mainWindow.bottom;
         anchors.bottomMargin: 15
         /*!
-        \class GSButtonBordered
-        \brief Auto-mount a device.
-     */
+          \class GSButtonBordered
+          \brief Auto-mount a device.
+        */
         UI.GSButtonBordered {
             text: qsTr("Auto Mount Device") + Translation.tr
             width:200
@@ -123,9 +123,9 @@ Item {
             color_:palette.green
         }
         /*!
-        \class GSButtonBordered
-        \brief Dismount all the devices currently mounted
-     */
+          \class GSButtonBordered
+          \brief Dismount all the devices currently mounted
+        */
         UI.GSButtonBordered {
             text: qsTr("Dismount All") + Translation.tr
             color_:palette.blue

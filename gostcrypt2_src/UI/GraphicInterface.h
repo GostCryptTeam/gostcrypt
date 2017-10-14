@@ -83,6 +83,7 @@ private slots:
     DEC_PRINT_SLOT(GetHostDevices);
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
+    DEC_PRINT_SLOT(ProgressUpdate);
     void askSudoPassword();
     //void sendSudoStatus(); TODO
 
@@ -101,6 +102,7 @@ signals:
     void sPrintHostDevices(QVariantList hostDevices);
     void sPrintCreateKeyFile(QString keyfile);
     void sPrintChangeVolumePassword();
+    void sPrintProgressUpdate(QVariant infos);
 
     void getSudoPassword();
     void volumePasswordIncorrect();
