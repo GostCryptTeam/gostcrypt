@@ -10,6 +10,7 @@
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/Pkcs5Kdf.h"
+#include "Service.h"
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 #define HANDLE_REQUEST(requestName, fct) \

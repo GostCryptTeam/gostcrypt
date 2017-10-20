@@ -60,11 +60,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     uid_t mountedForUserId;
     gid_t mountedForGroupId;
 
-    //#define TRACKING
-    #ifdef TRACKING
-    START_TRACK
-    #endif
-
+    UPDATE_PROGRESS(0);
     if (params->mountedForUser.isEmpty())
     {
         mountedForUserId = realUserId;
@@ -82,25 +78,20 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     {
         mountedForGroupId = getGroupId(params->mountedForGroup);
     }
-
     bool mountDirCreated = false;
     try {
 
         QSharedPointer<QFileInfo> virtualDevice;
         QSharedPointer<QFileInfo> imageFile(new QFileInfo(params->fuseMountPoint->absoluteFilePath() + NewFuseDriver::getVolumeImagePath()));
         virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
-
+		UPDATE_PROGRESS(0.76);
         try {
             NewFuseDriver::sendAuxDeviceInfo(params->fuseMountPoint, virtualDevice);
         } catch(...) {
             LoopDeviceManager::detachLoopDevice(virtualDevice);
             throw;
         }
-		UPDATE_PROGRESS(0.961340206);
-		#ifdef TRACKING
-		TRACK
-		#endif
-
+        UPDATE_PROGRESS(0.78);
         if(params->doMount) {
             if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
                 params->mountPoint = getFreeDefaultMountPoint(mountedForUserId);
@@ -114,10 +105,6 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             }
             MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
         }
-		UPDATE_PROGRESS(0.974226804);
-		#ifdef TRACKING
-		TRACK
-		#endif
     }
     catch (...)
     {
@@ -132,7 +119,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
         throw;
     }
-
+	UPDATE_PROGRESS(0.91);
     QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
     QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
     getMountedVolumesParams->volumePath = params->path;
@@ -143,7 +130,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
         throw CoreException(); //TODO
     }
     response->volumeInfo = volumeInfoList.first();
-
+	UPDATE_PROGRESS(1);
     if(params->forVolumeCreation) {
         continueMountFormat(response);
         return;

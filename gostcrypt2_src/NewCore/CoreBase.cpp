@@ -27,6 +27,8 @@ namespace GostCrypt {
 			initCoreRequest();
 			initCoreResponse();
 			initCoreException();
+			INIT_SERIALIZE(ProgressUpdateResponse);
+
 
             if(getuid()) {
                 return QSharedPointer<CoreBase>(new CoreUser());

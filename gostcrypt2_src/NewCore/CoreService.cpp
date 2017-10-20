@@ -1,6 +1,7 @@
 #include "CoreService.h"
 #include "CoreResponse.h"
 #include "CoreRequest.h"
+#include "Service.h"
 #include <QFile>
 #include <QThread>
 
@@ -23,6 +24,7 @@ namespace GostCrypt {
 			CONNECT_RESPONSE_SLOT(GetHostDevices);
 			CONNECT_RESPONSE_SLOT(GetMountedVolumes);
 			CONNECT_RESPONSE_SLOT(CreateKeyFile);
+			CONNECT_RESPONSE_SLOT(ProgressUpdate);
 		}
 
 		void CoreService::initSerializables()
@@ -30,6 +32,8 @@ namespace GostCrypt {
 			initCoreRequest();
 			initCoreResponse();
 			initCoreException();
+			INIT_SERIALIZE(ProgressUpdateResponse);
+
 		}
 
 	}

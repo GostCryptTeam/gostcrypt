@@ -15,6 +15,8 @@
 
 namespace GostCrypt {
     namespace NewCore {
+
+		struct ProgressUpdateResponse;
 		class Service : public QObject
 		{
 			Q_OBJECT
@@ -35,6 +37,7 @@ namespace GostCrypt {
 		private slots:
 			void sendException(GostCryptException &e);
 			bool receiveRequest();
+			void sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response);
 		signals:
 			void request(QVariant request);
 			void askExit();
@@ -85,6 +88,14 @@ namespace GostCrypt {
             QString responseTypeName;
             DEC_SERIALIZABLE(UnknowResponse);
         };
+
+        struct ProgressUpdateResponse : CoreResponse {
+            ProgressUpdateResponse() {}
+            ProgressUpdateResponse(quint32 requestId, qreal progress) : requestId(requestId), progress(progress) {}
+            qint32 requestId;
+            qreal progress;
+            DEC_SERIALIZABLE(ProgressUpdateResponse);
+        };
 	}
 }
 
@@ -93,6 +104,8 @@ SERIALIZABLE(GostCrypt::NewCore::ExceptionResponse)
 SERIALIZABLE(GostCrypt::NewCore::ExitRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowRequest)
 SERIALIZABLE(GostCrypt::NewCore::UnknowResponse)
+SERIALIZABLE(GostCrypt::NewCore::ProgressUpdateResponse)
+
 
 
 #endif // SERVICE_H

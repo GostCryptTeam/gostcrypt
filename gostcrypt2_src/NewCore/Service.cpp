@@ -19,6 +19,8 @@ namespace GostCrypt {
             INIT_SERIALIZE(ExitRequest);
             INIT_SERIALIZE(UnknowRequest);
             INIT_SERIALIZE(UnknowResponse);
+            INIT_SERIALIZE(ProgressUpdateResponse);
+
 
 			initSerializables();
 
@@ -31,6 +33,7 @@ namespace GostCrypt {
 			// connecting signals
 			connect(&app, SIGNAL(sendException(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));
 			connect(this, SIGNAL(exit()), &app, SLOT(quit()));
+
 			connectRequestHandlingSignals();
 
 			// Service ready to handle requests, ending InitResponse
@@ -111,6 +114,11 @@ namespace GostCrypt {
 			sendResponse(QVariant::fromValue(r));
 		}
 
+		void Service::sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response)
+		{
+			sendResponse(QVariant::fromValue(response));
+		}
+
 		bool ServiceApplication::notify(QObject *receiver, QEvent *event)
 		{
 			bool done = true;
@@ -179,6 +187,20 @@ namespace GostCrypt {
             in >> static_cast<GostCryptException&>(Valeur);
             in >> Valeur.responseTypeName;
             return in;
+        }
+
+        DEF_SERIALIZABLE(ProgressUpdateResponse)
+        QDataStream & operator << (QDataStream & out, const ProgressUpdateResponse& Valeur) {
+          out << static_cast<const CoreResponse&>(Valeur);
+          out << Valeur.progress;
+          out << Valeur.requestId;
+          return out;
+        }
+        QDataStream & operator >> (QDataStream & in, ProgressUpdateResponse & Valeur) {
+          in >> static_cast<CoreResponse&>(Valeur);
+          in >> Valeur.progress;
+          in >> Valeur.requestId;
+          return in;
         }
 
 	}

@@ -43,9 +43,8 @@ namespace GostCrypt {
 			else HANDLE_RESPONSE(DismountVolume)
 			else HANDLE_RESPONSE(CreateVolume)
 			else HANDLE_RESPONSE(ChangeVolumePassword)
-			else {
-				throw UnknowResponseException(r.typeName());
-			}
+			else HANDLE_RESPONSE(ProgressUpdate)
+			else throw UnknowResponseException(r.typeName());
 		}
 	}
 }
