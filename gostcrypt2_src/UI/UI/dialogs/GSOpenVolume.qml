@@ -21,7 +21,7 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length != 0)
             {
-                qmlRequest("mount", {"path": volumePath, "password": password_value.text});
+                qmlRequest("mount", {"path": volumePath, "password": password_value.text, "name": qsTr("Mount volume"), "desc": volumePath});
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = "" //TODO: stock password in C++

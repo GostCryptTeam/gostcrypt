@@ -14,12 +14,6 @@ Item {
             notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
         else
            notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
-        for(var i=0;i<2;i++)
-                notifs.updateNotification(i,
-                                   Math.floor(Math.random()*100),
-                                   "test"+i,
-                                   "kquheka h hd dqf ghu hfkzhf kzhef zh feoijfi efho z");
-
     }
 
     function drawNotification() {
@@ -42,6 +36,7 @@ Item {
 
     function updateNotification(id,percent,name,desc)
     {
+
         //Checking if the notification exists
         for(var i = 0; i < listOfNotifications.count; ++i)
             if(listOfNotifications.get(i).Notif_id === id) {
