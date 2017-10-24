@@ -79,11 +79,25 @@ void CmdLineInterface::processRequest(){
     const QStringList args = parser.positionalArguments();
     const QString command = args.isEmpty() ? QString() : args.first();
 
-    if(args.length() == 0 && parser.isSet("help"))
+    if(args.length() == 0) { // nothing to do. Probably launched with --help
+        parser.setApplicationDescription("This is the command line interface for the GostCrypt library.\n\
+\n\
+Commands:\n\
+  mount         \tMounts a volume.\n\
+  create        \tCreates a volume.\n\
+  umount        \tUnmounts a volume.\n\
+  test          \tTest the algrithms.\n\
+  dismountall   \tUnmounts all mounted volumes.\n\
+  automount     \tTries to auto-mounts the connected drives.\n\
+  backupheaders \tExports the header of a volume to make a backup.\n\
+  createkeyfiles\tCreates a random file that can be used as a key.\n\
+  list          \tLists the volumes, derivation functions of algorithms that can be used.\n\
+");
         parser.showHelp();
+    }
 
-    if(args.length() == 0) // nothing to do. Probably launched with --help
-        return;
+    /*if(args.length() == 0)
+        return;*/
 
     parser.clearPositionalArguments();
 
