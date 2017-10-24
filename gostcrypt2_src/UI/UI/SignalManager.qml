@@ -31,6 +31,7 @@ Item {
         }
 
         onSPrintMountVolume: {
+            console.log("volume monté text");
             qmlRequest("mountedvolumes", "")
         }
 
@@ -68,7 +69,7 @@ Item {
 
         onSPrintProgressUpdate:
         {
-            notifs.updateNotification(id,percent,title,name);
+            notifs.updateNotification(id,progress*100,notifications[id][0],notifications[id][1]);
             if(notifs.visible === false) title.showIcon(true);
         }
     }

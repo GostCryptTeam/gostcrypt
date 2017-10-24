@@ -102,7 +102,7 @@ signals:
     void sPrintHostDevices(QVariantList hostDevices);
     void sPrintCreateKeyFile(QString keyfile);
     void sPrintChangeVolumePassword();
-    void sPrintProgressUpdate(QVariant infos);
+    void sPrintProgressUpdate(qint32 id, qreal progress);
 
     void getSudoPassword();
     void volumePasswordIncorrect();

@@ -122,7 +122,7 @@ Window {
         \property duration
         \brief Duration of animations
      */
-    property int duration: 500
+    property int duration: 1000
     /*!
         \property menuWidth
         \brief The width of the left-sided menu
@@ -146,7 +146,13 @@ Window {
     */
     property variant model
 
-    signal qmlRequest(string command, variant params)
+    /*!
+      \property notifications
+      \brief Table of the notifications with id, etc
+    */
+    property variant notifications: []
+
+    signal sendQmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
     signal appQuit()
 
@@ -477,5 +483,14 @@ Window {
         }
     }
 
-
+    function qmlRequest(type, content)
+    {
+        //If we want to add a notification
+        if(content.name !== undefined && content.desc !== undefined)
+        {
+            notifications.push([content.name, content.desc]);
+            content.id = notifications.length - 1;
+        }
+        sendQmlRequest(type, content);
+    }
 }
