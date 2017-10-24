@@ -7,13 +7,12 @@ Item {
     width: 250
     height:292
 
-    property var notifications: []
-
     function printNotification() {
-        if(notifications.length > 0)
-            notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
-        else
-           notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
+       if(notifications.length > 0)
+          notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
+       else
+          notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
+       console.log(app.notifications);
     }
 
     function drawNotification() {
@@ -21,31 +20,30 @@ Item {
         //and run the animation when the user opens the Notification box
         listOfNotifications.clear();
 
-        for(var notif in notifications)
+        for(var notif in app.notifications)
         {
             listOfNotifications.insert(
                         0,
                         {
-                            Notif_id: Number(notifications[notif][0]),
-                            Notif_name: String(notifications[notif][1]),
-                            Notif_percent: String(notifications[notif][2]),
-                            Notif_desc: String(notifications[notif][3])
+                            Notif_id: Number(app.notifications[notif][2]),
+                            Notif_name: String(app.notifications[notif][0]),
+                            Notif_percent: String(app.notifications[notif][3]),
+                            Notif_desc: String(app.notifications[notif][1])
                         });
         }
+
     }
 
     function updateNotification(id,percent,name,desc)
     {
-
         //Checking if the notification exists
-        for(var i = 0; i < listOfNotifications.count; ++i)
-            if(listOfNotifications.get(i).Notif_id === id) {
-                notifications[i][2] = percent
+        for(var i = 0; i < app.notifications.length; ++i)
+            if(app.notifications[i][2] === id) {
+                app.notifications[i][3] = percent;
+                drawNotification();
                 listOfNotifications.setProperty(i, "Notif_percent", percent)
                 return;
             }
-        //if the notification doesn't exists, we have to add it to the list
-        notifications.push([id,name,percent,desc]);
     }
 
 
@@ -96,7 +94,7 @@ Item {
             SwipeDelegate {
                 id: delegate
                 property int id: Notif_id
-                width: 248; height: 70
+                width: 248; height: 65
                 clip: true
                 background: Item {
                     Rectangle { //body
@@ -120,7 +118,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             x: 10
                             size: 50
-                            percent: Notif_percent
+                            percent: Number(Notif_percent)
                         }
                     }
                     Rectangle { //border
@@ -132,13 +130,13 @@ Item {
                      SwipeDelegate.onClicked: console.log("Moving...")
                 }
 
-                enabled: Notif_percent == 100 ? true : false
+                enabled:  Notif_percent == 100 ? true : false
                 swipe.right: removeComponent
                 swipe.onCompleted: {
                     if(swipe.position === -1.0 && index !== -1) listOfNotifications.remove(index)
-                    for(var i = 0; i<notifications.length; i++)
-                        if (notifications[i][0] === delegate.id)
-                            notifications.splice(i, 1)
+                    for(var i = 0; i<app.notifications.length; i++)
+                        if (app.notifications[i][2] === delegate.id)
+                            app.notifications.splice(i, 1)
                     printNotification();
                 }
 
@@ -197,7 +195,8 @@ Item {
 
         ListView {
             id: listview
-            anchors.fill: parent
+            width: parent.width;
+            height: parent.height - 7
             model: ListModel {
                 id: listOfNotifications
                 dynamicRoles: true

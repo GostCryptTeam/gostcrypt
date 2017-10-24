@@ -42,6 +42,7 @@ Item {
                 break;
             }*/
             openErrorMessage(aTitle, aContent);
+            //TODO : clean task
         }
 
         onSPrintGetEncryptionAlgorithms:
