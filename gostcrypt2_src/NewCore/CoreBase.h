@@ -21,6 +21,7 @@
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
 #define UPDATE_PROGRESS(p) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(params->id.requestId,params->id.end*p+params->id.start*(1-p))))
+//TODO create a ProgressUpdateResponse constructor containing the forumula
 
 /* Progress tracking analysis helpers */
 #define TRACK track_result.append(QPair<QString,int>(QString(__FILE__) + QString(":") + QString::number(__LINE__), t.elapsed()));
