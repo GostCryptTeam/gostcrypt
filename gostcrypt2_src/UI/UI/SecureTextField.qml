@@ -23,7 +23,7 @@ ControlsOld.TextField {
     /* Keydown management */
     Keys.onPressed: {
         if (event.key === Qt.Key_A) {
-            console.log("AH");
+
         }
     }
 }

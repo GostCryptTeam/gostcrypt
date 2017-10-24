@@ -545,7 +545,7 @@ Item {
 
 
             /* Page12.qml
-             * AHidden Volume part (information)
+             * Hidden Volume part (information)
              */
         case progress.VOLUME_HIDDEN_VOLUME:
             typeBranch = content.item.type
