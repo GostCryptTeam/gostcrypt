@@ -18,6 +18,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class VolumeLayout;
 	typedef list < shared_ptr <VolumeLayout> > VolumeLayoutList;
 
@@ -149,6 +151,7 @@ namespace GostCrypt
 		VolumeLayoutSystemEncryption (const VolumeLayoutSystemEncryption &);
 		VolumeLayoutSystemEncryption &operator= (const VolumeLayoutSystemEncryption &);
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_VolumeLayout

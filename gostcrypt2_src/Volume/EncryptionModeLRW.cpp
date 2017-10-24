@@ -12,6 +12,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	void EncryptionModeLRW::Decrypt (byte *data, uint64 length) const
 	{
 		if_debug (ValidateState ());
@@ -159,7 +161,7 @@ namespace GostCrypt
 
 		case 16:
 			return (sectorIndex << 5) | 1;
-		
+
 		default:
 			throw ParameterIncorrect (SRC_POS);
 		}
@@ -193,4 +195,5 @@ namespace GostCrypt
 		*a++ ^= *b++;
 		*a ^= *b;
 	}
+}
 }

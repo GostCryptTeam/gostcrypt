@@ -13,6 +13,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	VolumeLayout::VolumeLayout ()
 	{
 	}
@@ -114,7 +116,7 @@ namespace GostCrypt
 		BackupHeaderOffset = -GST_VOLUME_HEADER_GROUP_SIZE;
 
 		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));		
+		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
 
 		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 	}
@@ -208,8 +210,9 @@ namespace GostCrypt
 	Pkcs5KdfList VolumeLayoutSystemEncryption::GetSupportedKeyDerivationFunctions () const
 	{
 		Pkcs5KdfList l;
-		
+
 		l.push_back (shared_ptr <Pkcs5Kdf> (new Pkcs5HmacStribog ()));
 		return l;
 	}
+}
 }

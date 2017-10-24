@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	Cipher::Cipher () : Initialized (false)
 	{
 	}
@@ -98,7 +100,7 @@ namespace GostCrypt
 		ScheduledKey.CopyFrom ((ConstBufferPtr) SwapScheduledKey);
 		KeySwapped = false;
 	}
-	
+
 	bool Cipher::IsKeySwapped ()
 	{
 		return KeySwapped;
@@ -115,27 +117,27 @@ namespace GostCrypt
 	{
 		gost_decrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
-	
+
 	void CipherGOST::Encrypt (byte *data) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
-	
+
 	void CipherGOST::DecryptWithKS (byte *data, byte *ks) const
 	{
 		gost_decrypt (data, data, (gost_kds *) ks);
 	}
-	
+
 	void CipherGOST::EncryptWithKS (byte *data, byte *ks) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ks);
 	}
-	
+
 	size_t CipherGOST::GetScheduledKeySize () const
 	{
 		return sizeof(gost_kds);
 	}
-	
+
 	void CipherGOST::SetCipherKey (const byte *key)
 	{
 		gost_set_key ((byte *)key, (gost_kds *)ScheduledKey.Ptr());
@@ -160,27 +162,27 @@ namespace GostCrypt
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
-	
+
 	void CipherGRASSHOPPER::Encrypt (byte *data) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
-	
+
 	void CipherGRASSHOPPER::DecryptWithKS (byte *data, byte *ks) const
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
-	
+
 	void CipherGRASSHOPPER::EncryptWithKS (byte *data, byte *ks) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
-	
+
 	size_t CipherGRASSHOPPER::GetScheduledKeySize () const
 	{
 		return sizeof(grasshopper_kds);
 	}
-	
+
 	void CipherGRASSHOPPER::SetCipherKey (const byte *key)
 	{
 		grasshopper_set_key((gst_ludword*)key, (grasshopper_kds *) ScheduledKey.Ptr());
@@ -200,5 +202,5 @@ namespace GostCrypt
 			ks[i] = ptr[i];
 	}
 	bool Cipher::HwSupportEnabled = false;
-
+}
 }

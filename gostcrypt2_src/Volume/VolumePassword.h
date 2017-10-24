@@ -15,11 +15,13 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class VolumePassword : public Serializable
 	{
 	public:
 		VolumePassword ();
-		VolumePassword (const byte *password, size_t size);   
+		VolumePassword (const byte *password, size_t size);
 		VolumePassword (const char *password, size_t size);
 		VolumePassword (const wchar_t *password, size_t charCount);
 		VolumePassword (const wstring &password);
@@ -88,6 +90,7 @@ namespace GostCrypt
 	GST_EXCEPTION_SET;
 
 #undef GST_EXCEPTION
+}
 }
 
 #endif // GST_HEADER_Encryption_Password

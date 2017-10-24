@@ -14,6 +14,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Hash;
 	typedef list < shared_ptr <Hash> > HashList;
 
@@ -65,14 +67,14 @@ namespace GostCrypt
 		Whirlpool (const Whirlpool &);
 		Whirlpool &operator= (const Whirlpool &);
 	};
-	
+
 	// Stribog
 	class Stribog : public Hash
 	{
 	public:
 		Stribog ();
 		virtual ~Stribog () { }
-		
+
 		virtual void GetDigest (const BufferPtr &buffer);
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 64; }
@@ -87,14 +89,14 @@ namespace GostCrypt
 		Stribog (const Stribog &);
 		Stribog &operator= (const Stribog &);
 	};
-	
+
 	// GOST R 34.11-94
 	class GostHash : public Hash
 	{
 	public:
 		GostHash ();
 		virtual ~GostHash () { }
-		
+
 		virtual void GetDigest (const BufferPtr &buffer);
 		virtual size_t GetBlockSize () const { return 32; }
 		virtual size_t GetDigestSize () const { return 32; }
@@ -109,6 +111,7 @@ namespace GostCrypt
 		GostHash (const GostHash &);
 		GostHash &operator= (const GostHash &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Hash

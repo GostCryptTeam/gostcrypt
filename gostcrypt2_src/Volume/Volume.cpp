@@ -16,6 +16,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	Volume::Volume ()
 		: HiddenVolumeProtectionTriggered (false),
 		SystemEncryption (false),
@@ -45,7 +47,7 @@ namespace GostCrypt
 	{
         if (VolumeFile.isNull())
 			throw NotInitialized (SRC_POS);
-		
+
 		VolumeFile.reset();
 	}
 
@@ -269,7 +271,7 @@ namespace GostCrypt
 				{
 					File driveDevice;
 					driveDevice.Open (DevicePath (wstring (GetPath())).ToHostDriveOfPartition());
-					
+
 					Buffer mbr (VolumeFile->GetDeviceSectorSize());
 					driveDevice.ReadAt (mbr, 0);
 
@@ -317,12 +319,12 @@ namespace GostCrypt
 	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf)
 	{
 		if_debug (ValidateState ());
-		
+
 		if (Protection == VolumeProtection::ReadOnly)
 			throw VolumeReadOnly (SRC_POS);
 
 		SecureBuffer newHeaderBuffer (Layout->GetHeaderSize());
-		
+
 		Header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, newPkcs5Kdf);
 
 		int headerOffset = backupHeader ? Layout->GetBackupHeaderOffset() : Layout->GetHeaderOffset();
@@ -369,9 +371,15 @@ namespace GostCrypt
 		VolumeFile->WriteAt (encBuf, hostOffset);
 
 		TotalDataWritten += length;
-		
+
 		uint64 writeEndOffset = byteOffset + buffer.Size();
 		if (writeEndOffset > TopWriteOffset)
 			TopWriteOffset = writeEndOffset;
 	}
+
+	QSharedPointer<VolumeInformation> Volume::getVolumeInformation()
+	{
+		//TODO
+	}
+}
 }

@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionModeLRW : public EncryptionMode
 	{
 	public:
@@ -46,6 +48,7 @@ namespace GostCrypt
 		EncryptionModeLRW (const EncryptionModeLRW &);
 		EncryptionModeLRW &operator= (const EncryptionModeLRW &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionModeLRW

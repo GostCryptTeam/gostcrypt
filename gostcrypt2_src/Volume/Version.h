@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Version
 	{
 	public:
@@ -22,6 +24,7 @@ namespace GostCrypt
                 static uint16 Number ()                                 	{ return VERSION_NUM; }
 
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_Version

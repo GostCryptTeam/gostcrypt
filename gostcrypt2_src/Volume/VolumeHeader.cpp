@@ -17,6 +17,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	VolumeHeader::VolumeHeader (uint32 size)
 	{
 		Init();
@@ -105,7 +107,7 @@ namespace GostCrypt
 					if (typeid (*mode) == typeid (EncryptionModeXTS))
 					{
 						ea->SetKey (headerKey.GetRange (0, ea->GetKeySize()));
-						
+
 						mode = mode->GetNew();
 						mode->SetKey (headerKey.GetRange (ea->GetKeySize(), ea->GetKeySize()));
 					}
@@ -163,8 +165,8 @@ namespace GostCrypt
 		}
 
 		RequiredMinProgramVersion = DeserializeEntry <uint16> (header, offset);
-		
-		
+
+
 		if (RequiredMinProgramVersion > Version::Number())
 			throw HigherVersionRequired (SRC_POS);
 
@@ -200,10 +202,10 @@ namespace GostCrypt
 			return false;
 
 		DataAreaKey.CopyFrom (header.GetRange (offset, DataKeyAreaMaxSize));
-		
+
 		ea = ea->GetNew();
 		mode = mode->GetNew();
-		
+
 		if (typeid (*mode) == typeid (EncryptionModeXTS))
 		{
 			ea->SetKey (header.GetRange (offset, ea->GetKeySize()));
@@ -219,7 +221,7 @@ namespace GostCrypt
 
 		return true;
 	}
-	
+
 
 	template <typename T>
 	T VolumeHeader::DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const
@@ -275,7 +277,7 @@ namespace GostCrypt
 	size_t VolumeHeader::GetLargestSerializedKeySize ()
 	{
 		size_t largestKey = EncryptionAlgorithm::GetLargestKeySize (EncryptionAlgorithm::GetAvailableAlgorithms());
-		
+
 		// XTS mode requires the same key size as the encryption algorithm.
 		// Legacy modes may require larger key than XTS.
 		if (LegacyEncryptionModeKeyAreaSize + largestKey > largestKey * 2)
@@ -343,4 +345,5 @@ namespace GostCrypt
 		HeaderSize = headerSize;
 		EncryptedHeaderDataSize = HeaderSize - EncryptedHeaderDataOffset;
 	}
+}
 }

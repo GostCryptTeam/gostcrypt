@@ -16,6 +16,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionMode;
 	typedef list < shared_ptr <EncryptionMode> > EncryptionModeList;
 
@@ -58,6 +60,7 @@ namespace GostCrypt
 		EncryptionMode (const EncryptionMode &);
 		EncryptionMode &operator= (const EncryptionMode &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionMode

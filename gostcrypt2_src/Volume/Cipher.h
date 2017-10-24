@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Cipher;
 	typedef vector < shared_ptr <Cipher> > CipherList;
 
@@ -38,7 +40,7 @@ namespace GostCrypt
 		virtual bool IsHwSupportAvailable () const { return false; }
 		static bool IsHwSupportEnabled () { return HwSupportEnabled; }
 		virtual void SetKey (const ConstBufferPtr &key);
-		
+
 		virtual void StoreCipherKey ();
 		virtual void RestoreCipherKey ();
 		virtual bool IsKeySwapped ();
@@ -119,12 +121,12 @@ class CipherGOST : public Cipher
 public:
 	CipherGOST () { }
 	virtual ~CipherGOST () { }
-	
+
 	virtual size_t GetBlockSize () const { return 8; };
 	virtual size_t GetKeySize () const { return 32; };
 	virtual wstring GetName () const { return L"GOST 28147-89"; };
 	virtual shared_ptr <Cipher> GetNew () const { return shared_ptr <Cipher> (new CipherGOST()); }
-	
+
 	virtual void XorCipherKey (byte *ks, byte *data, int len) const;
 	virtual void EncryptWithKS (byte *data, byte *ks) const;
 	virtual void DecryptWithKS (byte *data, byte *ks) const;
@@ -182,5 +184,5 @@ private:
 #undef GST_EXCEPTION
 
 }
-
+}
 #endif // GST_HEADER_Encryption_Ciphers

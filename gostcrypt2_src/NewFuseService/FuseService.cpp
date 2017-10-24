@@ -585,11 +585,8 @@ namespace GostCrypt {
 			if(!forkedPid) {
 				setsid();
 			#endif
-				VolumeInfo vi;
-				vi.Set(*mountedVolume);
-
 				NewFuseService::volumeInfoMutex.lock();
-				NewFuseService::volumeInfo.reset(new NewCore::VolumeInformation (vi));
+				NewFuseService::volumeInfo = mountedVolume->getVolumeInformation();
 				NewFuseService::volumeInfo->fuseMountPoint = params->fuseMountPoint;
 				NewFuseService::volumeInfoMutex.unlock();
 

@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	typedef list < shared_ptr < VolumePassword > > CachedPasswordList;
 
 	class VolumePasswordCache
@@ -32,6 +34,7 @@ namespace GostCrypt
 	private:
 		VolumePasswordCache ();
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_VolumePasswordCache

@@ -13,6 +13,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	VolumePassword::VolumePassword () : PasswordSize (0), Unportable (false)
 	{
 		AllocateBuffer ();
@@ -61,7 +63,7 @@ namespace GostCrypt
 		sr.Deserialize ("PasswordSize", passwordSize);
 		PasswordSize = static_cast <size_t> (passwordSize);
 		sr.Deserialize ("PasswordBuffer", BufferPtr (PasswordBuffer));
-		
+
 		Buffer wipeBuffer (128 * 1024);
 		sr.Deserialize ("WipeData", wipeBuffer);
 	}
@@ -92,16 +94,16 @@ namespace GostCrypt
 	void VolumePassword::Set (const byte *password, size_t size)
 	{
 		AllocateBuffer ();
-		
+
 		if (size > MaxSize)
 			throw PasswordTooLong (SRC_POS);
-		
+
 		PasswordBuffer.CopyFrom (ConstBufferPtr (password, size));
 		PasswordSize = size;
 
 		Unportable = !IsPortable();
 	}
-	
+
 	void VolumePassword::Set (const wchar_t *password, size_t charCount)
 	{
 		if (charCount > MaxSize)
@@ -115,7 +117,7 @@ namespace GostCrypt
 
 		Conv conv;
 		conv.c = L'A';
-		
+
 		int lsbPos = -1;
 		for (size_t i = 0; i < sizeof (conv.b); ++i)
 		{
@@ -141,9 +143,9 @@ namespace GostCrypt
 					unportable = true;
 			}
 		}
-		
+
 		Set (passwordBuf, charCount);
-		
+
 		if (unportable)
 			Unportable = true;
 	}
@@ -152,7 +154,7 @@ namespace GostCrypt
 	{
 		Set (password, password.Size());
 	}
-	
+
 	void VolumePassword::Set (const VolumePassword &password)
 	{
 		Set (password.DataPtr(), password.Size());
@@ -165,4 +167,5 @@ namespace GostCrypt
 #define GST_EXCEPTION_NODECL(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
 
 	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (PasswordException);
+}
 }

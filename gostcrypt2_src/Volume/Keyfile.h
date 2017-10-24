@@ -17,6 +17,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Keyfile;
 	typedef list < shared_ptr <Keyfile> > KeyfileList;
 
@@ -46,6 +48,7 @@ namespace GostCrypt
 		Keyfile (const Keyfile &);
 		Keyfile &operator= (const Keyfile &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Keyfile

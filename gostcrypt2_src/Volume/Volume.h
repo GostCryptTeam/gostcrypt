@@ -18,9 +18,12 @@
 #include "VolumePassword.h"
 #include "VolumeException.h"
 #include "VolumeLayout.h"
+#include "VolumeInformation.h"
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class VolumePath
 	{
 	public:
@@ -96,6 +99,7 @@ namespace GostCrypt
 		void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf);
 		void WriteSectors (const ConstBufferPtr &buffer, uint64 byteOffset);
 
+		QSharedPointer<VolumeInformation> getVolumeInformation();
 	protected:
 		void CheckProtectedRange (uint64 writeHostOffset, uint64 writeLength);
 		void ValidateState () const;
@@ -122,6 +126,7 @@ namespace GostCrypt
 		//Volume (const Volume &);
 		Volume &operator= (const Volume &);
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_Volume

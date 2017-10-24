@@ -14,6 +14,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	void EncryptionModeCBC::Decrypt (byte *data, uint64 length) const
 	{
 		if_debug (ValidateState ());
@@ -329,8 +331,9 @@ namespace GostCrypt
 
 		if (!KeySet)
 			IV.Allocate (GetKeySize ());
-		
+
 		IV.CopyFrom (key);
 		KeySet = true;
 	}
+}
 }

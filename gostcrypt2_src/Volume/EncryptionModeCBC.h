@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionModeCBC : public EncryptionMode
 	{
 	public:
@@ -43,6 +45,7 @@ namespace GostCrypt
 		EncryptionModeCBC (const EncryptionModeCBC &);
 		EncryptionModeCBC &operator= (const EncryptionModeCBC &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionModeCBC

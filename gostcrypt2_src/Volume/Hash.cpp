@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	HashList Hash::GetAvailableAlgorithms ()
 	{
 		HashList l;
@@ -61,52 +63,53 @@ namespace GostCrypt
 		if_debug (ValidateDataParameters (data));
 		WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Ptr());
 	}
-	
+
 	// Stribog
 	Stribog::Stribog ()
 	{
 		Context.Allocate (sizeof (STRIBOG_CTX));
 		Init ();
 	}
-	
+
 	void Stribog::GetDigest (const BufferPtr &buffer)
 	{
 		if_debug (ValidateDigestParameters (buffer));
 		STRIBOG_finalize ((STRIBOG_CTX *) Context.Ptr(), buffer);
 	}
-	
+
 	void Stribog::Init ()
 	{
 		STRIBOG_init ((STRIBOG_CTX *) Context.Ptr());
 	}
-	
+
 	void Stribog::ProcessData (const ConstBufferPtr &data)
 	{
 		if_debug (ValidateDataParameters (data));
 		STRIBOG_add ((STRIBOG_CTX *) Context.Ptr(), (byte *) data.Get(), data.Size());
 	}
-	
+
 	// GOST R 34.11-94
 	GostHash::GostHash ()
 	{
 		Context.Allocate (sizeof (gost_hash_ctx));
 		Init ();
 	}
-	
+
 	void GostHash::GetDigest (const BufferPtr &buffer)
 	{
 		if_debug (ValidateDigestParameters (buffer));
 		GOSTHASH_finalize ((gost_hash_ctx *) Context.Ptr(), buffer);
 	}
-	
+
 	void GostHash::Init ()
 	{
 		GOSTHASH_init ((gost_hash_ctx *) Context.Ptr());
 	}
-	
+
 	void GostHash::ProcessData (const ConstBufferPtr &data)
 	{
 		if_debug (ValidateDataParameters (data));
 		GOSTHASH_add ((byte *) data.Get(), data.Size(), (gost_hash_ctx *) Context.Ptr());
 	}
+}
 }

@@ -16,6 +16,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Pkcs5Kdf;
 	typedef list < shared_ptr <Pkcs5Kdf> > Pkcs5KdfList;
 
@@ -59,7 +61,7 @@ namespace GostCrypt
 		Pkcs5HmacWhirlpool (const Pkcs5HmacWhirlpool &);
 		Pkcs5HmacWhirlpool &operator= (const Pkcs5HmacWhirlpool &);
 	};
-	
+
 	class Pkcs5HmacStribog : public Pkcs5Kdf
 	{
 	public:
@@ -75,7 +77,7 @@ namespace GostCrypt
 		Pkcs5HmacStribog (const Pkcs5HmacStribog &);
 		Pkcs5HmacStribog &operator= (const Pkcs5HmacStribog &);
 	};
-	
+
 	class Pkcs5HmacGostHash : public Pkcs5Kdf
 	{
 	public:
@@ -91,6 +93,7 @@ namespace GostCrypt
 		Pkcs5HmacGostHash (const Pkcs5HmacGostHash &);
 		Pkcs5HmacGostHash &operator= (const Pkcs5HmacGostHash &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Pkcs5

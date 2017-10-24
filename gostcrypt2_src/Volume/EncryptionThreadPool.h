@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionThreadPool
 	{
 	public:
@@ -83,6 +85,7 @@ namespace GostCrypt
 		static WorkItem WorkItemQueue[QueueSize];
 		static SyncEvent WorkItemReadyEvent;
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_EncryptionThreadPool

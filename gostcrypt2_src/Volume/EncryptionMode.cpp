@@ -13,6 +13,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	EncryptionMode::EncryptionMode () : KeySet (false), SectorOffset (0)
 	{
 	}
@@ -59,4 +61,5 @@ namespace GostCrypt
         if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)
 			throw ParameterIncorrect (SRC_POS);
 	}
+}
 }

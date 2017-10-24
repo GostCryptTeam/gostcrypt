@@ -14,7 +14,10 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	typedef uint32 VolumeSlotNumber;
+}
 }
 
 #endif // GST_HEADER_Volume_VolumeSlot

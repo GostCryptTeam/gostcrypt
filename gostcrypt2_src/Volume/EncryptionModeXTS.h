@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionModeXTS : public EncryptionMode
 	{
 	public:
@@ -48,6 +50,7 @@ namespace GostCrypt
 		EncryptionModeXTS (const EncryptionModeXTS &);
 		EncryptionModeXTS &operator= (const EncryptionModeXTS &);
 	};
+}
 }
 
 #endif // GST_HEADER_Volume_EncryptionModeXTS

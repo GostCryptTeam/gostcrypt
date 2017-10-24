@@ -12,6 +12,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	EncryptionAlgorithm::EncryptionAlgorithm () : Deprecated (false)
 	{
 	}
@@ -57,7 +59,7 @@ namespace GostCrypt
 	EncryptionAlgorithmList EncryptionAlgorithm::GetAvailableAlgorithms ()
 	{
 		EncryptionAlgorithmList l;
-		
+
 		l.push_back (shared_ptr <EncryptionAlgorithm> (new GOST()));
 		l.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
 
@@ -89,7 +91,7 @@ namespace GostCrypt
 
 		return keySize;
 	}
-	
+
 	size_t EncryptionAlgorithm::GetMaxBlockSize () const
 	{
 		size_t blockSize = 0;
@@ -172,7 +174,7 @@ namespace GostCrypt
 		return supported;
 	}
 
-	
+
 	bool EncryptionAlgorithm::IsModeSupported (const shared_ptr <EncryptionMode> mode) const
 	{
 		return IsModeSupported (*mode);
@@ -186,7 +188,7 @@ namespace GostCrypt
 		mode->SetCiphers (Ciphers);
 		Mode = mode;
 	}
-	
+
 	void EncryptionAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (Ciphers.size() < 1)
@@ -208,7 +210,7 @@ namespace GostCrypt
         if (Ciphers.size() < 1 || Mode.isNull())
 			throw NotInitialized (SRC_POS);
 	}
-	
+
 	// GOST
 	GOST::GOST ()
 	{
@@ -224,4 +226,5 @@ namespace GostCrypt
 		SupportedModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 
 	}
+}
 }

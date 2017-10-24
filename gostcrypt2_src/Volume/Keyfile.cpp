@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	void Keyfile::Apply (const BufferPtr &pool) const
 	{
 		if (Path.IsDirectory())
@@ -154,7 +156,7 @@ done:
 	{
 		shared_ptr <KeyfileList> keyfiles;
 		Serializer sr (stream);
-		
+
 		if (!sr.DeserializeBool (name + "Null"))
 		{
 			keyfiles.reset (new KeyfileList);
@@ -180,4 +182,5 @@ done:
 	}
 
 	bool Keyfile::HiddenFileWasPresentInKeyfilePath = false;
+}
 }

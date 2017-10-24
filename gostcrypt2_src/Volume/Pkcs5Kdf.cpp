@@ -13,6 +13,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	Pkcs5Kdf::Pkcs5Kdf ()
 	{
 	}
@@ -25,7 +27,7 @@ namespace GostCrypt
 	{
 		DeriveKey (key, password, salt, GetIterationCount());
 	}
-	
+
 	shared_ptr <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const wstring &name)
 	{
 		foreach (shared_ptr <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
@@ -69,16 +71,17 @@ namespace GostCrypt
 		ValidateParameters (key, password, salt, iterationCount);
 		derive_key_whirlpool ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
 	}
-	
+
 	void Pkcs5HmacStribog::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
 	{
 		ValidateParameters (key, password, salt, iterationCount);
 		derive_key_stribog ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
 	}
-	
+
 	void Pkcs5HmacGostHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
 	{
 		ValidateParameters (key, password, salt, iterationCount);
 		derive_key_gosthash ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
 	}
+}
 }

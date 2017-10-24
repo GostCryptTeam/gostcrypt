@@ -12,6 +12,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	// Do not inline the constructors to ensure this module is not optimized away
 	VolumeException::VolumeException ()
 	{
@@ -20,7 +22,7 @@ namespace GostCrypt
 	VolumeException::VolumeException (const string &message) : Exception (message)
 	{
 	}
-	
+
 	VolumeException::VolumeException (const string &message, const wstring &subject) : Exception (message, subject)
 	{
 	}
@@ -30,4 +32,5 @@ namespace GostCrypt
 #define GST_EXCEPTION_NODECL(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
 
 	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (VolumeException);
+}
 }

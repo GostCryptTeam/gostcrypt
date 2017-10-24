@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionTest
 	{
 	public:
@@ -42,6 +44,7 @@ namespace GostCrypt
 		EncryptionTest (const EncryptionTest &);
 		EncryptionTest &operator= (const EncryptionTest &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionTest

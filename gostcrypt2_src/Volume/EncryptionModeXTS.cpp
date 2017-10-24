@@ -13,6 +13,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	void EncryptionModeXTS::Encrypt (byte *data, uint64 length) const
 	{
 		EncryptBuffer (data, length, 0);
@@ -88,7 +90,7 @@ namespace GostCrypt
 
 					//Actual encryption
 					cipher.EncryptWithKS((byte *) bufPtr, (byte *) xor_ks);
-					
+
 					//Post-whitening
 					*bufPtr++ ^= *whiteningValuePtr32++;
 					*bufPtr++ ^= *whiteningValuePtr32;
@@ -131,7 +133,7 @@ namespace GostCrypt
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
-	
+
 	void EncryptionModeXTS::EncryptBufferXTS (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
@@ -155,7 +157,7 @@ namespace GostCrypt
 		the shift of the highest byte results in a carry, 135 is XORed into the lowest byte. The value 135 is
 		derived from the modulus of the Galois Field (x^128+x^7+x^2+x+1). */
 
-		// Convert the 64-bit data unit number into a little-endian 16-byte array. 
+		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
 		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
@@ -177,7 +179,7 @@ namespace GostCrypt
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
 			whiteningValuePtr64 = (uint64 *) whiteningValue;
 
-			// Encrypt the data unit number using the secondary key (in order to generate the first 
+			// Encrypt the data unit number using the secondary key (in order to generate the first
 			// whitening value for this data unit)
 			*whiteningValuePtr64 = *((uint64 *) byteBufUnitNo);
 			*(whiteningValuePtr64 + 1) = 0;
@@ -201,21 +203,21 @@ namespace GostCrypt
 
 				// Little-endian platforms
 
-				finalCarry = 
+				finalCarry =
 					(*whiteningValuePtr64 & 0x8000000000000000ULL) ?
 					135 : 0;
 
 				*whiteningValuePtr64-- <<= 1;
 
 				if (*whiteningValuePtr64 & 0x8000000000000000ULL)
-					*(whiteningValuePtr64 + 1) |= 1;	
+					*(whiteningValuePtr64 + 1) |= 1;
 
 				*whiteningValuePtr64 <<= 1;
 #else
 
 				// Big-endian platforms
 
-				finalCarry = 
+				finalCarry =
 					(*whiteningValuePtr64 & 0x80) ?
 					135 : 0;
 
@@ -224,7 +226,7 @@ namespace GostCrypt
 				whiteningValuePtr64--;
 
 				if (*whiteningValuePtr64 & 0x80)
-					*(whiteningValuePtr64 + 1) |= 0x0100000000000000ULL;	
+					*(whiteningValuePtr64 + 1) |= 0x0100000000000000ULL;
 
 				*whiteningValuePtr64 = Endian::Little (Endian::Little (*whiteningValuePtr64) << 1);
 #endif
@@ -271,12 +273,12 @@ namespace GostCrypt
 	{
 		EncryptBuffer (data, sectorCount * sectorSize, sectorIndex * sectorSize / ENCRYPTION_DATA_UNIT_SIZE);
 	}
-	
+
 	size_t EncryptionModeXTS::GetKeySize () const
 	{
 		if (Ciphers.empty())
 			throw NotInitialized (SRC_POS);
-		
+
 		size_t keySize = 0;
 		foreach_ref (const Cipher &cipher, SecondaryCiphers)
 		{
@@ -321,10 +323,10 @@ namespace GostCrypt
 		uint64 blockCount, dataUnitNo;
 
 		uint32 modulus = 27;
-	
+
 		dataUnitNo = startDataUnitNo;
 		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
-		
+
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
 
@@ -332,16 +334,16 @@ namespace GostCrypt
 
 		//Store the original key schedule
 		cipher.CopyCipherKey ((byte *)xor_ks);
-			
+
 		while (blockCount > 0)
 		{
 			if (blockCount < BLOCKS_PER_XTS_DATA_UNIT_SMALL)
 				endBlock = startBlock + (uint32) blockCount;
 			else
 				endBlock = BLOCKS_PER_XTS_DATA_UNIT_SMALL;
-			
+
 			whiteningValuePtr32 = (uint32 *) whiteningValue;
-		
+
 			//Generate first whitening value
 			*whiteningValuePtr32 = *((uint32 *) byteBufUnitNo);
 			*(whiteningValuePtr32+1) = *((uint32 *) byteBufUnitNo+1);
@@ -349,7 +351,7 @@ namespace GostCrypt
 
 			//XOR ks with the current DataUnitNo
 			cipher.XorCipherKey ((byte *)xor_ks, byteBufUnitNo, 8);
-		
+
 			//Generate subsequent whitening values for blocks
 			for (block = 0; block < endBlock; block++)
 			{
@@ -361,14 +363,14 @@ namespace GostCrypt
 
 					//Actual encryption
 					cipher.DecryptWithKS((byte *) bufPtr, (byte *) xor_ks);
-					
+
 					//Post-whitening
 					*bufPtr++ ^= *whiteningValuePtr32++;
 					*bufPtr++ ^= *whiteningValuePtr32;
 				}
 				else
 					whiteningValuePtr32++;
-		
+
 				//Derive the next whitening value
 #if BYTE_ORDER == LITTLE_ENDIAN
 
@@ -396,7 +398,7 @@ namespace GostCrypt
 #endif
 				whiteningValue[0] ^= finalCarry;
 			}
-			
+
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
@@ -404,7 +406,7 @@ namespace GostCrypt
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
-	
+
 	void EncryptionModeXTS::DecryptBufferXTS (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
@@ -421,7 +423,7 @@ namespace GostCrypt
 
 		startDataUnitNo += SectorOffset;
 
-		// Convert the 64-bit data unit number into a little-endian 16-byte array. 
+		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
 		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
@@ -443,7 +445,7 @@ namespace GostCrypt
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
 			whiteningValuePtr64 = (uint64 *) whiteningValue;
 
-			// Encrypt the data unit number using the secondary key (in order to generate the first 
+			// Encrypt the data unit number using the secondary key (in order to generate the first
 			// whitening value for this data unit)
 			*whiteningValuePtr64 = *((uint64 *) byteBufUnitNo);
 			*(whiteningValuePtr64 + 1) = 0;
@@ -467,21 +469,21 @@ namespace GostCrypt
 
 				// Little-endian platforms
 
-				finalCarry = 
+				finalCarry =
 					(*whiteningValuePtr64 & 0x8000000000000000ULL) ?
 					135 : 0;
 
 				*whiteningValuePtr64-- <<= 1;
 
 				if (*whiteningValuePtr64 & 0x8000000000000000ULL)
-					*(whiteningValuePtr64 + 1) |= 1;	
+					*(whiteningValuePtr64 + 1) |= 1;
 
 				*whiteningValuePtr64 <<= 1;
 
 #else
 				// Big-endian platforms
 
-				finalCarry = 
+				finalCarry =
 					(*whiteningValuePtr64 & 0x80) ?
 					135 : 0;
 
@@ -490,7 +492,7 @@ namespace GostCrypt
 				whiteningValuePtr64--;
 
 				if (*whiteningValuePtr64 & 0x80)
-					*(whiteningValuePtr64 + 1) |= 0x0100000000000000ULL;	
+					*(whiteningValuePtr64 + 1) |= 0x0100000000000000ULL;
 
 				*whiteningValuePtr64 = Endian::Little (Endian::Little (*whiteningValuePtr64) << 1);
 #endif
@@ -559,7 +561,7 @@ namespace GostCrypt
 		if (!SecondaryCiphers.empty())
 			SetSecondaryCipherKeys();
 	}
-	
+
 	void EncryptionModeXTS::SetSecondaryCipherKeys ()
 	{
 		size_t keyOffset = 0;
@@ -571,4 +573,5 @@ namespace GostCrypt
 
 		KeySet = true;
 	}
+}
 }

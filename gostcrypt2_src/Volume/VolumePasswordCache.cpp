@@ -11,6 +11,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	CachedPasswordList VolumePasswordCache::GetPasswords ()
 	{
 		CachedPasswordList passwords;
@@ -41,4 +43,5 @@ namespace GostCrypt
 	}
 
 	CachedPasswordList VolumePasswordCache::CachedPasswords;
+}
 }

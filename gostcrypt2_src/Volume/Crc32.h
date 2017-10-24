@@ -15,6 +15,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Crc32
 	{
 	public:
@@ -40,6 +42,7 @@ namespace GostCrypt
 		Crc32 (const Crc32 &);
 		Crc32 &operator= (const Crc32 &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Crc32

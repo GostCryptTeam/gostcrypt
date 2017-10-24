@@ -6,7 +6,6 @@
 #include <QFileInfo>
 #include <QtGlobal>
 #include "SerializationUtil.h"
-#include "Volume/VolumeInfo.h"
 #include "CoreRequest.h"
 #include "CoreException.h"
 
@@ -81,21 +80,7 @@ namespace GostCrypt {
 			QList<QSharedPointer<HostDevice>> partitions;
 			DEC_SERIALIZABLE(HostDevice);
 		};
-
-		struct VolumeInformation {
-			VolumeInformation() = default;
-			VolumeInformation(VolumeInfo v);
-			QSharedPointer<QFileInfo> fuseMountPoint;
-			QString encryptionAlgorithmName;
-			QSharedPointer<QFileInfo> virtualDevice;
-			QSharedPointer<QFileInfo> mountPoint;
-			QSharedPointer<QFileInfo> volumePath;
-			VolumeProtection::Enum protection;
-			quint64 size;
-			VolumeType::Enum type;
-			DEC_SERIALIZABLE(VolumeInformation);
-		};
-	}
+}
 }
 
 SERIALIZABLE(GostCrypt::NewCore::CoreResponse)

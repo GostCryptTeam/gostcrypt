@@ -14,6 +14,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	struct VolumeException : public Exception
 	{
 	protected:
@@ -42,6 +44,7 @@ namespace GostCrypt
 
 #undef GST_EXCEPTION
 
+}
 }
 
 #endif // GST_HEADER_Volume_VolumeExceptions

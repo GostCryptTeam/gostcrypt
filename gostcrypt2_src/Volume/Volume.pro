@@ -33,7 +33,6 @@ HEADERS += \
     VolumePasswordCache.h \
     VolumePassword.h \
     VolumeLayout.h \
-    VolumeInfo.h \
     VolumeHeader.h \
     VolumeException.h \
     Volume.h \
@@ -59,13 +58,13 @@ HEADERS += \
     ../Common/Pkcs5.h \
     ../Common/GfMul.h \
     ../Common/Endian.h \
-    ../Common/Crc.h
+    ../Common/Crc.h \
+    VolumeInformation.h
 
 SOURCES += \
     VolumePasswordCache.cpp \
     VolumePassword.cpp \
     VolumeLayout.cpp \
-    VolumeInfo.cpp \
     VolumeHeader.cpp \
     VolumeException.cpp \
     Volume.cpp \

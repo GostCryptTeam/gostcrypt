@@ -25,6 +25,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	typedef uint64 VolumeTime;
 
 	struct VolumeType
@@ -124,5 +126,5 @@ namespace GostCrypt
 		VolumeHeader &operator= (const VolumeHeader &);
 	};
 }
-
+}
 #endif // GST_HEADER_Volume_VolumeHeader

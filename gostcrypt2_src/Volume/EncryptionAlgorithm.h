@@ -16,6 +16,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionAlgorithm;
     typedef list < shared_ptr <GostCrypt::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
@@ -74,11 +76,12 @@ namespace GostCrypt
 		NAME (const NAME &); \
 		NAME &operator= (const NAME &); \
 	}
-	
+
 	GST_ENCRYPTION_ALGORITHM (GOST);
 	GST_ENCRYPTION_ALGORITHM (GRASSHOPPER);
 
 #undef GST_ENCRYPTION_ALGORITHM
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionAlgorithm

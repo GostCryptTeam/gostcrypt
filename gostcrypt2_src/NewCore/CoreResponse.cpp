@@ -221,6 +221,7 @@ QDataStream& operator >> (QDataStream& in, VolumeInformation& Valeur)
     return in;
 }
 
+/*
 VolumeInformation::VolumeInformation(VolumeInfo v)
 {
     encryptionAlgorithmName = QString::fromStdWString(v.EncryptionAlgorithmName);
@@ -243,7 +244,7 @@ VolumeInformation::VolumeInformation(VolumeInfo v)
     {
         volumePath.reset(new QFileInfo(QString::fromStdWString(v.Path)));
     }
-}
+}//*/
 
 MountVolumeResponse::MountVolumeResponse()
 {

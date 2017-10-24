@@ -23,6 +23,8 @@
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	void EncryptionThreadPool::DoWork (WorkType::Enum type, const EncryptionMode *encryptionMode, byte *data, uint64 startUnitNo, uint64 unitCount, size_t sectorSize)
 	{
 		size_t fragmentCount;
@@ -121,7 +123,7 @@ namespace GostCrypt
 		}
 
 		firstFragmentWorkItem->ItemCompletedEvent.Wait();
-		
+
 		shared_ptr <Exception> itemException;
         if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
@@ -141,7 +143,7 @@ namespace GostCrypt
 		size_t cpuCount;
 
 #if defined (_SC_NPROCESSORS_ONLN)
-		
+
 		cpuCount = (size_t) sysconf (_SC_NPROCESSORS_ONLN);
 		if (cpuCount == (size_t) -1)
 			cpuCount = 1;
@@ -317,4 +319,5 @@ namespace GostCrypt
 	SyncEvent EncryptionThreadPool::WorkItemCompletedEvent;
 
 	list < shared_ptr <Thread> > EncryptionThreadPool::RunningThreads;
+	}
 }
