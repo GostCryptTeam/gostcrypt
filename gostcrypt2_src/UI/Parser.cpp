@@ -5,7 +5,7 @@
 void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
-    parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
+    parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "volumepath");
     parser.addOptions({
                           {{"o","options"}, "Additional options to pass to the mount function.", "'-option myoption'"},
                           {"filesystem", "Force a special filesystem to the volume."
@@ -133,7 +133,7 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
 
 void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 {
-	parser.addPositionalArgument("list", "Mounts a volume.", "list");
+    parser.addPositionalArgument("list", "Lists an item. For example you can lists the different algorithms that can be used in the program.", "list");
 	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
     parser.parse(QCoreApplication::arguments());
 
@@ -152,13 +152,13 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 	if (positionalArguments.size() > 2)
 		throw Parser::ParseException("Too many arguments specified.");
 	QString volume = positionalArguments.at(1);
-	if(volume == "volumes")
+    if(volume == "volumes" || volume == "volume")
 		*item = Volumes;
-	else if (volume == "algorithms")
+    else if (volume == "algorithms" || volume == "algorithm")
 		*item = Algorithms;
-	else if (volume == "hashs")
+    else if (volume == "hashs" || volume == "hash")
 		*item = Hashs;
-	else if (volume == "devices")
+    else if (volume == "devices" || volume == "device")
 		*item = Devices;
 	else
 		throw Parser::ParseException("Unknown item to list.");
