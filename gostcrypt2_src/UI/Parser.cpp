@@ -10,8 +10,8 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
                           {{"o","options"}, "Additional options to pass to the mount function.", "'-option myoption'"},
                           {"filesystem", "Force a special filesystem to the volume."
                                 "Type 'gostcrypt list filesystems' to list the different filesystems supported.", "{fat,ntfs,ext2,...}"},
-                          {"no-filesystem", "Doesn't mount the volume."},
-                          {{"t","no-preserve-timestamps"}, "Doesn't preserves the timestamps."},
+                          {"no-filesystem", "Don't mount the volume."},
+                          {{"t","no-preserve-timestamps"}, "Don't preserves the timestamps."},
                           {{"f", "file", "keyfile"}, "Adds a keyfile.", "file"},
                           {{"p","password"}, "Specify an inline password. (unsafe)", "password"},
                           {{"m","mountpoint"}, "Specify a special mountpoint.", "mountpoint"},
