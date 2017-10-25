@@ -70,6 +70,7 @@ Item {
 
         onSPrintProgressUpdate:
         {
+            console.log("Mise à jour avec l'id " + id + " --->" + progress*100);
             notifs.updateNotification(id,progress*100,notifications[id][0],notifications[id][1]);
             if(notifs.visible === false) title.showIcon(true);
         }
