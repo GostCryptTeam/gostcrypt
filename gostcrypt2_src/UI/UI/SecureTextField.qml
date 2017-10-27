@@ -25,4 +25,5 @@ ControlsOld.TextField {
 
     /* Keydown management */
     Keys.onReturnPressed: top.validated();
+    Keys.onEnterPressed: top.validated();
 }

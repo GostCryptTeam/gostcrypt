@@ -477,6 +477,7 @@ Window {
             sudo_.opacity = 1.0
             sudo_.isVisible = true
             sudo_.visible = true
+            sudo_.setFocus();
         }else{
             sudo_.opacity = 0.0
             sudo_.isVisible = false

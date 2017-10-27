@@ -136,12 +136,12 @@ Item {
             onRejected: {
             }
         }
-        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); password_value.focus = true;} } } }
+        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
     }
 
     Item {
         id: password
-        visible: false
+        //visible: false
         y: item.y + item.height
         anchors.horizontalCenter: parent.horizontalCenter
         opacity: 0.0
@@ -394,6 +394,7 @@ Item {
     }
 
     function moving(url) {
+        password_value.focus = true;
         textTop.opacity = 0.0
         combo.y = 15
         item.anchors.centerIn = undefined;
@@ -403,7 +404,7 @@ Item {
     }
 
     function appendPassword() {
-        password.visible = true
+        //password.visible = true
         password.opacity = 1.0
         validation.opacity = 1.0
     }

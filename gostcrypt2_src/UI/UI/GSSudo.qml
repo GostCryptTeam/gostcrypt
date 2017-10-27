@@ -1,5 +1,4 @@
 import QtQuick 2.7
-import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
@@ -58,32 +57,19 @@ Item {
         color: '#719c24'
     }
 
-    TextField {
+    SecureTextField {
         id: password_value
+        y: password_txt.y + 40
         anchors.horizontalCenter: connectSudo_Form.horizontalCenter
         width: connectSudo_Form.width / 2 - 50
-        y: password_txt.y + 40
-        height: 25
         horizontalAlignment: TextInput.AlignHCenter
-        echoMode: TextInput.Password
-        style: TextFieldStyle {
-            textColor: "#e1e1e1"
-            background: Rectangle {
-                radius: 5
-                implicitWidth: 100
-                implicitHeight: 25
-                border.color: "#333"
-                border.width: 1
-                color: '#181818'
-            }
-        }
-        onAccepted:
-        {
+        height: 25
+        onValidated: {
             app.toggleSudo(0)
             sendSudoPassword(password_value.text);
         }
-        focus: true
     }
+
 
     function setFocus()
     {
