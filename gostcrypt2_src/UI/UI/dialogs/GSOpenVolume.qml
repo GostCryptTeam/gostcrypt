@@ -173,6 +173,11 @@ Item {
             width: combo.width
             horizontalAlignment: TextInput.AlignHCenter
             height: combo.height
+            onValidated: {
+                sendInfoVolume()
+                var password_blank = new Array(password_value.length+1).join('#');
+                password_value.text = password_blank
+            }
         }
 
         UI.GSCheckBox {

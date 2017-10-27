@@ -31,7 +31,6 @@ Item {
         }
 
         onSprintMountVolume: {
-            console.log("volume monté text");
             qmlRequest("mountedvolumes", "")
         }
 
