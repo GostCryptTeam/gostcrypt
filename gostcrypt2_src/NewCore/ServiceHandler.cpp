@@ -20,6 +20,7 @@ namespace GostCrypt {
 			INIT_SERIALIZE(UnknowResponse);
 
 			connect(&process, SIGNAL(readyReadStandardOutput()), this, SLOT(receive()));
+			connect(this, SIGNAL(responseReaded()), this, SLOT(receive()));
 			connect(&process, SIGNAL(started()), this, SLOT(processStarted()));
 			connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processExited(int)));
 			#ifdef DEBUG_SERVICE_HANDLER
@@ -92,6 +93,7 @@ namespace GostCrypt {
 			qDebug() << "Receiving response: " << v.typeName();
 			#endif
 			emit sendResponse(v);
+			emit responseReaded();
 		}
 
 		void ServiceHandler::sendRequests()

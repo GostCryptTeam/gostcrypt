@@ -30,7 +30,7 @@ struct ProgressTrackingParameters
 {
     ProgressTrackingParameters(quint32 requestId) : requestId(requestId), start(0), end(1) {}
     ProgressTrackingParameters() : start(0), end(1) {}
-    ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(params->id.end*subStart+params->id.start*(1-subStart)), end(params->id.end*subEnd+params->id.start*(1-subEnd)) {}
+    ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
 
 
     quint32 requestId;
