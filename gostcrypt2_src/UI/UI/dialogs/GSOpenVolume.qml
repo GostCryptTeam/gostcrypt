@@ -107,14 +107,6 @@ Item {
                 color_: palette.green
             }
 
-            /*UI.GSButtonBordered {
-                id: buttonTools
-                height: combo.height
-                text: qsTr("Volume Tools")
-                width: 120
-                color_: palette.green
-            }*/
-
             UI.GSButtonBordered {
                 id: buttonDevide
                 height: combo.height
@@ -144,7 +136,7 @@ Item {
             onRejected: {
             }
         }
-        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
+        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); password_value.focus = true;} } } }
     }
 
     Item {
