@@ -46,7 +46,7 @@ Item {
     y:0
     anchors.topMargin: 0
 
-    Rectangle {
+    /*Rectangle {
         color: palette.darkThird
         width: parent.width-2
         height: 20
@@ -75,13 +75,13 @@ Item {
                 }
             }
         }
-    }
+    }*/
 
     Loader {
         id:content
         source: "Page1.qml"
         x:0
-        y:30
+        y:0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width-40
         height: parent.height-40
@@ -603,7 +603,7 @@ Item {
       */
     function manageProgressBar(posInitial, direction, branch)
     {
-        switch(posInitial) {
+      /*  switch(posInitial) {
         case 1:
             if(direction === 1)
                 bar.value = 5
@@ -789,7 +789,7 @@ Item {
                 else
                     bar.value = 40
             break;
-        }
+        }*/
     }
 
 }

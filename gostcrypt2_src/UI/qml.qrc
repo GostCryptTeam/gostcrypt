@@ -74,5 +74,10 @@
         <file>UI/NotificationBox.qml</file>
         <file>UI/ressource/triangle_notif.png</file>
         <file>UI/CircleLoadingBar.qml</file>
+        <file>UI/ressource/container.png</file>
+        <file>UI/ressource/device.png</file>
+        <file>UI/ressource/hidden.png</file>
+        <file>UI/ressource/normal.png</file>
+        <file>UI/ressource/wizard.png</file>
     </qresource>
 </RCC>

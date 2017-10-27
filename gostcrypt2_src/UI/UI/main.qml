@@ -68,6 +68,8 @@ Window {
         property color darkInput: "#181818"
         property color hoverItemMenu: "#404040"
         property color bkCheckBox: "#191919"
+        property color grayWizard: "#2e2e2e"
+        property color grayWizardDark: "#2b2b2b"
     }
 
     //Window's maximum dimension

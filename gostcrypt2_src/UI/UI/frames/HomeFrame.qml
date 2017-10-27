@@ -89,7 +89,7 @@ Item {
         UI.GSButtonBlue_icon {
             text: qsTr("Create Volume") + Translation.tr
             onClicked: {
-                openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
+                openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : "", "type": true})
             }
         }
         //Smooth fade-in/fade-out animation

@@ -14,7 +14,7 @@ Item {
     property var object
     property var heightSubWindow
     property bool isOpen
-    property variant parameter: {"name" : "", "value" : ""}
+    property variant parameter: {"name" : "", "value" : "", "type": false}
 
     MouseArea {
         anchors.fill: parent
@@ -65,6 +65,68 @@ Item {
         }
     ]
 
+
+    //Stylized subwindow
+    Rectangle {
+        id: containerSubStylized
+        visible: (parameter.type === true) ? true : false
+        width: 608
+        anchors.centerIn: parent
+        height: heightSubWindow
+        radius: 10
+        y: parent.y
+        color: "transparent";
+        Rectangle {
+            id: imgWizard
+            color: "transparent";
+            width: 608
+            height: 151
+            Image {
+                source: "ressource/wizard.png"
+            }
+        }
+        Rectangle {
+            id: closeWizard
+            width:40
+            height:40
+            color: palette.grayWizard
+            radius: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            y: parent.y + 50
+            anchors.topMargin: 10
+            Text{
+                color: palette.text
+                text: "×"
+                anchors.centerIn: parent
+                font.pointSize: 15
+            }
+            MouseArea{
+                width: parent.width
+                height: parent.height
+                hoverEnabled: true
+                onEntered: closeWizard.color = palette.darkInput
+                onExited: closeWizard.color = palette.grayWizard
+                onClicked: catchClose()
+            }
+        }
+        Rectangle {
+            id: contentWizard
+            color: palette.grayWizard
+            width: parent.width
+            height: 270
+            anchors.top: imgWizard.bottom
+            Rectangle {
+                width: parent.width
+                height: 50
+                anchors.bottom: parent.bottom
+                color: palette.grayWizardDark
+            }
+        }
+
+    }
+
+    //Normal subwindow
     Rectangle {
         id: containerSub
         color: palette.shadow
@@ -73,6 +135,7 @@ Item {
         height: heightSubWindow
         y: parent.y
         radius: 0
+        visible: (parameter.type === 0 || parameter.type === undefined) ? true : false
         Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
         Rectangle {
             width:parent.width-2
@@ -87,34 +150,6 @@ Item {
             y:70
             height: parent.height-71
             color: palette.dark
-        }
-        Text {
-            topPadding: 5
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 5
-            text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
-            color: palette.text
-            font.pixelSize: 12
-
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-            }
-            onLinkActivated: {
-                catchClose()
-            }
-        }
-        Text {
-            id: title_
-            topPadding: 20
-            text: title + Translation.tr
-            font.family: "Helvetica"
-            font.pointSize: 17
-            color: palette.green
-            anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: Text.AlignHCenter
-            y: containerSub.y + 10
         }
         Rectangle {
             id: close
@@ -143,20 +178,58 @@ Item {
         }
     }
 
+    Text {
+        topPadding: 5
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 5
+        text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
+        color: palette.text
+        font.pixelSize: 12
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.NoButton
+            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+        }
+        onLinkActivated: {
+            catchClose()
+        }
+    }
+    Text {
+        id: title_
+        topPadding: (parameter.type === true) ?  0 : 20
+        text: title + Translation.tr
+        font.family: "Helvetica"
+        font.pointSize: 17
+        color: (parameter.type === true) ? palette.text : palette.green
+        anchors.horizontalCenter: parent.horizontalCenter
+        horizontalAlignment: Text.AlignHCenter
+        y: (parameter.type === true) ? containerSubStylized.y + 80 : containerSub.y + 10
+    }
+
     //Content
     ScrollView {
         id: scrollArea
-        x: containerSub.x
-        y: 30
-        width: containerSub.width
-        height: containerSub.height-80
+        x: (parameter.type === true) ?  containerSubStylized.x : containerSub.x
+        y: (parameter.type === true) ?  contentWizard.y : 30
+
+        width: (parameter.type === true) ?  containerSubStylized.width : containerSub.width
+        height: (parameter.type === true) ?  contentWizard.height : containerSub.height-80
+
     }
 
-    Behavior on opacity { NumberAnimation { id: anim_; duration: app.duration/2; easing.type: Easing.OutQuad; onRunningChanged: {
+    Behavior on opacity {
+        NumberAnimation {
+            id: anim_;
+            duration: app.duration/2;
+            easing.type: Easing.OutQuad;
+            onRunningChanged: {
                 if(!anim_.running && subWindow_.isOpen == false) {
                     subWindow_.visible = false
                 }
-            } } }
+            }
+        }
+    }
 
     Loader {
         id: loader
@@ -172,12 +245,10 @@ Item {
         loader.setSource("");
         var component = Qt.createComponent(w);
         var parent = scrollArea;
-        if (component.status == QML.Component.Ready) {
-            console.log("[DEBUG] : Loading component " + w);
+        if (component.status === QML.Component.Ready) {
             loader.setSource(w);
-        }else if (component.status == Component.Error) {
+        }else if (component.status === Component.Error) {
             // Error Handling
-            console.log("[DEBUG] : Error loading component:", component.errorString());
         }
     }
 
@@ -185,7 +256,6 @@ Item {
         switch(parameter.name)
         {
         case "dropVolume":
-            console.log("[Debug] : Opening a volume from a drag action.")
             loader.item.initDrag(parameter)
             break;
         }
@@ -203,7 +273,10 @@ Item {
 
     function changeSubWindowHeight(value) {
         heightSubWindow = value;
-        loader.item.y = subWindow.y
+        if(parameter.type === true)
+            loader.item.y = 10
+        else
+            loader.item.y = subWindow.y
     }
 
     function changeSubWindowTitle(title) {
