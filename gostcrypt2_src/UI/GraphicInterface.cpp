@@ -204,25 +204,27 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
            vol.insert("volumeSize", formatSize((*v)->size));
            list.append(vol);
     }
-    sPrintGetMountVolume(list);
+    emit QML_SIGNAL(printGetMountedVolumes, list)
+    //sprintGetMountedVolume(list);
 }
 
 void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> response)
 {
     (void)response;
-    QML_SIGNAL(DismountVolume);
+    emit QML_SIGNAL(printDismountVolume, QVariantList());
 }
 
 void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response)
 {
     (void)response;
-    emit sPrintGetMountVolume(QVariantList());//TODO  QVariantList(response->volumeInfo));
+    emit QML_SIGNAL(printMountVolume, QVariantList());
+    //TODO  QVariantList(response->volumeInfo));
 }
 
 void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response)
 {
     (void)response;
-    QML_SIGNAL(CreateVolume);
+    emit QML_SIGNAL(printCreateVolume, QVariantList())
 }
 
 void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response)
@@ -230,18 +232,23 @@ void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Ne
     (void)response;
     QVariantList list;
     for(auto k : response->algorithms) list << k;
-    emit sPrintGetEncryptionAlgorithms(list); //TODO
+    emit QML_SIGNAL(printGetEncryptionAlgorithms, list)
 }
 
 void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> response)
 {
     (void)response;
-    emit sPrintDerivationFunctions(QVariantList()); //TODO
+    emit QML_SIGNAL(printGetDerivationFunctions, QVariantList())
 }
 
 void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r)
 {
-    emit sPrintProgressUpdate(r->requestId, r->progress);
+    QVariantList list;
+    QVariantMap progress;
+    progress.insert("id", r->requestId);
+    progress.insert("progress", r->progress);
+    list.append(progress);
+    emit QML_SIGNAL(printProgressUpdate, list)
 }
 
 void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response)
@@ -268,19 +275,20 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::Ge
             }
         }
     }
-    emit sPrintHostDevices(list);
+    emit QML_SIGNAL(printGetHostDevices, list)
 }
 
 void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> response)
 {
     (void)response;
-    emit sPrintCreateKeyFile(QString()); //TODO
+    //emit sPrintCreateKeyFile(QString()); //TODO
+    emit QML_SIGNAL(printCreateKeyFile, QVariantList())
 }
 
 void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::NewCore::ChangeVolumePasswordResponse> response)
 {
     (void)response;
-    QML_SIGNAL(ChangeVolumePassword);
+    emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
 }
 
 void GraphicInterface::askSudoPassword()
@@ -326,8 +334,6 @@ void GraphicInterface::connectSignals()
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
     mApp->connect(qml, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
 
-    //mApp->connect(core.data(), SIGNAL(sudoPasswordSuccess()), this, SLOT(sendSudoStatus()));
-
 
     /* Connecting few exit signals to close the program apropriately */
     mApp->connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
@@ -342,24 +348,27 @@ void GraphicInterface::connectSignals()
 
 bool MyGuiApplication::notify(QObject *receiver, QEvent *event)
 {
-
+    QVariantList response;
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
     } catch(GostCrypt::NewCore::IncorrectVolumePassword &e) {
        emit mGI->volumePasswordIncorrect();
     } catch (GostCrypt::NewCore::CoreException &e) {
-        emit mGI->sendError(e.getName(), "An unexpected error occured. \n"
+        response << e.getName() << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
         +e.getMessage()
 #endif
-        );
+        ;
+        emit mGI->QML_SIGNAL(printSendError, response)
     } catch (QException &e) { // TODO : handle exceptions here
-        emit mGI->sendError("Exception catch", "An unexpected error occured. \n"
+
+        response << "Exception catch" << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
-        +QString::fromUtf8(e.what())
-#endif
-        );
+        << QString::fromUtf8(e.what())
+#endif   
+        ;
+        emit mGI->QML_SIGNAL(printSendError, response)
     }
     return done;
 }

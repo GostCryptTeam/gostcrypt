@@ -16,62 +16,61 @@ Item {
             qmlRequest("mountedvolumes", "");
         }
 
-        onSPrintGetMountVolume: {
+        onSprintGetMountedVolumes: {
             subWindow.catchClose();
             pageLoader.item.clearVolumes();
-            manageModel(volumes);
+            manageModel(l);
         }
 
         onGetSudoPassword: {
             app.toggleSudo(1)
         }
 
-        onSPrintDismountVolume: {
+        onSprintDismountVolume: {
             qmlRequest("mountedvolumes", "")
         }
 
-        onSPrintMountVolume: {
+        onSprintMountVolume: {
             console.log("volume monté text");
             qmlRequest("mountedvolumes", "")
         }
 
-        onSendError: {
+        onSprintSendError: {
             /*switch(aTitle)
             {
             case "badvolumepassword":
                 break;
             }*/
-            openErrorMessage(aTitle, aContent);
-            //TODO : clean task
+            openErrorMessage(l[0], l [1]);
         }
 
-        onSPrintGetEncryptionAlgorithms:
+        onSprintGetEncryptionAlgorithms:
         {
-            subWindow.loadedItem.page.getAlgos(algos);
-            subWindow.loadedItem.page.used[0] = algos[0];
-            subWindow.loadedItem.page.used[1] = algos[1];
+            subWindow.loadedItem.page.getAlgos(l[0]);
+            subWindow.loadedItem.page.used[0] = l[0];
+            subWindow.loadedItem.page.used[1] = l[1];
         }
 
-        onSPrintHostDevices:
+        onSprintGetHostDevices:
         {
             var i = 0
-            for(var a in hostDevices)
+            for(var a in l)
             {
                 subWindow.getLoader().item.addHostDevice(
-                                        {
-                                            number: i,
-                                            mountPoint: hostDevices[i]["mountPoint"],
-                                            path: hostDevices[i]["path"],
-                                            size: hostDevices[i]["size"]
-                                        })
+                  {
+                    number: i,
+                    mountPoint: l[i]["mountPoint"],
+                    path: l[i]["path"],
+                    size: l[i]["size"]
+                  })
                 i++;
             }
         }
 
-        onSPrintProgressUpdate:
+        onSprintProgressUpdate:
         {
-            console.log("Mise à jour avec l'id " + id + " --->" + progress*100);
-            notifs.updateNotification(id,progress*100,notifications[id][0],notifications[id][1]);
+            console.log("Mise à jour avec l'id " + l[0]["id"] + " --->" + l[0]["progress"]*100);
+            notifs.updateNotification(l[0]["id"],l[0]["progress"]*100,notifications[l[0]["id"]][0],notifications[l[0]["id"]][1]);
             if(notifs.visible === false) title.showIcon(true);
         }
     }

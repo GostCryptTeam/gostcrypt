@@ -34,8 +34,9 @@
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
 #define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response> r)
+#define DEC_QML_PRINT_SIGNAL(requestName) void sprint ## requestName (QVariantList l);
 #define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)))
-#define QML_SIGNAL(requestName) emit sPrint ## requestName ();
+#define QML_SIGNAL(requestName, params) s ## requestName (params);
 
 #define DEFAULT_ALGORITHM "Gost Grasshopper"
 #define DEFAULT_KDF "HMAC-Whirlpool"
@@ -85,28 +86,29 @@ private slots:
     DEC_PRINT_SLOT(ChangeVolumePassword);
     DEC_PRINT_SLOT(ProgressUpdate);
     void askSudoPassword();
-    //void sendSudoStatus(); TODO
 
 signals:
     void request(QVariant request);
     void exit();
     void sendSudoPassword(QString password);
     void connectFinished();
+
     //Signals that are called after the Core response :
-    void sPrintCreateVolume();
-    void sPrintDismountVolume();
-    void sPrintMountVolume();
-    void sPrintGetMountVolume(QVariantList volumes);
-    void sPrintGetEncryptionAlgorithms(QVariantList algos);
-    void sPrintDerivationFunctions(QVariantList functions);
-    void sPrintHostDevices(QVariantList hostDevices);
-    void sPrintCreateKeyFile(QString keyfile);
-    void sPrintChangeVolumePassword();
-    void sPrintProgressUpdate(qint32 id, qreal progress);
+    DEC_QML_PRINT_SIGNAL(CreateVolume)
+    DEC_QML_PRINT_SIGNAL(MountVolume)
+    DEC_QML_PRINT_SIGNAL(DismountVolume)
+    DEC_QML_PRINT_SIGNAL(GetMountedVolumes)
+    DEC_QML_PRINT_SIGNAL(GetEncryptionAlgorithms)
+    DEC_QML_PRINT_SIGNAL(GetDerivationFunctions)
+    DEC_QML_PRINT_SIGNAL(GetHostDevices)
+    DEC_QML_PRINT_SIGNAL(CreateKeyFile)
+    DEC_QML_PRINT_SIGNAL(ChangeVolumePassword)
+    DEC_QML_PRINT_SIGNAL(ProgressUpdate)
+    DEC_QML_PRINT_SIGNAL(SendError)
 
     void getSudoPassword();
     void volumePasswordIncorrect();
-    void sendError(QString aTitle, QString aContent);
+    //void printSendError(QString aTitle, QString aContent);
 
 private:
     Q_INVOKABLE void connectSignals();
