@@ -176,8 +176,9 @@ Item {
             id: cache
             text_: qsTr("Cache password and keyfiles in memory")  + Translation.tr
             x: combo.x
-            y: password_value.y + password_value.height + 5
+            y: password_value.y + password_value.height + 10
             height: 20
+            width: 300
             size_: 20
             sizeText: 10
             checked: {
@@ -189,7 +190,6 @@ Item {
                     UserSettings.setSetting("MountV-SaveHistory", 1)
                 else
                     UserSettings.setSetting("MountV-SaveHistory", 0)
-                //TODO : action
             }
         }
 
@@ -197,7 +197,8 @@ Item {
             id: display
             text_: qsTr("Display password")  + Translation.tr
             x: combo.x
-            y: cache.y + 22
+            anchors.top: cache.bottom
+            anchors.topMargin: 5
             height: 20
             size_: 20
             sizeText: 10
@@ -221,7 +222,8 @@ Item {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles") + Translation.tr
             x: combo.x
-            y: display.y + 22
+            anchors.top: display.bottom
+            anchors.topMargin: 5
             height: 20
             size_: 20
             sizeText: 10

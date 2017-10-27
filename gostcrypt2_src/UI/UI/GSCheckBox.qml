@@ -6,7 +6,7 @@ CheckBox {
     id: box
     property string text_
     property int sizeText: 11
-    property int leftPadding_: 15
+    property int leftPadding_: 5
     property int size_: 30
 
     style: CheckBoxStyle {
@@ -15,6 +15,7 @@ CheckBox {
             font.pointSize: sizeText
             color: "white"
             text: text_ + Translation.tr
+            wrapMode: Text.WordWrap
         }
         indicator: Rectangle {
             implicitWidth: size_
