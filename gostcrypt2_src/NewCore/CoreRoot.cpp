@@ -105,6 +105,17 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             }
             MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
         }
+		UPDATE_PROGRESS(0.91);
+		QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
+		QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
+		getMountedVolumesParams->volumePath = params->path;
+		getMountedVolumesParams->emitResponse = false;
+		getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
+		QList<QSharedPointer<VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
+		if(volumeInfoList.size() < 1) {
+			throw CoreException(); //TODO
+		}
+		response->volumeInfo = volumeInfoList.first();
     }
     catch (...)
     {
@@ -119,17 +130,6 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
         throw;
     }
-	UPDATE_PROGRESS(0.91);
-    QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
-    QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
-    getMountedVolumesParams->volumePath = params->path;
-    getMountedVolumesParams->emitResponse = false;
-    getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-    QList<QSharedPointer<VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
-    if(volumeInfoList.size() < 1) {
-        throw CoreException(); //TODO
-    }
-    response->volumeInfo = volumeInfoList.first();
 	UPDATE_PROGRESS(1);
     if(params->forVolumeCreation) {
         continueMountFormat(response);
