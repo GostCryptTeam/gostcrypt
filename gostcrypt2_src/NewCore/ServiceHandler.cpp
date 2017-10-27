@@ -166,8 +166,6 @@ namespace GostCrypt {
 			#else
 			process.setProcessChannelMode(QProcess::SeparateChannels);
 			process.setReadChannel(QProcess::StandardOutput);
-			//TODO tmp
-			process.setProcessChannelMode(QProcess::ForwardedErrorChannel);
 			#endif
 			process.start();
 		}
