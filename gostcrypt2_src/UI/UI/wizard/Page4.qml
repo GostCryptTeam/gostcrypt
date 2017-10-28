@@ -60,6 +60,7 @@ Item {
     UI.GSCheckBox {
         id: historique
         text_: qsTr("Never save history")
+        anchors.horizontalCenter: parent.horizontalCenter
         checked: {
             var isChecked = UserSettings.getSetting("MountV-SaveHistory")
             return (isChecked === 1) ? true : false;

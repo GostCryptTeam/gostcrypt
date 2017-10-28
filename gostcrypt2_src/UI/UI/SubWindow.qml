@@ -104,9 +104,9 @@ Item {
             Text {
                 topPadding: 5
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: 40
-                text: "<font color=\""+palette.darkSecond+"\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
-                color: palette.darkSecond
+                y: 20
+                text: "<font color=\""+palette.blue+"\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
+                color: palette.blue
                 font.pixelSize: 12
 
                 MouseArea {

@@ -55,6 +55,18 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width-40
         height: parent.height-40
+
+        onSourceChanged: animation.running = true
+
+                NumberAnimation {
+                    id: animation
+                    target: loader.item
+                    property: "opacity"
+                    from: 0
+                    to: 100
+                    duration: app.duration
+                    easing.type: Easing.InExpo
+                }
     }
 
     Row {
