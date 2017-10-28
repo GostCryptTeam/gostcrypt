@@ -82,5 +82,7 @@
         <file>UI/wizard/StepComponent.qml</file>
         <file>UI/wizard/NextPreviousButton.qml</file>
         <file>UI/wizard/Page12.qml</file>
+        <file>UI/ressource/direct_hidden.png</file>
+        <file>UI/ressource/normal_hidden.png</file>
     </qresource>
 </RCC>
