@@ -6,17 +6,19 @@ Item {
     anchors.fill: parent
     Text {
         id:infos
-        anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 25
         font.pixelSize: 12
-        text: qsTr("<font size='7' color='2f88a7'>Done !</font><br>Click the exit button to finish.") + Translation.tr
+        text: qsTr("<font size='7' color='2f88a7'>The volume is being created</font><br><br>You will receive a notification (top right of the screen) when the operation is completed. Do not close GostCrypt until loading is complete.") + Translation.tr
         color: palette.text
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.WordWrap
+        width: 350
     }
     UI.GSButtonBordered {
-        anchors.bottom: parent.bottom
+        anchors.top: infos.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 20
+        anchors.topMargin: 20
         text: qsTr("Exit")
         color_: palette.blue
         onClicked: catchClose()

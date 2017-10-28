@@ -67,6 +67,8 @@ Item {
             }
         }
     }
+
+
     function setType(value)
     {
         type = value

@@ -14,11 +14,6 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         color: palette.text
         wrapMode: Text.WordWrap
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.NoButton
-            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-        }
     }
 
     Row {

@@ -6,6 +6,7 @@ import "../" as UI
 Item {
     property alias page : content.item
     property int currentPage: 1
+    property var typeBranch
     property var volumeInfos: {
         "CONTAINER_TYPE": 0,
         "VOLUME_TYPE": 0,
@@ -130,7 +131,7 @@ Item {
 
     function manageWizard(direction)
     {
-        var typeBranch = 0;
+
         switch(currentPage)
         {
 
@@ -141,7 +142,7 @@ Item {
              */
         case progress.VOLUME_TYPE:
             volumeInfos.CONTAINER_TYPE = content.item.type
-            manageProgressBar(1,direction,0)
+            manageProgressBar(1)
             if(direction === 1)
             {
                 changePage(2, qsTr("Volume Type"), currentPage)
@@ -157,7 +158,7 @@ Item {
              */
         case progress.VOLUME_ISHIDDEN:
             volumeInfos.VOLUME_TYPE = content.item.type
-            manageProgressBar(2,direction,content.item.type)
+            manageProgressBar(1)
             if(direction === 1) //1 => normal
             {
                 // Choice: Standard GostCrypt Volume
@@ -193,7 +194,7 @@ Item {
              */
         case progress.DIRECT_NORMAL:
             volumeInfos.NORMAL_OR_HIDDEN = content.item.type
-            manageProgressBar(3,direction,volumeInfos.NORMAL_OR_HIDDEN)
+            manageProgressBar(1)
             if(direction === 1) //1 => normal
             {
                 changePage(4, qsTr("Volume Location"), currentPage)
@@ -235,7 +236,7 @@ Item {
             volumeInfos.VOLUME_PATH = content.item.path
             if(direction === 1 && volumeInfos.VOLUME_PATH !== "") //1 => normal
             {
-                manageProgressBar(4,direction,content.item.type)
+                manageProgressBar(2)
                 switch (content.item.type) {
                 case 0:
                     changePage(7, qsTr("Encryption Options"), currentPage)
@@ -249,7 +250,7 @@ Item {
                     break;
                 }
             }else if(direction !== 1){
-                manageProgressBar(4,direction,content.item.type)
+                manageProgressBar(2)
                 switch (content.item.type) {
                 case 0:
                     changePage(2, qsTr("Volume Type"), currentPage)
@@ -273,15 +274,14 @@ Item {
             if(direction === 1 && volumeInfos.VOLUME_PWD !== "") //1 => normal
             {
                 changePage(12, qsTr("Hidden Volume"), currentPage)
-                back_.setDisable(1)
-                manageProgressBar(5,direction,3)
+                manageProgressBar(2)
                 content.item.type = 3
             }else if(direction !== 1){
                 changePage(4, qsTr("Volume Location"), currentPage)
                 content.item.message = qsTr("Select the location of the GostCrypt volume within which you wish to create a hidden volume.")
                 content.item.type = 1
                 content.item.setFileDialog(true)
-                manageProgressBar(5,direction,0)
+                manageProgressBar(2)
             }
             break;
 
@@ -295,7 +295,7 @@ Item {
             {
                 changePage(7, qsTr("Encryption Options"), currentPage)
                 qmlRequest("algorithms", "")
-                manageProgressBar(6,direction,0)
+                manageProgressBar(3)
                 content.item.type = 1
             }else{
                 changePage(4, qsTr("Volume Location"), currentPage)
@@ -322,7 +322,7 @@ Item {
              */
         case progress.VOLUME_ALGO: //algorithm & hash (standard volume)
             typeBranch = content.item.type
-            manageProgressBar(7,direction,typeBranch)
+            manageProgressBar(3)
             //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH
             if(content.item.type !== 2)
                 volumeInfos.ALGORITHM_HASH_NAMES = content.item.used
@@ -333,9 +333,9 @@ Item {
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)
                     content.item.setText(qsTr("<b>Free space on drive : ") + "50Go"/*Wizard.getfreeSpace()*/+"</b>",
-                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                                         qsTr("Please specify the size of the container you want to create.<br>If"
                                               +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
-                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                                              +"<br>Note that possible size of an NTFS volume is 3792 KB."))
                 }
                 else {
                     changePage(8, qsTr("Hidden Volume Size"), currentPage)
@@ -366,7 +366,6 @@ Item {
                 case 2:
                 case 3:
                     changePage(12, qsTr("Hidden Volume"), currentPage)
-                    back_.setDisable(1)
                     content.item.type = typeBranch
                     break;
                 }
@@ -393,23 +392,23 @@ Item {
             {
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(9, qsTr("Volume Password"), currentPage)
-                    content.item.setText(qsTr("     It is very important that you choose a good password. You should avoid"
+                    content.item.text_ = qsTr("     It is very important that you choose a good password. You should avoid"
                                               +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
                                               +" It should not contain any names or dates of birth. It sould not be easy to guess."
                                               +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
                                               +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
-                                              +" The maximum possible length is 64 characters."))
+                                              +" The maximum possible length is 64 characters.")
                 }
                 else {
                     changePage(9, qsTr("Hidden Volume Password"), currentPage)
-                    content.item.setText(qsTr(" Please choose a password for the hidden volume. It is very important that you choose a good password. You should avoid"
+                    content.item.text_ = qsTr(" Please choose a password for the hidden volume. It is very important that you choose a good password. You should avoid"
                                               +" choosing one that contains only a single word that can be found in a dictionary (or a combination of 2, 3 or 4 such words)."
                                               +" It should not contain any names or dates of birth. It sould not be easy to guess."
                                               +" A good password is a random combination of upper and lower case letters, numbers, and special characters"
                                               +", such as @  = $ * + etc. We recommend choosing a password consisting of more than 20 characters (the longer, the better)."
-                                              +" The maximum possible length is 64 characters."))
+                                              +" The maximum possible length is 64 characters.")
                 }
-                manageProgressBar(8,direction,typeBranch)
+                manageProgressBar(4)
                 content.item.type = typeBranch
             }else if(direction !== 1){
                 if(typeBranch !== 3 && typeBranch !== 2) {
@@ -420,7 +419,7 @@ Item {
                     changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
                     qmlRequest("algorithms", "")
                 }
-                manageProgressBar(8,direction,typeBranch)
+                manageProgressBar(4)
                 content.item.type = typeBranch
             }
             break;
@@ -452,17 +451,16 @@ Item {
                     changePage(10, qsTr("Volume Format"), currentPage)
                 else
                     changePage(10, qsTr("Hidden Volume Format"), currentPage)
-                manageProgressBar(9,direction,typeBranch)
+                manageProgressBar(4)
                 content.item.type = typeBranch
                 //if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
-                next_.text = qsTr("Format")
             }else if(direction !== 1){
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)
                     content.item.setText(qsTr("<b>Free space on drive " + ""/*Wizard.getfreeSpace()*/+"</b>"),
-                                         qsTr("Please specify the size of the container you want to create.<br><br>If" //TODO GET FREE SPACE
+                                         qsTr("Please specify the size of the container you want to create.<br>If" //TODO GET FREE SPACE
                                               +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
-                                              +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
+                                              +"<br>Note that possible size of an NTFS volume is 3792 KB."))
                 }
                 else {
                     changePage(8, qsTr("Hidden Volume Size"), currentPage)
@@ -472,7 +470,7 @@ Item {
                                               +"The maximum possible size you can specify for the hidden volume is displayed above."))
                 }
 
-                manageProgressBar(9,direction,typeBranch)
+                manageProgressBar(4)
                 content.item.type = typeBranch
             }else{
                 openErrorMessage(qsTr("Different passwords"), qsTr("The passwords are different or empties. <br>Please try again."))
@@ -497,7 +495,7 @@ Item {
                 volumeInfos.HIDDEN_FORMAT_INFOS[2] = content.item.format[2]
             }
             typeBranch = content.item.type
-            manageProgressBar(10,direction,typeBranch)
+            manageProgressBar(5)
             //TODO : create volume here
             if(direction === 1) //1 => normal
             {
@@ -505,13 +503,10 @@ Item {
                 case 0:
                     createVolume(0);
                     content.source = "PageEnd.qml"
-                    back_.visible = false
-                    next_.visible = false
-                    help_.visible = false
+                    manageButtons(false, false)
                     break;
                 case 1:
                     changePage(11, qsTr("Outer Volume Contents"), currentPage)
-                    next_.text = qsTr("Next >")
                     back_.setDisable(1)
                     break;
                 case 2:
@@ -525,11 +520,9 @@ Item {
                                           + "volume is mounted.<br><br>WARNING: IF YOU DO NOT PROTECT THE HIDDEN VOLUME (FOR INFORMATION ON HOW "
                                           + "TO DO SO, REFER TO THE SECTION \"PROTECTION OF HIDDEN VOLUMES AGAINST DAMAGE\" IN THE GOSTCRYPT USER'S "
                                           + "GUIDE), DO NOT WRITE TO THE OUTER VOLUME. OTHERWISE, YOU MAY OVERWRITE AND DAMAGE THE HIDDEN VOLUME!"), 13)
+                    manageButtons(false, false)
                     content.source = "PageEnd.qml"
                     changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
-                    back_.visible = false
-                    next_.visible = false
-                    help_.visible = false
                     break;
                 }
             }else if(direction !== 1){
@@ -537,7 +530,6 @@ Item {
                     changePage(9, qsTr("Volume password"), currentPage)
                 else
                     changePage(9, qsTr("Hidden Volume password"), currentPage)
-                next_.text = qsTr("Next >")
                 content.item.type = typeBranch
             }
             break;
@@ -550,11 +542,10 @@ Item {
              */
         case progress.VOLUME_OUTER_CONTENTS:
             typeBranch = content.item.type
-            manageProgressBar(11,direction,0)
+            manageProgressBar(3)
             if(direction === 1) //1 => normal
             {
                 changePage(12, qsTr("Hidden Volume"), currentPage)
-                back_.setDisable(1)
                 content.item.type = typeBranch
             }
             break;
@@ -567,11 +558,11 @@ Item {
              */
         case progress.VOLUME_HIDDEN_VOLUME:
             typeBranch = content.item.type
-            manageProgressBar(12,direction,typeBranch)
+            manageProgressBar(3)
             if(direction === 1) //1 => normal
             {
                 changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
-                back_.setDisable(0)
+                qmlRequest("algorithms", "")
                 content.item.type = typeBranch
             }
             break;
@@ -619,9 +610,32 @@ Item {
     /*!
       * Fn : manages the loading bar
       */
-    function manageProgressBar(posInitial, direction, branch)
+    function manageProgressBar(value)
     {
+        step1.checked = false
+        step2.checked = false
+        step3.checked = false
+        step4.checked = false
+        step5.checked = false
 
+        switch(value)
+        {
+        case 1:
+            step1.checked = true
+            break;
+        case 2:
+            step2.checked = true
+            break;
+        case 3:
+            step3.checked = true
+            break;
+        case 4:
+            step4.checked = true
+            break;
+        case 5:
+            step5.checked = true
+            break;
+        }
     }
 
 }

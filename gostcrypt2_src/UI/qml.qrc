@@ -81,5 +81,6 @@
         <file>UI/ressource/wizard.png</file>
         <file>UI/wizard/StepComponent.qml</file>
         <file>UI/wizard/NextPreviousButton.qml</file>
+        <file>UI/wizard/Page12.qml</file>
     </qresource>
 </RCC>
