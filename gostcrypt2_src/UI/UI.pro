@@ -101,4 +101,7 @@ translation {
 DISTFILES += \
     UI/ressource/separator.png \
     UI/dialogs/GSLanguage.qml \
-    UI/SecureTextField.qml
+    UI/SecureTextField.qml \
+    UI/wizard/StepComponent.qml \
+    UI/SubWindow.qml \
+    UI/wizard/NextPreviousButton.qml

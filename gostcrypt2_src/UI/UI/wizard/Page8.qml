@@ -8,6 +8,16 @@ Item {
     property variant sizeType: [0, "MB"]
     property int type: 0
 
+    Text {
+        id:titre
+        font.pointSize: 13
+        font.family: "Helvetica"
+        text: qsTr("Set a size for your volume:") + Translation.tr
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: palette.text
+        wrapMode: Text.WordWrap
+    }
+
     TextField {
         id: sizeValue
         x: 10

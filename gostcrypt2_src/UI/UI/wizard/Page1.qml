@@ -5,111 +5,187 @@ import "../" as UI
 Item {
     id: top
     property int type: 0
-    x: 20
-    Grid {
-        columns: 1
-        rows: 3
-        height:parent.height
-        width: parent.width
-        rowSpacing: 40
-        ExclusiveGroup { id: groupRadio }
-        UI.GSCheckBox {
-            id: encryptedFile
-            text_: qsTr("Create an encrypted file container")
-            checked: true
-            height: 30
-            exclusiveGroup :groupRadio
-            onCheckedChanged: {
-                if(encryptedFile.checked === true) {
-                    top.type = 0
-                }
-            }
-            Text {
-                id:description
-                width: top.width-60
-                font.pixelSize: 12
-                text: qsTr("Creates a virtual encrypted disk within a file. Recomended for "+
-                "inexperienced users.<br> <font color='#719c24'><a href=\"#\">More Information</a></font>") + Translation.tr
-                anchors.top:encryptedFile.bottom
-                color: palette.text
-                leftPadding: 40
-                wrapMode: Text.WordWrap
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                }
-            }
 
+    Text {
+        id:titre
+        font.pointSize: 13
+        font.family: "Helvetica"
+        text: qsTr("Please choose the type of container you want:") + Translation.tr
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: palette.text
+        wrapMode: Text.WordWrap
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.NoButton
+            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
         }
-
-        UI.GSCheckBox {
-            id: nonSystem
-            text_: qsTr("Encrypt a non-system partition/drive")
-            checked: false
-            height: 40
-            exclusiveGroup :groupRadio
-            onCheckedChanged: {
-                if(encryptedFile.checked === true) {
-                    top.type = 1
-                }
-            }
-            Text {
-                id:description2
-                width: top.width-60
-                font.pixelSize: 12
-                text: qsTr("Encrypts a non-system partition on any internal or"+
-                      " external drive (e.g. a flash drive). Optionnaly, creates "+
-                      "a hidden volume.") + Translation.tr
-                anchors.top:nonSystem.bottom
-                color: palette.text
-                leftPadding: 40
-                wrapMode: Text.WordWrap
-            }
-        }
-
-        /*UI.GSCheckBox {
-            id: system
-            text_: qsTr("Encrypt the system partition or entire system drive")
-            checked: false
-            height: 40
-            enabled: false
-            exclusiveGroup :groupRadio
-            onCheckedChanged: {
-                if(system.checked === true) {
-                    top.type = 2
-                }
-            }
-            Text {
-                id:description3
-                width: top.width-60
-                font.pixelSize: 12
-                text: qsTr( "Encrypts the partition/drive where Windows is installed. "+
-                            "Anyone who wants to gain access and use the system, read and "+
-                            "write files, etc., will need to enter the correct "+
-                            "password each time before Windows boots. Optionnaly, creates a "+
-                            "hidden system.<br><font color='#719c24'><a href=\"#\">More about system encryption</a></font>") + Translation.tr
-                anchors.top:system.bottom
-                color: palette.text
-                leftPadding: 40
-                wrapMode: Text.WordWrap
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                }
-            }
-        }*/
     }
 
-    function setType(value)
-    {
-        type = value
-        if(value === 0)
-            encryptedFile.checked = true
-        else if (value === 1)
-            nonSystem.checked = true
-        else
-            system.checked = true
+    Row {
+        id: choice
+        spacing: 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: titre.bottom
+        anchors.topMargin: 20
+        Rectangle {
+            id: file
+            width: 220
+            height: 150
+            color: "transparent"
+
+            Image {
+                id: img1
+                y: 10
+                anchors.rightMargin: 10
+                source: "../ressource/container.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                scale:  fileArea.containsMouse ? 0.8 : 1.0
+                smooth: fileArea.containsMouse
+                Behavior on width {
+                    NumberAnimation {
+                        duration: app.duration/2;
+                        easing.type: Easing.OutQuad;
+                    }
+                }
+            }
+            Text {
+                text: qsTr("Encrypted file container") + Translation.tr
+                width: 150
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                color: palette.text
+                font.pointSize: 13
+                anchors.horizontalCenter: img1.horizontalCenter
+                y: 100
+                anchors.topMargin: 20
+            }
+            MouseArea {
+                id: fileArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    scale.start();
+                    desc.text = qsTr("Creates a virtual encrypted disk within a file. Recomended for "+
+                                     "inexperienced users.") + Translation.tr
+                }
+                onExited: {
+                    unScale.start();
+                    desc.text = ""
+                }
+                onClicked: { type = 0; manageWizard(1) }
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            SequentialAnimation {
+                id: scale
+                loops: 1
+                PropertyAnimation {
+                    target: img1
+                    properties: "scale"
+                    from: 1.0
+                    to: 0.9
+                    duration: app.duration/2
+                }
+            }
+
+            SequentialAnimation {
+                id: unScale
+                loops: 1
+                PropertyAnimation {
+                    target: img1
+                    properties: "scale"
+                    from: 0.9
+                    to: 1.0
+                    duration: app.duration/2
+                }
+            }
+        }
+        Rectangle {
+            id: device
+            width: 220
+            height: 150
+            color: "transparent"
+
+            Image {
+                id: img2
+                y: 10
+                anchors.rightMargin: 10
+                source: "../ressource/device.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                scale:  deviceArea.containsMouse ? 0.8 : 1.0
+                smooth: deviceArea.containsMouse
+                Behavior on width {
+                    NumberAnimation {
+                        duration: app.duration/2;
+                        easing.type: Easing.OutQuad;
+                    }
+                }
+            }
+            Text {
+                text: qsTr("Non system partition/device") + Translation.tr
+                width: 150
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                color: palette.text
+                font.pointSize: 13
+                anchors.horizontalCenter: img2.horizontalCenter
+                y: 100
+                anchors.topMargin: 20
+            }
+            MouseArea {
+                id: deviceArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    scaleDevice.start();
+                    desc.text = qsTr("Encrypts a non-system partition on any internal or"+
+                                     " external drive (e.g. a flash drive). Optionnaly, creates "+
+                                     "a hidden volume.") + Translation.tr
+                }
+                onExited: {
+                    unScaleDevice.start();
+                    desc.text = ""
+                }
+                onClicked: { type = 1; manageWizard(1) }
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            SequentialAnimation {
+                id: scaleDevice
+                loops: 1
+                PropertyAnimation {
+                    target: img2
+                    properties: "scale"
+                    from: 1.0
+                    to: 0.9
+                    duration: app.duration/2
+                }
+            }
+
+            SequentialAnimation {
+                id: unScaleDevice
+                loops: 1
+                PropertyAnimation {
+                    target: img2
+                    properties: "scale"
+                    from: 0.9
+                    to: 1.0
+                    duration: app.duration/2
+                }
+            }
+        }
+    }
+
+    Text {
+        id: desc
+        text: ""
+        wrapMode: Text.WordWrap
+        x: bottomBar.x
+        y: bottomBar.y-2
+        width: bottomBar.width- 40
+        height: bottomBar.height
+        horizontalAlignment: Text.AlignHCenter
+        color: palette.textLowOpacity
+        font.pointSize: 9
     }
 }

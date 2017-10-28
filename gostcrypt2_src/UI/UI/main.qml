@@ -12,6 +12,7 @@ import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
 import "LoadVolume.js" as LoadVolume
 import "./frames" as GSFrame
+import "./wizard" as W
 
 /*!
   \class main.qml (Window)
@@ -19,7 +20,6 @@ import "./frames" as GSFrame
   subwindow management
 */
 Window {
-
     /*************************************
      ************* Properties ************
      *************************************/
@@ -70,6 +70,8 @@ Window {
         property color bkCheckBox: "#191919"
         property color grayWizard: "#2e2e2e"
         property color grayWizardDark: "#2b2b2b"
+        property color round: "#545454"
+        property color roundFilled: "#dfdfdf"
     }
 
     //Window's maximum dimension
@@ -340,7 +342,7 @@ Window {
     Item {
         x: 0
         y: 40
-        GSSubWindow {
+        SubWindow {
             id: subWindow
             width:app.width
             y:40
@@ -436,18 +438,14 @@ Window {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
         else
         {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
     }
 

@@ -5,7 +5,7 @@
         <file>UI/GSButtonGreen_icon.qml</file>
         <file>UI/GSMenu.qml</file>
         <file>UI/GSMenuButton.qml</file>
-        <file>UI/GSSubWindow.qml</file>
+        <file>UI/SubWindow.qml</file>
         <file>UI/main.qml</file>
         <file>UI/GSCustomComboBox.qml</file>
         <file>UI/LoadVolume.js</file>
@@ -79,5 +79,7 @@
         <file>UI/ressource/hidden.png</file>
         <file>UI/ressource/normal.png</file>
         <file>UI/ressource/wizard.png</file>
+        <file>UI/wizard/StepComponent.qml</file>
+        <file>UI/wizard/NextPreviousButton.qml</file>
     </qresource>
 </RCC>

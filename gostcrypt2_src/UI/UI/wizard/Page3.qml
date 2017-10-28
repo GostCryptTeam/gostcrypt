@@ -27,13 +27,12 @@ Item {
             }
             Text {
                 id:description
-                width: top.width-60
+                width: top.width
                 font.pixelSize: 12
                 text: qsTr("If you select this option, the wizard will first help you create a normal GostCrypt"+
                       "volume and then a hidden GostCrypt volume within it. Inexperienced users should always select this option.") + Translation.tr
                 anchors.top:normal.bottom
                 color: palette.text
-                leftPadding: 40
                 wrapMode: Text.WordWrap
             }
         }

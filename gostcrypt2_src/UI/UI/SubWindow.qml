@@ -19,9 +19,8 @@ Item {
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: {
-        }
     }
+
 
     //Black background
     Rectangle {
@@ -83,6 +82,41 @@ Item {
             height: 151
             Image {
                 source: "ressource/wizard.png"
+                Rectangle {
+                    id: contentTitle
+                    x: 195
+                    y: 108
+                    width: 403
+                    height: 35
+                    color: "transparent"
+                    Text {
+                        id: titleWizard_
+                        anchors.centerIn: contentTitle
+                        text: title + Translation.tr
+                        font.family: "Helvetica"
+                        font.pointSize: 14
+                        color: palette.text
+                    }
+
+                }
+
+            }
+            Text {
+                topPadding: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 40
+                text: "<font color=\""+palette.darkSecond+"\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
+                color: palette.darkSecond
+                font.pixelSize: 12
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+                onLinkActivated: {
+                    catchClose()
+                }
             }
         }
         Rectangle {
@@ -117,6 +151,7 @@ Item {
             height: 270
             anchors.top: imgWizard.bottom
             Rectangle {
+                id: bottomBar
                 width: parent.width
                 height: 50
                 anchors.bottom: parent.bottom
@@ -176,36 +211,37 @@ Item {
                 onClicked: catchClose()
             }
         }
+        Text {
+                topPadding: 5
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 5
+                text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
+                color: palette.text
+                font.pixelSize: 12
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+                onLinkActivated: {
+                    catchClose()
+                }
+            }
+            Text {
+                id: title_
+                width: app.width
+                height: 30
+                text: title + Translation.tr
+                font.family: "Helvetica"
+                font.pointSize: 17
+                color: palette.green
+                y: containerSub.y + 10
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignHCenter
+                topPadding: 20
+            }
     }
 
-    Text {
-        topPadding: 5
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 5
-        text: "<font color=\"#719c24\"><a href=\"home\">"+qsTr("Home") + Translation.tr+"</font></a> > "+ name + Translation.tr
-        color: palette.text
-        font.pixelSize: 12
-
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.NoButton
-            cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-        }
-        onLinkActivated: {
-            catchClose()
-        }
-    }
-    Text {
-        id: title_
-        topPadding: (parameter.type === true) ?  0 : 20
-        text: title + Translation.tr
-        font.family: "Helvetica"
-        font.pointSize: 17
-        color: (parameter.type === true) ? palette.text : palette.green
-        anchors.horizontalCenter: parent.horizontalCenter
-        horizontalAlignment: Text.AlignHCenter
-        y: (parameter.type === true) ? containerSubStylized.y + 80 : containerSub.y + 10
-    }
 
     //Content
     ScrollView {
@@ -214,7 +250,7 @@ Item {
         y: (parameter.type === true) ?  contentWizard.y : 30
 
         width: (parameter.type === true) ?  containerSubStylized.width : containerSub.width
-        height: (parameter.type === true) ?  contentWizard.height : containerSub.height-80
+        height: (parameter.type === true) ?  containerSubStylized.height : containerSub.height-80
 
     }
 
@@ -241,12 +277,14 @@ Item {
     }
 
     //Load the right QML Form
-    function loadForm() {
+    function loadForm(height, title) {
         loader.setSource("");
         var component = Qt.createComponent(w);
         var parent = scrollArea;
         if (component.status === QML.Component.Ready) {
             loader.setSource(w);
+            changeSubWindowHeight(height);
+            changeSubWindowTitle(title);
         }else if (component.status === Component.Error) {
             // Error Handling
         }
@@ -265,7 +303,6 @@ Item {
         //effacer le contenu du loader
         loader.setSource("");
         //fermer la subwindow
-        subWindow_.parameter = ""
         subWindow_.opacity = 0.0
         subWindow_.isOpen = false
         heightSubWindow = 429
@@ -280,7 +317,7 @@ Item {
     }
 
     function changeSubWindowTitle(title) {
-        title_.text = title
+        subWindow_.title = title
     }
 
     function getLoader()

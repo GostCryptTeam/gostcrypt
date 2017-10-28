@@ -46,37 +46,6 @@ Item {
     y:0
     anchors.topMargin: 0
 
-    /*Rectangle {
-        color: palette.darkThird
-        width: parent.width-2
-        height: 20
-        x: 1
-
-        ProgressBar {
-            id: bar
-            width: parent.width
-            height: 2
-            maximumValue: 100
-            value: 0
-            y:20
-            Behavior on value {
-                NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; }
-            }
-            style: ProgressBarStyle {
-                background: Rectangle {
-                    implicitWidth: bar.width
-                    implicitHeight: bar.height
-                    color: palette.text
-                    border.color: palette.border
-                    border.width: 1
-                }
-                progress: Rectangle {
-                    color: palette.blue
-                }
-            }
-        }
-    }*/
-
     Loader {
         id:content
         source: "Page1.qml"
@@ -112,6 +81,52 @@ Item {
         }
     }
 
+    Row {
+        id: steps
+        spacing: 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 275
+        StepComponent {
+            id: step1
+            checked: true
+        }
+        StepComponent {
+            id: step2
+        }
+        StepComponent {
+            id: step3
+        }
+        StepComponent {
+            id: step4
+        }
+        StepComponent {
+            id: step5
+        }
+
+    }
+
+    NextPreviousButton {
+        id: previous
+        x: -60
+        y: 270/2 - 70
+        onPressed: manageWizard(-1)
+        visible: false
+    }
+
+    NextPreviousButton {
+        id: next
+        x: parent.width + 20
+        y: 270/2 - 70
+        type: true
+        onPressed: manageWizard(1)
+        visible: false
+    }
+
+    function manageButtons(a_,b_)
+    {
+        previous.visible = a_;
+        next.visible = b_;
+    }
 
     function manageWizard(direction)
     {
@@ -130,7 +145,7 @@ Item {
             if(direction === 1)
             {
                 changePage(2, qsTr("Volume Type"), currentPage)
-                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+                manageButtons(true, false);
             }
             break;
 
@@ -149,6 +164,7 @@ Item {
                 if(volumeInfos.VOLUME_TYPE === 0)
                 {
                     changePage(4, qsTr("Volume Location"), currentPage)
+                    manageButtons(true, true);
                     content.source = "Page4.qml"
                     content.item.message = qsTr("A GostCrypt volume can reside in a file (called GostCrypt container),"
                                            +" which can reside on a hard disk, on a USB flash drive, etc. A GostCrypt"
@@ -159,11 +175,13 @@ Item {
                                            +" the newly created GostCrypt container. You will be able to encrypt existing files (later"
                                            +" on) by moving them to the GostCrypt container that you are about to create now.")
                     content.item.type = 0
-                }else //Choice : Hideden GostCrypt Volume
+                }else { //Choice : Hideden GostCrypt Volume
                     changePage(3, qsTr("Volume Creation Mode"), currentPage)
+                    manageButtons(true, true);
+                }
             }else{
                 changePage(1, qsTr("GostCrypt Volume Creation Wizard"), currentPage)
-                content.item.setType(volumeInfos.CONTAINER_TYPE ? volumeInfos.CONTAINER_TYPE : 0)
+                manageButtons(false, false);
             }
             break;
 
@@ -201,7 +219,7 @@ Item {
                 }
             }else{
                 changePage(2, qsTr("Volume Type"), currentPage)
-                content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+                manageButtons(true, false);
             }
             break;
 
@@ -235,7 +253,7 @@ Item {
                 switch (content.item.type) {
                 case 0:
                     changePage(2, qsTr("Volume Type"), currentPage)
-                    content.item.setType(volumeInfos.VOLUME_TYPE ? volumeInfos.VOLUME_TYPE : 0)
+                    manageButtons(true, false);
                     break;
                 case 1:
                 case 2:
@@ -441,8 +459,8 @@ Item {
             }else if(direction !== 1){
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)
-                    content.item.setText(qsTr("<b>Free space on drive " + Wizard.getfreeSpace()+"</b>"),
-                                         qsTr("Please specify the size of the container you want to create.<br><br>If"
+                    content.item.setText(qsTr("<b>Free space on drive " + ""/*Wizard.getfreeSpace()*/+"</b>"),
+                                         qsTr("Please specify the size of the container you want to create.<br><br>If" //TODO GET FREE SPACE
                                               +" you create a dynamic (sparse-file) container, this parameter will specify its maximum possible size."
                                               +"<br><br>Note that possible size of an NTFS volume is 3792 KB."))
                 }
@@ -603,193 +621,7 @@ Item {
       */
     function manageProgressBar(posInitial, direction, branch)
     {
-      /*  switch(posInitial) {
-        case 1:
-            if(direction === 1)
-                bar.value = 5
-            break;
-        case 2:
-            if(direction === 1)
-                if(branch === 0)
-                    bar.value = 20
-                else
-                    bar.value = 10
-             else
-                bar.value = 0
-            break;
-        case 3:
-            if(direction === 1)
-                bar.value = 20
-            else
-                bar.value = 5
-            break;
-        case 4:
-            if(direction === 1) {
-                switch(branch){
-                case 0:
-                    bar.value = 40
-                    break;
-                case 1:
-                    bar.value = 25
-                    break;
-                case 2:
-                    bar.value = 30
-                    break;
-                }
-            }else{
-                switch(branch){
-                case 0:
-                    bar.value = 5
-                    break;
-                case 1:
-                    bar.value = 10
-                    break;
-                case 2:
-                    bar.value = 10
-                    break;
-                }
-            }
-            break;
-        case 5:
-            if(direction === 1)
-                bar.value = 35
-            else
-                bar.value = 20
-            break;
-        case 6:
-            if(direction === 1)
-                bar.value = 40
-            else
-                bar.value = 20
-            break;
-        case 7:
-            if(direction === 1) {
-                switch(branch){
-                case 0:
-                    bar.value = 50
-                    break;
-                case 1:
-                case 3:
-                    bar.value = 50
-                    break;
-                case 2:
-                    bar.value = 88
-                    break;
-                }
-            }else{
-                switch(branch){
-                case 0:
-                    bar.value = 20
-                    break;
-                case 1:
-                case 3:
-                    bar.value = 30
-                    break;
-                case 2:
-                    bar.value = 80
-                    break;
-                }
-            }
-            break;
-        case 8:
-            if(direction === 1) {
-                switch(branch){
-                case 0:
-                    bar.value = 60
-                    break;
-                case 1:
-                case 3:
-                    bar.value = 60
-                    break;
-                case 2:
-                    bar.value = 92
-                    break;
-                }
-            }else{
-                switch(branch){
-                case 0:
-                    bar.value = 40
-                    break;
-                case 1:
-                case 3:
-                    bar.value = 40
-                    break;
-                case 2:
-                    bar.value = 82
-                    break;
-                }
-            }
-            break;
-        case 9:
-            if(direction === 1) {
-                switch(branch){
-                case 0:
-                case 3:
-                    bar.value = 85
-                    break;
-                case 1:
-                    bar.value = 70
-                    break;
-                case 2:
-                    bar.value = 96
-                    break;
-                }
-            }else{
-                switch(branch){
-                case 0:
-                    bar.value = 50
-                    break;
-                case 1:
-                case 3:
-                    bar.value = 50
-                    break;
-                case 2:
-                    bar.value = 88
-                    break;
-                }
-            }
-            break;
-        case 10:
-            if(direction === 1) {
-                switch(branch){
-                case 0:
-                case 3:
-                    bar.value = 100
-                    break;
-                case 1:
-                    bar.value = 75
-                    break;
-                case 2:
-                    bar.value = 100
-                    break;
-                }
-            }else{
-                switch(branch){
-                case 0:
-                case 3:
-                    bar.value = 60
-                    break;
-                case 1:
-                    bar.value = 60
-                    break;
-                case 2:
-                    bar.value = 92
-                    break;
-                }
-            }
-            break;
-        case 11:
-            if(direction === 1)
-                bar.value = 80
-            break;
-        case 12:
-            if(direction === 1)
-                if(branch !== 3)
-                    bar.value = 82
-                else
-                    bar.value = 40
-            break;
-        }*/
+
     }
 
 }

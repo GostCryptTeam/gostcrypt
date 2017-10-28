@@ -13,7 +13,7 @@ CheckBox {
         label: Text {
             leftPadding: leftPadding_
             font.pointSize: sizeText
-            color: "white"
+            color: palette.text
             text: text_ + Translation.tr
             wrapMode: Text.WordWrap
         }

@@ -45,7 +45,7 @@ Item {
 
         onSprintGetEncryptionAlgorithms:
         {
-            subWindow.loadedItem.page.getAlgos(l[0]);
+            subWindow.loadedItem.page.getAlgos(l);
             subWindow.loadedItem.page.used[0] = l[0];
             subWindow.loadedItem.page.used[1] = l[1];
         }
