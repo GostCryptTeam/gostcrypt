@@ -64,8 +64,10 @@ namespace GostCrypt {
 
 			processStream.startTransaction();
 			processStream >> v;
-			if(!processStream.commitTransaction())
+			if(!processStream.commitTransaction()) {
+				processStream.resetStatus();
 				return;
+			}
 
 			if(v.canConvert<InitResponse>()) {
 					#ifdef DEBUG_SERVICE_HANDLER
