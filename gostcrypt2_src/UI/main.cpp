@@ -24,6 +24,10 @@ int main(int argc, char *argv[])
                     CmdLineInterface interface;
                     return interface.start(argc, argv);;
             #ifdef QT_DEBUG
+                } else {
+					MyGuiApplication app(argc,argv);
+					GraphicInterface gi(&app);
+					return gi.start();
                 }
             #endif
         }
