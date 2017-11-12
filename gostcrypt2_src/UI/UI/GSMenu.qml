@@ -296,7 +296,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             x: 10
                             width: 180
-                            text: path
+                            text: (name !== undefined && name !== "") ? name + "  (\"" + path + "\")" : path
                             color: palette.text
                             elide: Text.ElideRight
                         }
@@ -401,7 +401,7 @@ Item {
                         onDoubleClicked: {
                             //TODO
                             if(mounted === false){
-                                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
+                                openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
                                 toggleMenu();
                             }
                             else qmlRequest("openmountpoint", {"path": mountPoint});
@@ -435,7 +435,7 @@ Item {
                             onEntered: overlayImage.visible = true
                             onExited: overlayImage.visible = false
                             onClicked: {
-                                //TODO: open subwindow
+                                openSubWindow("dialogs/FavoriteVolumeOptions.qml", qsTr("Manage favorite volume"), qsTr("Favorites"), 429, {"name" : "favorite-volumes", "value" : path})
                             }
                         }
 
@@ -557,17 +557,12 @@ Item {
             loaderSub.visible = false
             loaderFavoriteSub.visible = true
             titleSubMenuText_ = qsTr("favorite")
-            /*listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), subtype: "1", size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})*/
             updateFavorites();
             qmlRequest("mountedvolumes", "");
             break;
         case menus.TOOLS:
             titleSubMenuText_ = qsTr("tools")
-            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "Benchmark", titleDialog: qsTr("Benchmark")+Translation.tr, description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
@@ -588,7 +583,7 @@ Item {
             //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
             //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
 
-            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "Performance", titleDialog: qsTr("GostCrypt Performances"), description: qsTr("Performance Options")})
 
             listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
@@ -617,21 +612,22 @@ Item {
 
     function updateFavorites()
     {
+        listSubMenuModelFavorite.clear();
         var favorites = UserSettings.getFavoritesVolumes()
         var isMounted = false;
         loop1:
-        for(var i = 0; i< favorites.length; i++) {
+        for(var i = 0; i< favorites.length; i+=2) {
             for(var k in app.model)
             {
                 if(app.model[k]["volumePath"] === favorites[i])
                 {
                     //The volume is mounted
-                    listSubMenuModelFavorite.append({path: favorites[i], mounted: true, mountPoint: app.model[k]["mountPoint"]});
+                    listSubMenuModelFavorite.append({name: favorites[i+1], path: favorites[i], mounted: true, mountPoint: app.model[k]["mountPoint"]});
                     continue loop1;
                 }
             }
             //the volume is not mounted
-            listSubMenuModelFavorite.append({path: favorites[i], mounted: false, mountPoint: ""});
+            listSubMenuModelFavorite.append({name: favorites[i+1], path: favorites[i], mounted: false, mountPoint: ""});
         }
     }
 

@@ -8,7 +8,6 @@
         <file>UI/SubWindow.qml</file>
         <file>UI/main.qml</file>
         <file>UI/GSCustomComboBox.qml</file>
-        <file>UI/LoadVolume.js</file>
         <file>UI/GSVolumeItem.qml</file>
         <file>UI/TooltipArea.qml</file>
         <file>UI/GSMenuButtonItem.qml</file>
@@ -16,7 +15,6 @@
         <file>UI/GSSudo.qml</file>
         <file>UI/GSErrorMessage.qml</file>
         <file>UI/TitleBar.qml</file>
-        <file>UI/dialogs/GSOpenVolume.qml</file>
         <file>UI/dialogs/textFieldRed.qml</file>
         <file>UI/ressource/buttonBlueRight.png</file>
         <file>UI/ressource/buttonGreenLeft.png</file>
@@ -84,5 +82,46 @@
         <file>UI/wizard/Page12.qml</file>
         <file>UI/ressource/direct_hidden.png</file>
         <file>UI/ressource/normal_hidden.png</file>
+        <file>UI/dialogs/OpenVolume.qml</file>
+        <file>UI/dialogs/FavoriteVolumeOptions.qml</file>
+        <file>translations/gostcrypt_ar.qm</file>
+        <file>translations/gostcrypt_ar.ts</file>
+        <file>translations/gostcrypt_en.qm</file>
+        <file>translations/gostcrypt_en.ts</file>
+        <file>translations/gostcrypt_es.qm</file>
+        <file>translations/gostcrypt_es.ts</file>
+        <file>translations/gostcrypt_fr.qm</file>
+        <file>translations/gostcrypt_fr.ts</file>
+        <file>translations/gostcrypt_it.qm</file>
+        <file>translations/gostcrypt_it.ts</file>
+        <file>translations/gostcrypt_ru.qm</file>
+        <file>translations/gostcrypt_ru.ts</file>
+        <file>UI/dialogs/Performance.qml</file>
+        <file>UI/GSButtonGreen.qml</file>
+        <file>UI/GSMenuBar.qml</file>
+        <file>UI/TranslationApp.cpp</file>
+        <file>UI/TranslationApp.h</file>
+        <file>CmdLineInterface.cpp</file>
+        <file>CmdLineInterface.h</file>
+        <file>DragWindowProvider.h</file>
+        <file>GraphicInterface.cpp</file>
+        <file>GraphicInterface.h</file>
+        <file>gsbutton.qrc</file>
+        <file>main.cpp</file>
+        <file>Parser.cpp</file>
+        <file>Parser.h</file>
+        <file>qml.qrc</file>
+        <file>SecureTextField.cpp</file>
+        <file>SecureTextField.h</file>
+        <file>TooltipArea.qml</file>
+        <file>TranslationApp.cpp</file>
+        <file>TranslationApp.h</file>
+        <file>UI.pro</file>
+        <file>UserSettings.cpp</file>
+        <file>UserSettings.h</file>
+        <file>volumecreation.cpp</file>
+        <file>volumecreation.h</file>
+        <file>volumelist.cpp</file>
+        <file>volumelist.h</file>
     </qresource>
 </RCC>

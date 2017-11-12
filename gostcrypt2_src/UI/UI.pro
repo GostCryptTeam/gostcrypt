@@ -104,4 +104,7 @@ DISTFILES += \
     UI/SecureTextField.qml \
     UI/wizard/StepComponent.qml \
     UI/SubWindow.qml \
-    UI/wizard/NextPreviousButton.qml
+    UI/wizard/NextPreviousButton.qml \
+    UI/dialogs/FavoriteVolumeOptions.qml \
+    UI/dialogs/OpenVolume.qml \
+    UI/dialogs/Performance.qml

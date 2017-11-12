@@ -10,7 +10,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import "LoadVolume.js" as LoadVolume
 import "./frames" as GSFrame
 import "./wizard" as W
 
@@ -426,7 +425,7 @@ Window {
         app.shown = !app.shown
         menuButton.value = !menuButton.value;
         //gs_Menu.selected = 0 TODO
-        //TODO setting home as active is nothing was selected
+        //TODO setting home as active if nothing was selected
     }
 
     function openSubWindow(path, title, name, height, parameter) {
@@ -493,5 +492,10 @@ Window {
             content.id = notifications.length - 1;
         }
         sendQmlRequest(type, content);
+    }
+
+    function refreshFavorite()
+    {
+        gs_Menu.updateFavorites();
     }
 }

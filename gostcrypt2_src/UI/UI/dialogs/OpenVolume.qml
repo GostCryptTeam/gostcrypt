@@ -136,7 +136,18 @@ Item {
             onRejected: {
             }
         }
-        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
+        Behavior on y {
+            NumberAnimation {
+                id: anim;
+                duration: app.duration;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if (!anim.running) {
+                        appendPassword();
+                    }
+                }
+            }
+        }
     }
 
     Item {
@@ -260,7 +271,19 @@ Item {
             width: 150
             color_: palette.green
         }
-        Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
+        Behavior on opacity {
+            NumberAnimation {
+                id: anim2
+                duration: 500;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if(!anim2.running) {
+                        console.log("oui");
+                        password_value.focus = true;
+                    }
+                }
+            }
+        }
     }
 
     UI.GSButtonBordered {

@@ -43,7 +43,7 @@ Item {
             return (isChecked === 1) ? true : false;
         }
         onCheckedChanged: {
-            if(display.checked == true) {
+            if(display.checked === true) {
                 UserSettings.setSetting("MountV-ShowPassword", 1)
                 password_value.echoMode = TextInput.Normal;
             } else {
@@ -66,7 +66,7 @@ Item {
         }
         onCheckedChanged: {
             //TODO : action
-            if(use_Keyfiles.checked == true) {
+            if(use_Keyfiles.checked === true) {
                 UserSettings.setSetting("MountV-UseKeyFiles", 1)
             } else {
                 UserSettings.setSetting("MountV-UseKeyFiles", 0)
