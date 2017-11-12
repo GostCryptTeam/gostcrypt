@@ -202,16 +202,14 @@ Item {
                 delegate: subMenuDelegate
                 model: listSubMenuModel
                 focus: true
-                snapMode: ScrollBar.SnapAlways
+                snapMode: ScrollBar.NoSnap
                 clip: true
                 anchors.topMargin: 50
-                anchors.bottomMargin: 10
+                //anchors.bottomMargin: 10
                 boundsBehavior: Flickable.DragOverBounds
                 ScrollBar.vertical:
                     ScrollBar {
                     snapMode: ScrollBar.SnapOnRelease
-                  //  contentItem.opacity: 0.1
-                    policy: ScrollBar.AsNeeded
                     parent: listOfSubMenu.parent
                     anchors.top: listOfSubMenu.top
                     anchors.left: listOfSubMenu.left
@@ -605,7 +603,7 @@ Item {
 
             listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("About"), size: "small", type: qsTr("information"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("About"), size: "big", type: qsTr("information"), finale:"true", fileName: "Contributors", titleDialog: qsTr("About GostCrypt"), description: qsTr("About GostCrypt")})
             break;
         }
     }

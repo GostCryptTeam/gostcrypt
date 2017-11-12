@@ -301,6 +301,9 @@ Item {
         case "favorite-volumes":
             loader.item.volumePath = parameter.value
             break;
+        case "volume-settings":
+            loader.item.volumePath = parameter.value
+            break;
         }
     }
 

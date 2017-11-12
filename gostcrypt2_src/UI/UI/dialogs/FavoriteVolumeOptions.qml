@@ -11,7 +11,6 @@ Item {
     Connections {
         target: top
         onUpdateVolume: {
-            console.log(readOnly.checked);
             UserSettings.setFavoriteVolumeSetting({
                                                       'sName': name.text,
                                                       'sPath': volumePath,

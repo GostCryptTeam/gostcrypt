@@ -441,15 +441,6 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         UI.GSButtonBordered {
-            id: saveButton
-            height: 40
-            text: qsTr("More settings...") + Translation.tr
-            width: 120
-            //onClicked: TODO
-            color_: palette.green
-            anchors.bottomMargin: 10
-        }
-        UI.GSButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("Save changes") + Translation.tr

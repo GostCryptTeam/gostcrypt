@@ -233,6 +233,7 @@ Item {
             anchors.centerIn: parent
             opacity: 0.0
             visible: false
+            property string path: ""
 
             ItemVolumeTools {
                 id: element1
@@ -241,6 +242,7 @@ Item {
                 text_: qsTr("Change Volume Password...")
                 onClicked: {
                     //TODO : signal change volume password
+                    openSubWindow("dialogs/ChangePassword.qml", qsTr("Change Volume Password"), qsTr("Change Volume Password"), 429, {"name" : "volume-settings", "value" : volumeToolsMenu.path})
                     volumeToolsMenu.opacity = 0.0
                     volumeToolsMenuLayer.opacity = 0.0
                 }
