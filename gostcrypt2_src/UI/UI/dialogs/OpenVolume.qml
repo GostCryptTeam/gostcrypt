@@ -78,7 +78,7 @@ Item {
             size_: 20
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(historique.checked == true)
@@ -194,7 +194,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-CachePwd")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(cache.checked == true)
@@ -215,7 +215,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(display.checked == true) {
@@ -240,7 +240,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 //TODO : action
@@ -278,7 +278,6 @@ Item {
                 easing.type: Easing.OutQuad;
                 onRunningChanged: {
                     if(!anim2.running) {
-                        console.log("oui");
                         password_value.focus = true;
                     }
                 }

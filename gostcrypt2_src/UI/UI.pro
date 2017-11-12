@@ -107,4 +107,7 @@ DISTFILES += \
     UI/wizard/NextPreviousButton.qml \
     UI/dialogs/FavoriteVolumeOptions.qml \
     UI/dialogs/OpenVolume.qml \
-    UI/dialogs/Performance.qml
+    UI/dialogs/Performance.qml \
+    UI/dialogs/Preferences.qml \
+    UI/dialogs/SecurityToken.qml \
+    UI/dialogs/DefaultKeyfile.qml

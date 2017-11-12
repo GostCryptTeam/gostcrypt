@@ -40,7 +40,7 @@ Item {
         height: 40
         checked: {
             var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-            return (isChecked === 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
             if(display.checked === true) {
@@ -62,7 +62,7 @@ Item {
         height: 40
         checked: {
             var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-            return (isChecked === 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
             //TODO : action

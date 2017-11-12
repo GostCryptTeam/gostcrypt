@@ -44,7 +44,6 @@ Item {
                     return (isChecked === "1") ? true : false;
                 }
                 onCheckedChanged: {
-                    console.log(use.checked)
                     if(use.checked == true)
                         UserSettings.setSetting("Perf-Use", 1)
                     else

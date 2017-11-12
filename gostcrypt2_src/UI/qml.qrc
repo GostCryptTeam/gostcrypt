@@ -123,5 +123,8 @@
         <file>volumecreation.h</file>
         <file>volumelist.cpp</file>
         <file>volumelist.h</file>
+        <file>UI/dialogs/Preferences.qml</file>
+        <file>UI/dialogs/SecurityToken.qml</file>
+        <file>UI/dialogs/DefaultKeyfile.qml</file>
     </qresource>
 </RCC>

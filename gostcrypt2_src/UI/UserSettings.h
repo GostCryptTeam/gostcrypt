@@ -41,8 +41,28 @@ struct volumeInfo {
     }
 };
 
+struct keyfileInfo {
+    keyfileInfo() :
+        sName(""),
+        sPath("") {}
+    QString sName;
+    QString sPath;
+    friend bool operator==(const keyfileInfo& lhs, const keyfileInfo& rhs) {
+        if(lhs.sPath == rhs.sPath) return true;
+        return false;
+    }
+    friend QDataStream &operator<<(QDataStream &out, const keyfileInfo &v) {
+        out << v.sPath << v.sName;
+        return out;
+    }
+    friend QDataStream &operator>>(QDataStream &in, keyfileInfo &v) {
+        in >> v.sPath >> v.sName;
+        return in;
+    }
+};
 
 Q_DECLARE_METATYPE(volumeInfo)
+Q_DECLARE_METATYPE(keyfileInfo)
 
 /*!
  * \brief The UserSettings class
@@ -81,6 +101,7 @@ public:
      * \param path : The path just opened
      */
     Q_INVOKABLE void addVolumePath(const QUrl& path);
+    Q_INVOKABLE void addPKCSPath(const QUrl& path);
 
     Q_INVOKABLE void erasePaths();
 
@@ -90,6 +111,12 @@ public:
     Q_INVOKABLE bool setFavoriteVolumeSetting(QVariantMap options);
     Q_INVOKABLE QVariantMap getFavoriteVolumeSetting(const QString&);
     Q_INVOKABLE qint32 getNumberOfCore() const;
+
+    Q_INVOKABLE QVariantList getFavoriteKeyFiles() const;
+    Q_INVOKABLE void addKeyfile(const QString&);
+    Q_INVOKABLE void addKeyfilePath(const QString&);
+    Q_INVOKABLE void removeKeyfile(const QString&);
+    Q_INVOKABLE void removeAllKeyfile();
 
 private:
     QSettings mSettings;

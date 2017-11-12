@@ -578,17 +578,17 @@ Item {
             break;
         case menus.SETTINGS:
             titleSubMenuText_ = qsTr("settings")
-            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
-            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
+            //listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
             //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
 
             listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "Performance", titleDialog: qsTr("GostCrypt Performances"), description: qsTr("Performance Options")})
 
-            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "DefaultKeyfile", titleDialog: qsTr("Default Keyfiles"), description: qsTr("Default Keyfiles")})
+            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "SecurityToken", titleDialog: qsTr("Security token"), description: qsTr("Security token preferences")})
 
-            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "Preferences", titleDialog: qsTr("GostCrypt Preferences"), description: qsTr("Preferences")})
             break;
         case menus.HELP:
             titleSubMenuText_ = qsTr("help")
@@ -601,7 +601,7 @@ Item {
             listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            //listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})

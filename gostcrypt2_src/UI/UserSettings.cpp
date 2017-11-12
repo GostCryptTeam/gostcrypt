@@ -1,11 +1,13 @@
 #include "UserSettings.h"
 #include <QDebug>
 #include <QThread>
+#include <QDirIterator>
 #define NB_PATH 5
 
 UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
 {
     qRegisterMetaTypeStreamOperators<QList<QString>> ("QList<QString>");
+    qRegisterMetaTypeStreamOperators<QList<keyfileInfo>> ("QList<keyfileInfo>");
     qRegisterMetaTypeStreamOperators<QList<volumeInfo>> ("QList<volumeInfo>");
 
     //Checking if the setting file is empty
@@ -13,6 +15,7 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         qDebug() << "[Debug] : QSettings file exists.";
     }else{
         qDebug() << "[Debug] : Creating a default QSettings file.";
+        //Mount volume preferences & history
         mSettings.setValue("default", 0);
         mSettings.setValue("MountV-ShowPassword", 0);
         mSettings.setValue("MountV-SaveHistory", 0);
@@ -21,8 +24,28 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         mSettings.setValue("Perf-Use", 0);
         mSettings.setValue("Perf-NumberOfCore", QThread::idealThreadCount());
         mSettings.setValue("Favorite-Volumes", QVariant::fromValue(QList<volumeInfo>()));
+        mSettings.setValue("Favorite-Keyfiles", QVariant::fromValue(QList<QString>()));
         for(int i=0; i<NB_PATH; i++)
              mSettings.setValue("MountV-path"+QString::number(i), "");
+        //Preferences
+        mSettings.setValue("Pref-ReadOnly", 0);
+        mSettings.setValue("Pref-RemovableMedia", 0);
+        mSettings.setValue("Pref-TaskEnabled", 0);
+        mSettings.setValue("Pref-TaskExitNoVolume", 0);
+        mSettings.setValue("Pref-OpenOnMounted", 0);
+        mSettings.setValue("Pref-TimeStamp", 0);
+        mSettings.setValue("Pref-AutoDismountWhenUserLogOff", 0);
+        mSettings.setValue("Pref-AutoDismountWhenScreenSaver", 0);
+        mSettings.setValue("Pref-AutoDismountWhenPowerSaving", 0);
+        mSettings.setValue("Pref-AutoDismountAfterXMinutesEnabled", 0);
+        mSettings.setValue("Pref-AutoDismountAfter", 60);
+        mSettings.setValue("Pref-ForceAutoDismountEventIfOpened", 0);
+        mSettings.setValue("Pref-CacheInDriver", 0);
+        mSettings.setValue("Pref-WipeOnExit", 0);
+        mSettings.setValue("Pref-WipeOnAutoDismount", 0);
+        //SecurityToken
+        mSettings.setValue("Pref-PKCSLibPath", "");
+        mSettings.setValue("Pref-CloseTokenSessionAfterMount", 0);
     }
 }
 
@@ -73,6 +96,12 @@ void UserSettings::addVolumePath(const QUrl &path)
     for(int i=NB_PATH-1; i>0; i--)
         mSettings.setValue("MountV-path"+ QString::number(i), mSettings.value("MountV-path"+ QString::number(i-1)));
     mSettings.setValue("MountV-path0", canonicalPath);
+}
+
+void UserSettings::addPKCSPath(const QUrl &path)
+{
+    QString canonicalPath = path.path();
+    mSettings.setValue("Pref-PKCSLibPath", canonicalPath);
 }
 
 void UserSettings::erasePaths()
@@ -139,6 +168,73 @@ qint32 UserSettings::getNumberOfCore() const
     return QThread::idealThreadCount();
 }
 
+QVariantList UserSettings::getFavoriteKeyFiles() const
+{
+    QList<keyfileInfo> favoritePath = mSettings.value("Favorite-Keyfiles").value<QList<keyfileInfo>>();
+    QVariantList qVariant;
+    for(auto i : favoritePath)
+        qVariant << i.sPath;
+
+    return qVariant;
+}
+
+void UserSettings::addKeyfile(const QString &aPath)
+{
+    QList<keyfileInfo> favoritePath = mSettings.value("Favorite-Keyfiles").value<QList<keyfileInfo>>();
+    for(auto i : favoritePath)
+        if(i.sPath == aPath)
+        {
+#ifdef QT_DEBUG
+            qDebug() << "[DEBUG] : This Keyfile is already in favorites.";
+#endif
+            return;
+        }
+    keyfileInfo v = keyfileInfo();
+    QString canonicalPath = QUrl(aPath).path();
+    v.sPath = canonicalPath;
+    favoritePath.append(v);
+    mSettings.setValue("Favorite-Keyfiles", QVariant::fromValue(favoritePath));
+    mSettings.sync();
+#ifdef QT_DEBUG
+            qDebug() << "[DEBUG] : Adding a new Keyfile to the favorites. (" << aPath << ")";
+#endif
+}
+
+void UserSettings::addKeyfilePath(const QString &aPath)
+{
+    QString tmp = QUrl(aPath+"/").path();
+    qDebug() << tmp;
+    //Iterate through all the subfiles of a given directory
+    QDirIterator it(tmp,
+                    QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        QFile f(it.next());
+        QFileInfo ff(f);
+        addKeyfile(ff.canonicalFilePath());
+        qDebug() << ff.canonicalFilePath();
+    }
+}
+
+void UserSettings::removeKeyfile(const QString &aPath)
+{
+    qDebug() << "remove" << aPath;
+    QList<keyfileInfo> favoritePath = mSettings.value("Favorite-Keyfiles").value<QList<keyfileInfo>>();
+    for(auto i : favoritePath)
+        if(i.sPath == aPath)
+        {
+            favoritePath.removeOne(i);
+            mSettings.setValue("Favorite-Keyfiles", QVariant::fromValue(favoritePath));
+            mSettings.sync();
+            return;
+        }
+}
+
+void UserSettings::removeAllKeyfile()
+{
+    mSettings.setValue("Favorite-Keyfiles", QVariant::fromValue(QList<QString>()));
+    mSettings.sync();
+}
+
 void UserSettings::setVolumeInfos(volumeInfo& v, QString aName, QString aPath, bool aReadOnly, bool aRemovableMedium, bool aUponLogon, bool aMountWhenDeviceConnected, bool aOpenExplorerWhenMounted, bool aDoNotMountVolumeOnMountAllFavorite)
 {
     v.sName = aName;
@@ -176,7 +272,6 @@ void UserSettings::setFavoritesVolumes(QString aPath)
         }
     volumeInfo v = volumeInfo();
     v.sPath = aPath;
-    qDebug() << v.sUponLogon;
     favoritePath.append(v);
     mSettings.setValue("Favorite-Volumes", QVariant::fromValue(favoritePath));
     mSettings.sync();

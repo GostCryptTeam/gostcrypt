@@ -299,7 +299,6 @@ Item {
 
             break;
         case "favorite-volumes":
-            console.log("oui");
             loader.item.volumePath = parameter.value
             break;
         }

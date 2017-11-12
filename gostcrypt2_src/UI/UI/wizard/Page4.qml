@@ -63,7 +63,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         checked: {
             var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-            return (isChecked === 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         x: combo.x
         y: combo.y + 50
