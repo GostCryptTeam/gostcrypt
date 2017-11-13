@@ -128,5 +128,8 @@
         <file>UI/dialogs/DefaultKeyfile.qml</file>
         <file>UI/dialogs/Contributors.qml</file>
         <file>UI/dialogs/ChangePassword.qml</file>
+        <file>UI/dialogs/Benchmark.qml</file>
+        <file>UI/dialogs/License.qml</file>
+        <file>UI/dialogs/KeyfileGenerator.qml</file>
     </qresource>
 </RCC>

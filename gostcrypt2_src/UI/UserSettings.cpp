@@ -46,6 +46,8 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         //SecurityToken
         mSettings.setValue("Pref-PKCSLibPath", "");
         mSettings.setValue("Pref-CloseTokenSessionAfterMount", 0);
+        //Keyfile generator
+        mSettings.setValue("KFG-POOL", 1);
     }
 }
 
