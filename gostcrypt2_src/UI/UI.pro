@@ -63,8 +63,8 @@ SOURCES += \
     SecureTextField.cpp
 
 LIBS += \
-        ../NewCore/libNewCore.a \
-        ../NewFuseService/libNewFuseService.a \
+        ../Core/libCore.a \
+        ../FuseService/libFuseService.a \
         ../Volume/libVolume.a \
         ../Platform/libPlatform.a \
         -ldl \
@@ -74,10 +74,10 @@ LIBS += \
 
 TARGET = ../GostCrypt
 
-PRE_TARGETDEPS += ../NewCore/libNewCore.a \
+PRE_TARGETDEPS += ../Core/libCore.a \
     ../Volume/libVolume.a \
     ../Platform/libPlatform.a \
-    ../NewFuseService/libNewFuseService.a
+    ../FuseService/libFuseService.a
 
 lupdate_hack{
     SOURCES += qml/*.qml \

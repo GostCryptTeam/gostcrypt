@@ -9,9 +9,9 @@
 #include <termios.h>
 #include <unistd.h>
 #include "Parser.h"
-#include "NewCore/CoreRequest.h"
-#include "NewCore/CoreResponse.h"
-#include "NewCore/CoreBase.h"
+#include "Core/CoreRequest.h"
+#include "Core/CoreResponse.h"
+#include "Core/CoreBase.h"
 
 #define MK_ENUM(name) name // TODO move to external file ?
 #define MK_STRTAB(name) #name
@@ -27,8 +27,8 @@
     func(list), \
 }
 
-#define CONNECT_SIGNAL(requestName) app.connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)))
-#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response> r)
+#define CONNECT_SIGNAL(requestName) app.connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
+#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
 
 
 // redefines the notify function of QCoreApplication to catch all exceptions at once
@@ -67,7 +67,7 @@ private slots:
 private:
     void processRequest();
 
-    QSharedPointer<GostCrypt::NewCore::CoreBase> core;
+    QSharedPointer<GostCrypt::Core::CoreBase> core;
     QCommandLineParser parser;
 
     struct FirstCMD {
