@@ -116,7 +116,7 @@ Item {
         size_: 20
         checked: {
             var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-            return (isChecked === 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
             if(display.checked == true) {

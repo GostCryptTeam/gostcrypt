@@ -8,12 +8,13 @@ CheckBox {
     property int sizeText: 11
     property int leftPadding_: 5
     property int size_: 30
+    property color textColor: palette.text
 
     style: CheckBoxStyle {
         label: Text {
             leftPadding: leftPadding_
             font.pointSize: sizeText
-            color: palette.text
+            color: textColor
             text: text_ + Translation.tr
             wrapMode: Text.WordWrap
         }

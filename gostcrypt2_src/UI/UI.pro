@@ -104,4 +104,15 @@ DISTFILES += \
     UI/SecureTextField.qml \
     UI/wizard/StepComponent.qml \
     UI/SubWindow.qml \
-    UI/wizard/NextPreviousButton.qml
+    UI/wizard/NextPreviousButton.qml \
+    UI/dialogs/FavoriteVolumeOptions.qml \
+    UI/dialogs/OpenVolume.qml \
+    UI/dialogs/Performance.qml \
+    UI/dialogs/Preferences.qml \
+    UI/dialogs/SecurityToken.qml \
+    UI/dialogs/DefaultKeyfile.qml \
+    UI/dialogs/Contributors.qml \
+    UI/dialogs/ChangePassword.qml \
+    UI/dialogs/Benchmark.qml \
+    UI/dialogs/License.qml \
+    UI/dialogs/KeyfileGenerator.qml

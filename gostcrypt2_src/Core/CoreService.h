@@ -19,15 +19,27 @@
 
 namespace GostCrypt {
     namespace Core {
-		class CoreService : public Service
+        /**
+         * @brief Class corresponding to CoreService process, handling request which require root permission
+         *
+         */
+        class CoreService : public Service
 		{
 			Q_OBJECT
 		public:
 			CoreService() : Service("CoreService") {}
 		private:
-			QSharedPointer<CoreRoot> core;
-			virtual void connectRequestHandlingSignals();
-			virtual void initSerializables();
+            QSharedPointer<CoreRoot> core; /**< TODO: describe */
+            /**
+             * @brief
+             *
+             */
+            virtual void connectRequestHandlingSignals();
+            /**
+             * @brief
+             *
+             */
+            virtual void initSerializables();
 		public slots:
 			DEF_RESPONSE_SLOT(CreateVolume)
 			DEF_RESPONSE_SLOT(MountVolume)

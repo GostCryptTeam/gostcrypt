@@ -291,6 +291,7 @@ void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
     emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
 }
 
+
 void GraphicInterface::askSudoPassword()
 {
 #ifdef QT_DEBUG

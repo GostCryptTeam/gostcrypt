@@ -78,7 +78,7 @@ Item {
             size_: 20
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(historique.checked == true)
@@ -136,7 +136,18 @@ Item {
             onRejected: {
             }
         }
-        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
+        Behavior on y {
+            NumberAnimation {
+                id: anim;
+                duration: app.duration;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if (!anim.running) {
+                        appendPassword();
+                    }
+                }
+            }
+        }
     }
 
     Item {
@@ -183,7 +194,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-CachePwd")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(cache.checked == true)
@@ -204,7 +215,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(display.checked == true) {
@@ -229,7 +240,7 @@ Item {
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 //TODO : action
@@ -260,7 +271,18 @@ Item {
             width: 150
             color_: palette.green
         }
-        Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
+        Behavior on opacity {
+            NumberAnimation {
+                id: anim2
+                duration: 500;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if(!anim2.running) {
+                        password_value.focus = true;
+                    }
+                }
+            }
+        }
     }
 
     UI.GSButtonBordered {

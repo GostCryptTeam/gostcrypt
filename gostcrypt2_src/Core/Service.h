@@ -17,83 +17,209 @@ namespace GostCrypt {
     namespace Core {
 
 		struct ProgressUpdateResponse;
-		class Service : public QObject
+        /**
+         * @brief Class defining the process which are requested in standart entry
+         *
+         */
+        class Service : public QObject
 		{
 			Q_OBJECT
 		public:
 			Service(QString serviceName);
-			int start(int argc, char **argv);
+            /**
+             * @brief start the service
+             *
+             * @param argc
+             * @param argv
+             * @return int
+             */
+            int start(int argc, char **argv);
 		private:
-			QFile outputFile;
-			QFile inputFile;
-			QDataStream inputStream;
-			QDataStream outputStream;
-			QSharedPointer<QSocketNotifier> inputFileMonitor;
-			QString serviceName;
+            QFile outputFile; /**< TODO: describe */
+            QFile inputFile; /**< TODO: describe */
+            QDataStream inputStream; /**< TODO: describe */
+            QDataStream outputStream; /**< TODO: describe */
+            QSharedPointer<QSocketNotifier> inputFileMonitor; /**< TODO: describe */
+            QString serviceName; /**< TODO: describe */
 		protected:
-			void sendResponse(QVariant r);
-			virtual void connectRequestHandlingSignals() = 0;
-			virtual void initSerializables() = 0;
+            /**
+             * @brief send a response to it Parent process (with requested informations ) when it finished
+             *
+             * @param r QVariant the response given to the parent
+             */
+            void sendResponse(QVariant r);
+            /**
+             * @brief
+             *
+             */
+            virtual void connectRequestHandlingSignals() = 0;
+            /**
+             * @brief
+             *
+             */
+            virtual void initSerializables() = 0;
 		private slots:
-			void sendException(GostCryptException &e);
-			bool receiveRequest();
-			void sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response);
+            /**
+             * @brief send a exception to it Parent process when it finished
+             *
+             * @param e GostCryptException the exception given to the parent
+             */
+            void sendException(GostCryptException &e);
+            /**
+             * @brief check if a request is received
+             *
+             * @return bool
+             */
+            bool receiveRequest();
+            /**
+             * @brief send the progression to it Parent
+             *
+             * @param response
+             */
+            void sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response);
 		signals:
-			void request(QVariant request);
-			void askExit();
-			void exit();
+            /**
+             * @brief
+             *
+             * @param request QVariant
+             */
+            void request(QVariant request);
+            /**
+             * @brief
+             *
+             */
+            void askExit();
+            /**
+             * @brief
+             *
+             */
+            void exit();
 		};
 
 		// redefines the notify function of QCoreApplication to catch all exceptions at once
-		class ServiceApplication : public QCoreApplication {
+        /**
+         * @brief
+         *
+         */
+        class ServiceApplication : public QCoreApplication {
 			Q_OBJECT
 			public:
 				ServiceApplication(int& argc, char** argv) : QCoreApplication(argc, argv) {}
-				bool notify(QObject* receiver, QEvent* event);
+                /**
+                 * @brief
+                 *
+                 * @param receiver
+                 * @param event
+                 * @return bool
+                 */
+                bool notify(QObject* receiver, QEvent* event);
 			signals:
-				void sendException(GostCryptException &e);
+                /**
+                 * @brief
+                 *
+                 * @param e
+                 */
+                void sendException(GostCryptException &e);
 		};
 
-		struct InitResponse {
+        /**
+         * @brief
+         *
+         */
+        struct InitResponse {
 			DEC_SERIALIZABLE(InitResponse);
 		};
 
-		struct ExceptionResponse {
-			QVariant exception;
+        /**
+         * @brief
+         *
+         */
+        struct ExceptionResponse {
+            QVariant exception; /**< TODO: describe */
 			DEC_SERIALIZABLE(ExceptionResponse);
 		};
 
-		struct ExitRequest {
+        /**
+         * @brief
+         *
+         */
+        struct ExitRequest {
             DEC_SERIALIZABLE(ExitRequest);
         }; // no parameters
 
         #define UnknowRequestException(requestTypeName) GostCrypt::Core::UnknowRequest(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
+        /**
+         * @brief
+         *
+         */
         class UnknowRequest : public GostCryptException {
             public:
+                /**
+                 * @brief
+                 *
+                 */
                 UnknowRequest() {}
+                /**
+                 * @brief
+                 *
+                 * @param fonction
+                 * @param filename
+                 * @param line
+                 * @param requestTypeName
+                 */
                 UnknowRequest(QString fonction, QString filename, quint32 line, const char *requestTypeName) : GostCryptException(fonction, filename, line), requestTypeName(requestTypeName) {}
                 DEF_EXCEPTION_WHAT(UnknowRequest, GostCryptException, "Child process received an unknown request (" + requestTypeName + ")")
             protected:
-            QString requestTypeName;
+            QString requestTypeName; /**< TODO: describe */
             DEC_SERIALIZABLE(UnknowRequest);
         };
 
         #define UnknowResponseException(requestTypeName) GostCrypt::Core::UnknowResponse(__PRETTY_FUNCTION__, __FILE__, __LINE__, requestTypeName);
+         /**
+         * @brief
+         *
+         */
         class UnknowResponse : public GostCryptException {
             public:
+                /**
+                 * @brief
+                 *
+                 */
                 UnknowResponse() {}
+                /**
+                 * @brief
+                 *
+                 * @param fonction
+                 * @param filename
+                 * @param line
+                 * @param responseTypeName
+                 */
                 UnknowResponse(QString fonction, QString filename, quint32 line, const char *responseTypeName) : GostCryptException(fonction, filename, line), responseTypeName(responseTypeName) {}
                 DEF_EXCEPTION_WHAT(UnknowResponse, GostCryptException, "Unknow reponse received from child process (" + responseTypeName + ")")
             protected:
-            QString responseTypeName;
+            QString responseTypeName; /**< TODO: describe */
             DEC_SERIALIZABLE(UnknowResponse);
         };
 
+        /**
+         * @brief
+         *
+         */
         struct ProgressUpdateResponse : CoreResponse {
+            /**
+             * @brief
+             *
+             */
             ProgressUpdateResponse() {}
+            /**
+             * @brief
+             *
+             * @param requestId
+             * @param progress
+             */
             ProgressUpdateResponse(quint32 requestId, qreal progress) : requestId(requestId), progress(progress) {}
-            qint32 requestId;
-            qreal progress;
+            qint32 requestId; /**< TODO: describe */
+            qreal progress; /**< TODO: describe */
             DEC_SERIALIZABLE(ProgressUpdateResponse);
         };
 	}

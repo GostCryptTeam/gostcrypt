@@ -202,16 +202,14 @@ Item {
                 delegate: subMenuDelegate
                 model: listSubMenuModel
                 focus: true
-                snapMode: ScrollBar.SnapAlways
+                snapMode: ScrollBar.NoSnap
                 clip: true
                 anchors.topMargin: 50
-                anchors.bottomMargin: 10
+                //anchors.bottomMargin: 10
                 boundsBehavior: Flickable.DragOverBounds
                 ScrollBar.vertical:
                     ScrollBar {
                     snapMode: ScrollBar.SnapOnRelease
-                  //  contentItem.opacity: 0.1
-                    policy: ScrollBar.AsNeeded
                     parent: listOfSubMenu.parent
                     anchors.top: listOfSubMenu.top
                     anchors.left: listOfSubMenu.left
@@ -296,7 +294,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             x: 10
                             width: 180
-                            text: path
+                            text: (name !== undefined && name !== "") ? name + "  (\"" + path + "\")" : path
                             color: palette.text
                             elide: Text.ElideRight
                         }
@@ -401,7 +399,7 @@ Item {
                         onDoubleClicked: {
                             //TODO
                             if(mounted === false){
-                                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
+                                openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : path})
                                 toggleMenu();
                             }
                             else qmlRequest("openmountpoint", {"path": mountPoint});
@@ -435,7 +433,7 @@ Item {
                             onEntered: overlayImage.visible = true
                             onExited: overlayImage.visible = false
                             onClicked: {
-                                //TODO: open subwindow
+                                openSubWindow("dialogs/FavoriteVolumeOptions.qml", qsTr("Manage favorite volume"), qsTr("Favorites"), 429, {"name" : "favorite-volumes", "value" : path})
                             }
                         }
 
@@ -557,22 +555,17 @@ Item {
             loaderSub.visible = false
             loaderFavoriteSub.visible = true
             titleSubMenuText_ = qsTr("favorite")
-            /*listSubMenuModel.append({message: qsTr("Add mounted volume to Favorites..."), subtype: "1", size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("Add mounted volume to System Favorites..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Organize favorite volumes..."), size: "big", type: qsTr("menu"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("Organize System favorite volumes..."), size: "small"}) not needed now
-            listSubMenuModel.append({message: qsTr("Mount favorite volumes"), size: "medium", type: qsTr("menu"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})*/
             updateFavorites();
             qmlRequest("mountedvolumes", "");
             break;
         case menus.TOOLS:
             titleSubMenuText_ = qsTr("tools")
-            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "Benchmark", titleDialog: qsTr("Benchmark")+Translation.tr, description: qsTr("Benchmark")})
             listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
 
-            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "KeyfileGenerator", titleDialog: qsTr("Keyfile Generator"), description: qsTr("Keyfile generator")})
             listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
@@ -583,17 +576,17 @@ Item {
             break;
         case menus.SETTINGS:
             titleSubMenuText_ = qsTr("settings")
-            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
-            listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
+            //listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
             //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
 
-            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "Performance", titleDialog: qsTr("GostCrypt Performances"), description: qsTr("Performance Options")})
 
-            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "DefaultKeyfile", titleDialog: qsTr("Default Keyfiles"), description: qsTr("Default Keyfiles")})
+            listSubMenuModel.append({message: qsTr("Security Tokens..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "SecurityToken", titleDialog: qsTr("Security token"), description: qsTr("Security token preferences")})
 
-            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "Preferences", titleDialog: qsTr("GostCrypt Preferences"), description: qsTr("Preferences")})
             break;
         case menus.HELP:
             titleSubMenuText_ = qsTr("help")
@@ -606,32 +599,33 @@ Item {
             listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            //listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("About"), size: "small", type: qsTr("information"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "License", titleDialog: qsTr("GostCrypt License"), description: qsTr("License")})
+            listSubMenuModel.append({message: qsTr("About"), size: "big", type: qsTr("information"), finale:"true", fileName: "Contributors", titleDialog: qsTr("About GostCrypt"), description: qsTr("About GostCrypt")})
             break;
         }
     }
 
     function updateFavorites()
     {
+        listSubMenuModelFavorite.clear();
         var favorites = UserSettings.getFavoritesVolumes()
         var isMounted = false;
         loop1:
-        for(var i = 0; i< favorites.length; i++) {
+        for(var i = 0; i< favorites.length; i+=2) {
             for(var k in app.model)
             {
                 if(app.model[k]["volumePath"] === favorites[i])
                 {
                     //The volume is mounted
-                    listSubMenuModelFavorite.append({path: favorites[i], mounted: true, mountPoint: app.model[k]["mountPoint"]});
+                    listSubMenuModelFavorite.append({name: favorites[i+1], path: favorites[i], mounted: true, mountPoint: app.model[k]["mountPoint"]});
                     continue loop1;
                 }
             }
             //the volume is not mounted
-            listSubMenuModelFavorite.append({path: favorites[i], mounted: false, mountPoint: ""});
+            listSubMenuModelFavorite.append({name: favorites[i+1], path: favorites[i], mounted: false, mountPoint: ""});
         }
     }
 

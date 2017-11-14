@@ -9,6 +9,7 @@ Item {
     y: 51
     property alias loadedItem : loader.item
     property string title: ""
+    property int height_: 0
     property string w
     property string name: ""
     property var object
@@ -279,22 +280,29 @@ Item {
     //Load the right QML Form
     function loadForm(height, title) {
         loader.setSource("");
-        var component = Qt.createComponent(w);
         var parent = scrollArea;
-        if (component.status === QML.Component.Ready) {
-            loader.setSource(w);
-            changeSubWindowHeight(height);
-            changeSubWindowTitle(title);
-        }else if (component.status === Component.Error) {
-            // Error Handling
-        }
+
+        subWindow_.height_ = height;
+        subWindow_.title = title;
+        loader.setSource(w);
     }
 
     function applyParameter() {
+
+        changeSubWindowTitle();
+        changeSubWindowHeight();
+
         switch(parameter.name)
         {
         case "dropVolume":
             loader.item.initDrag(parameter)
+
+            break;
+        case "favorite-volumes":
+            loader.item.volumePath = parameter.value
+            break;
+        case "volume-settings":
+            loader.item.volumePath = parameter.value
             break;
         }
     }
@@ -309,15 +317,14 @@ Item {
     }
 
     function changeSubWindowHeight(value) {
-        heightSubWindow = value;
         if(parameter.type === true)
             loader.item.y = 10
         else
-            loader.item.y = subWindow.y
+            loader.item.y = subWindow_.y
     }
 
-    function changeSubWindowTitle(title) {
-        subWindow_.title = title
+    function changeSubWindowTitle() {
+        title_.text = subWindow_.title
     }
 
     function getLoader()

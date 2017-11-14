@@ -3,7 +3,6 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
-import "../LoadVolume.js" as LoadVolume
 import "../" as UI
 
 Item {
@@ -78,7 +77,7 @@ Item {
             button. Animation when subwindow appears.
          */
             onClicked: {
-                openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
+                openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
             }
         }
         /*!
@@ -234,6 +233,7 @@ Item {
             anchors.centerIn: parent
             opacity: 0.0
             visible: false
+            property string path: ""
 
             ItemVolumeTools {
                 id: element1
@@ -242,6 +242,7 @@ Item {
                 text_: qsTr("Change Volume Password...")
                 onClicked: {
                     //TODO : signal change volume password
+                    openSubWindow("dialogs/ChangePassword.qml", qsTr("Change Volume Password"), qsTr("Change Volume Password"), 429, {"name" : "volume-settings", "value" : volumeToolsMenu.path})
                     volumeToolsMenu.opacity = 0.0
                     volumeToolsMenuLayer.opacity = 0.0
                 }
@@ -380,7 +381,7 @@ Item {
                     {
                         openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
                     }else{
-                        openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
+                        openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
                     }
                 }
             }
@@ -405,7 +406,7 @@ Item {
         onDropped: {
             if (drop.hasText) {
                 if (drop.proposedAction == Qt.MoveAction || drop.proposedAction == Qt.CopyAction) {
-                    openSubWindow("dialogs/GSOpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : drop.text.trim()})
+                    openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : drop.text.trim()})
                     drop.acceptProposedAction()
                 }
             }

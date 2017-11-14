@@ -13,34 +13,131 @@
 
 namespace GostCrypt {
 	namespace Core {
-		class CoreRoot : public CoreBase
+        /**
+         * @brief Class defining the core object which manage any action requiring root permissions handled by GostCrypt (mount, dismount, create a volume, etc)
+         *
+         */
+        class CoreRoot : public CoreBase
 		{
 		Q_OBJECT
 		public:
-			explicit CoreRoot(QObject *parent = nullptr);
+            /**
+             * @brief Default Constructor
+             *
+             * @param parent parent Object
+             */
+            explicit CoreRoot(QObject *parent = nullptr);
 		public slots:
-			virtual void exit();
-			virtual void request(QVariant r);
+            /**
+             * @brief call when coreRoot have to be closed
+             *
+             */
+            virtual void exit();
+            /**
+             * @brief Execute the given action request
+             *
+             * @param r QVariant containing the request object which is a child of CoreRequest
+             */
+            virtual void request(QVariant r);
+            /**
+             * @brief Receive the Sudo password to execute an action requiring root permission
+             *
+             * @param password GString containning the sudoer's password
+             */
             virtual void receiveSudoPassword(QString password); //TODO
         private slots:
-        	void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params, QSharedPointer<Core::MountVolumeResponse> response);
-        	void continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
-        	void finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
-        	void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse);
-        	void continueDismountFormat(QSharedPointer<DismountVolumeResponse> dismountResponse);
+            /**
+             * @brief Continue to mount the volume after the Fuze process being successfully launch
+             *
+             * @param params
+             * @param response
+             */
+            void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params, QSharedPointer<Core::MountVolumeResponse> response);
+            /**
+             * @brief
+             *
+             * @param params
+             * @param response
+             */
+            void continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+            /**
+             * @brief
+             *
+             * @param params
+             * @param response
+             */
+            void finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+            /**
+             * @brief
+             *
+             * @param mountResponse
+             */
+            void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse);
+            /**
+             * @brief
+             *
+             * @param dismountResponse
+             */
+            void continueDismountFormat(QSharedPointer<DismountVolumeResponse> dismountResponse);
 		private:
-			void mountVolume(QSharedPointer<MountVolumeRequest> params);
+            /**
+             * @brief Mount a volume
+             *
+             * @param params Parameters of the function
+             */
+            void mountVolume(QSharedPointer<MountVolumeRequest> params);
+            /**
+             * @brief
+             *
+             * @param params
+             * @return QSharedPointer<DismountVolumeResponse>
+             */
             QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>());
+            /**
+             * @brief
+             *
+             * @param params
+             */
             void createVolume(QSharedPointer<CreateVolumeRequest> params);
-			QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
+            /**
+             * @brief
+             *
+             * @param params
+             * @return QSharedPointer<ChangeVolumePasswordResponse>
+             */
+            QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
 
+            /**
+             * @brief
+             *
+             * @param file
+             * @param params
+             * @param layout
+             * @param containersize
+             */
             void writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize);
+            /**
+             * @brief
+             *
+             * @param volume
+             * @param password
+             * @param keyfiles
+             * @param filesystem
+             * @param parentParams
+             * @param parentResponse
+             */
             void mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse);
-            uid_t realUserId;
-            gid_t realGroupId;
-            GostCrypt::FuseDriver::FuseServiceHandler fuseServiceHandler;
+            uid_t realUserId; /**< TODO: describe */
+            gid_t realGroupId; /**< TODO: describe */
+            GostCrypt::FuseDriver::FuseServiceHandler fuseServiceHandler; /**< TODO: describe */
         signals:
-			void formatVolumeDone(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
+            /**
+             * @brief
+             *
+             * @param params
+             * @param response
+             */
+            void formatVolumeDone(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response);
 
 		};
 	}
