@@ -78,7 +78,7 @@ Item {
             size_: 20
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(historique.checked == true)
@@ -106,14 +106,6 @@ Item {
                 onClicked: fileDialog.open()
                 color_: palette.green
             }
-
-            /*UI.GSButtonBordered {
-                id: buttonTools
-                height: combo.height
-                text: qsTr("Volume Tools")
-                width: 120
-                color_: palette.green
-            }*/
 
             UI.GSButtonBordered {
                 id: buttonDevide
@@ -144,12 +136,23 @@ Item {
             onRejected: {
             }
         }
-        Behavior on y { NumberAnimation { id: anim; duration: app.duration; easing.type: Easing.OutQuad; onRunningChanged: {if (!anim.running) { appendPassword(); } } } }
+        Behavior on y {
+            NumberAnimation {
+                id: anim;
+                duration: app.duration;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if (!anim.running) {
+                        appendPassword();
+                    }
+                }
+            }
+        }
     }
 
     Item {
         id: password
-        visible: false
+        //visible: false
         y: item.y + item.height
         anchors.horizontalCenter: parent.horizontalCenter
         opacity: 0.0
@@ -173,26 +176,31 @@ Item {
             width: combo.width
             horizontalAlignment: TextInput.AlignHCenter
             height: combo.height
+            onValidated: {
+                sendInfoVolume()
+                var password_blank = new Array(password_value.length+1).join('#');
+                password_value.text = password_blank
+            }
         }
 
         UI.GSCheckBox {
             id: cache
             text_: qsTr("Cache password and keyfiles in memory")  + Translation.tr
             x: combo.x
-            y: password_value.y + password_value.height + 5
+            y: password_value.y + password_value.height + 10
             height: 20
+            width: 300
             size_: 20
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-CachePwd")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(cache.checked == true)
                     UserSettings.setSetting("MountV-SaveHistory", 1)
                 else
                     UserSettings.setSetting("MountV-SaveHistory", 0)
-                //TODO : action
             }
         }
 
@@ -200,13 +208,14 @@ Item {
             id: display
             text_: qsTr("Display password")  + Translation.tr
             x: combo.x
-            y: cache.y + 22
+            anchors.top: cache.bottom
+            anchors.topMargin: 5
             height: 20
             size_: 20
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 if(display.checked == true) {
@@ -224,13 +233,14 @@ Item {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles") + Translation.tr
             x: combo.x
-            y: display.y + 22
+            anchors.top: display.bottom
+            anchors.topMargin: 5
             height: 20
             size_: 20
             sizeText: 10
             checked: {
                 var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-                return (isChecked === 1) ? true : false;
+                return (isChecked === "1") ? true : false;
             }
             onCheckedChanged: {
                 //TODO : action
@@ -261,7 +271,18 @@ Item {
             width: 150
             color_: palette.green
         }
-        Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }
+        Behavior on opacity {
+            NumberAnimation {
+                id: anim2
+                duration: 500;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if(!anim2.running) {
+                        password_value.focus = true;
+                    }
+                }
+            }
+        }
     }
 
     UI.GSButtonBordered {
@@ -397,6 +418,7 @@ Item {
     }
 
     function moving(url) {
+        password_value.focus = true;
         textTop.opacity = 0.0
         combo.y = 15
         item.anchors.centerIn = undefined;
@@ -406,7 +428,7 @@ Item {
     }
 
     function appendPassword() {
-        password.visible = true
+        //password.visible = true
         password.opacity = 1.0
         validation.opacity = 1.0
     }

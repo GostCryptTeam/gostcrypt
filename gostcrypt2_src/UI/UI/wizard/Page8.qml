@@ -8,11 +8,21 @@ Item {
     property variant sizeType: [0, "MB"]
     property int type: 0
 
+    Text {
+        id:titre
+        font.pointSize: 13
+        font.family: "Helvetica"
+        text: qsTr("Set a size for your volume:") + Translation.tr
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: palette.text
+        wrapMode: Text.WordWrap
+    }
+
     TextField {
         id: sizeValue
-        x: 10
-        y: 10
         width: parent.width * 0.5
+        anchors.top: titre.bottom
+        anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         horizontalAlignment: TextInput.AlignHCenter
         height: 40
@@ -33,10 +43,14 @@ Item {
         Keys.onPressed: {
             sizeType[0] = parseInt(sizeValue.text+event.text)
         }
+        Keys.onReturnPressed: manageWizard(1)
+        Keys.onEnterPressed: manageWizard(1)
     }
     Row {
+        id: row
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 70
+        anchors.top: sizeValue.bottom
+        anchors.topMargin: 5
         spacing: 10
         ExclusiveGroup { id: groupRadio }
         UI.GSCheckBox {
@@ -72,20 +86,11 @@ Item {
     }
 
     Text {
-        id:freeDiskSpace
-        width: top.width-120
-        font.pixelSize: 15
-        text: ""
-        y: 120
-        x: 60
-        color: palette.text
-        horizontalAlignment: Text.AlignJustify
-        wrapMode: Text.WordWrap
-    }
-
-    Text {
         id:description
-        width: top.width-120
+        width: parent.width - 40
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: row.bottom
+        anchors.topMargin: 10
         font.pixelSize: 12
         text: ""
         y: 150
@@ -93,6 +98,19 @@ Item {
         color: palette.text
         horizontalAlignment: Text.AlignJustify
         wrapMode: Text.WordWrap
+    }
+
+    Text {
+        id: freeDiskSpace
+        text: ""
+        wrapMode: Text.WordWrap
+        x: bottomBar.x
+        y: bottomBar.y-2
+        width: bottomBar.width- 40
+        height: bottomBar.height
+        horizontalAlignment: Text.AlignHCenter
+        color: palette.textLowOpacity
+        font.pointSize: 9
     }
 
     function setText(bold, text) {

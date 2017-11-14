@@ -325,6 +325,7 @@ Component {
                             hoverEnabled: true
                             onClicked: {
                                 //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
+                                volumeToolsMenu.path = Path_
                                 volumeToolsMenu.opacity = (volumeToolsMenu.opacity == 0.0) ? 1.0 : 0.0
                                 if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true
                                 volumeToolsMenuLayer.opacity = (volumeToolsMenuLayer.opacity == 0.0) ? 0.4 : 0.0

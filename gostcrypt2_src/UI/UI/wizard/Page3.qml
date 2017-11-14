@@ -4,76 +4,182 @@ import "../" as UI
 
 Item {
     id: top
-    x: 20
     property int type: 0
-    Grid {
-        y: 20
-        columns: 1
-        rows: 2
-        height:parent.height
-        width: parent.width
-        rowSpacing: 60
-        ExclusiveGroup { id: groupRadio }
-        UI.GSCheckBox {
-            id: normal
-            text_: qsTr("Normal Mode")
-            checked: true
-            height: 30
-            exclusiveGroup :groupRadio
-            onCheckedChanged: {
-                if(normal.checked === true) {
-                    top.type = 0
+
+    Text {
+        id:titre
+        font.pointSize: 13
+        font.family: "Helvetica"
+        text: qsTr("Please choose the type of volume you want:") + Translation.tr
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: palette.text
+        wrapMode: Text.WordWrap
+    }
+
+    Row {
+        id: choice
+        spacing: 30
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: titre.bottom
+        anchors.topMargin: 20
+        Rectangle {
+            id: file
+            width: 220
+            height: 150
+            color: "transparent"
+
+            Image {
+                id: img1
+                y: 0
+                anchors.rightMargin: 10
+                source: "../ressource/normal_hidden.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                scale:  fileArea.containsMouse ? 0.8 : 1.0
+                smooth: fileArea.containsMouse
+                Behavior on width {
+                    NumberAnimation {
+                        duration: app.duration/2;
+                        easing.type: Easing.OutQuad;
+                    }
                 }
             }
             Text {
-                id:description
-                width: top.width-60
-                font.pixelSize: 12
-                text: qsTr("If you select this option, the wizard will first help you create a normal GostCrypt"+
-                      "volume and then a hidden GostCrypt volume within it. Inexperienced users should always select this option.") + Translation.tr
-                anchors.top:normal.bottom
-                color: palette.text
-                leftPadding: 40
+                text: qsTr("Normal Mode") + Translation.tr
+                width: 150
                 wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                color: palette.text
+                font.pointSize: 13
+                anchors.horizontalCenter: img1.horizontalCenter
+                y: 100
+                anchors.topMargin: 20
+            }
+            MouseArea {
+                id: fileArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    scale.start();
+                    desc.text = qsTr("If you select this option, the wizard will first help you create a normal GostCrypt "+
+                                     "volume and then a hidden GostCrypt volume within it.") + Translation.tr
+                }
+                onExited: {
+                    unScale.start();
+                    desc.text = ""
+                }
+                onClicked: { type = 0; manageWizard(1) }
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            SequentialAnimation {
+                id: scale
+                loops: 1
+                PropertyAnimation {
+                    target: img1
+                    properties: "scale"
+                    from: 1.0
+                    to: 0.9
+                    duration: app.duration/2
+                }
+            }
+
+            SequentialAnimation {
+                id: unScale
+                loops: 1
+                PropertyAnimation {
+                    target: img1
+                    properties: "scale"
+                    from: 0.9
+                    to: 1.0
+                    duration: app.duration/2
+                }
             }
         }
+        Rectangle {
+            id: device
+            width: 220
+            height: 150
+            color: "transparent"
 
-        UI.GSCheckBox {
-            id: direct
-            text_: qsTr("Direct Mode")
-            checked: false
-            height: 40
-            exclusiveGroup :groupRadio
-            onCheckedChanged: {
-                if(direct.checked === true) {
-                    top.type = 1
+            Image {
+                id: img2
+                y: 0
+                anchors.rightMargin: 10
+                source: "../ressource/direct_hidden.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                scale:  deviceArea.containsMouse ? 0.8 : 1.0
+                smooth: deviceArea.containsMouse
+                Behavior on width {
+                    NumberAnimation {
+                        duration: app.duration/2;
+                        easing.type: Easing.OutQuad;
+                    }
                 }
             }
             Text {
-                id:description3
-                width: top.width-60
-                font.pixelSize: 12
-                text: qsTr( "If you select this option, you will create a hidden volume within"+
-                            " an existing GostCrypt volume. It will be assumed that you have already created a GostCrypt volume"+
-                            " that is suitable to host the hidden volume." ) + Translation.tr
-                anchors.top:direct.bottom
-                color: palette.text
-                leftPadding: 40
+                text: qsTr("Direct Mode") + Translation.tr
+                width: 150
                 wrapMode: Text.WordWrap
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                horizontalAlignment: Text.AlignHCenter
+                color: palette.text
+                font.pointSize: 13
+                anchors.horizontalCenter: img2.horizontalCenter
+                y: 100
+                anchors.topMargin: 20
+            }
+            MouseArea {
+                id: deviceArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    scaleDevice.start();
+                    desc.text = qsTr( "If you select this option, you will create a hidden volume within"+
+                                     " an existing GostCrypt volume." ) + Translation.tr
+                }
+                onExited: {
+                    unScaleDevice.start();
+                    desc.text = ""
+                }
+                onClicked: { type = 1; manageWizard(1) }
+                cursorShape: Qt.PointingHandCursor
+            }
+
+            SequentialAnimation {
+                id: scaleDevice
+                loops: 1
+                PropertyAnimation {
+                    target: img2
+                    properties: "scale"
+                    from: 1.0
+                    to: 0.9
+                    duration: app.duration/2
+                }
+            }
+
+            SequentialAnimation {
+                id: unScaleDevice
+                loops: 1
+                PropertyAnimation {
+                    target: img2
+                    properties: "scale"
+                    from: 0.9
+                    to: 1.0
+                    duration: app.duration/2
                 }
             }
         }
     }
-    function setType(value)
-    {
-        type = value
-        if(value === 1)
-            direct.checked = true
-        else
-            normal.checked = true
+
+    Text {
+        id: desc
+        text: ""
+        wrapMode: Text.WordWrap
+        x: bottomBar.x
+        y: bottomBar.y-2
+        width: bottomBar.width- 40
+        height: bottomBar.height
+        horizontalAlignment: Text.AlignHCenter
+        color: palette.textLowOpacity
+        font.pointSize: 9
     }
 }

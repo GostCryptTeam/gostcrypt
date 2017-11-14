@@ -10,8 +10,6 @@
 #include "CoreRoot.h"
 #include "Service.h"
 
-//#define DEBUG_CORESERVICE
-
 #define DEF_RESPONSE_SLOT(request) \
 	void send ## request (QSharedPointer< request ## Response> response) { \
 		sendResponse(QVariant::fromValue(response)); \

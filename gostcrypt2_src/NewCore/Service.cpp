@@ -49,7 +49,6 @@ namespace GostCrypt {
 			if(serviceName == "CoreService") {
 				inputFileMonitor.reset(new QSocketNotifier(inputFile.handle(), QSocketNotifier::Read));
 				connect(inputFileMonitor.data(), SIGNAL(activated(int)), this, SLOT(receiveRequest()));
-
 				return app.exec();
 			}
 
@@ -95,7 +94,7 @@ namespace GostCrypt {
 
 			emit this->request(request);
 
-			return true;
+            return true;
 		}
 
 		void Service::sendResponse(QVariant r)

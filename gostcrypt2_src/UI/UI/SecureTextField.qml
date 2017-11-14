@@ -5,8 +5,11 @@ import QtQuick.Controls.Styles 1.4
 ControlsOld.TextField {
     /* ID of the textinput */
     property int id: 0;
+    property bool type: false
+    signal validated()
+    id: top
 
-    echoMode: TextInput.Password
+    echoMode: (type === false) ? TextInput.Password : TextInput.Normal
     focus: true
     style: TextFieldStyle {
         textColor: "#e1e1e1"
@@ -20,10 +23,8 @@ ControlsOld.TextField {
             color: palette.darkInput
         }
     }
-    /* Keydown management */
-    Keys.onPressed: {
-        if (event.key === Qt.Key_A) {
 
-        }
-    }
+    /* Keydown management */
+    Keys.onReturnPressed: top.validated();
+    Keys.onEnterPressed: top.validated();
 }

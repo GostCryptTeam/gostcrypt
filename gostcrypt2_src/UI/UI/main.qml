@@ -10,8 +10,8 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import "LoadVolume.js" as LoadVolume
 import "./frames" as GSFrame
+import "./wizard" as W
 
 /*!
   \class main.qml (Window)
@@ -19,7 +19,6 @@ import "./frames" as GSFrame
   subwindow management
 */
 Window {
-
     /*************************************
      ************* Properties ************
      *************************************/
@@ -68,6 +67,10 @@ Window {
         property color darkInput: "#181818"
         property color hoverItemMenu: "#404040"
         property color bkCheckBox: "#191919"
+        property color grayWizard: "#2e2e2e"
+        property color grayWizardDark: "#2b2b2b"
+        property color round: "#545454"
+        property color roundFilled: "#dfdfdf"
     }
 
     //Window's maximum dimension
@@ -338,7 +341,7 @@ Window {
     Item {
         x: 0
         y: 40
-        GSSubWindow {
+        SubWindow {
             id: subWindow
             width:app.width
             y:40
@@ -422,7 +425,7 @@ Window {
         app.shown = !app.shown
         menuButton.value = !menuButton.value;
         //gs_Menu.selected = 0 TODO
-        //TODO setting home as active is nothing was selected
+        //TODO setting home as active if nothing was selected
     }
 
     function openSubWindow(path, title, name, height, parameter) {
@@ -434,18 +437,14 @@ Window {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
         else
         {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
     }
 
@@ -477,6 +476,7 @@ Window {
             sudo_.opacity = 1.0
             sudo_.isVisible = true
             sudo_.visible = true
+            sudo_.setFocus();
         }else{
             sudo_.opacity = 0.0
             sudo_.isVisible = false
@@ -492,5 +492,10 @@ Window {
             content.id = notifications.length - 1;
         }
         sendQmlRequest(type, content);
+    }
+
+    function refreshFavorite()
+    {
+        gs_Menu.updateFavorites();
     }
 }

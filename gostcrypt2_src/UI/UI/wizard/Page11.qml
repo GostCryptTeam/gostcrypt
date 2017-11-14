@@ -13,7 +13,7 @@ Item {
     Text {
         id:infos
         anchors.horizontalCenter: parent.horizontalCenter
-        width: top.width-120
+        width: parent.width - 20
         font.pixelSize: 12
         text: qsTr("Outer volume has been successfully created and mounted as drive " + pathMounted
                    + " To this volume you should now copy some sensitive-looking files that you atually do NOT "
@@ -32,10 +32,11 @@ Item {
     }
 
     UI.GSButtonBordered {
-        anchors.bottom: parent.bottom
+        anchors.top: infos.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 50
-        text: qsTr("Open Outer Volume")
+        anchors.topMargin: 10
+        text: qsTr("Open the Outer Volume")
+        width: 250
         color_: palette.blue
         onClicked: ConnectSignals.openPath(path);
     }

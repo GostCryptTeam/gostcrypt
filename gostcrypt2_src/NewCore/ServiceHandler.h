@@ -43,6 +43,7 @@ namespace GostCrypt {
 			void processStarted();
 		signals:
 			void sendResponse(QVariant &response);
+			void responseReaded();
 			void exited();
 			void started();
 			void initialized();
