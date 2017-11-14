@@ -14,10 +14,10 @@ namespace GostCrypt {
 			this->succeed = false;
 		}
 
-		void FuseServiceHandler::mount(QSharedPointer<NewCore::MountVolumeRequest> params)
+		void FuseServiceHandler::mount(QSharedPointer<NewCore::MountVolumeRequest> request)
 		{
-			this->params = params;
-			this->sendToService(QVariant::fromValue(params));
+			this->params = request;
+			this->sendToService(QVariant::fromValue(request));
 		}
 
 		void FuseServiceHandler::receiveResponse(QVariant &r)

@@ -37,7 +37,7 @@ namespace GostCrypt {
 			if(!r.canConvert<QSharedPointer<NewCore::MountVolumeRequest>>())
 				throw UnknowRequestException(r.typeName());
 
-			params = r.value<QSharedPointer<NewCore::MountVolumeRequest>>();
+			QSharedPointer<NewCore::MountVolumeRequest> params = r.value<QSharedPointer<NewCore::MountVolumeRequest>>();
 			QSharedPointer<NewCore::MountVolumeResponse> response(new NewCore::MountVolumeResponse());
 			mountedVolume.reset(new Volume);
 
@@ -143,7 +143,7 @@ namespace GostCrypt {
 
 		void NewFuseService::sendResponseWhenReady(QVariant response)
 		{
-			QSharedPointer<QFileInfo> imageFile(new QFileInfo(params->fuseMountPoint->absoluteFilePath() + QString(NewFuseDriver::getVolumeImagePath())));
+			QSharedPointer<QFileInfo> imageFile(new QFileInfo(NewFuseService::volumeInfo->fuseMountPoint->absoluteFilePath() + QString(NewFuseDriver::getVolumeImagePath())));
 			for (int t = 0 ; t < 100 ; t++) {
 				if(imageFile->exists()) {
 					if(QFile(imageFile->absoluteFilePath()).open(QIODevice::ReadWrite)) {
@@ -153,7 +153,7 @@ namespace GostCrypt {
 				}
 				QThread::msleep(100);
 			}
-			throw FuseTimeoutException(this->params->path);
+			throw FuseTimeoutException(NewFuseService::volumeInfo->volumePath);
 		}
 
 		NewFuseService::NewFuseService() : Service("FuseService")
