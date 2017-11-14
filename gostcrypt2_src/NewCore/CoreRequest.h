@@ -49,15 +49,14 @@ struct CreateVolumeRequest : CoreRequest {
     CreateVolumeRequest() {
         type = VolumeType::Normal;
         size = 0;
-        innerVolume.reset();
         outerVolume.reset(new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams());
     }
     struct VolumeParams {
         VolumeParams() {
-            password.reset();
-            keyfiles.reset();
             filesystem = GetFileSystemTypePlatformNative();
             size = 0;
+            volumeHeaderKdf = "HMAC-Whirlpool";
+            encryptionAlgorithm = "Gost Grasshopper";
         }
         QSharedPointer <QByteArray> password; // password of the volume (never null)
         QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to use
@@ -76,6 +75,7 @@ struct CreateVolumeRequest : CoreRequest {
 };
 
 struct ChangeVolumePasswordRequest : CoreRequest {
+    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool") {}
     QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
     QSharedPointer <QByteArray> password; // old password, optional if volume is already opened
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // old keyfiles, optional if volume is already opened
