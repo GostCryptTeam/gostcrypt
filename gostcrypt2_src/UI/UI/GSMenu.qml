@@ -573,7 +573,7 @@ Item {
             listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "medium", type: qsTr("other"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             break;
         case menus.SETTINGS:
             titleSubMenuText_ = qsTr("settings")
