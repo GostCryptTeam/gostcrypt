@@ -248,6 +248,49 @@ Window {
     }
 
 
+    /*************************************
+     *********  Notif Preview  ***********
+     *************************************/
+
+    Rectangle { //body
+        id: notifPreview
+        y: 48
+        x: 620
+        height: 80
+        width: 150
+        color: palette.border
+        opacity: 0.0
+
+        property string n: ""
+        property string p: "0"
+
+        Text {
+            text: "<b>"+ notifPreview.n
+            wrapMode: Text.WordWrap
+            width: parent.width - 50
+            leftPadding: 10
+            rightPadding: 20
+            x: 60
+            anchors.verticalCenter: parent.verticalCenter
+            color: palette.text                    }
+
+        CircleLoadingBar {
+            id: circle
+            anchors.verticalCenter: parent.verticalCenter
+            x: 10
+            size: 50
+            percent: Number(notifPreview.p)
+        }
+
+        SequentialAnimation {
+            id: timerNotifPreview
+            running: false
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 1000 }
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 3000 }
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 0.0; duration: 1000 }
+        }
+    }
+
 
 
     /*************************************

@@ -115,4 +115,5 @@ DISTFILES += \
     UI/dialogs/ChangePassword.qml \
     UI/dialogs/Benchmark.qml \
     UI/dialogs/License.qml \
-    UI/dialogs/KeyfileGenerator.qml
+    UI/dialogs/KeyfileGenerator.qml \
+    UI/dialogs/TestVectors.qml

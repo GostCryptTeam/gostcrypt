@@ -12,7 +12,6 @@ Item {
           notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
        else
           notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
-       console.log(app.notifications);
     }
 
     function drawNotification() {

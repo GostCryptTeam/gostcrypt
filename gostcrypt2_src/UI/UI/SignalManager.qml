@@ -67,10 +67,13 @@ Item {
 
         onSprintProgressUpdate:
         {
-            console.log("Mise à jour avec l'id " + l[0]["id"] + " --->" + l[0]["progress"]*100);
+            //console.log("Mise à jour avec l'id " + l[0]["id"] + " --->" + l[0]["progress"]*100);
             if(l === undefined) return;
             notifs.updateNotification(l[0]["id"],l[0]["progress"]*100,notifications[l[0]["id"]][0],notifications[l[0]["id"]][1]);
             if(notifs.visible === false) title.showIcon(true);
+            notifPreview.n = notifications[l[0]["id"]][0]
+            notifPreview.p = l[0]["progress"]*100
+            if(timerNotifPreview.running === false) timerNotifPreview.start();
         }
     }
 

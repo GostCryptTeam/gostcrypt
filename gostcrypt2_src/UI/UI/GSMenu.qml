@@ -205,15 +205,16 @@ Item {
                 snapMode: ScrollBar.NoSnap
                 clip: true
                 anchors.topMargin: 50
-                //anchors.bottomMargin: 10
                 boundsBehavior: Flickable.DragOverBounds
                 ScrollBar.vertical:
                     ScrollBar {
-                    snapMode: ScrollBar.SnapOnRelease
-                    parent: listOfSubMenu.parent
-                    anchors.top: listOfSubMenu.top
-                    anchors.left: listOfSubMenu.left
-                    anchors.bottom: listOfSubMenu.bottom
+                        id: scrollbar
+                        policy: ScrollBar.AlwaysOn
+                        snapMode: ScrollBar.SnapOnRelease
+                        parent: listOfSubMenu.parent
+                        anchors.top: listOfSubMenu.top
+                        anchors.left: listOfSubMenu.left
+                        anchors.bottom: listOfSubMenu.bottom
                     }
                 section.property: "type"
                 section.criteria: ViewSection.FullString
@@ -561,7 +562,7 @@ Item {
         case menus.TOOLS:
             titleSubMenuText_ = qsTr("tools")
             listSubMenuModel.append({message: qsTr("Benchmark..."), size: "small", type: qsTr("tests"), fileName: "Benchmark", titleDialog: qsTr("Benchmark")+Translation.tr, description: qsTr("Benchmark")})
-            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "TestVectors", titleDialog: qsTr("Test Vectors"), description: qsTr("Test Vectors")})
 
             //listSubMenuModel.append({message: qsTr("Volume Creation Wizard..."), size: "small"}) not needed now
 
@@ -598,7 +599,7 @@ Item {
             listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             //listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
