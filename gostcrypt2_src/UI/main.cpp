@@ -1,9 +1,9 @@
 #include "GraphicInterface.h"
 #include "Platform/SystemLog.h"
 #include "CmdLineInterface.h"
-#include "NewCore/CoreService.h"
-#include "NewCore/CoreException.h"
-#include "NewFuseService/FuseService.h"
+#include "Core/CoreService.h"
+#include "Core/CoreException.h"
+#include "FuseService/FuseService.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,10 +12,10 @@ int main(int argc, char *argv[])
     {
         if(strcmp (argv[1], "coreservice") == 0){
             // Process elevated requests
-			GostCrypt::NewCore::CoreService cs;
+			GostCrypt::Core::CoreService cs;
 			return cs.start(argc, argv);
         } else if(strcmp(argv[1], "fuseservice") == 0) {
-			GostCrypt::NewFuseDriver::NewFuseService fs;
+			GostCrypt::FuseDriver::FuseService fs;
 			return fs.start(argc, argv);
         } else {
             #ifdef QT_DEBUG // QML debbuger has its own arguments

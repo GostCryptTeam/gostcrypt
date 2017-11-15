@@ -6,8 +6,8 @@
 #include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "NewCore/CoreRequest.h"
-#include "NewCore/CoreBase.h"
+#include "Core/CoreRequest.h"
+#include "Core/CoreBase.h"
 #include "DragWindowProvider.h"
 #include "volumecreation.h"
 #include "UserSettings.h"
@@ -33,9 +33,9 @@
     func(openmountpoint) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
-#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response> r)
+#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
 #define DEC_QML_PRINT_SIGNAL(requestName) void sprint ## requestName (QVariantList l);
-#define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::NewCore::requestName ## Response>)))
+#define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
 #define QML_SIGNAL(requestName, params) s ## requestName (params);
 
 #define DEFAULT_ALGORITHM "Gost Grasshopper"
@@ -114,7 +114,7 @@ private:
     Q_INVOKABLE void connectSignals();
     MyGuiApplication* mApp;
     QQmlApplicationEngine mEngine;
-    QSharedPointer<GostCrypt::NewCore::CoreBase> core;
+    QSharedPointer<GostCrypt::Core::CoreBase> core;
     UserSettings mSettings;
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
