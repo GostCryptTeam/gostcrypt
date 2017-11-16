@@ -63,18 +63,29 @@ namespace Volume {
 		return EA->GetMode();
 	}
 
-	void Volume::Open (const VolumePath &volumePath, bool preserveTimestamps, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection, shared_ptr <VolumePassword> protectionPassword, shared_ptr <KeyfileList> protectionKeyfiles, bool sharedAccessAllowed, VolumeType::Enum volumeType, bool useBackupHeaders, bool partitionInSystemEncryptionScope)
+    void Volume::Open (const VolumePath &volumePath,
+                    bool preserveTimestamps,
+                    shared_ptr <VolumePassword> password,
+                    shared_ptr <KeyfileList> keyfiles,
+                    VolumeProtection::Enum protection,
+                    shared_ptr <VolumePassword> protectionPassword,
+                    shared_ptr <KeyfileList> protectionKeyfiles,
+                    bool sharedAccessAllowed,
+                    VolumeType::Enum volumeType,
+                    bool useBackupHeaders,
+                    bool partitionInSystemEncryptionScope)
 	{
-		make_shared_auto (File, file);
+        QSharedPointer<File> volumeFile = new QSharedPointer<File>();
 
 		File::FileOpenFlags flags = (preserveTimestamps ? File::PreserveTimestamps : File::FlagsNone);
 
+        // We First open the file (or device) we want to decrypt
 		try
 		{
 			if (protection == VolumeProtection::ReadOnly)
-				file->Open (volumePath, File::OpenRead, File::ShareRead, flags);
+                volumeFile->Open (volumePath, File::OpenRead, File::ShareRead, flags);
 			else
-				file->Open (volumePath, File::OpenReadWrite, File::ShareNone, flags);
+                volumeFile->Open (volumePath, File::OpenReadWrite, File::ShareNone, flags);
 		}
 		catch (SystemException &e)
 		{
@@ -83,19 +94,14 @@ namespace Volume {
 				if (!sharedAccessAllowed)
 					throw VolumeHostInUse (SRC_POS);
 
-				file->Open (volumePath, protection == VolumeProtection::ReadOnly ? File::OpenRead : File::OpenReadWrite, File::ShareReadWriteIgnoreLock, flags);
+                volumeFile->Open (volumePath, protection == VolumeProtection::ReadOnly ? File::OpenRead : File::OpenReadWrite, File::ShareReadWriteIgnoreLock, flags);
 			}
 			else
 				throw;
 		}
 
-		return Open (file, password, keyfiles, protection, protectionPassword, protectionKeyfiles, volumeType, useBackupHeaders, partitionInSystemEncryptionScope);
-	}
-
-	void Volume::Open (shared_ptr <File> volumeFile, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection, shared_ptr <VolumePassword> protectionPassword, shared_ptr <KeyfileList> protectionKeyfiles, VolumeType::Enum volumeType, bool useBackupHeaders, bool partitionInSystemEncryptionScope)
-	{
 		if (!volumeFile)
-			throw ParameterIncorrect (SRC_POS);
+            throw ParameterIncorrect (SRC_POS); // TODO : wrong error
 
 		Protection = protection;
 		VolumeFile = volumeFile;
