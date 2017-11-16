@@ -91,9 +91,9 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
 
     if (parser.isSet("protection")) { // volume protection
         const QString protection = parser.value("protection");
-        options->protection = GostCrypt::VolumeProtection::None;
+        options->protection = GostCrypt::Volume::VolumeProtection::None;
         if(protection == "readonly")
-                options->protection = GostCrypt::VolumeProtection::ReadOnly;
+                options->protection = GostCrypt::Volume::VolumeProtection::ReadOnly;
         else if(protection != "none")
             throw Parser::ParseException("Protection type not found : "+ protection);
     }
@@ -206,7 +206,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     if(parser.isSet("type")){
         const QString type = parser.value("type");
         if(!type.compare("Hidden",Qt::CaseInsensitive)){
-            options->type = GostCrypt::VolumeType::Hidden;
+            options->type = GostCrypt::Volume::VolumeType::Hidden;
             options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
         } else if(type.compare("Normal",Qt::CaseInsensitive)){
             throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
@@ -218,7 +218,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         options->outerVolume->password.reset(new QByteArray(password.toUtf8()));
     }else{
         QString password;
-        if(options->type != GostCrypt::VolumeType::Hidden){
+        if(options->type != GostCrypt::Volume::VolumeType::Hidden){
             if(askPassword("volume", password))
                 options->outerVolume->password.reset(new QByteArray(password.toUtf8()));
         } else {
@@ -227,7 +227,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         }
     }
 
-    if(options->type != GostCrypt::VolumeType::Hidden){
+    if(options->type != GostCrypt::Volume::VolumeType::Hidden){
         if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hash") || parser.isSet("halgorithm") || parser.isSet("hfile-system"))
             throw Parser::ParseException("Options for hidden volumes should only be used with --type=Hidden");
     } else {

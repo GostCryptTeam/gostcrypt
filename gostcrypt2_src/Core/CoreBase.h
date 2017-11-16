@@ -123,14 +123,14 @@ namespace GostCrypt {
              * @param algorithm encryption algorithm name
              * @return QSharedPointer<EncryptionAlgorithm> encryption algorithm object
              */
-            QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
+            QSharedPointer<Volume::EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
             /**
              * @brief Return the key derivation function object corresponding to the given name
              *
              * @param function key derivation function name
              * @return QSharedPointer<Pkcs5Kdf> key derivation function object
              */
-            QSharedPointer<Pkcs5Kdf> getDerivationKeyFunction(QString function);
+            QSharedPointer<Volume::Pkcs5Kdf> getDerivationKeyFunction(QString function);
             /**
              * @brief Return the directory where the given device is mounted
              *
@@ -174,7 +174,7 @@ namespace GostCrypt {
              * @param encryptionAlgorithm Name of the cipher algorithm for which to change the key
              * @sa CoreBase::createRandomFile
              */
-            void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
+            void randomizeEncryptionAlgorithmKey (QSharedPointer <Volume::EncryptionAlgorithm> encryptionAlgorithm) const;
             /**
              * @brief Give the next available default mountpoint for the given user
              *

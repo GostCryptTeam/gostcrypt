@@ -342,7 +342,13 @@ namespace Volume {
 
 	QSharedPointer<VolumeInformation> Volume::getVolumeInformation()
 	{
-		//TODO
+		QSharedPointer<VolumeInformation> vi = QSharedPointer<VolumeInformation>(new VolumeInformation);
+
+		vi->encryptionAlgorithmName = QString::fromStdWString(this->GetEncryptionAlgorithm()->GetName());
+		vi->protection = this->Protection;
+		vi->size = this->GetSize();
+		vi->type = this->Type;
+		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(wstring(this->VolumeFile->GetPath()))));
 	}
 }
 }

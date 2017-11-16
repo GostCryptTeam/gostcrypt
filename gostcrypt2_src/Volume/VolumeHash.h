@@ -16,21 +16,21 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	class Hash;
-	typedef list < shared_ptr <Hash> > HashList;
+	class VolumeHash;
+	typedef list < shared_ptr <VolumeHash> > VolumeHashList;
 
-	class Hash
+	class VolumeHash
 	{
 	public:
-		Hash () : Deprecated (false) { }
-		virtual ~Hash () { }
+		VolumeHash () : Deprecated (false) { }
+		virtual ~VolumeHash () { }
 
-		static HashList GetAvailableAlgorithms ();
+		static VolumeHashList GetAvailableAlgorithms ();
 		virtual void GetDigest (const BufferPtr &buffer) = 0;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
 		virtual wstring GetName () const = 0;
-		virtual shared_ptr <Hash> GetNew () const = 0;
+		virtual shared_ptr <VolumeHash> GetNew () const = 0;
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual void ProcessData (const ConstBufferPtr &data) = 0;
@@ -42,12 +42,12 @@ namespace Volume {
 		bool Deprecated;
 
 	private:
-		Hash (const Hash &);
-		Hash &operator= (const Hash &);
+		VolumeHash (const VolumeHash &);
+		VolumeHash &operator= (const VolumeHash &);
 	};
 
 	// Whirlpool
-	class Whirlpool : public Hash
+	class Whirlpool : public VolumeHash
 	{
 	public:
 		Whirlpool ();
@@ -57,7 +57,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 512 / 8; }
 		virtual wstring GetName () const { return L"Whirlpool"; }
-		virtual shared_ptr <Hash> GetNew () const { return shared_ptr <Hash> (new Whirlpool); }
+		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new Whirlpool); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 
@@ -69,7 +69,7 @@ namespace Volume {
 	};
 
 	// Stribog
-	class Stribog : public Hash
+	class Stribog : public VolumeHash
 	{
 	public:
 		Stribog ();
@@ -79,7 +79,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 64; }
 		virtual wstring GetName () const { return L"GOST R 34.11-2012"; }
-		virtual shared_ptr <Hash> GetNew () const { return shared_ptr <Hash> (new Stribog); }
+		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new Stribog); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 
@@ -91,7 +91,7 @@ namespace Volume {
 	};
 
 	// GOST R 34.11-94
-	class GostHash : public Hash
+	class GostHash : public VolumeHash
 	{
 	public:
 		GostHash ();
@@ -101,7 +101,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 32; }
 		virtual size_t GetDigestSize () const { return 32; }
 		virtual wstring GetName () const { return L"GOST R 34.11-94"; }
-		virtual shared_ptr <Hash> GetNew () const { return shared_ptr <Hash> (new GostHash); }
+		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new GostHash); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 

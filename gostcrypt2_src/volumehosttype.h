@@ -1,0 +1,4 @@
+#ifndef VOLUMEHOSTTYPE_H
+#define VOLUMEHOSTTYPE_H
+
+#endif // VOLUMEHOSTTYPE_H

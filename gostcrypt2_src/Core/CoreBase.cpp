@@ -47,9 +47,9 @@ namespace GostCrypt {
             QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse());
             			if(!params.isNull())
 				response->passThrough = params->passThrough;
-			GostCrypt::EncryptionAlgorithmList algorithms = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms ();
+			GostCrypt::Volume::EncryptionAlgorithmList algorithms = GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms ();
 			(void)params;
-			for(GostCrypt::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
+			for(GostCrypt::Volume::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
 			{
 				if (!(*algorithm)->IsDeprecated()){ // we don't allow deprecated algorithms
                     response->algorithms.append(QString::fromStdWString((*algorithm)->GetName()));
@@ -67,10 +67,10 @@ namespace GostCrypt {
             			if(!params.isNull())
 				response->passThrough = params->passThrough;
 
-            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
+            GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
 
             (void)params;
-            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
@@ -149,7 +149,7 @@ namespace GostCrypt {
 					continue;
 				}
 
-				QSharedPointer<VolumeInformation> mountedVol(new VolumeInformation);
+				QSharedPointer<Volume::VolumeInformation> mountedVol(new Volume::VolumeInformation);
 
 				try
 				{
@@ -240,10 +240,10 @@ namespace GostCrypt {
             return mountedFilesystems;
         }
 
-        QSharedPointer<GostCrypt::EncryptionAlgorithm> CoreBase::getEncryptionAlgorithm(QString algorithm)
+        QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> CoreBase::getEncryptionAlgorithm(QString algorithm)
         {
-            GostCrypt::EncryptionAlgorithmList eas = GostCrypt::EncryptionAlgorithm::GetAvailableAlgorithms();
-            for (GostCrypt::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            GostCrypt::Volume::EncryptionAlgorithmList eas = GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
+            for (GostCrypt::Volume::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
             {
                 if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
@@ -253,10 +253,10 @@ namespace GostCrypt {
             throw AlgorithmNotFoundException(algorithm);
         }
 
-        QSharedPointer<Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
+        QSharedPointer<Volume::Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
         {
-            GostCrypt::Pkcs5KdfList pkcss = GostCrypt::Pkcs5Kdf::GetAvailableAlgorithms();
-            for (GostCrypt::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
+            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
@@ -287,7 +287,7 @@ namespace GostCrypt {
             return false;
         }
 
-        void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const
+        void CoreBase::randomizeEncryptionAlgorithmKey (QSharedPointer <Volume::EncryptionAlgorithm> encryptionAlgorithm) const
         {
             SecureBuffer eaKey (encryptionAlgorithm->GetKeySize());
             RandomNumberGenerator::GetData (eaKey);
@@ -309,12 +309,12 @@ namespace GostCrypt {
             if(!file.is_open())
                 throw /* TODO add exception here */;
 
-            QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (nullptr);
+            QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (nullptr);
             if(!algorithm.isEmpty()) {
                 ea = getEncryptionAlgorithm(algorithm);
                 if(!ea)
                     throw /* TODO */;
-                ea->SetMode(shared_ptr<EncryptionMode>(new EncryptionModeXTS()));
+                ea->SetMode(shared_ptr<Volume::EncryptionMode>(new Volume::EncryptionModeXTS()));
 
                 // Empty sectors are encrypted with different key to randomize plaintext
                 randomizeEncryptionAlgorithmKey (ea);
@@ -429,7 +429,7 @@ namespace GostCrypt {
             if(!params.isNull())
 				response->passThrough = params->passThrough;
 
-            CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
+            CoreBase::createRandomFile(params->file, Volume::VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
 
             if(params->emitResponse)
 				emit sendCreateKeyFile(QSharedPointer<CreateKeyFileResponse>(nullptr));

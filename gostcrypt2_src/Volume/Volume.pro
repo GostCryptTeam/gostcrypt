@@ -39,7 +39,6 @@ HEADERS += \
     Version.h \
     Pkcs5Kdf.h \
     Keyfile.h \
-    Hash.h \
     EncryptionThreadPool.h \
     EncryptionTest.h \
     EncryptionModeXTS.h \
@@ -59,7 +58,13 @@ HEADERS += \
     ../Common/GfMul.h \
     ../Common/Endian.h \
     ../Common/Crc.h \
-    VolumeInformation.h
+    VolumeInformation.h \
+    ../Common/Crypto.h \
+    VolumePath.h \
+    VolumeProtection.h \
+    VolumeHostType.h \
+    VolumeType.h \
+    VolumeHash.h
 
 SOURCES += \
     VolumePasswordCache.cpp \
@@ -70,7 +75,6 @@ SOURCES += \
     Volume.cpp \
     Pkcs5Kdf.cpp \
     Keyfile.cpp \
-    Hash.cpp \
     EncryptionThreadPool.cpp \
     EncryptionTest.cpp \
     EncryptionModeXTS.cpp \
@@ -88,4 +92,6 @@ SOURCES += \
     ../Common/Pkcs5.c \
     ../Common/GfMul.c \
     ../Common/Endian.c \
-    ../Common/Crc.c
+    ../Common/Crc.c \
+    VolumeInformation.cpp \
+    VolumeHash.cpp

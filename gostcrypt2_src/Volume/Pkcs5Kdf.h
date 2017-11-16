@@ -11,7 +11,7 @@
 #define GST_HEADER_Encryption_Pkcs5
 
 #include "Platform/Platform.h"
-#include "Hash.h"
+#include "VolumeHash.h"
 #include "VolumePassword.h"
 
 namespace GostCrypt
@@ -29,9 +29,9 @@ namespace Volume {
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const;
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const = 0;
 		static shared_ptr <Pkcs5Kdf> GetAlgorithm (const wstring &name);
-		static shared_ptr <Pkcs5Kdf> GetAlgorithm (const Hash &hash);
+		static shared_ptr <Pkcs5Kdf> GetAlgorithm (const VolumeHash &hash);
 		static Pkcs5KdfList GetAvailableAlgorithms ();
-		virtual shared_ptr <Hash> GetHash () const = 0;
+		virtual shared_ptr <VolumeHash> GetHash () const = 0;
 		virtual int GetIterationCount () const = 0;
 		virtual wstring GetName () const = 0;
 		virtual bool IsDeprecated () const { return GetHash()->IsDeprecated(); }
@@ -53,7 +53,7 @@ namespace Volume {
 		virtual ~Pkcs5HmacWhirlpool () { }
 
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
-		virtual shared_ptr <Hash> GetHash () const { return shared_ptr <Hash> (new Whirlpool); }
+		virtual shared_ptr <VolumeHash> GetHash () const { return shared_ptr <VolumeHash> (new Whirlpool); }
 		virtual int GetIterationCount () const { return 1000; }
 		virtual wstring GetName () const { return L"HMAC-Whirlpool"; }
 
@@ -69,7 +69,7 @@ namespace Volume {
 		virtual ~Pkcs5HmacStribog () { }
 
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
-		virtual shared_ptr <Hash> GetHash () const { return shared_ptr <Hash> (new Stribog); }
+		virtual shared_ptr <VolumeHash> GetHash () const { return shared_ptr <VolumeHash> (new Stribog); }
 		virtual int GetIterationCount () const { return 1000; }
 		virtual wstring GetName () const { return L"HMAC-GOST R 34.11-2012"; }
 
@@ -85,7 +85,7 @@ namespace Volume {
 		virtual ~Pkcs5HmacGostHash () { }
 
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
-		virtual shared_ptr <Hash> GetHash () const { return shared_ptr <Hash> (new GostHash); }
+		virtual shared_ptr <VolumeHash> GetHash () const { return shared_ptr <VolumeHash> (new GostHash); }
 		virtual int GetIterationCount () const { return 1000; }
 		virtual wstring GetName () const { return L"HMAC-GOST R 34.11-94"; }
 
