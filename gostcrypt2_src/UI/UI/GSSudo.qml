@@ -1,5 +1,4 @@
 import QtQuick 2.7
-import QtQuick.Controls 1.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Styles 1.4
 
@@ -42,48 +41,56 @@ Item {
 
     Rectangle {
         color: palette.darkThird
-        radius : 15
         anchors.centerIn: parent
         width: connectSudo_Form.width / 2
-        height: 150
-    }
+        height: 165
+        Rectangle {
+            width: parent.width
+            height: 3
+            color: palette.blue
+            x: 0
+            y: 0
+        }
 
-    Text {
-        id: password_txt
-        anchors.horizontalCenter: connectSudo_Form.horizontalCenter
-        y: connectSudo_Form.height/2 - 40
-        text: contentText
-        font.pointSize: 15
-        lineHeightMode: Text.FixedHeight
-        color: '#719c24'
-    }
+        Text {
+            id: password_txt
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 20
+            text: contentText
+            font.pointSize: 13
+            lineHeightMode: Text.FixedHeight
+            color: palette.text
+        }
 
-    TextField {
-        id: password_value
-        anchors.horizontalCenter: connectSudo_Form.horizontalCenter
-        width: connectSudo_Form.width / 2 - 50
-        y: password_txt.y + 40
-        height: 25
-        horizontalAlignment: TextInput.AlignHCenter
-        echoMode: TextInput.Password
-        style: TextFieldStyle {
-            textColor: "#e1e1e1"
-            background: Rectangle {
-                radius: 5
-                implicitWidth: 100
-                implicitHeight: 25
-                border.color: "#333"
-                border.width: 1
-                color: '#181818'
+        SecureTextField {
+            id: password_value
+            y: password_txt.y + 40
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: connectSudo_Form.width / 2 - 50
+            horizontalAlignment: TextInput.AlignHCenter
+            height: 25
+            onValidated: {
+                app.toggleSudo(0)
+                sendSudoPassword(password_value.text);
             }
         }
-        onAccepted:
-        {
-            app.toggleSudo(0)
-            sendSudoPassword(password_value.text);
+
+        GSButtonBordered {
+            text: qsTr("Validate") + Translation.tr
+            color_:palette.blue
+            width:200
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: password_value.bottom
+            onClicked: {
+                app.toggleSudo(0)
+                sendSudoPassword(password_value.text);
+            }
+            anchors.topMargin : 20
+            anchors.bottomMargin: 40
         }
-        focus: true
     }
+
+
 
     function setFocus()
     {

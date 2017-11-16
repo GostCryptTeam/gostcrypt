@@ -8,11 +8,46 @@ Item {
     property string message: ""
     property int type: 0
 
+    Text {
+        id:titre
+        y: 10
+        font.pointSize: 13
+        font.family: "Helvetica"
+        text: qsTr("Create a new file that will contain your volume:") + Translation.tr
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: palette.text
+        wrapMode: Text.WordWrap
+    }
+
+    UI.GSButtonBordered {
+        id: buttonOpen
+        anchors.top: titre.bottom
+        anchors.topMargin: 20
+        height: combo.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: qsTr("Select File...")
+        width: 200
+        onClicked: fileDialog.open()
+        color_: palette.green
+    }
+
+    UI.GSHelpButton {
+        size: combo.height
+        anchors.left: buttonOpen.right
+        anchors.leftMargin: 10
+        y: buttonOpen.y
+        onClicked: {
+            openErrorMessage("Information", message)
+        }
+    }
+
+
     UI.GSCustomComboBox {
         id: combo
-        x: 60
-        y: 10
         width: parent.width - 250
+        anchors.top: buttonOpen.bottom
+        anchors.topMargin: 10
+        anchors.horizontalCenter: parent.horizontalCenter
         model: {
             var paths = UserSettings.getVolumePaths(1)
             return paths;
@@ -21,22 +56,14 @@ Item {
             path = currentText
         }
     }
-    UI.GSButtonBordered {
-        id: buttonOpen
-        x: combo.x + combo.width + 15
-        y: combo.y
-        height: combo.height
-        text: qsTr("Select File...")
-        width: 100
-        onClicked: fileDialog.open()
-        color_: palette.green
-    }
+
     UI.GSCheckBox {
         id: historique
         text_: qsTr("Never save history")
+        anchors.horizontalCenter: parent.horizontalCenter
         checked: {
             var isChecked = UserSettings.getSetting("MountV-SaveHistory")
-            return (isChecked == 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         x: combo.x
         y: combo.y + 50
@@ -71,18 +98,6 @@ Item {
         }
         onRejected: {
         }
-    }
-
-    Text {
-        id:description2
-        width: top.width-120
-        font.pixelSize: 12
-        text: message
-        y: 110
-        x: 60
-        color: palette.text
-        horizontalAlignment: Text.AlignJustify
-        wrapMode: Text.WordWrap
     }
 
     function setFileDialog(bool) {

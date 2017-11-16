@@ -36,7 +36,7 @@ int GraphicInterface::start()
 {
     mApp->setWindowIcon(QIcon(":/logo_gostcrypt.png"));
 
-    core = GostCrypt::NewCore::getCore();
+    core = GostCrypt::Core::getCore();
 
     mApp->setApplicationName("GostCrypt");
 
@@ -73,8 +73,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     switch(value){
     case FirstGI::mountedvolumes: //"mountedvolumes" command
         {
-            QSharedPointer <GostCrypt::NewCore::GetMountedVolumesRequest> options(new GostCrypt::NewCore::GetMountedVolumesRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer <GostCrypt::Core::GetMountedVolumesRequest> options(new GostCrypt::Core::GetMountedVolumesRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
@@ -96,15 +96,15 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::dismountall: //"dismountall" command
         {
-            QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
     case FirstGI::dismount: //"dismount" command
         {
-            QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             if(GI_KEY(aContent, "volumepath") != "") {
                 options.data()->volumePath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
                 emit request(QVariant::fromValue(options));
@@ -115,8 +115,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::mount: //"mount"
         {
-            QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer <GostCrypt::Core::MountVolumeRequest> options(new GostCrypt::Core::MountVolumeRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             QString canonicalPath = GI_KEY(aContent, "path").toUrl().path();
             options->path.reset(new QFileInfo(canonicalPath));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
@@ -126,8 +126,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::createvolume: //"create-volume"
         {
-            QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options(new GostCrypt::NewCore::CreateVolumeRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options(new GostCrypt::Core::CreateVolumeRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             //Detection of the volume type
             int type = GI_KEY(aContent, "type").toInt();
             qDebug() << "type = " << type;//GI_KEY(aContent, "path").toString();
@@ -136,7 +136,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 options->type = GostCrypt::VolumeType::Normal;
                 options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
 
-                GostCrypt::NewCore::CreateVolumeRequest::VolumeParams *params = new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams;
+                GostCrypt::Core::CreateVolumeRequest::VolumeParams *params = new GostCrypt::Core::CreateVolumeRequest::VolumeParams;
                 options->size = DEFAULT_SIZE; // default value is 10Mio
                 params->size = DEFAULT_OUTER_SIZE; // default value
                 params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
@@ -167,29 +167,29 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::algorithms: //"algorithms":
         {
-            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsRequest> options(new GostCrypt::Core::GetEncryptionAlgorithmsRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
     case FirstGI::hashs: //"hashs":
         {
-            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsRequest> options(new GostCrypt::NewCore::GetDerivationFunctionsRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer<GostCrypt::Core::GetDerivationFunctionsRequest> options(new GostCrypt::Core::GetDerivationFunctionsRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
     case FirstGI::devices: //"devices":
         {
-            QSharedPointer<GostCrypt::NewCore::GetHostDevicesRequest> options(new GostCrypt::NewCore::GetHostDevicesRequest);
-            options->id = GostCrypt::NewCore::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            QSharedPointer<GostCrypt::Core::GetHostDevicesRequest> options(new GostCrypt::Core::GetHostDevicesRequest);
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
     }
 }
 
-void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse> response)
+void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> response)
 {
 #ifdef QT_DEBUG
     qDebug() << "[Debug] : Receiving the list of mounted volumes.";
@@ -204,47 +204,54 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
            vol.insert("volumeSize", formatSize((*v)->size));
            list.append(vol);
     }
-    sPrintGetMountVolume(list);
+    emit QML_SIGNAL(printGetMountedVolumes, list)
+    //sprintGetMountedVolume(list);
 }
 
-void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> response)
+void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> response)
 {
     (void)response;
-    QML_SIGNAL(DismountVolume);
+    emit QML_SIGNAL(printDismountVolume, QVariantList());
 }
 
-void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> response)
+void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> response)
 {
     (void)response;
-    emit sPrintGetMountVolume(QVariantList());//TODO  QVariantList(response->volumeInfo));
+    emit QML_SIGNAL(printMountVolume, QVariantList());
+    //TODO  QVariantList(response->volumeInfo));
 }
 
-void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> response)
+void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> response)
 {
     (void)response;
-    QML_SIGNAL(CreateVolume);
+    emit QML_SIGNAL(printCreateVolume, QVariantList())
 }
 
-void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> response)
+void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> response)
 {
     (void)response;
     QVariantList list;
     for(auto k : response->algorithms) list << k;
-    emit sPrintGetEncryptionAlgorithms(list); //TODO
+    emit QML_SIGNAL(printGetEncryptionAlgorithms, list)
 }
 
-void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> response)
+void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> response)
 {
     (void)response;
-    emit sPrintDerivationFunctions(QVariantList()); //TODO
+    emit QML_SIGNAL(printGetDerivationFunctions, QVariantList())
 }
 
-void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r)
+void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r)
 {
-    emit sPrintProgressUpdate(r->requestId, r->progress);
+    QVariantList list;
+    QVariantMap progress;
+    progress.insert("id", r->requestId);
+    progress.insert("progress", r->progress);
+    list.append(progress);
+    emit QML_SIGNAL(printProgressUpdate, list)
 }
 
-void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> response)
+void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> response)
 {
     QVariantList list;
     for(auto v = response->hostDevices.begin(); v < response->hostDevices.end(); ++v)
@@ -257,7 +264,7 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::Ge
             device.insert("size", formatSize((*v)->size));
             list.append(device);
         }
-        for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : (*v)->partitions) {
+        for(QSharedPointer<GostCrypt::Core::HostDevice> p : (*v)->partitions) {
             if(p->mountPoint)
             {
                 QVariantMap device;
@@ -268,20 +275,22 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::Ge
             }
         }
     }
-    emit sPrintHostDevices(list);
+    emit QML_SIGNAL(printGetHostDevices, list)
 }
 
-void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> response)
+void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> response)
 {
     (void)response;
-    emit sPrintCreateKeyFile(QString()); //TODO
+    //emit sPrintCreateKeyFile(QString()); //TODO
+    emit QML_SIGNAL(printCreateKeyFile, QVariantList())
 }
 
-void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::NewCore::ChangeVolumePasswordResponse> response)
+void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> response)
 {
     (void)response;
-    QML_SIGNAL(ChangeVolumePassword);
+    emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
 }
+
 
 void GraphicInterface::askSudoPassword()
 {
@@ -326,8 +335,6 @@ void GraphicInterface::connectSignals()
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));
     mApp->connect(qml, SIGNAL(sendSudoPassword(QString)), core.data(), SLOT(receiveSudoPassword(QString)));
 
-    //mApp->connect(core.data(), SIGNAL(sudoPasswordSuccess()), this, SLOT(sendSudoStatus()));
-
 
     /* Connecting few exit signals to close the program apropriately */
     mApp->connect(this, SIGNAL(exit()), core.data(), SLOT(exit()));
@@ -342,24 +349,27 @@ void GraphicInterface::connectSignals()
 
 bool MyGuiApplication::notify(QObject *receiver, QEvent *event)
 {
-
+    QVariantList response;
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::NewCore::IncorrectVolumePassword &e) {
+    } catch(GostCrypt::Core::IncorrectVolumePassword &e) {
        emit mGI->volumePasswordIncorrect();
-    } catch (GostCrypt::NewCore::CoreException &e) {
-        emit mGI->sendError(e.getName(), "An unexpected error occured. \n"
+    } catch (GostCrypt::Core::CoreException &e) {
+        response << e.getName() << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
         +e.getMessage()
 #endif
-        );
+        ;
+        emit mGI->QML_SIGNAL(printSendError, response)
     } catch (QException &e) { // TODO : handle exceptions here
-        emit mGI->sendError("Exception catch", "An unexpected error occured. \n"
+
+        response << "Exception catch" << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
-        +QString::fromUtf8(e.what())
+        << QString::fromUtf8(e.what())
 #endif
-        );
+        ;
+        emit mGI->QML_SIGNAL(printSendError, response)
     }
     return done;
 }

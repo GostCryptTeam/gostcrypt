@@ -40,10 +40,10 @@ Item {
         height: 40
         checked: {
             var isChecked = UserSettings.getSetting("MountV-ShowPassword")
-            return (isChecked == 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
-            if(display.checked == true) {
+            if(display.checked === true) {
                 UserSettings.setSetting("MountV-ShowPassword", 1)
                 password_value.echoMode = TextInput.Normal;
             } else {
@@ -62,11 +62,11 @@ Item {
         height: 40
         checked: {
             var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-            return (isChecked == 1) ? true : false;
+            return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
             //TODO : action
-            if(use_Keyfiles.checked == true) {
+            if(use_Keyfiles.checked === true) {
                 UserSettings.setSetting("MountV-UseKeyFiles", 1)
             } else {
                 UserSettings.setSetting("MountV-UseKeyFiles", 0)
@@ -87,16 +87,15 @@ Item {
 
     Text {
         id:description2
-        width: top.width-120
-        font.pixelSize: 12
+        width: parent.width - 20
+        font.pixelSize: 11
         text: qsTr("Please enter the password for the volume within which you wish to create a hidden volume."
-                   +" <br><br>After you click Next, GostCrypt will attempt to mount the volume. As soon as the volume is mounted"
-                   +", its cluster bitmap will be scanned to determine the size of the uninterrupted area of free space (if"
-                   +" there is any) whose end is aligned with the end of the volume. This area will accommodate"
-                   +" the hidden volume and therefore will limit its maximum possible size. Cluster map scanning is"
-                   +" necessary to ensure that no data on the outer volume will be overwritten by the hidden volume.") + Translation.tr
+                   +" <br>After you click Next, GostCrypt will attempt to mount the volume. As soon as the volume is mounted"
+                   +", its cluster bitmap will be scanned to determine the size of the uninterrupted area of free space"
+                   +" whose end is aligned with the end of the volume. This area will accommodate"
+                   +" the hidden volume and therefore will limit its maximum possible size.") + Translation.tr
         y: use_Keyfiles.y + 45
-        x: 60
+        anchors.horizontalCenter: parent.horizontalCenter
         color: palette.text
         horizontalAlignment: Text.AlignJustify
         wrapMode: Text.WordWrap

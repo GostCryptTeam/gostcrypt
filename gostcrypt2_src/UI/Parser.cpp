@@ -2,16 +2,16 @@
 #include <termios.h>
 #include <unistd.h>
 
-void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options)
+void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::MountVolumeRequest> options)
 {
     parser.addPositionalArgument("mount", "Mounts a volume.", "mount");
-    parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "path");
+    parser.addPositionalArgument("volumepath", "Path of the volume or the device to mount.", "volumepath");
     parser.addOptions({
                           {{"o","options"}, "Additional options to pass to the mount function.", "'-option myoption'"},
                           {"filesystem", "Force a special filesystem to the volume."
                                 "Type 'gostcrypt list filesystems' to list the different filesystems supported.", "{fat,ntfs,ext2,...}"},
-                          {"no-filesystem", "Doesn't mount the volume."},
-                          {{"t","no-preserve-timestamps"}, "Doesn't preserves the timestamps."},
+                          {"no-filesystem", "Don't mount the volume."},
+                          {{"t","no-preserve-timestamps"}, "Don't preserves the timestamps."},
                           {{"f", "file", "keyfile"}, "Adds a keyfile.", "file"},
                           {{"p","password"}, "Specify an inline password. (unsafe)", "password"},
                           {{"m","mountpoint"}, "Specify a special mountpoint.", "mountpoint"},
@@ -107,7 +107,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::N
     }
 }
 
-void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::DismountVolumeRequest> volume)
+void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> volume)
 {
 	parser.addPositionalArgument("umount", "Mounts a volume.", "{umount|unmount|dismount}");
 	parser.addPositionalArgument("volume", "Path of the volume or the device to unmount");
@@ -133,7 +133,7 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
 
 void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 {
-	parser.addPositionalArgument("list", "Mounts a volume.", "list");
+    parser.addPositionalArgument("list", "Lists an item. For example you can lists the different algorithms that can be used in the program.", "list");
 	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
     parser.parse(QCoreApplication::arguments());
 
@@ -152,19 +152,19 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 	if (positionalArguments.size() > 2)
 		throw Parser::ParseException("Too many arguments specified.");
 	QString volume = positionalArguments.at(1);
-	if(volume == "volumes")
+    if(volume == "volumes" || volume == "volume")
 		*item = Volumes;
-	else if (volume == "algorithms")
+    else if (volume == "algorithms" || volume == "algorithm")
 		*item = Algorithms;
-	else if (volume == "hashs")
+    else if (volume == "hashs" || volume == "hash")
 		*item = Hashs;
-	else if (volume == "devices")
+    else if (volume == "devices" || volume == "device")
 		*item = Devices;
 	else
 		throw Parser::ParseException("Unknown item to list.");
 }
 
-void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options)
+void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options)
 {
     parser.addPositionalArgument("create", "Creates a volume.", "create");
     parser.addPositionalArgument("volumepath", "Path of the volume to create", "path"); // TODO add default values to description
@@ -207,7 +207,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         const QString type = parser.value("type");
         if(!type.compare("Hidden",Qt::CaseInsensitive)){
             options->type = GostCrypt::VolumeType::Hidden;
-            options->innerVolume.reset(new GostCrypt::NewCore::CreateVolumeRequest::VolumeParams());
+            options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
         } else if(type.compare("Normal",Qt::CaseInsensitive)){
             throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
         }
@@ -259,7 +259,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         if (parser.isSet("hfile-system")) {
             options->innerVolume->filesystem = parser.value("hfile-system");
         }else{
-            options->innerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
+            options->innerVolume->filesystem = GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
         }
 
         if (parser.isSet("inner-size")) {
@@ -292,7 +292,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     if (parser.isSet("filesystem")) {
         options->outerVolume->filesystem = parser.value("filesystem");
     }else{
-        options->outerVolume->filesystem = GostCrypt::NewCore::GetFileSystemTypePlatformNative(); // default value
+        options->outerVolume->filesystem = GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
     }
 
     if (parser.isSet("outer-size")) {

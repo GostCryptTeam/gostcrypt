@@ -12,7 +12,8 @@ Item {
         anchors.fill: parent
         hoverEnabled : true
         onPositionChanged: {
-            Wizard.sendRandomPosition(mouse.x, mouse.y)
+            //Wizard.sendRandomPosition(mouse.x, mouse.y)
+            //TODO : send mouse position to randomly change the pool & header/master keys
         }
     }
 
@@ -24,6 +25,7 @@ Item {
         radius: 5
         width: top.width-100
         height: 80
+        y: 10
         anchors.horizontalCenter: top.horizontalCenter
 
         Text {
@@ -74,24 +76,11 @@ Item {
             width: parent.width * 0.3
             height: 25
         }
-
-        UI.GSCheckBox {
-            text_: qsTr("Dynamic")
-            checked: false
-            x: clusterType.x + clusterType.width + 10
-            y: clusterType.y
-            height: 25
-            leftPadding_: 5
-            sizeText: 9
-            onCheckedChanged: {
-                //TODO
-            }
-        }
     }
 
     Rectangle {
         id: pool_
-        y: options_.y + options_.height + 10
+        y: options_.y + options_.height + 20
         color: "transparent"
         border.width: 1
         border.color: palette.border
@@ -99,18 +88,6 @@ Item {
         width: top.width-100
         height: 80
         anchors.horizontalCenter: top.horizontalCenter
-
-        UI.GSCheckBox {
-            id: hidePool
-            text_: ""
-            checked: false
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.topMargin: 10
-            height: 25
-            leftPadding_: 5
-            sizeText: 9
-        }
 
         UI.GSHelpButton {
             size: 30
@@ -173,65 +150,6 @@ Item {
         }
     }
 
-    Rectangle {
-        id: progress_
-        y: pool_.y + pool_.height + 10
-        color: "transparent"
-        border.width: 1
-        border.color: palette.border
-        radius: 5
-        width: top.width-100
-        height: 80
-        anchors.horizontalCenter: top.horizontalCenter
-
-        ProgressBar {
-            id: bar
-            width: parent.width*0.7
-            height: 20
-            maximumValue: 100
-            value: 0
-            x: 20
-            y: 20
-            style: ProgressBarStyle {
-                background: Rectangle {
-                    implicitWidth: bar.width
-                    implicitHeight: bar.height
-                    color: palette.darkThird
-                    border.color: palette.border
-                    border.width: 1
-                }
-                progress: Rectangle {
-                    color: palette.blue
-                    border.color: palette.border
-                    border.width: 1
-                }
-            }
-        }
-
-        UI.GSButtonBordered {
-            color_: palette.blue
-            text: qsTr("Abort")
-            y: 20
-            anchors.left: bar.right
-            anchors.leftMargin: 20
-            width: 110
-            height: 40
-        }
-
-        Text {
-            id:infos
-            width: parent.width*0.7 +20 +140
-            font.pixelSize: 12
-            text: qsTr("Done : <b><font color='#'>0%</font></b> - Speed : <b><font color='#'>0 o/s</font></b> - Left : <b><font color='#'>0 s</font></b>") + Translation.tr
-            y: bar.y + 30
-            x: 20
-            color: palette.text
-            horizontalAlignment: Text.AlignJustify
-            wrapMode: Text.WordWrap
-        }
-
-    }
-
     function updatePool(pool)
     {
         if(!hidePool.checked)
@@ -252,9 +170,5 @@ Item {
             masterKeyValue_.text = MK
         else
             masterKeyValue_.text = MK.replace(/./g, '*')
-    }
-    function setProgress(bar, percent, speed, left)
-    {
-
     }
 }

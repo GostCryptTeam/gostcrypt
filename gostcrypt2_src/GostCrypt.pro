@@ -1,17 +1,17 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    NewCore \
+    Core \
     Platform \
     Volume \
     UI \
-    NewFuseService
+    FuseService
 
 QMAKE_CXX = ccache g++
 
 UI.depends = \
-    NewCore \
+    Core \
     Platform \
     Volume \
-    NewFuseService
+    FuseService
 

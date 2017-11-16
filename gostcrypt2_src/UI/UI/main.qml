@@ -10,8 +10,8 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import QtGraphicalEffects 1.0
-import "LoadVolume.js" as LoadVolume
 import "./frames" as GSFrame
+import "./wizard" as W
 
 /*!
   \class main.qml (Window)
@@ -19,7 +19,6 @@ import "./frames" as GSFrame
   subwindow management
 */
 Window {
-
     /*************************************
      ************* Properties ************
      *************************************/
@@ -68,6 +67,10 @@ Window {
         property color darkInput: "#181818"
         property color hoverItemMenu: "#404040"
         property color bkCheckBox: "#191919"
+        property color grayWizard: "#2e2e2e"
+        property color grayWizardDark: "#2b2b2b"
+        property color round: "#545454"
+        property color roundFilled: "#dfdfdf"
     }
 
     //Window's maximum dimension
@@ -245,6 +248,49 @@ Window {
     }
 
 
+    /*************************************
+     *********  Notif Preview  ***********
+     *************************************/
+
+    Rectangle { //body
+        id: notifPreview
+        y: 48
+        x: 620
+        height: 80
+        width: 150
+        color: palette.border
+        opacity: 0.0
+
+        property string n: ""
+        property string p: "0"
+
+        Text {
+            text: "<b>"+ notifPreview.n
+            wrapMode: Text.WordWrap
+            width: parent.width - 50
+            leftPadding: 10
+            rightPadding: 20
+            x: 60
+            anchors.verticalCenter: parent.verticalCenter
+            color: palette.text                    }
+
+        CircleLoadingBar {
+            id: circle
+            anchors.verticalCenter: parent.verticalCenter
+            x: 10
+            size: 50
+            percent: Number(notifPreview.p)
+        }
+
+        SequentialAnimation {
+            id: timerNotifPreview
+            running: false
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 1000 }
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 3000 }
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 0.0; duration: 1000 }
+        }
+    }
+
 
 
     /*************************************
@@ -338,7 +384,7 @@ Window {
     Item {
         x: 0
         y: 40
-        GSSubWindow {
+        SubWindow {
             id: subWindow
             width:app.width
             y:40
@@ -422,7 +468,7 @@ Window {
         app.shown = !app.shown
         menuButton.value = !menuButton.value;
         //gs_Menu.selected = 0 TODO
-        //TODO setting home as active is nothing was selected
+        //TODO setting home as active if nothing was selected
     }
 
     function openSubWindow(path, title, name, height, parameter) {
@@ -434,18 +480,14 @@ Window {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
         else
         {
             subWindow.w = path
             subWindow.name = name
             subWindow.parameter = parameter
-            subWindow.loadForm()
-            subWindow.changeSubWindowHeight(height);
-            subWindow.changeSubWindowTitle(title);
+            subWindow.loadForm(height, title)
         }
     }
 
@@ -477,6 +519,7 @@ Window {
             sudo_.opacity = 1.0
             sudo_.isVisible = true
             sudo_.visible = true
+            sudo_.setFocus();
         }else{
             sudo_.opacity = 0.0
             sudo_.isVisible = false
@@ -488,9 +531,14 @@ Window {
         //If we want to add a notification
         if(content.name !== undefined && content.desc !== undefined)
         {
-            notifications.push([content.name, content.desc]);
+            notifications.push([content.name, content.desc, notifications.length, 0]);
             content.id = notifications.length - 1;
         }
         sendQmlRequest(type, content);
+    }
+
+    function refreshFavorite()
+    {
+        gs_Menu.updateFavorites();
     }
 }

@@ -1,7 +1,7 @@
 #include "CmdLineInterface.h"
-#include "NewCore/CoreException.h"
-#include "NewFuseService/FuseException.h"
-#include "NewCore/CoreResponse.h"
+#include "Core/CoreException.h"
+#include "FuseService/FuseException.h"
+#include "Core/CoreResponse.h"
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
@@ -18,7 +18,7 @@ QTextStream &CmdLineInterface::qStdOut() {
 int CmdLineInterface::start(int argc, char **argv)
 {
     MyApplication app(argc, argv);
-    core = GostCrypt::NewCore::getCore();
+    core = GostCrypt::Core::getCore();
 
     MyApplication::setApplicationName("GostCrypt");
 
@@ -36,7 +36,7 @@ int CmdLineInterface::start(int argc, char **argv)
     CONNECT_SIGNAL(ChangeVolumePassword);
     CONNECT_SIGNAL(ProgressUpdate);
 
-    /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse>)));*/
+    /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)));*/
 
     /* Connecting request from here to request switch from Core */
     app.connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
@@ -56,8 +56,9 @@ int CmdLineInterface::start(int argc, char **argv)
         processRequest();
     } catch(Parser::ParseException &e) {
         qDebug().noquote() << e.getMessage();
+        parser.showHelp();
         return -1;
-    } catch(GostCrypt::NewCore::GostCryptException &e) {
+    } catch(GostCrypt::Core::GostCryptException &e) {
         qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
@@ -78,11 +79,25 @@ void CmdLineInterface::processRequest(){
     const QStringList args = parser.positionalArguments();
     const QString command = args.isEmpty() ? QString() : args.first();
 
-    if(args.length() == 0 && parser.isSet("help"))
+    if(args.length() == 0) { // nothing to do. Probably launched with --help
+        parser.setApplicationDescription("This is the command line interface for the GostCrypt library.\n\
+\n\
+Commands:\n\
+  mount         \tMounts a volume.\n\
+  create        \tCreates a volume.\n\
+  umount        \tUnmounts a volume.\n\
+  test          \tTest the algrithms.\n\
+  dismountall   \tUnmounts all mounted volumes.\n\
+  automount     \tTries to auto-mounts the connected drives.\n\
+  backupheaders \tExports the header of a volume to make a backup.\n\
+  createkeyfiles\tCreates a random file that can be used as a key.\n\
+  list          \tLists the volumes, derivation functions of algorithms that can be used.\n\
+");
         parser.showHelp();
+    }
 
-    if(args.length() == 0) // nothing to do. Probably launched with --help
-        return;
+    /*if(args.length() == 0)
+        return;*/
 
     parser.clearPositionalArguments();
 
@@ -91,7 +106,7 @@ void CmdLineInterface::processRequest(){
     switch(value){
         case FirstCMD::mount: //"mount":
             {
-                QSharedPointer <GostCrypt::NewCore::MountVolumeRequest> options(new GostCrypt::NewCore::MountVolumeRequest);
+                QSharedPointer <GostCrypt::Core::MountVolumeRequest> options(new GostCrypt::Core::MountVolumeRequest);
                 Parser::parseMount(parser, options);
                 emit request(QVariant::fromValue(options));
             }
@@ -99,7 +114,7 @@ void CmdLineInterface::processRequest(){
         case FirstCMD::createvolume://"create-volume":
         case FirstCMD::create://"create":
             {
-                QSharedPointer <GostCrypt::NewCore::CreateVolumeRequest> options(new GostCrypt::NewCore::CreateVolumeRequest);
+                QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options(new GostCrypt::Core::CreateVolumeRequest);
                 Parser::parseCreate(parser, options);
                 emit request(QVariant::fromValue(options));
             }
@@ -108,14 +123,14 @@ void CmdLineInterface::processRequest(){
         case FirstCMD::unmount://"unmount":
         case FirstCMD::dismount://"dismount":
             {
-                QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
+                QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
                 Parser::parseDismount(parser, options);
                 emit request(QVariant::fromValue(options));
             }
             break;
         case FirstCMD::dismountall://"dismountall":
             {
-                QSharedPointer<GostCrypt::NewCore::DismountVolumeRequest> options(new GostCrypt::NewCore::DismountVolumeRequest);
+                QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
                 emit request(QVariant::fromValue(options)); // dismount-all is just a dismount with no params.
             }
             break;
@@ -123,7 +138,7 @@ void CmdLineInterface::processRequest(){
             {
                 QStringList files;
                 Parser::parseCreateKeyFiles(parser, files); // TODO multiple keyfiles not supported yet
-                QSharedPointer <GostCrypt::NewCore::CreateKeyFileRequest> options(new GostCrypt::NewCore::CreateKeyFileRequest());
+                QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
                 for(QStringList::Iterator file = files.begin(); file != files.end(); file++) {
                     options->file.reset(new QFileInfo(*file));
                     emit request(QVariant::fromValue(options));
@@ -137,25 +152,25 @@ void CmdLineInterface::processRequest(){
                 switch(item){
                     case Parser::Volumes:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetMountedVolumesRequest> options(new GostCrypt::NewCore::GetMountedVolumesRequest);
+                            QSharedPointer<GostCrypt::Core::GetMountedVolumesRequest> options(new GostCrypt::Core::GetMountedVolumesRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Algorithms:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsRequest> options(new GostCrypt::NewCore::GetEncryptionAlgorithmsRequest);
+                            QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsRequest> options(new GostCrypt::Core::GetEncryptionAlgorithmsRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Hashs:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsRequest> options(new GostCrypt::NewCore::GetDerivationFunctionsRequest);
+                            QSharedPointer<GostCrypt::Core::GetDerivationFunctionsRequest> options(new GostCrypt::Core::GetDerivationFunctionsRequest);
                             emit request(QVariant::fromValue(options));
                         }
                         break;
                     case Parser::Devices:
                         {
-                            QSharedPointer<GostCrypt::NewCore::GetHostDevicesRequest> options(new GostCrypt::NewCore::GetHostDevicesRequest);
+                            QSharedPointer<GostCrypt::Core::GetHostDevicesRequest> options(new GostCrypt::Core::GetHostDevicesRequest);
                             emit request(QVariant::fromValue(options));
                         }
                 }
@@ -205,7 +220,7 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::NewCore::GostCryptException &e) {
+    } catch(GostCrypt::Core::GostCryptException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
         emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here
@@ -215,36 +230,38 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     return done;
 }
 
-void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::NewCore::ProgressUpdateResponse> r) {
-    qStdOut() << r->progress*100 << "%\n";
+void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r) {
+    qStdOut() << "\r" << r->progress*100 << "%";
+    qStdOut().flush();
 }
 
-void CmdLineInterface::printCreateVolume(QSharedPointer<GostCrypt::NewCore::CreateVolumeResponse> r)
+void CmdLineInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> r)
 {
-    qStdOut() << "Volume Created." << endl;
+    qStdOut() << "\rVolume Created." << endl;
     (void)r;
     emit exit();
 }
 
-void CmdLineInterface::printMountVolume(QSharedPointer<GostCrypt::NewCore::MountVolumeResponse> r)
+void CmdLineInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> r)
 {
-    qStdOut() << "Volume Mounted." << endl;
+    qStdOut() << "\rVolume Mounted." << endl;
     (void)r;
     emit exit();
 }
 
-void CmdLineInterface::printDismountVolume(QSharedPointer<GostCrypt::NewCore::DismountVolumeResponse> r)
+void CmdLineInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> r)
 {
-    qStdOut() << "Volume Dismounted." << endl;
+    qStdOut() << "\rVolume Dismounted." << endl;
     (void)r;
     emit exit();
 }
 
-void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore::GetMountedVolumesResponse> r)
+void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> r)
 {
     if(!r)
-        qStdOut() << "Invalid response received." << endl;
-    for(QSharedPointer<GostCrypt::NewCore::VolumeInformation> v : r->volumeInfoList){
+        throw MissingParamException("response");
+    qStdOut() << "\r";
+    for(QSharedPointer<GostCrypt::Core::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath->absoluteFilePath() << "\t";
         qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
@@ -253,32 +270,35 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::NewCore:
     emit exit();
 }
 
-void CmdLineInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::NewCore::GetEncryptionAlgorithmsResponse> r)
+void CmdLineInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> r)
 {
+    qStdOut() << "\r";
     for(QString algo : r->algorithms) {
         qStdOut() << algo << endl;
     }
     emit exit();
 }
 
-void CmdLineInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::NewCore::GetDerivationFunctionsResponse> r)
+void CmdLineInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> r)
 {
+    qStdOut() << "\r";
     for(QString algo : r->algorithms) {
         qStdOut() << algo << endl;
     }
     emit exit();
 }
 
-void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::GetHostDevicesResponse> r)
+void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> r)
 {
-    for(QSharedPointer<GostCrypt::NewCore::HostDevice> d : r->hostDevices) {
+    qStdOut() << "\r";
+    for(QSharedPointer<GostCrypt::Core::HostDevice> d : r->hostDevices) {
         qStdOut() << d->devicePath->absoluteFilePath() << "\t";
         if(d->mountPoint)
             qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
         else
             qStdOut() << "no mountpoint\t";
         qStdOut() << d->size << endl;
-        for(QSharedPointer<GostCrypt::NewCore::HostDevice> p : d->partitions) {
+        for(QSharedPointer<GostCrypt::Core::HostDevice> p : d->partitions) {
             qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
             if(p->mountPoint)
                 qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
@@ -290,16 +310,16 @@ void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::NewCore::Ge
     emit exit();
 }
 
-void CmdLineInterface::printCreateKeyFile(QSharedPointer<GostCrypt::NewCore::CreateKeyFileResponse> r)
+void CmdLineInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> r)
 {
-    qStdOut() << "KeyFile Created." << endl;
+    qStdOut() << "\rKeyFile Created." << endl;
     (void)r;
     emit exit(); // TODO only exit when all keyfiles are created
 }
 
-void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::NewCore::ChangeVolumePasswordResponse> r)
+void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> r)
 {
-    qStdOut() << "Password successfully changed." << endl;
+    qStdOut() << "\rPassword successfully changed." << endl;
     (void)r;
     emit exit();
 }

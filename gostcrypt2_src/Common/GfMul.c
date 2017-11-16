@@ -741,9 +741,10 @@ static void xor128 (uint64 *a, uint64 *b)
 
 static void shl128 (unsigned __int8 *a)
 {
-	int i, x = 0, xx;
+	int i, x = 0;
 	for (i = 15; i >= 0; i--)
 	{
+		int xx;
 		xx = (a[i] & 0x80) >> 7;
 		a[i] = (char) ((a[i] << 1) | x);
 		x = xx;
@@ -781,9 +782,10 @@ static void xor64 (uint64 *a, uint64 *b)
 
 static void shl64 (unsigned __int8 *a)
 {
-	int i, x = 0, xx;
+	int i, x = 0;
 	for (i = 7; i >= 0; i--)
 	{
+		int xx;
 		xx = (a[i] & 0x80) >> 7;
 		a[i] = (char) ((a[i] << 1) | x);
 		x = xx;
