@@ -3,8 +3,8 @@ last.log
 FuseDriver/
 GostCrypt
 Makefile
-NewCore/
-NewFuseService/
+Core/
+FuseService/
 Platform/
 UI/
 Volume/
