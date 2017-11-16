@@ -106,8 +106,6 @@ namespace Volume {
 			VolumeHostSize = VolumeFile->Length();
 			shared_ptr <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
 
-			bool skipLayoutV1Normal = false;
-
 			bool deviceHosted = GetPath().IsDevice();
 			size_t hostDeviceSectorSize = 0;
 			if (deviceHosted)
@@ -116,21 +114,9 @@ namespace Volume {
 			// Test volume layouts
 			foreach (shared_ptr <VolumeLayout> layout, VolumeLayout::GetAvailableLayouts (volumeType))
 			{
-				if (skipLayoutV1Normal && typeid (*layout) == typeid (VolumeLayoutV1Normal))
-				{
-					// Skip VolumeLayoutV1Normal as it shares header location with VolumeLayoutV2Normal
-					continue;
-				}
 
 				if (useBackupHeaders && !layout->HasBackupHeader())
 					continue;
-
-				if (typeid (*layout) == typeid (VolumeLayoutV1Hidden)
-					&& deviceHosted
-					&& hostDeviceSectorSize != GST_SECTOR_SIZE_LEGACY)
-				{
-					continue;
-				}
 
 				SecureBuffer headerBuffer (layout->GetHeaderSize());
 
@@ -147,32 +133,14 @@ namespace Volume {
 				if (VolumeFile->Read (headerBuffer) != layout->GetHeaderSize())
 					continue;
 
-
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
 				EncryptionModeList layoutEncryptionModes = layout->GetSupportedEncryptionModes();
-
-				if (typeid (*layout) == typeid (VolumeLayoutV2Normal))
-				{
-					skipLayoutV1Normal = true;
-
-					// Test all algorithms and modes of VolumeLayoutV1Normal as it shares header location with VolumeLayoutV2Normal
-					layoutEncryptionAlgorithms = EncryptionAlgorithm::GetAvailableAlgorithms();
-					layoutEncryptionModes = EncryptionMode::GetAvailableModes();
-				}
 
 				shared_ptr <VolumeHeader> header = layout->GetHeader();
 
 				if (header->Decrypt (headerBuffer, *passwordKey, layout->GetSupportedKeyDerivationFunctions(), layoutEncryptionAlgorithms, layoutEncryptionModes))
 				{
 					// Header decrypted
-
-					if (typeid (*layout) == typeid (VolumeLayoutV2Normal) && header->GetRequiredMinProgramVersion() < 0x600)
-					{
-						// VolumeLayoutV1Normal has been opened as VolumeLayoutV2Normal
-						layout.reset (new VolumeLayoutV1Normal);
-						header->SetSize (layout->GetHeaderSize());
-						layout->SetHeader (header);
-					}
 
 					Type = layout->GetType();
 					SectorSize = header->GetSectorSize();
@@ -208,9 +176,6 @@ namespace Volume {
 
 								ProtectedRangeStart = protectedVolume.VolumeDataOffset;
 								ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
-
-								if (typeid (*protectedVolume.Layout) == typeid (VolumeLayoutV1Hidden))
-									ProtectedRangeEnd += protectedVolume.Layout->GetHeaderSize();
 							}
 							catch (PasswordException&)
 							{
@@ -224,10 +189,7 @@ namespace Volume {
 				}
 			}
 
-			if (partitionInSystemEncryptionScope)
-				throw PasswordOrKeyboardLayoutIncorrect (SRC_POS);
-
-			if (!partitionInSystemEncryptionScope && GetPath().IsDevice())
+            if (GetPath().IsDevice())
 			{
 				// Check if the device contains GostCrypt Boot Loader
 				try
