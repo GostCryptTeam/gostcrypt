@@ -134,42 +134,19 @@ namespace Volume {
 
 				SecureBuffer headerBuffer (layout->GetHeaderSize());
 
-				if (layout->HasDriveHeader())
-				{
-					if (!partitionInSystemEncryptionScope)
-						continue;
+				if (partitionInSystemEncryptionScope)
+					continue;
 
-					if (!GetPath().IsDevice())
-						throw PartitionDeviceRequired (SRC_POS);
+				int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
 
-					File driveDevice;
-					driveDevice.Open (DevicePath (wstring (GetPath())).ToHostDriveOfPartition());
-
-					int headerOffset = layout->GetHeaderOffset();
-
-					if (headerOffset >= 0)
-						driveDevice.SeekAt (headerOffset);
-					else
-						driveDevice.SeekEnd (headerOffset);
-
-					if (driveDevice.Read (headerBuffer) != layout->GetHeaderSize())
-						continue;
-				}
+				if (headerOffset >= 0)
+					VolumeFile->SeekAt (headerOffset);
 				else
-				{
-					if (partitionInSystemEncryptionScope)
-						continue;
+					VolumeFile->SeekEnd (headerOffset);
 
-					int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
+				if (VolumeFile->Read (headerBuffer) != layout->GetHeaderSize())
+					continue;
 
-					if (headerOffset >= 0)
-						VolumeFile->SeekAt (headerOffset);
-					else
-						VolumeFile->SeekEnd (headerOffset);
-
-					if (VolumeFile->Read (headerBuffer) != layout->GetHeaderSize())
-						continue;
-				}
 
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
 				EncryptionModeList layoutEncryptionModes = layout->GetSupportedEncryptionModes();
@@ -207,20 +184,6 @@ namespace Volume {
 					Layout = layout;
 					EA = header->GetEncryptionAlgorithm();
 					EncryptionMode &mode = *EA->GetMode();
-
-					if (layout->HasDriveHeader())
-					{
-						if (header->GetEncryptedAreaLength() != header->GetVolumeDataSize())
-							throw VolumeEncryptionNotCompleted (SRC_POS);
-
-						uint64 partitionStartOffset = VolumeFile->GetPartitionDeviceStartOffset();
-
-						if (partitionStartOffset < header->GetEncryptedAreaStart()
-							|| partitionStartOffset >= header->GetEncryptedAreaStart() + header->GetEncryptedAreaLength())
-							throw PasswordIncorrect (SRC_POS);
-
-						mode.SetSectorOffset (partitionStartOffset / ENCRYPTION_DATA_UNIT_SIZE);
-					}
 
 					// Volume protection
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)

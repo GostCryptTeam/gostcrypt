@@ -41,7 +41,6 @@ namespace Volume {
 		virtual EncryptionModeList GetSupportedEncryptionModes () const { return SupportedEncryptionModes; }
 		virtual VolumeType::Enum GetType () const { return Type; }
 		virtual bool HasBackupHeader () const = 0;
-		virtual bool HasDriveHeader () const { return false; }
         virtual void SetHeader (QSharedPointer <VolumeHeader> header) { Header = header; }
 
 	protected:
@@ -130,26 +129,6 @@ namespace Volume {
 	private:
 		VolumeLayoutV2Hidden (const VolumeLayoutV2Hidden &);
 		VolumeLayoutV2Hidden &operator= (const VolumeLayoutV2Hidden &);
-	};
-
-
-	class VolumeLayoutSystemEncryption : public VolumeLayout
-	{
-	public:
-		VolumeLayoutSystemEncryption ();
-		virtual ~VolumeLayoutSystemEncryption () { }
-
-		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
-		virtual Pkcs5KdfList GetSupportedKeyDerivationFunctions () const;
-		virtual bool HasBackupHeader () const { return false; }
-		virtual bool HasDriveHeader () const { return true; }
-
-	private:
-		VolumeLayoutSystemEncryption (const VolumeLayoutSystemEncryption &);
-		VolumeLayoutSystemEncryption &operator= (const VolumeLayoutSystemEncryption &);
 	};
 }
 }
