@@ -43,7 +43,6 @@ HEADERS += \
     EncryptionTest.h \
     EncryptionModeXTS.h \
     EncryptionModeLRW.h \
-    EncryptionModeCBC.h \
     EncryptionMode.h \
     EncryptionAlgorithm.h \
     Crc32.h \
@@ -81,7 +80,6 @@ SOURCES += \
     EncryptionTest.cpp \
     EncryptionModeXTS.cpp \
     EncryptionModeLRW.cpp \
-    EncryptionModeCBC.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
     Cipher.cpp \
