@@ -57,7 +57,10 @@ namespace Volume {
 			}
 
 			Memory::Erase (&keyfileData.front(), keyfileData.size());
-			goto done;
+            if (totalLength < MinProcessedLength)
+                throw InsufficientData (SRC_POS, Path);
+            else
+                return;
 		}
 
 		file.Open (Path, File::OpenRead, File::ShareRead);
@@ -77,12 +80,9 @@ namespace Volume {
 					poolPos = 0;
 
 				if (++totalLength >= MaxProcessedLength)
-					goto done;
+                    return;
 			}
 		}
-done:
-		if (totalLength < MinProcessedLength)
-			throw InsufficientData (SRC_POS, Path);
 	}
 
     shared_ptr <VolumePassword> Keyfile::ApplyListToPassword (shared_ptr <KeyfileList> keyfiles, shared_ptr <VolumePassword> password)
