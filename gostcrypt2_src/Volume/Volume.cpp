@@ -68,16 +68,46 @@ namespace Volume {
                     shared_ptr <VolumePassword> password,
                     shared_ptr <KeyfileList> keyfiles,
                     VolumeProtection::Enum protection,
-                    shared_ptr <VolumePassword> protectionPassword,
+                    shared_ptr <VolumePassword> protectionPassword, // in case you wqnt to open it as
                     shared_ptr <KeyfileList> protectionKeyfiles,
                     bool sharedAccessAllowed,
                     VolumeType::Enum volumeType,
                     bool useBackupHeaders,
                     bool partitionInSystemEncryptionScope)
 	{
-        QSharedPointer<File> volumeFile = new QSharedPointer<File>();
+        QSharedPointer<File> volumeFile = QSharedPointer<File>(new File());
 
 		File::FileOpenFlags flags = (preserveTimestamps ? File::PreserveTimestamps : File::FlagsNone);
+
+        if(protection == VolumeProtection::HiddenVolumeReadOnly){
+            // we first open the hidden volume to get its size
+            try
+            {
+                Volume protectedVolume;
+
+                protectedVolume.Open (volumePath,
+                    preserveTimestamps,
+                    protectionPassword, protectionKeyfiles,
+                    VolumeProtection::ReadOnly,
+                    shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> (),
+                    sharedAccessAllowed,
+                    VolumeType::Hidden,
+                    useBackupHeaders,
+                    partitionInSystemEncryptionScope);
+
+                if (protectedVolume.GetType() != VolumeType::Hidden)
+                    ParameterIncorrect (SRC_POS);
+
+                ProtectedRangeStart = protectedVolume.VolumeDataOffset;
+                ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
+            }
+            catch (PasswordException&)
+            {
+                if (protectionKeyfiles && !protectionKeyfiles->empty())
+                    throw ProtectionPasswordKeyfilesIncorrect (SRC_POS);
+                throw ProtectionPasswordIncorrect (SRC_POS);
+            }
+        }
 
         // We First open the file (or device) we want to decrypt
 		try
@@ -163,33 +193,8 @@ namespace Volume {
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-							throw PasswordIncorrect (SRC_POS);
-						else
-						{
-							try
-							{
-								Volume protectedVolume;
-
-								protectedVolume.Open (VolumeFile,
-									protectionPassword, protectionKeyfiles,
-									VolumeProtection::ReadOnly,
-									shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> (),
-									VolumeType::Hidden,
-									useBackupHeaders);
-
-								if (protectedVolume.GetType() != VolumeType::Hidden)
-									ParameterIncorrect (SRC_POS);
-
-								ProtectedRangeStart = protectedVolume.VolumeDataOffset;
-								ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
-							}
-							catch (PasswordException&)
-							{
-								if (protectionKeyfiles && !protectionKeyfiles->empty())
-									throw ProtectionPasswordKeyfilesIncorrect (SRC_POS);
-								throw ProtectionPasswordIncorrect (SRC_POS);
-							}
-						}
+                            throw PasswordIncorrect (SRC_POS); // the password of the inner volume was put instead of the one of the outer volume.
+                        // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
