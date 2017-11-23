@@ -17,13 +17,13 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	class Cipher;
-	typedef vector < shared_ptr <Cipher> > CipherList;
+    class CipherAlgorithm;
+    typedef vector < shared_ptr <CipherAlgorithm> > CipherList;
 
-	class Cipher
+    class CipherAlgorithm
 	{
 	public:
-		virtual ~Cipher ();
+        virtual ~CipherAlgorithm ();
 
 		virtual void DecryptBlock (byte *data) const;
 		virtual void DecryptBlocks (byte *data, size_t blockCount) const;
@@ -36,7 +36,7 @@ namespace Volume {
 		virtual size_t GetKeySize () const = 0;
 		virtual wstring GetName () const = 0;
                 virtual wstring GetDescription () const = 0;
-		virtual shared_ptr <Cipher> GetNew () const = 0;
+        virtual shared_ptr <CipherAlgorithm> GetNew () const = 0;
 		virtual bool IsHwSupportAvailable () const { return false; }
 		static bool IsHwSupportEnabled () { return HwSupportEnabled; }
 		virtual void SetKey (const ConstBufferPtr &key);
@@ -53,7 +53,7 @@ namespace Volume {
 		virtual size_t GetScheduledKeySize () const = 0;
 
 	protected:
-		Cipher ();
+        CipherAlgorithm ();
 
 		virtual void Decrypt (byte *data) const = 0;
 		virtual void Encrypt (byte *data) const = 0;
@@ -67,8 +67,8 @@ namespace Volume {
 		bool KeySwapped;
 
 	private:
-		Cipher (const Cipher &);
-		Cipher &operator= (const Cipher &);
+        CipherAlgorithm (const CipherAlgorithm &);
+        CipherAlgorithm &operator= (const CipherAlgorithm &);
 	};
 
 	struct CipherException : public Exception
@@ -80,17 +80,17 @@ namespace Volume {
 	};
 
 #define GST_CIPHER(NAME, BLOCK_SIZE, KEY_SIZE, FANCY_NAME, DESCRIPTION) \
-	class GST_JOIN (Cipher,NAME) : public Cipher \
+    class GST_JOIN (CipherAlgorithm,NAME) : public CipherAlgorithm \
 	{ \
 	public: \
-		GST_JOIN (Cipher,NAME) () { } \
-		virtual ~GST_JOIN (Cipher,NAME) () { } \
+        GST_JOIN (CipherAlgorithm,NAME) () { } \
+        virtual ~GST_JOIN (CipherAlgorithm,NAME) () { } \
 \
 		virtual size_t GetBlockSize () const { return BLOCK_SIZE; }; \
 		virtual size_t GetKeySize () const { return KEY_SIZE; }; \
                 virtual wstring GetName () const { return L##FANCY_NAME; }; \
                 virtual wstring GetDescription () const { return L##DESCRIPTION; }; \
-                virtual shared_ptr <Cipher> GetNew () const { return shared_ptr <Cipher> (new GST_JOIN (Cipher,NAME)()); } \
+                virtual shared_ptr <CipherAlgorithm> GetNew () const { return shared_ptr <CipherAlgorithm> (new GST_JOIN (CipherAlgorithm,NAME)()); } \
 \
                 virtual void XorCipherKey (byte *ks, byte *data, int len) const; \
                 virtual void EncryptWithKS (byte *data, byte *ks) const; \
@@ -104,8 +104,8 @@ namespace Volume {
 		virtual void SetCipherKey (const byte *key); \
 \
 	private: \
-		GST_JOIN (Cipher,NAME) (const GST_JOIN (Cipher,NAME) &); \
-		GST_JOIN (Cipher,NAME) &operator= (const GST_JOIN (Cipher,NAME) &); \
+        GST_JOIN (CipherAlgorithm,NAME) (const GST_JOIN (CipherAlgorithm,NAME) &); \
+        GST_JOIN (CipherAlgorithm,NAME) &operator= (const GST_JOIN (CipherAlgorithm,NAME) &); \
         };
 
 GST_CIPHER(GOST, 8, 32, "GOST 28147-89",

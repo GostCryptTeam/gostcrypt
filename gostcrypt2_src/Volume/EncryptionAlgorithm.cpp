@@ -88,7 +88,7 @@ namespace Volume {
 
 		size_t keySize = 0;
 
-		foreach_ref (const Cipher &c, Ciphers)
+        foreach_ref (const CipherAlgorithm &c, Ciphers)
 			keySize += c.GetKeySize();
 
 		return keySize;
@@ -98,7 +98,7 @@ namespace Volume {
 	{
 		size_t blockSize = 0;
 
-		foreach_ref (const Cipher &c, Ciphers)
+        foreach_ref (const CipherAlgorithm &c, Ciphers)
 			if (c.GetBlockSize() > blockSize)
 				blockSize = c.GetBlockSize();
 
@@ -109,7 +109,7 @@ namespace Volume {
 	{
 		size_t blockSize = 0;
 
-		foreach_ref (const Cipher &c, Ciphers)
+        foreach_ref (const CipherAlgorithm &c, Ciphers)
 			if (blockSize == 0 || c.GetBlockSize() < blockSize)
 				blockSize = c.GetBlockSize();
 
@@ -131,7 +131,7 @@ namespace Volume {
 
 		wstring name;
 
-		foreach_reverse_ref (const Cipher &c, Ciphers)
+        foreach_reverse_ref (const CipherAlgorithm &c, Ciphers)
 		{
 			if (name.empty())
 				name = c.GetName();
@@ -149,7 +149,7 @@ namespace Volume {
 
                 wstring desc;
 
-                foreach_reverse_ref (const Cipher &c, Ciphers)
+                foreach_reverse_ref (const CipherAlgorithm &c, Ciphers)
                 {
                         if (desc.empty())
                                 desc = c.GetDescription();
@@ -200,7 +200,7 @@ namespace Volume {
 			throw ParameterIncorrect (SRC_POS);
 
 		size_t keyOffset = 0;
-		foreach_ref (Cipher &c, Ciphers)
+        foreach_ref (CipherAlgorithm &c, Ciphers)
 		{
 			c.SetKey (key.GetRange (keyOffset, c.GetKeySize()));
 			keyOffset += c.GetKeySize();

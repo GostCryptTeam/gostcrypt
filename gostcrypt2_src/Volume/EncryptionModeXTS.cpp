@@ -38,7 +38,7 @@ namespace Volume {
 		assert (iSecondaryCipher == SecondaryCiphers.end());
 	}
 
-	void EncryptionModeXTS::EncryptBufferXTS8Byte (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
 		byte whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
@@ -134,7 +134,7 @@ namespace Volume {
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-	void EncryptionModeXTS::EncryptBufferXTS (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
 		byte whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
@@ -280,7 +280,7 @@ namespace Volume {
 			throw NotInitialized (SRC_POS);
 
 		size_t keySize = 0;
-		foreach_ref (const Cipher &cipher, SecondaryCiphers)
+        foreach_ref (const CipherAlgorithm &cipher, SecondaryCiphers)
 		{
 			keySize += cipher.GetKeySize();
 		}
@@ -311,7 +311,7 @@ namespace Volume {
 		assert (iSecondaryCipher == SecondaryCiphers.begin());
 	}
 
-	void EncryptionModeXTS::DecryptBufferXTS8Byte (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
 		byte whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
@@ -407,7 +407,7 @@ namespace Volume {
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-	void EncryptionModeXTS::DecryptBufferXTS (const Cipher &cipher, const Cipher &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
 		byte finalCarry;
 		byte whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
@@ -544,7 +544,7 @@ namespace Volume {
 
 		SecondaryCiphers.clear();
 
-		foreach_ref (const Cipher &cipher, ciphers)
+        foreach_ref (const CipherAlgorithm &cipher, ciphers)
 		{
 			SecondaryCiphers.push_back (cipher.GetNew());
 		}
@@ -565,7 +565,7 @@ namespace Volume {
 	void EncryptionModeXTS::SetSecondaryCipherKeys ()
 	{
 		size_t keyOffset = 0;
-		foreach_ref (Cipher &cipher, SecondaryCiphers)
+        foreach_ref (CipherAlgorithm &cipher, SecondaryCiphers)
 		{
 			cipher.SetKey (SecondaryKey.GetRange (keyOffset, cipher.GetKeySize()));
 			keyOffset += cipher.GetKeySize();

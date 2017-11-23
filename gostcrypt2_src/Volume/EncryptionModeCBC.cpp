@@ -82,7 +82,7 @@ namespace Volume {
 				iCipherList != ciphers.rend();
 				++iCipherList)
 			{
-				const Cipher &c = **iCipherList;
+				const CipherAlgorithm &c = **iCipherList;
 
 				if (c.GetBlockSize () != blockSize)
 					throw ParameterIncorrect (SRC_POS);
@@ -131,7 +131,7 @@ namespace Volume {
 					iCipherList != Ciphers.rend();
 					++iCipherList)
 				{
-					const Cipher &c = **iCipherList;
+					const CipherAlgorithm &c = **iCipherList;
 					CipherList cl;
 					cl.push_back (*iCipherList);
 
@@ -203,7 +203,7 @@ namespace Volume {
 				iCipherList != ciphers.end();
 				++iCipherList)
 			{
-				const Cipher &c = **iCipherList;
+				const CipherAlgorithm &c = **iCipherList;
 
 				if (c.GetBlockSize () != blockSize)
 					throw ParameterIncorrect (SRC_POS);
@@ -254,7 +254,7 @@ namespace Volume {
 					iCipherList != Ciphers.end();
 					++iCipherList)
 				{
-					const Cipher &c = **iCipherList;
+					const CipherAlgorithm &c = **iCipherList;
 					CipherList cl;
 					cl.push_back (*iCipherList);
 
@@ -316,7 +316,7 @@ namespace Volume {
 			iCipherList != ciphers.end();
 			++iCipherList)
 		{
-			const Cipher &c = **iCipherList;
+			const CipherAlgorithm &c = **iCipherList;
 			if (c.GetBlockSize() != blockSize)
 				return false;
 		}

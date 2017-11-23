@@ -43,7 +43,7 @@ namespace Volume {
 		}
 	};
 
-	static void TestCipher (Cipher &cipher, const CipherTestVector *testVector, size_t testVectorCount)
+    static void TestCipher (CipherAlgorithm &cipher, const CipherTestVector *testVector, size_t testVectorCount)
 	{
 		Buffer buffer (cipher.GetBlockSize());
 		for (size_t i = 0; i < testVectorCount; ++i)
@@ -59,7 +59,7 @@ namespace Volume {
 
 	void EncryptionTest::TestCiphers ()
 	{
-			CipherGOST gost;
+            CipherAlgorithmGOST gost;
 			TestCipher (gost, GOSTTestVectors, array_capacity (GOSTTestVectors));
 
 			Buffer testData (1024);

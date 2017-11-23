@@ -5,7 +5,7 @@ namespace Volume {
     //GRASSHOPPER
     EncryptionAlgorithmGrasshopper::EncryptionAlgorithmGrasshopper()
     {
-        Ciphers.push_back (shared_ptr <Cipher> (new CipherGRASSHOPPER ()));
+        Ciphers.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGRASSHOPPER ()));
         SupportedModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 
     }

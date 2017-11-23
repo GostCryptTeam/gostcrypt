@@ -17,15 +17,15 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	Cipher::Cipher () : Initialized (false)
+    CipherAlgorithm::CipherAlgorithm () : Initialized (false)
 	{
 	}
 
-	Cipher::~Cipher ()
+    CipherAlgorithm::~CipherAlgorithm ()
 	{
 	}
 
-	void Cipher::DecryptBlock (byte *data) const
+    void CipherAlgorithm::DecryptBlock (byte *data) const
 	{
 		if (!Initialized)
 			throw NotInitialized (SRC_POS);
@@ -33,7 +33,7 @@ namespace Volume {
 		Decrypt (data);
 	}
 
-	void Cipher::DecryptBlocks (byte *data, size_t blockCount) const
+    void CipherAlgorithm::DecryptBlocks (byte *data, size_t blockCount) const
 	{
 		if (!Initialized)
 			throw NotInitialized (SRC_POS);
@@ -45,7 +45,7 @@ namespace Volume {
 		}
 	}
 
-	void Cipher::EncryptBlock (byte *data) const
+    void CipherAlgorithm::EncryptBlock (byte *data) const
 	{
 		if (!Initialized)
 			throw NotInitialized (SRC_POS);
@@ -53,7 +53,7 @@ namespace Volume {
 		Encrypt (data);
 	}
 
-	void Cipher::EncryptBlocks (byte *data, size_t blockCount) const
+    void CipherAlgorithm::EncryptBlocks (byte *data, size_t blockCount) const
 	{
 		if (!Initialized)
 			throw NotInitialized (SRC_POS);
@@ -65,17 +65,17 @@ namespace Volume {
 		}
 	}
 
-	CipherList Cipher::GetAvailableCiphers ()
+    CipherList CipherAlgorithm::GetAvailableCiphers ()
 	{
 		CipherList l;
 
-		l.push_back (shared_ptr <Cipher> (new CipherGOST ()));
-		l.push_back (shared_ptr <Cipher> (new CipherGRASSHOPPER()));
+        l.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGOST ()));
+        l.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGRASSHOPPER()));
 
 		return l;
 	}
 
-	void Cipher::SetKey (const ConstBufferPtr &key)
+    void CipherAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (key.Size() != GetKeySize ())
 			throw ParameterIncorrect (SRC_POS);
@@ -89,19 +89,19 @@ namespace Volume {
 		KeySwapped = false;
 	}
 
-	void Cipher::StoreCipherKey ()
+    void CipherAlgorithm::StoreCipherKey ()
 	{
 		SwapScheduledKey.CopyFrom ((ConstBufferPtr) ScheduledKey);
 		KeySwapped = true;
 	}
 
-	void Cipher::RestoreCipherKey ()
+    void CipherAlgorithm::RestoreCipherKey ()
 	{
 		ScheduledKey.CopyFrom ((ConstBufferPtr) SwapScheduledKey);
 		KeySwapped = false;
 	}
 
-	bool Cipher::IsKeySwapped ()
+    bool CipherAlgorithm::IsKeySwapped ()
 	{
 		return KeySwapped;
 	}
@@ -113,42 +113,42 @@ namespace Volume {
 	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (CipherException);
 
 	// GOST
-	void CipherGOST::Decrypt (byte *data) const
+    void CipherAlgorithmGOST::Decrypt (byte *data) const
 	{
 		gost_decrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
 
-	void CipherGOST::Encrypt (byte *data) const
+    void CipherAlgorithmGOST::Encrypt (byte *data) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
 
-	void CipherGOST::DecryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGOST::DecryptWithKS (byte *data, byte *ks) const
 	{
 		gost_decrypt (data, data, (gost_kds *) ks);
 	}
 
-	void CipherGOST::EncryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGOST::EncryptWithKS (byte *data, byte *ks) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ks);
 	}
 
-	size_t CipherGOST::GetScheduledKeySize () const
+    size_t CipherAlgorithmGOST::GetScheduledKeySize () const
 	{
 		return sizeof(gost_kds);
 	}
 
-	void CipherGOST::SetCipherKey (const byte *key)
+    void CipherAlgorithmGOST::SetCipherKey (const byte *key)
 	{
 		gost_set_key ((byte *)key, (gost_kds *)ScheduledKey.Ptr());
 	}
 
-	void CipherGOST::XorCipherKey (byte *ks, byte *data, int len) const
+    void CipherAlgorithmGOST::XorCipherKey (byte *ks, byte *data, int len) const
 	{
 		gost_xor_ks((gost_kds *) ScheduledKey.Ptr(), (gost_kds *) ks, (unsigned int *)data, len / sizeof(unsigned int));
 	}
 
-	void CipherGOST::CopyCipherKey (byte *ks) const
+    void CipherAlgorithmGOST::CopyCipherKey (byte *ks) const
 	{
 		size_t i;
 		size_t size = ScheduledKey.Size();
@@ -158,42 +158,42 @@ namespace Volume {
 	}
 
 	// GRASSHOPPER
-	void CipherGRASSHOPPER::Decrypt (byte *data) const
+    void CipherAlgorithmGRASSHOPPER::Decrypt (byte *data) const
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-	void CipherGRASSHOPPER::Encrypt (byte *data) const
+    void CipherAlgorithmGRASSHOPPER::Encrypt (byte *data) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-	void CipherGRASSHOPPER::DecryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::DecryptWithKS (byte *data, byte *ks) const
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-	void CipherGRASSHOPPER::EncryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::EncryptWithKS (byte *data, byte *ks) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-	size_t CipherGRASSHOPPER::GetScheduledKeySize () const
+    size_t CipherAlgorithmGRASSHOPPER::GetScheduledKeySize () const
 	{
 		return sizeof(grasshopper_kds);
 	}
 
-	void CipherGRASSHOPPER::SetCipherKey (const byte *key)
+    void CipherAlgorithmGRASSHOPPER::SetCipherKey (const byte *key)
 	{
 		grasshopper_set_key((gst_ludword*)key, (grasshopper_kds *) ScheduledKey.Ptr());
 	}
 
-	void CipherGRASSHOPPER::XorCipherKey (byte *ks, byte *data, int len) const
+    void CipherAlgorithmGRASSHOPPER::XorCipherKey (byte *ks, byte *data, int len) const
 	{
 		grasshopper_xor_ks((grasshopper_kds *) ScheduledKey.Ptr(), (grasshopper_kds *) ks, (gst_ludword *)data, len / sizeof(unsigned long long));
 	}
 
-	void CipherGRASSHOPPER::CopyCipherKey (byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::CopyCipherKey (byte *ks) const
 	{
 		size_t i;
 		size_t size = ScheduledKey.Size();
@@ -201,6 +201,6 @@ namespace Volume {
 		for (i = 0; i < size; i++)
 			ks[i] = ptr[i];
 	}
-	bool Cipher::HwSupportEnabled = false;
+    bool CipherAlgorithm::HwSupportEnabled = false;
 }
 }

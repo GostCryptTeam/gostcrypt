@@ -29,7 +29,7 @@ namespace Volume {
 		byte i[8];
 		*(uint64 *)i = Endian::Big (blockIndex);
 
-		byte t[Cipher::MaxBlockSize];
+		byte t[CipherAlgorithm::MaxBlockSize];
 
 		for (unsigned int b = 0; b < length / blockSize; b++)
 		{
@@ -48,7 +48,7 @@ namespace Volume {
 				iCipherList != Ciphers.rend();
 				++iCipherList)
 			{
-				const Cipher &c = **iCipherList;
+				const CipherAlgorithm &c = **iCipherList;
 
 				if (c.GetBlockSize () != blockSize)
 					throw ParameterIncorrect (SRC_POS);
@@ -93,7 +93,7 @@ namespace Volume {
 		byte i[8];
 		*(uint64 *)i = Endian::Big (blockIndex);
 
-		byte t[Cipher::MaxBlockSize];
+		byte t[CipherAlgorithm::MaxBlockSize];
 
 		for (unsigned int b = 0; b < length / blockSize; b++)
 		{
@@ -112,7 +112,7 @@ namespace Volume {
 				iCipherList != Ciphers.end();
 				++iCipherList)
 			{
-				const Cipher &c = **iCipherList;
+				const CipherAlgorithm &c = **iCipherList;
 
 				if (c.GetBlockSize () != blockSize)
 					throw ParameterIncorrect (SRC_POS);
