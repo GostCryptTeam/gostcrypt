@@ -131,9 +131,9 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             //Detection of the volume type
             int type = GI_KEY(aContent, "type").toInt();
             qDebug() << "type = " << type;//GI_KEY(aContent, "path").toString();
-            if(type == GostCrypt::VolumeType::Normal)
+            if(type == GostCrypt::Volume::VolumeType::Normal)
             {
-                options->type = GostCrypt::VolumeType::Normal;
+                options->type = GostCrypt::Volume::VolumeType::Normal;
                 options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
 
                 GostCrypt::Core::CreateVolumeRequest::VolumeParams *params = new GostCrypt::Core::CreateVolumeRequest::VolumeParams;
@@ -155,7 +155,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                          << options->outerVolume->filesystem << " "
                          << options->outerVolume->password->data() << ", "<< GI_KEY(aContent, "password").toString();
 
-            }else if(type == GostCrypt::VolumeType::Hidden)
+            }else if(type == GostCrypt::Volume::VolumeType::Hidden)
             {
 
             }else //Unknown

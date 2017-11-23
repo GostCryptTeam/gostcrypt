@@ -7,7 +7,7 @@
 */
 
 
-#include "Hash.h"
+#include "VolumeHash.h"
 
 #include "Crypto/Whirlpool.h"
 #include "Crypto/Stribog.h"
@@ -17,24 +17,24 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	HashList Hash::GetAvailableAlgorithms ()
+	VolumeHashList VolumeHash::GetAvailableAlgorithms ()
 	{
-		HashList l;
+		VolumeHashList l;
 
-		l.push_back (shared_ptr <Hash> (new Stribog ()));
-		l.push_back (shared_ptr <Hash> (new GostHash ()));
-		l.push_back (shared_ptr <Hash> (new Whirlpool ()));
+		l.push_back (shared_ptr <VolumeHash> (new Stribog ()));
+		l.push_back (shared_ptr <VolumeHash> (new GostHash ()));
+		l.push_back (shared_ptr <VolumeHash> (new Whirlpool ()));
 
 		return l;
 	}
 
-	void Hash::ValidateDataParameters (const ConstBufferPtr &data) const
+	void VolumeHash::ValidateDataParameters (const ConstBufferPtr &data) const
 	{
 		if (data.Size() < 1)
 			throw ParameterIncorrect (SRC_POS);
 	}
 
-	void Hash::ValidateDigestParameters (const BufferPtr &buffer) const
+	void VolumeHash::ValidateDigestParameters (const BufferPtr &buffer) const
 	{
 		if (buffer.Size() != GetDigestSize ())
 			throw ParameterIncorrect (SRC_POS);

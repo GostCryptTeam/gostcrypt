@@ -16,6 +16,7 @@
 
 namespace GostCrypt
 {
+	namespace Core {
 	void RandomNumberGenerator::AddSystemDataToPool (bool fast)
 	{
 		SecureBuffer buffer (PoolSize);
@@ -100,7 +101,7 @@ namespace GostCrypt
 		}
 	}
 
-	shared_ptr <Hash> RandomNumberGenerator::GetHash ()
+	shared_ptr <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
 	{
 		ScopeLock lock (AccessMutex);
 		return PoolHash;
@@ -125,7 +126,7 @@ namespace GostCrypt
 		}
 	}
 
-	void RandomNumberGenerator::SetHash (shared_ptr <Hash> hash)
+	void RandomNumberGenerator::SetHash (shared_ptr <Volume::VolumeHash> hash)
 	{
 		ScopeLock lock (AccessMutex);
 		PoolHash = hash;
@@ -150,14 +151,14 @@ namespace GostCrypt
 		if (!PoolHash)
 		{
 			// First hash algorithm is the default one
-			PoolHash = Hash::GetAvailableAlgorithms().front();
+			PoolHash = Volume::VolumeHash::GetAvailableAlgorithms().front();
 		}
 
 		AddSystemDataToPool (true);
 	}
 
 	void RandomNumberGenerator::Stop ()
-	{		
+	{
 		ScopeLock lock (AccessMutex);
 
 		if (Pool.IsAllocated())
@@ -171,8 +172,8 @@ namespace GostCrypt
 
 	void RandomNumberGenerator::Test ()
 	{
-		shared_ptr <Hash> origPoolHash = PoolHash;
-		PoolHash.reset (new Stribog());
+		shared_ptr <Volume::VolumeHash> origPoolHash = PoolHash;
+		PoolHash.reset (new Volume::Stribog());
 
 		Pool.Zero();
 		Buffer buffer (1);
@@ -199,8 +200,9 @@ namespace GostCrypt
 	size_t RandomNumberGenerator::BytesAddedSincePoolHashMix;
 	bool RandomNumberGenerator::EnrichedByUser;
 	SecureBuffer RandomNumberGenerator::Pool;
-	shared_ptr <Hash> RandomNumberGenerator::PoolHash;
+	shared_ptr <Volume::VolumeHash> RandomNumberGenerator::PoolHash;
 	size_t RandomNumberGenerator::ReadOffset;
 	bool RandomNumberGenerator::Running = false;
 	size_t RandomNumberGenerator::WriteOffset;
+}
 }

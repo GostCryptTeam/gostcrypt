@@ -5,10 +5,12 @@
 #include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
+#include "Volume/VolumeHeader.h"
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
 #include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
+#include "Volume/VolumeType.h"
 
 namespace GostCrypt {
 namespace Core {
@@ -50,7 +52,7 @@ struct CoreRequest
 
 struct CreateVolumeRequest : CoreRequest {
     CreateVolumeRequest() {
-        type = VolumeType::Normal;
+        type = Volume::VolumeType::Normal;
         size = 0;
 		innerVolume.reset();
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
@@ -71,7 +73,7 @@ struct CreateVolumeRequest : CoreRequest {
         DEC_SERIALIZABLE(VolumeParams);
     };
     QSharedPointer <QFileInfo> path; // path of the file to create or device to format
-    VolumeType::Enum type; // Normal or hidden ?
+    Volume::VolumeType::Enum type; // Normal or hidden ?
     quint64 size; // size of the container
     QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
     QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
@@ -106,7 +108,7 @@ struct MountVolumeRequest : CoreRequest {
     QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
     QSharedPointer <QFileInfo> path; // path of the container or device to mount
     QSharedPointer <QFileInfo> fuseMountPoint; // mountpoint for the special fuse filesystem
-    VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
+    Volume::VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
     QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; // keyfiles to mount the hidden protected volume
     bool useBackupHeaders; // open the volume with its backup header.

@@ -15,3 +15,6 @@ UI.depends = \
     Volume \
     FuseService
 
+HEADERS += \
+    volumehosttype.h
+

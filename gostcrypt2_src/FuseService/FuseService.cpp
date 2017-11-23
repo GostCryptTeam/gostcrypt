@@ -8,6 +8,7 @@
 #include <fuse.h>
 #include <signal.h>
 #include "Volume/EncryptionThreadPool.h"
+#include "Volume/VolumePassword.h"
 #include "Core/CoreBase.h"
 #include "Core/CoreException.h"
 
@@ -39,7 +40,7 @@ namespace GostCrypt {
 
 			QSharedPointer<Core::MountVolumeRequest> params = r.value<QSharedPointer<Core::MountVolumeRequest>>();
 			QSharedPointer<Core::MountVolumeResponse> response(new Core::MountVolumeResponse());
-			mountedVolume.reset(new Volume);
+			mountedVolume.reset(new Volume::Volume);
 
 			if(!params->mountedForUser.isEmpty())
 				FuseService::userId = Core::getUserId(params->mountedForUser);
@@ -49,28 +50,28 @@ namespace GostCrypt {
 
 			do {
 				try {
-                    VolumePath path(params->path->absoluteFilePath().toStdWString());
-                    shared_ptr<VolumePassword> password;
-                    shared_ptr<VolumePassword> protectionPassword;
-                    shared_ptr <KeyfileList> keyfiles;
-                    shared_ptr <KeyfileList> protectionKeyfiles;
+                    Volume::VolumePath path(params->path->absoluteFilePath().toStdWString());
+                    shared_ptr<Volume::VolumePassword> password;
+                    shared_ptr<Volume::VolumePassword> protectionPassword;
+                    shared_ptr <Volume::KeyfileList> keyfiles;
+                    shared_ptr <Volume::KeyfileList> protectionKeyfiles;
 
 
                     // Conversions :(
                     if(!params->password.isNull())
-                        password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+                        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
                     else
                         throw MissingParamException("password");
                     if(!params->protectionPassword.isNull())
-                        protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
+                        protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
                         }
                     }
                     if(!params->protectionKeyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
                         }
                     }
 
@@ -84,13 +85,13 @@ namespace GostCrypt {
                         protectionKeyfiles,
 						params->useBackupHeaders
 					);
-                } catch(GostCrypt::PasswordException &e) {
+                } catch(GostCrypt::Volume::PasswordException &e) {
                     throw IncorrectVolumePasswordException(params->path)
                 } catch(GostCrypt::SystemException &e) {
 					// In case of permission issue try again in read-only
-					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
+					if(params->protection != Volume::VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
 					{
-						params->protection = VolumeProtection::ReadOnly;
+						params->protection = Volume::VolumeProtection::ReadOnly;
 						response->readOnlyFailover = true;
 						continue;
 					}
@@ -261,11 +262,11 @@ namespace GostCrypt {
 				//SystemLog::WriteException (e);
 				return -EINVAL;
 			}
-			catch (VolumeProtected&)
+			catch (Volume::VolumeProtected&)
 			{
 				return -EPERM;
 			}
-			catch (VolumeReadOnly&)
+			catch (Volume::VolumeReadOnly&)
 			{
 				return -EPERM;
 			}
@@ -291,8 +292,8 @@ namespace GostCrypt {
 			mountedVolume->Close();
 			mountedVolume.reset();
 
-			if (EncryptionThreadPool::IsRunning())
-				EncryptionThreadPool::Stop();
+			if (Volume::EncryptionThreadPool::IsRunning())
+				Volume::EncryptionThreadPool::Stop();
 		}
 
 		static int fuse_service_access (const char *path, int mask)
@@ -326,8 +327,8 @@ namespace GostCrypt {
 				sigaction (SIGQUIT, &action, nullptr);
 				sigaction (SIGTERM, &action, nullptr);
 
-				if (!EncryptionThreadPool::IsRunning())
-					EncryptionThreadPool::Start();
+				if (!Volume::EncryptionThreadPool::IsRunning())
+					Volume::EncryptionThreadPool::Start();
 			}
 			catch (exception &e)
 			{
@@ -486,7 +487,7 @@ namespace GostCrypt {
 							FuseService::readVolumeSectors(BufferPtr ((byte *) buf, size), offset);
 						}
 					}
-					catch (MissingVolumeData)
+					catch (Volume::MissingVolumeData)
 					{
 						return 0;
 					}
@@ -585,11 +586,9 @@ namespace GostCrypt {
 			if(!forkedPid) {
 				setsid();
 			#endif
-				VolumeInfo vi;
-				vi.Set(*mountedVolume);
 
 				FuseService::volumeInfoMutex.lock();
-				FuseService::volumeInfo.reset(new Core::VolumeInformation (vi));
+				FuseService::volumeInfo = mountedVolume->getVolumeInformation();
 				FuseService::volumeInfo->fuseMountPoint = fuseMountPoint;
 				FuseService::volumeInfoMutex.unlock();
 
@@ -626,8 +625,8 @@ namespace GostCrypt {
 			#endif
 		}
 
-		QSharedPointer<Volume> FuseService::mountedVolume;
-		QSharedPointer<Core::VolumeInformation> FuseService::volumeInfo;
+		QSharedPointer<Volume::Volume> FuseService::mountedVolume;
+		QSharedPointer<Volume::VolumeInformation> FuseService::volumeInfo;
 		uid_t FuseService::userId;
 		gid_t FuseService::groupId;
 		QMutex FuseService::volumeInfoMutex;

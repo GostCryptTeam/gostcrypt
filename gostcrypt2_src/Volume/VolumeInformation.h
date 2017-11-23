@@ -1,7 +1,9 @@
 #ifndef VOLUMEINFORMATION_H
 #define VOLUMEINFORMATION_H
-#include "Volume.h"
 #include <QFileInfo>
+#include "Core/SerializationUtil.h"
+#include "VolumeProtection.h"
+#include "VolumeType.h"
 
 namespace GostCrypt {
 namespace Volume {

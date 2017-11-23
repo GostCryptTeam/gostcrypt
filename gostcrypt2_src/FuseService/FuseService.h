@@ -8,6 +8,7 @@
 #include "Core/Service.h"
 #include "FuseService/FuseException.h"
 #include "Volume/Volume.h"
+#include "Volume/VolumeInformation.h"
 
 
 namespace GostCrypt {
@@ -116,8 +117,8 @@ namespace GostCrypt {
 			 */
 			static gid_t getGroupId() { return FuseService::groupId; }
 		private:
-			static QSharedPointer<Volume> mountedVolume; /**< Pointer to the mounted volume object */
-			static QSharedPointer<Core::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */
+			static QSharedPointer<Volume::Volume> mountedVolume; /**< Pointer to the mounted volume object */
+			static QSharedPointer<Volume::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */
 			static uid_t userId; /**< User id of the user for which the volume had been mounted */
 			static gid_t groupId; /**< Group id of the group for which the volume had been mounted */
 			static QMutex volumeInfoMutex; /**< Mutex to handle access to the volumeInfo object */

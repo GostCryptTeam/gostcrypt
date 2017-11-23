@@ -11,23 +11,25 @@
 #define GST_HEADER_Core_RandomNumberGenerator
 
 #include "Platform/Platform.h"
-#include "Volume/Hash.h"
 #include "Common/Random.h"
+#include "Volume/VolumeHash.h"
+
 
 namespace GostCrypt
 {
+	namespace Core {
 	class RandomNumberGenerator
 	{
 	public:
 		static void AddToPool (const ConstBufferPtr &buffer);
 		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
 		static void GetDataFast (const BufferPtr &buffer) { GetData (buffer, true); }
-		static shared_ptr <Hash> GetHash ();
+		static shared_ptr <Volume::VolumeHash> GetHash ();
 		static bool IsEnrichedByUser () { return EnrichedByUser; }
 		static bool IsRunning () { return Running; }
 		static ConstBufferPtr PeekPool () { return Pool; }
 		static void SetEnrichedByUserStatus (bool enriched) { EnrichedByUser = enriched; }
-		static void SetHash (shared_ptr <Hash> hash);
+		static void SetHash (shared_ptr <Volume::VolumeHash> hash);
 		static void Start ();
 		static void Stop ();
 
@@ -46,11 +48,12 @@ namespace GostCrypt
 		static size_t BytesAddedSincePoolHashMix;
 		static bool EnrichedByUser;
 		static SecureBuffer Pool;
-		static shared_ptr <Hash> PoolHash;
+		static shared_ptr <Volume::VolumeHash> PoolHash;
 		static size_t ReadOffset;
 		static bool Running;
 		static size_t WriteOffset;
 	};
+}
 }
 
 #endif // GST_HEADER_Core_RandomNumberGenerator

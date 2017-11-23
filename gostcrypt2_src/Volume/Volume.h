@@ -19,52 +19,12 @@
 #include "VolumeException.h"
 #include "VolumeLayout.h"
 #include "VolumeInformation.h"
+#include "VolumePath.h"
+#include "VolumeProtection.h"
+#include "VolumeHostType.h"
 
-namespace GostCrypt
-{
+namespace GostCrypt {
 namespace Volume {
-
-	class VolumePath
-	{
-	public:
-		VolumePath () { }
-		VolumePath (const wstring &path) { Data = path; }
-		VolumePath (const FilesystemPath &path) { Data = path; }
-
-		bool operator== (const VolumePath &other) const { return Data == other.Data; }
-		bool operator!= (const VolumePath &other) const { return Data != other.Data; }
-		operator FilesystemPath () const { return FilesystemPath (Data); }
-		operator string () const { return StringConverter::ToSingle (Data); }
-		operator wstring () const { return Data; }
-
-		bool IsDevice () const { return FilesystemPath (Data).IsBlockDevice() || FilesystemPath (Data).IsCharacterDevice(); }
-		bool IsEmpty () const { return Data.empty(); }
-
-	protected:
-		wstring Data;
-	};
-
-	typedef list <VolumePath> VolumePathList;
-
-	struct VolumeHostType
-	{
-		enum Enum
-		{
-			Unknown,
-			File,
-			Device
-		};
-	};
-
-	struct VolumeProtection
-	{
-		enum Enum
-		{
-			None,
-			ReadOnly,
-			HiddenVolumeReadOnly
-		};
-	};
 
 	class Volume
 	{

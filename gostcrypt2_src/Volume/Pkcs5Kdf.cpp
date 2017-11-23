@@ -38,7 +38,7 @@ namespace Volume {
 		throw ParameterIncorrect (SRC_POS);
 	}
 
-	shared_ptr <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const Hash &hash)
+	shared_ptr <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const VolumeHash &hash)
 	{
 		foreach (shared_ptr <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
 		{

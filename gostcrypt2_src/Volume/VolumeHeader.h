@@ -20,6 +20,7 @@
 #include "Volume/Pkcs5Kdf.h"
 #include "Version.h"
 #include <QSharedPointer>
+#include "VolumeType.h"
 
 // For specifications of the volume header see Common/Volumes.c
 
@@ -28,16 +29,6 @@ namespace GostCrypt
 namespace Volume {
 
 	typedef uint64 VolumeTime;
-
-	struct VolumeType
-	{
-		enum Enum
-		{
-			Unknown,
-			Normal,
-			Hidden
-		};
-	};
 
 	struct VolumeHeaderCreationOptions
 	{

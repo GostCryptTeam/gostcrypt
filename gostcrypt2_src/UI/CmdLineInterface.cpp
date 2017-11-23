@@ -261,7 +261,7 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     if(!r)
         throw MissingParamException("response");
     qStdOut() << "\r";
-    for(QSharedPointer<GostCrypt::Core::VolumeInformation> v : r->volumeInfoList){
+    for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath->absoluteFilePath() << "\t";
         qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";

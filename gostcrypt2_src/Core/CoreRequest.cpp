@@ -53,7 +53,7 @@ QDataStream& operator >> (QDataStream& in, CreateVolumeRequest& Valeur)
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.path;
     in >> tmp;
-    Valeur.type = VolumeType::Enum(tmp);
+    Valeur.type = Volume::VolumeType::Enum(tmp);
     in >> Valeur.size;
     in >> Valeur.outerVolume;
     in >> Valeur.innerVolume;
@@ -159,7 +159,7 @@ QDataStream& operator >> (QDataStream& in, MountVolumeRequest& Valeur)
     in >> Valeur.path;
     in >> Valeur.fuseMountPoint;
     in >> tmp;
-    Valeur.protection = GostCrypt::VolumeProtection::Enum(tmp);
+    Valeur.protection = GostCrypt::Volume::VolumeProtection::Enum(tmp);
     in >> Valeur.protectionPassword;
     in >> Valeur.protectionKeyfiles;
     in >> Valeur.useBackupHeaders;
@@ -260,7 +260,7 @@ MountVolumeRequest::MountVolumeRequest()
     this->doMount = true;
     this->fileSystemType = "vfat";
     this->preserveTimestamps = false;
-    this->protection = VolumeProtection::Enum::None;
+    this->protection = Volume::VolumeProtection::Enum::None;
     this->sharedAccessAllowed = false;
     this->useBackupHeaders = false;
     this->forVolumeCreation = false;

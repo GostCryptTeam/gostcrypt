@@ -19,7 +19,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class EncryptionAlgorithm;
-    typedef list < shared_ptr <GostCrypt::EncryptionAlgorithm> > EncryptionAlgorithmList;
+    typedef list < shared_ptr <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
 	{

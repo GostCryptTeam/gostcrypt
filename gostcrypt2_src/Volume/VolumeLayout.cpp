@@ -31,7 +31,6 @@ namespace Volume {
 		layouts.push_back (shared_ptr <VolumeLayout> (new VolumeLayoutV1Normal ()));
 		layouts.push_back (shared_ptr <VolumeLayout> (new VolumeLayoutV2Hidden ()));
 		layouts.push_back (shared_ptr <VolumeLayout> (new VolumeLayoutV1Hidden ()));
-		layouts.push_back (shared_ptr <VolumeLayout> (new VolumeLayoutSystemEncryption ()));
 
 		if (type != VolumeType::Unknown)
 		{
@@ -181,38 +180,6 @@ namespace Volume {
 			return 0;
 
 		return volumeSize - reservedSize;
-	}
-
-
-	VolumeLayoutSystemEncryption::VolumeLayoutSystemEncryption ()
-	{
-		Type = VolumeType::Normal;
-		//HeaderOffset = GST_BOOT_VOLUME_HEADER_SECTOR_OFFSET;
-		HeaderSize = GST_BOOT_ENCRYPTION_VOLUME_HEADER_SIZE;
-
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
-
-		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
-	}
-
-	uint64 VolumeLayoutSystemEncryption::GetDataOffset (uint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return 0;
-	}
-
-	uint64 VolumeLayoutSystemEncryption::GetDataSize (uint64 volumeHostSize) const
-	{
-		return volumeHostSize;
-	}
-
-	Pkcs5KdfList VolumeLayoutSystemEncryption::GetSupportedKeyDerivationFunctions () const
-	{
-		Pkcs5KdfList l;
-
-		l.push_back (shared_ptr <Pkcs5Kdf> (new Pkcs5HmacStribog ()));
-		return l;
 	}
 }
 }
