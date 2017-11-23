@@ -42,7 +42,6 @@ HEADERS += \
     EncryptionThreadPool.h \
     EncryptionTest.h \
     EncryptionModeXTS.h \
-    EncryptionModeLRW.h \
     EncryptionMode.h \
     EncryptionAlgorithm.h \
     Crc32.h \
@@ -79,7 +78,6 @@ SOURCES += \
     EncryptionThreadPool.cpp \
     EncryptionTest.cpp \
     EncryptionModeXTS.cpp \
-    EncryptionModeLRW.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
     Cipher.cpp \
