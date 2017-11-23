@@ -64,7 +64,9 @@ HEADERS += \
     VolumeProtection.h \
     VolumeHostType.h \
     VolumeType.h \
-    VolumeHash.h
+    VolumeHash.h \
+    EncryptionAlgorithmGOST.h \
+    EncryptionAlgorithmGrasshopper.h
 
 SOURCES += \
     VolumePasswordCache.cpp \
@@ -94,4 +96,6 @@ SOURCES += \
     ../Common/Endian.c \
     ../Common/Crc.c \
     VolumeInformation.cpp \
-    VolumeHash.cpp
+    VolumeHash.cpp \
+    EncryptionAlgorithmGOST.cpp \
+    EncryptionAlgorithmGrasshopper.cpp

@@ -8,6 +8,8 @@
 
 
 #include "EncryptionAlgorithm.h"
+#include "EncryptionAlgorithmGOST.h"
+#include "EncryptionAlgorithmGrasshopper.h"
 #include "EncryptionModeXTS.h"
 
 namespace GostCrypt
@@ -60,8 +62,8 @@ namespace Volume {
 	{
 		EncryptionAlgorithmList l;
 
-		l.push_back (shared_ptr <EncryptionAlgorithm> (new GOST()));
-		l.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
+        l.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()));
+        l.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		return l;
 	}
@@ -209,22 +211,6 @@ namespace Volume {
 	{
         if (Ciphers.size() < 1 || Mode.isNull())
 			throw NotInitialized (SRC_POS);
-	}
-
-	// GOST
-	GOST::GOST ()
-	{
-		Ciphers.push_back (shared_ptr <Cipher> (new CipherGOST ()));
-
-		SupportedModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
-	}
-
-	//GRASSHOPPER
-	GRASSHOPPER::GRASSHOPPER()
-	{
-		Ciphers.push_back (shared_ptr <Cipher> (new CipherGRASSHOPPER ()));
-		SupportedModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
-
 	}
 }
 }

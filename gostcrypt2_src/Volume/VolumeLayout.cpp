@@ -10,6 +10,8 @@
 #include "Volume/EncryptionMode.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "VolumeLayout.h"
+#include "EncryptionAlgorithmGOST.h"
+#include "EncryptionAlgorithmGrasshopper.h"
 
 namespace GostCrypt
 {
@@ -63,8 +65,8 @@ namespace Volume {
 		HeaderOffset = GST_VOLUME_HEADER_OFFSET;
 		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
 
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 
@@ -88,8 +90,8 @@ namespace Volume {
 		HeaderOffset = -GST_HIDDEN_VOLUME_HEADER_OFFSET_LEGACY;
 		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
 
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 
@@ -114,8 +116,8 @@ namespace Volume {
 		HeaderSize = GST_VOLUME_HEADER_SIZE;
 		BackupHeaderOffset = -GST_VOLUME_HEADER_GROUP_SIZE;
 
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 	}
@@ -148,8 +150,8 @@ namespace Volume {
 		HeaderSize = GST_VOLUME_HEADER_SIZE;
 		BackupHeaderOffset = -GST_HIDDEN_VOLUME_HEADER_OFFSET;
 
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GOST ()));
-		SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new GRASSHOPPER()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
+        SupportedEncryptionAlgorithms.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		SupportedEncryptionModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
 	}

@@ -19,6 +19,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class EncryptionAlgorithm;
+
     typedef list < shared_ptr <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
@@ -62,25 +63,6 @@ namespace Volume {
 		EncryptionAlgorithm (const EncryptionAlgorithm &);
 		EncryptionAlgorithm &operator= (const EncryptionAlgorithm &);
 	};
-
-#define GST_ENCRYPTION_ALGORITHM(NAME) \
-	class NAME : public EncryptionAlgorithm \
-	{ \
-	public: \
-		NAME (); \
-		virtual ~NAME () { } \
-\
-        virtual shared_ptr <EncryptionAlgorithm> GetNew () const { return shared_ptr <EncryptionAlgorithm> (new NAME()); } \
-\
-	private: \
-		NAME (const NAME &); \
-		NAME &operator= (const NAME &); \
-	}
-
-	GST_ENCRYPTION_ALGORITHM (GOST);
-	GST_ENCRYPTION_ALGORITHM (GRASSHOPPER);
-
-#undef GST_ENCRYPTION_ALGORITHM
 }
 }
 
