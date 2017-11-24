@@ -45,7 +45,7 @@ namespace GostCrypt
 	struct SecurityTokenKeyfilePath
 	{
 		SecurityTokenKeyfilePath () { }
-		SecurityTokenKeyfilePath (const wstring &path) : Path (path) { }
+		explicit SecurityTokenKeyfilePath (const wstring &path) : Path (path) { }
 		operator wstring () const { return Path; }
 		wstring Path;
 	};
@@ -53,7 +53,7 @@ namespace GostCrypt
 	struct SecurityTokenKeyfile
 	{
 		SecurityTokenKeyfile () { }
-		SecurityTokenKeyfile (const SecurityTokenKeyfilePath &path);
+		explicit SecurityTokenKeyfile (const SecurityTokenKeyfilePath &path);
 
 		operator SecurityTokenKeyfilePath () const;
 
@@ -66,7 +66,7 @@ namespace GostCrypt
 
 	struct Pkcs11Exception : public Exception
 	{
-		Pkcs11Exception (CK_RV errorCode = (CK_RV) -1)
+		explicit Pkcs11Exception (CK_RV errorCode = (CK_RV) -1)
 			: ErrorCode (errorCode),
 			SubjectErrorCodeValid (false)
 		{
