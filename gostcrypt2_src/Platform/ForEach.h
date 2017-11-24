@@ -33,7 +33,7 @@ namespace GostCrypt
 		template <class T>
 		struct ContainerForward : Container
 		{
-			ContainerForward (const T &container)
+			explicit  ContainerForward (const T &container)
 				: ContainerCopy (container), EndIterator (ContainerCopy.end()), Iterator (ContainerCopy.begin()) { }
 
 			virtual bool IsNotEnd () const { bool r = InnerContinue && Iterator != EndIterator; InnerContinue = false; return r; }
@@ -50,7 +50,7 @@ namespace GostCrypt
 		template <class T>
 		struct ContainerReverse : Container
 		{
-			ContainerReverse (const T &container)
+			explicit ContainerReverse (const T &container)
 				: ContainerCopy (container), EndIterator (ContainerCopy.rend()), Iterator (ContainerCopy.rbegin()) { }
 
 			virtual bool IsNotEnd () const { bool r = InnerContinue && Iterator != EndIterator; InnerContinue = false; return r; }
