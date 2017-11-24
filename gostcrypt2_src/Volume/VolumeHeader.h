@@ -33,8 +33,8 @@ namespace Volume {
 	struct VolumeHeaderCreationOptions
 	{
 		ConstBufferPtr DataKey;
-        shared_ptr <EncryptionAlgorithm> EA;
-        shared_ptr <Pkcs5Kdf> Kdf;
+        QSharedPointer <EncryptionAlgorithm> EA;
+        QSharedPointer <Pkcs5Kdf> Kdf;
 		ConstBufferPtr HeaderKey;
 		ConstBufferPtr Salt;
 		uint32 SectorSize;
@@ -51,15 +51,15 @@ namespace Volume {
 
 		void Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
 		bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const Pkcs5KdfList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
-		void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf);
+		void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf);
 		uint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
 		uint64 GetEncryptedAreaLength () const { return EncryptedAreaLength; }
-		shared_ptr <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
+		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
 		uint32 GetFlags () const { return Flags; }
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
 		uint64 GetHiddenVolumeDataSize () const { return HiddenVolumeDataSize; }
 		static size_t GetLargestSerializedKeySize ();
-		shared_ptr <Pkcs5Kdf> GetPkcs5Kdf () const { return Pkcs5; }
+		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Pkcs5; }
 		uint16 GetRequiredMinProgramVersion () const { return RequiredMinProgramVersion; }
 		size_t GetSectorSize () const { return SectorSize; }
 		static uint32 GetSaltSize () { return SaltSize; }
@@ -69,7 +69,7 @@ namespace Volume {
 		uint16 GetHeaderVersion () const { return HeaderVersion; }
 
 	protected:
-		bool Deserialize (const ConstBufferPtr &header, shared_ptr <EncryptionAlgorithm> &ea, shared_ptr <EncryptionMode> &mode);
+		bool Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
 		template <typename T> T DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const;
 		template <typename T> T DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const;
 		void Init ();
@@ -92,8 +92,8 @@ namespace Volume {
 		static const int DataKeyAreaMaxSize = 256;
 		static const uint32 DataAreaKeyOffset = DataKeyAreaMaxSize - EncryptedHeaderDataOffset;
 
-		shared_ptr <EncryptionAlgorithm> EA;
-		shared_ptr <Pkcs5Kdf> Pkcs5;
+		QSharedPointer <EncryptionAlgorithm> EA;
+		QSharedPointer <Pkcs5Kdf> Pkcs5;
 
 		uint16 HeaderVersion;
 		uint16 RequiredMinProgramVersion;

@@ -23,21 +23,21 @@ namespace GostCrypt
 	public:
 		virtual ~Serializable () { }
 
-		virtual void Deserialize (shared_ptr <Stream> stream) = 0;
-		static string DeserializeHeader (shared_ptr <Stream> stream);
-		static Serializable *DeserializeNew (shared_ptr <Stream> stream);
+		virtual void Deserialize (QSharedPointer <Stream> stream) = 0;
+		static string DeserializeHeader (QSharedPointer <Stream> stream);
+		static Serializable *DeserializeNew (QSharedPointer <Stream> stream);
 		
 		template <class T> 
-		static shared_ptr <T> DeserializeNew (shared_ptr <Stream> stream)
+		static QSharedPointer <T> DeserializeNew (QSharedPointer <Stream> stream)
 		{
-			shared_ptr <T> p (dynamic_cast <T *> (DeserializeNew (stream)));
+			QSharedPointer <T> p (dynamic_cast <T *> (DeserializeNew (stream)));
 			if (!p)
 				throw std::runtime_error (SRC_POS);
 			return p;
 		}
 
 		template <class T> 
-		static void DeserializeList (shared_ptr <Stream> stream, list < shared_ptr <T> > &dataList)
+		static void DeserializeList (QSharedPointer <Stream> stream, list < QSharedPointer <T> > &dataList)
 		{
 			if (DeserializeHeader (stream) != string ("list<") + SerializerFactory::GetName (typeid (T)) + ">")
 				throw std::runtime_error (SRC_POS);
@@ -48,17 +48,17 @@ namespace GostCrypt
 
 			for (size_t i = 0; i < listSize; i++)
 			{
-				shared_ptr <T> p (dynamic_cast <T *> (DeserializeNew (stream)));
+				QSharedPointer <T> p (dynamic_cast <T *> (DeserializeNew (stream)));
 				if (!p)
 					throw std::runtime_error (SRC_POS);
 				dataList.push_back (p);
 			}
 		}
 
-		virtual void Serialize (shared_ptr <Stream> stream) const;
+		virtual void Serialize (QSharedPointer <Stream> stream) const;
 
 		template <class T>
-		static void SerializeList (shared_ptr <Stream> stream, const list < shared_ptr <T> > &dataList)
+		static void SerializeList (QSharedPointer <Stream> stream, const list < QSharedPointer <T> > &dataList)
 		{
 			Serializer sr (stream);
 			SerializeHeader (sr, string ("list<") + SerializerFactory::GetName (typeid (T)) + ">");
@@ -77,7 +77,7 @@ namespace GostCrypt
 
 #define GST_SERIALIZABLE(TYPE) \
 	static Serializable *GetNewSerializable () { return new TYPE(); } \
-	virtual void Deserialize (shared_ptr <Stream> stream); \
-	virtual void Serialize (shared_ptr <Stream> stream) const
+	virtual void Deserialize (QSharedPointer <Stream> stream); \
+	virtual void Serialize (QSharedPointer <Stream> stream) const
 
 #endif // GST_HEADER_Platform_Serializable

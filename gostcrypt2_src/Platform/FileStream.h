@@ -20,7 +20,7 @@ namespace GostCrypt
 	class FileStream : public Stream
 	{
 	public:
-		FileStream (shared_ptr <File> file) : DataFile (file) { }
+		FileStream (QSharedPointer <File> file) : DataFile (file) { }
 		FileStream (File::SystemFileHandleType openFileHandle) { DataFile.reset (new File ()); DataFile->AssignSystemHandle (openFileHandle); }
 		virtual ~FileStream () { }
 
@@ -52,7 +52,7 @@ namespace GostCrypt
 		}
 
 	protected:
-		shared_ptr <File> DataFile;
+		QSharedPointer <File> DataFile;
 	};
 }
 

@@ -342,7 +342,7 @@ namespace Volume {
 			// Test all EAs that support this mode of operation
 			foreach_ref (EncryptionAlgorithm &ea, EncryptionAlgorithm::GetAvailableAlgorithms())
 			{
-				shared_ptr <EncryptionMode> mode (new EncryptionModeXTS);
+				QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS);
 
 				if (!ea.IsModeSupported (mode))
 					continue;
@@ -442,7 +442,7 @@ namespace Volume {
 		// Test all EAs that support this mode of operation
 		foreach_ref (EncryptionAlgorithm &ea, EncryptionAlgorithm::GetAvailableAlgorithms())
 		{
-			shared_ptr <EncryptionMode> mode (new EncryptionModeXTS);
+			QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS);
 
 			if (!ea.IsModeSupported (mode))
 				continue;

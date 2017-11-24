@@ -37,7 +37,7 @@ namespace Volume {
 	{
 		EncryptionModeList l;
 
-		l.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
+		l.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
 
 		return l;
 	}

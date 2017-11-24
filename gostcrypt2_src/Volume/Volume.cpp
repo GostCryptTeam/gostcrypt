@@ -51,13 +51,13 @@ namespace Volume {
 		VolumeFile.reset();
 	}
 
-	shared_ptr <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
+	QSharedPointer <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
 	{
 		if_debug (ValidateState ());
 		return EA;
 	}
 
-	shared_ptr <EncryptionMode> Volume::GetEncryptionMode () const
+	QSharedPointer <EncryptionMode> Volume::GetEncryptionMode () const
 	{
 		if_debug (ValidateState ());
 		return EA->GetMode();
@@ -65,11 +65,11 @@ namespace Volume {
 
     void Volume::Open (const VolumePath &volumePath,
                     bool preserveTimestamps,
-                    shared_ptr <VolumePassword> password,
-                    shared_ptr <KeyfileList> keyfiles,
+                    QSharedPointer <VolumePassword> password,
+                    QSharedPointer <KeyfileList> keyfiles,
                     VolumeProtection::Enum protection,
-                    shared_ptr <VolumePassword> protectionPassword, // in case you wqnt to open it as
-                    shared_ptr <KeyfileList> protectionKeyfiles,
+                    QSharedPointer <VolumePassword> protectionPassword, // in case you wqnt to open it as
+                    QSharedPointer <KeyfileList> protectionKeyfiles,
                     bool sharedAccessAllowed,
                     VolumeType::Enum volumeType,
                     bool useBackupHeaders,
@@ -89,7 +89,7 @@ namespace Volume {
                     preserveTimestamps,
                     protectionPassword, protectionKeyfiles,
                     VolumeProtection::ReadOnly,
-                    shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> (),
+                    QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> (),
                     sharedAccessAllowed,
                     VolumeType::Hidden,
                     useBackupHeaders,
@@ -140,7 +140,7 @@ namespace Volume {
 		try
 		{
 			VolumeHostSize = VolumeFile->Length();
-			shared_ptr <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
+			QSharedPointer <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
 
 			bool deviceHosted = GetPath().IsDevice();
 			size_t hostDeviceSectorSize = 0;
@@ -148,7 +148,7 @@ namespace Volume {
 				hostDeviceSectorSize = volumeFile->GetDeviceSectorSize();
 
 			// Test volume layouts
-			foreach (shared_ptr <VolumeLayout> layout, VolumeLayout::GetAvailableLayouts (volumeType))
+			foreach (QSharedPointer <VolumeLayout> layout, VolumeLayout::GetAvailableLayouts (volumeType))
 			{
 
 				if (useBackupHeaders && !layout->HasBackupHeader())
@@ -172,7 +172,7 @@ namespace Volume {
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
 				EncryptionModeList layoutEncryptionModes = layout->GetSupportedEncryptionModes();
 
-				shared_ptr <VolumeHeader> header = layout->GetHeader();
+				QSharedPointer <VolumeHeader> header = layout->GetHeader();
 
 				if (header->Decrypt (headerBuffer, *passwordKey, layout->GetSupportedKeyDerivationFunctions(), layoutEncryptionAlgorithms, layoutEncryptionModes))
 				{
@@ -252,7 +252,7 @@ namespace Volume {
 		TotalDataRead += length;
 	}
 
-	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf)
+	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf)
 	{
 		if_debug (ValidateState ());
 

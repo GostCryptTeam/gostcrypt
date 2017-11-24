@@ -9,7 +9,7 @@
 //void VolumeCreation::createVolume()
 //{
 //     /*mVCreator.CreateVolume(
-//                 shared_ptr<GostCrypt::VolumeCreationOptions>(&mInfos));*/
+//                 QSharedPointer<GostCrypt::VolumeCreationOptions>(&mInfos));*/
 //}
 
 //QStringList VolumeCreation::getAlgos() const
@@ -69,16 +69,16 @@
 //       //mInfos.Size =  aValue; //uint64
 //       break;
 //   case "Password":
-//       //mInfos.Password =  shared_ptr<GostCrypt::VolumePassword>(&aValue);
+//       //mInfos.Password =  QSharedPointer<GostCrypt::VolumePassword>(&aValue);
 //       break;
 //   case "Keyfiles":
-//       //mInfos.Keyfiles =  shared_ptr<GostCrypt::KeyfileList>(&aValue);
+//       //mInfos.Keyfiles =  QSharedPointer<GostCrypt::KeyfileList>(&aValue);
 //       break;
 //   case "VolumeHeaderKdf":
-//       //mInfos.VolumeHeaderKdf =  shared_ptr<GostCrypt::Pkcs5Kdf>(&aValue);
+//       //mInfos.VolumeHeaderKdf =  QSharedPointer<GostCrypt::Pkcs5Kdf>(&aValue);
 //       break;
 //   case "EA":
-//       //mInfos.EA =  shared_ptr<GostCrypt::EncryptionAlgorithm>(&aValue);
+//       //mInfos.EA =  QSharedPointer<GostCrypt::EncryptionAlgorithm>(&aValue);
 //       break;
 //   case "Quick":
 //       //mInfos.Quick =  aValue; //bool

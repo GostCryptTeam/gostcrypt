@@ -75,7 +75,7 @@ namespace Volume {
 		}
 
 		EA = options.EA;
-		shared_ptr <EncryptionMode> mode (new EncryptionModeXTS ());
+		QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS ());
 		EA->SetMode (mode);
 
 		EncryptNew (headerBuffer, options.Salt, options.HeaderKey, options.Kdf);
@@ -90,16 +90,16 @@ namespace Volume {
 		SecureBuffer header (EncryptedHeaderDataSize);
 		SecureBuffer headerKey (GetLargestSerializedKeySize());
 
-		foreach (shared_ptr <Pkcs5Kdf> pkcs5, keyDerivationFunctions)
+		foreach (QSharedPointer <Pkcs5Kdf> pkcs5, keyDerivationFunctions)
 		{
 			pkcs5->DeriveKey (headerKey, password, salt);
 
-			foreach (shared_ptr <EncryptionMode> mode, encryptionModes)
+			foreach (QSharedPointer <EncryptionMode> mode, encryptionModes)
 			{
 				if (typeid (*mode) != typeid (EncryptionModeXTS))
 					mode->SetKey (headerKey.GetRange (0, mode->GetKeySize()));
 
-				foreach (shared_ptr <EncryptionAlgorithm> ea, encryptionAlgorithms)
+				foreach (QSharedPointer <EncryptionAlgorithm> ea, encryptionAlgorithms)
 				{
 					if (!ea->IsModeSupported (mode))
 						continue;
@@ -135,7 +135,7 @@ namespace Volume {
 	}
 
 
-	bool VolumeHeader::Deserialize (const ConstBufferPtr &header, shared_ptr <EncryptionAlgorithm> &ea, shared_ptr <EncryptionMode> &mode)
+	bool VolumeHeader::Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode)
 	{
 
 		if (header.Size() != EncryptedHeaderDataSize)
@@ -243,13 +243,13 @@ namespace Volume {
 		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
-	void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf)
+	void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf)
 	{
 		if (newHeaderBuffer.Size() != HeaderSize || newSalt.Size() != SaltSize)
 			throw ParameterIncorrect (SRC_POS);
 
-		shared_ptr <EncryptionMode> mode = EA->GetMode()->GetNew();
-		shared_ptr <EncryptionAlgorithm> ea = EA->GetNew();
+		QSharedPointer <EncryptionMode> mode = EA->GetMode()->GetNew();
+		QSharedPointer <EncryptionAlgorithm> ea = EA->GetNew();
 
 		if (typeid (*mode) == typeid (EncryptionModeXTS))
 		{

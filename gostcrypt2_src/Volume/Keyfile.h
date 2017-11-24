@@ -20,7 +20,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class Keyfile;
-	typedef list < shared_ptr <Keyfile> > KeyfileList;
+	typedef list < QSharedPointer <Keyfile> > KeyfileList;
 
 	class Keyfile
 	{
@@ -29,9 +29,9 @@ namespace Volume {
 		virtual ~Keyfile () { };
 
 		operator FilesystemPath () const { return Path; }
-        static shared_ptr <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
-		static shared_ptr <KeyfileList> DeserializeList (shared_ptr <Stream> stream, const string &name);
-		static void SerializeList (shared_ptr <Stream> stream, const string &name, shared_ptr <KeyfileList> keyfiles);
+        static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
+		static QSharedPointer <KeyfileList> DeserializeList (QSharedPointer <Stream> stream, const string &name);
+		static void SerializeList (QSharedPointer <Stream> stream, const string &name, QSharedPointer <KeyfileList> keyfiles);
 		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }
 
 		static const size_t MinProcessedLength = 1;

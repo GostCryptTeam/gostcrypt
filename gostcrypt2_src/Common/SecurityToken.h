@@ -167,7 +167,7 @@ namespace GostCrypt
 		static void GetKeyfileData (const SecurityTokenKeyfile &keyfile, vector <byte> &keyfileData);
 		static list <SecurityTokenInfo> GetAvailableTokens ();
 		static SecurityTokenInfo GetTokenInfo (CK_SLOT_ID slotId);
-		static void InitLibrary (const string &pkcs11LibraryPath, shared_ptr <GetPinFunctor> pinCallback, shared_ptr <SendExceptionFunctor> warningCallback);
+        static void InitLibrary (const string &pkcs11LibraryPath, QSharedPointer <GetPinFunctor> pinCallback, QSharedPointer <SendExceptionFunctor> warningCallback);
 		static bool IsInitialized () { return Initialized; }
 		static bool IsKeyfilePathValid (const wstring &securityTokenKeyfilePath);
 	
@@ -184,11 +184,11 @@ namespace GostCrypt
 		static void CheckLibraryStatus ();
 
 		static bool Initialized;
-		static shared_ptr <GetPinFunctor> PinCallback;
+        static QSharedPointer <GetPinFunctor> PinCallback;
 		static CK_FUNCTION_LIST_PTR Pkcs11Functions;
 		static void *Pkcs11LibraryHandle;
 		static map <CK_SLOT_ID, Pkcs11Session> Sessions;
-		static shared_ptr <SendExceptionFunctor> WarningCallback;
+        static QSharedPointer <SendExceptionFunctor> WarningCallback;
 	};
 }
 

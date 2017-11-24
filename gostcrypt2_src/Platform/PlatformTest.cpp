@@ -26,7 +26,7 @@ namespace GostCrypt
 	// make_shared_auto, File, Stream, MemoryStream, Endian, Serializer, Serializable
 	void PlatformTest::SerializerTest ()
 	{
-		shared_ptr <Stream> stream (new MemoryStream);
+		QSharedPointer <Stream> stream (new MemoryStream);
 
 #if 0
 		make_shared_auto (File, file);
@@ -35,7 +35,7 @@ namespace GostCrypt
 		try
 		{
 			file->Open ("gostcrypt-serializer-test.tmp", File::CreateReadWrite);
-			stream = shared_ptr <Stream> (new FileStream (file));
+			stream = QSharedPointer <Stream> (new FileStream (file));
 		}
 		catch (...) { }
 #endif
@@ -86,7 +86,7 @@ namespace GostCrypt
 		ExecutedProcessFailed ex (SRC_POS, "cmd", -123, "error output");
 		ex.Serialize (stream);
 
-		list < shared_ptr <ExecutedProcessFailed> > exList;
+		list < QSharedPointer <ExecutedProcessFailed> > exList;
 		exList.push_back (make_shared <ExecutedProcessFailed> (ExecutedProcessFailed (SRC_POS, "cmd", -123, "error output1")));
 		exList.push_back (make_shared <ExecutedProcessFailed> (ExecutedProcessFailed (SRC_POS, "cmd", -234, "error output2")));
 		exList.push_back (make_shared <ExecutedProcessFailed> (ExecutedProcessFailed (SRC_POS, "cmd", -567, "error output3")));
@@ -141,14 +141,14 @@ namespace GostCrypt
 			if (buffer[i] != (byte) i)
 				throw TestFailed (SRC_POS);
 
-		shared_ptr <ExecutedProcessFailed> dex = Serializable::DeserializeNew <ExecutedProcessFailed> (stream);
+		QSharedPointer <ExecutedProcessFailed> dex = Serializable::DeserializeNew <ExecutedProcessFailed> (stream);
 		if (!dex
 			|| dex->GetCommand() != "cmd"
 			|| dex->GetExitCode() != -123
 			|| dex->GetErrorOutput() != "error output")
 			throw TestFailed (SRC_POS);
 
-		list < shared_ptr <ExecutedProcessFailed> > dexList;
+		list < QSharedPointer <ExecutedProcessFailed> > dexList;
 		Serializable::DeserializeList (stream, dexList);
 		i = 1;
 		foreach_ref (const ExecutedProcessFailed &ex, dexList)
@@ -160,10 +160,10 @@ namespace GostCrypt
 		}
 	}
 	
-	// shared_ptr, Mutex, ScopeLock, SyncEvent, Thread
+	// QSharedPointer, Mutex, ScopeLock, SyncEvent, Thread
 	static struct 
 	{
-		shared_ptr <int> SharedIntPtr;
+		QSharedPointer <int> SharedIntPtr;
 		Mutex IntMutex;
 		SyncEvent ExitAllowedEvent;
 	} ThreadTestData;
@@ -314,8 +314,8 @@ namespace GostCrypt
 			throw TestFailed (SRC_POS);
 
 		// uint64, vector, list, string, wstring, stringstream, wstringstream
-		// shared_ptr, make_shared, StringConverter, foreach
-		list <shared_ptr <uint64> > numList;
+		// QSharedPointer, make_shared, StringConverter, foreach
+		list <QSharedPointer <uint64> > numList;
 		
 		numList.push_front (make_shared <uint64> (StringConverter::ToUInt64 (StringConverter::FromNumber ((uint64) 0xFFFFffffFFFFfffeULL))));
 		numList.push_front (make_shared <uint64> (StringConverter::ToUInt32 (StringConverter::GetTrailingNumber ("str2"))));

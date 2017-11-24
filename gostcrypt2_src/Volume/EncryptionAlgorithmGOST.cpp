@@ -6,9 +6,9 @@ namespace Volume {
     // GOST
     EncryptionAlgorithmGOST::EncryptionAlgorithmGOST ()
     {
-        Ciphers.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGOST ()));
+        Ciphers.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
 
-        SupportedModes.push_back (shared_ptr <EncryptionMode> (new EncryptionModeXTS ()));
+        SupportedModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
     }
 
 }

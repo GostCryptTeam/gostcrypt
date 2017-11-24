@@ -43,7 +43,7 @@ namespace Volume {
 			};
 
 			struct WorkItem *FirstFragment;
-			shared_ptr <Exception> ItemException;
+			QSharedPointer <Exception> ItemException;
 			SyncEvent ItemCompletedEvent;
 			SharedVal <size_t> OutstandingFragmentCount;
 			SharedVal <State::Enum> State;
@@ -77,7 +77,7 @@ namespace Volume {
 		static volatile size_t DequeuePosition;
 		static volatile size_t EnqueuePosition;
 		static Mutex EnqueueMutex;
-		static list < shared_ptr <Thread> > RunningThreads;
+		static list < QSharedPointer <Thread> > RunningThreads;
 		static volatile bool StopPending;
 		static size_t ThreadCount;
 		static volatile bool ThreadPoolRunning;

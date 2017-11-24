@@ -493,7 +493,7 @@ namespace GostCrypt
 		}
 	}
 
-	void SecurityToken::InitLibrary (const string &pkcs11LibraryPath, shared_ptr <GetPinFunctor> pinCallback, shared_ptr <SendExceptionFunctor> warningCallback)
+    void SecurityToken::InitLibrary (const string &pkcs11LibraryPath, QSharedPointer <GetPinFunctor> pinCallback, QSharedPointer <SendExceptionFunctor> warningCallback)
 	{
 		if (Initialized)
 			CloseLibrary();
@@ -697,8 +697,8 @@ namespace GostCrypt
 	}
 #endif // GST_HEADER_Common_Exception
 
-	shared_ptr <GetPinFunctor> SecurityToken::PinCallback;
-	shared_ptr <SendExceptionFunctor> SecurityToken::WarningCallback;
+    QSharedPointer <GetPinFunctor> SecurityToken::PinCallback;
+    QSharedPointer <SendExceptionFunctor> SecurityToken::WarningCallback;
 
 	bool SecurityToken::Initialized;
 	CK_FUNCTION_LIST_PTR SecurityToken::Pkcs11Functions;
@@ -708,7 +708,7 @@ namespace GostCrypt
 
 #ifdef GST_HEADER_Platform_Exception
 
-	void Pkcs11Exception::Deserialize (shared_ptr <Stream> stream)
+    void Pkcs11Exception::Deserialize (QSharedPointer <Stream> stream)
 	{
 		Exception::Deserialize (stream);
 		Serializer sr (stream);
@@ -719,7 +719,7 @@ namespace GostCrypt
 		ErrorCode = (CK_RV) code;
 	}
 
-	void Pkcs11Exception::Serialize (shared_ptr <Stream> stream) const
+    void Pkcs11Exception::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Exception::Serialize (stream);
 		Serializer sr (stream);

@@ -12,13 +12,13 @@
 
 namespace GostCrypt
 {
-	string Serializable::DeserializeHeader (shared_ptr <Stream> stream)
+	string Serializable::DeserializeHeader (QSharedPointer <Stream> stream)
 	{
 		Serializer sr (stream);
 		return sr.DeserializeString ("SerializableName");
 	}
 
-	Serializable *Serializable::DeserializeNew (shared_ptr <Stream> stream)
+	Serializable *Serializable::DeserializeNew (QSharedPointer <Stream> stream)
 	{
 		string name = Serializable::DeserializeHeader (stream);
 		Serializable *serializable = SerializerFactory::GetNewSerializable (name);
@@ -27,7 +27,7 @@ namespace GostCrypt
 		return serializable;
 	}
 
-	void Serializable::Serialize (shared_ptr <Stream> stream) const
+	void Serializable::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Serializer sr (stream);
 		Serializable::SerializeHeader (sr, SerializerFactory::GetName (typeid (*this)));

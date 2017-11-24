@@ -12,7 +12,7 @@ public:
     EncryptionAlgorithmGOST ();
     virtual ~EncryptionAlgorithmGOST () { }
 
-    virtual shared_ptr <EncryptionAlgorithm> GetNew () const { return shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()); }
+    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()); }
 
 private:
     EncryptionAlgorithmGOST (const EncryptionAlgorithmGOST &);

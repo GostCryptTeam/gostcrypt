@@ -314,7 +314,7 @@ namespace GostCrypt {
                 ea = getEncryptionAlgorithm(algorithm);
                 if(!ea)
                     throw /* TODO */;
-                ea->SetMode(shared_ptr<Volume::EncryptionMode>(new Volume::EncryptionModeXTS()));
+                ea->SetMode(QSharedPointer<Volume::EncryptionMode>(new Volume::EncryptionModeXTS()));
 
                 // Empty sectors are encrypted with different key to randomize plaintext
                 randomizeEncryptionAlgorithmKey (ea);

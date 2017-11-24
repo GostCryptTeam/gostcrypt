@@ -28,9 +28,9 @@ namespace Volume {
 		DeriveKey (key, password, salt, GetIterationCount());
 	}
 
-	shared_ptr <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const wstring &name)
+	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const wstring &name)
 	{
-		foreach (shared_ptr <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
+		foreach (QSharedPointer <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
 		{
 			if (kdf->GetName() == name)
 				return kdf;
@@ -38,9 +38,9 @@ namespace Volume {
 		throw ParameterIncorrect (SRC_POS);
 	}
 
-	shared_ptr <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const VolumeHash &hash)
+	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const VolumeHash &hash)
 	{
-		foreach (shared_ptr <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
+		foreach (QSharedPointer <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
 		{
 			if (typeid (*kdf->GetHash()) == typeid (hash))
 				return kdf;
@@ -53,9 +53,9 @@ namespace Volume {
 	{
 		Pkcs5KdfList l;
 
-		l.push_back (shared_ptr <Pkcs5Kdf> (new Pkcs5HmacStribog ()));
-		l.push_back (shared_ptr <Pkcs5Kdf> (new Pkcs5HmacGostHash()));
-		l.push_back (shared_ptr <Pkcs5Kdf> (new Pkcs5HmacWhirlpool ()));
+		l.push_back (QSharedPointer <Pkcs5Kdf> (new Pkcs5HmacStribog ()));
+		l.push_back (QSharedPointer <Pkcs5Kdf> (new Pkcs5HmacGostHash()));
+		l.push_back (QSharedPointer <Pkcs5Kdf> (new Pkcs5HmacWhirlpool ()));
 
 		return l;
 	}

@@ -12,14 +12,14 @@
 
 namespace GostCrypt
 {
-	void Exception::Deserialize (shared_ptr <Stream> stream)
+	void Exception::Deserialize (QSharedPointer <Stream> stream)
 	{
 		Serializer sr (stream);
 		sr.Deserialize ("Message", Message);
 		sr.Deserialize ("Subject", Subject);
 	}
 
-	void Exception::Serialize (shared_ptr <Stream> stream) const
+	void Exception::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Serializable::Serialize (stream);
 		Serializer sr (stream);
@@ -27,7 +27,7 @@ namespace GostCrypt
 		sr.Serialize ("Subject", Subject);
 	}
 
-	void ExecutedProcessFailed::Deserialize (shared_ptr <Stream> stream)
+	void ExecutedProcessFailed::Deserialize (QSharedPointer <Stream> stream)
 	{
 		Exception::Deserialize (stream);
 		Serializer sr (stream);
@@ -36,7 +36,7 @@ namespace GostCrypt
 		sr.Deserialize ("ErrorOutput", ErrorOutput);
 	}
 
-	void ExecutedProcessFailed::Serialize (shared_ptr <Stream> stream) const
+	void ExecutedProcessFailed::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Exception::Serialize (stream);
 		Serializer sr (stream);

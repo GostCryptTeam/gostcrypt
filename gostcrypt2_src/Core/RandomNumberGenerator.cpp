@@ -101,7 +101,7 @@ namespace GostCrypt
 		}
 	}
 
-	shared_ptr <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
+	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
 	{
 		ScopeLock lock (AccessMutex);
 		return PoolHash;
@@ -126,7 +126,7 @@ namespace GostCrypt
 		}
 	}
 
-	void RandomNumberGenerator::SetHash (shared_ptr <Volume::VolumeHash> hash)
+	void RandomNumberGenerator::SetHash (QSharedPointer <Volume::VolumeHash> hash)
 	{
 		ScopeLock lock (AccessMutex);
 		PoolHash = hash;
@@ -172,7 +172,7 @@ namespace GostCrypt
 
 	void RandomNumberGenerator::Test ()
 	{
-		shared_ptr <Volume::VolumeHash> origPoolHash = PoolHash;
+		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
 		PoolHash.reset (new Volume::Stribog());
 
 		Pool.Zero();
@@ -200,7 +200,7 @@ namespace GostCrypt
 	size_t RandomNumberGenerator::BytesAddedSincePoolHashMix;
 	bool RandomNumberGenerator::EnrichedByUser;
 	SecureBuffer RandomNumberGenerator::Pool;
-	shared_ptr <Volume::VolumeHash> RandomNumberGenerator::PoolHash;
+	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::PoolHash;
 	size_t RandomNumberGenerator::ReadOffset;
 	bool RandomNumberGenerator::Running = false;
 	size_t RandomNumberGenerator::WriteOffset;

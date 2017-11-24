@@ -35,7 +35,7 @@ namespace GostCrypt
 	{
 	}
 	
-	void SystemException::Deserialize (shared_ptr <Stream> stream)
+	void SystemException::Deserialize (QSharedPointer <Stream> stream)
 	{
 		Exception::Deserialize (stream);
 		Serializer sr (stream);
@@ -47,7 +47,7 @@ namespace GostCrypt
 		return ErrorCode != 0;
 	}
 	
-	void SystemException::Serialize (shared_ptr <Stream> stream) const
+	void SystemException::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Exception::Serialize (stream);
 		Serializer sr (stream);

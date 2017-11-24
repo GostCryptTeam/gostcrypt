@@ -15,7 +15,7 @@ public:
     EncryptionAlgorithmGrasshopper ();
     virtual ~EncryptionAlgorithmGrasshopper () { }
 
-    virtual shared_ptr <EncryptionAlgorithm> GetNew () const { return shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()); }
+    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()); }
 
 private:
     EncryptionAlgorithmGrasshopper (const EncryptionAlgorithmGrasshopper &);

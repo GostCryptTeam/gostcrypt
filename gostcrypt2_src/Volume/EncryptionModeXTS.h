@@ -30,7 +30,7 @@ namespace Volume {
 		virtual const SecureBuffer &GetKey () const { return SecondaryKey; }
 		virtual size_t GetKeySize () const;
 		virtual wstring GetName () const { return L"XTS"; };
-		virtual shared_ptr <EncryptionMode> GetNew () const { return shared_ptr <EncryptionMode> (new EncryptionModeXTS); }
+		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
 		virtual void SetCiphers (const CipherList &ciphers);
 		virtual void SetKey (const ConstBufferPtr &key);
 

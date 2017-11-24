@@ -51,10 +51,10 @@ namespace GostCrypt {
 			do {
 				try {
                     Volume::VolumePath path(params->path->absoluteFilePath().toStdWString());
-                    shared_ptr<Volume::VolumePassword> password;
-                    shared_ptr<Volume::VolumePassword> protectionPassword;
-                    shared_ptr <Volume::KeyfileList> keyfiles;
-                    shared_ptr <Volume::KeyfileList> protectionKeyfiles;
+                    QSharedPointer<Volume::VolumePassword> password;
+                    QSharedPointer<Volume::VolumePassword> protectionPassword;
+                    QSharedPointer <Volume::KeyfileList> keyfiles;
+                    QSharedPointer <Volume::KeyfileList> protectionKeyfiles;
 
 
                     // Conversions :(

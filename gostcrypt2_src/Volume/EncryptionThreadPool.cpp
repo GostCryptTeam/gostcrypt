@@ -124,7 +124,7 @@ namespace Volume {
 
 		firstFragmentWorkItem->ItemCompletedEvent.Wait();
 
-		shared_ptr <Exception> itemException;
+		QSharedPointer <Exception> itemException;
         if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
 
@@ -318,6 +318,6 @@ namespace Volume {
 	SyncEvent EncryptionThreadPool::WorkItemReadyEvent;
 	SyncEvent EncryptionThreadPool::WorkItemCompletedEvent;
 
-	list < shared_ptr <Thread> > EncryptionThreadPool::RunningThreads;
+	list < QSharedPointer <Thread> > EncryptionThreadPool::RunningThreads;
 	}
 }

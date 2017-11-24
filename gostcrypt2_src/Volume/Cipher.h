@@ -18,7 +18,7 @@ namespace GostCrypt
 namespace Volume {
 
     class CipherAlgorithm;
-    typedef vector < shared_ptr <CipherAlgorithm> > CipherList;
+    typedef vector < QSharedPointer <CipherAlgorithm> > CipherList;
 
     class CipherAlgorithm
 	{
@@ -36,7 +36,7 @@ namespace Volume {
 		virtual size_t GetKeySize () const = 0;
 		virtual wstring GetName () const = 0;
                 virtual wstring GetDescription () const = 0;
-        virtual shared_ptr <CipherAlgorithm> GetNew () const = 0;
+        virtual QSharedPointer <CipherAlgorithm> GetNew () const = 0;
 		virtual bool IsHwSupportAvailable () const { return false; }
 		static bool IsHwSupportEnabled () { return HwSupportEnabled; }
 		virtual void SetKey (const ConstBufferPtr &key);
@@ -90,7 +90,7 @@ namespace Volume {
 		virtual size_t GetKeySize () const { return KEY_SIZE; }; \
                 virtual wstring GetName () const { return L##FANCY_NAME; }; \
                 virtual wstring GetDescription () const { return L##DESCRIPTION; }; \
-                virtual shared_ptr <CipherAlgorithm> GetNew () const { return shared_ptr <CipherAlgorithm> (new GST_JOIN (CipherAlgorithm,NAME)()); } \
+                virtual QSharedPointer <CipherAlgorithm> GetNew () const { return QSharedPointer <CipherAlgorithm> (new GST_JOIN (CipherAlgorithm,NAME)()); } \
 \
                 virtual void XorCipherKey (byte *ks, byte *data, int len) const; \
                 virtual void EncryptWithKS (byte *data, byte *ks) const; \
@@ -125,7 +125,7 @@ public:
 	virtual size_t GetBlockSize () const { return 8; };
 	virtual size_t GetKeySize () const { return 32; };
 	virtual wstring GetName () const { return L"GOST 28147-89"; };
-	virtual shared_ptr <Cipher> GetNew () const { return shared_ptr <Cipher> (new CipherGOST()); }
+	virtual QSharedPointer <Cipher> GetNew () const { return QSharedPointer <Cipher> (new CipherGOST()); }
 
 	virtual void XorCipherKey (byte *ks, byte *data, int len) const;
 	virtual void EncryptWithKS (byte *data, byte *ks) const;
@@ -152,7 +152,7 @@ public:
 	virtual size_t GetBlockSize () const {return 16; };
 	virtual size_t GetKeySize () const {return 32; };
 	virtual wstring GetName() const {return L"Gost Grasshopper"; };
-	virtual shared_ptr <Cipher> GetNew() const {return shared_ptr <Cipher> (new CipherGRASSHOPPER());};
+	virtual QSharedPointer <Cipher> GetNew() const {return QSharedPointer <Cipher> (new CipherGRASSHOPPER());};
 
 	virtual void XorCipherKey (byte *ks, byte *data, int len) const;
 	virtual void EncryptWithKS (byte *data, byte *ks) const;

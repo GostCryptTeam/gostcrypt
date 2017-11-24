@@ -69,8 +69,8 @@ namespace Volume {
 	{
 		CipherList l;
 
-        l.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGOST ()));
-        l.push_back (shared_ptr <CipherAlgorithm> (new CipherAlgorithmGRASSHOPPER()));
+        l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
+        l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGRASSHOPPER()));
 
 		return l;
 	}

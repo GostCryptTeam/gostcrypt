@@ -37,8 +37,8 @@
 //    Q_INVOKABLE int getTimeRemaining();
 //    Q_INVOKABLE int getSpeed();
 //private:
-//    shared_ptr<GostCrypt::EncryptionAlgorithm> getAlgo(QString name);
-//    shared_ptr<GostCrypt::Hash> getHash(QString name);
+//    QSharedPointer<GostCrypt::EncryptionAlgorithm> getAlgo(QString name);
+//    QSharedPointer<GostCrypt::Hash> getHash(QString name);
 
 //    GostCrypt::SharedPtr<GostCrypt::VolumeCreationOptions> infos;
 //    GostCrypt::VolumeCreator *creator;

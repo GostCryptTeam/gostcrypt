@@ -20,7 +20,7 @@ namespace Volume {
 
 	class EncryptionAlgorithm;
 
-    typedef list < shared_ptr <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
+    typedef list < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
 	{
@@ -35,19 +35,19 @@ namespace Volume {
 		virtual void EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
 		static EncryptionAlgorithmList GetAvailableAlgorithms ();
 		virtual const CipherList &GetCiphers () const { return Ciphers; }
-        virtual shared_ptr <EncryptionAlgorithm> GetNew () const = 0;
+        virtual QSharedPointer <EncryptionAlgorithm> GetNew () const = 0;
 		virtual size_t GetMaxBlockSize () const;
 		virtual size_t GetMinBlockSize () const;
 		static size_t GetLargestKeySize (const EncryptionAlgorithmList &algorithms);
 		virtual size_t GetKeySize () const;
-		virtual shared_ptr <EncryptionMode> GetMode () const;
+		virtual QSharedPointer <EncryptionMode> GetMode () const;
 		virtual wstring GetName () const;
                 virtual wstring GetDescription () const;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual bool IsModeSupported (const EncryptionMode &mode) const;
-		virtual bool IsModeSupported (const shared_ptr <EncryptionMode> mode) const;
+		virtual bool IsModeSupported (const QSharedPointer <EncryptionMode> mode) const;
 		virtual void SetKey (const ConstBufferPtr &key);
-		virtual void SetMode (shared_ptr <EncryptionMode> mode);
+		virtual void SetMode (QSharedPointer <EncryptionMode> mode);
 
 	protected:
 		EncryptionAlgorithm ();
@@ -56,7 +56,7 @@ namespace Volume {
 
 		CipherList Ciphers;
 		bool Deprecated;
-		shared_ptr <EncryptionMode> Mode;
+		QSharedPointer <EncryptionMode> Mode;
 		EncryptionModeList SupportedModes;
 
 	private:

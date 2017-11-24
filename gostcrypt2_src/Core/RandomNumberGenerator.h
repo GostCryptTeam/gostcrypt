@@ -24,12 +24,12 @@ namespace GostCrypt
 		static void AddToPool (const ConstBufferPtr &buffer);
 		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
 		static void GetDataFast (const BufferPtr &buffer) { GetData (buffer, true); }
-		static shared_ptr <Volume::VolumeHash> GetHash ();
+		static QSharedPointer <Volume::VolumeHash> GetHash ();
 		static bool IsEnrichedByUser () { return EnrichedByUser; }
 		static bool IsRunning () { return Running; }
 		static ConstBufferPtr PeekPool () { return Pool; }
 		static void SetEnrichedByUserStatus (bool enriched) { EnrichedByUser = enriched; }
-		static void SetHash (shared_ptr <Volume::VolumeHash> hash);
+		static void SetHash (QSharedPointer <Volume::VolumeHash> hash);
 		static void Start ();
 		static void Stop ();
 
@@ -48,7 +48,7 @@ namespace GostCrypt
 		static size_t BytesAddedSincePoolHashMix;
 		static bool EnrichedByUser;
 		static SecureBuffer Pool;
-		static shared_ptr <Volume::VolumeHash> PoolHash;
+		static QSharedPointer <Volume::VolumeHash> PoolHash;
 		static size_t ReadOffset;
 		static bool Running;
 		static size_t WriteOffset;

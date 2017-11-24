@@ -67,8 +67,8 @@ namespace GostCrypt
 	typedef FilesystemPath DirectoryPath;
 	typedef FilesystemPath FilePath;
 
-	typedef list < shared_ptr <DirectoryPath> > DirectoryPathList;
-	typedef list < shared_ptr <FilePath> > FilePathList;
+	typedef list < QSharedPointer <DirectoryPath> > DirectoryPathList;
+	typedef list < QSharedPointer <FilePath> > FilePathList;
 }
 
 #endif // GST_HEADER_Platform_FilesystemPath

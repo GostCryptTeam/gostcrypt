@@ -14,7 +14,7 @@ namespace GostCrypt
 	void Event::Connect (const EventConnectorBase &connector)
 	{
 		ScopeLock lock (HandlersMutex);
-		ConnectedHandlers.push_back (shared_ptr <EventConnectorBase> (connector.CloneNew()));
+		ConnectedHandlers.push_back (QSharedPointer <EventConnectorBase> (connector.CloneNew()));
 	}
 	
 	void Event::Disconnect (void *handler)
@@ -22,7 +22,7 @@ namespace GostCrypt
 		ScopeLock lock (HandlersMutex);
 
 		EventHandlerList newConnectedHandlers;
-		foreach (shared_ptr <EventConnectorBase> h, ConnectedHandlers)
+		foreach (QSharedPointer <EventConnectorBase> h, ConnectedHandlers)
 		{
 			if (h->GetHandler() != handler)
 				newConnectedHandlers.push_back (h);

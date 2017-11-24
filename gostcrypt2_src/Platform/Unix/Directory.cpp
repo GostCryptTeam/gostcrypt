@@ -49,7 +49,7 @@ namespace GostCrypt
 		errno = 0;
 		while ((dirEntry = readdir (dir)) != nullptr)
 		{
-			shared_ptr <FilePath> filePath (new FilePath (string (AppendSeparator (path)) + string (dirEntry->d_name)));
+			QSharedPointer <FilePath> filePath (new FilePath (string (AppendSeparator (path)) + string (dirEntry->d_name)));
 			
 			if (!regularFilesOnly || filePath->IsFile())
 				files.push_back (filePath);

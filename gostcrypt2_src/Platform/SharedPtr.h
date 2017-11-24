@@ -134,24 +134,22 @@ namespace GostCrypt
 		SharedVal <uint64> *UseCount;
 	};
 
-#ifdef shared_ptr
-#undef shared_ptr
+#ifdef QSharedPointer
+#undef QSharedPointer
 #endif
-//#define shared_ptr GostCrypt::SharedPtr
-#define shared_ptr QSharedPointer
 
 #ifdef make_shared
 #undef make_shared
 #endif
 
-	template <class T> shared_ptr <T> make_shared ()
+	template <class T> QSharedPointer <T> make_shared ()
 	{
-		return shared_ptr <T> (new T ());
+		return QSharedPointer <T> (new T ());
 	}
 
-	template <class T, class A> shared_ptr <T> make_shared (const A &arg)
+	template <class T, class A> QSharedPointer <T> make_shared (const A &arg)
 	{
-		return shared_ptr <T> (new T (arg));
+		return QSharedPointer <T> (new T (arg));
 	}
 
 #define make_shared GostCrypt::make_shared
@@ -160,6 +158,6 @@ namespace GostCrypt
 
 #endif // nullptr
 
-#define make_shared_auto(typeName,instanceName) shared_ptr <typeName> instanceName (new typeName ())
+#define make_shared_auto(typeName,instanceName) QSharedPointer <typeName> instanceName (new typeName ())
 
 #endif // GST_HEADER_Platform_SharedPtr

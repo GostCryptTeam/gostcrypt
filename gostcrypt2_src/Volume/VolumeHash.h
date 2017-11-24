@@ -17,7 +17,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class VolumeHash;
-	typedef list < shared_ptr <VolumeHash> > VolumeHashList;
+	typedef list < QSharedPointer <VolumeHash> > VolumeHashList;
 
 	class VolumeHash
 	{
@@ -30,7 +30,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
 		virtual wstring GetName () const = 0;
-		virtual shared_ptr <VolumeHash> GetNew () const = 0;
+		virtual QSharedPointer <VolumeHash> GetNew () const = 0;
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual void ProcessData (const ConstBufferPtr &data) = 0;
@@ -57,7 +57,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 512 / 8; }
 		virtual wstring GetName () const { return L"Whirlpool"; }
-		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new Whirlpool); }
+		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Whirlpool); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 
@@ -79,7 +79,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 64; }
 		virtual wstring GetName () const { return L"GOST R 34.11-2012"; }
-		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new Stribog); }
+		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Stribog); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 
@@ -101,7 +101,7 @@ namespace Volume {
 		virtual size_t GetBlockSize () const { return 32; }
 		virtual size_t GetDigestSize () const { return 32; }
 		virtual wstring GetName () const { return L"GOST R 34.11-94"; }
-		virtual shared_ptr <VolumeHash> GetNew () const { return shared_ptr <VolumeHash> (new GostHash); }
+		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new GostHash); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
 

@@ -20,7 +20,7 @@ namespace GostCrypt
 	class Serializer
 	{
 	public:
-		Serializer (shared_ptr <Stream> stream) : DataStream (stream) { }
+		Serializer (QSharedPointer <Stream> stream) : DataStream (stream) { }
 		virtual ~Serializer () { }
 
 		void Deserialize (const string &name, bool &data);
@@ -64,7 +64,7 @@ namespace GostCrypt
 		void SerializeWString (const wstring &data);
 		void ValidateName (const string &name);
 
-		shared_ptr <Stream> DataStream;
+		QSharedPointer <Stream> DataStream;
 
 	private:
 		Serializer (const Serializer &);

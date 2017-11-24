@@ -33,16 +33,16 @@ namespace Volume {
 		virtual ~Volume ();
 
 		void Close ();
-		shared_ptr <EncryptionAlgorithm> GetEncryptionAlgorithm () const;
-		shared_ptr <EncryptionMode> GetEncryptionMode () const;
-		shared_ptr <File> GetFile () const { return VolumeFile; }
-		shared_ptr <VolumeHeader> GetHeader () const { return Header; }
+		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const;
+		QSharedPointer <EncryptionMode> GetEncryptionMode () const;
+		QSharedPointer <File> GetFile () const { return VolumeFile; }
+		QSharedPointer <VolumeHeader> GetHeader () const { return Header; }
 		uint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
 		uint64 GetHostSize () const { return VolumeHostSize; }
-		shared_ptr <VolumeLayout> GetLayout () const { return Layout; }
+		QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
 		VolumePath GetPath () const { return VolumeFile->GetPath(); }
 		VolumeProtection::Enum GetProtectionType () const { return Protection; }
-		shared_ptr <Pkcs5Kdf> GetPkcs5Kdf () const { return Header->GetPkcs5Kdf(); }
+		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Header->GetPkcs5Kdf(); }
 		uint32 GetSaltSize () const { return Header->GetSaltSize(); }
 		size_t GetSectorSize () const { return SectorSize; }
 		uint64 GetSize () const { return VolumeDataSize; }
@@ -53,9 +53,9 @@ namespace Volume {
 		uint64 GetVolumeCreationTime () const { return Header->GetVolumeCreationTime(); }
 		bool IsHiddenVolumeProtectionTriggered () const { return HiddenVolumeProtectionTriggered; }
 		bool IsInSystemEncryptionScope () const { return SystemEncryption; }
-		void Open (const VolumePath &volumePath, bool preserveTimestamps, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, shared_ptr <VolumePassword> protectionPassword = shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> protectionKeyfiles = shared_ptr <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
+		void Open (const VolumePath &volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
         void ReadSectors (const BufferPtr &buffer, uint64 byteOffset);
-		void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf);
+		void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf);
 		void WriteSectors (const ConstBufferPtr &buffer, uint64 byteOffset);
 
 		QSharedPointer<VolumeInformation> getVolumeInformation();
@@ -63,17 +63,17 @@ namespace Volume {
 		void CheckProtectedRange (uint64 writeHostOffset, uint64 writeLength);
 		void ValidateState () const;
 
-		shared_ptr <EncryptionAlgorithm> EA;
-		shared_ptr <VolumeHeader> Header;
+		QSharedPointer <EncryptionAlgorithm> EA;
+		QSharedPointer <VolumeHeader> Header;
 		bool HiddenVolumeProtectionTriggered;
-		shared_ptr <VolumeLayout> Layout;
+		QSharedPointer <VolumeLayout> Layout;
 		uint64 ProtectedRangeStart;
 		uint64 ProtectedRangeEnd;
 		VolumeProtection::Enum Protection;
 		size_t SectorSize;
 		bool SystemEncryption;
 		VolumeType::Enum Type;
-		shared_ptr <File> VolumeFile;
+		QSharedPointer <File> VolumeFile;
 		uint64 VolumeHostSize;
 		uint64 VolumeDataOffset;
 		uint64 VolumeDataSize;

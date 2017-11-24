@@ -17,7 +17,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	typedef list < shared_ptr < VolumePassword > > CachedPasswordList;
+	typedef list < QSharedPointer < VolumePassword > > CachedPasswordList;
 
 	class VolumePasswordCache
 	{

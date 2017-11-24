@@ -267,12 +267,12 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
 
     // Header key
     headerkey.Allocate (Volume::VolumeHeader::GetLargestSerializedKeySize());
-    shared_ptr <Volume::KeyfileList> keyfiles;
+    QSharedPointer <Volume::KeyfileList> keyfiles;
     if(params->keyfiles)
         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
             keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
         }
-    shared_ptr<Volume::VolumePassword> password;
+    QSharedPointer<Volume::VolumePassword> password;
     if(!params->password.isNull())
         password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
     else

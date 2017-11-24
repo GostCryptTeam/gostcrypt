@@ -32,7 +32,7 @@ namespace GostCrypt
 		virtual void *GetHandler () const = 0;
 	};
 
-	typedef list < shared_ptr <EventConnectorBase> > EventHandlerList;
+	typedef list < QSharedPointer <EventConnectorBase> > EventHandlerList;
 
 	template <class T>
 	class EventConnector : public EventConnectorBase

@@ -105,7 +105,7 @@ namespace GostCrypt
 			{
 				try
 				{
-					shared_ptr <Stream> outputStream (new FileStream (exceptionPipe.GetWriteFD()));
+					QSharedPointer <Stream> outputStream (new FileStream (exceptionPipe.GetWriteFD()));
 					e.Serialize (outputStream);
 				}
 				catch (...) { }
@@ -175,7 +175,7 @@ namespace GostCrypt
 
 			try
 			{
-				shared_ptr <Stream> stream (new MemoryStream (ConstBufferPtr ((byte *) &exOutput[0], exOutput.size())));
+				QSharedPointer <Stream> stream (new MemoryStream (ConstBufferPtr ((byte *) &exOutput[0], exOutput.size())));
 				deserializedObject.reset (Serializable::DeserializeNew (stream));
 				deserializedException = dynamic_cast <Exception*> (deserializedObject.get());
 			}

@@ -15,7 +15,7 @@ namespace GostCrypt
 	{
 		InputFile.reset (new File);
 		InputFile->Open (path);
-		InputStream = shared_ptr <Stream> (new FileStream (InputFile));
+		InputStream = QSharedPointer <Stream> (new FileStream (InputFile));
 	}
 
 	bool TextReader::ReadLine (string &outputString)

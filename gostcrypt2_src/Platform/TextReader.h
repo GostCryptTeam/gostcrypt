@@ -22,14 +22,14 @@ namespace GostCrypt
 	{
 	public:
 		TextReader (const FilePath &path);
-		TextReader (shared_ptr <Stream> stream) : InputStream (stream) { }
+		TextReader (QSharedPointer <Stream> stream) : InputStream (stream) { }
 		virtual ~TextReader () { }
 
 		virtual bool ReadLine (string &outputString);
 
 	protected:
-		shared_ptr <File> InputFile;
-		shared_ptr <Stream> InputStream;
+		QSharedPointer <File> InputFile;
+		QSharedPointer <Stream> InputStream;
 	};
 }
 

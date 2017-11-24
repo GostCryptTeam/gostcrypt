@@ -19,7 +19,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class EncryptionMode;
-	typedef list < shared_ptr <EncryptionMode> > EncryptionModeList;
+	typedef list < QSharedPointer <EncryptionMode> > EncryptionModeList;
 
 	class EncryptionMode
 	{
@@ -36,7 +36,7 @@ namespace Volume {
 		virtual const SecureBuffer &GetKey () const { throw NotApplicable (SRC_POS); }
 		virtual size_t GetKeySize () const = 0;
 		virtual wstring GetName () const = 0;
-		virtual shared_ptr <EncryptionMode> GetNew () const = 0;
+		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
 		virtual uint64 GetSectorOffset () const { return SectorOffset; }
 		virtual bool IsKeySet () const { return KeySet; }
 		virtual void SetKey (const ConstBufferPtr &key) = 0;

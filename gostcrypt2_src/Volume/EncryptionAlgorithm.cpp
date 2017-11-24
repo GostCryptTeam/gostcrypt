@@ -62,8 +62,8 @@ namespace Volume {
 	{
 		EncryptionAlgorithmList l;
 
-        l.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()));
-        l.push_back (shared_ptr <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
+        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()));
+        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
 
 		return l;
 	}
@@ -116,7 +116,7 @@ namespace Volume {
 		return blockSize;
 	}
 
-	shared_ptr <EncryptionMode> EncryptionAlgorithm::GetMode () const
+    QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
 	{
         if (Mode.isNull())
 			throw NotInitialized (SRC_POS);
@@ -177,12 +177,12 @@ namespace Volume {
 	}
 
 
-	bool EncryptionAlgorithm::IsModeSupported (const shared_ptr <EncryptionMode> mode) const
+    bool EncryptionAlgorithm::IsModeSupported (const QSharedPointer <EncryptionMode> mode) const
 	{
 		return IsModeSupported (*mode);
 	}
 
-	void EncryptionAlgorithm::SetMode (shared_ptr <EncryptionMode> mode)
+    void EncryptionAlgorithm::SetMode (QSharedPointer <EncryptionMode> mode)
 	{
 		if (!IsModeSupported (*mode))
 			throw ParameterIncorrect (SRC_POS);

@@ -85,7 +85,7 @@ namespace Volume {
 		}
 	}
 
-    shared_ptr <VolumePassword> Keyfile::ApplyListToPassword (shared_ptr <KeyfileList> keyfiles, shared_ptr <VolumePassword> password)
+    QSharedPointer <VolumePassword> Keyfile::ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password)
 	{
 		if (!password)
 			password.reset (new VolumePassword);
@@ -97,7 +97,7 @@ namespace Volume {
 		HiddenFileWasPresentInKeyfilePath = false;
 
 		// Enumerate directories
-		foreach (shared_ptr <Keyfile> keyfile, *keyfiles)
+		foreach (QSharedPointer <Keyfile> keyfile, *keyfiles)
 		{
 			if (FilesystemPath (*keyfile).IsDirectory())
 			{
@@ -152,9 +152,9 @@ namespace Volume {
 		return newPassword;
 	}
 
-	shared_ptr <KeyfileList> Keyfile::DeserializeList (shared_ptr <Stream> stream, const string &name)
+	QSharedPointer <KeyfileList> Keyfile::DeserializeList (QSharedPointer <Stream> stream, const string &name)
 	{
-		shared_ptr <KeyfileList> keyfiles;
+		QSharedPointer <KeyfileList> keyfiles;
 		Serializer sr (stream);
 
 		if (!sr.DeserializeBool (name + "Null"))
@@ -166,7 +166,7 @@ namespace Volume {
 		return keyfiles;
 	}
 
-	void Keyfile::SerializeList (shared_ptr <Stream> stream, const string &name, shared_ptr <KeyfileList> keyfiles)
+	void Keyfile::SerializeList (QSharedPointer <Stream> stream, const string &name, QSharedPointer <KeyfileList> keyfiles)
 	{
 		Serializer sr (stream);
 		sr.Serialize (name + "Null", keyfiles == nullptr);

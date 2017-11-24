@@ -56,7 +56,7 @@ namespace Volume {
 			throw UnportablePassword (SRC_POS);
 	}
 
-	void VolumePassword::Deserialize (shared_ptr <Stream> stream)
+	void VolumePassword::Deserialize (QSharedPointer <Stream> stream)
 	{
 		Serializer sr (stream);
 		uint64 passwordSize;
@@ -78,7 +78,7 @@ namespace Volume {
 		return true;
 	}
 
-	void VolumePassword::Serialize (shared_ptr <Stream> stream) const
+	void VolumePassword::Serialize (QSharedPointer <Stream> stream) const
 	{
 		Serializable::Serialize (stream);
 		Serializer sr (stream);
