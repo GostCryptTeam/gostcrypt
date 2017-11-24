@@ -48,12 +48,12 @@ namespace GostCrypt
 			return *this;
 		}
 
-		bool operator == (const SharedPtr &other)
+		bool operator == (const SharedPtr &other) const
 		{
 			return get() == other.get();
 		}
 
-		bool operator != (const SharedPtr &other)
+		bool operator != (const SharedPtr &other) const
 		{
 			return get() != other.get();
 		}
