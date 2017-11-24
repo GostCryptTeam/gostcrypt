@@ -28,7 +28,7 @@ namespace GostCrypt
 		Exception (const string &message, const wstring &subject) : Message (message), Subject (subject) { }
 		virtual ~Exception () throw () { }
 
-		GST_SERIALIZABLE_EXCEPTION (Exception);
+        GST_SERIALIZABLE_EXCEPTION (Exception)
 
 		virtual const char *what () const throw () { return Message.c_str(); }
 		virtual const wstring &GetSubject() const { return Subject; }
@@ -45,7 +45,7 @@ namespace GostCrypt
 			: Exception (message), Command (command), ExitCode (exitCode), ErrorOutput (errorOutput) { }
 		virtual ~ExecutedProcessFailed () throw () { }
 
-		GST_SERIALIZABLE_EXCEPTION (ExecutedProcessFailed);
+        GST_SERIALIZABLE_EXCEPTION (ExecutedProcessFailed)
 
 		string GetCommand () const { return Command; }
 		int64 GetExitCode () const { return ExitCode; }
@@ -61,7 +61,7 @@ namespace GostCrypt
 	struct NAME  : public BASE \
 	{ \
 		NAME () { } \
-		NAME (const string &message) : BASE (message) { } \
+        explicit NAME (const string &message) : BASE (message) { } \
 		NAME (const string &message, const wstring &subject) : BASE (message, subject) { } \
 		virtual Exception *CloneNew () { return new NAME (*this); } \
 		static Serializable *GetNewSerializable () { return new NAME (); } \
