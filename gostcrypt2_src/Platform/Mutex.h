@@ -39,7 +39,7 @@ namespace GostCrypt
 	class ScopeLock
 	{
 	public:
-		ScopeLock (Mutex &mutex) : ScopeMutex (mutex) { mutex.Lock(); }
+		explicit ScopeLock (Mutex &mutex) : ScopeMutex (mutex) { mutex.Lock(); }
 		~ScopeLock () { ScopeMutex.Unlock(); }
 
 	protected:
