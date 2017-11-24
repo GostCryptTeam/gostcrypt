@@ -417,7 +417,7 @@ Item {
         if(helpStart !== undefined && helpStart.visible == true)
             helpStart.visible = false
         var isFavorite = UserSettings.isFavorite(Path);
-        listOfVolumes.append({MountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
+        listOfVolumes.append({mountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
     }
 
     function clearVolumes() {
@@ -427,7 +427,7 @@ Item {
 
     function dismountVolume(path) {
         for(var i =0; i<listOfVolumes.count; i++)
-            if(listOfVolumes.get(i).Path_ == path)
+            if(listOfVolumes.get(i).Path_ === path)
                 listOfVolumes.remove(i);
         if(listOfVolumes.count == 0) helpStart.visible = true;
     }

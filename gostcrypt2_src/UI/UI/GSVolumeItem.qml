@@ -4,10 +4,12 @@ import QtQuick.Controls 2.2
 
 Component {
     id:volumeDelegate
+
     Item {
         id: item
         width: 240
         height:80
+        property string mountPoint_: ""
 
         function updateFavorite()
         {
@@ -47,7 +49,7 @@ Component {
                 id:rightPartTexts
                 anchors.fill: parent
                 Text {
-                    text: MountPoint_ + Translation.tr
+                    text: mountPoint_ + Translation.tr
                     color: "#bdbdbd"
                     font.pixelSize: 14
                     y: 7
@@ -461,10 +463,10 @@ Component {
                 cursorShape = Qt.ArrowCursor
             }
             onClicked: {
-                qmlRequest("openmountpoint", {"path": MountPoint_});
+                qmlRequest("openmountpoint", {"path": mountPoint_});
             }
             onDoubleClicked: {
-                qmlRequest("openmountpoint", {"path": MountPoint_});
+                qmlRequest("openmountpoint", {"path": mountPoint_});
             }
 
             ToolTip {
