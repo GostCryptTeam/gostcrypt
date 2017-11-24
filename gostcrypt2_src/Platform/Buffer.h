@@ -67,8 +67,8 @@ namespace GostCrypt
 	{
 	public:
 		Buffer ();
-		Buffer (size_t size);
-		Buffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
+		explicit Buffer (size_t size);
+		explicit Buffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
 		virtual ~Buffer ();
 
 		virtual void Allocate (size_t size);
@@ -98,8 +98,8 @@ namespace GostCrypt
 	{
 	public:
 		SecureBuffer () { }
-		SecureBuffer (size_t size);
-		SecureBuffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
+		explicit SecureBuffer (size_t size);
+		explicit SecureBuffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
 		virtual ~SecureBuffer ();
 
 		virtual void Allocate (size_t size);
