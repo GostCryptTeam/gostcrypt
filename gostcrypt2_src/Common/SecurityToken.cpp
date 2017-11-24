@@ -169,7 +169,7 @@ namespace GostCrypt
 			throw Pkcs11Exception (status);
 	}
 
-	vector <SecurityTokenKeyfile> SecurityToken::GetAvailableKeyfiles (CK_SLOT_ID *slotIdFilter, const wstring keyfileIdFilter)
+	vector <SecurityTokenKeyfile> SecurityToken::GetAvailableKeyfiles (CK_SLOT_ID *slotIdFilter, const wstring &keyfileIdFilter)
 	{
 		bool unrecognizedTokenPresent = false;
 		vector <SecurityTokenKeyfile> keyfiles;
