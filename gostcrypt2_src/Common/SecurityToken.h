@@ -81,7 +81,7 @@ namespace GostCrypt
 
 #ifdef GST_HEADER_Platform_Exception
 		virtual ~Pkcs11Exception () throw () { }
-		GST_SERIALIZABLE_EXCEPTION (Pkcs11Exception);
+        GST_SERIALIZABLE_EXCEPTION (Pkcs11Exception)
 #else
 		void Show (HWND parent) const;
 #endif
@@ -107,7 +107,7 @@ namespace GostCrypt
 	GST_EXCEPTION (SecurityTokenKeyfileAlreadyExists); \
 	GST_EXCEPTION (SecurityTokenKeyfileNotFound);
 
-	GST_EXCEPTION_SET;
+    GST_EXCEPTION_SET
 
 #undef GST_EXCEPTION
 
@@ -163,13 +163,13 @@ namespace GostCrypt
 		static void CloseLibrary ();
 		static void CreateKeyfile (CK_SLOT_ID slotId, vector <byte> &keyfileData, const string &name);
 		static void DeleteKeyfile (const SecurityTokenKeyfile &keyfile);
-		static vector <SecurityTokenKeyfile> GetAvailableKeyfiles (CK_SLOT_ID *slotIdFilter = nullptr, const wstring keyfileIdFilter = wstring());
+        static vector <SecurityTokenKeyfile> GetAvailableKeyfiles (CK_SLOT_ID *slotIdFilter = nullptr, const wstring &keyfileIdFilter = wstring());
 		static void GetKeyfileData (const SecurityTokenKeyfile &keyfile, vector <byte> &keyfileData);
 		static list <SecurityTokenInfo> GetAvailableTokens ();
 		static SecurityTokenInfo GetTokenInfo (CK_SLOT_ID slotId);
 		static void InitLibrary (const string &pkcs11LibraryPath, shared_ptr <GetPinFunctor> pinCallback, shared_ptr <SendExceptionFunctor> warningCallback);
 		static bool IsInitialized () { return Initialized; }
-		static bool IsKeyfilePathValid (const wstring &securityTokenKeyfilePath);
+        static bool IsKeyfilePathValid (const wstring &securityTokenKeyfilePath);
 	
 		static const size_t MaxPasswordLength = 128;
 

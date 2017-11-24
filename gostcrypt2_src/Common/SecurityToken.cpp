@@ -56,7 +56,7 @@ namespace GostCrypt
 	{
 		wstringstream path;
 		path << GST_SECURITY_TOKEN_KEYFILE_URL_PREFIX GST_SECURITY_TOKEN_KEYFILE_URL_SLOT L"/" << SlotId << L"/" GST_SECURITY_TOKEN_KEYFILE_URL_FILE L"/" << Id;
-		return path.str();
+        return SecurityTokenKeyfilePath(wstring(path.str()));
 	}
 
 	void SecurityToken::CheckLibraryStatus ()
