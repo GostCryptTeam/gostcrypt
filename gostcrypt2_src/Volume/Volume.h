@@ -11,12 +11,10 @@
 #define GST_HEADER_Volume_Volume
 
 #include "Platform/Platform.h"
-#include "Platform/StringConverter.h"
 #include "EncryptionAlgorithm.h"
 #include "EncryptionMode.h"
 #include "Keyfile.h"
 #include "VolumePassword.h"
-#include "VolumeException.h"
 #include "VolumeLayout.h"
 #include "VolumeInformation.h"
 #include "VolumePath.h"

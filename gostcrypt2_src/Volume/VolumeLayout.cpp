@@ -38,7 +38,7 @@ namespace Volume {
 		{
 			VolumeLayoutList l;
 
-			foreach (QSharedPointer <VolumeLayout> vl, layouts)
+            for (QSharedPointer <VolumeLayout> vl : layouts)
 			{
 				if (vl->GetType() == type)
 					l.push_back (vl);

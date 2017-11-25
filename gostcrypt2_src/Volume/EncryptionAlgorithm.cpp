@@ -72,10 +72,10 @@ namespace Volume {
 	{
 		size_t largestKeySize = 0;
 
-		foreach_ref (const EncryptionAlgorithm &ea, algorithms)
+        for (const QSharedPointer<EncryptionAlgorithm> ea : algorithms)
 		{
-			if (ea.GetKeySize() > largestKeySize)
-				largestKeySize = ea.GetKeySize();
+            if (ea->GetKeySize() > largestKeySize)
+                largestKeySize = ea->GetKeySize();
 		}
 
 		return largestKeySize;
@@ -84,12 +84,12 @@ namespace Volume {
 	size_t EncryptionAlgorithm::GetKeySize () const
 	{
 		if (Ciphers.size() < 1)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		size_t keySize = 0;
 
-        foreach_ref (const CipherAlgorithm &c, Ciphers)
-			keySize += c.GetKeySize();
+        for  (const QSharedPointer<CipherAlgorithm> c : Ciphers)
+            keySize += c->GetKeySize();
 
 		return keySize;
 	}
@@ -98,9 +98,10 @@ namespace Volume {
 	{
 		size_t blockSize = 0;
 
-        foreach_ref (const CipherAlgorithm &c, Ciphers)
-			if (c.GetBlockSize() > blockSize)
-				blockSize = c.GetBlockSize();
+        for (const QSharedPointer<CipherAlgorithm> c : Ciphers) {
+            if (c->GetBlockSize() > blockSize)
+                blockSize = c->GetBlockSize();
+        }
 
 		return blockSize;
 	}
@@ -109,9 +110,11 @@ namespace Volume {
 	{
 		size_t blockSize = 0;
 
-        foreach_ref (const CipherAlgorithm &c, Ciphers)
-			if (blockSize == 0 || c.GetBlockSize() < blockSize)
-				blockSize = c.GetBlockSize();
+        for (const QSharedPointer<CipherAlgorithm> c : Ciphers) {
+            if (blockSize == 0 || c->GetBlockSize() < blockSize) {
+                blockSize = c->GetBlockSize();
+             }
+         }
 
 		return blockSize;
 	}
@@ -119,7 +122,7 @@ namespace Volume {
     QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
 	{
         if (Mode.isNull())
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		return Mode;
 	}
@@ -127,16 +130,16 @@ namespace Volume {
 	wstring EncryptionAlgorithm::GetName () const
 	{
 		if (Ciphers.size() < 1)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		wstring name;
 
-        foreach_reverse_ref (const CipherAlgorithm &c, Ciphers)
+        for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
 		{
 			if (name.empty())
-				name = c.GetName();
+                name = c->GetName();
 			else
-				name += wstring (L"-") + c.GetName();
+                name += wstring (L"-") + c->GetName();
 		}
 
 		return name;
@@ -145,16 +148,16 @@ namespace Volume {
         wstring EncryptionAlgorithm::GetDescription () const
         {
                 if (Ciphers.size() < 1)
-                        throw NotInitialized (SRC_POS);
+                        throw;// NotInitialized (SRC_POS);
 
                 wstring desc;
 
-                foreach_reverse_ref (const CipherAlgorithm &c, Ciphers)
+                for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
                 {
                         if (desc.empty())
-                                desc = c.GetDescription();
+                                desc = c->GetDescription();
                         else
-                                desc += wstring (L"\n\n") + c.GetDescription();
+                                desc += wstring (L"\n\n") + c->GetDescription();
                 }
 
                 return desc;
@@ -164,9 +167,9 @@ namespace Volume {
 	{
 		bool supported = false;
 
-		foreach_ref (const EncryptionMode &em, SupportedModes)
+        for (const QSharedPointer<EncryptionMode> em : SupportedModes)
 		{
-			if (typeid (mode) == typeid (em))
+            if (typeid (mode) == typeid (*em))
 			{
 				supported = true;
 				break;
@@ -185,7 +188,7 @@ namespace Volume {
     void EncryptionAlgorithm::SetMode (QSharedPointer <EncryptionMode> mode)
 	{
 		if (!IsModeSupported (*mode))
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		mode->SetCiphers (Ciphers);
 		Mode = mode;
@@ -194,23 +197,23 @@ namespace Volume {
 	void EncryptionAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (Ciphers.size() < 1)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		if (GetKeySize() != key.Size())
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		size_t keyOffset = 0;
-        foreach_ref (CipherAlgorithm &c, Ciphers)
+        for (QSharedPointer<CipherAlgorithm> c : Ciphers)
 		{
-			c.SetKey (key.GetRange (keyOffset, c.GetKeySize()));
-			keyOffset += c.GetKeySize();
+            c->SetKey (key.GetRange (keyOffset, c->GetKeySize()));
+            keyOffset += c->GetKeySize();
 		}
 	}
 
 	void EncryptionAlgorithm::ValidateState () const
 	{
         if (Ciphers.size() < 1 || Mode.isNull())
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 	}
 }
 }

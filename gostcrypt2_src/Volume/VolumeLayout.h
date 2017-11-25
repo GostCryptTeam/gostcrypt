@@ -68,10 +68,10 @@ namespace Volume {
 		VolumeLayoutV1Normal ();
 		virtual ~VolumeLayoutV1Normal () { }
 
-		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
+        virtual int GetBackupHeaderOffset () const { throw; }
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
+                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw; }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:
@@ -86,10 +86,10 @@ namespace Volume {
 		VolumeLayoutV1Hidden ();
 		virtual ~VolumeLayoutV1Hidden () { }
 
-		virtual int GetBackupHeaderOffset () const { throw NotApplicable (SRC_POS); }
+        virtual int GetBackupHeaderOffset () const { throw; }
 		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
 		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw NotApplicable (SRC_POS); }
+                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw; }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:

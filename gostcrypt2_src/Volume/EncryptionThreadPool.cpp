@@ -53,7 +53,7 @@ namespace Volume {
 				break;
 
 			default:
-				throw ParameterIncorrect (SRC_POS);
+                throw; //ParameterIncorrect (SRC_POS);
 			}
 
 			return;
@@ -79,7 +79,7 @@ namespace Volume {
 		fragmentStartUnitNo = startUnitNo;
 
 		{
-			ScopeLock lock (EnqueueMutex);
+            QMutexLocker lock (&EnqueueMutex);
 			firstFragmentWorkItem = &WorkItemQueue[EnqueuePosition];
 
 			while (firstFragmentWorkItem->State != WorkItem::State::Free)
@@ -88,7 +88,7 @@ namespace Volume {
 			}
 
 			firstFragmentWorkItem->OutstandingFragmentCount.Set (fragmentCount);
-			firstFragmentWorkItem->ItemException.reset();
+            //firstFragmentWorkItem->ItemException.reset();
 
 			while (fragmentCount-- > 0)
 			{
@@ -124,7 +124,8 @@ namespace Volume {
 
 		firstFragmentWorkItem->ItemCompletedEvent.Wait();
 
-		QSharedPointer <Exception> itemException;
+        /*
+        QSharedPointer <Exception> itemException;
         if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
 
@@ -133,6 +134,7 @@ namespace Volume {
 
         if (!itemException.isNull())
 			itemException->Throw();
+            */
 	}
 
 	void EncryptionThreadPool::Start ()
@@ -190,7 +192,7 @@ namespace Volume {
 					}
 				};
 
-				make_shared_auto (Thread, thread);
+                QSharedPointer<Thread> thread(new Thread());
 				thread->Start (new ThreadFunctor ());
 				RunningThreads.push_back (thread);
 			}
@@ -217,9 +219,9 @@ namespace Volume {
 		StopPending = true;
 		WorkItemReadyEvent.Signal();
 
-		foreach_ref (const Thread &thread, RunningThreads)
+        for (const QSharedPointer<Thread> thread : RunningThreads)
 		{
-			thread.Join();
+            thread->Join();
 		}
 
 		ThreadCount = 0;
@@ -235,7 +237,7 @@ namespace Volume {
 			while (!StopPending)
 			{
 				{
-					ScopeLock lock (DequeueMutex);
+                    QMutexLocker lock (&DequeueMutex);
 
 					workItem = &WorkItemQueue[DequeuePosition++];
 
@@ -266,20 +268,20 @@ namespace Volume {
 						break;
 
 					default:
-						throw ParameterIncorrect (SRC_POS);
+                        throw;// ParameterIncorrect (SRC_POS);
 					}
 				}
-				catch (Exception &e)
-				{
-					workItem->FirstFragment->ItemException.reset (e.CloneNew());
-				}
+                //catch (Exception &e)
+                //{
+                    //workItem->FirstFragment->ItemException.reset (e.CloneNew());
+                //}
 				catch (exception &e)
 				{
-					workItem->FirstFragment->ItemException.reset (new ExternalException (SRC_POS, StringConverter::ToExceptionString (e)));
+                    //workItem->FirstFragment->ItemException.reset (new ExternalException (SRC_POS, StringConverter::ToExceptionString (e)));
 				}
 				catch (...)
 				{
-					workItem->FirstFragment->ItemException.reset (new UnknownException (SRC_POS));
+                    //workItem->FirstFragment->ItemException.reset (new UnknownException (SRC_POS));
 				}
 
 				if (workItem != workItem->FirstFragment)
@@ -298,7 +300,7 @@ namespace Volume {
 		}
 		catch (...)
 		{
-			SystemLog::WriteException (UnknownException (SRC_POS));
+            //SystemLog::WriteException (UnknownException (SRC_POS));
 		}
 	}
 
@@ -312,8 +314,8 @@ namespace Volume {
 	volatile size_t EncryptionThreadPool::EnqueuePosition;
 	volatile size_t EncryptionThreadPool::DequeuePosition;
 
-	Mutex EncryptionThreadPool::EnqueueMutex;
-	Mutex EncryptionThreadPool::DequeueMutex;
+    QMutex EncryptionThreadPool::EnqueueMutex;
+    QMutex EncryptionThreadPool::DequeueMutex;
 
 	SyncEvent EncryptionThreadPool::WorkItemReadyEvent;
 	SyncEvent EncryptionThreadPool::WorkItemCompletedEvent;

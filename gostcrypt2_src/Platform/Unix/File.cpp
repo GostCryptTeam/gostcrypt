@@ -31,6 +31,7 @@
 
 #include "Platform/File.h"
 #include "Platform/TextReader.h"
+#include <QTextStream>
 
 namespace GostCrypt
 {
@@ -66,7 +67,8 @@ namespace GostCrypt
 
 				try
 				{
-					throw_sys_sub_if (utime (string (Path).c_str(), &u) == -1, wstring (Path));
+                    if (utime (string (Path).c_str(), &u) == -1) // should be in a dedicated method of File.
+                        throw;
 				}
 				catch (...) // Suppress errors to allow using read-only files
 				{
@@ -88,7 +90,8 @@ namespace GostCrypt
 	void File::Flush () const
 	{
 		if_debug (ValidateState());
-		throw_sys_sub_if (fsync (FileHandle) != 0, wstring (Path));
+        if (fsync (FileHandle) != 0)
+            throw;
 	}
 
 	uint32 File::GetDeviceSectorSize () const
@@ -97,7 +100,8 @@ namespace GostCrypt
 		{
 #ifdef GST_LINUX
 			int blockSize;
-			throw_sys_sub_if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1, wstring (Path));
+            if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
+                throw;
 			return blockSize;
 
 #elif defined (GST_MACOSX)
@@ -120,63 +124,31 @@ namespace GostCrypt
 #endif
 		}
 		else
-			throw ParameterIncorrect (SRC_POS);
+            throw; // (SRC_POS);
 	}
 
 	uint64 File::GetPartitionDeviceStartOffset () const
 	{
-#ifdef GST_LINUX
-
 		// HDIO_GETGEO ioctl is limited by the size of long
-		TextReader tr ("/sys/block/" + string (Path.ToHostDriveOfPartition().ToBaseName()) + "/" + string (Path.ToBaseName()) + "/start");
+        DevicePath devicePath = DevicePath(Path);
+        QFile file("/sys/block/" + devicePath.ToHostDriveOfPartition().GetBaseName() + "/" + devicePath.GetBaseName() + "/start");
 
-		string line;
-		tr.ReadLine (line);
-		return StringConverter::ToUInt64 (line) * GetDeviceSectorSize();
+        if(!file.open(QFile::ReadOnly))
+            throw;// FailedOpenFileException(QFileInfo(""));
+        QByteArray fileContent = file.readAll();
+        QTextStream ts(&fileContent);
+        quint64 startSectorOffset = ts.readLine().toULongLong();
 
-#elif defined (GST_MACOSX)
-
-#ifndef DKIOCGETBASE
-#	define DKIOCGETBASE _IOR('d', 73, uint64)
-#endif
-		uint64 offset;
-		throw_sys_sub_if (ioctl (FileHandle, DKIOCGETBASE, &offset) == -1, wstring (Path));
-		return offset;
-
-#elif defined (GST_SOLARIS)
-
-		struct extpart_info partInfo;
-		throw_sys_sub_if (ioctl (FileHandle, DKIOCEXTPARTINFO, &partInfo) == -1, wstring (Path));
-		return partInfo.p_start * GetDeviceSectorSize();
-
-#else
-		throw NotImplemented (SRC_POS);
-#endif
+        return startSectorOffset * GetDeviceSectorSize();
 	}
 
 	uint64 File::Length () const
 	{
 		if_debug (ValidateState());
 
-		// BSD does not support seeking to the end of a device
-#ifdef GST_BSD
-		if (Path.IsBlockDevice() || Path.IsCharacterDevice())
-		{
-#	ifdef GST_MACOSX
-			uint32 blockSize;
-			uint64 blockCount;
-			throw_sys_sub_if (ioctl (FileHandle, DKIOCGETBLOCKSIZE, &blockSize) == -1, wstring (Path));
-			throw_sys_sub_if (ioctl (FileHandle, DKIOCGETBLOCKCOUNT, &blockCount) == -1, wstring (Path));
-			return blockCount * blockSize;
-#	else
-			uint64 mediaSize;
-			throw_sys_sub_if (ioctl (FileHandle, DIOCGMEDIASIZE, &mediaSize) == -1, wstring (Path));
-			return mediaSize;
-#	endif
-		}
-#endif
 		off_t current = lseek (FileHandle, 0, SEEK_CUR);
-		throw_sys_sub_if (current == -1, wstring (Path));
+        if (current == -1)
+            throw;
 		SeekEnd (0);
 		uint64 length = lseek (FileHandle, 0, SEEK_CUR);
 		SeekAt (current);
@@ -215,19 +187,21 @@ namespace GostCrypt
 			break;
 
 		default:
-			throw ParameterIncorrect (SRC_POS);
+            throw;// (SRC_POS);
 		}
 
 		if ((flags & File::PreserveTimestamps) && path.IsFile())
 		{
 			struct stat statData;
-			throw_sys_sub_if (stat (string (path).c_str(), &statData) == -1, wstring (path));
+            if (stat (string (path).c_str(), &statData) == -1)
+                throw;
 			AccTime = statData.st_atime;
 			ModTime = statData.st_mtime;
 		}
 
 		FileHandle = open (string (path).c_str(), sysFlags, S_IRUSR | S_IWUSR);
-		throw_sys_sub_if (FileHandle == -1, wstring (path));
+        if (FileHandle == -1)
+            throw;
 
 #if 0 // File locking is disabled to avoid remote filesystem locking issues
 		try
@@ -288,7 +262,8 @@ namespace GostCrypt
 		TraceFileOperation (FileHandle, Path, false, buffer.Size());
 #endif
 		ssize_t bytesRead = read (FileHandle, buffer, buffer.Size());
-		throw_sys_sub_if (bytesRead == -1, wstring (Path));
+        if (bytesRead == -1)
+            throw;
 
 		return bytesRead;
 	}
@@ -301,7 +276,8 @@ namespace GostCrypt
 		TraceFileOperation (FileHandle, Path, false, buffer.Size(), position);
 #endif
 		ssize_t bytesRead = pread (FileHandle, buffer, buffer.Size(), position);
-		throw_sys_sub_if (bytesRead == -1, wstring (Path));
+        if (bytesRead == -1)
+            throw;
 
 		return bytesRead;
 	}
@@ -309,7 +285,8 @@ namespace GostCrypt
 	void File::SeekAt (uint64 position) const
 	{
 		if_debug (ValidateState());
-		throw_sys_sub_if (lseek (FileHandle, position, SEEK_SET) == -1, wstring (Path));
+        if (lseek (FileHandle, position, SEEK_SET) == -1)
+            throw;
 	}
 
 	void File::SeekEnd (int offset) const
@@ -325,7 +302,8 @@ namespace GostCrypt
 		}
 #endif
 
-		throw_sys_sub_if (lseek (FileHandle, offset, SEEK_END) == -1, wstring (Path));
+        if (lseek (FileHandle, offset, SEEK_END) == -1)
+               throw;//TODO
 	}
 
 	void File::Write (const ConstBufferPtr &buffer) const
@@ -335,7 +313,8 @@ namespace GostCrypt
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, true, buffer.Size());
 #endif
-		throw_sys_sub_if (write (FileHandle, buffer, buffer.Size()) != (ssize_t) buffer.Size(), wstring (Path));
+        if (write (FileHandle, buffer, buffer.Size()) != (ssize_t) buffer.Size())
+            throw; //TODO
 	}
 
 	void File::WriteAt (const ConstBufferPtr &buffer, uint64 position) const
@@ -345,6 +324,7 @@ namespace GostCrypt
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, true, buffer.Size(), position);
 #endif
-		throw_sys_sub_if (pwrite (FileHandle, buffer, buffer.Size(), position) != (ssize_t) buffer.Size(), wstring (Path));
+        if(pwrite (FileHandle, buffer, buffer.Size(), position) != (ssize_t) buffer.Size())
+            throw; //TODO
 	}
 }

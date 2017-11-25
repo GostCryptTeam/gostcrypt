@@ -7,7 +7,6 @@
 */
 
 
-#include "Exception.h"
 #include "MemoryStream.h"
 
 namespace GostCrypt
@@ -22,7 +21,7 @@ namespace GostCrypt
 	uint64 MemoryStream::Read (const BufferPtr &buffer)
 	{
 		if (Data.size() == 0)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		ConstBufferPtr streamBuf (*this);
 		size_t len = buffer.Size();
@@ -37,7 +36,7 @@ namespace GostCrypt
 	void MemoryStream::ReadCompleteBuffer (const BufferPtr &buffer)
 	{
 		if (Read (buffer) != buffer.Size())
-			throw InsufficientData (SRC_POS);
+            throw;// InsufficientData (SRC_POS);
 	}
 
 	void MemoryStream::Write (const ConstBufferPtr &data)

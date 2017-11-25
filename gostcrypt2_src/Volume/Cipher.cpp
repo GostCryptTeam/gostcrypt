@@ -28,7 +28,7 @@ namespace Volume {
     void CipherAlgorithm::DecryptBlock (byte *data) const
 	{
 		if (!Initialized)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		Decrypt (data);
 	}
@@ -36,7 +36,7 @@ namespace Volume {
     void CipherAlgorithm::DecryptBlocks (byte *data, size_t blockCount) const
 	{
 		if (!Initialized)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		while (blockCount-- > 0)
 		{
@@ -48,7 +48,7 @@ namespace Volume {
     void CipherAlgorithm::EncryptBlock (byte *data) const
 	{
 		if (!Initialized)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		Encrypt (data);
 	}
@@ -56,7 +56,7 @@ namespace Volume {
     void CipherAlgorithm::EncryptBlocks (byte *data, size_t blockCount) const
 	{
 		if (!Initialized)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		while (blockCount-- > 0)
 		{
@@ -78,7 +78,7 @@ namespace Volume {
     void CipherAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (key.Size() != GetKeySize ())
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		if (!Initialized)
 			ScheduledKey.Allocate (GetScheduledKeySize ());
@@ -105,12 +105,6 @@ namespace Volume {
 	{
 		return KeySwapped;
 	}
-
-#define GST_EXCEPTION(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-#undef GST_EXCEPTION_NODECL
-#define GST_EXCEPTION_NODECL(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-
-	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (CipherException);
 
 	// GOST
     void CipherAlgorithmGOST::Decrypt (byte *data) const

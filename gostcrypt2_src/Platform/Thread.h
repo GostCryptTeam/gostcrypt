@@ -15,7 +15,6 @@
 
 #include "PlatformBase.h"
 #include "Functor.h"
-#include "SharedPtr.h"
 #include "SyncEvent.h"
 
 namespace GostCrypt

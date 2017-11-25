@@ -7,6 +7,7 @@
 #include <QThread>
 #include <fuse.h>
 #include <signal.h>
+#include <unistd.h>
 #include "Volume/EncryptionThreadPool.h"
 #include "Volume/VolumePassword.h"
 #include "Core/CoreBase.h"
@@ -49,7 +50,7 @@ namespace GostCrypt {
 				FuseService::groupId = Core::getGroupId(params->mountedForGroup);
 
 			do {
-				try {
+                //try {
                     Volume::VolumePath path(params->path->absoluteFilePath().toStdWString());
                     QSharedPointer<Volume::VolumePassword> password;
                     QSharedPointer<Volume::VolumePassword> protectionPassword;
@@ -66,12 +67,12 @@ namespace GostCrypt {
                         protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilePath(keyfile->absoluteFilePath().toStdWString()))));
                         }
                     }
                     if(!params->protectionKeyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilePath(keyfile->absoluteFilePath().toStdWString()))));
                         }
                     }
 
@@ -85,6 +86,7 @@ namespace GostCrypt {
                         protectionKeyfiles,
 						params->useBackupHeaders
 					);
+                /*
                 } catch(GostCrypt::Volume::PasswordException &e) {
                     throw IncorrectVolumePasswordException(params->path)
                 } catch(GostCrypt::SystemException &e) {
@@ -98,7 +100,7 @@ namespace GostCrypt {
                     throw FailedOpenVolumeException(params->path);
                 } catch(GostCrypt::Exception &e) {
                     throw ExceptionFromVolumeException(e.what());
-                }
+                }//*/
 
 				params->password->fill('\0');
                 if(!params->protectionPassword.isNull())
@@ -257,7 +259,8 @@ namespace GostCrypt {
 			{
 				return -ENOMEM;
 			}
-			catch (ParameterIncorrect &e)
+            /*
+            catch (ParameterIncorrect &e)
 			{
 				//SystemLog::WriteException (e);
 				return -EINVAL;
@@ -274,7 +277,7 @@ namespace GostCrypt {
 			{
 				//SystemLog::WriteException (e);
 				return -static_cast <int> (e.GetErrorCode());
-			}
+            }//*/
 			catch (std::exception &e)
 			{
 				//SystemLog::WriteException (e);
@@ -459,7 +462,7 @@ namespace GostCrypt {
 
 				if (strcmp (path, getVolumeImagePath()) == 0)
 				{
-					try
+                    //try
 					{
 						// Test for read beyond the end of the volume
 						if ((uint64) offset + size > FuseService::getVolumeSize())
@@ -487,10 +490,11 @@ namespace GostCrypt {
 							FuseService::readVolumeSectors(BufferPtr ((byte *) buf, size), offset);
 						}
 					}
-					catch (Volume::MissingVolumeData)
+                    /*
+                    catch (Volume::MissingVolumeData)
 					{
 						return 0;
-					}
+                    }//*/
 
 					return size;
 				}

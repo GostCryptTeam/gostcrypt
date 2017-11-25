@@ -12,18 +12,12 @@
 
 #include "PlatformBase.h"
 #include "Buffer.h"
-#include "Exception.h"
-#include "Directory.h"
-#include "Event.h"
 #include "File.h"
-#include "FilesystemPath.h"
+#include "FilePath.h"
 #include "Finally.h"
-#include "ForEach.h"
 #include "Functor.h"
 #include "Memory.h"
 #include "Mutex.h"
-#include "SharedPtr.h"
-#include "SystemException.h"
 #include "Thread.h"
 
 #endif // GST_HEADER_Platform

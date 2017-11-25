@@ -6,9 +6,7 @@
  packages.
 */
 
-
-#include "Event.h"
-
+/*
 namespace GostCrypt
 {
 	void Event::Connect (const EventConnectorBase &connector)
@@ -45,4 +43,4 @@ namespace GostCrypt
 			handler (args);
 		}
 	}
-}
+}//*/

@@ -7,9 +7,7 @@
 */
 
 
-#include "Platform/Exception.h"
 #include "Platform/SyncEvent.h"
-#include "Platform/SystemException.h"
 
 namespace GostCrypt
 {
@@ -17,7 +15,7 @@ namespace GostCrypt
 	{
 		int status = pthread_cond_init (&SystemSyncEvent, nullptr);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		Signaled = false;
 		Initialized = true;
@@ -40,7 +38,7 @@ namespace GostCrypt
 
 	void SyncEvent::Signal ()
 	{
-		assert (Initialized);
+        //assert (Initialized);
 
 		ScopeLock lock (EventMutex);
 
@@ -48,12 +46,12 @@ namespace GostCrypt
 
 		int status = pthread_cond_signal (&SystemSyncEvent);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; //TODO (SRC_POS, status);
 	}
 
 	void SyncEvent::Wait ()
 	{
-		assert (Initialized);
+        //assert (Initialized);
 
 		ScopeLock lock (EventMutex);
 
@@ -61,7 +59,7 @@ namespace GostCrypt
 		{
 			int status = pthread_cond_wait (&SystemSyncEvent, EventMutex.GetSystemHandle());
 			if (status != 0)
-				throw SystemException (SRC_POS, status);
+                throw; //TODO (SRC_POS, status);
 		}
 		
 		Signaled = false;

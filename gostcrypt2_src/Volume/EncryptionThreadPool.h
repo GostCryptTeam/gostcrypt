@@ -12,6 +12,8 @@
 
 #include "Platform/Platform.h"
 #include "EncryptionMode.h"
+#include "Platform/SharedVal.h"
+#include <QMutex>
 
 namespace GostCrypt
 {
@@ -43,7 +45,7 @@ namespace Volume {
 			};
 
 			struct WorkItem *FirstFragment;
-			QSharedPointer <Exception> ItemException;
+            //QSharedPointer <Exception> ItemException;
 			SyncEvent ItemCompletedEvent;
 			SharedVal <size_t> OutstandingFragmentCount;
 			SharedVal <State::Enum> State;
@@ -73,10 +75,10 @@ namespace Volume {
 		static const size_t MaxThreadCount = 32;
 		static const size_t QueueSize = MaxThreadCount * 2;
 
-		static Mutex DequeueMutex;
+        static QMutex DequeueMutex;
 		static volatile size_t DequeuePosition;
 		static volatile size_t EnqueuePosition;
-		static Mutex EnqueueMutex;
+        static QMutex EnqueueMutex;
 		static list < QSharedPointer <Thread> > RunningThreads;
 		static volatile bool StopPending;
 		static size_t ThreadCount;

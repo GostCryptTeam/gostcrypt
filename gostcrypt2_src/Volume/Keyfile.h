@@ -20,15 +20,15 @@ namespace GostCrypt
 namespace Volume {
 
 	class Keyfile;
-	typedef list < QSharedPointer <Keyfile> > KeyfileList;
+    typedef list < QSharedPointer <Keyfile> > KeyfileList;
 
-	class Keyfile
+    class Keyfile //inherit from QFile
 	{
 	public:
-                Keyfile (const FilesystemPath &path){ (void)path; }
-		virtual ~Keyfile () { };
+        Keyfile (const FilePath &path){ (void)path; }
+        virtual ~Keyfile () { }
 
-		operator FilesystemPath () const { return Path; }
+        operator FilePath () const { return Path; }
         static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
 		static QSharedPointer <KeyfileList> DeserializeList (QSharedPointer <Stream> stream, const string &name);
 		static void SerializeList (QSharedPointer <Stream> stream, const string &name, QSharedPointer <KeyfileList> keyfiles);
@@ -42,7 +42,7 @@ namespace Volume {
 
 		static bool HiddenFileWasPresentInKeyfilePath;
 
-		FilesystemPath Path;
+        FilePath Path;
 
 	private:
 		Keyfile (const Keyfile &);

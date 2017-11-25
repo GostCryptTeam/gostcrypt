@@ -34,7 +34,6 @@ HEADERS += \
     VolumePassword.h \
     VolumeLayout.h \
     VolumeHeader.h \
-    VolumeException.h \
     Volume.h \
     Version.h \
     Pkcs5Kdf.h \
@@ -51,7 +50,6 @@ HEADERS += \
     ../Crypto/GrasshopperCipher.h \
     ../Crypto/GostHash.h \
     ../Crypto/GostCipher.h \
-    ../Common/SecurityToken.h \
     ../Common/Pkcs5.h \
     ../Common/GfMul.h \
     ../Common/Endian.h \
@@ -67,11 +65,9 @@ HEADERS += \
     EncryptionAlgorithmGrasshopper.h
 
 SOURCES += \
-    VolumePasswordCache.cpp \
     VolumePassword.cpp \
     VolumeLayout.cpp \
     VolumeHeader.cpp \
-    VolumeException.cpp \
     Volume.cpp \
     Pkcs5Kdf.cpp \
     Keyfile.cpp \
@@ -86,7 +82,6 @@ SOURCES += \
     ../Crypto/GrasshopperCipher.c \
     ../Crypto/GostHash.c \
     ../Crypto/GostCipher.c \
-    ../Common/SecurityToken.cpp \
     ../Common/Pkcs5.c \
     ../Common/GfMul.c \
     ../Common/Endian.c \

@@ -10,7 +10,6 @@
 #include <poll.h>
 #include <unistd.h>
 #include "Poller.h"
-#include "Platform/SystemException.h"
 
 namespace GostCrypt
 {
@@ -42,7 +41,7 @@ namespace GostCrypt
 		int pollRes = poll (&pfd[0], pfd.size(), timeOut);
 
 		if (pollRes == 0 && timeOut != -1)
-			throw TimeOut (SRC_POS);
+            throw;// (SRC_POS);
 
 		if (pollRes > 0)
 		{

@@ -863,6 +863,27 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
             DEC_SERIALIZABLE(IncorrectVolumePassword);
         };
 
+        #define RandomNumberGeneratorNotRunningException() GostCrypt::Core::RandomNumberGeneratorNotRunning(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class RandomNumberGeneratorNotRunning : public CoreException {
+            public:
+                /**
+                 * @brief Default Constructor used when deserializing
+                 *
+                 */
+                RandomNumberGeneratorNotRunning() {}
+                /**
+                 * @brief Constructor used when throwing the exception
+                 *
+                 * @param fonction Name of the function where the exception is thrown
+                 * @param filename Name of the file where the exception is thrown
+                 * @param line Line where the exception is thrown
+                 */
+                RandomNumberGeneratorNotRunning(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+                DEF_EXCEPTION_WHAT(RandomNumberGeneratorNotRunning, CoreException, "The random number generator is not running")
+            protected:
+            DEC_SERIALIZABLE(RandomNumberGeneratorNotRunning);
+        };
+
 	}
 }
 
@@ -896,5 +917,6 @@ SERIALIZABLE(GostCrypt::Core::ExceptionFromVolume)
 SERIALIZABLE(GostCrypt::Core::FailFindFilesystemType)
 SERIALIZABLE(GostCrypt::Core::InvalidParam)
 SERIALIZABLE(GostCrypt::Core::IncorrectVolumePassword)
+SERIALIZABLE(GostCrypt::Core::RandomNumberGeneratorNotRunning)
 
 #endif // COREEXCEPTION_H

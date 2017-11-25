@@ -35,7 +35,7 @@ namespace Volume {
 			++iSecondaryCipher;
 		}
 
-		assert (iSecondaryCipher == SecondaryCiphers.end());
+        //assert (iSecondaryCipher == SecondaryCiphers.end());
 	}
 
     void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
@@ -277,12 +277,12 @@ namespace Volume {
 	size_t EncryptionModeXTS::GetKeySize () const
 	{
 		if (Ciphers.empty())
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		size_t keySize = 0;
-        foreach_ref (const CipherAlgorithm &cipher, SecondaryCiphers)
+        for (const QSharedPointer<CipherAlgorithm> cipher : SecondaryCiphers)
 		{
-			keySize += cipher.GetKeySize();
+            keySize += cipher->GetKeySize();
 		}
 
 		return keySize;
@@ -308,7 +308,7 @@ namespace Volume {
 				DecryptBufferXTS (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
 		}
 
-		assert (iSecondaryCipher == SecondaryCiphers.begin());
+        //assert (iSecondaryCipher == SecondaryCiphers.begin());
 	}
 
     void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
@@ -544,9 +544,9 @@ namespace Volume {
 
 		SecondaryCiphers.clear();
 
-        foreach_ref (const CipherAlgorithm &cipher, ciphers)
+        for (const QSharedPointer<CipherAlgorithm> cipher : ciphers)
 		{
-			SecondaryCiphers.push_back (cipher.GetNew());
+            SecondaryCiphers.push_back (cipher->GetNew());
 		}
 
 		if (SecondaryKey.Size() > 0)
@@ -565,10 +565,10 @@ namespace Volume {
 	void EncryptionModeXTS::SetSecondaryCipherKeys ()
 	{
 		size_t keyOffset = 0;
-        foreach_ref (CipherAlgorithm &cipher, SecondaryCiphers)
+        for (QSharedPointer<CipherAlgorithm> cipher : SecondaryCiphers)
 		{
-			cipher.SetKey (SecondaryKey.GetRange (keyOffset, cipher.GetKeySize()));
-			keyOffset += cipher.GetKeySize();
+            cipher->SetKey (SecondaryKey.GetRange (keyOffset, cipher->GetKeySize()));
+            keyOffset += cipher->GetKeySize();
 		}
 
 		KeySet = true;

@@ -412,5 +412,15 @@ namespace GostCrypt {
             in >> Valeur.devicePath;
             return in;
         }
+
+      DEF_SERIALIZABLE(GostCrypt::Core::RandomNumberGeneratorNotRunning)
+      QDataStream & operator << (QDataStream & out, const GostCrypt::Core::RandomNumberGeneratorNotRunning & Valeur) {
+          out << static_cast<const CoreException&>(Valeur);
+          return out;
+      }
+      QDataStream & operator >> (QDataStream & in, GostCrypt::Core::RandomNumberGeneratorNotRunning & Valeur) {
+          in >> static_cast<CoreException&>(Valeur);
+          return in;
+      }
     }
 }

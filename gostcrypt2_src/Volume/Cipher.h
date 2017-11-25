@@ -71,14 +71,6 @@ namespace Volume {
         CipherAlgorithm &operator= (const CipherAlgorithm &);
 	};
 
-	struct CipherException : public Exception
-	{
-	protected:
-		CipherException () { }
-		CipherException (const string &message) : Exception (message) { }
-		CipherException (const string &message, const wstring &subject) : Exception (message, subject) { }
-	};
-
 #define GST_CIPHER(NAME, BLOCK_SIZE, KEY_SIZE, FANCY_NAME, DESCRIPTION) \
     class GST_JOIN (CipherAlgorithm,NAME) : public CipherAlgorithm \
 	{ \
@@ -114,74 +106,6 @@ GST_CIPHER(GOST, 8, 32, "GOST 28147-89",
            "balanced Feistel network.<br><font color='719c24'><a href='#'>More information on GOST 28147-89</a></font>")
 
 GST_CIPHER(GRASSHOPPER, 8, 32, "Gost Grasshopper", "No description for Gost Grasshopper.")
-
-  /*
-class CipherGOST : public Cipher
-{
-public:
-	CipherGOST () { }
-	virtual ~CipherGOST () { }
-
-	virtual size_t GetBlockSize () const { return 8; };
-	virtual size_t GetKeySize () const { return 32; };
-	virtual wstring GetName () const { return L"GOST 28147-89"; };
-	virtual QSharedPointer <Cipher> GetNew () const { return QSharedPointer <Cipher> (new CipherGOST()); }
-
-	virtual void XorCipherKey (byte *ks, byte *data, int len) const;
-	virtual void EncryptWithKS (byte *data, byte *ks) const;
-	virtual void DecryptWithKS (byte *data, byte *ks) const;
-	virtual void CopyCipherKey (byte *ks) const;
-	virtual size_t GetScheduledKeySize () const;
-
-protected:
-	virtual void Decrypt (byte *data) const;
-	virtual void Encrypt (byte *data) const;
-	virtual void SetCipherKey (const byte *key);
-
-private:
-	CipherGOST (const CipherGOST &);
-	CipherGOST &operator= (const CipherGOST &);
-};
-
-class CipherGRASSHOPPER : public Cipher
-{
-public:
-	CipherGRASSHOPPER () { }
-	virtual ~CipherGRASSHOPPER () { }
-
-	virtual size_t GetBlockSize () const {return 16; };
-	virtual size_t GetKeySize () const {return 32; };
-	virtual wstring GetName() const {return L"Gost Grasshopper"; };
-	virtual QSharedPointer <Cipher> GetNew() const {return QSharedPointer <Cipher> (new CipherGRASSHOPPER());};
-
-	virtual void XorCipherKey (byte *ks, byte *data, int len) const;
-	virtual void EncryptWithKS (byte *data, byte *ks) const;
-	virtual void DecryptWithKS (byte *data, byte *ks) const;
-	virtual void CopyCipherKey (byte *ks) const;
-
-	virtual size_t GetScheduledKeySize () const;
-
-protected:
-	virtual void Decrypt (byte *data) const;
-	virtual void Encrypt (byte *data) const;
-	virtual void SetCipherKey (const byte *key);
-
-private:
-	CipherGRASSHOPPER (const CipherGRASSHOPPER &);
-	CipherGRASSHOPPER &operator= (const CipherGRASSHOPPER &);
-
-};*/
-
-#define GST_EXCEPTION(NAME) GST_EXCEPTION_DECL(NAME,CipherException)
-
-#undef GST_EXCEPTION_SET
-#define GST_EXCEPTION_SET \
-	GST_EXCEPTION (CipherInitError); \
-        GST_EXCEPTION (WeakKeyDetected)
-
-	GST_EXCEPTION_SET;
-
-#undef GST_EXCEPTION
 
 }
 }

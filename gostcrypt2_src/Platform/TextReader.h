@@ -12,8 +12,7 @@
 
 #include "PlatformBase.h"
 #include "FileStream.h"
-#include "FilesystemPath.h"
-#include "SharedPtr.h"
+#include "FilePath.h"
 #include "Stream.h"
 
 namespace GostCrypt

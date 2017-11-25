@@ -10,7 +10,9 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <unistd.h>
 
+#include "CoreException.h"
 #include "RandomNumberGenerator.h"
 #include "Volume/Crc32.h"
 
@@ -22,20 +24,24 @@ namespace GostCrypt
 		SecureBuffer buffer (PoolSize);
 
 		int urandom = open ("/dev/urandom", O_RDONLY);
-		throw_sys_sub_if (urandom == -1, L"/dev/urandom");
+        if (urandom == -1)
+            throw; //sys exception
 		finally_do_arg (int, urandom, { close (finally_arg); });
 
-		throw_sys_sub_if (read (urandom, buffer, buffer.Size()) == -1, L"/dev/urandom");
+        if (read (urandom, buffer, buffer.Size()) == -1)
+            throw;
 		AddToPool (buffer);
 
 		if (!fast)
 		{
 			// Read all bytes available in /dev/random up to buffer size
 			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
-			throw_sys_sub_if (random == -1, L"/dev/random");
+            if (random == -1)
+                throw;
 			finally_do_arg (int, random, { close (finally_arg); });
 
-			throw_sys_sub_if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN, L"/dev/random");
+            if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN)
+                throw;
 			AddToPool (buffer);
 		}
 	}
@@ -43,7 +49,7 @@ namespace GostCrypt
 	void RandomNumberGenerator::AddToPool (const ConstBufferPtr &data)
 	{
 		if (!Running)
-			throw NotInitialized (SRC_POS);
+            throw RandomNumberGeneratorNotRunningException();
 
 		ScopeLock lock (AccessMutex);
 
@@ -62,10 +68,10 @@ namespace GostCrypt
 	void RandomNumberGenerator::GetData (const BufferPtr &buffer, bool fast)
 	{
 		if (!Running)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		if (buffer.Size() > PoolSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		ScopeLock lock (AccessMutex);
 

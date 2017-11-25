@@ -53,7 +53,7 @@ namespace Volume {
 			cipher.EncryptBlock (buffer);
 
 			if (memcmp (buffer, testVector[i].Ciphertext, buffer.Size()) != 0)
-				throw TestFailed (SRC_POS);
+                throw;// TestFailed (SRC_POS);
 		}
 	}
 
@@ -74,12 +74,12 @@ namespace Volume {
 			gost.EncryptBlocks (testData, testData.Size() / gost.GetBlockSize());
 
 			if (Crc32::ProcessBuffer (testData) != 0xc06e0704)
-				throw TestFailed (SRC_POS);
+                throw;// TestFailed (SRC_POS);
 
 			gost.DecryptBlocks (testData, testData.Size() / gost.GetBlockSize());
 
 			if (origCrc != Crc32::ProcessBuffer (testData))
-				throw TestFailed (SRC_POS);
+                throw;// TestFailed (SRC_POS);
 
 	}
 
@@ -340,22 +340,22 @@ namespace Volume {
 			unitNo = writeOffset / ENCRYPTION_DATA_UNIT_SIZE;
 
 			// Test all EAs that support this mode of operation
-			foreach_ref (EncryptionAlgorithm &ea, EncryptionAlgorithm::GetAvailableAlgorithms())
+            for (QSharedPointer<EncryptionAlgorithm> ea : EncryptionAlgorithm::GetAvailableAlgorithms())
 			{
 				QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS);
 
-				if (!ea.IsModeSupported (mode))
+                if (!ea->IsModeSupported (mode))
 					continue;
 
-				ea.SetKey (ConstBufferPtr (testKey, ea.GetKeySize()));
+                ea->SetKey(ConstBufferPtr (testKey, ea->GetKeySize()));
 
-				Buffer modeKey (ea.GetKeySize());
+                Buffer modeKey (ea->GetKeySize());
 				for (size_t mi = 0; mi < modeKey.Size(); mi++)
 					modeKey[mi] = (byte) mi;
 				modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2, sizeof (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2)));
 
 				mode->SetKey (modeKey);
-				ea.SetMode (mode);
+                ea->SetMode (mode);
 
 				// Each data unit will contain the same plaintext
 				for (i = 0; i < nbrUnits; i++)
@@ -365,7 +365,7 @@ namespace Volume {
 						ENCRYPTION_DATA_UNIT_SIZE);
 				}
 
-				ea.EncryptSectors (buf, unitNo, nbrUnits, ENCRYPTION_DATA_UNIT_SIZE);
+                ea->EncryptSectors (buf, unitNo, nbrUnits, ENCRYPTION_DATA_UNIT_SIZE);
 
 				crc = GetCrc32 (buf, sizeof (buf));
 
@@ -376,22 +376,22 @@ namespace Volume {
 					{
 					case 0:
 						if (crc != 0x5eacf7d)
-							throw TestFailed (SRC_POS);
+                            throw;// TestFailed (SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 1:
 						if (crc != 0x5b5926d9)
-							throw TestFailed (SRC_POS);
+                            throw;// TestFailed (SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 2:
 						if (crc != 0xcf0cfdd1)
-							throw TestFailed (SRC_POS);
+                            throw;// TestFailed (SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 3:
 						if (crc != 0xe82865a8)
-							throw TestFailed (SRC_POS);
+                            throw;// TestFailed (SRC_POS);
 						nTestsPerformed++;
 						break;
 					}
@@ -402,33 +402,33 @@ namespace Volume {
 					{
 					case 0:
 						if (crc != 0x6b86e72e)
-							throw TestFailed(SRC_POS);
+                            throw;// TestFailed(SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 1:
 						if (crc != 0xa4f8637d)
-							throw TestFailed(SRC_POS);
+                            throw;// TestFailed(SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 2:
 						if (crc != 0xfd83e76d)
-							throw TestFailed(SRC_POS);
+                            throw;// TestFailed(SRC_POS);
 						nTestsPerformed++;
 						break;
 					case 3:
 						if (crc != 0xb24fc47b)
-							throw TestFailed(SRC_POS);
+                            throw;// TestFailed(SRC_POS);
 						nTestsPerformed++;
 						break;
 					}
 				}
 				if (crc == 0x9f5edd58)
-					throw TestFailed (SRC_POS);
+                    throw;// TestFailed (SRC_POS);
 
-				ea.DecryptSectors (buf, unitNo, nbrUnits, ENCRYPTION_DATA_UNIT_SIZE);
+                ea->DecryptSectors (buf, unitNo, nbrUnits, ENCRYPTION_DATA_UNIT_SIZE);
 
 				if (GetCrc32 (buf, sizeof (buf)) != 0x9f5edd58)
-					throw TestFailed (SRC_POS);
+                    throw;// TestFailed (SRC_POS);
 
 				nTestsPerformed++;
 			}
@@ -440,22 +440,22 @@ namespace Volume {
 		nbrUnits = sizeof (buf) / ENCRYPTION_DATA_UNIT_SIZE;
 
 		// Test all EAs that support this mode of operation
-		foreach_ref (EncryptionAlgorithm &ea, EncryptionAlgorithm::GetAvailableAlgorithms())
+        for (QSharedPointer<EncryptionAlgorithm> &ea : EncryptionAlgorithm::GetAvailableAlgorithms())
 		{
 			QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS);
 
-			if (!ea.IsModeSupported (mode))
+            if (!ea->IsModeSupported (mode))
 				continue;
 
-			ea.SetKey (ConstBufferPtr (testKey, ea.GetKeySize()));
+            ea->SetKey (ConstBufferPtr (testKey, ea->GetKeySize()));
 
-			Buffer modeKey (ea.GetKeySize());
+            Buffer modeKey (ea->GetKeySize());
 			for (size_t mi = 0; mi < modeKey.Size(); mi++)
 				modeKey[mi] = (byte) mi;
 			modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2, sizeof (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2)));
 
 			mode->SetKey (modeKey);
-			ea.SetMode (mode);
+            ea->SetMode (mode);
 
 			// Each data unit will contain the same plaintext
 			for (i = 0; i < nbrUnits; i++)
@@ -465,36 +465,36 @@ namespace Volume {
 					ENCRYPTION_DATA_UNIT_SIZE);
 			}
 
-			ea.Encrypt (buf, sizeof (buf));
+            ea->Encrypt (buf, sizeof (buf));
 
 			crc = GetCrc32 (buf, sizeof (buf));
 
-			if (typeid (ea) == typeid (GOST))
+            if (typeid (*ea) == typeid (GOST))
 			{
 				if (crc != 0x5d31eec2)
-					throw TestFailed (SRC_POS);
+                    throw;// TestFailed (SRC_POS);
 				nTestsPerformed++;
 			}
-			else if (typeid(ea) == typeid(GRASSHOPPER))
+            else if (typeid(*ea) == typeid(GRASSHOPPER))
 			{
 				if(crc != 0xd6d39cdb)
-					throw TestFailed (SRC_POS);
+                    throw;// TestFailed (SRC_POS);
 				nTestsPerformed++;
 			}
 
 			if (crc == 0x9f5edd58)
-				throw TestFailed (SRC_POS);
+                throw;// TestFailed (SRC_POS);
 
-			ea.Decrypt (buf, sizeof (buf));
+            ea->Decrypt (buf, sizeof (buf));
 
 			if (GetCrc32 (buf, sizeof (buf)) != 0x9f5edd58)
-				throw TestFailed (SRC_POS);
+                throw;// TestFailed (SRC_POS);
 
 			nTestsPerformed++;
 		}
 
 		if (nTestsPerformed != 20) // 2* number of algorithms
-			throw TestFailed (SRC_POS);
+            throw;// TestFailed (SRC_POS);
 	}
 
 	void EncryptionTest::TestPkcs5 ()
@@ -507,17 +507,17 @@ namespace Volume {
 		Pkcs5HmacWhirlpool pkcs5HmacWhirlpool;
 		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x50\x7c\x36\x6f", 4) != 0)
-			throw TestFailed (SRC_POS);
+            throw;// TestFailed (SRC_POS);
 
 		Pkcs5HmacStribog pkcs5HmacStribog;
 		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\xc7\x13\x56\xb6", 4) != 0)
-			throw TestFailed (SRC_POS);
+            throw;// TestFailed (SRC_POS);
 
 		Pkcs5HmacGostHash pkcs5HmacGostHash;
 		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x7d\x53\xe0\x7e", 4) != 0)
-			throw TestFailed (SRC_POS);
+            throw;// TestFailed (SRC_POS);
 	}
 }
 }

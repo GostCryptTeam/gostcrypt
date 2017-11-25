@@ -12,8 +12,7 @@
 
 #include "PlatformBase.h"
 #include "Buffer.h"
-#include "FilesystemPath.h"
-#include "SystemException.h"
+#include "FilePath.h"
 
 namespace GostCrypt
 {

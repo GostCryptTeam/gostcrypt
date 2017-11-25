@@ -11,13 +11,12 @@
 #define GST_HEADER_Encryption_Password
 
 #include "Platform/Platform.h"
-#include "Platform/Serializable.h"
 
 namespace GostCrypt
 {
 namespace Volume {
 
-	class VolumePassword : public Serializable
+    class VolumePassword
 	{
 	public:
 		VolumePassword ();
@@ -43,8 +42,6 @@ namespace Volume {
 		void Set (const ConstBufferPtr &password);
 		void Set (const VolumePassword &password);
 
-		GST_SERIALIZABLE (VolumePassword);
-
 		static const size_t MaxSize = 64;
 		static const size_t WarningSizeThreshold = 12;
 
@@ -58,39 +55,6 @@ namespace Volume {
 		bool Unportable;
 	};
 
-	struct PasswordException : public Exception
-	{
-	protected:
-		PasswordException () { }
-		PasswordException (const string &message) : Exception (message) { }
-		PasswordException (const string &message, const wstring &subject) : Exception (message, subject) { }
-	};
-
-	GST_EXCEPTION_DECL (PasswordIncorrect, PasswordException);
-	GST_EXCEPTION_DECL (PasswordKeyfilesIncorrect, PasswordIncorrect);
-	GST_EXCEPTION_DECL (PasswordOrKeyboardLayoutIncorrect, PasswordException);
-	GST_EXCEPTION_DECL (PasswordOrMountOptionsIncorrect, PasswordException);
-	GST_EXCEPTION_DECL (ProtectionPasswordIncorrect, PasswordIncorrect);
-	GST_EXCEPTION_DECL (ProtectionPasswordKeyfilesIncorrect, PasswordIncorrect);
-
-#define GST_EXCEPTION(NAME) GST_EXCEPTION_DECL(NAME,PasswordException)
-
-#undef GST_EXCEPTION_SET
-#define GST_EXCEPTION_SET \
-	GST_EXCEPTION_NODECL (PasswordIncorrect); \
-	GST_EXCEPTION_NODECL (PasswordKeyfilesIncorrect); \
-	GST_EXCEPTION_NODECL (PasswordOrKeyboardLayoutIncorrect); \
-	GST_EXCEPTION_NODECL (PasswordOrMountOptionsIncorrect); \
-	GST_EXCEPTION_NODECL (ProtectionPasswordIncorrect); \
-	GST_EXCEPTION_NODECL (ProtectionPasswordKeyfilesIncorrect); \
-	GST_EXCEPTION (PasswordEmpty); \
-	GST_EXCEPTION (PasswordTooLong); \
-	GST_EXCEPTION (UnportablePassword);
-
-	GST_EXCEPTION_SET;
-
-#undef GST_EXCEPTION
 }
 }
-
 #endif // GST_HEADER_Encryption_Password

@@ -9,7 +9,6 @@
 
 #include <pthread.h>
 #include <unistd.h>
-#include "Platform/SystemException.h"
 #include "Platform/Thread.h"
 #include "Platform/SystemLog.h"
 
@@ -19,7 +18,7 @@ namespace GostCrypt
 	{
 		int status = pthread_join (SystemHandle, nullptr);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; //TODO (SRC_POS, status);
 	}
 
 	void Thread::Start (ThreadProcPtr threadProc, void *parameter)
@@ -30,22 +29,22 @@ namespace GostCrypt
 
 		status = pthread_attr_init (&attr);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		status = pthread_attr_getstacksize (&attr, &stackSize);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		if (stackSize < MinThreadStackSize)
 		{
 			status = pthread_attr_setstacksize (&attr, MinThreadStackSize);
 			if (status != 0)
-				throw SystemException (SRC_POS, status);
+                throw; // (SRC_POS, status);
 		}
 
 		status = pthread_create (&SystemHandle, nullptr, threadProc, parameter);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 	}
 
 	void Thread::Sleep (uint32 milliSeconds)

@@ -45,21 +45,21 @@ namespace Volume {
 	void EncryptionMode::ValidateState () const
 	{
 		if (!KeySet || Ciphers.size() < 1)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 	}
 
 	void EncryptionMode::ValidateParameters (byte *data, uint64 length) const
 	{
         (void)data;
         if ((Ciphers.size() > 0 && (length % Ciphers.front()->GetBlockSize()) != 0))
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 	}
 
 	void EncryptionMode::ValidateParameters (byte *data, uint64 sectorCount, size_t sectorSize) const
 	{
         (void)data;
         if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 	}
 }
 }

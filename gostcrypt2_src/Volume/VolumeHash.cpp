@@ -31,13 +31,13 @@ namespace Volume {
 	void VolumeHash::ValidateDataParameters (const ConstBufferPtr &data) const
 	{
 		if (data.Size() < 1)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 	}
 
 	void VolumeHash::ValidateDigestParameters (const BufferPtr &buffer) const
 	{
 		if (buffer.Size() != GetDigestSize ())
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 	}
 
 	// Whirlpool

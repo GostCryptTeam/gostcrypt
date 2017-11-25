@@ -8,8 +8,6 @@
 
 
 #include "VolumePassword.h"
-#include "Platform/SerializerFactory.h"
-#include "Platform/StringConverter.h"
 
 namespace GostCrypt
 {
@@ -53,19 +51,7 @@ namespace Volume {
 	void VolumePassword::CheckPortability () const
 	{
 		if (Unportable || !IsPortable())
-			throw UnportablePassword (SRC_POS);
-	}
-
-	void VolumePassword::Deserialize (QSharedPointer <Stream> stream)
-	{
-		Serializer sr (stream);
-		uint64 passwordSize;
-		sr.Deserialize ("PasswordSize", passwordSize);
-		PasswordSize = static_cast <size_t> (passwordSize);
-		sr.Deserialize ("PasswordBuffer", BufferPtr (PasswordBuffer));
-
-		Buffer wipeBuffer (128 * 1024);
-		sr.Deserialize ("WipeData", wipeBuffer);
+            throw;// UnportablePassword (SRC_POS);
 	}
 
 	bool VolumePassword::IsPortable () const
@@ -78,25 +64,12 @@ namespace Volume {
 		return true;
 	}
 
-	void VolumePassword::Serialize (QSharedPointer <Stream> stream) const
-	{
-		Serializable::Serialize (stream);
-		Serializer sr (stream);
-		sr.Serialize ("PasswordSize", static_cast <uint64> (PasswordSize));
-		sr.Serialize ("PasswordBuffer", ConstBufferPtr (PasswordBuffer));
-
-		// Wipe password from an eventual pipe buffer
-		Buffer wipeBuffer (128 * 1024);
-		wipeBuffer.Zero();
-		sr.Serialize ("WipeData", ConstBufferPtr (wipeBuffer));
-	}
-
 	void VolumePassword::Set (const byte *password, size_t size)
 	{
 		AllocateBuffer ();
 
 		if (size > MaxSize)
-			throw PasswordTooLong (SRC_POS);
+            throw;// (SRC_POS);
 
 		PasswordBuffer.CopyFrom (ConstBufferPtr (password, size));
 		PasswordSize = size;
@@ -107,7 +80,7 @@ namespace Volume {
 	void VolumePassword::Set (const wchar_t *password, size_t charCount)
 	{
 		if (charCount > MaxSize)
-			throw PasswordTooLong (SRC_POS);
+            throw;// (SRC_POS);
 
 		union Conv
 		{
@@ -129,7 +102,7 @@ namespace Volume {
 		}
 
 		if (lsbPos == -1)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// (SRC_POS);
 
 		bool unportable = false;
 		byte passwordBuf[MaxSize];
@@ -160,12 +133,5 @@ namespace Volume {
 		Set (password.DataPtr(), password.Size());
 	}
 
-	GST_SERIALIZER_FACTORY_ADD_CLASS (VolumePassword);
-
-#define GST_EXCEPTION(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-#undef GST_EXCEPTION_NODECL
-#define GST_EXCEPTION_NODECL(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-
-	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (PasswordException);
 }
 }

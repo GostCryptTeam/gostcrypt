@@ -13,7 +13,6 @@
 #include <QStandardPaths>
 
 #include "Platform/FileStream.h"
-#include "Platform/SharedPtr.h"
 #include <grp.h>
 
 #include <sys/types.h>

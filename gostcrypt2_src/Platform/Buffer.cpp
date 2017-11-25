@@ -8,7 +8,6 @@
 
 
 #include "Buffer.h"
-#include "Exception.h"
 
 namespace GostCrypt
 {
@@ -30,7 +29,7 @@ namespace GostCrypt
 	void Buffer::Allocate (size_t size)
 	{
 		if (size < 1)
-			throw ParameterIncorrect (SRC_POS);
+            throw;
 
 		if (DataPtr != nullptr)
 		{
@@ -57,7 +56,7 @@ namespace GostCrypt
 		if (!IsAllocated ())
 			Allocate (bufferPtr.Size());
 		else if (bufferPtr.Size() > DataSize)
-			throw ParameterTooLarge (SRC_POS);
+            throw;// ParameterTooLarge (SRC_POS);
 
 		Memory::Copy (DataPtr, bufferPtr.Get(), bufferPtr.Size());
 	}
@@ -71,7 +70,7 @@ namespace GostCrypt
 	void Buffer::Free ()
 	{
 		if (DataPtr == nullptr)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		Memory::Free (DataPtr);
 		DataPtr = nullptr;
@@ -81,7 +80,7 @@ namespace GostCrypt
 	BufferPtr Buffer::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		return BufferPtr (DataPtr + offset, size);
 	}
@@ -111,7 +110,7 @@ namespace GostCrypt
 	void SecureBuffer::Free ()
 	{
 		if (DataPtr == nullptr)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		Erase ();
 		Buffer::Free ();
@@ -120,7 +119,7 @@ namespace GostCrypt
 	void BufferPtr::CopyFrom (const ConstBufferPtr &bufferPtr) const
 	{
 		if (bufferPtr.Size() > DataSize)
-			throw ParameterTooLarge (SRC_POS);
+            throw;// ParameterTooLarge (SRC_POS);
 
 		Memory::Copy (DataPtr, bufferPtr.Get(), bufferPtr.Size());
 	}
@@ -128,7 +127,7 @@ namespace GostCrypt
 	BufferPtr BufferPtr::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		return BufferPtr (DataPtr + offset, size);
 	}
@@ -136,7 +135,7 @@ namespace GostCrypt
 	ConstBufferPtr ConstBufferPtr::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		return ConstBufferPtr (DataPtr + offset, size);
 	}

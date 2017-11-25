@@ -9,7 +9,6 @@
 
 #include <pthread.h>
 #include "Platform/Mutex.h"
-#include "Platform/SystemException.h"
 
 namespace GostCrypt
 {
@@ -19,15 +18,15 @@ namespace GostCrypt
 
 		int status = pthread_mutexattr_init (&attributes);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		status = pthread_mutexattr_settype (&attributes, PTHREAD_MUTEX_RECURSIVE);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		status = pthread_mutex_init (&SystemMutex, &attributes);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 
 		Initialized = true;
 	}
@@ -48,16 +47,16 @@ namespace GostCrypt
 
 	void Mutex::Lock ()
 	{
-		assert (Initialized);
+        //assert (Initialized);
 		int status = pthread_mutex_lock (&SystemMutex);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 	}
 
 	void Mutex::Unlock ()
 	{
 		int status = pthread_mutex_unlock (&SystemMutex);
 		if (status != 0)
-			throw SystemException (SRC_POS, status);
+            throw; // (SRC_POS, status);
 	}
 }

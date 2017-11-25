@@ -39,14 +39,14 @@ namespace Volume {
 		if ((writeHostOffset < ProtectedRangeStart) ? (writeHostEndOffset >= ProtectedRangeStart) : (writeHostOffset <= ProtectedRangeEnd - 1))
 		{
 			HiddenVolumeProtectionTriggered = true;
-			throw VolumeProtected (SRC_POS);
+            throw;// VolumeProtected (SRC_POS);
 		}
 	}
 
 	void Volume::Close ()
 	{
         if (VolumeFile.isNull())
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 
 		VolumeFile.reset();
 	}
@@ -81,7 +81,7 @@ namespace Volume {
 
         if(protection == VolumeProtection::HiddenVolumeReadOnly){
             // we first open the hidden volume to get its size
-            try
+            //try
             {
                 Volume protectedVolume;
 
@@ -96,28 +96,30 @@ namespace Volume {
                     partitionInSystemEncryptionScope);
 
                 if (protectedVolume.GetType() != VolumeType::Hidden)
-                    ParameterIncorrect (SRC_POS);
+                    throw; //ParameterIncorrect (SRC_POS);
 
                 ProtectedRangeStart = protectedVolume.VolumeDataOffset;
                 ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
             }
+            /*
             catch (PasswordException&)
             {
                 if (protectionKeyfiles && !protectionKeyfiles->empty())
-                    throw ProtectionPasswordKeyfilesIncorrect (SRC_POS);
-                throw ProtectionPasswordIncorrect (SRC_POS);
-            }
+                    throw;// ProtectionPasswordKeyfilesIncorrect (SRC_POS);
+                throw;// ProtectionPasswordIncorrect (SRC_POS);
+            }//*/
         }
 
         // We First open the file (or device) we want to decrypt
-		try
+        //try
 		{
 			if (protection == VolumeProtection::ReadOnly)
                 volumeFile->Open (volumePath, File::OpenRead, File::ShareRead, flags);
 			else
                 volumeFile->Open (volumePath, File::OpenReadWrite, File::ShareNone, flags);
 		}
-		catch (SystemException &e)
+        /*
+        catch (SystemException &e)
 		{
 			if (e.GetErrorCode() == EAGAIN)
 			{
@@ -128,10 +130,10 @@ namespace Volume {
 			}
 			else
 				throw;
-		}
+        }//*/
 
 		if (!volumeFile)
-            throw ParameterIncorrect (SRC_POS); // TODO : wrong error
+            throw;// ParameterIncorrect (SRC_POS); // TODO : wrong error
 
 		Protection = protection;
 		VolumeFile = volumeFile;
@@ -148,7 +150,7 @@ namespace Volume {
 				hostDeviceSectorSize = volumeFile->GetDeviceSectorSize();
 
 			// Test volume layouts
-			foreach (QSharedPointer <VolumeLayout> layout, VolumeLayout::GetAvailableLayouts (volumeType))
+            for (QSharedPointer <VolumeLayout> layout : VolumeLayout::GetAvailableLayouts (volumeType))
 			{
 
 				if (useBackupHeaders && !layout->HasBackupHeader())
@@ -193,39 +195,16 @@ namespace Volume {
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-                            throw PasswordIncorrect (SRC_POS); // the password of the inner volume was put instead of the one of the outer volume.
+                            throw;// PasswordIncorrect (SRC_POS); // the password of the inner volume was put instead of the one of the outer volume.
                         // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
 			}
 
-            if (GetPath().IsDevice())
-			{
-				// Check if the device contains GostCrypt Boot Loader
-				try
-				{
-					File driveDevice;
-					driveDevice.Open (DevicePath (wstring (GetPath())).ToHostDriveOfPartition());
-
-					Buffer mbr (VolumeFile->GetDeviceSectorSize());
-					driveDevice.ReadAt (mbr, 0);
-
-					// Search for the string "GostCrypt"
-					size_t nameLen = strlen (GST_APP_NAME);
-					for (size_t i = 0; i < mbr.Size() - nameLen; ++i)
-					{
-						if (memcmp (mbr.Ptr() + i, GST_APP_NAME, nameLen) == 0)
-							throw PasswordOrMountOptionsIncorrect (SRC_POS);
-					}
-				}
-				catch (PasswordOrMountOptionsIncorrect&) { throw; }
-				catch (...) { }
-			}
-
 			if (keyfiles && !keyfiles->empty())
-				throw PasswordKeyfilesIncorrect (SRC_POS);
-			throw PasswordIncorrect (SRC_POS);
+                throw;// PasswordKeyfilesIncorrect (SRC_POS);
+            throw;// PasswordIncorrect (SRC_POS);
 		}
 		catch (...)
 		{
@@ -242,10 +221,10 @@ namespace Volume {
 		uint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		if (VolumeFile->ReadAt (buffer, hostOffset) != length)
-			throw MissingVolumeData (SRC_POS);
+            throw;// MissingVolumeData (SRC_POS);
 
 		EA->DecryptSectors (buffer, hostOffset / SectorSize, length / SectorSize, SectorSize);
 
@@ -257,7 +236,7 @@ namespace Volume {
 		if_debug (ValidateState ());
 
 		if (Protection == VolumeProtection::ReadOnly)
-			throw VolumeReadOnly (SRC_POS);
+            throw;// VolumeReadOnly (SRC_POS);
 
 		SecureBuffer newHeaderBuffer (Layout->GetHeaderSize());
 
@@ -276,7 +255,7 @@ namespace Volume {
 	void Volume::ValidateState () const
 	{
         if (VolumeFile.isNull())
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 	}
 
 	void Volume::WriteSectors (const ConstBufferPtr &buffer, uint64 byteOffset)
@@ -289,13 +268,13 @@ namespace Volume {
 		if (length % SectorSize != 0
 			|| byteOffset % SectorSize != 0
 			|| byteOffset + length > VolumeDataSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		if (Protection == VolumeProtection::ReadOnly)
-			throw VolumeReadOnly (SRC_POS);
+            throw;// VolumeReadOnly (SRC_POS);
 
 		if (HiddenVolumeProtectionTriggered)
-			throw VolumeProtected (SRC_POS);
+            throw;// VolumeProtected (SRC_POS);
 
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 			CheckProtectedRange (hostOffset, length);

@@ -33,7 +33,7 @@ namespace Volume {
 		virtual void EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
 		virtual void EncryptSectorsCurrentThread (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const = 0;
 		static EncryptionModeList GetAvailableModes ();
-		virtual const SecureBuffer &GetKey () const { throw NotApplicable (SRC_POS); }
+        virtual const SecureBuffer &GetKey () const { throw; }
 		virtual size_t GetKeySize () const = 0;
 		virtual wstring GetName () const = 0;
 		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;

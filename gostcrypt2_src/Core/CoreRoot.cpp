@@ -270,7 +270,7 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
     QSharedPointer <Volume::KeyfileList> keyfiles;
     if(params->keyfiles)
         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilePath(keyfile->absoluteFilePath()))));
         }
     QSharedPointer<Volume::VolumePassword> password;
     if(!params->password.isNull())

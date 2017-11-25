@@ -47,12 +47,14 @@ namespace GostCrypt
 		{
 			destination.Flush();
 			struct stat statData;
-			throw_sys_sub_if (stat (string (sourcePath).c_str(), &statData) == -1, wstring (sourcePath));
+            if (stat (string (sourcePath).c_str(), &statData) == -1)
+                throw;
 
 			struct utimbuf u;
 			u.actime = statData.st_atime;
 			u.modtime = statData.st_mtime;
-			throw_sys_sub_if (utime (string (destinationPath).c_str(), &u) == -1, wstring (destinationPath));
+            if (utime (string (destinationPath).c_str(), &u) == -1)
+                throw;
 		}
 	}
 	
@@ -71,7 +73,7 @@ namespace GostCrypt
 		{
 			size_t dataRead = static_cast <size_t> (Read (buffer.GetRange (offset, dataLeft)));
 			if (dataRead == 0)
-				throw InsufficientData (SRC_POS);
+                throw;// InsufficientData (SRC_POS);
 
 			dataLeft -= dataRead;
 			offset += dataRead;
@@ -81,6 +83,6 @@ namespace GostCrypt
 	void File::ValidateState () const
 	{
 		if (!FileIsOpen)
-			throw NotInitialized (SRC_POS);
+            throw;// NotInitialized (SRC_POS);
 	}
 }

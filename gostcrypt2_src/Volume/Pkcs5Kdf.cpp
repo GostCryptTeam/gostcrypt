@@ -30,23 +30,28 @@ namespace Volume {
 
 	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const wstring &name)
 	{
-		foreach (QSharedPointer <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
-		{
-			if (kdf->GetName() == name)
-				return kdf;
+        std::list<QSharedPointer <Pkcs5Kdf>>::const_iterator algorithmsIt;
+        Pkcs5KdfList algorithms = GetAvailableAlgorithms();
+
+        for (algorithmsIt = algorithms.begin(); algorithmsIt != algorithms.end(); ++algorithmsIt)
+        {
+            if ((*algorithmsIt)->GetName() == name)
+                return *algorithmsIt;
 		}
-		throw ParameterIncorrect (SRC_POS);
+        throw;// ParameterIncorrect (SRC_POS);
 	}
 
 	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const VolumeHash &hash)
 	{
-		foreach (QSharedPointer <Pkcs5Kdf> kdf, GetAvailableAlgorithms())
-		{
-			if (typeid (*kdf->GetHash()) == typeid (hash))
-				return kdf;
+        std::list<QSharedPointer <Pkcs5Kdf>>::const_iterator algorithmsIt;
+        Pkcs5KdfList algorithms = GetAvailableAlgorithms();
+
+        for (algorithmsIt = algorithms.begin(); algorithmsIt != algorithms.end(); ++algorithmsIt)        {
+            if (typeid (*(*algorithmsIt)->GetHash()) == typeid (hash))
+                return *algorithmsIt;
 		}
 
-		throw ParameterIncorrect (SRC_POS);
+        throw;// (SRC_POS);
 	}
 
 	Pkcs5KdfList Pkcs5Kdf::GetAvailableAlgorithms ()
@@ -63,7 +68,7 @@ namespace Volume {
 	void Pkcs5Kdf::ValidateParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
 	{
 		if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// (SRC_POS);
 	}
 
 	void Pkcs5HmacWhirlpool::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const

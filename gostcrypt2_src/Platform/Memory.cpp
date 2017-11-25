@@ -9,14 +9,13 @@
 
 #include "Common/Gstdefs.h"
 #include "Memory.h"
-#include "Exception.h"
 
 namespace GostCrypt
 {
 	void *Memory::Allocate (std::size_t size)
 	{
 		if (size < 1)
-			throw ParameterIncorrect (SRC_POS);
+            throw;// ParameterIncorrect (SRC_POS);
 
 		void *bufPtr = malloc (size);
 		if (!bufPtr)
@@ -37,7 +36,7 @@ namespace GostCrypt
 
 	void Memory::Copy (void *memoryDestination, const void *memorySource, size_t size)
 	{
-		assert (memoryDestination != nullptr && memorySource != nullptr);
+        //assert (memoryDestination != nullptr && memorySource != nullptr);
 		memcpy (memoryDestination, memorySource, size);
 	}
 
@@ -53,7 +52,7 @@ namespace GostCrypt
 
 	void Memory::Free (void *memory)
 	{
-		assert (memory != nullptr);
+        //assert (memory != nullptr);
 		free (memory);
 	}
 }

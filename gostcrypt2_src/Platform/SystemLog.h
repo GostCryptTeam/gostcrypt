@@ -11,7 +11,6 @@
 #define GST_HEADER_Platform_SystemLog
 
 #include "Platform/PlatformBase.h"
-#include "Platform/StringConverter.h"
 
 namespace GostCrypt
 {
@@ -23,8 +22,8 @@ namespace GostCrypt
 		
 		static void WriteException (const exception &ex)
 		{
-			WriteError (string ("exception: ") + StringConverter::ToSingle (StringConverter::ToExceptionString (ex)));
-		}
+            //adapt to new exception when implemented
+        }
 
 	protected:
 		SystemLog ();
