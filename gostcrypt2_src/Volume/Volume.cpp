@@ -301,6 +301,8 @@ namespace Volume {
 		vi->size = this->GetSize();
 		vi->type = this->Type;
 		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(wstring(this->VolumeFile->GetPath()))));
+
+        return vi;
 	}
 }
 }
