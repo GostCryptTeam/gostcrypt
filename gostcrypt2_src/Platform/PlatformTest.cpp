@@ -13,79 +13,59 @@
 #include "Thread.h"
 #include "Common/Gstdefs.h"
 #include <QSharedPointer>
+#include <QMutex>
+#include <QWaitCondition>
 
 namespace GostCrypt
 {
-	static struct 
-	{
-		QSharedPointer <int> SharedIntPtr;
-		Mutex IntMutex;
-		SyncEvent ExitAllowedEvent;
-	} ThreadTestData;
+
 
 	void PlatformTest::ThreadTest ()
 	{
-		Mutex mutex;
-		mutex.Lock();
-		mutex.Unlock();
+        QMutex mutex;
+        mutex.lock();
+        mutex.unlock();
 
 		const int maxThreads = 3;
-		ThreadTestData.SharedIntPtr.reset (new int (0));
+        ThreadTestData->SharedIntPtr.reset (new int (0));
 
-		for (int i = 0; i < maxThreads; i++)
+        QList<QSharedPointer<TestThread>> threads;
+        for (int i = 0; i < maxThreads; i++)
 		{
-			Thread t;
-			t.Start (&ThreadTestProc, (void *) &ThreadTestData);
+            threads.append(QSharedPointer<TestThread>(new TestThread(ThreadTestData)));
+            QObject::connect(threads.last().data(), SIGNAL(finished()), threads.last().data(), SLOT(deleteLater()));
+            threads.last()->start();
 		}
 
 		for (int i = 0; i < 50; i++)
 		{
 			{
-				ScopeLock sl (ThreadTestData.IntMutex);
-				if (*ThreadTestData.SharedIntPtr == maxThreads)
+                QMutexLocker lock(&ThreadTestData->IntMutex);
+                if (*ThreadTestData->SharedIntPtr == maxThreads)
 					break;
 			}
 
-			Thread::Sleep(100);
+            QThread::sleep(100);
 		}
 
-		if (*ThreadTestData.SharedIntPtr != maxThreads)
+        if (*ThreadTestData->SharedIntPtr != maxThreads)
             throw;// TestFailed (SRC_POS);
 
 		for (int i = 0; i < 60000; i++)
 		{
-			ThreadTestData.ExitAllowedEvent.Signal();
-			Thread::Sleep(1);
+            ThreadTestData->ExitAllowedEvent.wakeOne();
+            QThread::sleep(1);
 
-			ScopeLock sl (ThreadTestData.IntMutex);
-			if (*ThreadTestData.SharedIntPtr == 0)
+            QMutexLocker lock (&ThreadTestData->IntMutex);
+            if (*ThreadTestData->SharedIntPtr == 0)
 				break;
 		}
 
-		if (*ThreadTestData.SharedIntPtr != 0)
+        if (*ThreadTestData->SharedIntPtr != 0)
             throw;// TestFailed (SRC_POS);
 	}
 
-	GST_THREAD_PROC PlatformTest::ThreadTestProc (void *arg)
-	{
-		
-		if (arg != (void *) &ThreadTestData)
-			return 0;
 
-		{
-			ScopeLock sl (ThreadTestData.IntMutex);
-			++(*ThreadTestData.SharedIntPtr);
-		}
-
-		ThreadTestData.ExitAllowedEvent.Wait();
-
-		{
-			ScopeLock sl (ThreadTestData.IntMutex);
-			--(*ThreadTestData.SharedIntPtr);
-		}
-
-		return 0;
-	}
 
 	bool PlatformTest::TestAll ()
 	{
@@ -140,42 +120,38 @@ namespace GostCrypt
             throw;// TestFailed (SRC_POS);
 		}
 
-        /*
-        // finally
-		TestFlag = false;
-		{
-			finally_do ({ TestFlag = true; });
-			if (TestFlag)
-                throw; //TestFailed (SRC_POS);
-		}
-		if (!TestFlag)
-            throw;// TestFailed (SRC_POS);
-
-		TestFlag = false;
-		{
-			finally_do_arg (bool*, &TestFlag, { *finally_arg = true; });
-			if (TestFlag)
-                throw;// TestFailed (SRC_POS);
-		}
-		if (!TestFlag)
-            throw;// TestFailed (SRC_POS);
-
-		TestFlag = false;
-		int tesFlag2 = 0;
-		{
-			finally_do_arg2 (bool*, &TestFlag, int*, &tesFlag2, { *finally_arg = true; *finally_arg2 = 2; });
-			if (TestFlag || tesFlag2 != 0)
-                throw;// TestFailed (SRC_POS);
-		}
-		if (!TestFlag || tesFlag2 != 2)
-            throw;// TestFailed (SRC_POS);
-
-		SerializerTest();
-        //*/
 		ThreadTest();
 
 		return true;
 	}
 
-	bool PlatformTest::TestFlag;
+    bool PlatformTest::TestFlag;
+
+    TestThread::TestThread(QSharedPointer<PlatformTest::ThreadTestDataStruct> threadTestData)
+    {
+        QMutexLocker lock(&mThreadTestDataMutex);
+        mThreadTestData = threadTestData;
+    }
+
+    void TestThread::run()
+    {
+        mThreadTestDataMutex.lock();
+        if (mThreadTestData.data() != PlatformTest::ThreadTestData.data()) {
+            mThreadTestDataMutex.unlock();
+            return;
+        }
+        mThreadTestDataMutex.unlock();
+
+
+        PlatformTest::ThreadTestData->IntMutex.lock();
+        ++(*PlatformTest::ThreadTestData->SharedIntPtr);
+
+        PlatformTest::ThreadTestData->ExitAllowedEvent.wait(&PlatformTest::ThreadTestData->IntMutex);
+
+        --(*PlatformTest::ThreadTestData->SharedIntPtr);
+
+        PlatformTest::ThreadTestData->IntMutex.unlock();
+
+    }
+
 }

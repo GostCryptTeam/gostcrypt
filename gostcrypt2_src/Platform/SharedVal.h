@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Platform_SharedVal
 #define GST_HEADER_Platform_SharedVal
 
-#include "Mutex.h"
+#include <QMutex>
 
 namespace GostCrypt
 {
@@ -29,38 +29,38 @@ namespace GostCrypt
 
 		T Decrement ()
 		{
-			ValMutex.Lock();
+            ValMutex.lock();
 			T r = --Value;
-			ValMutex.Unlock();
+            ValMutex.unlock();
 			return r;
 		}
 
 		T Get ()
 		{
-			ValMutex.Lock();
+            ValMutex.lock();
 			T r = Value;
-			ValMutex.Unlock();
+            ValMutex.unlock();
 			return r;
 		}
 
 		T Increment ()
 		{
-			ValMutex.Lock();
+            ValMutex.lock();
 			T r = ++Value;
-			ValMutex.Unlock();
+            ValMutex.unlock();
 			return r;
 		}
 
 		void Set (T value)
 		{
-			ValMutex.Lock();
+            ValMutex.lock();
 			Value = value;
-			ValMutex.Unlock();
+            ValMutex.unlock();
 		}
 
 	protected:
 		volatile T Value;
-		Mutex ValMutex;
+        QMutex ValMutex;
 
 	private:
 		SharedVal (const SharedVal &);

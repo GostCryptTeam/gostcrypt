@@ -10,12 +10,17 @@
 #ifndef GST_HEADER_Platform_PlatformTest
 #define GST_HEADER_Platform_PlatformTest
 
-#include "Thread.h"
+#include <QSharedPointer>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QThread>
 
 namespace GostCrypt
 {
+    class TestThread;
 	class PlatformTest
 	{
+        friend class TestThread;
 	public:
 		static bool TestAll ();
 
@@ -23,21 +28,42 @@ namespace GostCrypt
 		class RttiTestBase
 		{
 		public:
-			virtual ~RttiTestBase () { };
+            virtual ~RttiTestBase () { }
 		};
 
 		class RttiTest : public RttiTestBase {
 		public:
-			virtual ~RttiTest () { };
+            virtual ~RttiTest () { }
 		};
+
+        struct ThreadTestDataStruct
+        {
+            QSharedPointer <int> SharedIntPtr;
+            QMutex IntMutex;
+            QWaitCondition ExitAllowedEvent;
+        };
+
+        static QSharedPointer<ThreadTestDataStruct> ThreadTestData;
+
+
+
 
 		PlatformTest ();
 		static void SerializerTest ();
 		static void ThreadTest ();
-		static GST_THREAD_PROC ThreadTestProc (void *param);
 
 		static bool TestFlag;
 	};
+
+    class TestThread : public QThread {
+        Q_OBJECT
+
+        QSharedPointer<PlatformTest::ThreadTestDataStruct> mThreadTestData;
+        QMutex mThreadTestDataMutex;
+    public:
+        TestThread(QSharedPointer<PlatformTest::ThreadTestDataStruct> threadTestData);
+        void run();
+    };
 }
 
 #endif // GST_HEADER_Platform_PlatformTest

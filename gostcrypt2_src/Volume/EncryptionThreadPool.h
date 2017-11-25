@@ -14,14 +14,19 @@
 #include "EncryptionMode.h"
 #include "Platform/SharedVal.h"
 #include <QMutex>
+#include <QThread>
+#include <QWaitCondition>
 
 namespace GostCrypt
 {
 namespace Volume {
 
-	class EncryptionThreadPool
+    class EncryptionThread;
+
+    class EncryptionThreadPool
 	{
-	public:
+    friend class EncryptionThread;
+    public:
 		struct WorkType
 		{
 			enum Enum
@@ -46,7 +51,8 @@ namespace Volume {
 
 			struct WorkItem *FirstFragment;
             //QSharedPointer <Exception> ItemException;
-			SyncEvent ItemCompletedEvent;
+            QWaitCondition ItemCompletedEvent;
+            QMutex ItemCompletedEventMutex;
 			SharedVal <size_t> OutstandingFragmentCount;
 			SharedVal <State::Enum> State;
 			WorkType::Enum Type;
@@ -70,23 +76,28 @@ namespace Volume {
 		static void Stop ();
 
 	protected:
-		static void WorkThreadProc ();
-
-		static const size_t MaxThreadCount = 32;
-		static const size_t QueueSize = MaxThreadCount * 2;
+        static const int MaxThreadCount = 32;
+        static const int QueueSize = MaxThreadCount * 2;
 
         static QMutex DequeueMutex;
 		static volatile size_t DequeuePosition;
 		static volatile size_t EnqueuePosition;
         static QMutex EnqueueMutex;
-        static std::list < QSharedPointer <Thread> > RunningThreads;
+        static QList < QSharedPointer <EncryptionThread> > RunningThreads;
 		static volatile bool StopPending;
-		static size_t ThreadCount;
+        static int ThreadCount;
 		static volatile bool ThreadPoolRunning;
-		static SyncEvent WorkItemCompletedEvent;
+        static QWaitCondition WorkItemCompletedEvent;
+        static QMutex WorkItemCompletedEventMutex;
 		static WorkItem WorkItemQueue[QueueSize];
-		static SyncEvent WorkItemReadyEvent;
-	};
+        static QWaitCondition WorkItemReadyEvent;
+        static QMutex WorkItemReadyEventMutex;
+    };
+
+    class EncryptionThread : public QThread {
+        Q_OBJECT
+        void run();
+    };
 }
 }
 
