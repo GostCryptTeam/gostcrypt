@@ -11,7 +11,6 @@
 #define GST_HEADER_Platform_Mutex
 
 #include <pthread.h>
-#include "PlatformBase.h"
 
 namespace GostCrypt
 {

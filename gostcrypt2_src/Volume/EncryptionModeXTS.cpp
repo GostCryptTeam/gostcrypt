@@ -15,14 +15,14 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	void EncryptionModeXTS::Encrypt (byte *data, uint64 length) const
+	void EncryptionModeXTS::Encrypt (quint8 *data, quint64 length) const
 	{
 		EncryptBuffer (data, length, 0);
 	}
 
-	void EncryptionModeXTS::EncryptBuffer (byte *data, uint64 length, uint64 startDataUnitNo) const
+	void EncryptionModeXTS::EncryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const
 	{
-		if_debug (ValidateState());
+		//if_debug (ValidateState());
 
 		CipherList::const_iterator iSecondaryCipher = SecondaryCiphers.begin();
 
@@ -38,21 +38,21 @@ namespace Volume {
         //assert (iSecondaryCipher == SecondaryCiphers.end());
 	}
 
-    void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
-		byte finalCarry;
-		byte whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
-		byte byteBufUnitNo [BYTES_PER_XTS_BLOCK_SMALL];
+		quint8 finalCarry;
+		quint8 whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
+		quint8 byteBufUnitNo [BYTES_PER_XTS_BLOCK_SMALL];
 
-		byte xor_ks [MAX_EXPANDED_KEY];
-		uint32 *whiteningValuePtr32 = (uint32 *)whiteningValue;
-		uint32 *bufPtr = (uint32 *)buffer;
-		uint32 startBlock = startCipherBlockNo, endBlock, block;
-		uint64 blockCount, dataUnitNo;
-		uint32 modulus = 27;
+		quint8 xor_ks [MAX_EXPANDED_KEY];
+		quint32 *whiteningValuePtr32 = (quint32 *)whiteningValue;
+		quint32 *bufPtr = (quint32 *)buffer;
+		quint32 startBlock = startCipherBlockNo, endBlock, block;
+		quint64 blockCount, dataUnitNo;
+		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -60,24 +60,24 @@ namespace Volume {
 		blockCount = length / BYTES_PER_XTS_BLOCK_SMALL;
 
 		//Store the original key schedule
-		cipher.CopyCipherKey ((byte *)xor_ks);
+		cipher.CopyCipherKey ((quint8 *)xor_ks);
 
 		while (blockCount > 0)
 		{
 			if (blockCount < BLOCKS_PER_XTS_DATA_UNIT_SMALL)
-				endBlock = startBlock + (uint32) blockCount;
+				endBlock = startBlock + (quint32) blockCount;
 			else
 				endBlock = BLOCKS_PER_XTS_DATA_UNIT_SMALL;
 
-			whiteningValuePtr32 = (uint32 *) whiteningValue;
+			whiteningValuePtr32 = (quint32 *) whiteningValue;
 
 			//Generate first whitening value
-			*whiteningValuePtr32 = *((uint32 *) byteBufUnitNo);
-			*(whiteningValuePtr32+1) = *((uint32 *) byteBufUnitNo+1);
+			*whiteningValuePtr32 = *((quint32 *) byteBufUnitNo);
+			*(whiteningValuePtr32+1) = *((quint32 *) byteBufUnitNo+1);
 			secondaryCipher.EncryptBlock (whiteningValue);
 
 			//XOR ks with the current DataUnitNo
-			cipher.XorCipherKey ((byte *)xor_ks, byteBufUnitNo, 8);
+			cipher.XorCipherKey ((quint8 *)xor_ks, byteBufUnitNo, 8);
 
 			//Generate subsequent whitening values for blocks
 			for (block = 0; block < endBlock; block++)
@@ -89,7 +89,7 @@ namespace Volume {
 					*bufPtr-- ^= *whiteningValuePtr32--;
 
 					//Actual encryption
-					cipher.EncryptWithKS((byte *) bufPtr, (byte *) xor_ks);
+					cipher.EncryptWithKS((quint8 *) bufPtr, (quint8 *) xor_ks);
 
 					//Post-whitening
 					*bufPtr++ ^= *whiteningValuePtr32++;
@@ -129,24 +129,24 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-    void EncryptionModeXTS::EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
-		byte finalCarry;
-		byte whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
-		byte whiteningValue [BYTES_PER_XTS_BLOCK];
-		byte byteBufUnitNo [BYTES_PER_XTS_BLOCK];
-		uint64 *whiteningValuesPtr64 = (uint64 *) whiteningValues;
-		uint64 *whiteningValuePtr64 = (uint64 *) whiteningValue;
-		uint64 *bufPtr = (uint64 *) buffer;
-		uint64 *dataUnitBufPtr;
+		quint8 finalCarry;
+		quint8 whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
+		quint8 whiteningValue [BYTES_PER_XTS_BLOCK];
+		quint8 byteBufUnitNo [BYTES_PER_XTS_BLOCK];
+		quint64 *whiteningValuesPtr64 = (quint64 *) whiteningValues;
+		quint64 *whiteningValuePtr64 = (quint64 *) whiteningValue;
+		quint64 *bufPtr = (quint64 *) buffer;
+		quint64 *dataUnitBufPtr;
 		unsigned int startBlock = startCipherBlockNo, endBlock, block;
-		uint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
-		uint64 blockCount, dataUnitNo;
+		quint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
+		quint64 blockCount, dataUnitNo;
 
 		startDataUnitNo += SectorOffset;
 
@@ -160,8 +160,8 @@ namespace Volume {
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
-		*((uint64 *) byteBufUnitNo + 1) = 0;
+		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
 			GST_THROW_FATAL_EXCEPTION;
@@ -177,11 +177,11 @@ namespace Volume {
 				endBlock = BLOCKS_PER_XTS_DATA_UNIT;
 
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
-			whiteningValuePtr64 = (uint64 *) whiteningValue;
+			whiteningValuePtr64 = (quint64 *) whiteningValue;
 
 			// Encrypt the data unit number using the secondary key (in order to generate the first
 			// whitening value for this data unit)
-			*whiteningValuePtr64 = *((uint64 *) byteBufUnitNo);
+			*whiteningValuePtr64 = *((quint64 *) byteBufUnitNo);
 			*(whiteningValuePtr64 + 1) = 0;
 			secondaryCipher.EncryptBlock (whiteningValue);
 
@@ -247,7 +247,7 @@ namespace Volume {
 			}
 
 			// Actual encryption
-			cipher.EncryptBlocks ((byte *) dataUnitBufPtr, endBlock - startBlock);
+			cipher.EncryptBlocks ((quint8 *) dataUnitBufPtr, endBlock - startBlock);
 
 			bufPtr = dataUnitBufPtr;
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
@@ -262,14 +262,14 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));
 		FAST_ERASE64 (whiteningValues, sizeof (whiteningValues));
 	}
 
-	void EncryptionModeXTS::EncryptSectorsCurrentThread (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionModeXTS::EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
 		EncryptBuffer (data, sectorCount * sectorSize, sectorIndex * sectorSize / ENCRYPTION_DATA_UNIT_SIZE);
 	}
@@ -288,14 +288,14 @@ namespace Volume {
 		return keySize;
 	}
 
-	void EncryptionModeXTS::Decrypt (byte *data, uint64 length) const
+	void EncryptionModeXTS::Decrypt (quint8 *data, quint64 length) const
 	{
 		DecryptBuffer (data, length, 0);
 	}
 
-	void EncryptionModeXTS::DecryptBuffer (byte *data, uint64 length, uint64 startDataUnitNo) const
+	void EncryptionModeXTS::DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const
 	{
-		if_debug (ValidateState());
+		//if_debug (ValidateState());
 
 		CipherList::const_iterator iSecondaryCipher = SecondaryCiphers.end();
 
@@ -311,21 +311,21 @@ namespace Volume {
         //assert (iSecondaryCipher == SecondaryCiphers.begin());
 	}
 
-    void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
-		byte finalCarry;
-		byte whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
-		byte byteBufUnitNo [BYTES_PER_XTS_BLOCK_SMALL];
-		byte xor_ks [MAX_EXPANDED_KEY];
-		uint32 *whiteningValuePtr32 = (uint32 *)whiteningValue;
-		uint32 *bufPtr = (uint32 *)buffer;
-		uint32 startBlock = startCipherBlockNo, endBlock, block;
-		uint64 blockCount, dataUnitNo;
+		quint8 finalCarry;
+		quint8 whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
+		quint8 byteBufUnitNo [BYTES_PER_XTS_BLOCK_SMALL];
+		quint8 xor_ks [MAX_EXPANDED_KEY];
+		quint32 *whiteningValuePtr32 = (quint32 *)whiteningValue;
+		quint32 *bufPtr = (quint32 *)buffer;
+		quint32 startBlock = startCipherBlockNo, endBlock, block;
+		quint64 blockCount, dataUnitNo;
 
-		uint32 modulus = 27;
+		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -333,24 +333,24 @@ namespace Volume {
 		blockCount = length / BYTES_PER_XTS_BLOCK_SMALL;
 
 		//Store the original key schedule
-		cipher.CopyCipherKey ((byte *)xor_ks);
+		cipher.CopyCipherKey ((quint8 *)xor_ks);
 
 		while (blockCount > 0)
 		{
 			if (blockCount < BLOCKS_PER_XTS_DATA_UNIT_SMALL)
-				endBlock = startBlock + (uint32) blockCount;
+				endBlock = startBlock + (quint32) blockCount;
 			else
 				endBlock = BLOCKS_PER_XTS_DATA_UNIT_SMALL;
 
-			whiteningValuePtr32 = (uint32 *) whiteningValue;
+			whiteningValuePtr32 = (quint32 *) whiteningValue;
 
 			//Generate first whitening value
-			*whiteningValuePtr32 = *((uint32 *) byteBufUnitNo);
-			*(whiteningValuePtr32+1) = *((uint32 *) byteBufUnitNo+1);
+			*whiteningValuePtr32 = *((quint32 *) byteBufUnitNo);
+			*(whiteningValuePtr32+1) = *((quint32 *) byteBufUnitNo+1);
 			secondaryCipher.EncryptBlock (whiteningValue);
 
 			//XOR ks with the current DataUnitNo
-			cipher.XorCipherKey ((byte *)xor_ks, byteBufUnitNo, 8);
+			cipher.XorCipherKey ((quint8 *)xor_ks, byteBufUnitNo, 8);
 
 			//Generate subsequent whitening values for blocks
 			for (block = 0; block < endBlock; block++)
@@ -362,7 +362,7 @@ namespace Volume {
 					*bufPtr-- ^= *whiteningValuePtr32--;
 
 					//Actual encryption
-					cipher.DecryptWithKS((byte *) bufPtr, (byte *) xor_ks);
+					cipher.DecryptWithKS((quint8 *) bufPtr, (quint8 *) xor_ks);
 
 					//Post-whitening
 					*bufPtr++ ^= *whiteningValuePtr32++;
@@ -402,32 +402,32 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-    void EncryptionModeXTS::DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
 	{
-		byte finalCarry;
-		byte whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
-		byte whiteningValue [BYTES_PER_XTS_BLOCK];
-		byte byteBufUnitNo [BYTES_PER_XTS_BLOCK];
-		uint64 *whiteningValuesPtr64 = (uint64 *) whiteningValues;
-		uint64 *whiteningValuePtr64 = (uint64 *) whiteningValue;
-		uint64 *bufPtr = (uint64 *) buffer;
-		uint64 *dataUnitBufPtr;
+		quint8 finalCarry;
+		quint8 whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
+		quint8 whiteningValue [BYTES_PER_XTS_BLOCK];
+		quint8 byteBufUnitNo [BYTES_PER_XTS_BLOCK];
+		quint64 *whiteningValuesPtr64 = (quint64 *) whiteningValues;
+		quint64 *whiteningValuePtr64 = (quint64 *) whiteningValue;
+		quint64 *bufPtr = (quint64 *) buffer;
+		quint64 *dataUnitBufPtr;
 		unsigned int startBlock = startCipherBlockNo, endBlock, block;
-		uint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
-		uint64 blockCount, dataUnitNo;
+		quint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
+		quint64 blockCount, dataUnitNo;
 
 		startDataUnitNo += SectorOffset;
 
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
-		*((uint64 *) byteBufUnitNo + 1) = 0;
+		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
 			GST_THROW_FATAL_EXCEPTION;
@@ -443,11 +443,11 @@ namespace Volume {
 				endBlock = BLOCKS_PER_XTS_DATA_UNIT;
 
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
-			whiteningValuePtr64 = (uint64 *) whiteningValue;
+			whiteningValuePtr64 = (quint64 *) whiteningValue;
 
 			// Encrypt the data unit number using the secondary key (in order to generate the first
 			// whitening value for this data unit)
-			*whiteningValuePtr64 = *((uint64 *) byteBufUnitNo);
+			*whiteningValuePtr64 = *((quint64 *) byteBufUnitNo);
 			*(whiteningValuePtr64 + 1) = 0;
 			secondaryCipher.EncryptBlock (whiteningValue);
 
@@ -511,7 +511,7 @@ namespace Volume {
 				*bufPtr++ ^= *whiteningValuesPtr64--;
 			}
 
-			cipher.DecryptBlocks ((byte *) dataUnitBufPtr, endBlock - startBlock);
+			cipher.DecryptBlocks ((quint8 *) dataUnitBufPtr, endBlock - startBlock);
 
 			bufPtr = dataUnitBufPtr;
 			whiteningValuesPtr64 = finalInt64WhiteningValuesPtr;
@@ -526,14 +526,14 @@ namespace Volume {
 			startBlock = 0;
 			dataUnitNo++;
 
-			*((uint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));
 		FAST_ERASE64 (whiteningValues, sizeof (whiteningValues));
 	}
 
-	void EncryptionModeXTS::DecryptSectorsCurrentThread (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionModeXTS::DecryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
 		DecryptBuffer (data, sectorCount * sectorSize, sectorIndex * sectorSize / ENCRYPTION_DATA_UNIT_SIZE);
 	}

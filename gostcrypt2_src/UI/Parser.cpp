@@ -360,8 +360,8 @@ quint64 Parser::parseSize(QString s, bool *ok){
 	return 0;
 }
 
-bool Parser::askPassword(string volume, QString &p){
-    string pass;
+bool Parser::askPassword(std::string volume, QString &p){
+    std::string pass;
     termios oldt;
     tcgetattr(STDIN_FILENO, &oldt);
     termios newt = oldt;

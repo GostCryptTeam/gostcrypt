@@ -12,8 +12,7 @@
 
 #include <new>
 #include <memory.h>
-#include "PlatformBase.h"
-
+#include <QtGlobal>
 
 #ifndef BYTE_ORDER
 
@@ -72,21 +71,12 @@ namespace GostCrypt
 	class Endian
 	{
 	public:
-		static byte Big (const byte &x)
+        static quint8 Big (const quint8 &x)
 		{
 			return x;
 		}
 
-		static uint16 Big (const uint16 &x)
-		{
-#if BYTE_ORDER == BIG_ENDIAN
-			return x;
-#else
-			return MirrorBytes (x);
-#endif
-		}
-
-		static uint32 Big (const uint32 &x)
+        static quint16 Big (const quint16 &x)
 		{
 #if BYTE_ORDER == BIG_ENDIAN
 			return x;
@@ -95,7 +85,7 @@ namespace GostCrypt
 #endif
 		}
 
-		static uint64 Big (const uint64 &x)
+        static quint32 Big (const quint32 &x)
 		{
 #if BYTE_ORDER == BIG_ENDIAN
 			return x;
@@ -104,12 +94,21 @@ namespace GostCrypt
 #endif
 		}
 
-		static byte Little (const byte &x)
+        static quint64 Big (const quint64 &x)
+		{
+#if BYTE_ORDER == BIG_ENDIAN
+			return x;
+#else
+			return MirrorBytes (x);
+#endif
+		}
+
+        static quint8 Little (const quint8 &x)
 		{
 			return x;
 		}
 
-		static uint16 Little (const uint16 &x)
+        static quint16 Little (const quint16 &x)
 		{
 #if BYTE_ORDER == LITTLE_ENDIAN
 			return x;
@@ -118,7 +117,7 @@ namespace GostCrypt
 #endif
 		}
 
-		static uint32 Little (const uint32 &x)
+        static quint32 Little (const quint32 &x)
 		{
 #if BYTE_ORDER == LITTLE_ENDIAN
 			return x;
@@ -127,7 +126,7 @@ namespace GostCrypt
 #endif
 		}
 
-		static uint64 Little (const uint64 &x)
+        static quint64 Little (const quint64 &x)
 		{
 #if BYTE_ORDER == LITTLE_ENDIAN
 			return x;
@@ -137,29 +136,29 @@ namespace GostCrypt
 		}
 
 	protected:
-		static uint16 MirrorBytes (const uint16 &x)
+        static quint16 MirrorBytes (const quint16 &x)
 		{
 			return (x << 8) | (x >> 8);
 		}
 
-		static uint32 MirrorBytes (const uint32 &x)
+        static quint32 MirrorBytes (const quint32 &x)
 		{
-			uint32 n = (byte) x;
-			n <<= 8; n |= (byte) (x >> 8);
-			n <<= 8; n |= (byte) (x >> 16);
-			return (n << 8) | (byte) (x >> 24);
+            quint32 n = (quint8) x;
+            n <<= 8; n |= (quint8) (x >> 8);
+            n <<= 8; n |= (quint8) (x >> 16);
+            return (n << 8) | (quint8) (x >> 24);
 		}
 
-		static uint64 MirrorBytes (const uint64 &x)
+        static quint64 MirrorBytes (const quint64 &x)
 		{
-			uint64 n = (byte) x;
-			n <<= 8; n |= (byte) (x >> 8);
-			n <<= 8; n |= (byte) (x >> 16);
-			n <<= 8; n |= (byte) (x >> 24);
-			n <<= 8; n |= (byte) (x >> 32);
-			n <<= 8; n |= (byte) (x >> 40);
-			n <<= 8; n |= (byte) (x >> 48);
-			return (n << 8) | (byte) (x >> 56);
+            quint64 n = (quint8) x;
+            n <<= 8; n |= (quint8) (x >> 8);
+            n <<= 8; n |= (quint8) (x >> 16);
+            n <<= 8; n |= (quint8) (x >> 24);
+            n <<= 8; n |= (quint8) (x >> 32);
+            n <<= 8; n |= (quint8) (x >> 40);
+            n <<= 8; n |= (quint8) (x >> 48);
+            return (n << 8) | (quint8) (x >> 56);
 		}
 	};
 }

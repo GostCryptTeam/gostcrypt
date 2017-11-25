@@ -3,7 +3,7 @@
 const QStringList GraphicInterface::FirstGI::Str = GI_ALL_COMMANDS(GI_STRTAB);
 
 /*! converts byte to MB, GB, KB */
-QString formatSize(uint64 sizeInByte) {
+QString formatSize(quint64 sizeInByte) {
     if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
         + QString::number(sizeInByte)
         + QString("</font>")
@@ -68,7 +68,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     qDebug() << "Command requested by QML = " << command;
 #endif
     //using the mix between a QString tab and a enumeration.
-    uint32 value = FirstGI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
+    quint32 value = FirstGI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
 
     switch(value){
     case FirstGI::mountedvolumes: //"mountedvolumes" command

@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Platform_Buffer
 #define GST_HEADER_Platform_Buffer
 
-#include "PlatformBase.h"
+#include <QtGlobal>
 #include "Memory.h"
 
 namespace GostCrypt
@@ -20,20 +20,20 @@ namespace GostCrypt
 	public:
 		ConstBufferPtr ()
 			: DataPtr (nullptr), DataSize (0) { }
-		ConstBufferPtr (const byte *data, size_t size)
+        ConstBufferPtr (const quint8 *data, size_t size)
 			: DataPtr (data), DataSize (size) { }
 		virtual ~ConstBufferPtr () { }
 
-		operator const byte * () const { return DataPtr; }
+        operator const quint8 * () const { return DataPtr; }
 
 		bool IsDataEqual (const ConstBufferPtr &other) const { return Memory::Compare (DataPtr, DataSize, other.DataPtr, other.DataSize) == 0; }
-		const byte *Get () const { return DataPtr; }
+        const quint8 *Get () const { return DataPtr; }
 		ConstBufferPtr GetRange (size_t offset, size_t size) const;
-		void Set (const byte *data, size_t size) { DataPtr = data; DataSize = size; }
+        void Set (const quint8 *data, size_t size) { DataPtr = data; DataSize = size; }
 		size_t Size () const { return DataSize; }
 
 	protected:
-		const byte *DataPtr;
+        const quint8 *DataPtr;
 		size_t DataSize;
 	};
 
@@ -43,23 +43,23 @@ namespace GostCrypt
 	public:
 		BufferPtr ()
 			: DataPtr (nullptr), DataSize (0) { }
-		BufferPtr (byte *data, size_t size)
+        BufferPtr (quint8 *data, size_t size)
 			: DataPtr (data), DataSize (size) { }
 		virtual ~BufferPtr () { }
 
-		operator byte * () const { return DataPtr; }
+        operator quint8 * () const { return DataPtr; }
 		void CopyFrom (const ConstBufferPtr &bufferPtr) const;
 		void Erase () const { Zero(); }
-		byte *Get () const { return DataPtr; }
+        quint8 *Get () const { return DataPtr; }
 		BufferPtr GetRange (size_t offset, size_t size) const;
-		void Set (byte *data, size_t size) { DataPtr = data; DataSize = size; }
+        void Set (quint8 *data, size_t size) { DataPtr = data; DataSize = size; }
 		size_t Size () const { return DataSize; }
 		void Zero () const { Memory::Zero (DataPtr, DataSize); }
 
 		operator ConstBufferPtr () const { return ConstBufferPtr (DataPtr, DataSize); }
 
 	protected:
-		byte *DataPtr;
+        quint8 *DataPtr;
 		size_t DataSize;
 	};
 
@@ -73,7 +73,7 @@ namespace GostCrypt
 
 		virtual void Allocate (size_t size);
 		virtual void CopyFrom (const ConstBufferPtr &bufferPtr);
-		virtual byte *Ptr () const { return DataPtr; }
+        virtual quint8 *Ptr () const { return DataPtr; }
 		virtual void Erase ();
 		virtual void Free ();
 		virtual BufferPtr GetRange (size_t offset, size_t size) const;
@@ -81,12 +81,12 @@ namespace GostCrypt
 		virtual bool IsAllocated () const { return DataSize != 0; }
 		virtual void Zero ();
 
-		virtual operator byte * () const { return DataPtr; }
+        virtual operator quint8 * () const { return DataPtr; }
 		virtual operator BufferPtr () const { return BufferPtr (DataPtr, DataSize); }
 		virtual operator ConstBufferPtr () const { return ConstBufferPtr (DataPtr, DataSize); }
 
 	protected:
-		byte *DataPtr;
+        quint8 *DataPtr;
 		size_t DataSize;
 
 	private:

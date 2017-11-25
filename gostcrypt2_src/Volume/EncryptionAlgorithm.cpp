@@ -24,9 +24,9 @@ namespace Volume {
 	{
 	}
 
-	void EncryptionAlgorithm::Decrypt (byte *data, uint64 length) const
+	void EncryptionAlgorithm::Decrypt (quint8 *data, quint64 length) const
 	{
-		if_debug (ValidateState ());
+		//if_debug (ValidateState ());
 		Mode->Decrypt (data, length);
 	}
 
@@ -35,15 +35,15 @@ namespace Volume {
 		Decrypt (data, data.Size());
 	}
 
-	void EncryptionAlgorithm::DecryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionAlgorithm::DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
-		if_debug (ValidateState());
+		//if_debug (ValidateState());
 		Mode->DecryptSectors (data, sectorIndex, sectorCount, sectorSize);
 	}
 
-	void EncryptionAlgorithm::Encrypt (byte *data, uint64 length) const
+	void EncryptionAlgorithm::Encrypt (quint8 *data, quint64 length) const
 	{
-		if_debug (ValidateState());
+		//if_debug (ValidateState());
 		Mode->Encrypt (data, length);
 	}
 
@@ -52,9 +52,9 @@ namespace Volume {
 		Encrypt (data, data.Size());
 	}
 
-	void EncryptionAlgorithm::EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionAlgorithm::EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
-		if_debug (ValidateState ());
+		//if_debug (ValidateState ());
 		Mode->EncryptSectors (data, sectorIndex, sectorCount, sectorSize);
 	}
 
@@ -127,37 +127,37 @@ namespace Volume {
 		return Mode;
 	}
 
-	wstring EncryptionAlgorithm::GetName () const
+	std::wstring EncryptionAlgorithm::GetName () const
 	{
 		if (Ciphers.size() < 1)
             throw;// NotInitialized (SRC_POS);
 
-		wstring name;
+		std::wstring name;
 
         for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
 		{
 			if (name.empty())
                 name = c->GetName();
 			else
-                name += wstring (L"-") + c->GetName();
+                name += std::wstring (L"-") + c->GetName();
 		}
 
 		return name;
 	}
 
-        wstring EncryptionAlgorithm::GetDescription () const
+        std::wstring EncryptionAlgorithm::GetDescription () const
         {
                 if (Ciphers.size() < 1)
                         throw;// NotInitialized (SRC_POS);
 
-                wstring desc;
+                std::wstring desc;
 
                 for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
                 {
                         if (desc.empty())
                                 desc = c->GetDescription();
                         else
-                                desc += wstring (L"\n\n") + c->GetDescription();
+                                desc += std::wstring (L"\n\n") + c->GetDescription();
                 }
 
                 return desc;

@@ -40,7 +40,7 @@ namespace GostCrypt
 
 		try
 		{
-			DataPtr = static_cast<byte *> (Memory::Allocate (size));
+			DataPtr = static_cast<quint8 *> (Memory::Allocate (size));
 			DataSize = size;
 		}
 		catch (...)

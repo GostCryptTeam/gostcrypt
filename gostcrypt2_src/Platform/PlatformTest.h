@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Platform_PlatformTest
 #define GST_HEADER_Platform_PlatformTest
 
-#include "PlatformBase.h"
 #include "Thread.h"
 
 namespace GostCrypt

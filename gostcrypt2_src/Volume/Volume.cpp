@@ -32,9 +32,9 @@ namespace Volume {
 	{
 	}
 
-	void Volume::CheckProtectedRange (uint64 writeHostOffset, uint64 writeLength)
+    void Volume::CheckProtectedRange (quint64 writeHostOffset, quint64 writeLength)
 	{
-		uint64 writeHostEndOffset = writeHostOffset + writeLength - 1;
+        quint64 writeHostEndOffset = writeHostOffset + writeLength - 1;
 
 		if ((writeHostOffset < ProtectedRangeStart) ? (writeHostEndOffset >= ProtectedRangeStart) : (writeHostOffset <= ProtectedRangeEnd - 1))
 		{
@@ -53,13 +53,13 @@ namespace Volume {
 
 	QSharedPointer <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 		return EA;
 	}
 
 	QSharedPointer <EncryptionMode> Volume::GetEncryptionMode () const
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 		return EA->GetMode();
 	}
 
@@ -213,12 +213,12 @@ namespace Volume {
 		}
 	}
 
-	void Volume::ReadSectors (const BufferPtr &buffer, uint64 byteOffset)
+    void Volume::ReadSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 
-		uint64 length = buffer.Size();
-		uint64 hostOffset = VolumeDataOffset + byteOffset;
+        quint64 length = buffer.Size();
+        quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
             throw;// ParameterIncorrect (SRC_POS);
@@ -233,7 +233,7 @@ namespace Volume {
 
 	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf)
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 
 		if (Protection == VolumeProtection::ReadOnly)
             throw;// VolumeReadOnly (SRC_POS);
@@ -258,12 +258,12 @@ namespace Volume {
             throw;// NotInitialized (SRC_POS);
 	}
 
-	void Volume::WriteSectors (const ConstBufferPtr &buffer, uint64 byteOffset)
+    void Volume::WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset)
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 
-		uint64 length = buffer.Size();
-		uint64 hostOffset = VolumeDataOffset + byteOffset;
+        quint64 length = buffer.Size();
+        quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0
 			|| byteOffset % SectorSize != 0
@@ -287,7 +287,7 @@ namespace Volume {
 
 		TotalDataWritten += length;
 
-		uint64 writeEndOffset = byteOffset + buffer.Size();
+        quint64 writeEndOffset = byteOffset + buffer.Size();
 		if (writeEndOffset > TopWriteOffset)
 			TopWriteOffset = writeEndOffset;
 	}
@@ -300,7 +300,7 @@ namespace Volume {
 		vi->protection = this->Protection;
 		vi->size = this->GetSize();
 		vi->type = this->Type;
-		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(wstring(this->VolumeFile->GetPath()))));
+		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(std::wstring(this->VolumeFile->GetPath()))));
 
         return vi;
 	}

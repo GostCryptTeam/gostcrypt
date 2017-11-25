@@ -21,7 +21,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class VolumeLayout;
-	typedef list < QSharedPointer <VolumeLayout> > VolumeLayoutList;
+    typedef std::list < QSharedPointer <VolumeLayout> > VolumeLayoutList;
 
 	class VolumeLayout
 	{
@@ -30,12 +30,12 @@ namespace Volume {
 
 		static VolumeLayoutList GetAvailableLayouts (VolumeType::Enum type = VolumeType::Unknown);
 		virtual int GetBackupHeaderOffset () const { return BackupHeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const = 0;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const = 0;
+		virtual quint64 GetDataOffset (quint64 volumeHostSize) const = 0;
+		virtual quint64 GetDataSize (quint64 volumeHostSize) const = 0;
         virtual QSharedPointer <VolumeHeader> GetHeader ();
 		virtual int GetHeaderOffset () const { return HeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
-		virtual uint32 GetHeaderSize () const { return HeaderSize; }
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const = 0;
+		virtual quint32 GetHeaderSize () const { return HeaderSize; }
+		virtual quint64 GetMaxDataSize (quint64 volumeSize) const = 0;
 		virtual EncryptionAlgorithmList GetSupportedEncryptionAlgorithms () const { return SupportedEncryptionAlgorithms; }
 		virtual Pkcs5KdfList GetSupportedKeyDerivationFunctions () const { return Pkcs5Kdf::GetAvailableAlgorithms(); }
 		virtual EncryptionModeList GetSupportedEncryptionModes () const { return SupportedEncryptionModes; }
@@ -51,7 +51,7 @@ namespace Volume {
 
 		int BackupHeaderOffset;
 		int HeaderOffset;
-		uint32 HeaderSize;
+		quint32 HeaderSize;
 		VolumeType::Enum Type;
 
         QSharedPointer <VolumeHeader> Header;
@@ -69,9 +69,9 @@ namespace Volume {
 		virtual ~VolumeLayoutV1Normal () { }
 
         virtual int GetBackupHeaderOffset () const { throw; }
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw; }
+		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
+		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
+                virtual quint64 GetMaxDataSize (quint64 volumeSize) const { (void)volumeSize; throw; }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:
@@ -87,9 +87,9 @@ namespace Volume {
 		virtual ~VolumeLayoutV1Hidden () { }
 
         virtual int GetBackupHeaderOffset () const { throw; }
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-                virtual uint64 GetMaxDataSize (uint64 volumeSize) const { (void)volumeSize; throw; }
+		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
+		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
+                virtual quint64 GetMaxDataSize (quint64 volumeSize) const { (void)volumeSize; throw; }
 		virtual bool HasBackupHeader () const { return false; }
 
 	private:
@@ -104,9 +104,9 @@ namespace Volume {
 		VolumeLayoutV2Normal ();
 		virtual ~VolumeLayoutV2Normal () { }
 
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const;
+		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
+		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
+		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
 		virtual bool HasBackupHeader () const { return true; }
 
 	private:
@@ -121,9 +121,9 @@ namespace Volume {
 		VolumeLayoutV2Hidden ();
 		virtual ~VolumeLayoutV2Hidden () { }
 
-		virtual uint64 GetDataOffset (uint64 volumeHostSize) const;
-		virtual uint64 GetDataSize (uint64 volumeHostSize) const;
-		virtual uint64 GetMaxDataSize (uint64 volumeSize) const;
+		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
+		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
+		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
 		virtual bool HasBackupHeader () const { return true; }
 
 	private:

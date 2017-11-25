@@ -49,7 +49,7 @@ namespace Volume {
 
 	void Whirlpool::GetDigest (const BufferPtr &buffer)
 	{
-		if_debug (ValidateDigestParameters (buffer));
+		//if_debug (ValidateDigestParameters (buffer));
 		WHIRLPOOL_finalize ((WHIRLPOOL_CTX *) Context.Ptr(), buffer);
 	}
 
@@ -60,7 +60,7 @@ namespace Volume {
 
 	void Whirlpool::ProcessData (const ConstBufferPtr &data)
 	{
-		if_debug (ValidateDataParameters (data));
+		//if_debug (ValidateDataParameters (data));
 		WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Ptr());
 	}
 
@@ -73,7 +73,7 @@ namespace Volume {
 
 	void Stribog::GetDigest (const BufferPtr &buffer)
 	{
-		if_debug (ValidateDigestParameters (buffer));
+		//if_debug (ValidateDigestParameters (buffer));
 		STRIBOG_finalize ((STRIBOG_CTX *) Context.Ptr(), buffer);
 	}
 
@@ -84,8 +84,8 @@ namespace Volume {
 
 	void Stribog::ProcessData (const ConstBufferPtr &data)
 	{
-		if_debug (ValidateDataParameters (data));
-		STRIBOG_add ((STRIBOG_CTX *) Context.Ptr(), (byte *) data.Get(), data.Size());
+		//if_debug (ValidateDataParameters (data));
+		STRIBOG_add ((STRIBOG_CTX *) Context.Ptr(), (quint8 *) data.Get(), data.Size());
 	}
 
 	// GOST R 34.11-94
@@ -97,7 +97,7 @@ namespace Volume {
 
 	void GostHash::GetDigest (const BufferPtr &buffer)
 	{
-		if_debug (ValidateDigestParameters (buffer));
+		//if_debug (ValidateDigestParameters (buffer));
 		GOSTHASH_finalize ((gost_hash_ctx *) Context.Ptr(), buffer);
 	}
 
@@ -108,8 +108,8 @@ namespace Volume {
 
 	void GostHash::ProcessData (const ConstBufferPtr &data)
 	{
-		if_debug (ValidateDataParameters (data));
-		GOSTHASH_add ((byte *) data.Get(), data.Size(), (gost_hash_ctx *) Context.Ptr());
+		//if_debug (ValidateDataParameters (data));
+		GOSTHASH_add ((quint8 *) data.Get(), data.Size(), (gost_hash_ctx *) Context.Ptr());
 	}
 }
 }

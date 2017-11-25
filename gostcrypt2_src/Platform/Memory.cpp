@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include <stdlib.h>
 #include "Common/Gstdefs.h"
 #include "Memory.h"
 
@@ -17,9 +17,9 @@ namespace GostCrypt
 		if (size < 1)
             throw;// ParameterIncorrect (SRC_POS);
 
-		void *bufPtr = malloc (size);
+        void *bufPtr = malloc (size);
 		if (!bufPtr)
-			throw bad_alloc();
+            throw;// bad_alloc();
 
 		return bufPtr;
 	}

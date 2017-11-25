@@ -12,7 +12,6 @@
 #include <QString>
 #include <QStandardPaths>
 
-#include "Platform/FileStream.h"
 #include <grp.h>
 
 #include <sys/types.h>
@@ -299,12 +298,12 @@ namespace GostCrypt {
 
         void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm, bool random)
         {
-            fstream file;
+            std::fstream file;
 
             if(!path)
                  throw MissingParamException("path");
 
-            file.open(path->absoluteFilePath().toStdString(), ios::out | ios::binary);
+            file.open(path->absoluteFilePath().toStdString(), std::ios::out | std::ios::binary);
             if(!file.is_open())
                 throw /* TODO add exception here */;
 

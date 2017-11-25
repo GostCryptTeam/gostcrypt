@@ -28,7 +28,7 @@ namespace Volume {
 		DeriveKey (key, password, salt, GetIterationCount());
 	}
 
-	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const wstring &name)
+	QSharedPointer <Pkcs5Kdf> Pkcs5Kdf::GetAlgorithm (const std::wstring &name)
 	{
         std::list<QSharedPointer <Pkcs5Kdf>>::const_iterator algorithmsIt;
         Pkcs5KdfList algorithms = GetAvailableAlgorithms();

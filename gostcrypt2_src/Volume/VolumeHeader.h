@@ -28,7 +28,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	typedef uint64 VolumeTime;
+	typedef quint64 VolumeTime;
 
 	struct VolumeHeaderCreationOptions
 	{
@@ -37,36 +37,36 @@ namespace Volume {
         QSharedPointer <Pkcs5Kdf> Kdf;
 		ConstBufferPtr HeaderKey;
 		ConstBufferPtr Salt;
-		uint32 SectorSize;
-		uint64 VolumeDataSize;
-		uint64 VolumeDataStart;
+		quint32 SectorSize;
+		quint64 VolumeDataSize;
+		quint64 VolumeDataStart;
 		VolumeType::Enum Type;
 	};
 
 	class VolumeHeader
 	{
 	public:
-		VolumeHeader (uint32 HeaderSize);
+		VolumeHeader (quint32 HeaderSize);
 		virtual ~VolumeHeader ();
 
 		void Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
 		bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const Pkcs5KdfList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
 		void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf);
-		uint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
-		uint64 GetEncryptedAreaLength () const { return EncryptedAreaLength; }
+		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
+		quint64 GetEncryptedAreaLength () const { return EncryptedAreaLength; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
-		uint32 GetFlags () const { return Flags; }
+		quint32 GetFlags () const { return Flags; }
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
-		uint64 GetHiddenVolumeDataSize () const { return HiddenVolumeDataSize; }
+		quint64 GetHiddenVolumeDataSize () const { return HiddenVolumeDataSize; }
 		static size_t GetLargestSerializedKeySize ();
 		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Pkcs5; }
-		uint16 GetRequiredMinProgramVersion () const { return RequiredMinProgramVersion; }
+		quint16 GetRequiredMinProgramVersion () const { return RequiredMinProgramVersion; }
 		size_t GetSectorSize () const { return SectorSize; }
-		static uint32 GetSaltSize () { return SaltSize; }
-		uint64 GetVolumeDataSize () const { return VolumeDataSize; }
+		static quint32 GetSaltSize () { return SaltSize; }
+		quint64 GetVolumeDataSize () const { return VolumeDataSize; }
 		VolumeTime GetVolumeCreationTime () const { return VolumeCreationTime; }
-		void SetSize (uint32 headerSize);
-		uint16 GetHeaderVersion () const { return HeaderVersion; }
+		void SetSize (quint32 headerSize);
+		quint16 GetHeaderVersion () const { return HeaderVersion; }
 
 	protected:
 		bool Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
@@ -76,39 +76,39 @@ namespace Volume {
 		void Serialize (const BufferPtr &header) const;
 		template <typename T> void SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset) const;
 
-		uint32 HeaderSize;
+		quint32 HeaderSize;
 
-		static const uint16 CurrentHeaderVersion = VOLUME_HEADER_VERSION;
-		static const uint16 CurrentRequiredMinProgramVersion = GST_VOLUME_MIN_REQUIRED_PROGRAM_VERSION;
-		static const uint16 MinAllowedHeaderVersion = 1;
+		static const quint16 CurrentHeaderVersion = VOLUME_HEADER_VERSION;
+		static const quint16 CurrentRequiredMinProgramVersion = GST_VOLUME_MIN_REQUIRED_PROGRAM_VERSION;
+		static const quint16 MinAllowedHeaderVersion = 1;
 
 		static const int SaltOffset = 0;
-		static const uint32 SaltSize = 64;
+		static const quint32 SaltSize = 64;
 
 		static const int EncryptedHeaderDataOffset = SaltOffset + SaltSize;
-		uint32 EncryptedHeaderDataSize;
+		quint32 EncryptedHeaderDataSize;
 
-		static const uint32 LegacyEncryptionModeKeyAreaSize = 32;
+		static const quint32 LegacyEncryptionModeKeyAreaSize = 32;
 		static const int DataKeyAreaMaxSize = 256;
-		static const uint32 DataAreaKeyOffset = DataKeyAreaMaxSize - EncryptedHeaderDataOffset;
+		static const quint32 DataAreaKeyOffset = DataKeyAreaMaxSize - EncryptedHeaderDataOffset;
 
 		QSharedPointer <EncryptionAlgorithm> EA;
 		QSharedPointer <Pkcs5Kdf> Pkcs5;
 
-		uint16 HeaderVersion;
-		uint16 RequiredMinProgramVersion;
-		uint32 VolumeKeyAreaCrc32;
+		quint16 HeaderVersion;
+		quint16 RequiredMinProgramVersion;
+		quint32 VolumeKeyAreaCrc32;
 
 		VolumeTime VolumeCreationTime;
 		VolumeTime HeaderCreationTime;
 
 		VolumeType::Enum mVolumeType;
-		uint64 HiddenVolumeDataSize;
-		uint64 VolumeDataSize;
-		uint64 EncryptedAreaStart;
-		uint64 EncryptedAreaLength;
-		uint32 Flags;
-		uint32 SectorSize;
+		quint64 HiddenVolumeDataSize;
+		quint64 VolumeDataSize;
+		quint64 EncryptedAreaStart;
+		quint64 EncryptedAreaLength;
+		quint32 Flags;
+		quint32 SectorSize;
 
 		SecureBuffer DataAreaKey;
 

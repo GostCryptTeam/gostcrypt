@@ -33,6 +33,7 @@
 #include "GfMul.h"
 #include "Gstdefs.h"
 #include "Common/Endian.h"
+#include <QtGlobal>
 
 /* BUFFER_ALIGN32 or BUFFER_ALIGN64 must be defined at this point to    */
 /* enable faster operation by taking advantage of memory aligned values */
@@ -51,7 +52,7 @@ extern "C"
 #endif
 
 typedef unsigned __int32 mode(32t);
-typedef uint64 mode(64t);
+typedef quint64 mode(64t);
 
 #define BRG_LITTLE_ENDIAN   1234 /* byte 0 is least significant (i386) */
 #define BRG_BIG_ENDIAN      4321 /* byte 0 is most significant (mc68k) */
@@ -733,7 +734,7 @@ void Gf64MulTab (unsigned char a[8], unsigned char p[8], GfCtx *ctx)
 
 /* Basic algorithms for testing of optimized algorithms */
 
-static void xor128 (uint64 *a, uint64 *b)
+static void xor128 (quint64 *a, quint64 *b)
 {
 	*a++ ^= *b++;
 	*a ^= *b;
@@ -761,7 +762,7 @@ static void GfMul128Basic (unsigned __int8 *a, unsigned __int8 *b, unsigned __in
 	for (i = 0; i < 128; i++)
 	{
 		if (IsBitSet128 (i, b))
-			xor128 ((uint64 *)p, (uint64 *)la);
+			xor128 ((quint64 *)p, (quint64 *)la);
 
 		if (la[0] & 0x80)
 		{
@@ -775,7 +776,7 @@ static void GfMul128Basic (unsigned __int8 *a, unsigned __int8 *b, unsigned __in
 	}
 }
 
-static void xor64 (uint64 *a, uint64 *b)
+static void xor64 (quint64 *a, quint64 *b)
 {
 	*a ^= *b;
 }
@@ -804,7 +805,7 @@ static void GfMul64Basic (unsigned __int8 *a, unsigned __int8 *b, unsigned __int
 	for (i = 0; i < 64; i++)
 	{
 		if (IsBitSet64 (i, b))
-			xor64 ((uint64 *)p, (uint64 *)la);
+			xor64 ((quint64 *)p, (quint64 *)la);
 
 		if (la[0] & 0x80)
 		{

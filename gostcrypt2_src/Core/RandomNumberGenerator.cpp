@@ -26,7 +26,6 @@ namespace GostCrypt
 		int urandom = open ("/dev/urandom", O_RDONLY);
         if (urandom == -1)
             throw; //sys exception
-		finally_do_arg (int, urandom, { close (finally_arg); });
 
         if (read (urandom, buffer, buffer.Size()) == -1)
             throw;
@@ -38,12 +37,14 @@ namespace GostCrypt
 			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
             if (random == -1)
                 throw;
-			finally_do_arg (int, random, { close (finally_arg); });
 
             if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN)
                 throw;
 			AddToPool (buffer);
-		}
+            close(random);
+        }
+
+        close(urandom);
 	}
 
 	void RandomNumberGenerator::AddToPool (const ConstBufferPtr &data)
@@ -185,7 +186,7 @@ namespace GostCrypt
 		Buffer buffer (1);
 		for (size_t i = 0; i < PoolSize * 10; ++i)
 		{
-			buffer[0] = (byte) i;
+			buffer[0] = (quint8) i;
 			AddToPool (buffer);
 		}
 

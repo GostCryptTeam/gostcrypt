@@ -8,17 +8,14 @@
 
 
 #include "PlatformTest.h"
-#include "FileStream.h"
-#include "Finally.h"
-#include "MemoryStream.h"
 #include "Mutex.h"
 #include "SyncEvent.h"
 #include "Thread.h"
 #include "Common/Gstdefs.h"
+#include <QSharedPointer>
 
 namespace GostCrypt
 {
-    // QSharedPointer, Mutex, ScopeLock, SyncEvent, Thread
 	static struct 
 	{
 		QSharedPointer <int> SharedIntPtr;
@@ -93,10 +90,10 @@ namespace GostCrypt
 	bool PlatformTest::TestAll ()
 	{
 		// Integer types
-        if (sizeof (byte)   != 1 || sizeof (int8)  != 1 || sizeof (__int8)  != 1) throw;// TestFailed (SRC_POS);
-        if (sizeof (uint16) != 2 || sizeof (int16) != 2 || sizeof (__int16) != 2) throw;// TestFailed (SRC_POS);
-        if (sizeof (uint32) != 4 || sizeof (int32) != 4 || sizeof (__int32) != 4) throw;// TestFailed (SRC_POS);
-        if (sizeof (uint64) != 8 || sizeof (int64) != 8) throw;// TestFailed (SRC_POS);
+        if (sizeof (quint8)   != 1 || sizeof (int8)  != 1 || sizeof (__int8)  != 1) throw;// TestFailed (SRC_POS);
+        if (sizeof (quint16) != 2 || sizeof (int16) != 2 || sizeof (__int16) != 2) throw;// TestFailed (SRC_POS);
+        if (sizeof (quint32) != 4 || sizeof (int32) != 4 || sizeof (__int32) != 4) throw;// TestFailed (SRC_POS);
+        if (sizeof (quint64) != 8 || sizeof (int64) != 8) throw;// TestFailed (SRC_POS);
 
 		// Exception handling
 		TestFlag = false;
@@ -143,7 +140,8 @@ namespace GostCrypt
             throw;// TestFailed (SRC_POS);
 		}
 
-		// finally
+        /*
+        // finally
 		TestFlag = false;
 		{
 			finally_do ({ TestFlag = true; });
@@ -173,6 +171,7 @@ namespace GostCrypt
             throw;// TestFailed (SRC_POS);
 
 		SerializerTest();
+        //*/
 		ThreadTest();
 
 		return true;

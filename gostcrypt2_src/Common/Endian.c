@@ -35,9 +35,9 @@ unsigned __int32 MirrorBytes32 (unsigned __int32 x)
 }
 
 #ifndef GST_NO_COMPILER_INT64
-uint64 MirrorBytes64 (uint64 x)
+quint64 MirrorBytes64 (quint64 x)
 {
-	uint64 n = (unsigned __int8) x;
+	quint64 n = (unsigned __int8) x;
 	n <<= 8; n |= (unsigned __int8) (x >> 8);
 	n <<= 8; n |= (unsigned __int8) (x >> 16);
 	n <<= 8; n |= (unsigned __int8) (x >> 24);

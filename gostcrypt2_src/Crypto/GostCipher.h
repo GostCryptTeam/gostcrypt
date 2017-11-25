@@ -27,7 +27,7 @@ extern "C"
 
 #define rotl32(b, shift) ((b << shift) | (b >> (32 - shift)))
 
-typedef unsigned char byte;
+typedef unsigned char quint8;
 typedef short gst_word;
 typedef int gst_dword;
 typedef unsigned short gst_uword;
@@ -62,9 +62,9 @@ typedef struct gost_kds
 #endif
 } gost_kds;
 
-void gost_encrypt(byte *in, byte *out, gost_kds *ks);
-void gost_decrypt(byte *in, byte *out, gost_kds *ks);
-void gost_set_key(byte *key, gost_kds *ks);
+void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks);
+void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks);
+void gost_set_key(quint8 *key, gost_kds *ks);
 void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, gst_udword *in, gst_dword len);
 
 #if defined(__cplusplus)

@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Platform_File
 #define GST_HEADER_Platform_File
 
-#include "PlatformBase.h"
 #include "Buffer.h"
 #include "FilePath.h"
 
@@ -62,22 +61,22 @@ namespace GostCrypt
 		static void Copy (const FilePath &sourcePath, const FilePath &destinationPath, bool preserveTimestamps = true);
 		void Delete ();
 		void Flush () const;
-		uint32 GetDeviceSectorSize () const;
+        quint32 GetDeviceSectorSize () const;
 		static size_t GetOptimalReadSize () { return OptimalReadSize; }
 		static size_t GetOptimalWriteSize ()  { return OptimalWriteSize; }
-		uint64 GetPartitionDeviceStartOffset () const;
+        quint64 GetPartitionDeviceStartOffset () const;
 		bool IsOpen () const { return FileIsOpen; }
 		FilePath GetPath () const;
-		uint64 Length () const;
+        quint64 Length () const;
 		void Open (const FilePath &path, FileOpenMode mode = OpenRead, FileShareMode shareMode = ShareReadWrite, FileOpenFlags flags = FlagsNone);
-		uint64 Read (const BufferPtr &buffer) const;
+        quint64 Read (const BufferPtr &buffer) const;
 		void ReadCompleteBuffer (const BufferPtr &buffer) const;
-		uint64 ReadAt (const BufferPtr &buffer, uint64 position) const;
-		void SeekAt (uint64 position) const;
+        quint64 ReadAt (const BufferPtr &buffer, quint64 position) const;
+        void SeekAt (quint64 position) const;
 		void SeekEnd (int ofset) const;
 		void Write (const ConstBufferPtr &buffer) const;
 		void Write (const ConstBufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
-		void WriteAt (const ConstBufferPtr &buffer, uint64 position) const;
+        void WriteAt (const ConstBufferPtr &buffer, quint64 position) const;
 		
 	protected:
 		void ValidateState () const;

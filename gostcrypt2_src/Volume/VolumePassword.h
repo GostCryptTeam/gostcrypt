@@ -20,10 +20,10 @@ namespace Volume {
 	{
 	public:
 		VolumePassword ();
-		VolumePassword (const byte *password, size_t size);
+		VolumePassword (const quint8 *password, size_t size);
 		VolumePassword (const char *password, size_t size);
 		VolumePassword (const wchar_t *password, size_t charCount);
-		VolumePassword (const wstring &password);
+        VolumePassword (const std::wstring &password);
 		VolumePassword (const VolumePassword &password) { Set (password); }
 		virtual ~VolumePassword ();
 
@@ -34,10 +34,10 @@ namespace Volume {
 		operator BufferPtr () const { return BufferPtr (PasswordBuffer); }
 
 		void CheckPortability () const;
-		byte *DataPtr () const { return PasswordBuffer; }
+		quint8 *DataPtr () const { return PasswordBuffer; }
 		bool IsEmpty () const { return PasswordSize == 0; }
 		size_t Size () const { return PasswordSize; }
-		void Set (const byte *password, size_t size);
+		void Set (const quint8 *password, size_t size);
 		void Set (const wchar_t *password, size_t charCount);
 		void Set (const ConstBufferPtr &password);
 		void Set (const VolumePassword &password);

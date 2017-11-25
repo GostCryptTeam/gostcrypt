@@ -17,7 +17,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class VolumeHash;
-	typedef list < QSharedPointer <VolumeHash> > VolumeHashList;
+    typedef std::list < QSharedPointer <VolumeHash> > VolumeHashList;
 
 	class VolumeHash
 	{
@@ -29,7 +29,7 @@ namespace Volume {
 		virtual void GetDigest (const BufferPtr &buffer) = 0;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
-		virtual wstring GetName () const = 0;
+        virtual std::wstring GetName () const = 0;
 		virtual QSharedPointer <VolumeHash> GetNew () const = 0;
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }
@@ -56,7 +56,7 @@ namespace Volume {
 		virtual void GetDigest (const BufferPtr &buffer);
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 512 / 8; }
-		virtual wstring GetName () const { return L"Whirlpool"; }
+        virtual std::wstring GetName () const { return L"Whirlpool"; }
 		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Whirlpool); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
@@ -78,7 +78,7 @@ namespace Volume {
 		virtual void GetDigest (const BufferPtr &buffer);
 		virtual size_t GetBlockSize () const { return 64; }
 		virtual size_t GetDigestSize () const { return 64; }
-		virtual wstring GetName () const { return L"GOST R 34.11-2012"; }
+        virtual std::wstring GetName () const { return L"GOST R 34.11-2012"; }
 		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Stribog); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);
@@ -100,7 +100,7 @@ namespace Volume {
 		virtual void GetDigest (const BufferPtr &buffer);
 		virtual size_t GetBlockSize () const { return 32; }
 		virtual size_t GetDigestSize () const { return 32; }
-		virtual wstring GetName () const { return L"GOST R 34.11-94"; }
+        virtual std::wstring GetName () const { return L"GOST R 34.11-94"; }
 		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new GostHash); }
 		virtual void Init ();
 		virtual void ProcessData (const ConstBufferPtr &data);

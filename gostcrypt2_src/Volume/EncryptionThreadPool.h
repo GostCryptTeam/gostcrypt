@@ -56,15 +56,15 @@ namespace Volume {
 				struct
 				{
 					const EncryptionMode *Mode;
-					byte *Data;
-					uint64 StartUnitNo;
-					uint64 UnitCount;
+					quint8 *Data;
+					quint64 StartUnitNo;
+					quint64 UnitCount;
 					size_t SectorSize;
 				} Encryption;
 			};
 		};
 
-		static void DoWork (WorkType::Enum type, const EncryptionMode *mode, byte *data, uint64 startUnitNo, uint64 unitCount, size_t sectorSize);
+		static void DoWork (WorkType::Enum type, const EncryptionMode *mode, quint8 *data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize);
 		static bool IsRunning () { return ThreadPoolRunning; }
 		static void Start ();
 		static void Stop ();
@@ -79,7 +79,7 @@ namespace Volume {
 		static volatile size_t DequeuePosition;
 		static volatile size_t EnqueuePosition;
         static QMutex EnqueueMutex;
-		static list < QSharedPointer <Thread> > RunningThreads;
+        static std::list < QSharedPointer <Thread> > RunningThreads;
 		static volatile bool StopPending;
 		static size_t ThreadCount;
 		static volatile bool ThreadPoolRunning;

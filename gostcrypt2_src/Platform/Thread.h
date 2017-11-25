@@ -13,7 +13,7 @@
 #include <pthread.h>
 #define GST_THREAD_PROC void*
 
-#include "PlatformBase.h"
+#include <QtGlobal>
 #include "Functor.h"
 #include "SyncEvent.h"
 
@@ -36,7 +36,7 @@ namespace GostCrypt
 			Start (Thread::FunctorEntry, (void *)functor);
 		}
 
-		static void Sleep (uint32 milliSeconds);
+        static void Sleep (quint32 milliSeconds);
 
 	protected:
 		static GST_THREAD_PROC FunctorEntry (void *functorArg)

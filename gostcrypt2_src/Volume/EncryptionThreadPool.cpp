@@ -17,7 +17,6 @@
 #endif
 
 #include "Platform/SyncEvent.h"
-#include "Platform/SystemLog.h"
 #include "Common/Crypto.h"
 #include "EncryptionThreadPool.h"
 
@@ -25,14 +24,14 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	void EncryptionThreadPool::DoWork (WorkType::Enum type, const EncryptionMode *encryptionMode, byte *data, uint64 startUnitNo, uint64 unitCount, size_t sectorSize)
+    void EncryptionThreadPool::DoWork (WorkType::Enum type, const EncryptionMode *encryptionMode, quint8 *data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize)
 	{
 		size_t fragmentCount;
 		size_t unitsPerFragment;
 		size_t remainder;
 
-		byte *fragmentData;
-		uint64 fragmentStartUnitNo;
+        quint8 *fragmentData;
+        quint64 fragmentStartUnitNo;
 
 		WorkItem *workItem;
 		WorkItem *firstFragmentWorkItem;
@@ -275,7 +274,7 @@ namespace Volume {
                 //{
                     //workItem->FirstFragment->ItemException.reset (e.CloneNew());
                 //}
-				catch (exception &e)
+                catch (std::exception &e)
 				{
                     //workItem->FirstFragment->ItemException.reset (new ExternalException (SRC_POS, StringConverter::ToExceptionString (e)));
 				}
@@ -294,9 +293,9 @@ namespace Volume {
 					workItem->FirstFragment->ItemCompletedEvent.Signal();
 			}
 		}
-		catch (exception &e)
+        catch (std::exception &e)
 		{
-			SystemLog::WriteException (e);
+            // SystemLog::WriteException (e); TODO
 		}
 		catch (...)
 		{
@@ -320,6 +319,6 @@ namespace Volume {
 	SyncEvent EncryptionThreadPool::WorkItemReadyEvent;
 	SyncEvent EncryptionThreadPool::WorkItemCompletedEvent;
 
-	list < QSharedPointer <Thread> > EncryptionThreadPool::RunningThreads;
+    std::list < QSharedPointer <Thread> > EncryptionThreadPool::RunningThreads;
 	}
 }

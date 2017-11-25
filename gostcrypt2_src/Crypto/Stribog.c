@@ -542,7 +542,7 @@ const unsigned long long T[8][256] = {
 }
 };
 
-static const byte C[12][64] = {
+static const quint8 C[12][64] = {
 {
 	0xb1,0x08,0x5b,0xda,0x1e,0xca,0xda,0xe9,0xeb,0xcb,0x2f,0x81,0xc0,0x65,0x7c,0x1f,
 	0x2f,0x6a,0x76,0x43,0x2e,0x45,0xd0,0x16,0x71,0x4e,0xb8,0x8d,0x75,0x85,0xc4,0xfc,
@@ -617,34 +617,34 @@ static const byte C[12][64] = {
 }
 };
 
-static void set_blocks(byte *ptr, byte val, gst_dword len)
+static void set_blocks(quint8 *ptr, quint8 val, gst_dword len)
 {
 	gst_dword i;
 	for (i = 0; i < len; i++)
 		ptr[i] = val;
 }
 
-static void Add512 (byte *dest, const byte *a, const byte *b)
+static void Add512 (quint8 *dest, const quint8 *a, const quint8 *b)
 {
-	byte carry = 0;
-	byte tmp;
+	quint8 carry = 0;
+	quint8 tmp;
 	gst_dword i;
 	for (i = 63; i >= 0; i--)
 	{
 		tmp = a[i] + b[i] + carry;
-		carry = (byte)((gst_uword)(a[i] + b[i]) >> 8);
+		carry = (quint8)((gst_uword)(a[i] + b[i]) >> 8);
 		dest[i] = tmp;
 	}
 }
 
-static void copy_blocks(byte *dest, byte *src, gst_dword len)
+static void copy_blocks(quint8 *dest, quint8 *src, gst_dword len)
 {
 	gst_dword i;
 	for (i = 0; i < len; i++)
 		dest[i] = src[i];
 }
 
-static void Xor512(byte *dest, byte *a, byte *b)
+static void Xor512(quint8 *dest, quint8 *a, quint8 *b)
 {
 	gst_dword i;
 	for (i = 0; i < 64; i++)
@@ -653,7 +653,7 @@ static void Xor512(byte *dest, byte *a, byte *b)
 
 /* More efficient compression function due to pre-computed table T.
  * Requires 64-bit variables */
-static void F(byte *K)
+static void F(quint8 *K)
 {
 	unsigned long long tmp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 	int i;
@@ -669,26 +669,26 @@ static void F(byte *K)
 		tmp[i] ^= T[6][K[i + 8]];
 		tmp[i] ^= T[7][K[i + 0]];
 	}
-	copy_blocks(K, (byte *)tmp, 64);
+	copy_blocks(K, (quint8 *)tmp, 64);
 }
 
-static void E(byte *K, byte *m, byte *T)
+static void E(quint8 *K, quint8 *m, quint8 *T)
 {
 	gst_dword i;
 	Xor512(T, K, m);
 	for (i = 0; i < 12; i++)
 	{
 		F(T);
-		Xor512(K, K, (byte *)C[i]);
+		Xor512(K, K, (quint8 *)C[i]);
 		F(K);
 		Xor512(T, K, T);
 	}
 }
 
-void g_N(byte *N, byte *h, byte *m)
+void g_N(quint8 *N, quint8 *h, quint8 *m)
 {
-	byte K[64];
-	byte T[64];
+	quint8 K[64];
+	quint8 T[64];
 
 	Xor512(K, h, N);
 
@@ -701,18 +701,18 @@ void g_N(byte *N, byte *h, byte *m)
 
 void STRIBOG_init(STRIBOG_CTX *ctx)
 {
-	set_blocks((byte *)ctx, 0, sizeof(*ctx));
+	set_blocks((quint8 *)ctx, 0, sizeof(*ctx));
 	ctx->v512[62] = 0x2; /* v512 = 0x200, or 512 in decimal */
 }
 
 #define LAST_BLOCK(ptr, len) (ptr + len - 64)
 #define SUBTRACT_BLOCK(len) (len -= 64)
 
-void STRIBOG_add(STRIBOG_CTX *ctx, byte *msg, gst_udword len)
+void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len)
 {
 	/* Current message position and the position we're not supposed to cross */
-	byte *msg_ptr = msg;
-	byte *msg_lim = (msg_ptr + len) - 64;
+	quint8 *msg_ptr = msg;
+	quint8 *msg_lim = (msg_ptr + len) - 64;
 
 	if (ctx->left)
 	{
@@ -720,7 +720,7 @@ void STRIBOG_add(STRIBOG_CTX *ctx, byte *msg, gst_udword len)
 		if ((gst_udword)(64 - ctx->left) > len)
 		{
 			copy_blocks(ctx->remainder + ctx->left, msg_ptr, (gst_dword)len);
-			ctx->left += (byte)len;
+			ctx->left += (quint8)len;
 			return;
 		}
 
@@ -740,7 +740,7 @@ void STRIBOG_add(STRIBOG_CTX *ctx, byte *msg, gst_udword len)
 	else if (len < 64)
 	{
 		copy_blocks(ctx->remainder, msg_ptr, (gst_dword)len);
-		ctx->left = (byte)len;
+		ctx->left = (quint8)len;
 		return;
 	}
 	/* While there is more than 64 bytes available, do a round */
@@ -753,23 +753,23 @@ void STRIBOG_add(STRIBOG_CTX *ctx, byte *msg, gst_udword len)
 		SUBTRACT_BLOCK(len);
 	}
 	copy_blocks(ctx->remainder, msg_ptr, 64);
-	ctx->left = (byte)len;
+	ctx->left = (quint8)len;
 }
 
 #undef LAST_BLOCK
 #undef SUBTRACT_BLOCK
 
-void STRIBOG_finalize(STRIBOG_CTX *ctx, byte *out)
+void STRIBOG_finalize(STRIBOG_CTX *ctx, quint8 *out)
 {
-	byte M[64];
+	quint8 M[64];
 
 	/*Pad the message with repeated 0x00, ending in a 0x01*/
-	set_blocks((byte *)M, 0, 64);
+	set_blocks((quint8 *)M, 0, 64);
 	if (ctx->left != 64)
 		M[63 - ctx->left] = 0x01;
 	
 	/* Copy ctx->left bytes from ctx->remainder to the back of M */
-	copy_blocks((byte *)M + 64 - ctx->left, ctx->remainder, ctx->left);
+	copy_blocks((quint8 *)M + 64 - ctx->left, ctx->remainder, ctx->left);
 	
 	/* Hash the last (padded) message block */
 	g_N(ctx->N, ctx->hash, M);

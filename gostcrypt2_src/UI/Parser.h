@@ -42,7 +42,7 @@ namespace Parser {
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
 
     quint64 parseSize(QString s, bool *ok);
-    bool askPassword(string volume, QString &p);
+    bool askPassword(std::string volume, QString &p);
 
 }
 

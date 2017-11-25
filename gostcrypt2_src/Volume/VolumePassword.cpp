@@ -20,10 +20,10 @@ namespace Volume {
 
 	VolumePassword::VolumePassword (const char *password, size_t size)
 	{
-		Set ((const byte *) password, size);
+		Set ((const quint8 *) password, size);
 	}
 
-	VolumePassword::VolumePassword (const byte *password, size_t size)
+	VolumePassword::VolumePassword (const quint8 *password, size_t size)
 	{
 		Set (password, size);
 	}
@@ -33,7 +33,7 @@ namespace Volume {
 		Set (password, charCount);
 	}
 
-	VolumePassword::VolumePassword (const wstring &password)
+    VolumePassword::VolumePassword (const std::wstring &password)
 	{
 		Set (password.c_str(), password.size());
 	}
@@ -64,7 +64,7 @@ namespace Volume {
 		return true;
 	}
 
-	void VolumePassword::Set (const byte *password, size_t size)
+	void VolumePassword::Set (const quint8 *password, size_t size)
 	{
 		AllocateBuffer ();
 
@@ -84,7 +84,7 @@ namespace Volume {
 
 		union Conv
 		{
-			byte b[sizeof (wchar_t)];
+			quint8 b[sizeof (wchar_t)];
 			wchar_t c;
 		};
 
@@ -105,7 +105,7 @@ namespace Volume {
             throw;// (SRC_POS);
 
 		bool unportable = false;
-		byte passwordBuf[MaxSize];
+		quint8 passwordBuf[MaxSize];
 		for (size_t i = 0; i < charCount; ++i)
 		{
 			conv.c = password[i];

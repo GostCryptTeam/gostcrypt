@@ -18,7 +18,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	VolumeHeader::VolumeHeader (uint32 size)
+	VolumeHeader::VolumeHeader (quint32 size)
 	{
 		Init();
 		HeaderSize = size;
@@ -148,7 +148,7 @@ namespace Volume {
 
 /* Vérification de la version du header */
 		size_t offset = 4;
-		HeaderVersion =	DeserializeEntry <uint16> (header, offset);
+		HeaderVersion =	DeserializeEntry <quint16> (header, offset);
 
 		if (HeaderVersion < MinAllowedHeaderVersion)
             throw;// OlderVersionRequired (SRC_POS);
@@ -158,28 +158,28 @@ namespace Volume {
 
 		if (HeaderVersion >= 4
 			&& Crc32::ProcessBuffer (header.GetRange (0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
-			!= DeserializeEntryAt <uint32> (header, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
+			!= DeserializeEntryAt <quint32> (header, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
 		{
 			return false;
 		}
 
-		RequiredMinProgramVersion = DeserializeEntry <uint16> (header, offset);
+		RequiredMinProgramVersion = DeserializeEntry <quint16> (header, offset);
 
 
 		if (RequiredMinProgramVersion > Version::Number())
             throw;// HigherVersionRequired (SRC_POS);
 
-		VolumeKeyAreaCrc32 = DeserializeEntry <uint32> (header, offset);
-		VolumeCreationTime = DeserializeEntry <uint64> (header, offset);
-		HeaderCreationTime = DeserializeEntry <uint64> (header, offset);
-		HiddenVolumeDataSize = DeserializeEntry <uint64> (header, offset);
+		VolumeKeyAreaCrc32 = DeserializeEntry <quint32> (header, offset);
+		VolumeCreationTime = DeserializeEntry <quint64> (header, offset);
+		HeaderCreationTime = DeserializeEntry <quint64> (header, offset);
+		HiddenVolumeDataSize = DeserializeEntry <quint64> (header, offset);
 		mVolumeType = (HiddenVolumeDataSize != 0 ? VolumeType::Hidden : VolumeType::Normal);
-		VolumeDataSize = DeserializeEntry <uint64> (header, offset);
-		EncryptedAreaStart = DeserializeEntry <uint64> (header, offset);
-		EncryptedAreaLength = DeserializeEntry <uint64> (header, offset);
-		Flags = DeserializeEntry <uint32> (header, offset);
+		VolumeDataSize = DeserializeEntry <quint64> (header, offset);
+		EncryptedAreaStart = DeserializeEntry <quint64> (header, offset);
+		EncryptedAreaLength = DeserializeEntry <quint64> (header, offset);
+		Flags = DeserializeEntry <quint32> (header, offset);
 
-		SectorSize = DeserializeEntry <uint32> (header, offset);
+		SectorSize = DeserializeEntry <quint32> (header, offset);
 		if (HeaderVersion < 5)
 			SectorSize = GST_SECTOR_SIZE_LEGACY;
 
@@ -300,12 +300,12 @@ namespace Volume {
 
 		header.GetRange (DataAreaKeyOffset, DataAreaKey.Size()).CopyFrom (DataAreaKey);
 
-		uint16 headerVersion = CurrentHeaderVersion;
+		quint16 headerVersion = CurrentHeaderVersion;
 		SerializeEntry (headerVersion, header, offset);
 		SerializeEntry (RequiredMinProgramVersion, header, offset);
 		SerializeEntry (Crc32::ProcessBuffer (header.GetRange (DataAreaKeyOffset, DataKeyAreaMaxSize)), header, offset);
 
-		uint64 reserved64 = 0;
+		quint64 reserved64 = 0;
 		SerializeEntry (reserved64, header, offset);
 		SerializeEntry (reserved64, header, offset);
 
@@ -339,7 +339,7 @@ namespace Volume {
 		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
 	}
 
-	void VolumeHeader::SetSize (uint32 headerSize)
+	void VolumeHeader::SetSize (quint32 headerSize)
 	{
 		HeaderSize = headerSize;
 		EncryptedHeaderDataSize = HeaderSize - EncryptedHeaderDataOffset;

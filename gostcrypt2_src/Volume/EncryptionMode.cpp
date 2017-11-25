@@ -23,12 +23,12 @@ namespace Volume {
 	{
 	}
 
-	void EncryptionMode::DecryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionMode::DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
 		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::DecryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
 	}
 
-	void EncryptionMode::EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionMode::EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
 	{
 		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::EncryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
 	}
@@ -48,14 +48,14 @@ namespace Volume {
             throw;// NotInitialized (SRC_POS);
 	}
 
-	void EncryptionMode::ValidateParameters (byte *data, uint64 length) const
+	void EncryptionMode::ValidateParameters (quint8 *data, quint64 length) const
 	{
         (void)data;
         if ((Ciphers.size() > 0 && (length % Ciphers.front()->GetBlockSize()) != 0))
             throw;// ParameterIncorrect (SRC_POS);
 	}
 
-	void EncryptionMode::ValidateParameters (byte *data, uint64 sectorCount, size_t sectorSize) const
+	void EncryptionMode::ValidateParameters (quint8 *data, quint64 sectorCount, size_t sectorSize) const
 	{
         (void)data;
         if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)

@@ -19,7 +19,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class Pkcs5Kdf;
-	typedef list < QSharedPointer <Pkcs5Kdf> > Pkcs5KdfList;
+    typedef std::list < QSharedPointer <Pkcs5Kdf> > Pkcs5KdfList;
 
 	class Pkcs5Kdf
 	{
@@ -28,12 +28,12 @@ namespace Volume {
 
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const;
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const = 0;
-		static QSharedPointer <Pkcs5Kdf> GetAlgorithm (const wstring &name);
+        static QSharedPointer <Pkcs5Kdf> GetAlgorithm (const std::wstring &name);
 		static QSharedPointer <Pkcs5Kdf> GetAlgorithm (const VolumeHash &hash);
 		static Pkcs5KdfList GetAvailableAlgorithms ();
 		virtual QSharedPointer <VolumeHash> GetHash () const = 0;
 		virtual int GetIterationCount () const = 0;
-		virtual wstring GetName () const = 0;
+        virtual std::wstring GetName () const = 0;
 		virtual bool IsDeprecated () const { return GetHash()->IsDeprecated(); }
 
 	protected:
@@ -55,7 +55,7 @@ namespace Volume {
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
 		virtual QSharedPointer <VolumeHash> GetHash () const { return QSharedPointer <VolumeHash> (new Whirlpool); }
 		virtual int GetIterationCount () const { return 1000; }
-		virtual wstring GetName () const { return L"HMAC-Whirlpool"; }
+        virtual std::wstring GetName () const { return L"HMAC-Whirlpool"; }
 
 	private:
 		Pkcs5HmacWhirlpool (const Pkcs5HmacWhirlpool &);
@@ -71,7 +71,7 @@ namespace Volume {
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
 		virtual QSharedPointer <VolumeHash> GetHash () const { return QSharedPointer <VolumeHash> (new Stribog); }
 		virtual int GetIterationCount () const { return 1000; }
-		virtual wstring GetName () const { return L"HMAC-GOST R 34.11-2012"; }
+        virtual std::wstring GetName () const { return L"HMAC-GOST R 34.11-2012"; }
 
 	private:
 		Pkcs5HmacStribog (const Pkcs5HmacStribog &);
@@ -87,7 +87,7 @@ namespace Volume {
 		virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
 		virtual QSharedPointer <VolumeHash> GetHash () const { return QSharedPointer <VolumeHash> (new GostHash); }
 		virtual int GetIterationCount () const { return 1000; }
-		virtual wstring GetName () const { return L"HMAC-GOST R 34.11-94"; }
+        virtual std::wstring GetName () const { return L"HMAC-GOST R 34.11-94"; }
 
 	private:
 		Pkcs5HmacGostHash (const Pkcs5HmacGostHash &);

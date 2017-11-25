@@ -72,13 +72,13 @@ namespace Volume {
 
 	}
 
-	uint64 VolumeLayoutV1Normal::GetDataOffset (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV1Normal::GetDataOffset (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return HeaderSize;
 	}
 
-	uint64 VolumeLayoutV1Normal::GetDataSize (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV1Normal::GetDataSize (quint64 volumeHostSize) const
 	{
 		return volumeHostSize - GetHeaderSize();
 	}
@@ -97,12 +97,12 @@ namespace Volume {
 
 	}
 
-	uint64 VolumeLayoutV1Hidden::GetDataOffset (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV1Hidden::GetDataOffset (quint64 volumeHostSize) const
 	{
 		return volumeHostSize - GetDataSize (volumeHostSize) + HeaderOffset;
 	}
 
-	uint64 VolumeLayoutV1Hidden::GetDataSize (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV1Hidden::GetDataSize (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return Header->GetHiddenVolumeDataSize ();
@@ -122,19 +122,19 @@ namespace Volume {
 		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
 	}
 
-	uint64 VolumeLayoutV2Normal::GetDataOffset (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV2Normal::GetDataOffset (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return Header->GetEncryptedAreaStart();
 	}
 
-	uint64 VolumeLayoutV2Normal::GetDataSize (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV2Normal::GetDataSize (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return Header->GetVolumeDataSize();
 	}
 
-	uint64 VolumeLayoutV2Normal::GetMaxDataSize (uint64 volumeSize) const
+	quint64 VolumeLayoutV2Normal::GetMaxDataSize (quint64 volumeSize) const
 	{
 		if (volumeSize < GST_TOTAL_VOLUME_HEADERS_SIZE)
 			return 0;
@@ -156,22 +156,22 @@ namespace Volume {
 		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
 	}
 
-	uint64 VolumeLayoutV2Hidden::GetDataOffset (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV2Hidden::GetDataOffset (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return Header->GetEncryptedAreaStart();
 	}
 
-	uint64 VolumeLayoutV2Hidden::GetDataSize (uint64 volumeHostSize) const
+	quint64 VolumeLayoutV2Hidden::GetDataSize (quint64 volumeHostSize) const
 	{
         (void)volumeHostSize;
         return Header->GetVolumeDataSize();
 	}
 
-	uint64 VolumeLayoutV2Hidden::GetMaxDataSize (uint64 volumeSize) const
+	quint64 VolumeLayoutV2Hidden::GetMaxDataSize (quint64 volumeSize) const
 	{
 		// Reserve free space at the end of the host filesystem
-		uint64 reservedSize;
+		quint64 reservedSize;
 
 		if (volumeSize < GST_VOLUME_SMALL_SIZE_THRESHOLD)
 			reservedSize = GST_HIDDEN_VOLUME_HOST_FS_RESERVED_END_AREA_SIZE;

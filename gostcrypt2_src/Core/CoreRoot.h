@@ -115,7 +115,7 @@ namespace GostCrypt {
              * @param layout
              * @param containersize
              */
-            void writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize);
+            void writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize);
             /**
              * @brief
              *

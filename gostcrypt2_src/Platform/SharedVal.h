@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Platform_SharedVal
 #define GST_HEADER_Platform_SharedVal
 
-#include "PlatformBase.h"
 #include "Mutex.h"
 
 namespace GostCrypt

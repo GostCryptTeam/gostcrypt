@@ -16,7 +16,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	typedef uint32 VolumeSlotNumber;
+	typedef quint32 VolumeSlotNumber;
 }
 }
 

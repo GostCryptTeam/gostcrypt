@@ -10,8 +10,7 @@
 #ifndef GST_HEADER_Platform_Functor
 #define GST_HEADER_Platform_Functor
 
-#include "PlatformBase.h"
-
+#include <string>
 namespace GostCrypt
 {
 	struct Functor
@@ -23,7 +22,7 @@ namespace GostCrypt
 	struct GetStringFunctor
 	{
 		virtual ~GetStringFunctor () { }
-		virtual void operator() (string &str) = 0;
+        virtual void operator() (std::string &str) = 0;
 	};
 }
 

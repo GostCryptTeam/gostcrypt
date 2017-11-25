@@ -20,8 +20,8 @@ namespace Volume {
 
 		Crc32 crc32;
 		size_t poolPos = 0;
-		uint64 totalLength = 0;
-		uint64 readLength;
+        quint64 totalLength = 0;
+        quint64 readLength;
 
 		SecureBuffer keyfileBuf (File::GetOptimalReadSize());
 		file.Open (Path, File::OpenRead, File::ShareRead);
@@ -30,12 +30,12 @@ namespace Volume {
 		{
 			for (size_t i = 0; i < readLength; i++)
 			{
-				uint32 crc = crc32.Process (keyfileBuf[i]);
+                quint32 crc = crc32.Process (keyfileBuf[i]);
 
-				pool[poolPos++] += (byte) (crc >> 24);
-				pool[poolPos++] += (byte) (crc >> 16);
-				pool[poolPos++] += (byte) (crc >> 8);
-				pool[poolPos++] += (byte) crc;
+                pool[poolPos++] += (quint8) (crc >> 24);
+                pool[poolPos++] += (quint8) (crc >> 16);
+                pool[poolPos++] += (quint8) (crc >> 8);
+                pool[poolPos++] += (quint8) crc;
 
 				if (poolPos >= pool.Size())
 					poolPos = 0;

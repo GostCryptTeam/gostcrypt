@@ -22,7 +22,7 @@ extern "C"
 #define GOSTHASH_GOST_SBOX_SIZE	16
 #define GOSTHASH_GOST_KEYSIZE		32
 
-typedef unsigned char byte;
+typedef unsigned char quint8;
 typedef short gst_word;
 typedef int gst_dword;
 typedef unsigned short gst_uword;
@@ -31,28 +31,28 @@ typedef unsigned int gst_udword;
 
 typedef struct gosthash_s_box
 {
-	byte k8[GOSTHASH_GOST_SBOX_SIZE];
-	byte k7[GOSTHASH_GOST_SBOX_SIZE];
-	byte k6[GOSTHASH_GOST_SBOX_SIZE];
-	byte k5[GOSTHASH_GOST_SBOX_SIZE];
-	byte k4[GOSTHASH_GOST_SBOX_SIZE];
-	byte k3[GOSTHASH_GOST_SBOX_SIZE];
-	byte k2[GOSTHASH_GOST_SBOX_SIZE];
-	byte k1[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k8[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k7[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k6[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k5[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k4[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k3[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k2[GOSTHASH_GOST_SBOX_SIZE];
+	quint8 k1[GOSTHASH_GOST_SBOX_SIZE];
 } gosthash_s_box;
 
 typedef struct
 {
 	gst_dword len;
 	gst_udword left;
-	byte H[32];
-	byte S[32];
-	byte remainder[32];
+	quint8 H[32];
+	quint8 S[32];
+	quint8 remainder[32];
 } gost_hash_ctx;
 
 void GOSTHASH_init (gost_hash_ctx *ctx);
-void GOSTHASH_add (byte *in, gst_udword len, gost_hash_ctx *ctx);
-void GOSTHASH_finalize (gost_hash_ctx *ctx, byte *out);
+void GOSTHASH_add (quint8 *in, gst_udword len, gost_hash_ctx *ctx);
+void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out);
 
 #if defined(__cplusplus)
 }

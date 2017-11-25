@@ -12,7 +12,6 @@
 
 
 #include <pthread.h>
-#include "PlatformBase.h"
 #include "Mutex.h"
 
 namespace GostCrypt

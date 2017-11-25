@@ -178,7 +178,7 @@ typedef struct CRYPTO_INFO_t
 
 	BOOL hiddenVolume;						// Indicates whether the volume is mounted/mountable as hidden volume
 
-	uint16 HeaderVersion;
+	quint16 HeaderVersion;
 
 	GfCtx gf_ctx; 
 
@@ -188,26 +188,26 @@ typedef struct CRYPTO_INFO_t
 	int noIterations;
 	int pkcs5;
 
-	uint64 volume_creation_time;	// Legacy
-	uint64 header_creation_time;	// Legacy
+	quint64 volume_creation_time;	// Legacy
+	quint64 header_creation_time;	// Legacy
 
 	BOOL bProtectHiddenVolume;			// Indicates whether the volume contains a hidden volume to be protected against overwriting
 	BOOL bHiddenVolProtectionAction;		// TRUE if a write operation has been denied by the driver in order to prevent the hidden volume from being overwritten (set to FALSE upon volume mount).
 	
-	uint64 volDataAreaOffset;		// Absolute position, in bytes, of the first data sector of the volume.
+	quint64 volDataAreaOffset;		// Absolute position, in bytes, of the first data sector of the volume.
 
-	uint64 hiddenVolumeSize;		// Size of the hidden volume excluding the header (in bytes). Set to 0 for standard volumes.
-	uint64 hiddenVolumeOffset;	// Absolute position, in bytes, of the first hidden volume data sector within the host volume (provided that there is a hidden volume within). This must be set for all hidden volumes; in case of a normal volume, this variable is only used when protecting a hidden volume within it.
-	uint64 hiddenVolumeProtectedSize;
+	quint64 hiddenVolumeSize;		// Size of the hidden volume excluding the header (in bytes). Set to 0 for standard volumes.
+	quint64 hiddenVolumeOffset;	// Absolute position, in bytes, of the first hidden volume data sector within the host volume (provided that there is a hidden volume within). This must be set for all hidden volumes; in case of a normal volume, this variable is only used when protecting a hidden volume within it.
+	quint64 hiddenVolumeProtectedSize;
 
 	BOOL bPartitionInInactiveSysEncScope;	// If TRUE, the volume is a partition located on an encrypted system drive and mounted without pre-boot authentication.
 
 	UINT64_STRUCT FirstDataUnitNo;			// First data unit number of the volume. This is 0 for file-hosted and non-system partition-hosted volumes. For partitions within key scope of system encryption this reflects real physical offset within the device (this is used e.g. when such a partition is mounted as a regular volume without pre-boot authentication).
 
-	uint16 RequiredProgramVersion;
+	quint16 RequiredProgramVersion;
 	BOOL LegacyVolume;
 
-	uint32 SectorSize;
+	quint32 SectorSize;
 
 
 	UINT64_STRUCT VolumeSize;
@@ -215,7 +215,7 @@ typedef struct CRYPTO_INFO_t
 	UINT64_STRUCT EncryptedAreaStart;
 	UINT64_STRUCT EncryptedAreaLength;
 
-	uint32 HeaderFlags;
+	quint32 HeaderFlags;
 
 } CRYPTO_INFO, *PCRYPTO_INFO;
 
@@ -263,12 +263,12 @@ BOOL HashIsDeprecated (int hashId);
 
 int GetMaxPkcs5OutSize (void);
 
-void EncryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, uint32 nbrUnits, PCRYPTO_INFO ci);
-void EncryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, GST_LARGEST_COMPILER_UINT nbrUnits, PCRYPTO_INFO ci);
-void DecryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, uint32 nbrUnits, PCRYPTO_INFO ci);
-void DecryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, GST_LARGEST_COMPILER_UINT nbrUnits, PCRYPTO_INFO ci);
-void EncryptBuffer (unsigned __int8 *buf, GST_LARGEST_COMPILER_UINT len, PCRYPTO_INFO cryptoInfo);
-void DecryptBuffer (unsigned __int8 *buf, GST_LARGEST_COMPILER_UINT len, PCRYPTO_INFO cryptoInfo);
+void EncryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
+void EncryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
+void DecryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
+void DecryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
+void EncryptBuffer (unsigned __int8 *buf, quint64 len, PCRYPTO_INFO cryptoInfo);
+void DecryptBuffer (unsigned __int8 *buf, quint64 len, PCRYPTO_INFO cryptoInfo);
 
 void EnableHwEncryption (BOOL enable);
 BOOL IsHwEncryptionEnabled ();

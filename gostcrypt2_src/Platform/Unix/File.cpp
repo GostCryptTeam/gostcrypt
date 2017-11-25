@@ -12,25 +12,12 @@
 #include <unistd.h>
 #include <utime.h>
 
-#ifdef GST_LINUX
 #include <sys/mount.h>
-#endif
-
-#ifdef GST_BSD
-#include <sys/disk.h>
-#endif
-
-#ifdef GST_SOLARIS
-#include <stropts.h>
-#include <sys/dkio.h>
-#endif
-
 #include <sys/file.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
 #include "Platform/File.h"
-#include "Platform/TextReader.h"
 #include <QTextStream>
 
 namespace GostCrypt
@@ -52,7 +39,7 @@ namespace GostCrypt
 
 	void File::Close ()
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 
 		if (!SharedHandle)
 		{
@@ -67,7 +54,7 @@ namespace GostCrypt
 
 				try
 				{
-                    if (utime (string (Path).c_str(), &u) == -1) // should be in a dedicated method of File.
+                    if (utime (std::string (Path).c_str(), &u) == -1) // should be in a dedicated method of File.
                         throw;
 				}
 				catch (...) // Suppress errors to allow using read-only files
@@ -89,45 +76,25 @@ namespace GostCrypt
 
 	void File::Flush () const
 	{
-		if_debug (ValidateState());
+//		//if_debug (ValidateState());
         if (fsync (FileHandle) != 0)
             throw;
 	}
 
-	uint32 File::GetDeviceSectorSize () const
+    quint32 File::GetDeviceSectorSize () const
 	{
 		if (Path.IsDevice())
 		{
-#ifdef GST_LINUX
 			int blockSize;
             if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
                 throw;
 			return blockSize;
-
-#elif defined (GST_MACOSX)
-			uint32 blockSize;
-			throw_sys_sub_if (ioctl (FileHandle, DKIOCGETBLOCKSIZE, &blockSize) == -1, wstring (Path));
-			return blockSize;
-
-#elif defined (GST_FREEBSD)
-			u_int sectorSize;
-			throw_sys_sub_if (ioctl (FileHandle, DIOCGSECTORSIZE, &sectorSize) == -1, wstring (Path));
-			return (uint32) sectorSize;
-
-#elif defined (GST_SOLARIS)
-			struct dk_minfo mediaInfo;
-			throw_sys_sub_if (ioctl (FileHandle, DKIOCGMEDIAINFO, &mediaInfo) == -1, wstring (Path));
-			return mediaInfo.dki_lbsize;
-
-#else
-#	error GetDeviceSectorSize()
-#endif
 		}
 		else
             throw; // (SRC_POS);
 	}
 
-	uint64 File::GetPartitionDeviceStartOffset () const
+    quint64 File::GetPartitionDeviceStartOffset () const
 	{
 		// HDIO_GETGEO ioctl is limited by the size of long
         DevicePath devicePath = DevicePath(Path);
@@ -142,15 +109,15 @@ namespace GostCrypt
         return startSectorOffset * GetDeviceSectorSize();
 	}
 
-	uint64 File::Length () const
+    quint64 File::Length () const
 	{
-		if_debug (ValidateState());
+//		//if_debug (ValidateState());
 
 		off_t current = lseek (FileHandle, 0, SEEK_CUR);
         if (current == -1)
             throw;
 		SeekEnd (0);
-		uint64 length = lseek (FileHandle, 0, SEEK_CUR);
+        quint64 length = lseek (FileHandle, 0, SEEK_CUR);
 		SeekAt (current);
 		return length;
 	}
@@ -193,70 +160,24 @@ namespace GostCrypt
 		if ((flags & File::PreserveTimestamps) && path.IsFile())
 		{
 			struct stat statData;
-            if (stat (string (path).c_str(), &statData) == -1)
+            if (stat (std::string (path).c_str(), &statData) == -1)
                 throw;
 			AccTime = statData.st_atime;
 			ModTime = statData.st_mtime;
 		}
 
-		FileHandle = open (string (path).c_str(), sysFlags, S_IRUSR | S_IWUSR);
+        FileHandle = open (std::string (path).c_str(), sysFlags, S_IRUSR | S_IWUSR);
         if (FileHandle == -1)
             throw;
-
-#if 0 // File locking is disabled to avoid remote filesystem locking issues
-		try
-		{
-			struct flock fl;
-			memset (&fl, 0, sizeof (fl));
-			fl.l_whence = SEEK_SET;
-			fl.l_start = 0;
-			fl.l_len = 0;
-
-			switch (shareMode)
-			{
-			case ShareNone:
-				fl.l_type = F_WRLCK;
-				if (fcntl (FileHandle, F_SETLK, &fl) == -1)
-					throw_sys_sub_if (errno == EAGAIN || errno == EACCES, wstring (path));
-				break;
-
-			case ShareRead:
-				fl.l_type = F_RDLCK;
-				if (fcntl (FileHandle, F_SETLK, &fl) == -1)
-					throw_sys_sub_if (errno == EAGAIN || errno == EACCES, wstring (path));
-				break;
-
-			case ShareReadWrite:
-				fl.l_type = (mode == OpenRead ? F_RDLCK : F_WRLCK);
-				if (fcntl (FileHandle, F_GETLK, &fl) != -1 && fl.l_type != F_UNLCK)
-				{
-					errno = EAGAIN;
-					throw SystemException (SRC_POS, wstring (path));
-				}
-				break;
-
-			case ShareReadWriteIgnoreLock:
-				break;
-
-			default:
-				throw ParameterIncorrect (SRC_POS);
-			}
-		}
-		catch (...)
-		{
-			close (FileHandle);
-			throw;
-		}
-#endif // 0
 
 		Path = path;
 		mFileOpenFlags = flags;
 		FileIsOpen = true;
 	}
 
-	uint64 File::Read (const BufferPtr &buffer) const
+    quint64 File::Read (const BufferPtr &buffer) const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, false, buffer.Size());
@@ -268,9 +189,9 @@ namespace GostCrypt
 		return bytesRead;
 	}
 
-	uint64 File::ReadAt (const BufferPtr &buffer, uint64 position) const
+    quint64 File::ReadAt (const BufferPtr &buffer, quint64 position) const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, false, buffer.Size(), position);
@@ -282,25 +203,16 @@ namespace GostCrypt
 		return bytesRead;
 	}
 
-	void File::SeekAt (uint64 position) const
+    void File::SeekAt (quint64 position) const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
         if (lseek (FileHandle, position, SEEK_SET) == -1)
             throw;
 	}
 
 	void File::SeekEnd (int offset) const
 	{
-		if_debug (ValidateState());
-
-		// BSD does not support seeking to the end of a device
-#ifdef GST_BSD
-		if (Path.IsBlockDevice() || Path.IsCharacterDevice())
-		{
-			SeekAt (Length() + offset);
-			return;
-		}
-#endif
+        ////if_debug (ValidateState());
 
         if (lseek (FileHandle, offset, SEEK_END) == -1)
                throw;//TODO
@@ -308,7 +220,7 @@ namespace GostCrypt
 
 	void File::Write (const ConstBufferPtr &buffer) const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, true, buffer.Size());
@@ -317,9 +229,9 @@ namespace GostCrypt
             throw; //TODO
 	}
 
-	void File::WriteAt (const ConstBufferPtr &buffer, uint64 position) const
+    void File::WriteAt (const ConstBufferPtr &buffer, quint64 position) const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 
 #ifdef GST_TRACE_FILE_OPERATIONS
 		TraceFileOperation (FileHandle, Path, true, buffer.Size(), position);

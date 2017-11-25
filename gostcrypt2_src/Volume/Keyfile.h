@@ -11,7 +11,6 @@
 #define GST_HEADER_Encryption_Keyfile
 
 #include "Platform/Platform.h"
-#include "Platform/Stream.h"
 #include "VolumePassword.h"
 #include <QSharedPointer>
 
@@ -20,7 +19,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class Keyfile;
-    typedef list < QSharedPointer <Keyfile> > KeyfileList;
+    typedef std::list < QSharedPointer <Keyfile> > KeyfileList;
 
     class Keyfile //inherit from QFile
 	{
@@ -30,8 +29,6 @@ namespace Volume {
 
         operator FilePath () const { return Path; }
         static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
-		static QSharedPointer <KeyfileList> DeserializeList (QSharedPointer <Stream> stream, const string &name);
-		static void SerializeList (QSharedPointer <Stream> stream, const string &name, QSharedPointer <KeyfileList> keyfiles);
 		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }
 
 		static const size_t MinProcessedLength = 1;

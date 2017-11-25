@@ -17,7 +17,7 @@ extern "C"
 {
 #endif
 
-typedef unsigned char byte;
+typedef unsigned char quint8;
 typedef short gst_word;
 typedef int gst_dword;
 typedef unsigned short gst_uword;
@@ -25,18 +25,18 @@ typedef unsigned int gst_udword;
 
 typedef struct
 {
-	byte N[64];
-	byte hash[64];
-	byte left;
-	byte remainder[64];
-	byte v512[64];
-	byte v0[64];
-	byte EPSILON[64];
+	quint8 N[64];
+	quint8 hash[64];
+	quint8 left;
+	quint8 remainder[64];
+	quint8 v512[64];
+	quint8 v0[64];
+	quint8 EPSILON[64];
 } STRIBOG_CTX;
 
 void STRIBOG_init(STRIBOG_CTX *ctx);
-void STRIBOG_add(STRIBOG_CTX *ctx, byte *msg, gst_udword len);
-void STRIBOG_finalize(STRIBOG_CTX *ctx, byte *out);
+void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len);
+void STRIBOG_finalize(STRIBOG_CTX *ctx, quint8 *out);
 
 #if defined(__cplusplus)
 }

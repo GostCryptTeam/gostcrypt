@@ -10,7 +10,6 @@
 #include <pthread.h>
 #include <unistd.h>
 #include "Platform/Thread.h"
-#include "Platform/SystemLog.h"
 
 namespace GostCrypt
 {
@@ -47,7 +46,7 @@ namespace GostCrypt
             throw; // (SRC_POS, status);
 	}
 
-	void Thread::Sleep (uint32 milliSeconds)
+    void Thread::Sleep (quint32 milliSeconds)
 	{
 		::usleep (milliSeconds * 1000);
 	}

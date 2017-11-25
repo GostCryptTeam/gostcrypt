@@ -7,7 +7,7 @@
  packages.
 */
 
-
+#include <QtGlobal>
 
 /*
  Legal Notice: Some portions of the source code contained in this file were
@@ -48,10 +48,6 @@ typedef int8_t int8;
 typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
-typedef uint8_t byte;
-typedef uint16_t uint16;
-typedef uint32_t uint32;
-typedef uint64_t uint64;
 
 #if UCHAR_MAX != 0xffU
 #error UCHAR_MAX != 0xff
@@ -68,7 +64,6 @@ typedef uint64_t uint64;
 #endif
 #define __int32 int
 
-typedef uint64 GST_LARGEST_COMPILER_UINT;
 
 #define BOOL int
 #ifndef FALSE
@@ -84,7 +79,6 @@ typedef unsigned __int8 uint_8t;
 typedef unsigned __int16 uint_16t;
 typedef unsigned __int32 uint_32t;
 #ifndef GST_NO_COMPILER_INT64
-typedef uint64 uint_64t;
 #endif
 
 typedef union 
@@ -95,7 +89,7 @@ typedef union
 		unsigned __int32 HighPart;
 	};
 #ifndef GST_NO_COMPILER_INT64
-	uint64 Value;
+	quint64 Value;
 #endif
 
 } UINT64_STRUCT;
@@ -115,7 +109,7 @@ typedef union
 
 // The size of the memory area to wipe is in bytes amd it must be a multiple of 8.
 #ifndef GST_NO_COMPILER_INT64
-#	define FAST_ERASE64(mem,size) do { volatile uint64 *burnm = (volatile uint64 *)(mem); int burnc = size >> 3; while (burnc--) *burnm++ = 0; } while (0)
+#	define FAST_ERASE64(mem,size) do { volatile quint64 *burnm = (volatile quint64 *)(mem); int burnc = size >> 3; while (burnc--) *burnm++ = 0; } while (0)
 #else
 #	define FAST_ERASE64(mem,size) do { volatile unsigned __int32 *burnm = (volatile unsigned __int32 *)(mem); int burnc = size >> 2; while (burnc--) *burnm++ = 0; } while (0)
 #endif

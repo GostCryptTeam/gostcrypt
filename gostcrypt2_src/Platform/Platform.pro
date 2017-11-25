@@ -29,45 +29,25 @@ unix {
 }
 
 HEADERS += \
-    Unix/System.h \
-    Unix/Process.h \
-    Unix/Poller.h \
-    Unix/Pipe.h \
-    Time.h \
     Thread.h \
-    TextReader.h \
-    SystemLog.h \
-    SystemInfo.h \
-    System.h \
     SyncEvent.h \
-    Stream.h \
     SharedVal.h \
     PlatformTest.h \
-    PlatformBase.h \
     Platform.h \
     Mutex.h \
-    MemoryStream.h \
     Memory.h \
     Functor.h \
-    Finally.h \
-    FileStream.h \
     File.h \
     Buffer.h \
     FilePath.h
 
 SOURCES += \
-    Unix/Time.cpp \
     Unix/Thread.cpp \
-    Unix/SystemLog.cpp \
     Unix/SyncEvent.cpp \
-    Unix/Poller.cpp \
     Unix/Mutex.cpp \
     Unix/File.cpp \
-    TextReader.cpp \
     PlatformTest.cpp \
-    MemoryStream.cpp \
     Memory.cpp \
     FileCommon.cpp \
-    Event.cpp \
     Buffer.cpp \
     Unix/FilePath.cpp

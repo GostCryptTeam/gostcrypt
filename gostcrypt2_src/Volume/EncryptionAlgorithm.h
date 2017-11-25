@@ -20,19 +20,19 @@ namespace Volume {
 
 	class EncryptionAlgorithm;
 
-    typedef list < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
+    typedef std::list < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
 	{
 	public:
 		virtual ~EncryptionAlgorithm ();
 
-		virtual void Decrypt (byte *data, uint64 length) const;
+		virtual void Decrypt (quint8 *data, quint64 length) const;
 		virtual void Decrypt (const BufferPtr &data) const;
-		virtual void DecryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
-		virtual void Encrypt (byte *data, uint64 length) const;
+		virtual void DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
+		virtual void Encrypt (quint8 *data, quint64 length) const;
 		virtual void Encrypt (const BufferPtr &data) const;
-		virtual void EncryptSectors (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
+		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		static EncryptionAlgorithmList GetAvailableAlgorithms ();
 		virtual const CipherList &GetCiphers () const { return Ciphers; }
         virtual QSharedPointer <EncryptionAlgorithm> GetNew () const = 0;
@@ -41,8 +41,8 @@ namespace Volume {
 		static size_t GetLargestKeySize (const EncryptionAlgorithmList &algorithms);
 		virtual size_t GetKeySize () const;
 		virtual QSharedPointer <EncryptionMode> GetMode () const;
-		virtual wstring GetName () const;
-                virtual wstring GetDescription () const;
+        virtual std::wstring GetName () const;
+        virtual std::wstring GetDescription () const;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual bool IsModeSupported (const EncryptionMode &mode) const;
 		virtual bool IsModeSupported (const QSharedPointer <EncryptionMode> mode) const;

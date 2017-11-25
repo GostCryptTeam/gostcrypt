@@ -179,7 +179,7 @@ namespace GostCrypt {
 				return fuse_get_context()->uid == 0 || fuse_get_context()->uid == userId;
 		}
 
-		uint64 FuseService::getVolumeSize ()
+		quint64 FuseService::getVolumeSize ()
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -187,7 +187,7 @@ namespace GostCrypt {
 			return mountedVolume->GetSize();
 		}
 
-		uint64 FuseService::getVolumeSectorSize()
+		quint64 FuseService::getVolumeSectorSize()
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -195,7 +195,7 @@ namespace GostCrypt {
 			return mountedVolume->GetSectorSize();
 		}
 
-		void FuseService::readVolumeSectors(const BufferPtr &buffer, uint64 byteOffset)
+		void FuseService::readVolumeSectors(const BufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -203,7 +203,7 @@ namespace GostCrypt {
 			mountedVolume->ReadSectors (buffer, byteOffset);
 		}
 
-		void FuseService::writeVolumeSectors(const ConstBufferPtr &buffer, uint64 byteOffset)
+		void FuseService::writeVolumeSectors(const ConstBufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -333,7 +333,7 @@ namespace GostCrypt {
 				if (!Volume::EncryptionThreadPool::IsRunning())
 					Volume::EncryptionThreadPool::Start();
 			}
-			catch (exception &e)
+            catch (std::exception &e)
 			{
 				//SystemLog::WriteException (e);
 			}
@@ -352,7 +352,7 @@ namespace GostCrypt {
 			{
 				FuseService::dismount();
 			}
-			catch (exception &e)
+            catch (std::exception &e)
 			{
 				//SystemLog::WriteException (e);
 			}
@@ -465,7 +465,7 @@ namespace GostCrypt {
                     //try
 					{
 						// Test for read beyond the end of the volume
-						if ((uint64) offset + size > FuseService::getVolumeSize())
+						if ((quint64) offset + size > FuseService::getVolumeSize())
 							size = FuseService::getVolumeSize() - offset;
 
 						size_t sectorSize = FuseService::getVolumeSectorSize();
@@ -474,8 +474,8 @@ namespace GostCrypt {
 							// Support for non-sector-aligned read operations is required by some loop device tools
 							// which may analyze the volume image before attaching it as a device
 
-							uint64 alignedOffset = offset - (offset % sectorSize);
-							uint64 alignedSize = size + (offset % sectorSize);
+							quint64 alignedOffset = offset - (offset % sectorSize);
+							quint64 alignedSize = size + (offset % sectorSize);
 
 							if (alignedSize % sectorSize != 0)
 								alignedSize += sectorSize - (alignedSize % sectorSize);
@@ -483,11 +483,11 @@ namespace GostCrypt {
 							SecureBuffer alignedBuffer (alignedSize);
 
 							FuseService::readVolumeSectors(alignedBuffer, alignedOffset);
-							BufferPtr ((byte *) buf, size).CopyFrom (alignedBuffer.GetRange (offset % sectorSize, size));
+							BufferPtr ((quint8 *) buf, size).CopyFrom (alignedBuffer.GetRange (offset % sectorSize, size));
 						}
 						else
 						{
-							FuseService::readVolumeSectors(BufferPtr ((byte *) buf, size), offset);
+							FuseService::readVolumeSectors(BufferPtr ((quint8 *) buf, size), offset);
 						}
 					}
                     /*
@@ -558,7 +558,7 @@ namespace GostCrypt {
 
 				if (strcmp (path, getVolumeImagePath()) == 0)
 				{
-					FuseService::writeVolumeSectors(BufferPtr ((byte *) buf, size), offset);
+					FuseService::writeVolumeSectors(BufferPtr ((quint8 *) buf, size), offset);
 					return size;
 				}
 

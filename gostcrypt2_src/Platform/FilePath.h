@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Platform_FilesystemPath
 #define GST_HEADER_Platform_FilesystemPath
 
-#include "PlatformBase.h"
 #include <QSharedPointer>
 #include <QFileInfo>
 
@@ -33,15 +32,15 @@ namespace GostCrypt
 	public:
         FilePath () { }
         FilePath (const QString &path) : QFileInfo(path) { }
-        FilePath (const wstring &path) : QFileInfo(QString::fromStdWString(path)) { }
-        FilePath (const string &path) : QFileInfo(QString::fromStdString(path)) { }
+        FilePath (const std::wstring &path) : QFileInfo(QString::fromStdWString(path)) { }
+        FilePath (const std::string &path) : QFileInfo(QString::fromStdString(path)) { }
 
         virtual ~FilePath () { }
 
         bool operator== (const FilePath &other) const { return *this == other; }
         bool operator!= (const FilePath &other) const { return *this != other; }
-        operator wstring () const { return this->absoluteFilePath().toStdWString(); }
-        operator string () const { return this->absoluteFilePath().toStdString(); }
+        operator std::wstring () const { return this->absoluteFilePath().toStdWString(); }
+        operator std::string () const { return this->absoluteFilePath().toStdString(); }
 
 		void Delete () const;
         uint GetOwner () const;

@@ -24,7 +24,7 @@ extern "C"
 {
 #endif //defined __cplusplus
 
-typedef unsigned char byte;
+typedef unsigned char quint8;
 typedef short gst_word;
 typedef int gst_dword;
 typedef unsigned short gst_uword;

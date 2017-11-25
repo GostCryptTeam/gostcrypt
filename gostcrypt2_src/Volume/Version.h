@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Volume_Version
 #define GST_HEADER_Volume_Version
 
-#include "Platform/PlatformBase.h"
 #include "Common/Gstdefs.h"
 
 namespace GostCrypt
@@ -20,8 +19,8 @@ namespace Volume {
 	class Version
 	{
 	public:
-		static const string String ()					{ return VERSION_STRING; }
-                static uint16 Number ()                                 	{ return VERSION_NUM; }
+        static const std::string String ()					{ return VERSION_STRING; }
+                static quint16 Number ()                                 	{ return VERSION_NUM; }
 
 	};
 }

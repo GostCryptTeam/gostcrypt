@@ -25,7 +25,7 @@ namespace Volume {
 	{
 	}
 
-    void CipherAlgorithm::DecryptBlock (byte *data) const
+    void CipherAlgorithm::DecryptBlock (quint8 *data) const
 	{
 		if (!Initialized)
             throw;// NotInitialized (SRC_POS);
@@ -33,7 +33,7 @@ namespace Volume {
 		Decrypt (data);
 	}
 
-    void CipherAlgorithm::DecryptBlocks (byte *data, size_t blockCount) const
+    void CipherAlgorithm::DecryptBlocks (quint8 *data, size_t blockCount) const
 	{
 		if (!Initialized)
             throw;// NotInitialized (SRC_POS);
@@ -45,7 +45,7 @@ namespace Volume {
 		}
 	}
 
-    void CipherAlgorithm::EncryptBlock (byte *data) const
+    void CipherAlgorithm::EncryptBlock (quint8 *data) const
 	{
 		if (!Initialized)
             throw;// NotInitialized (SRC_POS);
@@ -53,7 +53,7 @@ namespace Volume {
 		Encrypt (data);
 	}
 
-    void CipherAlgorithm::EncryptBlocks (byte *data, size_t blockCount) const
+    void CipherAlgorithm::EncryptBlocks (quint8 *data, size_t blockCount) const
 	{
 		if (!Initialized)
             throw;// NotInitialized (SRC_POS);
@@ -107,22 +107,22 @@ namespace Volume {
 	}
 
 	// GOST
-    void CipherAlgorithmGOST::Decrypt (byte *data) const
+    void CipherAlgorithmGOST::Decrypt (quint8 *data) const
 	{
 		gost_decrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
 
-    void CipherAlgorithmGOST::Encrypt (byte *data) const
+    void CipherAlgorithmGOST::Encrypt (quint8 *data) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ScheduledKey.Ptr());
 	}
 
-    void CipherAlgorithmGOST::DecryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGOST::DecryptWithKS (quint8 *data, quint8 *ks) const
 	{
 		gost_decrypt (data, data, (gost_kds *) ks);
 	}
 
-    void CipherAlgorithmGOST::EncryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGOST::EncryptWithKS (quint8 *data, quint8 *ks) const
 	{
 		gost_encrypt (data, data, (gost_kds *) ks);
 	}
@@ -132,42 +132,42 @@ namespace Volume {
 		return sizeof(gost_kds);
 	}
 
-    void CipherAlgorithmGOST::SetCipherKey (const byte *key)
+    void CipherAlgorithmGOST::SetCipherKey (const quint8 *key)
 	{
-		gost_set_key ((byte *)key, (gost_kds *)ScheduledKey.Ptr());
+		gost_set_key ((quint8 *)key, (gost_kds *)ScheduledKey.Ptr());
 	}
 
-    void CipherAlgorithmGOST::XorCipherKey (byte *ks, byte *data, int len) const
+    void CipherAlgorithmGOST::XorCipherKey (quint8 *ks, quint8 *data, int len) const
 	{
 		gost_xor_ks((gost_kds *) ScheduledKey.Ptr(), (gost_kds *) ks, (unsigned int *)data, len / sizeof(unsigned int));
 	}
 
-    void CipherAlgorithmGOST::CopyCipherKey (byte *ks) const
+    void CipherAlgorithmGOST::CopyCipherKey (quint8 *ks) const
 	{
 		size_t i;
 		size_t size = ScheduledKey.Size();
-		byte *ptr = ScheduledKey.Ptr();
+		quint8 *ptr = ScheduledKey.Ptr();
 		for (i = 0; i < size; i++)
 			ks[i] = ptr[i];
 	}
 
 	// GRASSHOPPER
-    void CipherAlgorithmGRASSHOPPER::Decrypt (byte *data) const
+    void CipherAlgorithmGRASSHOPPER::Decrypt (quint8 *data) const
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-    void CipherAlgorithmGRASSHOPPER::Encrypt (byte *data) const
+    void CipherAlgorithmGRASSHOPPER::Encrypt (quint8 *data) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ScheduledKey.Ptr(), (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-    void CipherAlgorithmGRASSHOPPER::DecryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::DecryptWithKS (quint8 *data, quint8 *ks) const
 	{
 		grasshopper_decrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
 
-    void CipherAlgorithmGRASSHOPPER::EncryptWithKS (byte *data, byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::EncryptWithKS (quint8 *data, quint8 *ks) const
 	{
 		grasshopper_encrypt ((grasshopper_kds*) ks, (gst_ludword *) data, (gst_ludword *) data);
 	}
@@ -177,21 +177,21 @@ namespace Volume {
 		return sizeof(grasshopper_kds);
 	}
 
-    void CipherAlgorithmGRASSHOPPER::SetCipherKey (const byte *key)
+    void CipherAlgorithmGRASSHOPPER::SetCipherKey (const quint8 *key)
 	{
 		grasshopper_set_key((gst_ludword*)key, (grasshopper_kds *) ScheduledKey.Ptr());
 	}
 
-    void CipherAlgorithmGRASSHOPPER::XorCipherKey (byte *ks, byte *data, int len) const
+    void CipherAlgorithmGRASSHOPPER::XorCipherKey (quint8 *ks, quint8 *data, int len) const
 	{
 		grasshopper_xor_ks((grasshopper_kds *) ScheduledKey.Ptr(), (grasshopper_kds *) ks, (gst_ludword *)data, len / sizeof(unsigned long long));
 	}
 
-    void CipherAlgorithmGRASSHOPPER::CopyCipherKey (byte *ks) const
+    void CipherAlgorithmGRASSHOPPER::CopyCipherKey (quint8 *ks) const
 	{
 		size_t i;
 		size_t size = ScheduledKey.Size();
-		byte *ptr = ScheduledKey.Ptr();
+		quint8 *ptr = ScheduledKey.Ptr();
 		for (i = 0; i < size; i++)
 			ks[i] = ptr[i];
 	}

@@ -101,7 +101,7 @@ Commands:\n\
 
     parser.clearPositionalArguments();
 
-    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
+    quint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
 
     switch(value){
         case FirstCMD::mount: //"mount":

@@ -23,24 +23,24 @@ namespace Volume {
 		EncryptionModeXTS () { }
 		virtual ~EncryptionModeXTS () { }
 
-		virtual void Decrypt (byte *data, uint64 length) const;
-		virtual void DecryptSectorsCurrentThread (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
-		virtual void Encrypt (byte *data, uint64 length) const;
-		virtual void EncryptSectorsCurrentThread (byte *data, uint64 sectorIndex, uint64 sectorCount, size_t sectorSize) const;
+		virtual void Decrypt (quint8 *data, quint64 length) const;
+		virtual void DecryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
+		virtual void Encrypt (quint8 *data, quint64 length) const;
+		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		virtual const SecureBuffer &GetKey () const { return SecondaryKey; }
 		virtual size_t GetKeySize () const;
-		virtual wstring GetName () const { return L"XTS"; };
+        virtual std::wstring GetName () const { return L"XTS"; };
 		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
 		virtual void SetCiphers (const CipherList &ciphers);
 		virtual void SetKey (const ConstBufferPtr &key);
 
 	protected:
-		void DecryptBuffer (byte *data, uint64 length, uint64 startDataUnitNo) const;
-        void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-		void EncryptBuffer (byte *data, uint64 length, uint64 startDataUnitNo) const;
-        void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, byte *buffer, uint64 length, uint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+		void DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
+        void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+        void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+		void EncryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
+        void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+        void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
 		void SetSecondaryCipherKeys ();
 
 		SecureBuffer SecondaryKey;

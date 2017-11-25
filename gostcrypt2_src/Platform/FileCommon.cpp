@@ -36,7 +36,7 @@ namespace GostCrypt
 		destination.Open (destinationPath, CreateWrite);
 
 		SecureBuffer buffer (OptimalReadSize);
-		uint64 len;
+        quint64 len;
 
 		while ((len = source.Read (buffer)) > 0)
 		{
@@ -47,20 +47,20 @@ namespace GostCrypt
 		{
 			destination.Flush();
 			struct stat statData;
-            if (stat (string (sourcePath).c_str(), &statData) == -1)
+            if (stat (std::string (sourcePath).c_str(), &statData) == -1)
                 throw;
 
 			struct utimbuf u;
 			u.actime = statData.st_atime;
 			u.modtime = statData.st_mtime;
-            if (utime (string (destinationPath).c_str(), &u) == -1)
+            if (utime (std::string (destinationPath).c_str(), &u) == -1)
                 throw;
 		}
 	}
 	
 	FilePath File::GetPath () const
 	{
-		if_debug (ValidateState());
+        ////if_debug (ValidateState());
 		return Path;
 	}
 

@@ -29,9 +29,9 @@ namespace Volume {
 
 	struct CipherTestVector
 	{
-		byte Key[32];
-		byte Plaintext[16];
-		byte Ciphertext[16];
+		quint8 Key[32];
+		quint8 Plaintext[16];
+		quint8 Ciphertext[16];
 	};
 
 	struct CipherTestVector GOSTTestVectors[] =
@@ -60,15 +60,15 @@ namespace Volume {
 	void EncryptionTest::TestCiphers ()
 	{
             CipherAlgorithmGOST gost;
-			TestCipher (gost, GOSTTestVectors, array_capacity (GOSTTestVectors));
+            TestCipher (gost, GOSTTestVectors, sizeof(GOSTTestVectors)/sizeof(GOSTTestVectors[0]));
 
 			Buffer testData (1024);
 			for (size_t i = 0; i < testData.Size(); ++i)
 			{
-				testData[i] = (byte) i;
+				testData[i] = (quint8) i;
 			}
 
-			uint32 origCrc = Crc32::ProcessBuffer (testData);
+			quint32 origCrc = Crc32::ProcessBuffer (testData);
 
 			gost.SetKey (ConstBufferPtr (testData, gost.GetKeySize()));
 			gost.EncryptBlocks (testData, testData.Size() / gost.GetBlockSize());
@@ -312,14 +312,14 @@ namespace Volume {
 	{
 		unsigned char buf [ENCRYPTION_DATA_UNIT_SIZE * 4];
 		unsigned int i;
-		uint32 crc;
-		uint64 unitNo;
-		uint64 nbrUnits;
-		uint64 writeOffset;
+		quint32 crc;
+		quint64 unitNo;
+		quint64 nbrUnits;
+		quint64 writeOffset;
 		int testCase = 0;
 		int nTestsPerformed = 0;
 
-		static const byte testKey[] =
+		static const quint8 testKey[] =
 		{
 			0x27, 0x18, 0x28, 0x18, 0x28, 0x45, 0x90, 0x45, 0x23, 0x53, 0x60, 0x28, 0x74, 0x71, 0x35, 0x26, 0x62, 0x49, 0x77, 0x57, 0x24, 0x70, 0x93, 0x69, 0x99, 0x59, 0x57, 0x49, 0x66, 0x96, 0x76, 0x27,
 			0x31, 0x41, 0x59, 0x26, 0x53, 0x58, 0x97, 0x93, 0x23, 0x84, 0x62, 0x64, 0x33, 0x83, 0x27, 0x95, 0x02, 0x88, 0x41, 0x97, 0x16, 0x93, 0x99, 0x37, 0x51, 0x05, 0x82, 0x09, 0x74, 0x94, 0x45, 0x92,
@@ -351,8 +351,8 @@ namespace Volume {
 
                 Buffer modeKey (ea->GetKeySize());
 				for (size_t mi = 0; mi < modeKey.Size(); mi++)
-					modeKey[mi] = (byte) mi;
-				modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2, sizeof (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2)));
+					modeKey[mi] = (quint8) mi;
+                modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0])) -1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
 
 				mode->SetKey (modeKey);
                 ea->SetMode (mode);
@@ -361,7 +361,7 @@ namespace Volume {
 				for (i = 0; i < nbrUnits; i++)
 				{
 					memcpy ((unsigned char *) buf + i * ENCRYPTION_DATA_UNIT_SIZE,
-						XtsTestVectors[array_capacity (XtsTestVectors)-1].plaintext,
+                        XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].plaintext,
 						ENCRYPTION_DATA_UNIT_SIZE);
 				}
 
@@ -451,8 +451,8 @@ namespace Volume {
 
             Buffer modeKey (ea->GetKeySize());
 			for (size_t mi = 0; mi < modeKey.Size(); mi++)
-				modeKey[mi] = (byte) mi;
-			modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2, sizeof (XtsTestVectors[array_capacity (XtsTestVectors)-1].key2)));
+				modeKey[mi] = (quint8) mi;
+            modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
 
 			mode->SetKey (modeKey);
             ea->SetMode (mode);
@@ -461,7 +461,7 @@ namespace Volume {
 			for (i = 0; i < nbrUnits; i++)
 			{
 				memcpy ((unsigned char *) buf + i * ENCRYPTION_DATA_UNIT_SIZE,
-					XtsTestVectors[array_capacity (XtsTestVectors)-1].plaintext,
+                    XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].plaintext,
 					ENCRYPTION_DATA_UNIT_SIZE);
 			}
 
@@ -500,7 +500,7 @@ namespace Volume {
 	void EncryptionTest::TestPkcs5 ()
 	{
 		VolumePassword password ("password", 8);
-		static const byte saltData[] = { 0x12, 0x34, 0x56, 0x78 };
+		static const quint8 saltData[] = { 0x12, 0x34, 0x56, 0x78 };
 		ConstBufferPtr salt (saltData, sizeof (saltData));
 		Buffer derivedKey (4);
 

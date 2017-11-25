@@ -24,7 +24,7 @@ static gost_s_box GostR3411_94_CryptoProParamSet = {
 	};
 
 #ifdef GOST_DYNAMIC_SBOXES
-static void xor_s_box(gost_s_box *s_box, byte *seed)
+static void xor_s_box(gost_s_box *s_box, quint8 *seed)
 {
    int i;
    for (i = 0; i < 16; i++)
@@ -60,7 +60,7 @@ static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox
 	return n2;
 }
 
-void gost_encrypt(byte *in, byte *out, gost_kds *ks)
+void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
 	gst_udword n1, n2;
 	gost_s_box *sbox;
@@ -113,11 +113,11 @@ void gost_encrypt(byte *in, byte *out, gost_kds *ks)
 	n2 = r(n1, n2, ks->X1, sbox);
 	n1 = r(n2, n1, ks->X0, sbox);
 
-	out[0] = (byte)(n2 & 0xFF); out[1] = (byte)((n2 >> 8) & 0xFF); out[2] = (byte)((n2 >> 16) & 0xFF); out[3] = (byte)((n2 >> 24) & 0xFF);
-	out[4] = (byte)(n1 & 0xFF); out[5] = (byte)((n1 >> 8) & 0xFF); out[6] = (byte)((n1 >> 16) & 0xFF); out[7] = (byte)((n1 >> 24) & 0xFF);
+	out[0] = (quint8)(n2 & 0xFF); out[1] = (quint8)((n2 >> 8) & 0xFF); out[2] = (quint8)((n2 >> 16) & 0xFF); out[3] = (quint8)((n2 >> 24) & 0xFF);
+	out[4] = (quint8)(n1 & 0xFF); out[5] = (quint8)((n1 >> 8) & 0xFF); out[6] = (quint8)((n1 >> 16) & 0xFF); out[7] = (quint8)((n1 >> 24) & 0xFF);
 }
 
-void gost_decrypt(byte *in, byte *out, gost_kds *ks)
+void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
 	gst_udword n1, n2;
 	gost_s_box *sbox;
@@ -170,17 +170,17 @@ void gost_decrypt(byte *in, byte *out, gost_kds *ks)
 	n2 = r(n1, n2, ks->X1, sbox);
 	n1 = r(n2, n1, ks->X0, sbox);
 	
-	out[0] = (byte)(n2 & 0xFF); out[1] = (byte)((n2 >> 8) & 0xFF); out[2] = (byte)((n2 >> 16) & 0xFF); out[3] = (byte)((n2 >> 24) & 0xFF);
-	out[4] = (byte)(n1 & 0xFF); out[5] = (byte)((n1 >> 8) & 0xFF); out[6] = (byte)((n1 >> 16) & 0xFF); out[7] = (byte)((n1 >> 24) & 0xFF);
+	out[0] = (quint8)(n2 & 0xFF); out[1] = (quint8)((n2 >> 8) & 0xFF); out[2] = (quint8)((n2 >> 16) & 0xFF); out[3] = (quint8)((n2 >> 24) & 0xFF);
+	out[4] = (quint8)(n1 & 0xFF); out[5] = (quint8)((n1 >> 8) & 0xFF); out[6] = (quint8)((n1 >> 16) & 0xFF); out[7] = (quint8)((n1 >> 24) & 0xFF);
 }
 
-void gost_set_key(byte *key, gost_kds *ks)
+void gost_set_key(quint8 *key, gost_kds *ks)
 {
     gst_udword i;
 
 #ifdef GOST_DYNAMIC_SBOXES
 	STRIBOG_CTX sctx;
-	byte sbox_seed[64];
+	quint8 sbox_seed[64];
 
 	ks->sbox = GostR3411_94_CryptoProParamSet;
 

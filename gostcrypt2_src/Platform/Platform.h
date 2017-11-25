@@ -10,11 +10,9 @@
 #ifndef GST_HEADER_Platform
 #define GST_HEADER_Platform
 
-#include "PlatformBase.h"
 #include "Buffer.h"
 #include "File.h"
 #include "FilePath.h"
-#include "Finally.h"
 #include "Functor.h"
 #include "Memory.h"
 #include "Mutex.h"

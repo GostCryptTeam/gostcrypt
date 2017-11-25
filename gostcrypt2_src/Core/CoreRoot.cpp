@@ -224,7 +224,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     return response;
 }
 
-void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
+void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
 {
     // getting the volume header to fill it
     QSharedPointer<Volume::VolumeHeader> header (layout->GetHeader());
@@ -391,7 +391,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
-    fstream volumefile;
+    std::fstream volumefile;
 
     /*  Steps:
             write headers directly in file.
@@ -418,7 +418,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
 
     // opening file (or device)
-    volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
+    volumefile.open(params->path->absoluteFilePath().toStdString(), std::ios::in | std::ios::out | std::ios::binary);
     if(!volumefile.is_open())
         throw FailedOpenVolumeException(params->path);
 
