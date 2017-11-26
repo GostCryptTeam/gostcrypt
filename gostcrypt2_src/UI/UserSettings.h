@@ -9,6 +9,8 @@
 #define ORGANISATION "The GostCrypt Team"
 #define GI_KEY_MAP(variant, key) variant.value(key)
 
+#define GOSTCRYPT_VERSION "2.0.0beta"
+
 struct volumeInfo {
     volumeInfo() :
         sName(""),
@@ -117,6 +119,8 @@ public:
     Q_INVOKABLE void addKeyfilePath(const QString&);
     Q_INVOKABLE void removeKeyfile(const QString&);
     Q_INVOKABLE void removeAllKeyfile();
+
+    Q_INVOKABLE QString getVersion() const;
 
 private:
     QSettings mSettings;

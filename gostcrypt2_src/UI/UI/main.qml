@@ -320,7 +320,8 @@ Window {
             propagateComposedEvents: false
             hoverEnabled: true
             onClicked: {
-                toggleMenu()
+                pageLoader.item.enableAnimation();
+                toggleMenu(-1)
             }
         }
     }
@@ -339,6 +340,13 @@ Window {
             NumberAnimation {
                 duration: app.duration;
                 easing.type: Easing.OutQuad
+                onRunningChanged: {
+                    if (!running) {
+                        if(menuButton.x === 20)
+                            menuButton.value = 0.0
+                        else menuButton.value = 1.0
+                    }
+                }
             }
         }
         //Changing the rotation value following the width
@@ -355,7 +363,7 @@ Window {
         \class GSMenu
         \brief Menu zone on the left
      */
-    GSMenu{
+    GSMenu {
         id: gs_Menu
         height: app.height-40
         y:40
@@ -365,7 +373,7 @@ Window {
 
 
 
-    TitleBar  {
+    TitleBar {
         id: title
         x:0
         y:0
@@ -409,6 +417,7 @@ Window {
         id: errorMessage
         isVisible: false
         visible: false
+        focus: true
         opacity: 0.0
         title: qsTr("Message d'erreur")
         contentError: qsTr("Description du message d'erreur.\n Le message spécifique s'affichera donc ici.")
@@ -459,16 +468,40 @@ Window {
         \brief Closing/Opening the menu by opening on the button
         Returns nothing.
      */
-    function toggleMenu() {
-        gs_Menu.selected = 0
-        gs_Menu.toggleSubMenu(false)
-        gs_Menu.x = app.shown ? -gs_Menu.width-1 : 0
-        pageLoader.x = app.shown ? 0 : 85
-        menuButton.x = app.shown ? 20 : 185
-        app.shown = !app.shown
-        menuButton.value = !menuButton.value;
-        //gs_Menu.selected = 0 TODO
-        //TODO setting home as active if nothing was selected
+    function toggleMenu(idMenu) {
+        pageLoader.item.enableAnimation();
+        if(idMenu === undefined)
+        {
+            gs_Menu.selected = 0
+            gs_Menu.toggleSubMenu(false)
+            gs_Menu.x = app.shown ? -gs_Menu.width-1 : 0
+            if(app.shown) pageLoader.item.slide(false);
+            else pageLoader.item.slide(true);
+            menuButton.x = app.shown ? 20 : 185
+            app.shown = !app.shown
+            menuButton.value = !menuButton.value;
+        }
+        //Select menu if there is an argument
+        else if(idMenu !== undefined && idMenu !== -1)
+        {
+            gs_Menu.selected = idMenu
+            gs_Menu.toggleSubMenu(true)
+            menuButton.x = 185
+            menuButton.value = 1.0
+            gs_Menu.x = -gs_Menu.width+50
+            app.shown = true
+            gs_Menu.manageSubMenu(idMenu)
+        }
+        else if(idMenu === -1)
+        {
+            gs_Menu.selected = 0
+            gs_Menu.toggleSubMenu(false)
+            gs_Menu.x = -gs_Menu.width-1
+            pageLoader.item.slide(false);
+            menuButton.x = 20
+            app.shown = false
+            menuButton.value = 0.0
+        }
     }
 
     function openSubWindow(path, title, name, height, parameter) {

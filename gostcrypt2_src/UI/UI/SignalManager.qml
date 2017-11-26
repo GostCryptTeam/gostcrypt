@@ -13,6 +13,7 @@ Item {
 
         onConnectFinished: {
             qmlRequest("mountedvolumes", "");
+
         }
 
         onSprintGetMountedVolumes: {

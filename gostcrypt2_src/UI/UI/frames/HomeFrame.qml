@@ -1,6 +1,7 @@
 import QtQml 2.0 as QML
 import QtQuick 2.7
 import QtQuick.Window 2.2
+import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.1
 import "../" as UI
@@ -8,12 +9,25 @@ import "../" as UI
 Item {
     signal menuChanged(string name, int index)
     property QtObject mainWindow_
+    id: top
+
+    FileDialog {
+        id: fileDialog
+        title: qsTr("Please choose a file") + Translation.tr
+        folder: shortcuts.home
+        onAccepted: {
+            openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "dropVolume", "value" : fileDialog.fileUrl})
+        }
+        onRejected: {
+        }
+    }
+
+
     /*!
         \class GSMainForm
         \brief Contains the background of the
         main window
     */
-
     Item {
         id: mainWindow
         x: 0
@@ -36,22 +50,56 @@ Item {
                 horizontalCenter: parent.horizontalCenter
             }
             y: 438
-            width: 500
+            width: parent.width
             height: 70
             color: palette.darkSecond
             border.width: 1
             border.color: palette.darkInput
         }
-
-        Rectangle {
-            id: rectangle2
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 111
-            width: 550
-            height: 315
-            color: palette.darkSecond
-        }
          Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    }
+
+    //Volume container
+    Rectangle {
+        id: rectangle2
+        x: (isEmpty === true) ? 380 : 120
+        y: 111
+        width: (isEmpty === true) ? 350 : 550
+        height: 429
+        color: palette.darkSecond
+        property bool isEmpty: true
+        //Borders
+        Rectangle {
+            height: 1
+            y: 0
+            x: 0
+            width: parent.width
+            color: palette.darkInput
+        }
+        Rectangle {
+            height: parent.height-79
+            y: 0
+            x: 0
+            width: 1
+            color: palette.darkInput
+        }
+        Rectangle {
+            height: parent.height-79
+            y: 0
+            x: parent.width-1
+            width: 1
+            color: palette.darkInput
+        }
+        Behavior on x { id: behaviorVolumeContainer; enabled: false; NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+    }
+
+    Rectangle {
+        id: horizontalCenters
+        x: 0
+        width: 790
+        height: 1
+        color: "transparent"
+        Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
     /*!
@@ -62,7 +110,7 @@ Item {
     Row {
         id: rowWindow
         spacing: 70
-        anchors.horizontalCenter: mainWindow.horizontalCenter
+        anchors.horizontalCenter: horizontalCenters.horizontalCenter
         topPadding: 18
         /*!
             \class GSButtonGreen_icon
@@ -105,7 +153,7 @@ Item {
     Row {
         id: rowBottom
         spacing: 30
-        anchors.horizontalCenter: mainWindow.horizontalCenter
+        anchors.horizontalCenter: horizontalCenters.horizontalCenter
         anchors.bottom: mainWindow.bottom;
         anchors.bottomMargin: 15
         /*!
@@ -133,22 +181,6 @@ Item {
                 qmlRequest("dismountall", "dummy");
             }
         }
-        /*!
-            \class GSButtonBordered
-            \brief Opens the volume tools options.
-         */
-        /*UI.GSButtonBordered {
-            id: volumeTools
-            text: qsTr("Volume Tools") + Translation.tr
-            color_:palette.blue
-            //TODO : supprimer (tests)
-            onClicked: {
-                //LoadVolume.loadVolume("/media/volume", "GOST Grasshopper", "/home/user/myVolumes/volume", "5 MB");
-                volumeToolsMenu.opacity = (volumeToolsMenu.opacity == 0.0) ? 1.0 : 0.0
-                if(volumeToolsMenu.visible == false) volumeToolsMenu.visible = true
-            }
-
-        }*/
         Behavior on anchors.horizontalCenterOffset { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
     }
 
@@ -160,10 +192,7 @@ Item {
      */
     Item {
         id: volumeListElement
-        x: rectangle2.x
-        y: rectangle2.y
-        width: rectangle2.width
-        height: rectangle2.height
+        anchors.fill: rectangle2
 
         UI.GSVolumeItem {
             id:volumeDelegate
@@ -198,7 +227,7 @@ Item {
             x: 0
             y: 0
             width: rectangle2.width
-            height: rectangle2.height
+            height: rectangle2.height-80
             opacity: 0.0
             visible: false
             MouseArea {
@@ -317,87 +346,156 @@ Item {
         }
     }
 
-    //Default content on start
     Item {
         id: helpStart
-        x: 98
-        y: 111
-        width: 594
-        height: 315
-        visible: true
-        MouseArea {
-            anchors.fill: parent
-            propagateComposedEvents: true
-        }
-        Image {
-            width: 594
-            fillMode: Image.Pad
-            y: 30
-            horizontalAlignment: Image.AlignHCenter
-            source: "../ressource/dragDrop.png"
-        }
-        Text {
-            y: 120
-            font.pixelSize: 20
-            text: qsTr("Drag & Drop a GostCrypt volume here !") + Translation.tr
-            anchors.horizontalCenter: helpStart.horizontalCenter
-            color: palette.textLowOpacity
-            font.bold: true
-        }
-
-        Rectangle {
-            id: rect
+        anchors.fill: parent
+        //VOLUME PART
+        //Content
+        Column {
+            id: rightPart
+            spacing: 20
+            x: rectangle2.x
+            y: rectangle2.y + 10
             width: rectangle2.width
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: helpStart.bottom
-            height:100
-            color: palette.darkThird
-
+            height: rectangle2.height
             Text {
-                id:line1
-                y:30
-                font.pixelSize: 15
-                color: palette.textLowOpacity
-                anchors.horizontalCenter: rect.horizontalCenter
-                horizontalAlignment: Text.AlignVCenter
-                text: qsTr("Thank you for using <font color=\"#719c24\">GostCrypt</font> !") + Translation.tr
+                id: text
+                color: palette.text
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                text: qsTr("Mount or create your GostCrypt volume now!") + Translation.tr
+                font.pointSize: 14
             }
 
-            Text {
-                color: palette.textLowOpacity
-                anchors.horizontalCenter: rect.horizontalCenter
-                font.pixelSize: 13
-                y: line1.y + 20
-                horizontalAlignment: Text.AlignVCenter
-                text: qsTr("New user ? Try to <font color=\"#2f88a7\"><a href=\"1\">create</a></font>
-                            or <font color=\"#719c24\"><a href=\"2\">mount</a></font> a volume") + Translation.tr
-                MouseArea {
-                    anchors.fill: parent
-                    acceptedButtons: Qt.NoButton
-                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-                }
-                onLinkActivated: {
-                    if(link == "1")
-                    {
-                        openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : ""})
-                    }else{
-                        openSubWindow("dialogs/OpenVolume.qml", qsTr('Open a GostCrypt volume'), qsTr("Mount a volume"), 429, {"name" : "", "value" : ""})
+            //Image drag&Drop
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 276
+                height: 215
+                fillMode: Image.Pad
+                anchors.topMargin: 55
+                horizontalAlignment: Image.AlignHCenter
+                source: "../ressource/dragDrop.png"
+                Image {
+                    id: arrow
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 92
+                    height: 79
+                    y: 75
+                    fillMode: Image.Pad
+                    anchors.topMargin: 55
+                    horizontalAlignment: Image.AlignHCenter
+                    source: "../ressource/arrow.png"
+
+                    SequentialAnimation {
+                        running: true;
+                        loops: Animation.Infinite;
+                        NumberAnimation { target: arrow; property: "y"; to: 85; duration: 5000; easing.type: Easing.InOutCubic; }
+                        NumberAnimation { target: arrow; property: "y"; to: 75; duration: 5000; easing.type: Easing.InOutCubic; }
                     }
                 }
             }
 
+            Text {
+                id: text2
+                color: palette.text
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                text: qsTr("Drag&Drop your GostCrypt volume here!") + Translation.tr
+                font.pointSize: 10
+            }
+            Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
         }
+
+        //Left part
+        Column {
+            id: leftPart
+            width: 250
+            height: rightPart.height
+            x: 80
+            y: rightPart.y - 20
+            spacing: 10
+            Text {
+                id: title
+                color: palette.text
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHLeft
+                text: qsTr("Welcome to GostCrypt.") + Translation.tr
+                font.pointSize: 28
+                lineHeight: 0.8
+                font.weight: Font.Medium
+                font.letterSpacing: -2
+            }
+            Text {
+                id: version
+                x: 5;
+                color: palette.text
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHLeft
+                text: qsTr("version " + UserSettings.getVersion()) + Translation.tr
+                font.pointSize: 9
+            }
+            Text {
+                id: descriptionHome
+                x: 5;
+                color: palette.text
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHLeft
+                text: qsTr("GostCrypt allows you to create encrypted data "+
+                            "volume within a file or an external device. It "+
+                            "use GOST Grasshopper & SMS-4 Encryption algorithms.<br><br>"+
+                            "You can visit our website at <font color=\"#719c24\"><a href=\"http://gostcrypt.org\">GostCrypt</a></font>") + Translation.tr
+                font.pointSize: 9
+                onLinkActivated: Qt.openUrlExternally("http://www.gostcrypt.org/")
+            }
+            Rectangle {
+                id: separator
+                height: 40
+                width: 1
+                color: "transparent"
+            }
+
+            Row {
+                spacing: 10
+                UI.GSButtonBordered {
+                    text: qsTr("Favorites Volumes") + Translation.tr
+                    width:130
+                    onClicked:
+                    {
+                        toggleMenu(1)
+                    }
+                    color_: palette.blue
+                }
+                UI.GSButtonBordered {
+                    text: qsTr("User Guide") + Translation.tr
+                    color_: palette.green
+                    width:100
+                    onClicked: {
+                        qmlRequest("openguide", "");
+                    }
+                }
+            }
+
+            Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
+            Behavior on opacity { NumberAnimation { duration: app.duration/2; easing.type: Easing.OutQuad } }
+        }
+
+
     }
 
     DropArea {
-        x: 0; y: 0
-        anchors.fill:mainWindow
+        x: rectangle2.x+1;
+        y: rectangle2.y+1;
+        width: rectangle2.width-2;
+        height: rectangle2.height-81
 
         Rectangle {
-            x: rectangle2.x
-            y: rectangle2.y
-            width: rectangle2.width
-            height: rectangle2.height
+            anchors.fill: parent
             color: palette.textLowOpacity
             opacity: 0.5
             visible: parent.containsDrag
@@ -411,11 +509,30 @@ Item {
                 }
             }
         }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: (helpStart.visible) ? true : false
+            cursorShape: containsMouse ? Qt.OpenHandCursor : Qt.ArrowCursor
+            onClicked: {
+                fileDialog.open();
+            }
+        }
+    }
+
+    function enableAnimation() {
+        behaviorVolumeContainer.enabled = true;
     }
 
     function loadVolume(MountPoint, EncryptionAlgorithmName, Path, Size) {
-        if(helpStart !== undefined && helpStart.visible == true)
+        if(helpStart !== undefined && helpStart.visible === true) {
             helpStart.visible = false
+            rectangle2.isEmpty = false
+            if(app.shown === true) rectangle2.x = 200
+            else rectangle2.x = 120
+            behaviorVolumeContainer.enabled = true;
+        }
+
         var isFavorite = UserSettings.isFavorite(Path);
         listOfVolumes.append({mountPoint_: MountPoint, EncryptionAlgorithmName_: EncryptionAlgorithmName, Path_: Path, Size_: Size, Favorite: isFavorite})
     }
@@ -423,13 +540,45 @@ Item {
     function clearVolumes() {
         listOfVolumes.clear();
         helpStart.visible = true;
+        rectangle2.isEmpty = true;
+        if(app.shown) slide(1);
+        else slide(0);
+        //toggleMenu(-1);
     }
 
     function dismountVolume(path) {
         for(var i =0; i<listOfVolumes.count; i++)
             if(listOfVolumes.get(i).Path_ === path)
                 listOfVolumes.remove(i);
-        if(listOfVolumes.count == 0) helpStart.visible = true;
+        if(listOfVolumes.count == 0) {
+            helpStart.visible = true;
+        }
     }
 
+    function slide(bool)
+    {
+        if(bool)
+        {
+            mainWindow.x = 20
+            if(rectangle2.isEmpty)
+                rectangle2.x = 300
+            else
+                rectangle2.x = 200
+            leftPart.x = 80 + 100
+            leftPart.opacity = 0
+            horizontalCenters.x = 80
+            rightPart.x = 305
+        }else
+        {
+            mainWindow.x = 0
+            if(rectangle2.isEmpty)
+                rectangle2.x = 380
+            else
+                rectangle2.x = 120
+            leftPart.x = 80
+            leftPart.opacity = 1
+            horizontalCenters.x = 0
+            rightPart.x = 380
+        }
+    }
 }

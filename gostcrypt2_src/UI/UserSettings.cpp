@@ -239,6 +239,11 @@ void UserSettings::removeAllKeyfile()
     mSettings.sync();
 }
 
+QString UserSettings::getVersion() const
+{
+    return QString(GOSTCRYPT_VERSION);
+}
+
 void UserSettings::setVolumeInfos(volumeInfo& v, QString aName, QString aPath, bool aReadOnly, bool aRemovableMedium, bool aUponLogon, bool aMountWhenDeviceConnected, bool aOpenExplorerWhenMounted, bool aDoNotMountVolumeOnMountAllFavorite)
 {
     v.sName = aName;

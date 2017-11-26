@@ -121,8 +121,6 @@ Item {
             }
         }
 
-
-
         FileDialog {
             id: fileDialog
             title: qsTr("Please choose a file") + Translation.tr
@@ -136,6 +134,7 @@ Item {
             onRejected: {
             }
         }
+
         Behavior on y {
             NumberAnimation {
                 id: anim;

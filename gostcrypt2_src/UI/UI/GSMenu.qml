@@ -419,9 +419,7 @@ Item {
                                 UserSettings.setFavoritesVolumes(path);
                                 listSubMenuModelFavorite.clear();
                                 manageSubMenu(menus.FAVORITE)
-
                                 //check if favorite un homeframe
-
                             }
                         }
                         MouseArea {
@@ -677,7 +675,6 @@ Item {
                 toggleSubMenu(true);
                 menuChanged("", menus.FAVORITE)
             }
-
         }
     }
     GSMenuButtonItem {

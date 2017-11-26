@@ -116,4 +116,5 @@ DISTFILES += \
     UI/dialogs/Benchmark.qml \
     UI/dialogs/License.qml \
     UI/dialogs/KeyfileGenerator.qml \
-    UI/dialogs/TestVectors.qml
+    UI/dialogs/TestVectors.qml \
+    translations/gostcrypt_ar.ts

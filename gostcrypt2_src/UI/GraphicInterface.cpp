@@ -206,7 +206,6 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
            list.append(vol);
     }
     emit QML_SIGNAL(printGetMountedVolumes, list)
-    //sprintGetMountedVolume(list);
 }
 
 void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> response)
@@ -219,7 +218,6 @@ void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVol
 {
     (void)response;
     emit QML_SIGNAL(printMountVolume, QVariantList());
-    //TODO  QVariantList(response->volumeInfo));
 }
 
 void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> response)
@@ -282,7 +280,6 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
 void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> response)
 {
     (void)response;
-    //emit sPrintCreateKeyFile(QString()); //TODO
     emit QML_SIGNAL(printCreateKeyFile, QVariantList())
 }
 
