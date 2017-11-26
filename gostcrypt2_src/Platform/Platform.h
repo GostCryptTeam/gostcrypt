@@ -15,7 +15,6 @@
 #include "FilePath.h"
 #include "Functor.h"
 #include "Memory.h"
-#include "Mutex.h"
-#include "Thread.h"
+
 
 #endif // GST_HEADER_Platform

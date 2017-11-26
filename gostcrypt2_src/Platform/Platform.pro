@@ -29,22 +29,15 @@ unix {
 }
 
 HEADERS += \
-    Thread.h \
-    SyncEvent.h \
     SharedVal.h \
     PlatformTest.h \
     Platform.h \
-    Mutex.h \
     Memory.h \
-    Functor.h \
     File.h \
     Buffer.h \
     FilePath.h
 
 SOURCES += \
-    Unix/Thread.cpp \
-    Unix/SyncEvent.cpp \
-    Unix/Mutex.cpp \
     Unix/File.cpp \
     PlatformTest.cpp \
     Memory.cpp \

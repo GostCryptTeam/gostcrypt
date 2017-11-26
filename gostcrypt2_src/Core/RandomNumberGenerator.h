@@ -10,6 +10,7 @@
 #ifndef GST_HEADER_Core_RandomNumberGenerator
 #define GST_HEADER_Core_RandomNumberGenerator
 
+#include <QMutex>
 #include "Platform/Platform.h"
 #include "Common/Random.h"
 #include "Volume/VolumeHash.h"
@@ -44,7 +45,7 @@ namespace GostCrypt
 
 		static const size_t MaxBytesAddedBeforePoolHashMix = RANDMIX_BYTE_INTERVAL;
 
-		static Mutex AccessMutex;
+        static QMutex AccessMutex;
 		static size_t BytesAddedSincePoolHashMix;
 		static bool EnrichedByUser;
 		static SecureBuffer Pool;

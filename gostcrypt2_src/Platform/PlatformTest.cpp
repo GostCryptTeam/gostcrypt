@@ -8,9 +8,6 @@
 
 
 #include "PlatformTest.h"
-#include "Mutex.h"
-#include "SyncEvent.h"
-#include "Thread.h"
 #include "Common/Gstdefs.h"
 #include <QSharedPointer>
 #include <QMutex>

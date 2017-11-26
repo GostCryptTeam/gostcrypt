@@ -52,7 +52,7 @@ namespace GostCrypt
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
 
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		for (size_t i = 0; i < data.Size(); ++i)
 		{
@@ -74,7 +74,7 @@ namespace GostCrypt
 		if (buffer.Size() > PoolSize)
             throw;// ParameterIncorrect (SRC_POS);
 
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		// Poll system for data
 		AddSystemDataToPool (fast);
@@ -110,7 +110,7 @@ namespace GostCrypt
 
 	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
 	{
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 		return PoolHash;
 	}
 
@@ -135,13 +135,13 @@ namespace GostCrypt
 
 	void RandomNumberGenerator::SetHash (QSharedPointer <Volume::VolumeHash> hash)
 	{
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 		PoolHash = hash;
 	}
 
 	void RandomNumberGenerator::Start ()
 	{
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		if (IsRunning())
 			return;
@@ -166,7 +166,7 @@ namespace GostCrypt
 
 	void RandomNumberGenerator::Stop ()
 	{
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		if (Pool.IsAllocated())
 			Pool.Free ();
@@ -203,7 +203,7 @@ namespace GostCrypt
 		PoolHash = origPoolHash;
 	}
 
-	Mutex RandomNumberGenerator::AccessMutex;
+    QMutex RandomNumberGenerator::AccessMutex(QMutex::Recursive);
 	size_t RandomNumberGenerator::BytesAddedSincePoolHashMix;
 	bool RandomNumberGenerator::EnrichedByUser;
 	SecureBuffer RandomNumberGenerator::Pool;
