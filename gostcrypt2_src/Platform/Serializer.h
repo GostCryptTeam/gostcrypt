@@ -20,7 +20,7 @@ namespace GostCrypt
 	class Serializer
 	{
 	public:
-		Serializer (shared_ptr <Stream> stream) : DataStream (stream) { }
+        explicit Serializer (shared_ptr <Stream> stream) : DataStream (stream) { }
 		virtual ~Serializer () { }
 
 		void Deserialize (const string &name, bool &data);
