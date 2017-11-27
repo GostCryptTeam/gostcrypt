@@ -24,7 +24,7 @@ namespace GostCrypt
 	{
 	public:
 		Exception () { }
-		Exception (const string &message) : Message (message) { }
+        explicit Exception (const string &message) : Message (message) { }
 		Exception (const string &message, const wstring &subject) : Message (message), Subject (subject) { }
 		virtual ~Exception () throw () { }
 
