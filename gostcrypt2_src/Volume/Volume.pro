@@ -44,7 +44,6 @@ HEADERS += \
     EncryptionMode.h \
     EncryptionAlgorithm.h \
     Crc32.h \
-    Cipher.h \
     ../Crypto/Whirlpool.h \
     ../Crypto/Stribog.h \
     ../Crypto/GrasshopperCipher.h \
@@ -62,7 +61,10 @@ HEADERS += \
     VolumeType.h \
     VolumeHash.h \
     EncryptionAlgorithmGOST.h \
-    EncryptionAlgorithmGrasshopper.h
+    EncryptionAlgorithmGrasshopper.h \
+    CipherAlgorithm.h \
+    CipherAlgorithmGOST.h \
+    CipherAlgorithmGrasshopper.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -89,4 +91,6 @@ SOURCES += \
     VolumeInformation.cpp \
     VolumeHash.cpp \
     EncryptionAlgorithmGOST.cpp \
-    EncryptionAlgorithmGrasshopper.cpp
+    EncryptionAlgorithmGrasshopper.cpp \
+    CipherAlgorithmGOST.cpp \
+    CipherAlgorithmGrasshopper.cpp

@@ -1,5 +1,6 @@
 #include "EncryptionAlgorithmGOST.h"
 #include "EncryptionModeXTS.h"
+#include "CipherAlgorithmGOST.h"
 
 namespace GostCrypt {
 namespace Volume {

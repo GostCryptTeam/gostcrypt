@@ -11,7 +11,7 @@
 #define GST_HEADER_Encryption_EncryptionAlgorithm
 
 #include "Platform/Platform.h"
-#include "Cipher.h"
+#include "CipherAlgorithm.h"
 #include "EncryptionMode.h"
 
 namespace GostCrypt
