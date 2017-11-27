@@ -25,8 +25,8 @@ namespace GostCrypt
 	{
 	public:
 		VolumePath () { }
-		VolumePath (const wstring &path) { Data = path; }
-		VolumePath (const FilesystemPath &path) { Data = path; }
+        VolumePath (const wstring &path):Data(path) {}
+        VolumePath (const FilesystemPath &path):Data(path) {}
 
 		bool operator== (const VolumePath &other) const { return Data == other.Data; }
 		bool operator!= (const VolumePath &other) const { return Data != other.Data; }
