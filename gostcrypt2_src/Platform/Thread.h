@@ -42,7 +42,7 @@ namespace GostCrypt
 	protected:
 		static GST_THREAD_PROC FunctorEntry (void *functorArg)
 		{
-			Functor *functor = (Functor *) functorArg;
+            Functor *functor = reinterpret_cast<Functor *>(functorArg);
 			try
 			{
 				(*functor) ();
