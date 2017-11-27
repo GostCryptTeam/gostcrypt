@@ -25,7 +25,7 @@ namespace GostCrypt {
 		{
 			Q_OBJECT
 		public:
-			Service(QString serviceName);
+            explicit Service(QString serviceName);
             /**
              * @brief start the service
              *
