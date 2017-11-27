@@ -30,7 +30,6 @@ unix {
 
 HEADERS += \
     SharedVal.h \
-    PlatformTest.h \
     Platform.h \
     Memory.h \
     File.h \
@@ -39,7 +38,6 @@ HEADERS += \
 
 SOURCES += \
     Unix/File.cpp \
-    PlatformTest.cpp \
     Memory.cpp \
     FileCommon.cpp \
     Buffer.cpp \
