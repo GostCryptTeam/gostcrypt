@@ -40,7 +40,7 @@ namespace Volume {
 		virtual quint64 GetSectorOffset () const { return SectorOffset; }
 		virtual bool IsKeySet () const { return KeySet; }
 		virtual void SetKey (const ConstBufferPtr &key) = 0;
-		virtual void SetCiphers (const CipherList &ciphers) { Ciphers = ciphers; }
+        virtual void SetCiphers (const CipherAlgorithmList &ciphers) { Ciphers = ciphers; }
 		virtual void SetSectorOffset (int64 offset) { SectorOffset = offset; }
 
 	protected:
@@ -52,7 +52,7 @@ namespace Volume {
 
 		static const size_t EncryptionDataUnitSize = ENCRYPTION_DATA_UNIT_SIZE;
 
-		CipherList Ciphers;
+        CipherAlgorithmList Ciphers;
 		bool KeySet;
 		quint64 SectorOffset;
 

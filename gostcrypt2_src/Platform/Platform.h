@@ -13,7 +13,6 @@
 #include "Buffer.h"
 #include "File.h"
 #include "FilePath.h"
-#include "Functor.h"
 #include "Memory.h"
 
 

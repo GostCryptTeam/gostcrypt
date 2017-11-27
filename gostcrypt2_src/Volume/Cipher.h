@@ -18,7 +18,7 @@ namespace GostCrypt
 namespace Volume {
 
     class CipherAlgorithm;
-    typedef std::vector < QSharedPointer <CipherAlgorithm> > CipherList;
+    typedef std::vector < QSharedPointer <CipherAlgorithm> > CipherAlgorithmList;
 
     class CipherAlgorithm
 	{
@@ -30,7 +30,7 @@ namespace Volume {
 		static void EnableHwSupport (bool enable) { HwSupportEnabled = enable; }
 		virtual void EncryptBlock (quint8 *data) const;
 		virtual void EncryptBlocks (quint8 *data, size_t blockCount) const;
-		static CipherList GetAvailableCiphers ();
+        static CipherAlgorithmList GetAvailableCiphers ();
 		virtual size_t GetBlockSize () const = 0;
 		virtual const SecureBuffer &GetKey () const { return Key; }
 		virtual size_t GetKeySize () const = 0;

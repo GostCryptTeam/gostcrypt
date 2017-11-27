@@ -24,9 +24,9 @@ namespace Volume {
 	{
 		//if_debug (ValidateState());
 
-		CipherList::const_iterator iSecondaryCipher = SecondaryCiphers.begin();
+        CipherAlgorithmList::const_iterator iSecondaryCipher = SecondaryCiphers.begin();
 
-		for (CipherList::const_iterator iCipher = Ciphers.begin(); iCipher != Ciphers.end(); ++iCipher)
+        for (CipherAlgorithmList::const_iterator iCipher = Ciphers.begin(); iCipher != Ciphers.end(); ++iCipher)
 		{
 			if ((**iCipher).GetBlockSize() == 8)
 				EncryptBufferXTS8Byte (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
@@ -297,9 +297,9 @@ namespace Volume {
 	{
 		//if_debug (ValidateState());
 
-		CipherList::const_iterator iSecondaryCipher = SecondaryCiphers.end();
+        CipherAlgorithmList::const_iterator iSecondaryCipher = SecondaryCiphers.end();
 
-		for (CipherList::const_reverse_iterator iCipher = Ciphers.rbegin(); iCipher != Ciphers.rend(); ++iCipher)
+        for (CipherAlgorithmList::const_reverse_iterator iCipher = Ciphers.rbegin(); iCipher != Ciphers.rend(); ++iCipher)
 		{
 			--iSecondaryCipher;
 			if ((**iCipher).GetBlockSize() == 8)
@@ -538,7 +538,7 @@ namespace Volume {
 		DecryptBuffer (data, sectorCount * sectorSize, sectorIndex * sectorSize / ENCRYPTION_DATA_UNIT_SIZE);
 	}
 
-	void EncryptionModeXTS::SetCiphers (const CipherList &ciphers)
+    void EncryptionModeXTS::SetCiphers (const CipherAlgorithmList &ciphers)
 	{
 		EncryptionMode::SetCiphers (ciphers);
 

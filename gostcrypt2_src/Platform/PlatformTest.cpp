@@ -12,6 +12,7 @@
 #include <QSharedPointer>
 #include <QMutex>
 #include <QWaitCondition>
+#include <typeinfo>
 
 namespace GostCrypt
 {
