@@ -111,14 +111,6 @@ enum
 	GRASSHOPPER
 };
 
-typedef struct
-{
-	int Id;					// Cipher ID
-	char *Name;				// Name
-	int BlockSize;			// Block size (bytes)
-	int KeySize;			// Key size (bytes)
-	int KeyScheduleSize;	// Scheduled key size (bytes)
-} Cipher;
 
 typedef struct
 {
@@ -127,13 +119,6 @@ typedef struct
 	int FormatEnabled;
 } EncryptionAlgorithm;
 
-typedef struct
-{
-	int Id;					// Hash ID
-	char *Name;				// Name
-	BOOL Deprecated;
-	BOOL SystemEncryption;	// Available for system encryption
-} Hash;
 
 #ifdef DEBUG
 #	define PRAND_DISK_WIPE_PASSES	3
