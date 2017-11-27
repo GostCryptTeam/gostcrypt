@@ -131,8 +131,17 @@ Item {
                             anchors.fill: elementSubMenu
                             hoverEnabled: true
                             onClicked: {
-                                openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
-                                toggleMenu()
+                                //Subwindow mode
+                                if(fileName !== undefined)
+                                {
+                                    openSubWindow("dialogs/"+fileName+".qml", titleDialog, description, 429, {"name" : "", "value" : ""})
+                                    toggleMenu()
+                                }
+                                //Action mode
+                                else
+                                {
+                                    qmlRequest(action, "")
+                                }
                             }
                         }
                         states: [
@@ -566,20 +575,16 @@ Item {
 
             listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "KeyfileGenerator", titleDialog: qsTr("Keyfile Generator"), description: qsTr("Keyfile generator")})
             listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", action: "closeallsts"})
 
             listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
-            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", action: "clearvolumehistory"})
             break;
         case menus.SETTINGS:
             titleSubMenuText_ = qsTr("settings")
             listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language")})
-            //listSubMenuModel.append({message: qsTr("Hot Keys..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("System Encryption..."), size: "small"}) not needed now
-            //listSubMenuModel.append({message: qsTr("System Favorite Volumes..."), size: "small"}) not needed now
-
             listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "Performance", titleDialog: qsTr("GostCrypt Performances"), description: qsTr("Performance Options")})
 
             listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), fileName: "DefaultKeyfile", titleDialog: qsTr("Default Keyfiles"), description: qsTr("Default Keyfiles")})
@@ -589,18 +594,17 @@ Item {
             break;
         case menus.HELP:
             titleSubMenuText_ = qsTr("help")
-            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: qsTr("help"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: qsTr("help"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("User's Guide"), size: "small", type: qsTr("help"), action: "openguide"})
+            listSubMenuModel.append({message: qsTr("Online Help"), size: "small", type: qsTr("help"), action: "onlinehelp"})
+            listSubMenuModel.append({message: qsTr("Beginner's Tutorial"), size: "medium", type: qsTr("help"), action: "beginnertuto"})
+            listSubMenuModel.append({message: qsTr("Frequently Asked Questions"), size: "big", type: qsTr("help"), finale:"true", action: "faq"})
 
-            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            //listSubMenuModel.append({message: qsTr("Analyse a System Crash..."), size: "big", type: qsTr("web"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("GostCrypt Website"), size: "medium", type: qsTr("web"), action: "website"})
+            listSubMenuModel.append({message: qsTr("Downloads"), size: "small", type: qsTr("web"), action: "download"})
+            listSubMenuModel.append({message: qsTr("News"), size: "small", type: qsTr("web"), action: "news"})
+            listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), finale:"true", action: "versionhistory"})
 
-            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+            listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), action: "contact"})
             listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "License", titleDialog: qsTr("GostCrypt License"), description: qsTr("License")})
             listSubMenuModel.append({message: qsTr("About"), size: "big", type: qsTr("information"), finale:"true", fileName: "Contributors", titleDialog: qsTr("About GostCrypt"), description: qsTr("About GostCrypt")})
             break;

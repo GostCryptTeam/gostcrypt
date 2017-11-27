@@ -30,7 +30,18 @@
     func(algorithms), \
     func(hashs), \
     func(devices), \
-    func(openmountpoint) \
+    func(openmountpoint), \
+    func(closeallsts), \
+    func(clearvolumehistory), \
+    func(openguide), \
+    func(onlinehelp), \
+    func(beginnertuto), \
+    func(faq), \
+    func(website), \
+    func(download), \
+    func(news), \
+    func(versionhistory), \
+    func(contact) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
 #define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
