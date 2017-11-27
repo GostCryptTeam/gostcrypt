@@ -11,8 +11,8 @@ class VolumePath //TODO Should derive from FilesystemPath
 {
 public:
 	VolumePath () { }
-    VolumePath (const std::wstring &path) { Data = path; }
-    VolumePath (const FilePath &path) { Data = path; }
+    VolumePath (const std::wstring &path):Data(path) {  }
+    VolumePath (const FilePath &path):Data(path) {  }
 
 	bool operator== (const VolumePath &other) const { return Data == other.Data; }
 	bool operator!= (const VolumePath &other) const { return Data != other.Data; }
