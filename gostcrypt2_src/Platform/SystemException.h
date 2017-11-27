@@ -19,7 +19,7 @@ namespace GostCrypt
 	{
 	public:
 		SystemException ();
-		SystemException (const string &message);
+        explicit SystemException (const string &message);
 		SystemException (const string &message, const string &subject);
 		SystemException (const string &message, const wstring &subject);
 		SystemException (const string &message, int64 errorCode)
