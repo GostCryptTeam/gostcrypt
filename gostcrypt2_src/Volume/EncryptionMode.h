@@ -12,7 +12,7 @@
 
 #include "Platform/Platform.h"
 #include "Common/Crypto.h"
-#include "Cipher.h"
+#include "CipherAlgorithm.h"
 
 namespace GostCrypt
 {

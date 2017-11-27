@@ -7,7 +7,8 @@
 */
 
 
-#include "Cipher.h"
+#include "CipherAlgorithm.h"
+#include "CipherAlgorithmGOST.h"
 #include "Common/Crc.h"
 #include "Crc32.h"
 #include "EncryptionAlgorithm.h"
