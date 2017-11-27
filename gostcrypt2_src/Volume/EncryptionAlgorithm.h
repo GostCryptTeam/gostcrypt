@@ -34,7 +34,7 @@ namespace Volume {
 		virtual void Encrypt (const BufferPtr &data) const;
 		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		static EncryptionAlgorithmList GetAvailableAlgorithms ();
-		virtual const CipherList &GetCiphers () const { return Ciphers; }
+        virtual const CipherAlgorithmList &GetCiphers () const { return Ciphers; }
         virtual QSharedPointer <EncryptionAlgorithm> GetNew () const = 0;
 		virtual size_t GetMaxBlockSize () const;
 		virtual size_t GetMinBlockSize () const;
@@ -54,7 +54,7 @@ namespace Volume {
 
 		void ValidateState () const;
 
-		CipherList Ciphers;
+        CipherAlgorithmList Ciphers;
 		bool Deprecated;
 		QSharedPointer <EncryptionMode> Mode;
 		EncryptionModeList SupportedModes;

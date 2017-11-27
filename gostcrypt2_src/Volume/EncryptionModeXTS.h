@@ -31,7 +31,7 @@ namespace Volume {
 		virtual size_t GetKeySize () const;
         virtual std::wstring GetName () const { return L"XTS"; };
 		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
-		virtual void SetCiphers (const CipherList &ciphers);
+        virtual void SetCiphers (const CipherAlgorithmList &ciphers);
 		virtual void SetKey (const ConstBufferPtr &key);
 
 	protected:
@@ -44,7 +44,7 @@ namespace Volume {
 		void SetSecondaryCipherKeys ();
 
 		SecureBuffer SecondaryKey;
-		CipherList SecondaryCiphers;
+        CipherAlgorithmList SecondaryCiphers;
 
 	private:
 		EncryptionModeXTS (const EncryptionModeXTS &);

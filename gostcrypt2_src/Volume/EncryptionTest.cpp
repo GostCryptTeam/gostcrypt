@@ -15,6 +15,7 @@
 #include "EncryptionModeXTS.h"
 #include "EncryptionTest.h"
 #include "Pkcs5Kdf.h"
+#include <typeinfo>
 
 namespace GostCrypt
 {

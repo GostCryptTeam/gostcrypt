@@ -65,9 +65,9 @@ namespace Volume {
 		}
 	}
 
-    CipherList CipherAlgorithm::GetAvailableCiphers ()
+    CipherAlgorithmList CipherAlgorithm::GetAvailableCiphers ()
 	{
-		CipherList l;
+        CipherAlgorithmList l;
 
         l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
         l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGRASSHOPPER()));

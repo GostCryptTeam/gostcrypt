@@ -13,6 +13,7 @@
 #include "Pkcs5Kdf.h"
 #include "VolumeHeader.h"
 #include "Common/Crypto.h"
+#include <typeinfo>
 
 namespace GostCrypt
 {

@@ -11,6 +11,7 @@
 #include "EncryptionAlgorithmGOST.h"
 #include "EncryptionAlgorithmGrasshopper.h"
 #include "EncryptionModeXTS.h"
+#include <typeinfo>
 
 namespace GostCrypt
 {
