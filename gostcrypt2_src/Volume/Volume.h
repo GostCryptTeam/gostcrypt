@@ -38,7 +38,7 @@ namespace Volume {
 		quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
 		quint64 GetHostSize () const { return VolumeHostSize; }
 		QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
-		VolumePath GetPath () const { return VolumeFile->GetPath(); }
+        VolumePath GetPath () const { return VolumeFile->GetPath(); }
 		VolumeProtection::Enum GetProtectionType () const { return Protection; }
 		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Header->GetPkcs5Kdf(); }
 		quint32 GetSaltSize () const { return Header->GetSaltSize(); }
