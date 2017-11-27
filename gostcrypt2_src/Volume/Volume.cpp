@@ -302,7 +302,7 @@ namespace Volume {
 		vi->type = this->Type;
 		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(std::wstring(this->VolumeFile->GetPath()))));
 
-        return vi;
+                return vi;
 	}
 }
 }
