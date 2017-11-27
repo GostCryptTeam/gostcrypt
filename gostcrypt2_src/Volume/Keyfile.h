@@ -24,7 +24,7 @@ namespace Volume {
     class Keyfile //inherit from QFile
 	{
 	public:
-        Keyfile (const FilePath &path){ (void)path; }
+        explicit Keyfile (const FilePath &path){ (void)path; }
         virtual ~Keyfile () { }
 
         operator FilePath () const { return Path; }
