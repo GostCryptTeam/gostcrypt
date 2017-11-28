@@ -577,8 +577,8 @@ Item {
             listSubMenuModel.append({message: qsTr("Manage Security Token Keyfiles..."), size: "big", type: qsTr("keyfiles"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
             listSubMenuModel.append({message: qsTr("Close All Security Token Sessions"), size: "big", type: qsTr("keyfiles"), finale:"true", action: "closeallsts"})
 
-            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "", titleDialog: qsTr(""), description: qsTr("")})
-            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
+//            listSubMenuModel.append({message: qsTr("Backup Volume Header..."), size: "big", type: qsTr("volume header"), fileName: "backupHeaderVolume", titleDialog: qsTr("Backup Volume Header"), description: qsTr("Backup Volume Header")})
+//            listSubMenuModel.append({message: qsTr("Restore Volume Header..."), size: "big", type: qsTr("volume header"), finale:"true", fileName: "", titleDialog: qsTr(""), description: qsTr("")})
 
             listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", action: "clearvolumehistory"})
             break;

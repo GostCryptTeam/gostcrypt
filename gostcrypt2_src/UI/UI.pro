@@ -117,4 +117,5 @@ DISTFILES += \
     UI/dialogs/License.qml \
     UI/dialogs/KeyfileGenerator.qml \
     UI/dialogs/TestVectors.qml \
-    translations/gostcrypt_ar.ts
+    translations/gostcrypt_ar.ts \
+    UI/dialogs/backupHeaderVolume.qml

@@ -315,6 +315,15 @@ Item {
                 y:160
                 text_: qsTr("Backup volume header...")
                 onClicked: {
+                    openErrorMessage(qsTr("Information"), qsTr("For security reasons, you will have to enter the correct password "+
+                                                               "(and/or supply the correct keyfiles) for the volume.<br><br>Note: "+
+                                                               "If the volume contains a hidden volume, you will have to enter the "+
+                                                               "correct password (and/or supply the correct keyfiles) for the outer "+
+                                                               "volume first. Afterwards, if you choose to back up the header of "+
+                                                               "the hidden volume, you will have to enter the correct password "+
+                                                               "(and/or supply the correct keyfiles) for the hidden volume."))
+
+                    openSubWindow("dialogs/backupHeaderVolume.qml", qsTr("Backup Volume Header"), qsTr("Backup Volume Header"), 429, {"name" : "volume-backup", "value" : volumeToolsMenu.path})
                     //TODO : signal Backup volume header
                     volumeToolsMenu.opacity = 0.0
                     volumeToolsMenuLayer.opacity = 0.0
@@ -483,8 +492,6 @@ Item {
 
             Behavior on opacity { NumberAnimation { duration: app.duration/2; easing.type: Easing.OutQuad } }
         }
-
-
     }
 
     DropArea {

@@ -302,6 +302,7 @@ Item {
             loader.item.volumePath = parameter.value
             break;
         case "volume-settings":
+        case "volume-backup":
             loader.item.volumePath = parameter.value
             break;
         }
