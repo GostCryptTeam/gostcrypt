@@ -83,7 +83,7 @@ namespace Volume {
         static QMutex EnqueueMutex;
         static QList < QSharedPointer <EncryptionThread> > RunningThreads;
 		static volatile bool StopPending;
-        static int ThreadCount;
+        static quint8 ThreadCount;
 		static volatile bool ThreadPoolRunning;
         static QWaitCondition WorkItemCompletedEvent;
         static QMutex WorkItemCompletedEventMutex;

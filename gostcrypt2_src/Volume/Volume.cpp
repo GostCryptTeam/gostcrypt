@@ -138,12 +138,6 @@ namespace Volume {
 		{
             VolumeHostSize = this->volumeFile->Length();
 			QSharedPointer <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
-
-			bool deviceHosted = GetPath().IsDevice();
-			size_t hostDeviceSectorSize = 0;
-			if (deviceHosted)
-				hostDeviceSectorSize = volumeFile->GetDeviceSectorSize();
-
 			// Test volume layouts
             for (QSharedPointer <VolumeLayout> layout : VolumeLayout::GetAvailableLayouts (volumeType))
 			{
@@ -184,7 +178,6 @@ namespace Volume {
 					Header = header;
 					Layout = layout;
 					EA = header->GetEncryptionAlgorithm();
-					EncryptionMode &mode = *EA->GetMode();
 
 					// Volume protection
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)

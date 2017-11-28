@@ -29,8 +29,6 @@ unix {
 }
 
 HEADERS += \
-    VolumeSlot.h \
-    VolumePasswordCache.h \
     VolumePassword.h \
     VolumeLayout.h \
     VolumeHeader.h \
@@ -43,20 +41,9 @@ HEADERS += \
     EncryptionMode.h \
     EncryptionAlgorithm.h \
     Crc32.h \
-    ../Crypto/Whirlpool.h \
-    ../Crypto/Stribog.h \
-    ../Crypto/GrasshopperCipher.h \
-    ../Crypto/GostHash.h \
-    ../Crypto/GostCipher.h \
-    ../Common/Pkcs5.h \
-    ../Common/GfMul.h \
-    ../Common/Endian.h \
-    ../Common/Crc.h \
     VolumeInformation.h \
-    ../Common/Crypto.h \
     VolumePath.h \
     VolumeProtection.h \
-    VolumeHostType.h \
     VolumeType.h \
     VolumeHash.h \
     EncryptionAlgorithmGOST.h \
@@ -69,7 +56,21 @@ HEADERS += \
     VolumeHashStribog.h \
     VolumeLayoutV2Normal.h \
     VolumeLayoutV2Hidden.h \
-    VolumeFile.h
+    VolumeFile.h \
+    ../Common/Crc.h \
+    ../Common/Crypto.h \
+    ../Common/Endian.h \
+    ../Common/GfMul.h \
+    ../Common/Gstdefs.h \
+    ../Common/Password.h \
+    ../Common/Pkcs5.h \
+    ../Common/Random.h \
+    ../Common/Volumes.h \
+    ../Crypto/GostCipher.h \
+    ../Crypto/GostHash.h \
+    ../Crypto/GrasshopperCipher.h \
+    ../Crypto/Stribog.h \
+    ../Crypto/Whirlpool.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -82,15 +83,6 @@ SOURCES += \
     EncryptionModeXTS.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
-    ../Crypto/Whirlpool.c \
-    ../Crypto/Stribog.c \
-    ../Crypto/GrasshopperCipher.c \
-    ../Crypto/GostHash.c \
-    ../Crypto/GostCipher.c \
-    ../Common/Pkcs5.c \
-    ../Common/GfMul.c \
-    ../Common/Endian.c \
-    ../Common/Crc.c \
     VolumeInformation.cpp \
     VolumeHash.cpp \
     EncryptionAlgorithmGOST.cpp \
@@ -103,4 +95,13 @@ SOURCES += \
     CipherAlgorithm.cpp \
     VolumeLayoutV2Normal.cpp \
     VolumeLayoutV2Hidden.cpp \
-    VolumeFile.cpp
+    VolumeFile.cpp \
+    ../Common/Crc.c \
+    ../Common/Endian.c \
+    ../Common/GfMul.c \
+    ../Common/Pkcs5.c \
+    ../Crypto/GostCipher.c \
+    ../Crypto/GostHash.c \
+    ../Crypto/GrasshopperCipher.c \
+    ../Crypto/Stribog.c \
+    ../Crypto/Whirlpool.c

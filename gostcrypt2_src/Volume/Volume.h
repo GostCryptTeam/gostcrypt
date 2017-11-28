@@ -18,7 +18,6 @@
 #include "VolumeInformation.h"
 #include "VolumePath.h"
 #include "VolumeProtection.h"
-#include "VolumeHostType.h"
 #include "VolumeFile.h"
 
 namespace GostCrypt {

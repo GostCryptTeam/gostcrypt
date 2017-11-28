@@ -284,7 +284,7 @@ namespace Volume {
 	volatile bool EncryptionThreadPool::ThreadPoolRunning = false;
 	volatile bool EncryptionThreadPool::StopPending = false;
 
-    int EncryptionThreadPool::ThreadCount;
+    quint8 EncryptionThreadPool::ThreadCount;
 
 	EncryptionThreadPool::WorkItem EncryptionThreadPool::WorkItemQueue[QueueSize];
 

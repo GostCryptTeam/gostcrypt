@@ -8,7 +8,6 @@
 #include "Volume/VolumeHeader.h"
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
-#include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
 #include "Volume/VolumeType.h"
 
