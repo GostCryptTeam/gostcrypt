@@ -79,7 +79,6 @@ SOURCES += \
     EncryptionModeXTS.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
-    Cipher.cpp \
     ../Crypto/Whirlpool.c \
     ../Crypto/Stribog.c \
     ../Crypto/GrasshopperCipher.c \
@@ -97,4 +96,5 @@ SOURCES += \
     CipherAlgorithmGrasshopper.cpp \
     VolumeHashWhirlpool.cpp \
     VolumeHashGostHash.cpp \
-    VolumeHashStribog.cpp
+    VolumeHashStribog.cpp \
+    CipherAlgorithm.cpp
