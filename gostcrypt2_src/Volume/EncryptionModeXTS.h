@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Volume_EncryptionModeXTS
 #define GST_HEADER_Volume_EncryptionModeXTS
 
-#include "Platform/Platform.h"
 #include "EncryptionMode.h"
 
 namespace GostCrypt

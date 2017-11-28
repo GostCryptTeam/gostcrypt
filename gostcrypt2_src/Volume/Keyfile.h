@@ -10,8 +10,9 @@
 #ifndef GST_HEADER_Encryption_Keyfile
 #define GST_HEADER_Encryption_Keyfile
 
-#include "Platform/Platform.h"
 #include "VolumePassword.h"
+#include "Platform/Buffer.h"
+#include "Platform/FilePath.h"
 #include <QSharedPointer>
 
 namespace GostCrypt

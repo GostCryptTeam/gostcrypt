@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Volume_Volume
 #define GST_HEADER_Volume_Volume
 
-#include "Platform/Platform.h"
 #include "EncryptionAlgorithm.h"
 #include "EncryptionMode.h"
 #include "Keyfile.h"
@@ -20,6 +19,7 @@
 #include "VolumePath.h"
 #include "VolumeProtection.h"
 #include "VolumeHostType.h"
+#include "Platform/File.h"
 
 namespace GostCrypt {
 namespace Volume {

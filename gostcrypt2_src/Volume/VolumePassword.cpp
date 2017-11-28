@@ -33,10 +33,11 @@ namespace Volume {
 		Set (password, charCount);
 	}
 
-    VolumePassword::VolumePassword (const std::wstring &password)
+    /*
+        VolumePassword::VolumePassword (const std::wstring &password)
 	{
 		Set (password.c_str(), password.size());
-	}
+        }//*/
 
 	VolumePassword::~VolumePassword ()
 	{

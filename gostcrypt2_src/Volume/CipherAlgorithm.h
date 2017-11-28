@@ -10,15 +10,16 @@
 #ifndef GST_HEADER_Encryption_Ciphers
 #define GST_HEADER_Encryption_Ciphers
 
-#include "Platform/Platform.h"
-
+#include "Platform/Buffer.h"
+#include <QList>
+#include <QSharedPointer>
 
 namespace GostCrypt
 {
 namespace Volume {
 
     class CipherAlgorithm;
-    typedef std::vector < QSharedPointer <CipherAlgorithm> > CipherAlgorithmList;
+    typedef QList < QSharedPointer <CipherAlgorithm> > CipherAlgorithmList;
 
     class CipherAlgorithm
 	{

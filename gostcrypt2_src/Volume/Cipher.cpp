@@ -7,7 +7,6 @@
 */
 
 
-#include "Platform/Platform.h"
 #include "CipherAlgorithm.h"
 #include "CipherAlgorithmGOST.h"
 #include "CipherAlgorithmGrasshopper.h"

@@ -12,7 +12,6 @@
 
 #include "Common/Gstdefs.h"
 #include "Common/Volumes.h"
-#include "Platform/Platform.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/EncryptionMode.h"
 #include "Volume/Keyfile.h"

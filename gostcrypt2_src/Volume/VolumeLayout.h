@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Volume_VolumeLayout
 #define GST_HEADER_Volume_VolumeLayout
 
-#include "Platform/Platform.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/EncryptionMode.h"
 #include "Volume/Pkcs5Kdf.h"

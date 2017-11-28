@@ -78,7 +78,7 @@ namespace Volume {
                 WorkItemCompletedEvent.wait(&WorkItemCompletedEventMutex);
 			}
 
-			firstFragmentWorkItem->OutstandingFragmentCount.Set (fragmentCount);
+            firstFragmentWorkItem->OutstandingFragmentCount = fragmentCount;
             //firstFragmentWorkItem->ItemException.reset();
 
 			while (fragmentCount-- > 0)
@@ -108,7 +108,7 @@ namespace Volume {
 				if (remainder > 0 && --remainder == 0)
 					--unitsPerFragment;
 
-				workItem->State.Set (WorkItem::State::Ready);
+                workItem->State = WorkItem::State::Ready;
                 WorkItemReadyEvent.wakeOne();
 			}
             firstFragmentWorkItem->ItemCompletedEventMutex.lock();
@@ -121,7 +121,7 @@ namespace Volume {
         if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
     //*/
-		firstFragmentWorkItem->State.Set (WorkItem::State::Free);
+        firstFragmentWorkItem->State = WorkItem::State::Free;
         firstFragmentWorkItem->ItemCompletedEventMutex.unlock();
 
         WorkItemCompletedEvent.wakeOne();
@@ -157,7 +157,7 @@ namespace Volume {
 
 		for (size_t i = 0; i < sizeof (WorkItemQueue) / sizeof (WorkItemQueue[0]); ++i)
 		{
-			WorkItemQueue[i].State.Set (WorkItem::State::Free);
+            WorkItemQueue[i].State = WorkItem::State::Free;
 		}
 
 		try
@@ -226,7 +226,7 @@ namespace Volume {
                         EncryptionThreadPool::WorkItemReadyEvent.wait(&EncryptionThreadPool::WorkItemReadyEventMutex);
 					}
 
-                    workItem->State.Set (EncryptionThreadPool::WorkItem::State::Busy);
+                    workItem->State = EncryptionThreadPool::WorkItem::State::Busy;
 				}
 
                 if (EncryptionThreadPool::StopPending)
@@ -263,11 +263,11 @@ namespace Volume {
 
 				if (workItem != workItem->FirstFragment)
 				{
-                    workItem->State.Set (EncryptionThreadPool::WorkItem::State::Free);
+                    workItem->State = EncryptionThreadPool::WorkItem::State::Free;
                     EncryptionThreadPool::WorkItemCompletedEvent.wakeOne();
 				}
 
-				if (workItem->FirstFragment->OutstandingFragmentCount.Decrement() == 0)
+                if (!workItem->FirstFragment->OutstandingFragmentCount.deref())
                     workItem->FirstFragment->ItemCompletedEvent.wakeOne();
 			}
 		}

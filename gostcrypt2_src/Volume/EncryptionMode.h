@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Encryption_EncryptionMode
 #define GST_HEADER_Encryption_EncryptionMode
 
-#include "Platform/Platform.h"
 #include "Common/Crypto.h"
 #include "CipherAlgorithm.h"
 

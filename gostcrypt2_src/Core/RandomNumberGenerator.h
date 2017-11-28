@@ -11,7 +11,6 @@
 #define GST_HEADER_Core_RandomNumberGenerator
 
 #include <QMutex>
-#include "Platform/Platform.h"
 #include "Common/Random.h"
 #include "Volume/VolumeHash.h"
 

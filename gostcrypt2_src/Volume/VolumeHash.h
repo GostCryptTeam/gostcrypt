@@ -10,14 +10,16 @@
 #ifndef GST_HEADER_Encryption_Hash
 #define GST_HEADER_Encryption_Hash
 
-#include "Platform/Platform.h"
+#include <QList>
+#include <QSharedPointer>
+#include "Platform/Buffer.h"
 
 namespace GostCrypt
 {
 namespace Volume {
 
 	class VolumeHash;
-    typedef std::list < QSharedPointer <VolumeHash> > VolumeHashList;
+    typedef QList < QSharedPointer <VolumeHash> > VolumeHashList;
 
 	class VolumeHash
 	{

@@ -10,7 +10,8 @@
 #ifndef GST_HEADER_Encryption_Password
 #define GST_HEADER_Encryption_Password
 
-#include "Platform/Platform.h"
+#include <QtGlobal>
+#include "Platform/Buffer.h"
 
 namespace GostCrypt
 {
@@ -23,7 +24,6 @@ namespace Volume {
 		VolumePassword (const quint8 *password, size_t size);
 		VolumePassword (const char *password, size_t size);
 		VolumePassword (const wchar_t *password, size_t charCount);
-        explicit VolumePassword (const std::wstring &password);
 		VolumePassword (const VolumePassword &password) { Set (password); }
 		virtual ~VolumePassword ();
 

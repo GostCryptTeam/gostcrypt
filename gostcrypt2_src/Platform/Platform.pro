@@ -29,8 +29,6 @@ unix {
 }
 
 HEADERS += \
-    SharedVal.h \
-    Platform.h \
     Memory.h \
     File.h \
     Buffer.h \

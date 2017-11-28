@@ -10,9 +10,7 @@
 #ifndef GST_HEADER_Volume_EncryptionThreadPool
 #define GST_HEADER_Volume_EncryptionThreadPool
 
-#include "Platform/Platform.h"
 #include "EncryptionMode.h"
-#include "Platform/SharedVal.h"
 #include <QMutex>
 #include <QThread>
 #include <QWaitCondition>
@@ -53,8 +51,8 @@ namespace Volume {
             //QSharedPointer <Exception> ItemException;
             QWaitCondition ItemCompletedEvent;
             QMutex ItemCompletedEventMutex;
-			SharedVal <size_t> OutstandingFragmentCount;
-			SharedVal <State::Enum> State;
+            QAtomicInteger<size_t> OutstandingFragmentCount;
+            QAtomicInteger<quint8> State;
 			WorkType::Enum Type;
 
 			union

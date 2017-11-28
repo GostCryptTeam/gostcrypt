@@ -9,6 +9,7 @@
 
 #include "Crc32.h"
 #include "Keyfile.h"
+#include "Platform/File.h"
 
 namespace GostCrypt
 {

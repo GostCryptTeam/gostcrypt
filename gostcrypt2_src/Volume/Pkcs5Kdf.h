@@ -10,7 +10,6 @@
 #ifndef GST_HEADER_Encryption_Pkcs5
 #define GST_HEADER_Encryption_Pkcs5
 
-#include "Platform/Platform.h"
 #include "VolumeHash.h"
 #include "VolumePassword.h"
 

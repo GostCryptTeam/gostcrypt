@@ -10,8 +10,6 @@
 #ifndef GST_HEADER_Volume_VolumeSlot
 #define GST_HEADER_Volume_VolumeSlot
 
-#include "Platform/Platform.h"
-
 namespace GostCrypt
 {
 namespace Volume {
