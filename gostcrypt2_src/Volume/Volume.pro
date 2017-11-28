@@ -36,7 +36,6 @@ HEADERS += \
     VolumeHeader.h \
     Volume.h \
     Version.h \
-    Pkcs5Kdf.h \
     Keyfile.h \
     EncryptionThreadPool.h \
     EncryptionTest.h \
@@ -71,7 +70,6 @@ SOURCES += \
     VolumeLayout.cpp \
     VolumeHeader.cpp \
     Volume.cpp \
-    Pkcs5Kdf.cpp \
     Keyfile.cpp \
     EncryptionThreadPool.cpp \
     EncryptionTest.cpp \

@@ -13,7 +13,6 @@
 #include "Platform/Platform.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/EncryptionMode.h"
-#include "Volume/Pkcs5Kdf.h"
 #include "VolumeHeader.h"
 
 namespace GostCrypt
@@ -37,7 +36,7 @@ namespace Volume {
 		virtual quint32 GetHeaderSize () const { return HeaderSize; }
 		virtual quint64 GetMaxDataSize (quint64 volumeSize) const = 0;
 		virtual EncryptionAlgorithmList GetSupportedEncryptionAlgorithms () const { return SupportedEncryptionAlgorithms; }
-		virtual Pkcs5KdfList GetSupportedKeyDerivationFunctions () const { return Pkcs5Kdf::GetAvailableAlgorithms(); }
+        virtual VolumeHashList GetSupportedKeyDerivationFunctions () const { return VolumeHash::GetAvailableAlgorithms(); }
 		virtual EncryptionModeList GetSupportedEncryptionModes () const { return SupportedEncryptionModes; }
 		virtual VolumeType::Enum GetType () const { return Type; }
 		virtual bool HasBackupHeader () const = 0;

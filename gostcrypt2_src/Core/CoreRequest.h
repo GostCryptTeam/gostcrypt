@@ -61,7 +61,7 @@ struct CreateVolumeRequest : CoreRequest {
         VolumeParams() {
             filesystem = GetFileSystemTypePlatformNative();
             size = 0;
-            volumeHeaderKdf = "HMAC-Whirlpool";
+            volumeHeaderKdf = "Whirlpool";
             encryptionAlgorithm = "Gost Grasshopper";
         }
         QSharedPointer <QByteArray> password; // password of the volume (never null)

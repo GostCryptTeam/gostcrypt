@@ -65,10 +65,10 @@ namespace GostCrypt {
             			if(!params.isNull())
 				response->passThrough = params->passThrough;
 
-            GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
+            GostCrypt::Volume::VolumeHashList pkcss = GostCrypt::Volume::VolumeHash::GetAvailableAlgorithms();
 
             (void)params;
-            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            for (GostCrypt::Volume::VolumeHashList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
@@ -251,10 +251,10 @@ namespace GostCrypt {
             throw AlgorithmNotFoundException(algorithm);
         }
 
-        QSharedPointer<Volume::Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
+        QSharedPointer<Volume::VolumeHash> CoreBase::getDerivationKeyFunction(QString function)
         {
-            GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
-            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            GostCrypt::Volume::VolumeHashList pkcss = GostCrypt::Volume::VolumeHash::GetAvailableAlgorithms();
+            for (GostCrypt::Volume::VolumeHashList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))

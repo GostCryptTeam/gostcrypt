@@ -40,7 +40,7 @@ namespace Volume {
 		QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
 		VolumePath GetPath () const { return VolumeFile->GetPath(); }
 		VolumeProtection::Enum GetProtectionType () const { return Protection; }
-		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Header->GetPkcs5Kdf(); }
+        QSharedPointer <VolumeHash> GetVolumeHash () const { return Header->GetVolumeHash(); }
 		quint32 GetSaltSize () const { return Header->GetSaltSize(); }
 		size_t GetSectorSize () const { return SectorSize; }
 		quint64 GetSize () const { return VolumeDataSize; }
@@ -53,7 +53,7 @@ namespace Volume {
 		bool IsInSystemEncryptionScope () const { return SystemEncryption; }
 		void Open (const VolumePath &volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
         void ReadSectors (const BufferPtr &buffer, quint64 byteOffset);
-		void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf);
+        void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		void WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset);
 
 		QSharedPointer<VolumeInformation> getVolumeInformation();

@@ -15,7 +15,8 @@
 #include "EncryptionMode.h"
 #include "EncryptionModeXTS.h"
 #include "EncryptionTest.h"
-#include "Pkcs5Kdf.h"
+#include "Volume/VolumePassword.h"
+#include "Volume/VolumeHash.h"
 #include <typeinfo>
 
 namespace GostCrypt
@@ -506,17 +507,17 @@ namespace Volume {
 		ConstBufferPtr salt (saltData, sizeof (saltData));
 		Buffer derivedKey (4);
 
-		Pkcs5HmacWhirlpool pkcs5HmacWhirlpool;
+        Whirlpool pkcs5HmacWhirlpool;
 		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x50\x7c\x36\x6f", 4) != 0)
             throw;// TestFailed (SRC_POS);
 
-		Pkcs5HmacStribog pkcs5HmacStribog;
+        Stribog pkcs5HmacStribog;
 		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\xc7\x13\x56\xb6", 4) != 0)
             throw;// TestFailed (SRC_POS);
 
-		Pkcs5HmacGostHash pkcs5HmacGostHash;
+        GostHash pkcs5HmacGostHash;
 		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x7d\x53\xe0\x7e", 4) != 0)
             throw;// TestFailed (SRC_POS);
