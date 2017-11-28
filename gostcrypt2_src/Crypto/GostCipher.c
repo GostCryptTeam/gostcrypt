@@ -64,8 +64,6 @@ void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
 	gst_udword n1, n2;
 	gost_s_box *sbox;
-	n1 = 0;
-	n2 = 0;
 
 	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
 	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
@@ -121,8 +119,6 @@ void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
 	gst_udword n1, n2;
 	gost_s_box *sbox;
-	n1 = 0;
-	n2 = 0;
 
 	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
 	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];

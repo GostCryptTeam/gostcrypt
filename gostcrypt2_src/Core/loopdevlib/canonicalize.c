@@ -73,7 +73,7 @@ char *canonicalize_path(const char *path)
 
 char *canonicalize_path_restricted(const char *path)
 {
-	char *canonical, *p = NULL;
+    char *canonical;
 	int errsv;
 	uid_t euid;
 	gid_t egid;
@@ -92,7 +92,7 @@ char *canonicalize_path_restricted(const char *path)
 
 	canonical = realpath(path, NULL);
 	if (canonical) {
-		p = strrchr(canonical, '/');
+        char *p = strrchr(canonical, '/');
 		if (p && strncmp(p, "/dm-", 4) == 0 && isdigit(*(p + 4))) {
 			char *dm = canonicalize_dm_name(p + 1);
 			if (dm) {
