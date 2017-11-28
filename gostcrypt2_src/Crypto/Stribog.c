@@ -627,11 +627,10 @@ static void set_blocks(quint8 *ptr, quint8 val, gst_dword len)
 static void Add512 (quint8 *dest, const quint8 *a, const quint8 *b)
 {
 	quint8 carry = 0;
-	quint8 tmp;
-	gst_dword i;
+    gst_dword i;
 	for (i = 63; i >= 0; i--)
 	{
-		tmp = a[i] + b[i] + carry;
+        quint8 tmp = a[i] + b[i] + carry;
 		carry = (quint8)((gst_uword)(a[i] + b[i]) >> 8);
 		dest[i] = tmp;
 	}
