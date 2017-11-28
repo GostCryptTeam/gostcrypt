@@ -76,6 +76,18 @@ Item {
             notifPreview.p = l[0]["progress"]*100
             if(timerNotifPreview.running === false) timerNotifPreview.start();
         }
+
+        onSprintBackupHeaderComplete:
+        {
+            openErrorMessage(qsTr("Backup complete !"), qsTr("Volume header backup has been successfully created;<br><br>IMPORTANT: "+
+                                                             "Restoring the volume header using this backup will also restore the current "+
+                                                             "volume password. Moreover, if keyfile(s)are/is necessary to mount the volume, "+
+                                                             "the same keyfile(s) will be necessary to mount the volume again when the volume "+
+                                                             "header is restored.<br><br>Warning: This volume header backup may be used to restore "+
+                                                             "the header ONLY of this particular volume. If you use this header backup to resotre a "+
+                                                             "header of a different volume, you will be able to mount the volume, but you will NOT be "+
+                                                             "able to decrypt any data stored in the volume (because you will change its master key)."))
+        }
     }
 
     function manageModel(volumes)
