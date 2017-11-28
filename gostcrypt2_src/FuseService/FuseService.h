@@ -119,7 +119,8 @@ namespace GostCrypt {
 		private:
 			static QSharedPointer<Volume::Volume> mountedVolume; /**< Pointer to the mounted volume object */
 			static QSharedPointer<Volume::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */
-			static uid_t userId; /**< User id of the user for which the volume had been mounted */
+                        static QSharedPointer<QFileInfo> fuseMountPoint;
+                        static uid_t userId; /**< User id of the user for which the volume had been mounted */
 			static gid_t groupId; /**< Group id of the group for which the volume had been mounted */
 			static QMutex volumeInfoMutex; /**< Mutex to handle access to the volumeInfo object */
 			/**
@@ -142,7 +143,7 @@ namespace GostCrypt {
 			 * @brief Launch the FUSE libary to create the FUSE mount
 			 *
 			 */
-			void launchFuse(QSharedPointer<QFileInfo> fuseMountPoint);
+                        void launchFuse();
 
 		public slots:			 //TODO : make private
 			/**

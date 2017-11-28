@@ -9,7 +9,6 @@
 #include "RandomNumberGenerator.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
-#include "Volume/Pkcs5Kdf.h"
 #include "Service.h"
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
@@ -128,9 +127,9 @@ namespace GostCrypt {
              * @brief Return the key derivation function object corresponding to the given name
              *
              * @param function key derivation function name
-             * @return QSharedPointer<Pkcs5Kdf> key derivation function object
+             * @return QSharedPointer<VolumeHash> key derivation function object
              */
-            QSharedPointer<Volume::Pkcs5Kdf> getDerivationKeyFunction(QString function);
+            QSharedPointer<Volume::VolumeHash> getDerivationKeyFunction(QString function);
             /**
              * @brief Return the directory where the given device is mounted
              *

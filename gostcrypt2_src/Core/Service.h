@@ -11,7 +11,7 @@
 #include "FuseService/FuseException.h"
 #include "CoreResponse.h"
 
-//#define DEBUG_SERVICE_HANDLER
+#define DEBUG_SERVICE_HANDLER
 
 namespace GostCrypt {
     namespace Core {
@@ -37,6 +37,7 @@ namespace GostCrypt {
 		private:
             QFile outputFile; /**< TODO: describe */
             QFile inputFile; /**< TODO: describe */
+            QString inputFilePath;
             QDataStream inputStream; /**< TODO: describe */
             QDataStream outputStream; /**< TODO: describe */
             QSharedPointer<QSocketNotifier> inputFileMonitor; /**< TODO: describe */

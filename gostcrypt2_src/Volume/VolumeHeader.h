@@ -17,7 +17,7 @@
 #include "Volume/EncryptionMode.h"
 #include "Volume/Keyfile.h"
 #include "Volume/VolumePassword.h"
-#include "Volume/Pkcs5Kdf.h"
+#include "Volume/VolumeHash.h"
 #include "Version.h"
 #include <QSharedPointer>
 #include "VolumeType.h"
@@ -34,7 +34,7 @@ namespace Volume {
 	{
 		ConstBufferPtr DataKey;
         QSharedPointer <EncryptionAlgorithm> EA;
-        QSharedPointer <Pkcs5Kdf> Kdf;
+        QSharedPointer <VolumeHash> Hash;
 		ConstBufferPtr HeaderKey;
 		ConstBufferPtr Salt;
 		quint32 SectorSize;
@@ -50,8 +50,8 @@ namespace Volume {
 		virtual ~VolumeHeader ();
 
 		void Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
-		bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const Pkcs5KdfList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
-		void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf);
+        bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
+        void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
 		quint64 GetEncryptedAreaLength () const { return EncryptedAreaLength; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
@@ -59,7 +59,7 @@ namespace Volume {
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
 		quint64 GetHiddenVolumeDataSize () const { return HiddenVolumeDataSize; }
 		static size_t GetLargestSerializedKeySize ();
-		QSharedPointer <Pkcs5Kdf> GetPkcs5Kdf () const { return Pkcs5; }
+        QSharedPointer <VolumeHash> GetVolumeHash () const { return volumeHash; }
 		quint16 GetRequiredMinProgramVersion () const { return RequiredMinProgramVersion; }
 		size_t GetSectorSize () const { return SectorSize; }
 		static quint32 GetSaltSize () { return SaltSize; }
@@ -93,7 +93,7 @@ namespace Volume {
 		static const quint32 DataAreaKeyOffset = DataKeyAreaMaxSize - EncryptedHeaderDataOffset;
 
 		QSharedPointer <EncryptionAlgorithm> EA;
-		QSharedPointer <Pkcs5Kdf> Pkcs5;
+        QSharedPointer <VolumeHash> volumeHash;
 
 		quint16 HeaderVersion;
 		quint16 RequiredMinProgramVersion;

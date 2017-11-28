@@ -12,6 +12,7 @@
 #include "Crypto/Whirlpool.h"
 #include "Crypto/Stribog.h"
 #include "Crypto/GostHash.h"
+#include "Common/Pkcs5.h"
 
 namespace GostCrypt
 {
@@ -40,6 +41,17 @@ namespace Volume {
             throw;// ParameterIncorrect (SRC_POS);
 	}
 
+    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    {
+        if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
+            throw;// (SRC_POS);
+    }
+
+    void VolumeHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const
+    {
+        DeriveKey (key, password, salt, GetIterationCount());
+    }
+
 	// Whirlpool
 	Whirlpool::Whirlpool ()
 	{
@@ -63,6 +75,12 @@ namespace Volume {
 		//if_debug (ValidateDataParameters (data));
 		WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Ptr());
 	}
+
+    void Whirlpool::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    {
+        ValidateKeyDerivationParameters (key, password, salt, iterationCount);
+        derive_key_whirlpool ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
+    }
 
 	// Stribog
 	Stribog::Stribog ()
@@ -88,6 +106,12 @@ namespace Volume {
 		STRIBOG_add ((STRIBOG_CTX *) Context.Ptr(), (quint8 *) data.Get(), data.Size());
 	}
 
+    void Stribog::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    {
+        ValidateKeyDerivationParameters (key, password, salt, iterationCount);
+        derive_key_stribog ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
+    }
+
 	// GOST R 34.11-94
 	GostHash::GostHash ()
 	{
@@ -111,5 +135,11 @@ namespace Volume {
 		//if_debug (ValidateDataParameters (data));
 		GOSTHASH_add ((quint8 *) data.Get(), data.Size(), (gost_hash_ctx *) Context.Ptr());
 	}
+
+    void GostHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    {
+        ValidateKeyDerivationParameters (key, password, salt, iterationCount);
+        derive_key_gosthash ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
+    }
 }
 }
