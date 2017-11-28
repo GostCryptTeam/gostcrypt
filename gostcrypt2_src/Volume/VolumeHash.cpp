@@ -20,9 +20,9 @@ namespace Volume {
 	{
 		VolumeHashList l;
 
-		l.push_back (QSharedPointer <VolumeHash> (new Stribog ()));
-		l.push_back (QSharedPointer <VolumeHash> (new GostHash ()));
-		l.push_back (QSharedPointer <VolumeHash> (new Whirlpool ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashStribog ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashGostHash ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashWhirlpool ()));
 
 		return l;
 	}

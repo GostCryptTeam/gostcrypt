@@ -10,178 +10,51 @@
 #include "Volume/EncryptionMode.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "VolumeLayout.h"
-#include "EncryptionAlgorithmGOST.h"
-#include "EncryptionAlgorithmGrasshopper.h"
+#include "VolumeLayoutV2Normal.h"
+#include "VolumeLayoutV2Hidden.h"
 
-namespace GostCrypt
-{
+
+namespace GostCrypt {
 namespace Volume {
 
-	VolumeLayout::VolumeLayout ()
-	{
-	}
+VolumeLayout::VolumeLayout ()
+{
+}
 
-	VolumeLayout::~VolumeLayout ()
-	{
-	}
+VolumeLayout::~VolumeLayout ()
+{
+}
 
-	VolumeLayoutList VolumeLayout::GetAvailableLayouts (VolumeType::Enum type)
-	{
-		VolumeLayoutList layouts;
+VolumeLayoutList VolumeLayout::GetAvailableLayouts (VolumeType::Enum type)
+{
+    VolumeLayoutList layouts;
 
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Normal ()));
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV1Normal ()));
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Hidden ()));
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV1Hidden ()));
+    layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Normal ()));
+    layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Hidden ()));
 
-		if (type != VolumeType::Unknown)
-		{
-			VolumeLayoutList l;
+    if (type != VolumeType::Unknown)
+    {
+        VolumeLayoutList l;
 
-            for (QSharedPointer <VolumeLayout> vl : layouts)
-			{
-				if (vl->GetType() == type)
-					l.push_back (vl);
-			}
+        for (QSharedPointer <VolumeLayout> vl : layouts)
+        {
+            if (vl->GetType() == type)
+                l.push_back (vl);
+        }
 
-			layouts = l;
-		}
+        layouts = l;
+    }
 
-		return layouts;
-	}
+    return layouts;
+}
 
-    QSharedPointer <VolumeHeader> VolumeLayout::GetHeader ()
-	{
-        if (Header.isNull())
-			Header.reset (new VolumeHeader (GetHeaderSize()));
+QSharedPointer <VolumeHeader> VolumeLayout::GetHeader ()
+{
+    if (Header.isNull())
+        Header.reset (new VolumeHeader (GetHeaderSize()));
 
-		return Header;
-	}
+    return Header;
+}
 
-
-	VolumeLayoutV1Normal::VolumeLayoutV1Normal ()
-	{
-		Type = VolumeType::Normal;
-		HeaderOffset = GST_VOLUME_HEADER_OFFSET;
-		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-	}
-
-	quint64 VolumeLayoutV1Normal::GetDataOffset (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return HeaderSize;
-	}
-
-	quint64 VolumeLayoutV1Normal::GetDataSize (quint64 volumeHostSize) const
-	{
-		return volumeHostSize - GetHeaderSize();
-	}
-
-
-	VolumeLayoutV1Hidden::VolumeLayoutV1Hidden ()
-	{
-		Type = VolumeType::Hidden;
-		HeaderOffset = -GST_HIDDEN_VOLUME_HEADER_OFFSET_LEGACY;
-		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-	}
-
-	quint64 VolumeLayoutV1Hidden::GetDataOffset (quint64 volumeHostSize) const
-	{
-		return volumeHostSize - GetDataSize (volumeHostSize) + HeaderOffset;
-	}
-
-	quint64 VolumeLayoutV1Hidden::GetDataSize (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetHiddenVolumeDataSize ();
-	}
-
-
-	VolumeLayoutV2Normal::VolumeLayoutV2Normal ()
-	{
-		Type = VolumeType::Normal;
-		HeaderOffset = GST_VOLUME_HEADER_OFFSET;
-		HeaderSize = GST_VOLUME_HEADER_SIZE;
-		BackupHeaderOffset = -GST_VOLUME_HEADER_GROUP_SIZE;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-	}
-
-	quint64 VolumeLayoutV2Normal::GetDataOffset (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetEncryptedAreaStart();
-	}
-
-	quint64 VolumeLayoutV2Normal::GetDataSize (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetVolumeDataSize();
-	}
-
-	quint64 VolumeLayoutV2Normal::GetMaxDataSize (quint64 volumeSize) const
-	{
-		if (volumeSize < GST_TOTAL_VOLUME_HEADERS_SIZE)
-			return 0;
-
-		return volumeSize - GST_TOTAL_VOLUME_HEADERS_SIZE;
-	}
-
-
-	VolumeLayoutV2Hidden::VolumeLayoutV2Hidden ()
-	{
-		Type = VolumeType::Hidden;
-		HeaderOffset = GST_HIDDEN_VOLUME_HEADER_OFFSET;
-		HeaderSize = GST_VOLUME_HEADER_SIZE;
-		BackupHeaderOffset = -GST_HIDDEN_VOLUME_HEADER_OFFSET;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-	}
-
-	quint64 VolumeLayoutV2Hidden::GetDataOffset (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetEncryptedAreaStart();
-	}
-
-	quint64 VolumeLayoutV2Hidden::GetDataSize (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetVolumeDataSize();
-	}
-
-	quint64 VolumeLayoutV2Hidden::GetMaxDataSize (quint64 volumeSize) const
-	{
-		// Reserve free space at the end of the host filesystem
-		quint64 reservedSize;
-
-		if (volumeSize < GST_VOLUME_SMALL_SIZE_THRESHOLD)
-			reservedSize = GST_HIDDEN_VOLUME_HOST_FS_RESERVED_END_AREA_SIZE;
-		else
-			reservedSize = GST_HIDDEN_VOLUME_HOST_FS_RESERVED_END_AREA_SIZE_HIGH; // Ensure size of a hidden volume larger than GST_VOLUME_SMALL_SIZE_THRESHOLD is a multiple of the maximum supported sector size
-
-		if (volumeSize < reservedSize)
-			return 0;
-
-		return volumeSize - reservedSize;
-	}
 }
 }

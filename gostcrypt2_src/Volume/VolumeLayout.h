@@ -15,8 +15,7 @@
 #include "Volume/EncryptionMode.h"
 #include "VolumeHeader.h"
 
-namespace GostCrypt
-{
+namespace GostCrypt {
 namespace Volume {
 
 	class VolumeLayout;
@@ -60,75 +59,6 @@ namespace Volume {
 		VolumeLayout &operator= (const VolumeLayout &);
 	};
 
-
-	class VolumeLayoutV1Normal : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV1Normal ();
-		virtual ~VolumeLayoutV1Normal () { }
-
-        virtual int GetBackupHeaderOffset () const { throw; }
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-                virtual quint64 GetMaxDataSize (quint64 volumeSize) const { (void)volumeSize; throw; }
-		virtual bool HasBackupHeader () const { return false; }
-
-	private:
-		VolumeLayoutV1Normal (const VolumeLayoutV1Normal &);
-		VolumeLayoutV1Normal &operator= (const VolumeLayoutV1Normal &);
-	};
-
-
-	class VolumeLayoutV1Hidden : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV1Hidden ();
-		virtual ~VolumeLayoutV1Hidden () { }
-
-        virtual int GetBackupHeaderOffset () const { throw; }
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-                virtual quint64 GetMaxDataSize (quint64 volumeSize) const { (void)volumeSize; throw; }
-		virtual bool HasBackupHeader () const { return false; }
-
-	private:
-		VolumeLayoutV1Hidden (const VolumeLayoutV1Hidden &);
-		VolumeLayoutV1Hidden &operator= (const VolumeLayoutV1Hidden &);
-	};
-
-
-	class VolumeLayoutV2Normal : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV2Normal ();
-		virtual ~VolumeLayoutV2Normal () { }
-
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
-		virtual bool HasBackupHeader () const { return true; }
-
-	private:
-		VolumeLayoutV2Normal (const VolumeLayoutV2Normal &);
-		VolumeLayoutV2Normal &operator= (const VolumeLayoutV2Normal &);
-	};
-
-
-	class VolumeLayoutV2Hidden : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV2Hidden ();
-		virtual ~VolumeLayoutV2Hidden () { }
-
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
-		virtual bool HasBackupHeader () const { return true; }
-
-	private:
-		VolumeLayoutV2Hidden (const VolumeLayoutV2Hidden &);
-		VolumeLayoutV2Hidden &operator= (const VolumeLayoutV2Hidden &);
-	};
 }
 }
 

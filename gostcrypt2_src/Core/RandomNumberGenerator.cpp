@@ -181,7 +181,7 @@ namespace GostCrypt
 	void RandomNumberGenerator::Test ()
 	{
 		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
-		PoolHash.reset (new Volume::Stribog());
+        PoolHash.reset (new Volume::VolumeHashStribog());
 
 		Pool.Zero();
 		Buffer buffer (1);
