@@ -289,10 +289,10 @@ int loopcxt_get_fd(struct loopdev_cxt *lc)
 		return -EINVAL;
 
 	if (lc->fd < 0) {
-		lc->mode = lc->flags & LOOPDEV_FL_RDWR ? O_RDWR : O_RDONLY;
+        lc->mode = (lc->flags & LOOPDEV_FL_RDWR) ? O_RDWR : O_RDONLY;
 		lc->fd = open(lc->device, lc->mode | O_CLOEXEC);
 		DBG(lc, loopdev_debug("open %s [%s]: %m", lc->device,
-				lc->flags & LOOPDEV_FL_RDWR ? "rw" : "ro"));
+                (lc->flags & LOOPDEV_FL_RDWR) ? "rw" : "ro"));
 	}
 	return lc->fd;
 }
