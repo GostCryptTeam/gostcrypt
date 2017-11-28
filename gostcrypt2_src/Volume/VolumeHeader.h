@@ -46,7 +46,7 @@ namespace Volume {
 	class VolumeHeader
 	{
 	public:
-		VolumeHeader (quint32 HeaderSize);
+        explicit VolumeHeader (quint32 HeaderSize);
 		virtual ~VolumeHeader ();
 
 		void Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
