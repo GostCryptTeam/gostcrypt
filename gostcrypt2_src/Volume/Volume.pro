@@ -68,7 +68,8 @@ HEADERS += \
     VolumeHashGostHash.h \
     VolumeHashStribog.h \
     VolumeLayoutV2Normal.h \
-    VolumeLayoutV2Hidden.h
+    VolumeLayoutV2Hidden.h \
+    VolumeFile.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -101,4 +102,5 @@ SOURCES += \
     VolumeHashStribog.cpp \
     CipherAlgorithm.cpp \
     VolumeLayoutV2Normal.cpp \
-    VolumeLayoutV2Hidden.cpp
+    VolumeLayoutV2Hidden.cpp \
+    VolumeFile.cpp

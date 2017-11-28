@@ -30,13 +30,10 @@ unix {
 
 HEADERS += \
     Memory.h \
-    File.h \
     Buffer.h \
     FilePath.h
 
 SOURCES += \
-    Unix/File.cpp \
     Memory.cpp \
-    FileCommon.cpp \
     Buffer.cpp \
-    Unix/FilePath.cpp
+    FilePath.cpp

@@ -19,7 +19,7 @@
 #include "VolumePath.h"
 #include "VolumeProtection.h"
 #include "VolumeHostType.h"
-#include "Platform/File.h"
+#include "VolumeFile.h"
 
 namespace GostCrypt {
 namespace Volume {
@@ -33,12 +33,12 @@ namespace Volume {
 		void Close ();
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const;
 		QSharedPointer <EncryptionMode> GetEncryptionMode () const;
-		QSharedPointer <File> GetFile () const { return VolumeFile; }
+        QSharedPointer <VolumeFile> GetFile () const { return volumeFile; }
 		QSharedPointer <VolumeHeader> GetHeader () const { return Header; }
 		quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
 		quint64 GetHostSize () const { return VolumeHostSize; }
 		QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
-        VolumePath GetPath () const { return VolumeFile->GetPath(); }
+        VolumePath GetPath () const { return volumeFile->GetPath(); }
 		VolumeProtection::Enum GetProtectionType () const { return Protection; }
         QSharedPointer <VolumeHash> GetVolumeHash () const { return Header->GetVolumeHash(); }
 		quint32 GetSaltSize () const { return Header->GetSaltSize(); }
@@ -71,7 +71,7 @@ namespace Volume {
 		size_t SectorSize;
 		bool SystemEncryption;
 		VolumeType::Enum Type;
-		QSharedPointer <File> VolumeFile;
+        QSharedPointer <VolumeFile> volumeFile;
 		quint64 VolumeHostSize;
 		quint64 VolumeDataOffset;
 		quint64 VolumeDataSize;

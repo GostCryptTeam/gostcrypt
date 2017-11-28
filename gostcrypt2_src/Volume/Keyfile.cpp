@@ -9,7 +9,7 @@
 
 #include "Crc32.h"
 #include "Keyfile.h"
-#include "Platform/File.h"
+#include <QFile>
 
 namespace GostCrypt
 {
@@ -17,19 +17,20 @@ namespace Volume {
 
 	void Keyfile::Apply (const BufferPtr &pool) const
 	{
-		File file;
-
+        QFile file(Path.ToQString());
 		Crc32 crc32;
 		size_t poolPos = 0;
         quint64 totalLength = 0;
-        quint64 readLength;
+        qint64 readLength;
+        SecureBuffer keyfileBuf (FILE_OPTIMAL_READ_SIZE);
 
-		SecureBuffer keyfileBuf (File::GetOptimalReadSize());
-		file.Open (Path, File::OpenRead, File::ShareRead);
+        file.open(QIODevice::ReadOnly);
 
-		while ((readLength = file.Read (keyfileBuf)) > 0)
+        while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.Ptr()), keyfileBuf.Size())))
 		{
-			for (size_t i = 0; i < readLength; i++)
+            if(readLength == -1)
+                throw;
+            for (qint64 i = 0; i < readLength; i++)
 			{
                 quint32 crc = crc32.Process (keyfileBuf[i]);
 
@@ -45,6 +46,8 @@ namespace Volume {
                     return;
 			}
 		}
+
+        file.close();
 	}
 
     QSharedPointer <VolumePassword> Keyfile::ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password)

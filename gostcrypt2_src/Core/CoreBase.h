@@ -11,6 +11,9 @@
 #include "Volume/EncryptionAlgorithm.h"
 #include "Service.h"
 
+//used to generate random files (maybe to remove or at least move)
+#define FILE_OPTIMAL_WRITE_SIZE 256*1024
+
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 #define HANDLE_REQUEST(requestName, fct) \
 	if(r.canConvert<QSharedPointer<requestName ## Request>>()) { \

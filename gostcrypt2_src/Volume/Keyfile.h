@@ -15,6 +15,9 @@
 #include "Platform/FilePath.h"
 #include <QSharedPointer>
 
+//move
+#define FILE_OPTIMAL_READ_SIZE 256*1024
+
 namespace GostCrypt
 {
 namespace Volume {

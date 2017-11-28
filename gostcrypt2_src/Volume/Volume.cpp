@@ -45,10 +45,10 @@ namespace Volume {
 
 	void Volume::Close ()
 	{
-        if (VolumeFile.isNull())
+        if (volumeFile.isNull())
             throw;// NotInitialized (SRC_POS);
 
-		VolumeFile.reset();
+        this->volumeFile.reset();
 	}
 
 	QSharedPointer <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
@@ -75,9 +75,7 @@ namespace Volume {
                     bool useBackupHeaders,
                     bool partitionInSystemEncryptionScope)
 	{
-        QSharedPointer<File> volumeFile = QSharedPointer<File>(new File());
-
-		File::FileOpenFlags flags = (preserveTimestamps ? File::PreserveTimestamps : File::FlagsNone);
+        QSharedPointer<VolumeFile> volumeFile = QSharedPointer<VolumeFile>(new VolumeFile());
 
         if(protection == VolumeProtection::HiddenVolumeReadOnly){
             // we first open the hidden volume to get its size
@@ -113,10 +111,7 @@ namespace Volume {
         // We First open the file (or device) we want to decrypt
         //try
 		{
-			if (protection == VolumeProtection::ReadOnly)
-                volumeFile->Open (volumePath, File::OpenRead, File::ShareRead, flags);
-			else
-                volumeFile->Open (volumePath, File::OpenReadWrite, File::ShareNone, flags);
+                volumeFile->Open (volumePath, (protection == VolumeProtection::ReadOnly), preserveTimestamps);
 		}
         /*
         catch (SystemException &e)
@@ -132,16 +127,16 @@ namespace Volume {
 				throw;
         }//*/
 
-		if (!volumeFile)
+        if (!volumeFile)
             throw;// ParameterIncorrect (SRC_POS); // TODO : wrong error
 
 		Protection = protection;
-		VolumeFile = volumeFile;
+        this->volumeFile = volumeFile; // why not directly use the volumeFile from the object ?
 		SystemEncryption = partitionInSystemEncryptionScope;
 
 		try
 		{
-			VolumeHostSize = VolumeFile->Length();
+            VolumeHostSize = this->volumeFile->Length();
 			QSharedPointer <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
 
 			bool deviceHosted = GetPath().IsDevice();
@@ -164,11 +159,11 @@ namespace Volume {
 				int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
 
 				if (headerOffset >= 0)
-					VolumeFile->SeekAt (headerOffset);
+                    this->volumeFile->SeekAt (headerOffset);
 				else
-					VolumeFile->SeekEnd (headerOffset);
+                    this->volumeFile->SeekEnd (headerOffset);
 
-				if (VolumeFile->Read (headerBuffer) != layout->GetHeaderSize())
+                if (this->volumeFile->Read (headerBuffer) != layout->GetHeaderSize())
 					continue;
 
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
@@ -223,7 +218,7 @@ namespace Volume {
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
             throw;// ParameterIncorrect (SRC_POS);
 
-		if (VolumeFile->ReadAt (buffer, hostOffset) != length)
+        if (this->volumeFile->ReadAt (buffer, hostOffset) != length)
             throw;// MissingVolumeData (SRC_POS);
 
 		EA->DecryptSectors (buffer, hostOffset / SectorSize, length / SectorSize, SectorSize);
@@ -245,16 +240,16 @@ namespace Volume {
 		int headerOffset = backupHeader ? Layout->GetBackupHeaderOffset() : Layout->GetHeaderOffset();
 
 		if (headerOffset >= 0)
-			VolumeFile->SeekAt (headerOffset);
+            this->volumeFile->SeekAt (headerOffset);
 		else
-			VolumeFile->SeekEnd (headerOffset);
+            this->volumeFile->SeekEnd (headerOffset);
 
-		VolumeFile->Write (newHeaderBuffer);
+        this->volumeFile->Write (newHeaderBuffer);
 	}
 
 	void Volume::ValidateState () const
 	{
-        if (VolumeFile.isNull())
+        if (this->volumeFile.isNull())
             throw;// NotInitialized (SRC_POS);
 	}
 
@@ -283,7 +278,7 @@ namespace Volume {
 		encBuf.CopyFrom (buffer);
 
 		EA->EncryptSectors (encBuf, hostOffset / SectorSize, length / SectorSize, SectorSize);
-		VolumeFile->WriteAt (encBuf, hostOffset);
+        this->volumeFile->WriteAt (encBuf, hostOffset);
 
 		TotalDataWritten += length;
 
@@ -300,7 +295,7 @@ namespace Volume {
 		vi->protection = this->Protection;
 		vi->size = this->GetSize();
 		vi->type = this->Type;
-		vi->volumePath.reset(new QFileInfo( QString::fromStdWString(std::wstring(this->VolumeFile->GetPath()))));
+        vi->volumePath.reset(new QFileInfo( QString::fromStdWString(std::wstring(this->volumeFile->GetPath()))));
 
                 return vi;
 	}

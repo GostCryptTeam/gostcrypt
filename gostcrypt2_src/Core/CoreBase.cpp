@@ -320,8 +320,7 @@ namespace GostCrypt {
                 randomizeEncryptionAlgorithmKey (ea);
             }
 
-            quint64 dataFragmentLength = File::GetOptimalWriteSize(); // TODO define
-
+            quint64 dataFragmentLength = FILE_OPTIMAL_WRITE_SIZE;
             // we can't get more than the pool size a each run. Very slow.
             if(random && dataFragmentLength > RandomNumberGenerator::PoolSize) // TODO maybe find a better way ?
                 dataFragmentLength = RandomNumberGenerator::PoolSize;
