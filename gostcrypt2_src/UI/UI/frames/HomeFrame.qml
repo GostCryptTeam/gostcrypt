@@ -206,9 +206,8 @@ Item {
             id: grid
             y: 20
             x: 25
-            height: volumeListElement.height - 40
+            height: volumeListElement.height - 120
             width: volumeListElement.width - 40
-            //anchors.horizontalCenter: volumeListElement.horizontalCenter
             cellWidth: grid.width/2;
             cellHeight: 100
             delegate: volumeDelegate
@@ -323,7 +322,7 @@ Item {
                                                                "the hidden volume, you will have to enter the correct password "+
                                                                "(and/or supply the correct keyfiles) for the hidden volume."))
 
-                    openSubWindow("dialogs/backupHeaderVolume.qml", qsTr("Backup Volume Header"), qsTr("Backup Volume Header"), 429, {"name" : "volume-backup", "value" : volumeToolsMenu.path})
+                    openSubWindow("dialogs/BackupHeaderVolume.qml", qsTr("Backup Volume Header"), qsTr("Backup Volume Header"), 429, {"name" : "volume-backup", "value" : volumeToolsMenu.path})
                     //TODO : signal Backup volume header
                     volumeToolsMenu.opacity = 0.0
                     volumeToolsMenuLayer.opacity = 0.0
@@ -335,6 +334,7 @@ Item {
                 y:200
                 text_: qsTr("Reset volume header...")
                 onClicked: {
+                    openSubWindow("dialogs/RestoreHeaderVolume.qml", qsTr("Restore Volume Header"), qsTr("Restore Volume Header"), 429, {"name" : "volume-backup", "value" : volumeToolsMenu.path})
                     //TODO : signal Reset volume header
                     volumeToolsMenu.opacity = 0.0
                     volumeToolsMenuLayer.opacity = 0.0

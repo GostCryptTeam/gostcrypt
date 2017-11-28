@@ -118,4 +118,5 @@ DISTFILES += \
     UI/dialogs/KeyfileGenerator.qml \
     UI/dialogs/TestVectors.qml \
     translations/gostcrypt_ar.ts \
-    UI/dialogs/backupHeaderVolume.qml
+    UI/dialogs/RestoreHeaderVolume.qml \
+    UI/dialogs/BackupHeaderVolume.qml

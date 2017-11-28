@@ -116,6 +116,8 @@ signals:
     DEC_QML_PRINT_SIGNAL(ChangeVolumePassword)
     DEC_QML_PRINT_SIGNAL(ProgressUpdate)
     DEC_QML_PRINT_SIGNAL(SendError)
+    DEC_QML_PRINT_SIGNAL(BackupHeaderComplete)
+
 
     void getSudoPassword();
     void volumePasswordIncorrect();

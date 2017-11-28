@@ -11,11 +11,8 @@ Item {
     Connections {
         target: top
         onUpdate: {
-            UserSettings.setSetting("Pref-AutoDismountAfter", numberOfMinutes.text)
-            catchClose();
         }
     }
-
 
     Flickable {
         id: flickable
@@ -334,7 +331,7 @@ Item {
                                           " automatically determine the type of the volume header to restore i.e. standard or hidden (note that GostCrypt determines that the type"+
                                           " through the process of trial and error)."), undefined, true, "backupheadervolume", {volume: volumePath})
                 }
-
+                catchClose();
 
             }
             color_: palette.blue

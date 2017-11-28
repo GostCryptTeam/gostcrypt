@@ -133,6 +133,7 @@
         <file>UI/dialogs/KeyfileGenerator.qml</file>
         <file>UI/dialogs/TestVectors.qml</file>
         <file>UI/ressource/arrow.png</file>
-        <file>UI/dialogs/backupHeaderVolume.qml</file>
+        <file>UI/dialogs/RestoreHeaderVolume.qml</file>
+        <file>UI/dialogs/BackupHeaderVolume.qml</file>
     </qresource>
 </RCC>
