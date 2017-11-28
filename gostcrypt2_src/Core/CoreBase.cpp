@@ -47,7 +47,7 @@ namespace GostCrypt {
 				response->passThrough = params->passThrough;
 			GostCrypt::Volume::EncryptionAlgorithmList algorithms = GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms ();
 			(void)params;
-			for(GostCrypt::Volume::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); algorithm++)
+            for(GostCrypt::Volume::EncryptionAlgorithmList::iterator algorithm = algorithms.begin(); algorithm != algorithms.end(); ++algorithm)
 			{
 				if (!(*algorithm)->IsDeprecated()){ // we don't allow deprecated algorithms
                     response->algorithms.append(QString::fromStdWString((*algorithm)->GetName()));
@@ -68,7 +68,7 @@ namespace GostCrypt {
             GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
 
             (void)params;
-            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); ++pkcs)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
@@ -241,7 +241,7 @@ namespace GostCrypt {
         QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> CoreBase::getEncryptionAlgorithm(QString algorithm)
         {
             GostCrypt::Volume::EncryptionAlgorithmList eas = GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
-            for (GostCrypt::Volume::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ea++)
+            for (GostCrypt::Volume::EncryptionAlgorithmList::iterator ea = eas.begin(); ea != eas.end(); ++ea)
             {
                 if (!(*ea)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
@@ -254,7 +254,7 @@ namespace GostCrypt {
         QSharedPointer<Volume::Pkcs5Kdf> CoreBase::getDerivationKeyFunction(QString function)
         {
             GostCrypt::Volume::Pkcs5KdfList pkcss = GostCrypt::Volume::Pkcs5Kdf::GetAvailableAlgorithms();
-            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); pkcs++)
+            for (GostCrypt::Volume::Pkcs5KdfList::iterator pkcs = pkcss.begin(); pkcs != pkcss.end(); ++pkcs)
             {
                 if (!(*pkcs)->IsDeprecated()){ // we don't allow deprecated algorithms
                     if(function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
