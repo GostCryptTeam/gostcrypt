@@ -524,8 +524,11 @@ Window {
         }
     }
 
-    function openErrorMessage(title, content, size) {
+    function openErrorMessage(title, content, size, type, callback, callback_params) {
         if(size !== undefined) errorMessage.size = size
+        if(type !== undefined) errorMessage.type = type
+        if(callback !== undefined) errorMessage.callback = callback
+        if(callback_params !== undefined) errorMessage.callback_params = callback_params
         if(errorMessage.isVisible == false){
             errorMessage.isVisible = true;
             errorMessage.opacity = 1.0;
@@ -543,6 +546,10 @@ Window {
         if(errorMessage.isVisible == true){
             errorMessage.isVisible = false;
             errorMessage.opacity = 0.0;
+            errorMessage.button1Name = ""
+            errorMessage.button2Name = ""
+            errorMessage.callback = ""
+            errorMessage.callback_params = {}
         }
     }
 
