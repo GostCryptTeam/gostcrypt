@@ -63,7 +63,10 @@ HEADERS += \
     EncryptionAlgorithmGrasshopper.h \
     CipherAlgorithm.h \
     CipherAlgorithmGOST.h \
-    CipherAlgorithmGrasshopper.h
+    CipherAlgorithmGrasshopper.h \
+    VolumeHashWhirlpool.h \
+    VolumeHashGostHash.h \
+    VolumeHashStribog.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -91,4 +94,7 @@ SOURCES += \
     EncryptionAlgorithmGOST.cpp \
     EncryptionAlgorithmGrasshopper.cpp \
     CipherAlgorithmGOST.cpp \
-    CipherAlgorithmGrasshopper.cpp
+    CipherAlgorithmGrasshopper.cpp \
+    VolumeHashWhirlpool.cpp \
+    VolumeHashGostHash.cpp \
+    VolumeHashStribog.cpp

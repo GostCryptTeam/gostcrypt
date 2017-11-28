@@ -15,6 +15,7 @@
 #include "CoreException.h"
 #include "RandomNumberGenerator.h"
 #include "Volume/Crc32.h"
+#include "Volume/VolumeHashStribog.h"
 
 namespace GostCrypt
 {

@@ -17,6 +17,9 @@
 #include "EncryptionTest.h"
 #include "Volume/VolumePassword.h"
 #include "Volume/VolumeHash.h"
+#include "Volume/VolumeHashGostHash.h"
+#include "Volume/VolumeHashStribog.h"
+#include "Volume/VolumeHashWhirlpool.h"
 #include <typeinfo>
 
 namespace GostCrypt
