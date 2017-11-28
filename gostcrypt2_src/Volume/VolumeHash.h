@@ -13,6 +13,7 @@
 #include <QList>
 #include <QSharedPointer>
 #include "Platform/Buffer.h"
+#include "VolumePassword.h"
 
 namespace GostCrypt
 {
@@ -22,13 +23,13 @@ namespace Volume {
     typedef QList < QSharedPointer <VolumeHash> > VolumeHashList;
 
 	class VolumeHash
-	{
+    {
 	public:
 		VolumeHash () : Deprecated (false) { }
 		virtual ~VolumeHash () { }
 
 		static VolumeHashList GetAvailableAlgorithms ();
-		virtual void GetDigest (const BufferPtr &buffer) = 0;
+        virtual void GetDigest (const BufferPtr &buffer) = 0;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
         virtual std::wstring GetName () const = 0;
@@ -39,80 +40,21 @@ namespace Volume {
 		virtual void ValidateDataParameters (const ConstBufferPtr &data) const;
 		virtual void ValidateDigestParameters (const BufferPtr &buffer) const;
 
+        // derivation functions
+        virtual int GetIterationCount () const = 0;
+        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const;
+        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const = 0;
+
 	protected:
 		SecureBuffer Context;
 		bool Deprecated;
+        void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
 
 	private:
 		VolumeHash (const VolumeHash &);
 		VolumeHash &operator= (const VolumeHash &);
 	};
 
-	// Whirlpool
-	class Whirlpool : public VolumeHash
-	{
-	public:
-		Whirlpool ();
-		virtual ~Whirlpool () { }
-
-		virtual void GetDigest (const BufferPtr &buffer);
-		virtual size_t GetBlockSize () const { return 64; }
-		virtual size_t GetDigestSize () const { return 512 / 8; }
-        virtual std::wstring GetName () const { return L"Whirlpool"; }
-		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Whirlpool); }
-		virtual void Init ();
-		virtual void ProcessData (const ConstBufferPtr &data);
-
-	protected:
-
-	private:
-		Whirlpool (const Whirlpool &);
-		Whirlpool &operator= (const Whirlpool &);
-	};
-
-	// Stribog
-	class Stribog : public VolumeHash
-	{
-	public:
-		Stribog ();
-		virtual ~Stribog () { }
-
-		virtual void GetDigest (const BufferPtr &buffer);
-		virtual size_t GetBlockSize () const { return 64; }
-		virtual size_t GetDigestSize () const { return 64; }
-        virtual std::wstring GetName () const { return L"GOST R 34.11-2012"; }
-		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Stribog); }
-		virtual void Init ();
-		virtual void ProcessData (const ConstBufferPtr &data);
-
-	protected:
-
-	private:
-		Stribog (const Stribog &);
-		Stribog &operator= (const Stribog &);
-	};
-
-	// GOST R 34.11-94
-	class GostHash : public VolumeHash
-	{
-	public:
-		GostHash ();
-		virtual ~GostHash () { }
-
-		virtual void GetDigest (const BufferPtr &buffer);
-		virtual size_t GetBlockSize () const { return 32; }
-		virtual size_t GetDigestSize () const { return 32; }
-        virtual std::wstring GetName () const { return L"GOST R 34.11-94"; }
-		virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new GostHash); }
-		virtual void Init ();
-		virtual void ProcessData (const ConstBufferPtr &data);
-
-	protected:
-
-	private:
-		GostHash (const GostHash &);
-		GostHash &operator= (const GostHash &);
-	};
 }
 }
 

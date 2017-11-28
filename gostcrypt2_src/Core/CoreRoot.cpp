@@ -5,6 +5,8 @@
 #include "LoopDeviceManager.h"
 #include "MountFilesystemManager.h"
 #include "FuseService/FuseServiceHandler.h"
+#include "Volume/VolumeLayoutV2Normal.h"
+#include "Volume/VolumeLayoutV2Hidden.h"
 
 namespace GostCrypt {
 namespace Core {
@@ -229,11 +231,11 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     // getting the volume header to fill it
     QSharedPointer<Volume::VolumeHeader> header (layout->GetHeader());
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
-    QSharedPointer<Volume::Pkcs5Kdf> Kdf (getDerivationKeyFunction(params->volumeHeaderKdf));
+    QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
     Volume::VolumeHeaderCreationOptions options;
     options.EA = ea;
-    options.Kdf = Kdf;
+    options.Hash = hash;
     options.Type = layout->GetType();
     options.SectorSize = 512; // TODO : ALWAYS 512 !
 
@@ -278,7 +280,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     else
         throw MissingParamException("password");
     QSharedPointer <Volume::VolumePassword> passwordkey = Volume::Keyfile::ApplyListToPassword (keyfiles, password);
-    options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+    options.Hash->DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
 
     header->Create (headerBuffer, options); // header created !
@@ -299,7 +301,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     // Write The Backup Header if any
 
     RandomNumberGenerator::GetData (salt); // getting new salt
-    options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+    options.Hash->DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
     header->Create (headerBuffer, options); // creating new header
 

@@ -231,7 +231,7 @@ namespace Volume {
 		TotalDataRead += length;
 	}
 
-	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf)
+    void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
         //if_debug (ValidateState ());
 
@@ -240,7 +240,7 @@ namespace Volume {
 
 		SecureBuffer newHeaderBuffer (Layout->GetHeaderSize());
 
-		Header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, newPkcs5Kdf);
+        Header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, newVolumeHash);
 
 		int headerOffset = backupHeader ? Layout->GetBackupHeaderOffset() : Layout->GetHeaderOffset();
 

@@ -84,13 +84,6 @@
 # ifdef __linux__
 #  define HDIO_GETGEO 0x0301
 # endif
-
-struct hd_geometry {
-	unsigned char heads;
-	unsigned char sectors;
-	unsigned short cylinders;	/* truncated */
-	unsigned long start;
-};
 #endif /* HDIO_GETGEO */
 
 
@@ -117,9 +110,6 @@ int blkdev_get_physector_size(int fd, int *sector_size);
 
 /* is the device cdrom capable? */
 int blkdev_is_cdrom(int fd);
-
-/* get device's geometry - legacy */
-int blkdev_get_geometry(int fd, unsigned int *h, unsigned int *s);
 
 /* SCSI device types.  Copied almost as-is from kernel header.
  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/scsi/scsi.h */

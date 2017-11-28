@@ -36,7 +36,6 @@ HEADERS += \
     VolumeHeader.h \
     Volume.h \
     Version.h \
-    Pkcs5Kdf.h \
     Keyfile.h \
     EncryptionThreadPool.h \
     EncryptionTest.h \
@@ -64,21 +63,24 @@ HEADERS += \
     EncryptionAlgorithmGrasshopper.h \
     CipherAlgorithm.h \
     CipherAlgorithmGOST.h \
-    CipherAlgorithmGrasshopper.h
+    CipherAlgorithmGrasshopper.h \
+    VolumeHashWhirlpool.h \
+    VolumeHashGostHash.h \
+    VolumeHashStribog.h \
+    VolumeLayoutV2Normal.h \
+    VolumeLayoutV2Hidden.h
 
 SOURCES += \
     VolumePassword.cpp \
     VolumeLayout.cpp \
     VolumeHeader.cpp \
     Volume.cpp \
-    Pkcs5Kdf.cpp \
     Keyfile.cpp \
     EncryptionThreadPool.cpp \
     EncryptionTest.cpp \
     EncryptionModeXTS.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
-    Cipher.cpp \
     ../Crypto/Whirlpool.c \
     ../Crypto/Stribog.c \
     ../Crypto/GrasshopperCipher.c \
@@ -93,4 +95,10 @@ SOURCES += \
     EncryptionAlgorithmGOST.cpp \
     EncryptionAlgorithmGrasshopper.cpp \
     CipherAlgorithmGOST.cpp \
-    CipherAlgorithmGrasshopper.cpp
+    CipherAlgorithmGrasshopper.cpp \
+    VolumeHashWhirlpool.cpp \
+    VolumeHashGostHash.cpp \
+    VolumeHashStribog.cpp \
+    CipherAlgorithm.cpp \
+    VolumeLayoutV2Normal.cpp \
+    VolumeLayoutV2Hidden.cpp

@@ -9,8 +9,6 @@
 
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
-#include "Pkcs5Kdf.h"
-#include "Pkcs5Kdf.h"
 #include "VolumeHeader.h"
 #include "Common/Crypto.h"
 #include <typeinfo>
@@ -78,10 +76,10 @@ namespace Volume {
 		QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS ());
 		EA->SetMode (mode);
 
-		EncryptNew (headerBuffer, options.Salt, options.HeaderKey, options.Kdf);
+        EncryptNew (headerBuffer, options.Salt, options.HeaderKey, options.Hash);
 	}
 
-	bool VolumeHeader::Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const Pkcs5KdfList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
+    bool VolumeHeader::Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
 	{
 		if (password.Size() < 1)
             throw;// PasswordEmpty (SRC_POS);
@@ -90,9 +88,9 @@ namespace Volume {
 		SecureBuffer header (EncryptedHeaderDataSize);
 		SecureBuffer headerKey (GetLargestSerializedKeySize());
 
-        for (QSharedPointer <Pkcs5Kdf> pkcs5 : keyDerivationFunctions)
+        for (QSharedPointer <VolumeHash> derivationfunction : keyDerivationFunctions)
 		{
-			pkcs5->DeriveKey (headerKey, password, salt);
+            derivationfunction->DeriveKey (headerKey, password, salt);
 
             for (QSharedPointer <EncryptionMode> mode : encryptionModes)
 			{
@@ -123,8 +121,8 @@ namespace Volume {
 
 					if (Deserialize (header, ea, mode))
 					{
-						EA = ea;
-						Pkcs5 = pkcs5;
+                        this->EA = ea;
+                        this->volumeHash = derivationfunction;
 						return true;
 					}
 				}
@@ -243,7 +241,7 @@ namespace Volume {
 		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
-	void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <Pkcs5Kdf> newPkcs5Kdf)
+    void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
 		if (newHeaderBuffer.Size() != HeaderSize || newSalt.Size() != SaltSize)
             throw;// ParameterIncorrect (SRC_POS);
@@ -270,8 +268,8 @@ namespace Volume {
 		Serialize (headerData);
 		ea->Encrypt (headerData);
 
-		if (newPkcs5Kdf)
-			Pkcs5 = newPkcs5Kdf;
+        if (newVolumeHash)
+            this->volumeHash = newVolumeHash;
 	}
 
 	size_t VolumeHeader::GetLargestSerializedKeySize ()

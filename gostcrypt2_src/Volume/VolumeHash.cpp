@@ -8,10 +8,9 @@
 
 
 #include "VolumeHash.h"
-
-#include "Crypto/Whirlpool.h"
-#include "Crypto/Stribog.h"
-#include "Crypto/GostHash.h"
+#include "VolumeHashGostHash.h"
+#include "VolumeHashStribog.h"
+#include "VolumeHashWhirlpool.h"
 
 namespace GostCrypt
 {
@@ -21,9 +20,9 @@ namespace Volume {
 	{
 		VolumeHashList l;
 
-		l.push_back (QSharedPointer <VolumeHash> (new Stribog ()));
-		l.push_back (QSharedPointer <VolumeHash> (new GostHash ()));
-		l.push_back (QSharedPointer <VolumeHash> (new Whirlpool ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashStribog ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashGostHash ()));
+        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashWhirlpool ()));
 
 		return l;
 	}
@@ -40,76 +39,16 @@ namespace Volume {
             throw;// ParameterIncorrect (SRC_POS);
 	}
 
-	// Whirlpool
-	Whirlpool::Whirlpool ()
-	{
-		Context.Allocate (sizeof (WHIRLPOOL_CTX));
-		Init();
-	}
+    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    {
+        if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
+            throw;// (SRC_POS);
+    }
 
-	void Whirlpool::GetDigest (const BufferPtr &buffer)
-	{
-		//if_debug (ValidateDigestParameters (buffer));
-		WHIRLPOOL_finalize ((WHIRLPOOL_CTX *) Context.Ptr(), buffer);
-	}
+    void VolumeHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const
+    {
+        DeriveKey (key, password, salt, GetIterationCount());
+    }
 
-	void Whirlpool::Init ()
-	{
-		WHIRLPOOL_init ((WHIRLPOOL_CTX *) Context.Ptr());
-	}
-
-	void Whirlpool::ProcessData (const ConstBufferPtr &data)
-	{
-		//if_debug (ValidateDataParameters (data));
-		WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Ptr());
-	}
-
-	// Stribog
-	Stribog::Stribog ()
-	{
-		Context.Allocate (sizeof (STRIBOG_CTX));
-		Init ();
-	}
-
-	void Stribog::GetDigest (const BufferPtr &buffer)
-	{
-		//if_debug (ValidateDigestParameters (buffer));
-		STRIBOG_finalize ((STRIBOG_CTX *) Context.Ptr(), buffer);
-	}
-
-	void Stribog::Init ()
-	{
-		STRIBOG_init ((STRIBOG_CTX *) Context.Ptr());
-	}
-
-	void Stribog::ProcessData (const ConstBufferPtr &data)
-	{
-		//if_debug (ValidateDataParameters (data));
-		STRIBOG_add ((STRIBOG_CTX *) Context.Ptr(), (quint8 *) data.Get(), data.Size());
-	}
-
-	// GOST R 34.11-94
-	GostHash::GostHash ()
-	{
-		Context.Allocate (sizeof (gost_hash_ctx));
-		Init ();
-	}
-
-	void GostHash::GetDigest (const BufferPtr &buffer)
-	{
-		//if_debug (ValidateDigestParameters (buffer));
-		GOSTHASH_finalize ((gost_hash_ctx *) Context.Ptr(), buffer);
-	}
-
-	void GostHash::Init ()
-	{
-		GOSTHASH_init ((gost_hash_ctx *) Context.Ptr());
-	}
-
-	void GostHash::ProcessData (const ConstBufferPtr &data)
-	{
-		//if_debug (ValidateDataParameters (data));
-		GOSTHASH_add ((quint8 *) data.Get(), data.Size(), (gost_hash_ctx *) Context.Ptr());
-	}
 }
 }

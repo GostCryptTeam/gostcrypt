@@ -153,10 +153,9 @@ static void add_blocks (quint8 *T, quint8 *F, gst_dword len)
 {
 	gst_dword i;
 	gst_word carry = 0;
-	gst_word sum;
 	for (i = 0; i < len; i++)
 	{
-		sum = (gst_word)T[i] + (gst_word)F[i] + carry;
+        gst_word sum = (gst_word)T[i] + (gst_word)F[i] + carry;
 		T[i] = (quint8)sum & 0xFF;
 		carry = sum >> 8;
 	}
@@ -261,14 +260,12 @@ static void step (quint8 *H, quint8 *M, gost_hash_ctx *ctx)
 
 void GOSTHASH_add (quint8 *block, gst_udword len, gost_hash_ctx *ctx)
 {
-	gst_udword add_bytes;
-
 	quint8 *curptr = block;
 	quint8 *barrier = block + (len - 32); //In order that curptr += 32 won't overshoot len.
 
 	if (ctx->left) //There are unsigned chars left from the last GOSTHASH_add
 	{
-		add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
+        gst_udword add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
 		copy_blocks(ctx->remainder + (quint8)ctx->left, block, (gst_dword)add_bytes);
 		if ((ctx->left + add_bytes) < 32) //This can be finished in the finalize stage if needed
 		{
