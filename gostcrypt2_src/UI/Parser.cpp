@@ -30,9 +30,9 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
 
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
+        throw Parser::ParseException(QString("Argument 'volumepath' missed."));
     if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException(QString("Too many arguments specified."));
 
     options->path.reset(new QFileInfo(positionalArguments.at(1)));
 
@@ -52,7 +52,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
     if (parser.isSet("no-filesystem")) { // nofilesystem
         options->doMount = false;
         if(parser.isSet("filesystem") || parser.isSet("options") || parser.isSet("protection"))
-            throw Parser::ParseException("--nofilesystem cannot be used with --filesystem, --protection or --options.");
+            throw Parser::ParseException(QString("--nofilesystem cannot be used with --filesystem, --protection or --options."));
     } else {
         options->doMount = true;
     }
@@ -95,7 +95,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
         if(protection == "readonly")
                 options->protection = GostCrypt::Volume::VolumeProtection::ReadOnly;
         else if(protection != "none")
-            throw Parser::ParseException("Protection type not found : "+ protection);
+            throw Parser::ParseException(QString("Protection type not found : "+ protection));
     }
 
     if(parser.isSet("user")){
@@ -121,9 +121,9 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
 
 	const QStringList positionalArguments = parser.positionalArguments();
 	if (positionalArguments.size() < 2)
-		throw Parser::ParseException("Argument 'volume' missed.");
+        throw Parser::ParseException(QString("Argument 'volume' missed."));
 	if (positionalArguments.size() > 2)
-		throw Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException(QString("Too many arguments specified."));
 
     volume->volumePath.reset(new QFileInfo(positionalArguments.at(1)));
 
@@ -150,7 +150,7 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 		return;
 	}
 	if (positionalArguments.size() > 2)
-		throw Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException(QString("Too many arguments specified."));
 	QString volume = positionalArguments.at(1);
     if(volume == "volumes" || volume == "volume")
 		*item = Volumes;
@@ -161,7 +161,7 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
     else if (volume == "devices" || volume == "device")
 		*item = Devices;
 	else
-		throw Parser::ParseException("Unknown item to list.");
+        throw Parser::ParseException(QString("Unknown item to list."));
 }
 
 void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options)
@@ -195,9 +195,9 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     // parsing positional arguments
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Argument 'volumepath' missed.");
+        throw Parser::ParseException(QString("Argument 'volumepath' missed."));
     if (positionalArguments.size() > 2)
-        throw Parser::ParseException("Too many arguments specified.");
+        throw Parser::ParseException(QString("Too many arguments specified."));
 
     options->path = QSharedPointer<QFileInfo>(new QFileInfo(positionalArguments.at(1)));
 
@@ -209,7 +209,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
             options->type = GostCrypt::Volume::VolumeType::Hidden;
             options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
         } else if(type.compare("Normal",Qt::CaseInsensitive)){
-            throw Parser::ParseException("Unknown Volume type. should be {Normal|Hidden}");
+            throw Parser::ParseException(QString("Unknown Volume type. should be {Normal|Hidden}"));
         }
     }
 
@@ -229,7 +229,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
 
     if(options->type != GostCrypt::Volume::VolumeType::Hidden){
         if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hash") || parser.isSet("halgorithm") || parser.isSet("hfile-system"))
-            throw Parser::ParseException("Options for hidden volumes should only be used with --type=Hidden");
+            throw Parser::ParseException(QString("Options for hidden volumes should only be used with --type=Hidden"));
     } else {
         if (parser.isSet("hpassword")) {
             const QString hpassword = parser.value("hpassword");
@@ -241,7 +241,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         }
 
         if (parser.isSet("hfile")) { // TODO
-            throw Parser::ParseException("keyfiles not implemented yet");
+            throw Parser::ParseException(QString("keyfiles not implemented yet"));
         }
 
         if (parser.isSet("hhash")) {
@@ -267,14 +267,14 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
             bool ok = false;
             options->innerVolume->size = number.toDouble(&ok);
             if (!ok)
-                throw Parser::ParseException("'size' must be a percentage like 0.5, not 50%.");
+                throw Parser::ParseException(QString("'size' must be a percentage like 0.5, not 50%."));
         }else{
             options->innerVolume->size = DEFAULT_INNER_SIZE; // default value
         }
     }
 
     if (parser.isSet("file")) { // TODO
-        throw Parser::ParseException("keyfiles not implemented yet");
+        throw Parser::ParseException(QString("keyfiles not implemented yet"));
     }
 
     if (parser.isSet("hash")) {
@@ -300,7 +300,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         bool ok = false;
         options->outerVolume->size = number.toDouble(&ok);
         if (!ok)
-            throw Parser::ParseException("'size' must be a percentage like 0.5, not 50%.");
+            throw Parser::ParseException(QString("'size' must be a percentage like 0.5, not 50%."));
     }else{
         options->outerVolume->size = DEFAULT_OUTER_SIZE; // default value
     }
@@ -310,7 +310,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
         bool ok = false;
         options->size = parseSize(number, &ok);
         if (!ok)
-            throw Parser::ParseException("'size' must be a number followed by B,KB,MB or GB !");
+            throw Parser::ParseException(QString("'size' must be a number followed by B,KB,MB or GB !"));
     }else{
         options->size = DEFAULT_SIZE; // default value is 10Mio
     }
@@ -331,7 +331,7 @@ void Parser::parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files)
 
     const QStringList positionalArguments = parser.positionalArguments();
     if (positionalArguments.size() < 2)
-        throw Parser::ParseException("Please Specify the path of at least one keyfile to create.");
+        throw Parser::ParseException(QString("Please Specify the path of at least one keyfile to create."));
     if (positionalArguments.size() >= 2)
         for(int i=1; i<positionalArguments.size(); i++)
             files.append(positionalArguments.at(i));

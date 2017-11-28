@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QCommandLineParser>
 #include <QException>
+#include <QTranslator>
 
 namespace Parser {
 
@@ -18,8 +19,9 @@ namespace Parser {
 
     class ParseException : QException {
     public:
-        ParseException() { this->message = ""; }
-        ParseException(const QString &message) { this->message = message; }
+        ParseException() : message("") { }
+        ParseException(const ParseException &p) : message(p.message) {}
+        explicit ParseException(const QString &message) { this->message = message; }
         void raise() const { throw *this; }
         ParseException *clone() const { return new ParseException(*this); }
         QString getMessage() { return this->message; }
