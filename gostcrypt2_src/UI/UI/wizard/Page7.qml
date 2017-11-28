@@ -40,7 +40,7 @@ Item {
                 width: parent.width -20
                 onActivated: {
                     //description.text = Wizard.getAlgosDescription(algo.currentIndex);
-                    used[0] = algo.currentIndex
+                    used[0] = algo.textAt(algo.currentIndex)
                 }
 
             }
@@ -116,7 +116,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width -20
                 onActivated: {
-                    used[1] = hash.currentIndex
+                    used[1] = hash.textAt(hash.currentIndex)
                 }
             }
 
@@ -140,60 +140,4 @@ Item {
             }
         }
     }
-
-
-
-/*
-
-
-
-
-
-
-    Rectangle {
-        color: "transparent"
-        border.width: 1
-        border.color: palette.border
-        radius: 5
-        width: algo_.width
-        height: 90
-        y: algo_.y + algo_.height + 10
-        anchors.horizontalCenter: top.horizontalCenter
-
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            y:5
-            color: palette.text
-            text: qsTr("Hash Algorithm") + Translation.tr
-        }
-
-        UI.GSCustomComboBox {
-            id: hash
-            model: algoHash[1];
-            x: 40
-            y: 35
-            width: parent.width *0.5
-            onActivated: {
-                used[1] = hash.currentIndex
-            }
-        }
-        Text {
-            id: link
-            x: hash.x + hash.width + 10
-            y: 45
-            horizontalAlignment: Text.AlignJustify
-            wrapMode: Text.WordWrap
-            width: parent.width *0.5
-            text: qsTr("<font color='#719c24'><a href='#'>Information on hash algorithms</a></font>") + Translation.tr
-            color: palette.text
-            font.pixelSize: 12
-            MouseArea {
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-            }
-        }
-    }
-*/
-
 }

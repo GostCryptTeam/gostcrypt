@@ -5,7 +5,7 @@ import "../" as UI
 
 Item {
     id: top
-    property variant format: ["", "", false] //file system, cluster & dynamic(bool) (standard volumes)
+    property variant format: ["FAT", "Default", false] //file system, cluster & dynamic(bool) (standard volumes)
     property int type: 0
 
     MouseArea {
@@ -50,6 +50,9 @@ Item {
             y: fileSystem.y-5
             width: parent.width * 0.2
             height: 25
+            onActivated: {
+                format[0] = typeFilesystem.textAt(typeFilesystem.currentIndex)
+            }
         }
 
         Text {
@@ -75,6 +78,9 @@ Item {
             y: fileSystem.y-5
             width: parent.width * 0.3
             height: 25
+            onActivated: {
+                clusterType[0] = clusterType.textAt(clusterType.currentIndex)
+            }
         }
     }
 

@@ -9,7 +9,7 @@ Component {
         id: item
         width: 240
         height:80
-        property string mountPoint_: ""
+        property string mountPoint: ""
 
         function updateFavorite()
         {
@@ -49,7 +49,7 @@ Component {
                 id:rightPartTexts
                 anchors.fill: parent
                 Text {
-                    text: mountPoint_ + Translation.tr
+                    text: { console.log(mountPoint_); return mountPoint_ + Translation.tr }
                     color: "#bdbdbd"
                     font.pixelSize: 14
                     y: 7
@@ -435,7 +435,7 @@ Component {
                     duration: app.duration/2;
                     easing.type: Easing.OutQuad;
                     onRunningChanged: {
-                        if(!animation.running && dismountVolume.isVisible == false) {
+                        if(!animation.running && dismountVolume.isVisible === false) {
                             dismountVolume.visible = false
                         }
                     }
@@ -463,10 +463,10 @@ Component {
                 cursorShape = Qt.ArrowCursor
             }
             onClicked: {
-                qmlRequest("openmountpoint", {"path": mountPoint_});
+                qmlRequest("openmountpoint", {"path": mountPoint});
             }
             onDoubleClicked: {
-                qmlRequest("openmountpoint", {"path": mountPoint_});
+                qmlRequest("openmountpoint", {"path": mountPoint});
             }
 
             ToolTip {

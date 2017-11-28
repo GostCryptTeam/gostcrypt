@@ -114,15 +114,16 @@ namespace GostCrypt {
 						throw IncorrectSectorSizeException();
 				}
 
-                QDir fuseMountPointDir(params->fuseMountPoint->absoluteFilePath());
-                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(params->fuseMountPoint->absoluteFilePath()))
-						throw FailedCreateFuseMountPointException(params->fuseMountPoint);
+                fuseMountPoint = params->fuseMountPoint;
+                QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
+                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
+                        throw FailedCreateFuseMountPointException(fuseMountPoint);
 
 				try {
-					launchFuse(params->fuseMountPoint);
+                    launchFuse();
 					sendResponseWhenReady(QVariant::fromValue(response));
 				} catch (...) {
-                    QDir(params->fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
+                    QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
 					throw;
 				}
 			} catch (...) {
@@ -143,7 +144,7 @@ namespace GostCrypt {
 
 		void FuseService::sendResponseWhenReady(QVariant response)
 		{
-			QSharedPointer<QFileInfo> imageFile(new QFileInfo(FuseService::volumeInfo->fuseMountPoint->absoluteFilePath() + QString(FuseDriver::getVolumeImagePath())));
+            QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + QString(FuseDriver::getVolumeImagePath())));
 			for (int t = 0 ; t < 100 ; t++) {
 				if(imageFile->exists()) {
 					if(QFile(imageFile->absoluteFilePath()).open(QIODevice::ReadWrite)) {
@@ -575,8 +576,7 @@ namespace GostCrypt {
 
 			return -ENOENT;
 		}
-		void FuseService::launchFuse(QSharedPointer<QFileInfo> fuseMountPoint)
-		{
+        void FuseService::launchFuse() {
 			#ifndef FUSE_SERVICE_DEBUG
 			int forkedPid = fork();
 			if(forkedPid == -1)
@@ -628,6 +628,7 @@ namespace GostCrypt {
 
 		QSharedPointer<Volume> FuseService::mountedVolume;
 		QSharedPointer<Core::VolumeInformation> FuseService::volumeInfo;
+        QSharedPointer<QFileInfo> FuseService::fuseMountPoint;
 		uid_t FuseService::userId;
 		gid_t FuseService::groupId;
 		QMutex FuseService::volumeInfoMutex;

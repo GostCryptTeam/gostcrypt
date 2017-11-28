@@ -143,7 +143,6 @@ Item {
 
     function manageWizard(direction)
     {
-
         switch(currentPage)
         {
 
@@ -271,7 +270,6 @@ Item {
                 case 1:
                 case 2:
                     changePage(3, qsTr("Volume Creation Mode"), currentPage)
-                    content.item.setType(volumeInfos.NORMAL_OR_HIDDEN ? volumeInfos.NORMAL_OR_HIDDEN : 0)
                     break;
                 }
             }
@@ -498,6 +496,7 @@ Item {
         case progress.VOLUME_FORMAT:
              //format volume (standard volume)
             if(content.item.type !== 2) {
+                console.log("OUI : " + content.item.format[0]);
                 volumeInfos.FORMAT_INFOS[0] = content.item.format[0]
                 volumeInfos.FORMAT_INFOS[1] = content.item.format[1]
                 volumeInfos.FORMAT_INFOS[2] = content.item.format[2]
@@ -589,6 +588,20 @@ Item {
             break;
         }
 
+        console.log("==================================");
+        console.log("CONTAINER_TYPE = " + volumeInfos.CONTAINER_TYPE);
+        console.log("VOLUME_TYPE = " + volumeInfos.VOLUME_TYPE);
+        console.log("NORMAL_OR_HIDDEN = " + volumeInfos.NORMAL_OR_HIDDEN);
+        console.log("VOLUME_PATH = " + volumeInfos.VOLUME_PATH);
+        console.log("VOLUME_PWD = " + volumeInfos.VOLUME_PWD);
+        console.log("ALGORITHM_HASH_NAMES = " + volumeInfos.ALGORITHM_HASH_NAMES[0] + " / " + volumeInfos.ALGORITHM_HASH_NAMES[1]);
+        console.log("VOLUME_SIZE = " + volumeInfos.VOLUME_SIZE);
+        console.log("VOLUME_NEW_PASSWORD = " + volumeInfos.VOLUME_NEW_PASSWORD);
+        console.log("FORMAT_INFOS = " + volumeInfos.FORMAT_INFOS[0] + " / " + volumeInfos.FORMAT_INFOS[1]);
+        console.log("HIDDEN_ALGORITHM_HASH = " + volumeInfos.HIDDEN_ALGORITHM_HASH);
+        console.log("HIDDEN_VOLUME_SIZE = " + volumeInfos.HIDDEN_VOLUME_SIZE);
+        console.log("HIDDEN_VOLUME_PASSWORD = " + volumeInfos.HIDDEN_VOLUME_PASSWORD);
+        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);
     }
 
     /*!

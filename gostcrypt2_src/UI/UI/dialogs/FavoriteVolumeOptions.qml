@@ -3,7 +3,7 @@ import "../" as UI
 
 Item {
     id: top
-    property string volumePath: "file:///home/william/testVolume"
+    property string volumePath: ""
     property variant volumeInfos: { return UserSettings.getFavoriteVolumeSetting(volumePath); }
     signal updateVolume()
 
