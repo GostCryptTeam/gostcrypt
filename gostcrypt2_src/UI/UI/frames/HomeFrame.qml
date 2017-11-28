@@ -481,7 +481,6 @@ Item {
                 }
             }
 
-            Behavior on x { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad } }
             Behavior on opacity { NumberAnimation { duration: app.duration/2; easing.type: Easing.OutQuad } }
         }
 
@@ -564,7 +563,7 @@ Item {
                 rectangle2.x = 300
             else
                 rectangle2.x = 200
-            leftPart.x = 80 + 100
+            //leftPart.x = 80 + 100
             leftPart.opacity = 0
             horizontalCenters.x = 80
             rightPart.x = 305
@@ -575,7 +574,7 @@ Item {
                 rectangle2.x = 380
             else
                 rectangle2.x = 120
-            leftPart.x = 80
+            //leftPart.x = 80
             leftPart.opacity = 1
             horizontalCenters.x = 0
             rightPart.x = 380
