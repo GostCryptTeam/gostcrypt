@@ -12,7 +12,7 @@ namespace GostCrypt {
 			core.reset(new CoreRoot);
 			connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
 			connect(this, SIGNAL(askExit()), core.data(), SLOT(exit()));
-                        connect(core.data(), SIGNAL(exited()), this, SIGNAL(exit()));
+            connect(core.data(), SIGNAL(exited()), this, SIGNAL(exit()));
 
 			/* For each core request */
 			CONNECT_RESPONSE_SLOT(CreateVolume);

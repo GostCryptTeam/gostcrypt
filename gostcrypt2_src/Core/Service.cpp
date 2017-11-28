@@ -24,11 +24,20 @@ namespace GostCrypt {
 
 			initSerializables();
 
-			// Creation of input and output streams for communication with parent process
+            if(argc > 2) {
+                this->inputFilePath = QString(argv[2]);
+            }
+
+            // Creation of input and output streams for communication with parent process
 			inputStream.setDevice(&inputFile);
 			outputStream.setDevice(&outputFile);
-			inputFile.open(stdin, QFile::ReadOnly);
-			outputFile.open(stdout, QFile::WriteOnly);
+            if(this->inputFilePath.isEmpty()) {
+                inputFile.open(stdin, QFile::ReadOnly);
+            } else {
+                inputFile.setFileName(inputFilePath);
+                inputFile.open(QIODevice::ReadOnly);
+            }
+            outputFile.open(stdout, QFile::WriteOnly);
 
 			// connecting signals
 			connect(&app, SIGNAL(sendException(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));

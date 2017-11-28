@@ -25,7 +25,7 @@ namespace GostCrypt {
 			connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processExited(int)));
 			#ifdef DEBUG_SERVICE_HANDLER
 			connect(&process, SIGNAL(bytesWritten(qint64)), this, SLOT(dbg_bytesWritten(qint64)));
-#endif
+            #endif
 		}
 
 		void ServiceHandler::sendToService(QVariant request)
@@ -103,8 +103,12 @@ namespace GostCrypt {
 			if(process.state() != QProcess::Running)
 				return startProcess();
 
-			while(!waitingRequests.isEmpty())
-				processStream << waitingRequests.dequeue();
+            while(!waitingRequests.isEmpty()) {
+#ifdef GENERATE_REQUESTS_DUMP
+                requestsDumpStream << waitingRequests.head();
+#endif
+                processStream << waitingRequests.dequeue();
+            }
 			#ifdef DEBUG_SERVICE_HANDLER
 			qDebug() << "Requests sent";
 			#endif
@@ -170,6 +174,12 @@ namespace GostCrypt {
 			process.setReadChannel(QProcess::StandardOutput);
 			#endif
 			process.start();
+
+#ifdef GENERATE_REQUESTS_DUMP
+            requestsDumpStream.setDevice(&requestDumpFile);
+            requestDumpFile.setFileName("requestsDump_"+((args.length() > 0) ? args[0] : programName));
+            requestDumpFile.open(QIODevice::WriteOnly);
+#endif
 		}
 
 	}

@@ -9,7 +9,9 @@
 #include <QQueue>
 #include <QFile>
 
-//#define DEBUG_SERVICE_HANDLER
+#define DEBUG_SERVICE_HANDLER
+
+#define GENERATE_REQUESTS_DUMP
 
 namespace GostCrypt {
     namespace Core {
@@ -31,6 +33,10 @@ namespace GostCrypt {
 			QString programName;
 			QStringList args;
 			QDataStream processStream;
+#ifdef GENERATE_REQUESTS_DUMP
+            QDataStream requestsDumpStream;
+            QFile requestDumpFile;
+#endif
 			QProcess process;
 			QQueue<QVariant> waitingRequests;
 			bool processInitialized;
