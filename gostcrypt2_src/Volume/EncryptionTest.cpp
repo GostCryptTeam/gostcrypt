@@ -510,17 +510,17 @@ namespace Volume {
 		ConstBufferPtr salt (saltData, sizeof (saltData));
 		Buffer derivedKey (4);
 
-        Whirlpool pkcs5HmacWhirlpool;
+        VolumeHashWhirlpool pkcs5HmacWhirlpool;
 		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x50\x7c\x36\x6f", 4) != 0)
             throw;// TestFailed (SRC_POS);
 
-        Stribog pkcs5HmacStribog;
+        VolumeHashStribog pkcs5HmacStribog;
 		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\xc7\x13\x56\xb6", 4) != 0)
             throw;// TestFailed (SRC_POS);
 
-        GostHash pkcs5HmacGostHash;
+        VolumeHashGostHash pkcs5HmacGostHash;
 		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x7d\x53\xe0\x7e", 4) != 0)
             throw;// TestFailed (SRC_POS);

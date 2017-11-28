@@ -7,17 +7,17 @@ namespace GostCrypt {
 namespace Volume {
 
 // Stribog
-class Stribog : public VolumeHash
+class VolumeHashStribog : public VolumeHash
 {
 public:
-    Stribog ();
-    virtual ~Stribog () { }
+    VolumeHashStribog ();
+    virtual ~VolumeHashStribog () { }
 
     virtual void GetDigest (const BufferPtr &buffer);
     virtual size_t GetBlockSize () const { return 64; }
     virtual size_t GetDigestSize () const { return 64; }
     virtual std::wstring GetName () const { return L"GOST R 34.11-2012"; }
-    virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Stribog); }
+    virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new VolumeHashStribog); }
     virtual void Init ();
     virtual void ProcessData (const ConstBufferPtr &data);
     virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
@@ -26,8 +26,8 @@ public:
 protected:
 
 private:
-    Stribog (const Stribog &);
-    Stribog &operator= (const Stribog &);
+    VolumeHashStribog (const VolumeHashStribog &);
+    VolumeHashStribog &operator= (const VolumeHashStribog &);
 };
 
 }

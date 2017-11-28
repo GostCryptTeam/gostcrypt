@@ -7,17 +7,17 @@ namespace GostCrypt {
 namespace Volume {
 
 // Whirlpool
-class Whirlpool : public VolumeHash
+class VolumeHashWhirlpool : public VolumeHash
 {
 public:
-    Whirlpool ();
-    virtual ~Whirlpool () { }
+    VolumeHashWhirlpool ();
+    virtual ~VolumeHashWhirlpool () { }
 
     virtual void GetDigest (const BufferPtr &buffer);
     virtual size_t GetBlockSize () const { return 64; }
     virtual size_t GetDigestSize () const { return 512 / 8; }
     virtual std::wstring GetName () const { return L"Whirlpool"; }
-    virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new Whirlpool); }
+    virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new VolumeHashWhirlpool); }
     virtual void Init ();
     virtual void ProcessData (const ConstBufferPtr &data);
     virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
@@ -26,8 +26,8 @@ public:
 protected:
 
 private:
-    Whirlpool (const Whirlpool &);
-    Whirlpool &operator= (const Whirlpool &);
+    VolumeHashWhirlpool (const VolumeHashWhirlpool &);
+    VolumeHashWhirlpool &operator= (const VolumeHashWhirlpool &);
 };
 
 }
