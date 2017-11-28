@@ -15,8 +15,7 @@
 #include "Volume/EncryptionMode.h"
 #include "VolumeHeader.h"
 
-namespace GostCrypt
-{
+namespace GostCrypt {
 namespace Volume {
 
 	class VolumeLayout;
@@ -60,38 +59,6 @@ namespace Volume {
 		VolumeLayout &operator= (const VolumeLayout &);
 	};
 
-	class VolumeLayoutV2Normal : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV2Normal ();
-		virtual ~VolumeLayoutV2Normal () { }
-
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
-		virtual bool HasBackupHeader () const { return true; }
-
-	private:
-		VolumeLayoutV2Normal (const VolumeLayoutV2Normal &);
-		VolumeLayoutV2Normal &operator= (const VolumeLayoutV2Normal &);
-	};
-
-
-	class VolumeLayoutV2Hidden : public VolumeLayout
-	{
-	public:
-		VolumeLayoutV2Hidden ();
-		virtual ~VolumeLayoutV2Hidden () { }
-
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const;
-		virtual quint64 GetMaxDataSize (quint64 volumeSize) const;
-		virtual bool HasBackupHeader () const { return true; }
-
-	private:
-		VolumeLayoutV2Hidden (const VolumeLayoutV2Hidden &);
-		VolumeLayoutV2Hidden &operator= (const VolumeLayoutV2Hidden &);
-	};
 }
 }
 

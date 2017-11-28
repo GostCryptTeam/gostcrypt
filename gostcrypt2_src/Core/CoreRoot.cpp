@@ -5,6 +5,8 @@
 #include "LoopDeviceManager.h"
 #include "MountFilesystemManager.h"
 #include "FuseService/FuseServiceHandler.h"
+#include "Volume/VolumeLayoutV2Normal.h"
+#include "Volume/VolumeLayoutV2Hidden.h"
 
 namespace GostCrypt {
 namespace Core {
