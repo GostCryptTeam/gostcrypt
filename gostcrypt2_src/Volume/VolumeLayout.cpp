@@ -30,9 +30,7 @@ namespace Volume {
 		VolumeLayoutList layouts;
 
 		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Normal ()));
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV1Normal ()));
 		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Hidden ()));
-		layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV1Hidden ()));
 
 		if (type != VolumeType::Unknown)
 		{
@@ -57,57 +55,6 @@ namespace Volume {
 
 		return Header;
 	}
-
-
-	VolumeLayoutV1Normal::VolumeLayoutV1Normal ()
-	{
-		Type = VolumeType::Normal;
-		HeaderOffset = GST_VOLUME_HEADER_OFFSET;
-		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-	}
-
-	quint64 VolumeLayoutV1Normal::GetDataOffset (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return HeaderSize;
-	}
-
-	quint64 VolumeLayoutV1Normal::GetDataSize (quint64 volumeHostSize) const
-	{
-		return volumeHostSize - GetHeaderSize();
-	}
-
-
-	VolumeLayoutV1Hidden::VolumeLayoutV1Hidden ()
-	{
-		Type = VolumeType::Hidden;
-		HeaderOffset = -GST_HIDDEN_VOLUME_HEADER_OFFSET_LEGACY;
-		HeaderSize = GST_VOLUME_HEADER_SIZE_LEGACY;
-
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-        SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
-
-		SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-	}
-
-	quint64 VolumeLayoutV1Hidden::GetDataOffset (quint64 volumeHostSize) const
-	{
-		return volumeHostSize - GetDataSize (volumeHostSize) + HeaderOffset;
-	}
-
-	quint64 VolumeLayoutV1Hidden::GetDataSize (quint64 volumeHostSize) const
-	{
-        (void)volumeHostSize;
-        return Header->GetHiddenVolumeDataSize ();
-	}
-
 
 	VolumeLayoutV2Normal::VolumeLayoutV2Normal ()
 	{
