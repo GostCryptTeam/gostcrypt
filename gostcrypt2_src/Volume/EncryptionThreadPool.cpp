@@ -25,7 +25,6 @@ namespace Volume {
         quint8 *fragmentData;
         quint64 fragmentStartUnitNo;
 
-		WorkItem *workItem;
 		WorkItem *firstFragmentWorkItem;
 
 		if (unitCount == 0)
@@ -83,7 +82,7 @@ namespace Volume {
 
 			while (fragmentCount-- > 0)
 			{
-				workItem = &WorkItemQueue[EnqueuePosition++];
+                WorkItem *workItem = &WorkItemQueue[EnqueuePosition++];
 
 				if (EnqueuePosition >= QueueSize)
 					EnqueuePosition = 0;
