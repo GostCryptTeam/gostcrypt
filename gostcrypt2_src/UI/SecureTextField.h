@@ -7,7 +7,7 @@ class SecureTextField : public QObject
 {
     Q_OBJECT
 public:
-    SecureTextField(QObject *parent = 0) { (void)parent; }
+    explicit SecureTextField(QObject *parent = 0) { (void)parent; }
 
     //Q_INVOKABLE void addCharacter(const QString* aCharacter);
 
