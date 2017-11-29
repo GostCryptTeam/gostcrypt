@@ -18,7 +18,7 @@ namespace GostCrypt {
 namespace Volume {
 
 	class VolumeLayout;
-    typedef std::list < QSharedPointer <VolumeLayout> > VolumeLayoutList;
+    typedef QList < QSharedPointer <VolumeLayout> > VolumeLayoutList;
 
 	class VolumeLayout
 	{

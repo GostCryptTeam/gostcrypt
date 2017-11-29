@@ -10,6 +10,7 @@
 #ifndef GST_HEADER_Encryption_EncryptionAlgorithm
 #define GST_HEADER_Encryption_EncryptionAlgorithm
 
+#include <QList>
 #include "CipherAlgorithm.h"
 #include "EncryptionMode.h"
 
@@ -19,7 +20,7 @@ namespace Volume {
 
 	class EncryptionAlgorithm;
 
-    typedef std::list < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
+    typedef QList < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
 
 	class EncryptionAlgorithm
 	{

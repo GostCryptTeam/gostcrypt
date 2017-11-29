@@ -18,7 +18,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class EncryptionMode;
-    typedef std::list < QSharedPointer <EncryptionMode> > EncryptionModeList;
+    typedef QList < QSharedPointer <EncryptionMode> > EncryptionModeList;
 
 	class EncryptionMode
 	{

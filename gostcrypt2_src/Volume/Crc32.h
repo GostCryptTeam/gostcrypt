@@ -20,8 +20,8 @@ namespace Volume {
 	class Crc32
 	{
 	public:
-		Crc32 () : CrcValue (0xffffFFFF) { };
-		virtual ~Crc32 () { };
+        Crc32 () : CrcValue (0xffffFFFF) { }
+        virtual ~Crc32 () { }
 
 		quint32 Get () const { return CrcValue ^ 0xffffFFFF; }
 
