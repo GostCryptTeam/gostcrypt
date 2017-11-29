@@ -64,7 +64,6 @@ namespace GostCrypt
         DevicePath ToHostDriveOfPartition () const;
     };
 
-    // a remplacer par des listes
     typedef QList < QSharedPointer <FilePath> > FilePathList;
 }
 
