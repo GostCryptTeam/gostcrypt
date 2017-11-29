@@ -104,7 +104,7 @@ void VolumeFile::Close ()
             throw;
 
 		Path = path;
-        preserveTimestamps = preserveTimestamps;
+        this->preserveTimestamps = preserveTimestamps;
 		FileIsOpen = true;
 	}
 
