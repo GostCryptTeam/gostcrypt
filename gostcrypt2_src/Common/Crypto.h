@@ -134,7 +134,6 @@ typedef struct
 #include "GostHash.h"
 
 #include "GfMul.h"
-#include "Password.h"
 
 
 #define GOST_KS	(sizeof(gost_kds))
@@ -143,16 +142,6 @@ typedef struct
 
 #define MAX_EXPANDED_KEY	(GOST_KS)
 
-
-
-typedef struct keyInfo_t
-{
-	int noIterations;					/* Number of times to iterate (PKCS-5) */
-	int keyLength;						/* Length of the key */
-	__int8 userKey[MAX_PASSWORD];		/* Password (to which keyfiles may have been applied). WITHOUT +1 for the null terminator. */
-	__int8 salt[PKCS5_SALT_SIZE];		/* PKCS-5 salt */
-	__int8 master_keydata[MASTER_KEYDATA_SIZE];		/* Concatenated master primary and secondary key(s) (XTS mode). */
-} KEY_INFO, *PKEY_INFO;
 
 typedef struct CRYPTO_INFO_t
 {
@@ -205,7 +194,6 @@ typedef struct CRYPTO_INFO_t
 } CRYPTO_INFO, *PCRYPTO_INFO;
 
 PCRYPTO_INFO crypto_open (void);
-void crypto_loadkey (PKEY_INFO keyInfo, char *lpszUserKey, int nUserKeyLen);
 void crypto_close (PCRYPTO_INFO cryptoInfo);
 
 int CipherGetBlockSize (int cipher);
