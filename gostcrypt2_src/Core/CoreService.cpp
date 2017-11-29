@@ -31,7 +31,7 @@ namespace GostCrypt {
 		{
 			initCoreRequest();
 			initCoreResponse();
-			initCoreException();
+            initGostCryptException();
 			INIT_SERIALIZE(ProgressUpdateResponse);
 
 		}

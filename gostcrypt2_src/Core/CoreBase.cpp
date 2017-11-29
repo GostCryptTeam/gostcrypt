@@ -24,7 +24,8 @@ namespace GostCrypt {
 		{
 			initCoreRequest();
 			initCoreResponse();
-			initCoreException();
+            initGostCryptException();
+
 			INIT_SERIALIZE(ProgressUpdateResponse);
 
 
@@ -42,6 +43,8 @@ namespace GostCrypt {
 
 		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
 		{
+            try {
+
             QSharedPointer<GetEncryptionAlgorithmsResponse> response(new GetEncryptionAlgorithmsResponse());
             			if(!params.isNull())
 				response->passThrough = params->passThrough;
@@ -57,10 +60,17 @@ namespace GostCrypt {
 			if(params->emitResponse)
 				emit sendGetEncryptionAlgorithms(response);
 			return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw e;
+            }
 		}
 
         QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params)
         {
+            try {
+
             QSharedPointer<GetDerivationFunctionsResponse> response(new GetDerivationFunctionsResponse);
             			if(!params.isNull())
 				response->passThrough = params->passThrough;
@@ -79,11 +89,17 @@ namespace GostCrypt {
            	if(params->emitResponse)
 	            emit sendGetDerivationFunctions(response);
 	        return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw e;
+            }
         }
 
 		QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(QSharedPointer<GetHostDevicesRequest> params)
 		{
-			QSharedPointer<GetHostDevicesResponse> response(new GetHostDevicesResponse);
+            try {
+            QSharedPointer<GetHostDevicesResponse> response(new GetHostDevicesResponse);
 
 			if(!params.isNull())
 				response->passThrough = params->passThrough;
@@ -134,11 +150,18 @@ namespace GostCrypt {
 				emit sendGetHostDevices(response);
 
 			return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw e;
+            }
 		}
 
 		QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params)
 		{
-			QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
+            try {
+
+            QSharedPointer<GetMountedVolumesResponse> response(new GetMountedVolumesResponse);
 
 			if(!params.isNull())
 				response->passThrough = params->passThrough;
@@ -195,6 +218,11 @@ namespace GostCrypt {
 			if(params->emitResponse)
 				emit sendGetMountedVolumes(response);
 			return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw e;
+            }
 		}
 
 		QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(const QFileInfo &devicePath, const QFileInfo &mountPoint)
@@ -422,6 +450,8 @@ namespace GostCrypt {
 		}
 
         QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest> params) {
+            try {
+
             if(!params)
                 throw MissingParamException("params");
             QSharedPointer<CreateKeyFileResponse> response(new CreateKeyFileResponse());
@@ -434,6 +464,11 @@ namespace GostCrypt {
 				emit sendCreateKeyFile(QSharedPointer<CreateKeyFileResponse>(nullptr));
 
 			return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw e;
+            }
 		}
 
 		uid_t getUserId(QString username)

@@ -63,7 +63,7 @@ namespace GostCrypt {
 
 			try {
 				while(receiveRequest());
-			} catch(GostCrypt::Core::GostCryptException &e) {
+            } catch(GostCrypt::GostCryptException &e) {
 				emit sendException(e);
 			} catch (QException &e) {
 				qDebug() << e.what();
@@ -132,7 +132,7 @@ namespace GostCrypt {
 			bool done = true;
 			try {
 				done = QCoreApplication::notify(receiver, event);
-			} catch(GostCrypt::Core::GostCryptException &e) {
+            } catch(GostCrypt::GostCryptException &e) {
 				#ifdef DEBUG_SERVICE_HANDLER
 				qDebug() << "Exception catched, forwarding to parent process";
 				#endif

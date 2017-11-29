@@ -30,8 +30,7 @@ namespace GostCrypt {
 		{
 			INIT_SERIALIZE(Core::MountVolumeRequest);
 			INIT_SERIALIZE(Core::MountVolumeResponse);
-			Core::initCoreException();
-			initFuseException();
+            initGostCryptException();
 		}
 
 		void FuseService::mountRequestHandler(QVariant r)

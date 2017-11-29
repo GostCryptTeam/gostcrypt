@@ -62,6 +62,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     uid_t mountedForUserId;
     gid_t mountedForGroupId;
 
+    try {
     UPDATE_PROGRESS(0);
     if (params->mountedForUser.isEmpty())
     {
@@ -139,10 +140,16 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     }
 
     emit sendMountVolume(response);
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 {
+    try {
+
     if(!params)
         throw MissingParamException("params");
 
@@ -160,10 +167,16 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
     FuseDriver::FuseService tmpnfs;
     tmpnfs.mountRequestHandler(QVariant::fromValue(params));
 #endif
+
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeRequest> params)
 {
+    try {
     QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
@@ -224,6 +237,10 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
         sendDismountVolume(response);
 
     return response;
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
@@ -390,6 +407,8 @@ void CoreRoot::continueDismountFormat(QSharedPointer<DismountVolumeResponse> dis
 
 void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 {
+    try {
+
     QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
@@ -461,13 +480,25 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     else
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response);
+
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
 {
+    try {
+
     disconnect(this, SIGNAL(formatVolumeDone(QVariantMap)), 0, 0);
     connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>)));
     mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response);
+
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
@@ -478,6 +509,8 @@ void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QS
 
 QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
 {
+    try {
+
     QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
     if(!params.isNull())
         response->passThrough = params->passThrough;
@@ -489,6 +522,11 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSha
         emit sendChangeVolumePassword(response);
 
     return response;
+
+    } catch(GostCryptException &e) {
+        e.setRequestId(params->id.requestId);
+        throw e;
+    }
 }
 
 }

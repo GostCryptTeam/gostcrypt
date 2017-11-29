@@ -58,7 +58,7 @@ int CmdLineInterface::start(int argc, char **argv)
         qDebug().noquote() << e.getMessage();
         parser.showHelp();
         return -1;
-    } catch(GostCrypt::Core::GostCryptException &e) {
+    } catch(GostCrypt::GostCryptException &e) {
         qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
@@ -220,7 +220,7 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::Core::GostCryptException &e) {
+    } catch(GostCrypt::GostCryptException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
         emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here

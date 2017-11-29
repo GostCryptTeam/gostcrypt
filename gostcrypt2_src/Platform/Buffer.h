@@ -15,7 +15,7 @@
 
 namespace GostCrypt
 {
-	class ConstBufferPtr
+    class ConstBufferPtr //no need for a special Const class, just use Const BufferPtr (will need to create GetConst to retrieve the pointer without allowing modifications
 	{
 	public:
 		ConstBufferPtr ()
@@ -63,7 +63,7 @@ namespace GostCrypt
 		size_t DataSize;
 	};
 
-	class Buffer
+    class Buffer //Why Buffer and BufferPtr Merge ? NO. Buffers are always allocated when created, not BufferPtr However, Buffer should inherits from BufferPtr
 	{
 	public:
 		Buffer ();

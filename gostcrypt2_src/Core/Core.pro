@@ -50,7 +50,8 @@ HEADERS += \
     CoreService.h \
     CoreRequest.h \
     Service.h \
-    ServiceHandler.h
+    ServiceHandler.h \
+    GostCryptException.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -72,4 +73,5 @@ SOURCES += \
     SerializationUtil.cpp \
     CoreRequest.cpp \
     Service.cpp \
-    ServiceHandler.cpp
+    ServiceHandler.cpp \
+    GostCryptException.cpp

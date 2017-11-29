@@ -10,7 +10,6 @@ namespace GostCrypt {
 		{
 			connect(this, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
 			connect(this, SIGNAL(exited()), this, SLOT(done()));
-			initFuseException();
 			this->succeed = false;
 		}
 

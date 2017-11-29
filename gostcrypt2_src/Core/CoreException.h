@@ -5,24 +5,7 @@
 #include <QString>
 #include <QVariant>
 #include <QDebug>
-#include "SerializationUtil.h"
-
-#define DEF_EXCEPTION_WHAT(exceptionName, parent, message) \
-	virtual QString getName() const { \
-		return parent::getName() + "/"#exceptionName; \
-	} \
-    virtual QString getMessage() const{ \
-        return QString() + message; \
-    } \
-    virtual QString qwhat() const { \
-        return parent::qwhat() + message; \
-    } \
-    virtual QVariant toQVariant() const { \
-		return QVariant::fromValue(*this); \
-	} \
-	virtual void raise() const { \
-		throw *this; \
-	}
+#include "GostCryptException.h"
 
 namespace GostCrypt {
 	namespace Core {
@@ -31,84 +14,6 @@ namespace GostCrypt {
          *
          */
         void initCoreException();
-
-		class GostCryptException : public QException {
-			public:
-                GostCryptException() {}
-                GostCryptException(QString fonction, QString filename, quint32 line) : fonction(fonction), filename(QFileInfo(filename).fileName()), line(line) {}
-				quint32 getLine() const {return line; }
-				QString getFilename() const {return filename; }
-				QString getFonction() const {return fonction; }
-				GostCryptException *clone() const { return new GostCryptException(*this); }
-				const char * what () const throw () {
-					return qwhat().toLocal8Bit().data();
-				}
-                /**
-                 * @brief
-                 *
-                 * @return QString
-                 */
-                virtual QString qwhat() const {
-                    return "\nException:\t" + getName() + "\nFonction:\t" + fonction + "\nFile position:\t" + getPosition() + "\nMessage:\t";
-                }
-                /**
-                 * @brief fonction used to get the name of an exception
-                 *
-                 * @return QString return the name of the esception
-                 */
-                virtual QString getName() const {
-                    return "";
-                }
-                /**
-                 * @brief fonction used to get a message
-                 *
-                 * @return QString
-                 */
-                virtual QString getMessage() const{
-                    return QString();
-                }
-                /**
-                 * @brief
-                 *
-                 * @return QVariant
-                 */
-                virtual QVariant toQVariant() const {
-					return QVariant::fromValue(*this);
-				}
-                /**
-                 * @brief
-                 *
-                 */
-                virtual void raise() const {
-					throw *this;
-				}
-                /**
-                 * @brief fonction to display the exception name as a message
-                 *
-                 * @return QString return the exception name
-                 */
-                QString displayedMessage() const {
-#ifdef QT_DEBUG
-					return qwhat();
-#else
-					return getMessage();
-#endif
-				}
-
-			protected:
-                /**
-                 * @brief
-                 *
-                 * @return QString
-                 */
-                QString getPosition() const {
-					return filename+":"+QString::number(line);
-				}
-                QString fonction;
-				QString filename;
-				quint32 line;
-			DEC_SERIALIZABLE(GostCryptException);
-		};
 
 		class CoreException : public GostCryptException {
 			public:
@@ -119,89 +24,12 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(CoreException);
 		};
 
-		#define SystemExceptionException() SystemException(__PRETTY_FUNCTION__, __FILE__, __LINE__);
-        /**
-         * @brief
-         *
-         */
-        class SystemException : public CoreException {
-			public:
-				SystemException() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 */
-                SystemException(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
-				DEF_EXCEPTION_WHAT(SystemException, CoreException, "")
-
-			DEC_SERIALIZABLE(SystemException);
-		};
-
-
-
-		#define FailedOpenFileException(file) GostCrypt::Core::FailedOpenFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
-        /**
-         * @brief
-         *
-         */
-        class FailedOpenFile : public SystemException {
-			public:
-                /**
-                 * @brief
-                 *
-                 */
-                FailedOpenFile() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param file
-                 */
-                FailedOpenFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
-                DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file.absoluteFilePath() + "\".\n")
-            protected:
-                QFileInfo file; /**< TODO: describe */
-			DEC_SERIALIZABLE(FailedOpenFile);
-		};
-
-        #define FailedCreateDirectoryException(dir) GostCrypt::Core::FailedCreateDirectory(__PRETTY_FUNCTION__, __FILE__, __LINE__, dir);
-        /**
-         * @brief
-         *
-         */
-        class FailedCreateDirectory : public SystemException {
-            public:
-                /**
-                 * @brief
-                 *
-                 */
-                FailedCreateDirectory() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param dir
-                 */
-                FailedCreateDirectory(QString fonction, QString filename, quint32 line, QString dir) : SystemException(fonction, filename, line), dir(dir) {}
-                DEF_EXCEPTION_WHAT(FailedCreateDirectory, SystemException, "Fail to create directory \"" + dir + "\".\n")
-            protected:
-                QString dir; /**< TODO: describe */
-            DEC_SERIALIZABLE(FailedCreateDirectory);
-        };
-
 		#define DeviceNotMountedException(devicePath) GostCrypt::Core::DeviceNotMounted(__PRETTY_FUNCTION__, __FILE__, __LINE__, devicePath);
         /**
          * @brief
          *
          */
-        class DeviceNotMounted : public SystemException {
+        class DeviceNotMounted : public CoreException {
 			public:
                 /**
                  * @brief
@@ -216,8 +44,8 @@ namespace GostCrypt {
                  * @param line
                  * @param device
                  */
-                DeviceNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> device) : SystemException(fonction, filename, line), device(device) {}
-                DEF_EXCEPTION_WHAT(DeviceNotMounted, SystemException, "The device "+device->absoluteFilePath() + " is not mounted.\n")
+                DeviceNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> device) : CoreException(fonction, filename, line), device(device) {}
+                DEF_EXCEPTION_WHAT(DeviceNotMounted, CoreException, "The device "+device->absoluteFilePath() + " is not mounted.\n")
 			protected:
                 QSharedPointer<QFileInfo> device; /**< TODO: describe */
 
@@ -412,7 +240,7 @@ namespace GostCrypt {
          * @brief
          *
          */
-        class MountPointUsed : public SystemException {
+        class MountPointUsed : public CoreException {
             public:
                 /**
                  * @brief
@@ -427,7 +255,7 @@ namespace GostCrypt {
                  * @param line
                  * @param mountpoint
                  */
-                MountPointUsed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), mountpoint(mountpoint) {}
+                MountPointUsed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), mountpoint(mountpoint) {}
                 /**
                  * @brief
                  *
@@ -440,38 +268,11 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(MountPointUsed);
         };
 
-        #define FailedCreateFuseMountPointException(mountpoint) GostCrypt::Core::FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
         /**
          * @brief
          *
          */
-        class FailedCreateFuseMountPoint : public SystemException {
-            public:
-                /**
-                 * @brief
-                 *
-                 */
-                FailedCreateFuseMountPoint() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param mountpoint
-                 */
-                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), mountpoint(mountpoint) {}
-                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, CoreException, "Creation of fuse mount point " + mountpoint->absoluteFilePath() + " failed\n")
-            protected:
-                QSharedPointer<QFileInfo> mountpoint; /**< TODO: describe */
-            DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
-        };
-
-        /**
-         * @brief
-         *
-         */
-        class MountFilesystemManagerException : public SystemException {
+        class MountFilesystemManagerException : public CoreException {
             public:
                 /**
                  * @brief
@@ -487,7 +288,7 @@ namespace GostCrypt {
                  * @param error_number
                  * @param mountpoint
                  */
-                MountFilesystemManagerException(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint) : SystemException(fonction, filename, line), error_number(error_number), mountpoint(mountpoint) {}
+                MountFilesystemManagerException(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint) : CoreException(fonction, filename, line), error_number(error_number), mountpoint(mountpoint) {}
                 DEF_EXCEPTION_WHAT(MountFilesystemManagerException, CoreException, "")
             protected:
                 qint32 error_number; /**< TODO: describe */
@@ -531,7 +332,7 @@ namespace GostCrypt {
          * @brief
          *
          */
-        class FailFindFilesystemType : public SystemException {
+        class FailFindFilesystemType : public CoreException {
             public:
                 /**
                  * @brief
@@ -546,8 +347,8 @@ namespace GostCrypt {
                  * @param line
                  * @param devicePath
                  */
-                FailFindFilesystemType(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> devicePath) : SystemException(fonction, filename, line), devicePath(devicePath) {}
-                DEF_EXCEPTION_WHAT(FailFindFilesystemType, SystemException, "Unable to mount " + devicePath->absoluteFilePath() + ": Failed to find filesystem type.")
+                FailFindFilesystemType(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> devicePath) : CoreException(fonction, filename, line), devicePath(devicePath) {}
+                DEF_EXCEPTION_WHAT(FailFindFilesystemType, CoreException, "Unable to mount " + devicePath->absoluteFilePath() + ": Failed to find filesystem type.")
             protected:
                 QSharedPointer<QFileInfo> devicePath; /**< TODO: describe */
 
@@ -585,7 +386,7 @@ namespace GostCrypt {
          * @brief
          *
          */
-        class FailedAttachLoopDevice : public SystemException {
+        class FailedAttachLoopDevice : public CoreException {
             public:
                 /**
                  * @brief
@@ -600,8 +401,8 @@ namespace GostCrypt {
                  * @param line
                  * @param imageFile
                  */
-                FailedAttachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> imageFile) : SystemException(fonction, filename, line), imageFile(imageFile) { }
-                DEF_EXCEPTION_WHAT(FailedAttachLoopDevice, SystemException, QStringLiteral("Unable to create loop device for image file ") + imageFile->absoluteFilePath() + "\n")
+                FailedAttachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> imageFile) : CoreException(fonction, filename, line), imageFile(imageFile) { }
+                DEF_EXCEPTION_WHAT(FailedAttachLoopDevice, CoreException, QStringLiteral("Unable to create loop device for image file ") + imageFile->absoluteFilePath() + "\n")
             protected:
                 QSharedPointer<QFileInfo> imageFile; /**< TODO: describe */
 
@@ -613,7 +414,7 @@ namespace GostCrypt {
          * @brief
          *
          */
-        class FailedDetachLoopDevice : public SystemException {
+        class FailedDetachLoopDevice : public CoreException {
             public:
                 /**
                  * @brief
@@ -628,8 +429,8 @@ namespace GostCrypt {
                  * @param line
                  * @param loopDevice
                  */
-                FailedDetachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> loopDevice) : SystemException(fonction, filename, line), loopDevice(loopDevice) { }
-                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, SystemException, QStringLiteral("Unable to detach loop device ") + loopDevice->absoluteFilePath() + "\n")
+                FailedDetachLoopDevice(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> loopDevice) : CoreException(fonction, filename, line), loopDevice(loopDevice) { }
+                DEF_EXCEPTION_WHAT(FailedDetachLoopDevice, CoreException, QStringLiteral("Unable to detach loop device ") + loopDevice->absoluteFilePath() + "\n")
             protected:
                 QSharedPointer<QFileInfo> loopDevice; /**< TODO: describe */
 
@@ -887,22 +688,17 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
 	}
 }
 
-SERIALIZABLE(GostCrypt::Core::GostCryptException)
 SERIALIZABLE(GostCrypt::Core::CoreException)
-SERIALIZABLE(GostCrypt::Core::SystemException)
-SERIALIZABLE(GostCrypt::Core::FailedOpenFile)
 SERIALIZABLE(GostCrypt::Core::DeviceNotMounted)
 SERIALIZABLE(GostCrypt::Core::MissingParam)
 SERIALIZABLE(GostCrypt::Core::VolumeAlreadyMounted)
 SERIALIZABLE(GostCrypt::Core::FailedOpenVolume)
 SERIALIZABLE(GostCrypt::Core::IncorrectSectorSize)
 SERIALIZABLE(GostCrypt::Core::MountPointUsed)
-SERIALIZABLE(GostCrypt::Core::FailedCreateFuseMountPoint)
 SERIALIZABLE(GostCrypt::Core::MountFilesystemManagerException)
 SERIALIZABLE(GostCrypt::Core::FailMountFilesystem)
 SERIALIZABLE(GostCrypt::Core::FailUnmountFilesystem)
 SERIALIZABLE(GostCrypt::Core::FailedAttachLoopDevice)
-SERIALIZABLE(GostCrypt::Core::FailedCreateDirectory)
 SERIALIZABLE(GostCrypt::Core::FailedDetachLoopDevice)
 SERIALIZABLE(GostCrypt::Core::VolumeNotMounted)
 SERIALIZABLE(GostCrypt::Core::ContentSizeInvalid)
