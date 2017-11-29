@@ -36,10 +36,10 @@ namespace Volume {
 	protected:
 		void DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
         void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+        void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)const;
 		void EncryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
         void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
+        void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)const;
 		void SetSecondaryCipherKeys ();
 
 		SecureBuffer SecondaryKey;
