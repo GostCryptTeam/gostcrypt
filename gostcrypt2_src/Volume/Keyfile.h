@@ -12,8 +12,8 @@
 
 #include "VolumePassword.h"
 #include "Platform/Buffer.h"
-#include "Platform/FilePath.h"
 #include <QSharedPointer>
+#include <QFileInfo>
 
 //move
 #define FILE_OPTIMAL_READ_SIZE 256*1024
@@ -25,25 +25,20 @@ namespace Volume {
 	class Keyfile;
     typedef std::list < QSharedPointer <Keyfile> > KeyfileList;
 
-    class Keyfile //inherit from QFile
+    class Keyfile
 	{
 	public:
-        explicit Keyfile (const FilePath &path){ (void)path; }
+        explicit Keyfile (const QFileInfo &path) : Path(path) {}
         virtual ~Keyfile () { }
 
-        operator FilePath () const { return Path; }
         static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
-		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }
 
 		static const size_t MinProcessedLength = 1;
 		static const size_t MaxProcessedLength = 1024 * 1024;
 
 	protected:
 		void Apply (const BufferPtr &pool) const;
-
-		static bool HiddenFileWasPresentInKeyfilePath;
-
-        FilePath Path;
+        QFileInfo Path;
 
 	private:
 		Keyfile (const Keyfile &);

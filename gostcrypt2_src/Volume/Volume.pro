@@ -42,7 +42,6 @@ HEADERS += \
     EncryptionAlgorithm.h \
     Crc32.h \
     VolumeInformation.h \
-    VolumePath.h \
     VolumeProtection.h \
     VolumeType.h \
     VolumeHash.h \

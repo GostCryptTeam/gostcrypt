@@ -51,7 +51,6 @@ namespace GostCrypt {
 
 			do {
                 //try {
-                    Volume::VolumePath path(params->path->absoluteFilePath().toStdWString());
                     QSharedPointer<Volume::VolumePassword> password;
                     QSharedPointer<Volume::VolumePassword> protectionPassword;
                     QSharedPointer <Volume::KeyfileList> keyfiles;
@@ -67,17 +66,17 @@ namespace GostCrypt {
                         protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilePath(keyfile->absoluteFilePath().toStdWString()))));
+                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
                     if(!params->protectionKeyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(FilePath(keyfile->absoluteFilePath().toStdWString()))));
+                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
 
                     mountedVolume->Open(
-						path,
+                        params->path,
 						params->preserveTimestamps,
                         password,
                         keyfiles,
