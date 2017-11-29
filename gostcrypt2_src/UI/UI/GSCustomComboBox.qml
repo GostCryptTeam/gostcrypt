@@ -5,6 +5,7 @@ import QtQuick.Controls.Styles 1.4
 ComboBox {
     id: control
     property var model_: [""]
+    property int borderWidth: 1
     model: model_
 
     delegate: ItemDelegate {
@@ -19,10 +20,8 @@ ComboBox {
         }
         background: Rectangle {
             anchors.fill: parent
-            //color: palette.dark
             color: item.highlighted ? palette.darkSecond : palette.dark
         }
-
         highlighted: control.highlightedIndex == index
     }
 
@@ -87,7 +86,7 @@ ComboBox {
         implicitWidth: 120
         implicitHeight: 40
         border.color: control.pressed ? palette.darkInput : palette.darkInput
-        border.width: control.visualFocus ? 2 : 1
+        border.width: control.visualFocus ? 2 : borderWidth
         radius: 2
     }
 

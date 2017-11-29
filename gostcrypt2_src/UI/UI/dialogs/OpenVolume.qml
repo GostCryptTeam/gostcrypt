@@ -13,20 +13,48 @@ Item {
 
     property url volumePath
     property variant devices
+    property variant listKeyfiles: []
     signal incorrectPassword()
     signal sendInfoVolume()
+    signal sendKeyFileInfoVolume()
 
     Connections {
         target: openVolume_Form
         onSendInfoVolume: {
-            if(password_value.text.length != 0)
+            if(password_value.text.length !== 0)
             {
-                qmlRequest("mount", {"path": volumePath, "password": password_value.text, "name": qsTr("Mount volume"), "desc": volumePath});
+                qmlRequest("mount", {"path": volumePath, "password": password_value.text, "nb-keyfiles": 0, "name": qsTr("Mount volume"), "desc": volumePath});
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = "" //TODO: stock password in C++
             }else{
                 app.openErrorMessage("Empty password", "Please enter a password.");
+            }
+        }
+        onSendKeyFileInfoVolume: {
+            if(listKeyfiles.length > 0 || password_value.text.length !== 0)
+            {
+                var request = {
+                    "path": volumePath,
+                    "password": password_value.text,
+                    "nb-keyfiles": listKeyfiles.length,
+                    "name": qsTr("Mount volume"),
+                    "desc": qsTr("Volume mounted using "+ listKeyfiles.length +" keyfiles")
+                };
+
+                for(var i in listKeyfiles)
+                    request["keyfile"+i] = listKeyfiles[i];
+
+                qmlRequest("mount", request);
+
+                //Empties values
+                var password_blank = new Array(password_value.length+1).join('#');
+                password_value.text = password_blank
+                password_value.text = "" //TODO: stock password in C++
+                keyfiles_paths.model = [""]
+                listKeyfiles = []
+            }else{
+                app.openErrorMessage("Empty password", "Please enter a password or select keyfiles.");
             }
         }
     }
@@ -159,8 +187,21 @@ Item {
         Text {
             id: password_txt
             y: 0
-            anchors.horizontalCenter: parent.horizontalCenter
+            x: -combo.width/2
             text: qsTr("Password: ")  + Translation.tr
+            font.pointSize: 11
+            lineHeightMode: Text.FixedHeight
+            horizontalAlignment: Text.AlignRight
+            lineHeight: 15
+            color: '#719c24'
+        }
+
+        Text {
+            id: keyfile_txt
+            y: 0
+            x: 0
+            visible: use_Keyfiles.checked ? true : false
+            text: qsTr("Keyfile(s): ")  + Translation.tr
             font.pointSize: 11
             lineHeightMode: Text.FixedHeight
             horizontalAlignment: Text.AlignRight
@@ -171,14 +212,76 @@ Item {
         UI.SecureTextField {
             id: password_value
             y: password_txt.y + password_txt.height + 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: combo.width
+            x: -combo.width/2
+            radius_: 0
+            width: use_Keyfiles.checked ? combo.width/2 : combo.width
             horizontalAlignment: TextInput.AlignHCenter
-            height: combo.height
+            height_: combo.height
             onValidated: {
                 sendInfoVolume()
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
+            }
+        }
+
+        UI.GSCustomComboBox {
+            id: keyfiles_paths
+            model: [""]
+            x: password_value.width - combo.width/2
+            y: password_txt.y + password_txt.height + 10
+            width: combo.width/2
+            height: combo.height
+            borderWidth: 0
+            visible: use_Keyfiles.checked ? true : false
+        }
+
+        Rectangle {
+            visible: (keyfiles_paths.text !== "") ? true : false
+            anchors.left: keyfiles_paths.right
+            anchors.leftMargin: 5
+            color: palette.darkInput
+            height: 20
+            width: 20
+            radius: 5
+            border.width: 1
+            anchors.verticalCenter: keyfiles_paths.verticalCenter
+            border.color: palette.blue
+            Text {
+                anchors.centerIn: parent;
+                text: qsTr("×")
+                font.pointSize: 15
+                color: palette.text
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    listKeyfiles = []
+                    keyfiles_paths.model = [""]
+                }
+            }
+        }
+
+        FileDialog {
+            id: addKeyfiles
+            title: qsTr("Please choose a keyfile") + Translation.tr
+            folder: shortcuts.home
+            selectMultiple: true
+            onAccepted: {
+                var text = "";
+                if(addKeyfiles.fileUrls.length > 0)
+                {
+                    use_Keyfiles.checked = true;
+                    UserSettings.setSetting("MountV-UseKeyFiles", 1)
+                }
+                for(var path in addKeyfiles.fileUrls) {
+                    listKeyfiles.push(addKeyfiles.fileUrls[path]);
+                }
+                for(var i in listKeyfiles) {
+                    text = text + listKeyfiles[i] + "; ";
+                }
+                keyfiles_paths.model = listKeyfiles;
+            }
+            onRejected: {
             }
         }
 
@@ -245,25 +348,30 @@ Item {
                 //TODO : action
                 if(use_Keyfiles.checked == true) {
                     UserSettings.setSetting("MountV-UseKeyFiles", 1)
+                    keyfile_txt.visible = true
                 } else {
                     UserSettings.setSetting("MountV-UseKeyFiles", 0)
+                    keyfile_txt.visible = false
                 }
             }
         }
 
         UI.GSButtonBordered {
             id: buttonKeyfiles
-            anchors.right: password_value.right
+            x: combo.x + combo.width - 150
             y: cache.y
             height: 30
             text: qsTr("Keyfiles...") + Translation.tr
             width: 150
             color_: palette.green
+            onClicked: {
+                addKeyfiles.open();
+            }
         }
 
         UI.GSButtonBordered {
             id: buttonMountOption
-            anchors.right: password_value.right
+            x: combo.x + combo.width - 150
             y: buttonKeyfiles.y + buttonKeyfiles.height + 5
             height: 30
             text: qsTr("Mount Options...") + Translation.tr
@@ -292,11 +400,17 @@ Item {
         opacity: 0.0
         color_: palette.blue
         onClicked: {
-            if(sudo_.isVisible === false)
+            var password_blank = "";
+            if(sudo_.isVisible === false && UserSettings.getSetting("MountV-UseKeyFiles") === "0")
             {
                 sendInfoVolume()
-                var password_blank = new Array(password_value.length+1).join('#');
+                password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
+            }
+            else if(sudo_.isVisible === false && UserSettings.getSetting("MountV-UseKeyFiles") === "1")
+            {
+                sendKeyFileInfoVolume()
+                keyfiles_paths.model = [""]
             }
         }
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }

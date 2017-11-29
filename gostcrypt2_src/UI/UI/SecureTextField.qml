@@ -6,6 +6,8 @@ ControlsOld.TextField {
     /* ID of the textinput */
     property int id: 0;
     property bool type: false
+    property int radius_: 5
+    property int height_: 24
     signal validated()
     id: top
 
@@ -15,9 +17,9 @@ ControlsOld.TextField {
         textColor: "#e1e1e1"
         background: Rectangle {
             id: password_value_style
-            radius: 5
+            radius: radius_
             implicitWidth: 100
-            implicitHeight: 24
+            implicitHeight: height_
             border.color: "#333"
             border.width: 1
             color: palette.darkInput

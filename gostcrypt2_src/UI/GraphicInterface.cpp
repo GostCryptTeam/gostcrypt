@@ -115,12 +115,23 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::mount: //"mount"
         {
+            QStringList keyfilesList;
+            for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
+                keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
+
             QSharedPointer <GostCrypt::Core::MountVolumeRequest> options(new GostCrypt::Core::MountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             QString canonicalPath = GI_KEY(aContent, "path").toUrl().path();
             options->path.reset(new QFileInfo(canonicalPath));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
+
+            //Adding Keyfiles
+            options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
+            for(QString file : keyfilesList) {
+                options->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
+            }
+
             emit request(QVariant::fromValue(options));
         }
         break;

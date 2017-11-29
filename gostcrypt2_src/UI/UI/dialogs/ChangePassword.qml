@@ -11,7 +11,7 @@ Item {
     Connections {
         target: top
         onUpdate: {
-            UserSettings.setSetting("Pref-AutoDismountAfter", numberOfMinutes.text)
+
             catchClose();
         }
     }

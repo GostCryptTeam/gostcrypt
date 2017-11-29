@@ -13,7 +13,7 @@ Item {
         y: 10
         font.pointSize: 13
         font.family: "Helvetica"
-        text: qsTr("Create a new file that will contain your volume:") + Translation.tr
+        text: (type === 0) ? qsTr("Create a new file that will contain your volume:") + Translation.tr : qsTr("Select an existing GostCrypt volume that will contain your volume:") + Translation.tr
         anchors.horizontalCenter: parent.horizontalCenter
         color: palette.text
         wrapMode: Text.WordWrap

@@ -13,7 +13,7 @@ Button {
         text: buttonBordered.text + Translation.tr
         //font: buttonBorderedIcon.font
         font.pixelSize: 13
-        color: palette.textLight
+        color: (buttonBordered.enabled) ? palette.textLight : palette.text
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -60,7 +60,8 @@ Button {
             when: !buttonBordered_mouseArea.containsMouse
             PropertyChanges {
                 target: buttonBordered_rect
-                color : palette.darkSecond
+                color : (buttonBordered.enabled) ? palette.darkSecond : palette.dark
+                border.color: (buttonBordered.enabled) ? color_ : palette.border
             }
         }
     ]

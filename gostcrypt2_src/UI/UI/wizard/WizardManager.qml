@@ -13,13 +13,16 @@ Item {
         "NORMAL_OR_HIDDEN": 0,                  //normal or direct mode (hidden)
         "VOLUME_PATH": "",                      //volume path (standard/hidden volume)
         "VOLUME_PWD": "",                       //volume password (hidden+direct volume)
+        "VOLUME_KEYFILES": [],                  //volume keyfile(s) (hidden+direct volume)
         "ALGORITHM_HASH_NAMES": ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
         "VOLUME_SIZE": [0, ""],                 //volume size and type (KB, MB, GB) (standard volumes)
         "VOLUME_NEW_PASSWORD": ["", ""],        //volume password with verification (standard volume)
+        "VOLUME_NEW_KEYFILES": [],              //volume keyfile(s)
         "FORMAT_INFOS": ["", "", false],        //file system, cluster & dynamic(bool) (standard volumes)
         "HIDDEN_ALGORITHM_HASH": ["", ""],      //HIDDEN VOLUME : algorithm & hash
         "HIDDEN_VOLUME_SIZE": [0, ""],          //HIDDEN VOLUME: volume size
         "HIDDEN_VOLUME_PASSWORD": ["",""],      //HIDDEN VOLUME: volume password (with verification)
+        "HIDDEN_VOLUME_KEYFILES": [],           //HIDDEN VOLUME: volume keyfile(s)
         "HIDDEN_FORMAT_INFOS":  ["","", false]  //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)*/
     }
     property var progress: {
@@ -281,6 +284,7 @@ Item {
              */
         case progress.VOLUME_DIRECT_PWD: //volume password (hidden/direct)
             volumeInfos.VOLUME_PWD = content.item.password
+            volumeInfos.VOLUME_KEYFILES = content.item.listKeyfiles
             if(direction === 1 && volumeInfos.VOLUME_PWD !== "") //1 => normal
             {
                 changePage(12, qsTr("Hidden Volume"), currentPage)
@@ -448,14 +452,19 @@ Item {
             if(content.item.type !== 2) {
                 volumeInfos.VOLUME_NEW_PASSWORD[0] = content.item.password[0]
                 volumeInfos.VOLUME_NEW_PASSWORD[1] = content.item.password[1]
+                volumeInfos.VOLUME_NEW_KEYFILES = content.item.listKeyfiles
             }else {
                 volumeInfos.HIDDEN_VOLUME_PASSWORD[0] = content.item.password[0]
                 volumeInfos.HIDDEN_VOLUME_PASSWORD[1] = content.item.password[1]
+                volumeInfos.HIDDEN_VOLUME_KEYFILES = content.item.listKeyfiles
             }
             //TODO : short password
             if(direction === 1
-                    && content.item.password[0] !== ""
-                    && content.item.password[0] === content.item.password[1]) //1 => normal
+                    && (content.item.password[0] !== ""
+                    && content.item.password[0] === content.item.password[1])
+                    ||
+                    content.item.listKeyfiles.length > 0
+                    ) //1 => normal
             {
                 if(typeBranch !== 3 && typeBranch !== 2)
                     changePage(10, qsTr("Volume Format"), currentPage)
@@ -483,7 +492,7 @@ Item {
                 manageProgressBar(4)
                 content.item.type = typeBranch
             }else{
-                openErrorMessage(qsTr("Different passwords"), qsTr("The passwords are different or empties. <br>Please try again."))
+                openErrorMessage(qsTr("Different passwords or no Keyfiles"), qsTr("The passwords are different or empties, or you do not have a password or keyfile. <br>Please try again."))
             }
             break;
 
@@ -588,20 +597,22 @@ Item {
             break;
         }
 
-        console.log("==================================");
+        /*console.log("==================================");
         console.log("CONTAINER_TYPE = " + volumeInfos.CONTAINER_TYPE);
         console.log("VOLUME_TYPE = " + volumeInfos.VOLUME_TYPE);
         console.log("NORMAL_OR_HIDDEN = " + volumeInfos.NORMAL_OR_HIDDEN);
         console.log("VOLUME_PATH = " + volumeInfos.VOLUME_PATH);
         console.log("VOLUME_PWD = " + volumeInfos.VOLUME_PWD);
+        console.log("VOLUME_KEYFILES = " + volumeInfos.VOLUME_KEYFILES);
         console.log("ALGORITHM_HASH_NAMES = " + volumeInfos.ALGORITHM_HASH_NAMES[0] + " / " + volumeInfos.ALGORITHM_HASH_NAMES[1]);
         console.log("VOLUME_SIZE = " + volumeInfos.VOLUME_SIZE);
         console.log("VOLUME_NEW_PASSWORD = " + volumeInfos.VOLUME_NEW_PASSWORD);
+        console.log("VOLUME_NEW_KEYFILES = " + volumeInfos.VOLUME_NEW_KEYFILES);
         console.log("FORMAT_INFOS = " + volumeInfos.FORMAT_INFOS[0] + " / " + volumeInfos.FORMAT_INFOS[1]);
         console.log("HIDDEN_ALGORITHM_HASH = " + volumeInfos.HIDDEN_ALGORITHM_HASH);
         console.log("HIDDEN_VOLUME_SIZE = " + volumeInfos.HIDDEN_VOLUME_SIZE);
         console.log("HIDDEN_VOLUME_PASSWORD = " + volumeInfos.HIDDEN_VOLUME_PASSWORD);
-        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);
+        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);*/
     }
 
     /*!

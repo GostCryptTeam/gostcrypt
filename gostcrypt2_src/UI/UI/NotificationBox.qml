@@ -45,7 +45,6 @@ Item {
             }
     }
 
-
     MouseArea {
         id: no_hover
         anchors.fill: parent

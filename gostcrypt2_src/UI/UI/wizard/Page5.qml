@@ -1,35 +1,79 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Dialogs 1.2
 import "../" as UI
 
 Item {
     id: top
     anchors.centerIn: parent
     property string password: ""
-    //password part
-    TextField {
-        id: password_value
-        x: 52
-        y: 10
-        width: top.width-100
-        horizontalAlignment: TextInput.AlignHCenter
-        echoMode: TextInput.Password
-        height: 40
-        focus: true
-        Keys.onPressed: password = password_value.text+event.text
-        style: TextFieldStyle {
-            textColor: "#e1e1e1"
-            background: Rectangle {
-                id: password_value_style
-                radius: 5
-                implicitWidth: 100
-                implicitHeight: 24
-                border.color: "#333"
-                border.width: 1
-                color: palette.darkInput
+    property variant listKeyfiles: []
+
+    FileDialog {
+        id: addKeyfiles
+        title: qsTr("Please choose a keyfile") + Translation.tr
+        folder: shortcuts.home
+        selectMultiple: true
+        onAccepted: {
+            use_Keyfiles.checked = true
+            var text = "";
+            if(addKeyfiles.fileUrls.length > 0)
+            {
+                UserSettings.setSetting("MountV-UseKeyFiles", 1)
+                use_Keyfiles.checked = true;
             }
+            for(var path in addKeyfiles.fileUrls) {
+                listKeyfiles.push(addKeyfiles.fileUrls[path]);
+            }
+            for(var i in listKeyfiles) {
+                text = text + listKeyfiles[i] + "; ";
+            }
+            keyfiles_paths.model = listKeyfiles;
         }
+        onRejected: {
+        }
+    }
+
+
+    Row {
+        id: buttonsOpenVolume
+        spacing: 25
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: h10
+
+            //password part
+            TextField {
+                id: password_value
+                width: use_Keyfiles.checked ? (top.width-100)/2 : top.width-100
+                horizontalAlignment: TextInput.AlignHCenter
+                echoMode: TextInput.Password
+                height: 40
+                focus: true
+                Keys.onPressed: password = password_value.text+event.text
+                style: TextFieldStyle {
+                    textColor: "#e1e1e1"
+                    background: Rectangle {
+                        id: password_value_style
+                        radius: 5
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                        color: palette.darkInput
+                    }
+                }
+            }
+
+            UI.GSCustomComboBox {
+                id: keyfiles_paths
+                model: [""]
+                width: (top.width-100)/2
+                height: combo.height
+                borderWidth: 0
+                visible: use_Keyfiles.checked ? true : false
+            }
+
     }
 
     UI.GSCheckBox {
@@ -76,13 +120,13 @@ Item {
 
     UI.GSButtonBordered {
         id: buttonKeyfiles
-        x: password_value.x + password_value.width - 150
+        x: buttonsOpenVolume.x + buttonsOpenVolume.width - 150
         y: 60
         height: 40
         text: qsTr("Keyfiles...")
         width: 150
         color_: palette.green
-
+        onClicked: addKeyfiles.open()
     }
 
     Text {

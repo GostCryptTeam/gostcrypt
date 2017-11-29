@@ -10,9 +10,27 @@ Item {
     property variant password: ["", ""]
     property int type: 0
     property string text_
-    property int isFile: {
-        var isChecked = UserSettings.getSetting("MountV-UseKeyFiles")
-        return isChecked
+    property variant listKeyfiles: []
+    property int isFile: UserSettings.getSetting("MountV-UseKeyFiles")
+
+    FileDialog {
+        id: addKeyfiles
+        title: qsTr("Please choose a keyfile") + Translation.tr
+        folder: shortcuts.home
+        selectMultiple: true
+        onAccepted: {
+            var text = "";
+            if(addKeyfiles.fileUrls.length > 0) use_Keyfiles.checked = true;
+            for(var path in addKeyfiles.fileUrls) {
+                listKeyfiles.push(addKeyfiles.fileUrls[path]);
+            }
+            for(var i in listKeyfiles) {
+                text = text + listKeyfiles[i] + "; ";
+            }
+            combo.model = listKeyfiles;
+        }
+        onRejected: {
+        }
     }
 
     Text {
@@ -24,87 +42,92 @@ Item {
         color: palette.text
         wrapMode: Text.WordWrap
     }
-    Item {
-        id: modeFile
-        visible: (isFile === 1) ? true : false
-        anchors.top: titre.bottom
-        anchors.topMargin: 10
+
+    Row {
+        width: parent.width - 50
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
-            id: buttonKeyfiles
-            anchors.horizontalCenter: parent.horizontalCenter
-            height: 40
-            text: qsTr("Open a Keyfile...")
-            width: 150
-            color_: palette.green
-            onClicked: fileDialog.open()
-        }
-        UI.GSCustomComboBox {
-            id: combo
-            width: 250
-            anchors.top: buttonKeyfiles.bottom
-            anchors.topMargin: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            model: [""]
-        }
-
-    }
-
-    Item {
-        id: modePassword
-        visible: (isFile === 1) ? false : true
+        spacing: 10
         anchors.top: titre.bottom
         anchors.topMargin: 20
-        anchors.horizontalCenter: parent.horizontalCenter
-        TextField {
-            id: password_value
-            width: top.width*0.5
-            horizontalAlignment: TextInput.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            echoMode: TextInput.Password
-            height: 40
-            focus: true
-            Keys.onReleased: password[0] = password_value.text
-            style: TextFieldStyle {
-                textColor: "#e1e1e1"
-                background: Rectangle {
-                    id: password_value_style
-                    radius: 5
-                    implicitWidth: 100
-                    implicitHeight: 24
-                    border.color: "#333"
-                    border.width: 1
-                    color: palette.darkInput
+
+        Item {
+            id: modePassword
+            width: (isFile === 1) ? 260 : parent.width
+            height: 150
+            TextField {
+                id: password_value
+                width: (isFile === 1) ? top.width*0.5 : top.width
+                horizontalAlignment: TextInput.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                echoMode: TextInput.Password
+                height: 40
+                focus: true
+                Keys.onReleased: password[0] = password_value.text
+                style: TextFieldStyle {
+                    textColor: "#e1e1e1"
+                    background: Rectangle {
+                        id: password_value_style
+                        radius: 5
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                        color: palette.darkInput
+                    }
                 }
             }
-        }
-        TextField {
-            id: password_value2
-            anchors.top: password_value.bottom
-            anchors.topMargin: 5
-            width: top.width*0.5
-            horizontalAlignment: TextInput.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            echoMode: TextInput.Password
-            height: 40
-            focus: true
-            Keys.onReleased: password[1] = password_value2.text
-            style: TextFieldStyle {
-                textColor: "#e1e1e1"
-                background: Rectangle {
-                    id: password_value_style2
-                    radius: 5
-                    implicitWidth: 100
-                    implicitHeight: 24
-                    border.color: "#333"
-                    border.width: 1
-                    color: palette.darkInput
+            TextField {
+                id: password_value2
+                anchors.top: password_value.bottom
+                anchors.topMargin: 10
+                width: (isFile === 1) ? top.width*0.5 : top.width
+                horizontalAlignment: TextInput.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                echoMode: TextInput.Password
+                height: 40
+                focus: true
+                Keys.onReleased: password[1] = password_value2.text
+                style: TextFieldStyle {
+                    textColor: "#e1e1e1"
+                    background: Rectangle {
+                        id: password_value_style2
+                        radius: 5
+                        implicitWidth: 100
+                        implicitHeight: 24
+                        border.color: "#333"
+                        border.width: 1
+                        color: palette.darkInput
+                    }
                 }
+                Keys.onReturnPressed: manageWizard(1)
+                Keys.onEnterPressed: manageWizard(1)
             }
-            Keys.onReturnPressed: manageWizard(1)
-            Keys.onEnterPressed: manageWizard(1)
         }
 
+        Item {
+            id: modeFile
+            width: 260
+            height: 150
+            visible: (isFile === 1) ? true : false
+            UI.GSButtonBordered {
+                id: buttonKeyfiles
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: 40
+                text: qsTr("Open a Keyfile...")
+                width: 150
+                color_: palette.green
+                onClicked: addKeyfiles.open()
+            }
+            UI.GSCustomComboBox {
+                id: combo
+                width: 250
+                anchors.top: buttonKeyfiles.bottom
+                anchors.topMargin: 10
+                anchors.horizontalCenter: parent.horizontalCenter
+                model: [""]
+            }
+
+        }
     }
 
     UI.GSCheckBox {
@@ -144,34 +167,14 @@ Item {
         onCheckedChanged: {
             //TODO : action
             if(use_Keyfiles.checked == true) {
+                isFile = true
                 UserSettings.setSetting("MountV-UseKeyFiles", 1)
-                modeFile.visible = true
-                modePassword.visible = false
             } else {
+                isFile = false
                 UserSettings.setSetting("MountV-UseKeyFiles", 0)
-                modeFile.visible = false
-                modePassword.visible = true
             }
         }
     }
-
-    FileDialog {
-        id: fileDialog
-        title: qsTr("Please choose a file") + Translation.tr
-        folder: shortcuts.home
-        selectExisting: {
-            if(type !== 2)
-                return false
-            else
-                return true
-        }
-        onAccepted: {
-            combo.model = [fileDialog.fileUrl]
-        }
-        onRejected: {
-        }
-    }
-
 
     UI.GSHelpButton {
         id:description
