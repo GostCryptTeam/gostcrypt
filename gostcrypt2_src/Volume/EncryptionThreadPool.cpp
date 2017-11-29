@@ -208,10 +208,9 @@ namespace Volume {
     {
 		try
 		{
-            EncryptionThreadPool::WorkItem *workItem;
-
             while (!EncryptionThreadPool::StopPending)
 			{
+                EncryptionThreadPool::WorkItem *workItem;
 				{
                     QMutexLocker lock (&EncryptionThreadPool::DequeueMutex);
 
