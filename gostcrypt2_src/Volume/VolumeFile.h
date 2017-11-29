@@ -35,7 +35,7 @@ namespace Volume
 	{
 	public:
 
-        VolumeFile () : FileIsOpen (false) { }
+        VolumeFile () : FileIsOpen (false), preserveTimestamps(false), FileHandle(-1), AccTime(-1), ModTime(-1) { }
         virtual ~VolumeFile ();
 			
 		void Close ();

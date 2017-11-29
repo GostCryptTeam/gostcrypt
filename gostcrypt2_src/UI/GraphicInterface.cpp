@@ -198,7 +198,8 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v)
     {
            QVariantMap vol;
-           vol.insert("mountPoint", (*v)->mountPoint->filePath());
+           if((*v)->mountPoint)
+                vol.insert("mountPoint", (*v)->mountPoint->filePath());
            vol.insert("algo", (*v)->encryptionAlgorithmName);
            vol.insert("volumePath", (*v)->volumePath->filePath());
            vol.insert("volumeSize", formatSize((*v)->size));

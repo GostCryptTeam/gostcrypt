@@ -39,7 +39,7 @@ namespace Volume {
             throw;// ParameterIncorrect (SRC_POS);
 	}
 
-    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount)
     {
         if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
             throw;// (SRC_POS);

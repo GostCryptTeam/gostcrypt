@@ -61,7 +61,6 @@ HEADERS += \
     ../Common/Endian.h \
     ../Common/GfMul.h \
     ../Common/Gstdefs.h \
-    ../Common/Password.h \
     ../Common/Pkcs5.h \
     ../Common/Random.h \
     ../Common/Volumes.h \
