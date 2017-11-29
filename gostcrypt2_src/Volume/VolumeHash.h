@@ -48,7 +48,7 @@ namespace Volume {
 	protected:
 		SecureBuffer Context;
 		bool Deprecated;
-        void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const;
+        static void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount);
 
 	private:
 		VolumeHash (const VolumeHash &);
