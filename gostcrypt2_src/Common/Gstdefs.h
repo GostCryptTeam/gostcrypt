@@ -78,21 +78,7 @@ typedef int64_t int64;
 typedef unsigned __int8 uint_8t;
 typedef unsigned __int16 uint_16t;
 typedef unsigned __int32 uint_32t;
-#ifndef GST_NO_COMPILER_INT64
-#endif
 
-typedef union 
-{
-	struct 
-	{
-		unsigned __int32 LowPart;
-		unsigned __int32 HighPart;
-	};
-#ifndef GST_NO_COMPILER_INT64
-	quint64 Value;
-#endif
-
-} UINT64_STRUCT;
 
 #define GST_THROW_FATAL_EXCEPTION	*(char *) 0 = 0
 

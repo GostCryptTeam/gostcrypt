@@ -187,7 +187,7 @@ typedef struct CRYPTO_INFO_t
 
 	BOOL bPartitionInInactiveSysEncScope;	// If TRUE, the volume is a partition located on an encrypted system drive and mounted without pre-boot authentication.
 
-	UINT64_STRUCT FirstDataUnitNo;			// First data unit number of the volume. This is 0 for file-hosted and non-system partition-hosted volumes. For partitions within key scope of system encryption this reflects real physical offset within the device (this is used e.g. when such a partition is mounted as a regular volume without pre-boot authentication).
+    quint64 FirstDataUnitNo;			// First data unit number of the volume. This is 0 for file-hosted and non-system partition-hosted volumes. For partitions within key scope of system encryption this reflects real physical offset within the device (this is used e.g. when such a partition is mounted as a regular volume without pre-boot authentication).
 
 	quint16 RequiredProgramVersion;
 	BOOL LegacyVolume;
@@ -195,10 +195,10 @@ typedef struct CRYPTO_INFO_t
 	quint32 SectorSize;
 
 
-	UINT64_STRUCT VolumeSize;
+    quint64 VolumeSize;
 
-	UINT64_STRUCT EncryptedAreaStart;
-	UINT64_STRUCT EncryptedAreaLength;
+    quint64 EncryptedAreaStart;
+    quint64 EncryptedAreaLength;
 
 	quint32 HeaderFlags;
 
@@ -248,10 +248,10 @@ BOOL HashIsDeprecated (int hashId);
 
 int GetMaxPkcs5OutSize (void);
 
-void EncryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
-void EncryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
-void DecryptDataUnits (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
-void DecryptDataUnitsCurrentThread (unsigned __int8 *buf, const UINT64_STRUCT *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
+void EncryptDataUnits (unsigned __int8 *buf, const quint64 *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
+void EncryptDataUnitsCurrentThread (unsigned __int8 *buf, const quint64 *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
+void DecryptDataUnits (unsigned __int8 *buf, const quint64 *structUnitNo, quint32 nbrUnits, PCRYPTO_INFO ci);
+void DecryptDataUnitsCurrentThread (unsigned __int8 *buf, const quint64 *structUnitNo, quint64 nbrUnits, PCRYPTO_INFO ci);
 void EncryptBuffer (unsigned __int8 *buf, quint64 len, PCRYPTO_INFO cryptoInfo);
 void DecryptBuffer (unsigned __int8 *buf, quint64 len, PCRYPTO_INFO cryptoInfo);
 
