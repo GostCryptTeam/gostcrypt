@@ -264,6 +264,7 @@ MountVolumeRequest::MountVolumeRequest()
     this->sharedAccessAllowed = false;
     this->useBackupHeaders = false;
     this->forVolumeCreation = false;
+    this->isDevice = false;
 }
 
 DismountVolumeRequest::DismountVolumeRequest()
