@@ -17,7 +17,7 @@ namespace Volume {
 
 	void Keyfile::Apply (const BufferPtr &pool) const
 	{
-        QFile file(Path.ToQString());
+        QFile file(Path.absoluteFilePath());
 		Crc32 crc32;
 		size_t poolPos = 0;
         quint64 totalLength = 0;
@@ -76,7 +76,5 @@ namespace Volume {
 
 		return newPassword;
 	}
-
-	bool Keyfile::HiddenFileWasPresentInKeyfilePath = false;
 }
 }

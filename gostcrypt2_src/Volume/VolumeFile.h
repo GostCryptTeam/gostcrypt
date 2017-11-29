@@ -10,13 +10,27 @@
 #ifndef GST_HEADER_Platform_File
 #define GST_HEADER_Platform_File
 
+#include <QFileInfo>
+#include <QSharedPointer>
 #include "Platform/Buffer.h"
-#include "Platform/FilePath.h"
 
 namespace GostCrypt
 {
 namespace Volume
 {
+    struct FileType
+    {
+        enum Enum
+        {
+            Unknown,
+            File,
+            SymbolickLink,
+            BlockDevice,
+            CharacterDevice
+        };
+    };
+
+
     class VolumeFile
 	{
 	public:
@@ -26,10 +40,9 @@ namespace Volume
 			
 		void Close ();
         quint32 GetDeviceSectorSize () const;
-        quint64 GetPartitionDeviceStartOffset () const;
-		FilePath GetPath () const;
+        QSharedPointer<QFileInfo> GetPath () const;
         quint64 Length () const;
-        void Open (const FilePath &path, bool readOnly, bool preserveTimestamps);
+        void Open (const QSharedPointer<QFileInfo> path, bool readOnly, bool preserveTimestamps);
         quint64 Read (const BufferPtr &buffer) const;
         quint64 ReadAt (const BufferPtr &buffer, quint64 position) const;
         void SeekAt (quint64 position) const;
@@ -37,12 +50,15 @@ namespace Volume
 		void Write (const ConstBufferPtr &buffer) const;
 		void Write (const ConstBufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
         void WriteAt (const ConstBufferPtr &buffer, quint64 position) const;
+        FileType::Enum GetType () const;
+        bool IsTypeFile () const { return GetType() == FileType::File; }
+        bool isTypeDevice () const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }
 		
 	protected:
 
 		bool FileIsOpen;
         bool preserveTimestamps;
-		FilePath Path;
+        QSharedPointer<QFileInfo> Path;
         int FileHandle;
 
 		time_t AccTime;

@@ -16,7 +16,6 @@
 #include "VolumePassword.h"
 #include "VolumeLayout.h"
 #include "VolumeInformation.h"
-#include "VolumePath.h"
 #include "VolumeProtection.h"
 #include "VolumeFile.h"
 
@@ -37,7 +36,7 @@ namespace Volume {
 		quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
 		quint64 GetHostSize () const { return VolumeHostSize; }
 		QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
-        VolumePath GetPath () const { return volumeFile->GetPath(); }
+        QSharedPointer<QFileInfo> GetPath () const { return volumeFile->GetPath(); }
 		VolumeProtection::Enum GetProtectionType () const { return Protection; }
         QSharedPointer <VolumeHash> GetVolumeHash () const { return Header->GetVolumeHash(); }
 		quint32 GetSaltSize () const { return Header->GetSaltSize(); }
@@ -50,7 +49,7 @@ namespace Volume {
 		quint64 GetVolumeCreationTime () const { return Header->GetVolumeCreationTime(); }
 		bool IsHiddenVolumeProtectionTriggered () const { return HiddenVolumeProtectionTriggered; }
 		bool IsInSystemEncryptionScope () const { return SystemEncryption; }
-		void Open (const VolumePath &volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
+        void Open (const QSharedPointer<QFileInfo> volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
         void ReadSectors (const BufferPtr &buffer, quint64 byteOffset);
         void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		void WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset);

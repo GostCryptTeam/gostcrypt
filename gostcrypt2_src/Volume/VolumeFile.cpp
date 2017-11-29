@@ -33,7 +33,7 @@ void VolumeFile::Close ()
         close (FileHandle);
         FileIsOpen = false;
 
-        if ((preserveTimestamps) && Path.IsFile())
+        if ((preserveTimestamps) && IsTypeFile())
         {
             struct utimbuf u;
             u.actime = AccTime;
@@ -41,7 +41,7 @@ void VolumeFile::Close ()
 
             try
             {
-                if (utime (std::string (Path).c_str(), &u) == -1) // should be in a dedicated method of File.
+                if (utime (Path->absoluteFilePath().toLocal8Bit().data(), &u) == -1) // should be in a dedicated method of File.
                     throw;
             }
             catch (...) // Suppress errors to allow using read-only files
@@ -56,7 +56,7 @@ void VolumeFile::Close ()
 
     quint32 VolumeFile::GetDeviceSectorSize () const
 	{
-		if (Path.IsDevice())
+        if (isTypeDevice())
 		{
 			int blockSize;
             if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
@@ -65,21 +65,6 @@ void VolumeFile::Close ()
 		}
 		else
             throw; // (SRC_POS);
-	}
-
-    quint64 VolumeFile::GetPartitionDeviceStartOffset () const
-	{
-		// HDIO_GETGEO ioctl is limited by the size of long
-        DevicePath devicePath = DevicePath(Path);
-        QFile file("/sys/block/" + devicePath.ToHostDriveOfPartition().GetBaseName() + "/" + devicePath.GetBaseName() + "/start");
-
-        if(!file.open(QFile::ReadOnly))
-            throw;// FailedOpenFileException(QFileInfo(""));
-        QByteArray fileContent = file.readAll();
-        QTextStream ts(&fileContent);
-        quint64 startSectorOffset = ts.readLine().toULongLong();
-
-        return startSectorOffset * GetDeviceSectorSize();
 	}
 
     quint64 VolumeFile::Length () const
@@ -95,7 +80,7 @@ void VolumeFile::Close ()
 		return length;
 	}
 
-    void VolumeFile::Open (const FilePath &path, bool readOnly, bool preserveTimestamps)
+    void VolumeFile::Open (const QSharedPointer<QFileInfo> path, bool readOnly, bool preserveTimestamps)
 	{
 		int sysFlags = O_LARGEFILE;
 
@@ -108,13 +93,13 @@ void VolumeFile::Close ()
         if (preserveTimestamps)
 		{
 			struct stat statData;
-            if (stat (std::string (path).c_str(), &statData) == -1)
+            if (stat (path->absoluteFilePath().toLocal8Bit().data(), &statData) == -1)
                 throw;
 			AccTime = statData.st_atime;
 			ModTime = statData.st_mtime;
 		}
 
-        FileHandle = open (std::string (path).c_str(), sysFlags, S_IRUSR | S_IWUSR);
+        FileHandle = open (path->absoluteFilePath().toLocal8Bit().data(), sysFlags, S_IRUSR | S_IWUSR);
         if (FileHandle == -1)
             throw;
 
@@ -178,7 +163,21 @@ void VolumeFile::Close ()
 
         if(pwrite (FileHandle, buffer, buffer.Size(), position) != (ssize_t) buffer.Size())
             throw; //TODO
-	}
+    }
+
+    FileType::Enum VolumeFile::GetType() const
+    {
+        struct stat statData;
+        if (stat (Path->absoluteFilePath().toLocal8Bit().data(), &statData) != 0)
+            throw;
+
+        if (S_ISREG (statData.st_mode)) return FileType::File;
+        if (S_ISCHR (statData.st_mode)) return FileType::CharacterDevice;
+        if (S_ISBLK (statData.st_mode)) return FileType::BlockDevice;
+        if (S_ISLNK (statData.st_mode)) return FileType::SymbolickLink;
+
+        return FileType::Unknown;
+    }
 
     VolumeFile::~VolumeFile ()
     {
@@ -191,7 +190,7 @@ void VolumeFile::Close ()
     }
 
 
-    FilePath VolumeFile::GetPath () const
+    QSharedPointer<QFileInfo> VolumeFile::GetPath () const
     {
         return Path;
     }

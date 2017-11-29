@@ -63,7 +63,7 @@ namespace Volume {
 		return EA->GetMode();
 	}
 
-    void Volume::Open (const VolumePath &volumePath,
+    void Volume::Open (const QSharedPointer<QFileInfo> volumePath,
                     bool preserveTimestamps,
                     QSharedPointer <VolumePassword> password,
                     QSharedPointer <KeyfileList> keyfiles,
@@ -288,7 +288,7 @@ namespace Volume {
 		vi->protection = this->Protection;
 		vi->size = this->GetSize();
 		vi->type = this->Type;
-        vi->volumePath.reset(new QFileInfo( QString::fromStdWString(std::wstring(this->volumeFile->GetPath()))));
+        vi->volumePath = this->volumeFile->GetPath();
 
                 return vi;
 	}

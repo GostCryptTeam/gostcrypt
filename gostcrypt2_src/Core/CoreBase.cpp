@@ -164,7 +164,7 @@ namespace GostCrypt {
 						continue;
 					if(mountedVol.isNull())
 						continue;
-					if(mountedVol->volumePath.isNull())
+                                        if(mountedVol->volumePath)
 						continue;
 				}
 				catch (...)
