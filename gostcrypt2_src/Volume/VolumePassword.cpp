@@ -49,12 +49,6 @@ namespace Volume {
 			PasswordBuffer.Allocate (MaxSize);
 	}
 
-	void VolumePassword::CheckPortability () const
-	{
-		if (Unportable || !IsPortable())
-            throw;// UnportablePassword (SRC_POS);
-	}
-
 	bool VolumePassword::IsPortable () const
 	{
 		for (size_t i = 0; i < PasswordSize; i++)
