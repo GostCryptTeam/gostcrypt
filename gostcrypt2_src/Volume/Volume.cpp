@@ -57,12 +57,6 @@ namespace Volume {
 		return EA;
 	}
 
-	QSharedPointer <EncryptionMode> Volume::GetEncryptionMode () const
-	{
-        //if_debug (ValidateState ());
-		return EA->GetMode();
-	}
-
     void Volume::Open (const QSharedPointer<QFileInfo> volumePath,
                     bool preserveTimestamps,
                     QSharedPointer <VolumePassword> password,
