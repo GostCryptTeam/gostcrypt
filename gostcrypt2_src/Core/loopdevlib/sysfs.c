@@ -25,19 +25,6 @@ char *sysfs_devno_attribute_path(dev_t devno, char *buf,
 
 	return (len < 0 || (size_t) len + 1 > bufsiz) ? NULL : buf;
 }
-
-int sysfs_devno_has_attribute(dev_t devno, const char *attr)
-{
-	char path[PATH_MAX];
-	struct stat info;
-
-	if (!sysfs_devno_attribute_path(devno, path, sizeof(path), attr))
-		return 0;
-	if (stat(path, &info) == 0)
-		return 1;
-	return 0;
-}
-
 char *sysfs_devno_path(dev_t devno, char *buf, size_t bufsiz)
 {
 	return sysfs_devno_attribute_path(devno, buf, bufsiz, NULL);
@@ -97,45 +84,6 @@ dev_t sysfs_devname_to_devno(const char *name, const char *parent)
 		fclose(f);
 	}
 	return dev;
-}
-
-/*
- * Returns devname (e.g. "/dev/sda1") for the given devno.
- *
- * Note that the @buf has to be large enough to store /sys/dev/block/<maj:min>
- * symlinks.
- *
- * Please, use more robust blkid_devno_to_devname() in your applications.
- */
-char *sysfs_devno_to_devpath(dev_t devno, char *buf, size_t bufsiz)
-{
-	struct sysfs_cxt cxt;
-	char *name;
-	size_t sz;
-	struct stat st;
-
-	if (sysfs_init(&cxt, devno, NULL))
-		return NULL;
-
-	name = sysfs_get_devname(&cxt, buf, bufsiz);
-	sysfs_deinit(&cxt);
-
-	if (!name)
-		return NULL;
-
-	sz = strlen(name);
-
-	if (sz + sizeof("/dev/") > bufsiz)
-		return NULL;
-
-	/* create the final "/dev/<name>" string */
-	memmove(buf + 5, name, sz + 1);
-	memcpy(buf, "/dev/", 5);
-
-	if (!stat(buf, &st) && S_ISBLK(st.st_mode) && st.st_rdev == devno)
-		return buf;
-
-	return NULL;
 }
 
 int sysfs_init(struct sysfs_cxt *cxt, dev_t devno, struct sysfs_cxt *parent)
@@ -323,47 +271,6 @@ int sysfs_is_partition_dirent(DIR *dir, struct dirent *d, const char *parent_nam
 	return faccessat(dirfd(dir), path, R_OK, 0) == 0;
 }
 
-/*
- * Converts @partno (partition number) to devno of the partition.
- * The @cxt handles wholedisk device.
- *
- * Note that this code does not expect any special format of the
- * partitions devnames.
- */
-dev_t sysfs_partno_to_devno(struct sysfs_cxt *cxt, int partno)
-{
-	DIR *dir;
-	struct dirent *d;
-	char path[266];
-	dev_t devno = 0;
-
-	dir = sysfs_opendir(cxt, NULL);
-	if (!dir)
-		return 0;
-
-	while ((d = xreaddir(dir))) {
-		int n, maj, min;
-
-		if (!sysfs_is_partition_dirent(dir, d, NULL))
-			continue;
-
-		snprintf(path, sizeof(path), "%s/partition", d->d_name);
-		if (sysfs_read_int(cxt, path, &n))
-			continue;
-
-		if (n == partno) {
-			snprintf(path, sizeof(path), "%s/dev", d->d_name);
-			if (sysfs_scanf(cxt, path, "%d:%d", &maj, &min) == 2)
-				devno = makedev(maj, min);
-			break;
-		}
-	}
-
-	closedir(dir);
-	return devno;
-}
-
-
 int sysfs_scanf(struct sysfs_cxt *cxt,  const char *attr, const char *fmt, ...)
 {
 	FILE *f = sysfs_fopen(cxt, attr);
@@ -378,19 +285,6 @@ int sysfs_scanf(struct sysfs_cxt *cxt,  const char *attr, const char *fmt, ...)
 
 	fclose(f);
 	return rc;
-}
-
-
-int sysfs_read_s64(struct sysfs_cxt *cxt, const char *attr, int64_t *res)
-{
-	int64_t x = 0;
-
-	if (sysfs_scanf(cxt, attr, "%"SCNd64, &x) == 1) {
-		if (res)
-			*res = x;
-		return 0;
-	}
-	return -1;
 }
 
 int sysfs_read_u64(struct sysfs_cxt *cxt, const char *attr, uint64_t *res)
@@ -423,39 +317,6 @@ char *sysfs_strdup(struct sysfs_cxt *cxt, const char *attr)
 	return sysfs_scanf(cxt, attr, "%1023[^\n]", buf) == 1 ?
 						strdup(buf) : NULL;
 }
-
-int sysfs_count_dirents(struct sysfs_cxt *cxt, const char *attr)
-{
-	DIR *dir;
-	int r = 0;
-
-	if (!(dir = sysfs_opendir(cxt, attr)))
-		return 0;
-
-	while (xreaddir(dir)) r++;
-
-	closedir(dir);
-	return r;
-}
-
-int sysfs_count_partitions(struct sysfs_cxt *cxt, const char *devname)
-{
-	DIR *dir;
-	struct dirent *d;
-	int r = 0;
-
-	if (!(dir = sysfs_opendir(cxt, NULL)))
-		return 0;
-
-	while ((d = xreaddir(dir))) {
-		if (sysfs_is_partition_dirent(dir, d, devname))
-			r++;
-	}
-
-	closedir(dir);
-	return r;
-}
-
 /*
  * Returns slave name if there is only one slave, otherwise returns NULL.
  * The result should be deallocated by free().
@@ -509,136 +370,6 @@ char *sysfs_get_devname(struct sysfs_cxt *cxt, char *buf, size_t bufsiz)
 	return buf;
 }
 
-/* returns basename and keeps dirname in the @path */
-static char *stripoff_last_component(char *path)
-{
-    char *p = strrchr(path, '/');
-
-    if (!p)
-        return NULL;
-    *p = '\0';
-    return ++p;
-}
-
-static int get_dm_wholedisk(struct sysfs_cxt *cxt, char *diskname,
-                size_t len, dev_t *diskdevno)
-{
-    int rc = 0;
-    char *name;
-
-    /* Note, sysfs_get_slave() returns the first slave only,
-     * if there is more slaves, then return NULL
-     */
-    name = sysfs_get_slave(cxt);
-    if (!name)
-        return -1;
-
-    if (diskname && len) {
-        strncpy(diskname, name, len);
-        diskname[len - 1] = '\0';
-    }
-
-    if (diskdevno) {
-        *diskdevno = sysfs_devname_to_devno(name, NULL);
-        if (!*diskdevno)
-            rc = -1;
-    }
-
-    free(name);
-    return rc;
-}
-
-int sysfs_devno_to_wholedisk(dev_t dev, char *diskname,
-            size_t len, dev_t *diskdevno)
-{
-    struct sysfs_cxt cxt;
-    int is_part = 0;
-
-    if (!dev || sysfs_init(&cxt, dev, NULL) != 0)
-        return -1;
-
-    is_part = sysfs_has_attribute(&cxt, "partition");
-    if (!is_part) {
-        /*
-         * Extra case for partitions mapped by device-mapper.
-         *
-         * All regualar partitions (added by BLKPG ioctl or kernel PT
-         * parser) have the /sys/.../partition file. The partitions
-         * mapped by DM don't have such file, but they have "part"
-         * prefix in DM UUID.
-         */
-        char *uuid = sysfs_strdup(&cxt, "dm/uuid");
-        char *tmp = uuid;
-        char *prefix = uuid ? strsep(&tmp, "-") : NULL;
-
-        if (prefix && strncasecmp(prefix, "part", 4) == 0)
-            is_part = 1;
-        free(uuid);
-
-        if (is_part &&
-            get_dm_wholedisk(&cxt, diskname, len, diskdevno) == 0)
-            /*
-             * partitioned device, mapped by DM
-             */
-            goto done;
-
-        is_part = 0;
-    }
-
-    if (!is_part) {
-        /*
-         * unpartitioned device
-         */
-        if (diskname && len) {
-            if (!sysfs_get_devname(&cxt, diskname, len))
-                goto err;
-        }
-        if (diskdevno)
-            *diskdevno = dev;
-
-    } else {
-        /*
-         * partitioned device
-         *  - readlink /sys/dev/block/8:1   = ../../block/sda/sda1
-         *  - dirname  ../../block/sda/sda1 = ../../block/sda
-         *  - basename ../../block/sda      = sda
-         */
-        char linkpath[PATH_MAX];
-        char *name;
-        int linklen;
-
-        linklen = sysfs_readlink(&cxt, NULL,
-                linkpath, sizeof(linkpath) - 1);
-        if (linklen < 0)
-            goto err;
-        linkpath[linklen] = '\0';
-
-        stripoff_last_component(linkpath);      /* dirname */
-        name = stripoff_last_component(linkpath);   /* basename */
-        if (!name)
-            goto err;
-
-        if (diskname && len) {
-            strncpy(diskname, name, len);
-            diskname[len - 1] = '\0';
-        }
-
-        if (diskdevno) {
-            *diskdevno = sysfs_devname_to_devno(name, NULL);
-            if (!*diskdevno)
-                goto err;
-        }
-    }
-
-done:
-    sysfs_deinit(&cxt);
-    return 0;
-err:
-    sysfs_deinit(&cxt);
-    return -1;
-}
-
-
 int sysfs_scsi_get_hctl(struct sysfs_cxt *cxt, int *h, int *c, int *t, int *l)
 {
 	char buf[PATH_MAX], *hctl;
@@ -674,106 +405,6 @@ done:
 	if (l)
 		*l = cxt->scsi_lun;
 	return 0;
-}
-
-
-static char *sysfs_scsi_host_attribute_path(struct sysfs_cxt *cxt,
-		const char *type, char *buf, size_t bufsz, const char *attr)
-{
-	int len;
-	int host;
-
-	if (sysfs_scsi_get_hctl(cxt, &host, NULL, NULL, NULL))
-		return NULL;
-
-	if (attr)
-		len = snprintf(buf, bufsz, _PATH_SYS_CLASS "/%s_host/host%d/%s",
-				type, host, attr);
-	else
-		len = snprintf(buf, bufsz, _PATH_SYS_CLASS "/%s_host/host%d",
-				type, host);
-
-	return (len < 0 || (size_t) len + 1 > bufsz) ? NULL : buf;
-}
-
-char *sysfs_scsi_host_strdup_attribute(struct sysfs_cxt *cxt,
-		const char *type, const char *attr)
-{
-	char buf[1024];
-	int rc;
-	FILE *f;
-
-	if (!attr || !type ||
-	    !sysfs_scsi_host_attribute_path(cxt, type, buf, sizeof(buf), attr))
-		return NULL;
-
-	if (!(f = fopen(buf, "r" UL_CLOEXECSTR)))
-                return NULL;
-
-	rc = fscanf(f, "%1023[^\n]", buf);
-	fclose(f);
-
-	return rc == 1 ? strdup(buf) : NULL;
-}
-
-int sysfs_scsi_host_is(struct sysfs_cxt *cxt, const char *type)
-{
-	char buf[PATH_MAX];
-	struct stat st;
-
-	if (!type || !sysfs_scsi_host_attribute_path(cxt, type,
-				buf, sizeof(buf), NULL))
-		return 0;
-
-	return stat(buf, &st) == 0 && S_ISDIR(st.st_mode);
-}
-
-static char *sysfs_scsi_attribute_path(struct sysfs_cxt *cxt,
-		char *buf, size_t bufsz, const char *attr)
-{
-	int len, h, c, t, l;
-
-	if (sysfs_scsi_get_hctl(cxt, &h, &c, &t, &l) != 0)
-		return NULL;
-
-	if (attr)
-		len = snprintf(buf, bufsz, _PATH_SYS_SCSI "/devices/%d:%d:%d:%d/%s",
-				h,c,t,l, attr);
-	else
-		len = snprintf(buf, bufsz, _PATH_SYS_SCSI "/devices/%d:%d:%d:%d",
-				h,c,t,l);
-	return (len < 0 || (size_t) len + 1 > bufsz) ? NULL : buf;
-}
-
-int sysfs_scsi_has_attribute(struct sysfs_cxt *cxt, const char *attr)
-{
-	char path[PATH_MAX];
-	struct stat st;
-
-	if (!sysfs_scsi_attribute_path(cxt, path, sizeof(path), attr))
-		return 0;
-
-	return stat(path, &st) == 0;
-}
-
-int sysfs_scsi_path_contains(struct sysfs_cxt *cxt, const char *pattern)
-{
-	char path[PATH_MAX], linkc[PATH_MAX];
-	struct stat st;
-	ssize_t len;
-
-	if (!sysfs_scsi_attribute_path(cxt, path, sizeof(path), NULL))
-		return 0;
-
-	if (stat(path, &st) != 0)
-		return 0;
-
-	len = readlink(path, linkc, sizeof(linkc) - 1);
-	if (len < 0)
-		return 0;
-
-	linkc[len] = '\0';
-	return strstr(linkc, pattern) != NULL;
 }
 
 #ifdef TEST_PROGRAM_SYSFS
