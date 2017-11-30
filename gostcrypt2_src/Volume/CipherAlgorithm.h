@@ -56,7 +56,6 @@ namespace Volume {
 		SecureBuffer Key;
 		SecureBuffer ScheduledKey;
 		SecureBuffer SwapScheduledKey;
-		bool KeySwapped;
 
 	private:
         CipherAlgorithm (const CipherAlgorithm &);

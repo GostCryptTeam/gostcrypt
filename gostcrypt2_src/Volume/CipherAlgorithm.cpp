@@ -66,7 +66,6 @@ namespace Volume {
 		SetCipherKey (key);
 		Key.CopyFrom (key);
 		Initialized = true;
-		KeySwapped = false;
 	}
 
     bool CipherAlgorithm::HwSupportEnabled = false;
