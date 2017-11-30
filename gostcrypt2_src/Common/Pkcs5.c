@@ -434,30 +434,3 @@ void derive_key_whirlpool (char *pwd, int pwd_len, char *salt, int salt_len, int
 	/* Prevent possible leaks. */
 	burn (u, sizeof(u));
 }
-
-
-char *get_pkcs5_prf_name (int pkcs5_prf_id)
-{
-	switch (pkcs5_prf_id)
-	{
-	case WHIRLPOOL:
-		return "HMAC-Whirlpool";
-
-	default:
-		return "(Unknown)";
-	}
-}
-
-int get_pkcs5_iteration_count (int pkcs5_prf_id, BOOL bBoot)
-{
-	(void)bBoot;
-	switch (pkcs5_prf_id)
-	{
-	case WHIRLPOOL:
-		return 1000;
-
-	default:
-		GST_THROW_FATAL_EXCEPTION;	// Unknown/wrong ID
-	}
-	return 0;
-}
