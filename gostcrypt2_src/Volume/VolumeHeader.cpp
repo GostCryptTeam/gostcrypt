@@ -337,11 +337,5 @@ namespace Volume {
 
 		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
 	}
-
-	void VolumeHeader::SetSize (quint32 headerSize)
-	{
-		HeaderSize = headerSize;
-		EncryptedHeaderDataSize = HeaderSize - EncryptedHeaderDataOffset;
-	}
 }
 }
