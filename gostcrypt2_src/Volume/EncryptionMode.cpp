@@ -33,26 +33,10 @@ namespace Volume {
 		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::EncryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
 	}
 
-	EncryptionModeList EncryptionMode::GetAvailableModes ()
-	{
-		EncryptionModeList l;
-
-		l.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-		return l;
-	}
-
 	void EncryptionMode::ValidateState () const
 	{
 		if (!KeySet || Ciphers.size() < 1)
             throw;// NotInitialized (SRC_POS);
-	}
-
-	void EncryptionMode::ValidateParameters (quint8 *data, quint64 length) const
-	{
-        (void)data;
-        if ((Ciphers.size() > 0 && (length % Ciphers.front()->GetBlockSize()) != 0))
-            throw;// ParameterIncorrect (SRC_POS);
 	}
 
 	void EncryptionMode::ValidateParameters (quint8 *data, quint64 sectorCount, size_t sectorSize) const
