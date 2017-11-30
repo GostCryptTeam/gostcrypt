@@ -18,8 +18,6 @@ namespace Volume {
 
 	class EncryptionTest
 	{
-	public:
-		static void TestAll ();
 	protected:
 		static void TestCiphers ();
 		static void TestPkcs5 ();

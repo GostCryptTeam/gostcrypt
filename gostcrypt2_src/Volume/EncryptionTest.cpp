@@ -26,13 +26,6 @@ namespace GostCrypt
 {
 namespace Volume {
 
-    void EncryptionTest::TestAll ()
-	{
-		TestCiphers();
-		TestXts();
-		TestPkcs5();
-	}
-
 	struct CipherTestVector
 	{
 		quint8 Key[32];
