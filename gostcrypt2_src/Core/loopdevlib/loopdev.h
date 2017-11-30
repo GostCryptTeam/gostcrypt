@@ -67,17 +67,17 @@ struct loop_info64 {
 #define LOOPDEV_DEFAULT_NNODES	8	/* default number of loop devices */
 
 struct loopdev_iter {
-	FILE		*proc;		/* /proc/partitions */
-	DIR		*sysblock;	/* /sys/block */
-	int		ncur;		/* current position */
-	int		*minors;	/* ary of minor numbers (when scan whole /dev) */
-	int		nminors;	/* number of items in *minors */
-	int		ct_perm;	/* count permission problems */
-	int		ct_succ;	/* count number of detected devices */
+    FILE		*proc;		/* /proc/partitions */
+    DIR		*sysblock;	/* /sys/block */
+    int		ncur;		/* current position */
+    int		*minors;	/* ary of minor numbers (when scan whole /dev) */
+    int		nminors;	/* number of items in *minors */
+    int		ct_perm;	/* count permission problems */
+    int		ct_succ;	/* count number of detected devices */
 
-	unsigned int	done:1;		/* scanning done */
-	unsigned int	default_check:1;/* check first LOOPDEV_NLOOPS */
-	int		flags;		/* LOOPITER_FL_* flags */
+    unsigned int	done:1;		/* scanning done */
+    unsigned int	default_check:1;/* check first LOOPDEV_NLOOPS */
+    int		flags;		/* LOOPITER_FL_* flags */
 };
 
 enum {
