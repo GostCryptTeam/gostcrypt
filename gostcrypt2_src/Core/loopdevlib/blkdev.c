@@ -40,12 +40,6 @@ blkdev_valid_offset (int fd, off_t offset) {
 	return 1;
 }
 
-int is_blkdev(int fd)
-{
-	struct stat st;
-	return (fstat(fd, &st) == 0 && S_ISBLK(st.st_mode));
-}
-
 off_t
 blkdev_find_size (int fd) {
 	uintmax_t high, low = 0;
@@ -232,82 +226,6 @@ int blkdev_get_physector_size(int fd, int *sector_size)
 	*sector_size = DEFAULT_SECTOR_SIZE;
 	return 0;
 #endif
-}
-
-/*
- * Return the alignment status of a device
- */
-int blkdev_is_misaligned(int fd)
-{
-#ifdef BLKALIGNOFF
-	int aligned;
-
-	if (ioctl(fd, BLKALIGNOFF, &aligned) < 0)
-		return 0;			/* probably kernel < 2.6.32 */
-	/*
-	 * Note that kernel returns -1 as alignement offset if no compatible
-	 * sizes and alignments exist for stacked devices
-	 */
-	return aligned != 0 ? 1 : 0;
-#else
-	return 0;
-#endif
-}
-
-int blkdev_is_cdrom(int fd)
-{
-#ifdef CDROM_GET_CAPABILITY
-	int ret;
-
-	if ((ret = ioctl(fd, CDROM_GET_CAPABILITY, NULL)) < 0)
-		return 0;
-	else
-		return ret;
-#else
-	return 0;
-#endif
-}
-
-/*
- * Convert scsi type to human readable string.
- */
-const char *blkdev_scsi_type_to_name(int type)
-{
-	switch (type) {
-	case SCSI_TYPE_DISK:
-		return "disk";
-	case SCSI_TYPE_TAPE:
-		return "tape";
-	case SCSI_TYPE_PRINTER:
-		return "printer";
-	case SCSI_TYPE_PROCESSOR:
-		return "processor";
-	case SCSI_TYPE_WORM:
-		return "worm";
-	case SCSI_TYPE_ROM:
-		return "rom";
-	case SCSI_TYPE_SCANNER:
-		return "scanner";
-	case SCSI_TYPE_MOD:
-		return "mo-disk";
-	case SCSI_TYPE_MEDIUM_CHANGER:
-		return "changer";
-	case SCSI_TYPE_COMM:
-		return "comm";
-	case SCSI_TYPE_RAID:
-		return "raid";
-	case SCSI_TYPE_ENCLOSURE:
-		return "enclosure";
-	case SCSI_TYPE_RBC:
-		return "rbc";
-	case SCSI_TYPE_OSD:
-		return "osd";
-	case SCSI_TYPE_NO_LUN:
-		return "no-lun";
-	default:
-		break;
-	}
-	return NULL;
 }
 
 #ifdef TEST_PROGRAM_BLKDEV
