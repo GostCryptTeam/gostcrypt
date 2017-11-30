@@ -58,7 +58,6 @@ HEADERS += \
     VolumeFile.h \
     ../Common/Crc.h \
     ../Common/Crypto.h \
-    ../Common/Endian.h \
     ../Common/GfMul.h \
     ../Common/Gstdefs.h \
     ../Common/Pkcs5.h \
@@ -95,7 +94,6 @@ SOURCES += \
     VolumeLayoutV2Hidden.cpp \
     VolumeFile.cpp \
     ../Common/Crc.c \
-    ../Common/Endian.c \
     ../Common/GfMul.c \
     ../Common/Pkcs5.c \
     ../Crypto/GostCipher.c \

@@ -32,7 +32,6 @@
 #include <stdlib.h>
 #include "GfMul.h"
 #include "Gstdefs.h"
-#include "Common/Endian.h"
 #include <QtGlobal>
 
 /* BUFFER_ALIGN32 or BUFFER_ALIGN64 must be defined at this point to    */
