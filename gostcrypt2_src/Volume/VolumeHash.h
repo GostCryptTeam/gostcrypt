@@ -37,8 +37,6 @@ namespace Volume {
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }
 		virtual void ProcessData (const ConstBufferPtr &data) = 0;
-		virtual void ValidateDataParameters (const ConstBufferPtr &data) const;
-		virtual void ValidateDigestParameters (const BufferPtr &buffer) const;
 
         // derivation functions
         virtual int GetIterationCount () const = 0;

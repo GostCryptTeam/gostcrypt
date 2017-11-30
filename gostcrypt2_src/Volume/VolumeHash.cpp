@@ -27,18 +27,6 @@ namespace Volume {
 		return l;
 	}
 
-	void VolumeHash::ValidateDataParameters (const ConstBufferPtr &data) const
-	{
-		if (data.Size() < 1)
-            throw;// ParameterIncorrect (SRC_POS);
-	}
-
-	void VolumeHash::ValidateDigestParameters (const BufferPtr &buffer) const
-	{
-		if (buffer.Size() != GetDigestSize ())
-            throw;// ParameterIncorrect (SRC_POS);
-	}
-
     void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount)
     {
         if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
