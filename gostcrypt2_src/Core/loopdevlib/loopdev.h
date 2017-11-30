@@ -128,17 +128,7 @@ enum {
 extern int loopmod_supports_partscan(void);
 
 extern int is_loopdev(const char *device);
-extern int loopdev_is_autoclear(const char *device);
-
-extern char *loopdev_get_backing_file(const char *device);
-extern int loopdev_is_used(const char *device, const char *filename,
-			   uint64_t offset, int flags);
-extern char *loopdev_find_by_backing_file(const char *filename,
-					  uint64_t offset, int flags);
 extern int loopcxt_find_unused(struct loopdev_cxt *lc);
-extern int loopdev_delete(const char *device);
-extern int loopdev_count_by_backing_file(const char *filename, char **loopdev);
-
 /*
  * Low-level
  */
@@ -149,15 +139,12 @@ extern void loopcxt_enable_debug(struct loopdev_cxt *lc, int enable);
 
 extern int loopcxt_set_device(struct loopdev_cxt *lc, const char *device)
 				__attribute__ ((warn_unused_result));
-extern int loopcxt_has_device(struct loopdev_cxt *lc);
-extern int loopcxt_add_device(struct loopdev_cxt *lc);
 extern char *loopcxt_strdup_device(struct loopdev_cxt *lc);
 extern const char *loopcxt_get_device(struct loopdev_cxt *lc);
 extern struct sysfs_cxt *loopcxt_get_sysfs(struct loopdev_cxt *lc);
 extern struct loop_info64 *loopcxt_get_info(struct loopdev_cxt *lc);
 
 extern int loopcxt_get_fd(struct loopdev_cxt *lc);
-extern int loopcxt_set_fd(struct loopdev_cxt *lc, int fd, int mode);
 
 extern int loopcxt_init_iterator(struct loopdev_cxt *lc, int flags);
 extern int loopcxt_deinit_iterator(struct loopdev_cxt *lc);
@@ -167,8 +154,6 @@ extern int loopcxt_setup_device(struct loopdev_cxt *lc);
 extern int loopcxt_delete_device(struct loopdev_cxt *lc);
 extern int loopcxt_set_capacity(struct loopdev_cxt *lc);
 
-int loopcxt_set_offset(struct loopdev_cxt *lc, uint64_t offset);
-int loopcxt_set_sizelimit(struct loopdev_cxt *lc, uint64_t sizelimit);
 int loopcxt_set_flags(struct loopdev_cxt *lc, uint32_t flags);
 int loopcxt_set_backing_file(struct loopdev_cxt *lc, const char *filename);
 
@@ -176,12 +161,7 @@ extern char *loopcxt_get_backing_file(struct loopdev_cxt *lc);
 extern int loopcxt_get_backing_devno(struct loopdev_cxt *lc, dev_t *devno);
 extern int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino);
 extern int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset);
-extern int loopcxt_get_sizelimit(struct loopdev_cxt *lc, uint64_t *size);
-extern int loopcxt_get_encrypt_type(struct loopdev_cxt *lc, uint32_t *type);
-extern const char *loopcxt_get_crypt_name(struct loopdev_cxt *lc);
 extern int loopcxt_is_autoclear(struct loopdev_cxt *lc);
-extern int loopcxt_is_readonly(struct loopdev_cxt *lc);
-extern int loopcxt_is_partscan(struct loopdev_cxt *lc);
 extern int loopcxt_find_by_backing_file(struct loopdev_cxt *lc,
 				const char *filename,
                                 uint64_t offset, int flags);

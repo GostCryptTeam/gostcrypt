@@ -127,11 +127,6 @@ int loopcxt_set_device(struct loopdev_cxt *lc, const char *device)
 	return 0;
 }
 
-int loopcxt_has_device(struct loopdev_cxt *lc)
-{
-	return lc && *lc->device;
-}
-
 /*
  * @lc: context
  * @flags: LOOPDEV_FL_* flags
@@ -297,15 +292,6 @@ int loopcxt_get_fd(struct loopdev_cxt *lc)
 	return lc->fd;
 }
 
-int loopcxt_set_fd(struct loopdev_cxt *lc, int fd, int mode)
-{
-	if (!lc)
-		return -EINVAL;
-
-	lc->fd = fd;
-	lc->mode = mode;
-	return 0;
-}
 
 /*
  * @lc: context
@@ -736,74 +722,6 @@ int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset)
 
 /*
  * @lc: context
- * @sizelimit: returns size limit for the given device
- *
- * Returns: <0 on error, 0 on success
- */
-int loopcxt_get_sizelimit(struct loopdev_cxt *lc, uint64_t *size)
-{
-	struct sysfs_cxt *sysfs = loopcxt_get_sysfs(lc);
-	int rc = -EINVAL;
-
-	if (sysfs)
-		rc = sysfs_read_u64(sysfs, "loop/sizelimit", size);
-
-	if (rc && loopcxt_ioctl_enabled(lc)) {
-		struct loop_info64 *lo = loopcxt_get_info(lc);
-		if (lo) {
-			if (size)
-				*size = lo->lo_sizelimit;
-			rc = 0;
-		}
-	}
-
-	DBG(lc, loopdev_debug("get_sizelimit [rc=%d]", rc));
-	return rc;
-}
-
-/*
- * @lc: context
- * @devno: returns encryption type
- *
- * Cryptoloop is DEPRECATED!
- *
- * Returns: <0 on error, 0 on success
- */
-int loopcxt_get_encrypt_type(struct loopdev_cxt *lc, uint32_t *type)
-{
-	struct loop_info64 *lo = loopcxt_get_info(lc);
-	int rc = -EINVAL;
-
-	if (lo) {
-		if (type)
-			*type = lo->lo_encrypt_type;
-		rc = 0;
-	}
-	DBG(lc, loopdev_debug("get_encrypt_type [rc=%d]", rc));
-	return rc;
-}
-
-/*
- * @lc: context
- * @devno: returns crypt name
- *
- * Cryptoloop is DEPRECATED!
- *
- * Returns: <0 on error, 0 on success
- */
-const char *loopcxt_get_crypt_name(struct loopdev_cxt *lc)
-{
-	struct loop_info64 *lo = loopcxt_get_info(lc);
-
-	if (lo)
-		return (char *) lo->lo_crypt_name;
-
-	DBG(lc, loopdev_debug("get_crypt_name failed"));
-	return NULL;
-}
-
-/*
- * @lc: context
  * @devno: returns backing file devno
  *
  * Returns: <0 on error, 0 on success
@@ -878,27 +796,6 @@ int loopmod_supports_partscan(void)
 /*
  * @lc: context
  *
- * Returns: 1 if the partscan flags is set *or* (for old kernels) partitions
- * scannig is enabled for all loop devices.
- */
-int loopcxt_is_partscan(struct loopdev_cxt *lc)
-{
-	struct sysfs_cxt *sysfs = loopcxt_get_sysfs(lc);
-
-	if (sysfs) {
-		/* kernel >= 3.2 */
-		int fl;
-		if (sysfs_read_int(sysfs, "loop/partscan", &fl) == 0)
-			return fl;
-	}
-
-	/* old kernels (including kernels without loopN/loop/<flags> directory */
-	return loopmod_supports_partscan();
-}
-
-/*
- * @lc: context
- *
  * Returns: 1 if the autoclear flags is set.
  */
 int loopcxt_is_autoclear(struct loopdev_cxt *lc)
@@ -915,29 +812,6 @@ int loopcxt_is_autoclear(struct loopdev_cxt *lc)
 		struct loop_info64 *lo = loopcxt_get_info(lc);
 		if (lo)
 			return lo->lo_flags & LO_FLAGS_AUTOCLEAR;
-	}
-	return 0;
-}
-
-/*
- * @lc: context
- *
- * Returns: 1 if the readonly flags is set.
- */
-int loopcxt_is_readonly(struct loopdev_cxt *lc)
-{
-	struct sysfs_cxt *sysfs = loopcxt_get_sysfs(lc);
-
-	if (sysfs) {
-		int fl;
-		if (sysfs_read_int(sysfs, "ro", &fl) == 0)
-			return fl;
-	}
-
-	if (loopcxt_ioctl_enabled(lc)) {
-		struct loop_info64 *lo = loopcxt_get_info(lc);
-		if (lo)
-			return lo->lo_flags & LO_FLAGS_READ_ONLY;
 	}
 	return 0;
 }
@@ -1001,32 +875,6 @@ found:
 		return loopcxt_get_offset(lc, &off) == 0 && off == offset;
 	}
 	return 1;
-}
-
-/*
- * The setting is removed by loopcxt_set_device() loopcxt_next()!
- */
-int loopcxt_set_offset(struct loopdev_cxt *lc, uint64_t offset)
-{
-	if (!lc)
-		return -EINVAL;
-	lc->info.lo_offset = offset;
-
-	DBG(lc, loopdev_debug("set offset=%jd", offset));
-	return 0;
-}
-
-/*
- * The setting is removed by loopcxt_set_device() loopcxt_next()!
- */
-int loopcxt_set_sizelimit(struct loopdev_cxt *lc, uint64_t sizelimit)
-{
-	if (!lc)
-		return -EINVAL;
-	lc->info.lo_sizelimit = sizelimit;
-
-	DBG(lc, loopdev_debug("set sizelimit=%jd", sizelimit));
-	return 0;
 }
 
 /*
@@ -1313,38 +1161,6 @@ int loopcxt_delete_device(struct loopdev_cxt *lc)
 	DBG(lc, loopdev_debug("device removed"));
 	return 0;
 }
-
-int loopcxt_add_device(struct loopdev_cxt *lc)
-{
-	int rc = -EINVAL;
-	int ctl, nr = -1;
-	const char *p, *dev = loopcxt_get_device(lc);
-
-	if (!dev)
-		goto done;
-
-	if (!(lc->flags & LOOPDEV_FL_CONTROL)) {
-		rc = -ENOSYS;
-		goto done;
-	}
-
-	p = strrchr(dev, '/');
-	if (!p || (sscanf(p, "/loop%d", &nr) != 1 && sscanf(p, "/%d", &nr) != 1)
-	       || nr < 0)
-		goto done;
-
-	ctl = open(_PATH_DEV_LOOPCTL, O_RDWR|O_CLOEXEC);
-	if (ctl >= 0) {
-		DBG(lc, loopdev_debug("add_device %d", nr));
-		rc = ioctl(ctl, LOOP_CTL_ADD, nr);
-		close(ctl);
-	}
-	lc->control_ok = rc >= 0 ? 1 : 0;
-done:
-	DBG(lc, loopdev_debug("add_device done [rc=%d]", rc));
-	return rc;
-}
-
 /*
  * Note that LOOP_CTL_GET_FREE ioctl is supported since kernel 3.1. In older
  * kernels we have to check all loop devices to found unused one.
@@ -1386,88 +1202,6 @@ int loopcxt_find_unused(struct loopdev_cxt *lc)
 	return rc;
 }
 
-
-
-/*
- * Return: TRUE/FALSE
- */
-int loopdev_is_autoclear(const char *device)
-{
-	struct loopdev_cxt lc;
-	int rc;
-
-	if (!device)
-		return 0;
-
-	rc = loopcxt_init(&lc, 0);
-	if (!rc)
-		rc = loopcxt_set_device(&lc, device);
-	if (!rc)
-		rc = loopcxt_is_autoclear(&lc);
-
-	loopcxt_deinit(&lc);
-	return rc;
-}
-
-char *loopdev_get_backing_file(const char *device)
-{
-	struct loopdev_cxt lc;
-	char *res = NULL;
-
-	if (!device)
-		return NULL;
-	if (loopcxt_init(&lc, 0))
-		return NULL;
-	if (loopcxt_set_device(&lc, device) == 0)
-		res = loopcxt_get_backing_file(&lc);
-
-	loopcxt_deinit(&lc);
-	return res;
-}
-
-/*
- * Returns: TRUE/FALSE
- */
-int loopdev_is_used(const char *device, const char *filename,
-		    uint64_t offset, int flags)
-{
-	struct loopdev_cxt lc;
-	struct stat st;
-	int rc = 0;
-
-	if (!device || !filename)
-		return 0;
-
-	rc = loopcxt_init(&lc, 0);
-	if (!rc)
-		rc = loopcxt_set_device(&lc, device);
-	if (rc)
-		return rc;
-
-	rc = !stat(filename, &st);
-	rc = loopcxt_is_used(&lc, rc ? &st : NULL, filename, offset, flags);
-
-	loopcxt_deinit(&lc);
-	return rc;
-}
-
-int loopdev_delete(const char *device)
-{
-	struct loopdev_cxt lc;
-	int rc;
-
-	if (!device)
-		return -EINVAL;
-
-	rc = loopcxt_init(&lc, 0);
-	if (!rc)
-		rc = loopcxt_set_device(&lc, device);
-	if (!rc)
-		rc = loopcxt_delete_device(&lc);
-	loopcxt_deinit(&lc);
-	return rc;
-}
-
 /*
  * Returns: 0 = success, < 0 error, 1 not found
  */
@@ -1495,68 +1229,6 @@ int loopcxt_find_by_backing_file(struct loopdev_cxt *lc, const char *filename,
 
 	loopcxt_deinit_iterator(lc);
 	return rc;
-}
-
-/*
- * Returns allocated string with device name
- */
-char *loopdev_find_by_backing_file(const char *filename, uint64_t offset, int flags)
-{
-	struct loopdev_cxt lc;
-	char *res = NULL;
-
-	if (!filename)
-		return NULL;
-
-	if (loopcxt_init(&lc, 0))
-		return NULL;
-	if (loopcxt_find_by_backing_file(&lc, filename, offset, flags) == 0)
-		res = loopcxt_strdup_device(&lc);
-	loopcxt_deinit(&lc);
-
-	return res;
-}
-
-/*
- * Returns number of loop devices associated with @file, if only one loop
- * device is associeted with the given @filename and @loopdev is not NULL then
- * @loopdev returns name of the device.
- */
-int loopdev_count_by_backing_file(const char *filename, char **loopdev)
-{
-	struct loopdev_cxt lc;
-	int count = 0, rc;
-
-	if (!filename)
-		return -1;
-
-	rc = loopcxt_init(&lc, 0);
-	if (rc)
-		return rc;
-	if (loopcxt_init_iterator(&lc, LOOPITER_FL_USED))
-		return -1;
-
-	while(loopcxt_next(&lc) == 0) {
-		char *backing = loopcxt_get_backing_file(&lc);
-
-		if (!backing || strcmp(backing, filename)) {
-			free(backing);
-			continue;
-		}
-
-		free(backing);
-		if (loopdev && count == 0)
-			*loopdev = loopcxt_strdup_device(&lc);
-		count++;
-	}
-
-	loopcxt_deinit(&lc);
-
-	if (loopdev && count > 1) {
-		free(*loopdev);
-		*loopdev = NULL;
-	}
-	return count;
 }
 
 
