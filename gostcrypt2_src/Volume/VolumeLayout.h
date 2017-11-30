@@ -38,7 +38,6 @@ namespace Volume {
 		virtual EncryptionModeList GetSupportedEncryptionModes () const { return SupportedEncryptionModes; }
 		virtual VolumeType::Enum GetType () const { return Type; }
 		virtual bool HasBackupHeader () const = 0;
-        virtual void SetHeader (QSharedPointer <VolumeHeader> header) { Header = header; }
 
 	protected:
 		VolumeLayout ();
