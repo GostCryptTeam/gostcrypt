@@ -112,14 +112,6 @@ enum
 };
 
 
-typedef struct
-{
-	int Ciphers[4];			// Null terminated array of ciphers used by encryption algorithm
-	int Modes[LAST_MODE_OF_OPERATION + 1];			// Null terminated array of modes of operation
-	int FormatEnabled;
-} EncryptionAlgorithm;
-
-
 #ifdef DEBUG
 #	define PRAND_DISK_WIPE_PASSES	3
 #else
