@@ -107,13 +107,7 @@ namespace GostCrypt
 			if (ReadOffset >= PoolSize)
 				ReadOffset = 0;
 		}
-	}
-
-	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
-	{
-        QMutexLocker lock (&AccessMutex);
-		return PoolHash;
-	}
+    }
 
 	void RandomNumberGenerator::HashMixPool ()
 	{
@@ -132,12 +126,6 @@ namespace GostCrypt
 				Pool[poolPos++] += digest[digestPos];
 			}
 		}
-	}
-
-	void RandomNumberGenerator::SetHash (QSharedPointer <Volume::VolumeHash> hash)
-	{
-        QMutexLocker lock (&AccessMutex);
-		PoolHash = hash;
 	}
 
 	void RandomNumberGenerator::Start ()
