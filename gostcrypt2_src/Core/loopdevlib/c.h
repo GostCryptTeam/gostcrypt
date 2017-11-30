@@ -192,12 +192,6 @@ errmsg(char doexit, int excode, char adderr, const char *fmt, ...)
 #endif
 #endif /* !HAVE_ERR_H */
 
-
-static inline __attribute__((const)) int is_power_of_2(unsigned long num)
-{
-	return (num != 0 && ((num & (num - 1)) == 0));
-}
-
 #ifndef HAVE_LOFF_T
 typedef int64_t loff_t;
 #endif
@@ -234,24 +228,6 @@ static inline int dirfd(DIR *d)
 #ifndef IUTF8
 #define IUTF8 0040000
 #endif
-
-/*
- * MAXHOSTNAMELEN replacement
- */
-static inline size_t get_hostname_max(void)
-{
-	long len = sysconf(_SC_HOST_NAME_MAX);
-
-	if (0 < len)
-		return len;
-
-#ifdef MAXHOSTNAMELEN
-	return MAXHOSTNAMELEN;
-#elif HOST_NAME_MAX
-	return HOST_NAME_MAX;
-#endif
-	return 64;
-}
 
 /*
  * The usleep function is marked obsolete in POSIX.1-2001 and removed in
