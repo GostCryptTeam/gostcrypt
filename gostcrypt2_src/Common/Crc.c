@@ -18,7 +18,6 @@
 
 #include "Gstdefs.h"
 #include "Crc.h"
-#include "Common/Endian.h"
 
 #ifndef GST_MINIMIZE_CODE_SIZE
 
@@ -71,38 +70,11 @@ unsigned __int32 GetCrc32 (unsigned char *data, int length)
 	return CRC ^ 0xffffffff;
 }
 
-unsigned __int32 crc32int (unsigned __int32 *data)
-{
-	unsigned char *d = (unsigned char *) data;
-	unsigned __int32 CRC = 0xffffffff;
-
-	CRC = (CRC >> 8) ^ crc_32_tab[ (CRC ^ *d++) & 0xFF ];
-	CRC = (CRC >> 8) ^ crc_32_tab[ (CRC ^ *d++) & 0xFF ];
-	CRC = (CRC >> 8) ^ crc_32_tab[ (CRC ^ *d++) & 0xFF ];
-	return (CRC >> 8) ^ crc_32_tab[ (CRC ^ *d) & 0xFF ] ^ 0xffffffff;
-}
-
 #if BYTE_ORDER == LITTLE_ENDIAN
 #	define CRC_SELFTEST 0x6fcf9e13
 #else
 #	define CRC_SELFTEST 0xca87914d
 #endif
-
-BOOL crc32_selftests (void)
-{
-	int i;
-	unsigned __int32 crc  = 0xffffffff;
-	BOOL bSuccess = FALSE;
-
-	for (i = 0; i < (int)sizeof(crc_32_tab); i++)
-		crc = UPDC32 (((unsigned char *) crc_32_tab)[i], crc);
-
-	bSuccess = CRC_SELFTEST == (crc ^ 0xffffffff);
-
-	bSuccess &= GetCrc32 ((unsigned char *)crc_32_tab, sizeof crc_32_tab) == CRC_SELFTEST;
-
-	return bSuccess;
-}
 
 #else // GST_MINIMIZE_CODE_SIZE
 
