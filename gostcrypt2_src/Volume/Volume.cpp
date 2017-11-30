@@ -20,11 +20,16 @@ namespace Volume {
 
 	Volume::Volume ()
 		: HiddenVolumeProtectionTriggered (false),
+        Protection(VolumeProtection::Enum::None),
+        SectorSize(0),
 		SystemEncryption (false),
+        Type (VolumeType::Enum::Unknown),
 		VolumeDataSize (0),
 		TopWriteOffset (0),
 		TotalDataRead (0),
-		TotalDataWritten (0)
+        TotalDataWritten (0)
+
+
 	{
 	}
 
