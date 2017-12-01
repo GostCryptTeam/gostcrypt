@@ -54,7 +54,7 @@ Item {
             id: modePassword
             width: (isFile === 1) ? 260 : parent.width
             height: 150
-            TextField {
+            UI.SecureTextField {
                 id: password_value
                 width: (isFile === 1) ? top.width*0.5 : top.width
                 horizontalAlignment: TextInput.AlignHCenter
@@ -63,20 +63,11 @@ Item {
                 height: 40
                 focus: true
                 Keys.onReleased: password[0] = password_value.text
-                style: TextFieldStyle {
-                    textColor: "#e1e1e1"
-                    background: Rectangle {
-                        id: password_value_style
-                        radius: 5
-                        implicitWidth: 100
-                        implicitHeight: 24
-                        border.color: "#333"
-                        border.width: 1
-                        color: palette.darkInput
-                    }
-                }
+                bordercolor: palette.darkInput
+                radius_: 3
             }
-            TextField {
+
+            UI.SecureTextField {
                 id: password_value2
                 anchors.top: password_value.bottom
                 anchors.topMargin: 10
@@ -86,19 +77,9 @@ Item {
                 echoMode: TextInput.Password
                 height: 40
                 focus: true
+                bordercolor: palette.darkInput
+                radius_: 3
                 Keys.onReleased: password[1] = password_value2.text
-                style: TextFieldStyle {
-                    textColor: "#e1e1e1"
-                    background: Rectangle {
-                        id: password_value_style2
-                        radius: 5
-                        implicitWidth: 100
-                        implicitHeight: 24
-                        border.color: "#333"
-                        border.width: 1
-                        color: palette.darkInput
-                    }
-                }
                 Keys.onReturnPressed: manageWizard(1)
                 Keys.onEnterPressed: manageWizard(1)
             }
