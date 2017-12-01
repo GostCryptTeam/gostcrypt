@@ -62,7 +62,6 @@ typedef struct
 typedef int  ret_type;
 
 
-void MirrorBits64 (unsigned __int8 *a);
 
 #if defined(__cplusplus)
 }

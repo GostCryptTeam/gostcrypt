@@ -128,22 +128,6 @@ void sysfs_deinit(struct sysfs_cxt *cxt)
 	cxt->dir_fd = -1;
 }
 
-int sysfs_stat(struct sysfs_cxt *cxt, const char *attr, struct stat *st)
-{
-	int rc = fstat_at(cxt->dir_fd, cxt->dir_path, attr, st, 0);
-
-	if (rc != 0 && errno == ENOENT &&
-	    strncmp(attr, "queue/", 6) == 0 && cxt->parent) {
-
-		/* Exception for "queue/<attr>". These attributes are available
-		 * for parental devices only
-		 */
-		return fstat_at(cxt->parent->dir_fd,
-				cxt->parent->dir_path, attr, st, 0);
-	}
-	return rc;
-}
-
 static int sysfs_open(struct sysfs_cxt *cxt, const char *attr)
 {
 	int fd = open_at(cxt->dir_fd, cxt->dir_path, attr, O_RDONLY|O_CLOEXEC);
@@ -159,48 +143,6 @@ static int sysfs_open(struct sysfs_cxt *cxt, const char *attr)
 	}
 	return fd;
 }
-
-ssize_t sysfs_readlink(struct sysfs_cxt *cxt, const char *attr,
-		   char *buf, size_t bufsiz)
-{
-	if (!cxt->dir_path)
-		return -1;
-
-	if (attr)
-		return readlink_at(cxt->dir_fd, cxt->dir_path, attr, buf, bufsiz);
-
-	/* read /sys/dev/block/<maj:min> link */
-	return readlink(cxt->dir_path, buf, bufsiz);
-}
-
-DIR *sysfs_opendir(struct sysfs_cxt *cxt, const char *attr)
-{
-	DIR *dir;
-	int fd = -1;
-
-	if (attr)
-		fd = sysfs_open(cxt, attr);
-
-	else if (cxt->dir_fd >= 0)
-		/* request to open root of device in sysfs (/sys/block/<dev>)
-		 * -- we cannot use cxt->sysfs_fd directly, because closedir()
-		 * will close this our persistent file descriptor.
-		 */
-		fd = dup(cxt->dir_fd);
-
-	if (fd < 0)
-		return NULL;
-
-	dir = fdopendir(fd);
-	if (!dir) {
-		close(fd);
-		return NULL;
-	}
-	if (!attr)
-		 rewinddir(dir);
-	return dir;
-}
-
 
 static FILE *sysfs_fopen(struct sysfs_cxt *cxt, const char *attr)
 {
@@ -230,18 +172,6 @@ int sysfs_read_u64(struct sysfs_cxt *cxt, const char *attr, uint64_t *res)
 	uint64_t x = 0;
 
 	if (sysfs_scanf(cxt, attr, "%"SCNu64, &x) == 1) {
-		if (res)
-			*res = x;
-		return 0;
-	}
-	return -1;
-}
-
-int sysfs_read_int(struct sysfs_cxt *cxt, const char *attr, int *res)
-{
-	int x = 0;
-
-	if (sysfs_scanf(cxt, attr, "%d", &x) == 1) {
 		if (res)
 			*res = x;
 		return 0;

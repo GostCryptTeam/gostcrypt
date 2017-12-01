@@ -238,13 +238,6 @@ namespace Volume {
 
         this->volumeFile->Write (newHeaderBuffer);
 	}
-
-	void Volume::ValidateState () const
-	{
-        if (this->volumeFile.isNull())
-            throw;// NotInitialized (SRC_POS);
-	}
-
     void Volume::WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset)
 	{
         //if_debug (ValidateState ());

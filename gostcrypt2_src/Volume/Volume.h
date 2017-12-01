@@ -48,8 +48,6 @@ namespace Volume {
 		QSharedPointer<VolumeInformation> getVolumeInformation();
 	protected:
 		void CheckProtectedRange (quint64 writeHostOffset, quint64 writeLength);
-		void ValidateState () const;
-
 		QSharedPointer <EncryptionAlgorithm> EA;
 		QSharedPointer <VolumeHeader> Header;
 		bool HiddenVolumeProtectionTriggered;

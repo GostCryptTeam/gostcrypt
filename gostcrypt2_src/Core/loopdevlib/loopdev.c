@@ -746,66 +746,6 @@ int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino)
 	DBG(lc, loopdev_debug("get_backing_inode [rc=%d]", rc));
 	return rc;
 }
-/*
- * @lc: context
- * @st: backing file stat or NULL
- * @backing_file: filename
- * @offset: offset
- * @flags: LOOPDEV_FL_OFFSET if @offset should not be ignored
- *
- * Returns 1 if the current @lc loopdev is associated with the given backing
- * file. Note that the preferred way is to use devno and inode number rather
- * than filename. The @backing_file filename is poor solution usable in case
- * that you don't have rights to call stat().
- *
- * Don't forget that old kernels provide very restricted (in size) backing
- * filename by LOOP_GET_STAT64 ioctl only.
- */
-int loopcxt_is_used(struct loopdev_cxt *lc,
-		    struct stat *st,
-		    const char *backing_file,
-		    uint64_t offset,
-		    int flags)
-{
-	ino_t ino;
-	dev_t dev;
-
-	if (!lc)
-		return 0;
-
-	DBG(lc, loopdev_debug("checking %s vs. %s",
-				loopcxt_get_device(lc),
-				backing_file));
-
-	if (st && loopcxt_get_backing_inode(lc, &ino) == 0 &&
-		  loopcxt_get_backing_devno(lc, &dev) == 0) {
-
-		if (ino == st->st_ino && dev == st->st_dev)
-			goto found;
-
-		/* don't use filename if we have devno and inode */
-		return 0;
-	}
-
-	/* poor man's solution */
-	if (backing_file) {
-		char *name = loopcxt_get_backing_file(lc);
-		int rc = name && strcmp(name, backing_file) == 0;
-
-		free(name);
-		if (rc)
-			goto found;
-	}
-
-	return 0;
-found:
-	if (flags & LOOPDEV_FL_OFFSET) {
-		uint64_t off;
-
-		return loopcxt_get_offset(lc, &off) == 0 && off == offset;
-	}
-	return 1;
-}
 
 /*
  * @lc: context

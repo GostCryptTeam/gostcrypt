@@ -159,10 +159,4 @@ extern int loopcxt_get_backing_devno(struct loopdev_cxt *lc, dev_t *devno);
 extern int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino);
 extern int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset);
 
-extern int loopcxt_is_used(struct loopdev_cxt *lc,
-                    struct stat *st,
-                    const char *backing_file,
-                    uint64_t offset,
-                    int flags);
-
 #endif /* UTIL_LINUX_LOOPDEV_H */
