@@ -32,18 +32,5 @@ namespace Volume {
 	{
 		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::EncryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
 	}
-
-	void EncryptionMode::ValidateState () const
-	{
-		if (!KeySet || Ciphers.size() < 1)
-            throw;// NotInitialized (SRC_POS);
-	}
-
-	void EncryptionMode::ValidateParameters (quint8 *data, quint64 sectorCount, size_t sectorSize) const
-	{
-        (void)data;
-        if (sectorCount == 0 || sectorSize == 0 || (sectorSize % EncryptionDataUnitSize) != 0)
-            throw;// ParameterIncorrect (SRC_POS);
-	}
 }
 }
