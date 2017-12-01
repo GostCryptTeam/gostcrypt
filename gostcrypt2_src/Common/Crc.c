@@ -98,15 +98,4 @@ unsigned __int32 GetCrc32 (unsigned char *data, int length)
 	return r ^ 0xFFFFFFFFUL;
 }
 
-BOOL crc32_selftests ()
-{
-	unsigned __int8 testData[32];
-	unsigned __int8 i;
-
-	for (i = 0; i < sizeof (testData); ++i)
-		testData[i] = i;
-
-	return GetCrc32 (testData, sizeof (testData)) == 0x91267E8AUL;
-}
-
 #endif // GST_MINIMIZE_CODE_SIZE
