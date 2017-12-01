@@ -144,13 +144,6 @@ int sysfs_stat(struct sysfs_cxt *cxt, const char *attr, struct stat *st)
 	return rc;
 }
 
-int sysfs_has_attribute(struct sysfs_cxt *cxt, const char *attr)
-{
-	struct stat st;
-
-	return sysfs_stat(cxt, attr, &st) == 0;
-}
-
 static int sysfs_open(struct sysfs_cxt *cxt, const char *attr)
 {
 	int fd = open_at(cxt->dir_fd, cxt->dir_path, attr, O_RDONLY|O_CLOEXEC);
@@ -216,61 +209,6 @@ static FILE *sysfs_fopen(struct sysfs_cxt *cxt, const char *attr)
 	return fd < 0 ? NULL : fdopen(fd, "r" UL_CLOEXECSTR);
 }
 
-
-static struct dirent *xreaddir(DIR *dp)
-{
-	struct dirent *d;
-
-	while ((d = readdir(dp))) {
-		if (!strcmp(d->d_name, ".") ||
-		    !strcmp(d->d_name, ".."))
-			continue;
-
-		/* blacklist here? */
-		break;
-	}
-	return d;
-}
-
-int sysfs_is_partition_dirent(DIR *dir, struct dirent *d, const char *parent_name)
-{
-	char path[262];
-
-#ifdef _DIRENT_HAVE_D_TYPE
-	if (d->d_type != DT_DIR &&
-	    d->d_type != DT_LNK)
-		return 0;
-#endif
-	if (parent_name) {
-		const char *p = parent_name;
-		size_t len;
-
-		/* /dev/sda --> "sda" */
-		if (*parent_name == '/') {
-			p = strrchr(parent_name, '/');
-			if (!p)
-				return 0;
-			p++;
-		}
-
-		len = strlen(p);
-		if (strlen(d->d_name) <= len)
-			return 0;
-
-		/* partitions subdir name is
-		 *	"<parent>[:digit:]" or "<parent>p[:digit:]"
-		 */
-		return strncmp(p, d->d_name, len) == 0 &&
-		       ((*(d->d_name + len) == 'p' && isdigit(*(d->d_name + len + 1)))
-			|| isdigit(*(d->d_name + len)));
-	}
-
-	/* Cannot use /partition file, not supported on old sysfs */
-	snprintf(path, sizeof(path), "%s/start", d->d_name);
-
-	return faccessat(dirfd(dir), path, R_OK, 0) == 0;
-}
-
 int sysfs_scanf(struct sysfs_cxt *cxt,  const char *attr, const char *fmt, ...)
 {
 	FILE *f = sysfs_fopen(cxt, attr);
@@ -316,95 +254,6 @@ char *sysfs_strdup(struct sysfs_cxt *cxt, const char *attr)
 	char buf[1024];
 	return sysfs_scanf(cxt, attr, "%1023[^\n]", buf) == 1 ?
 						strdup(buf) : NULL;
-}
-/*
- * Returns slave name if there is only one slave, otherwise returns NULL.
- * The result should be deallocated by free().
- */
-char *sysfs_get_slave(struct sysfs_cxt *cxt)
-{
-	DIR *dir;
-	struct dirent *d;
-	char *name = NULL;
-
-	if (!(dir = sysfs_opendir(cxt, "slaves")))
-		return NULL;
-
-	while ((d = xreaddir(dir))) {
-		if (name)
-			goto err;	/* more slaves */
-
-		name = strdup(d->d_name);
-	}
-
-	closedir(dir);
-	return name;
-err:
-	free(name);
-	closedir(dir);
-	return NULL;
-}
-
-/*
- * Note that the @buf has to be large enough to store /sys/dev/block/<maj:min>
- * symlinks.
- */
-char *sysfs_get_devname(struct sysfs_cxt *cxt, char *buf, size_t bufsiz)
-{
-	char *name = NULL;
-	ssize_t sz;
-
-	sz = sysfs_readlink(cxt, NULL, buf, bufsiz - 1);
-	if (sz < 0)
-		return NULL;
-
-	buf[sz] = '\0';
-	name = strrchr(buf, '/');
-	if (!name)
-		return NULL;
-
-	name++;
-	sz = strlen(name);
-
-	memmove(buf, name, sz + 1);
-	return buf;
-}
-
-int sysfs_scsi_get_hctl(struct sysfs_cxt *cxt, int *h, int *c, int *t, int *l)
-{
-	char buf[PATH_MAX], *hctl;
-	ssize_t len;
-
-	if (!cxt)
-		return -EINVAL;
-	if (cxt->has_hctl)
-		goto done;
-
-	len = sysfs_readlink(cxt, "device", buf, sizeof(buf) - 1);
-	if (len < 0)
-		return len;
-
-	buf[len] = '\0';
-	hctl = strrchr(buf, '/');
-	if (!hctl)
-		return -1;
-	hctl++;
-
-	if (sscanf(hctl, "%u:%u:%u:%u", &cxt->scsi_host, &cxt->scsi_channel,
-				&cxt->scsi_target, &cxt->scsi_lun) != 4)
-		return -1;
-
-	cxt->has_hctl = 1;
-done:
-	if (h)
-		*h = cxt->scsi_host;
-	if (c)
-		*c = cxt->scsi_channel;
-	if (t)
-		*t = cxt->scsi_target;
-	if (l)
-		*l = cxt->scsi_lun;
-	return 0;
 }
 
 #ifdef TEST_PROGRAM_SYSFS
