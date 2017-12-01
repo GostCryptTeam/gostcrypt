@@ -19,10 +19,6 @@ namespace Volume {
 	class EncryptionTest
 	{
 	protected:
-		static void TestCiphers ();
-		static void TestPkcs5 ();
-		static void TestXts ();
-
 	struct XtsTestVector
 	{
 		quint8 key1[32];
