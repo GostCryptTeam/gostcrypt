@@ -190,11 +190,11 @@ Item {
                                     }
                                     onCheckedChanged: {
                                         //TODO : action
-                                        if(use_Keyfiles.checked === true) {
+                                        /*if(use_Keyfiles.checked === true) {
                                             UserSettings.setSetting("MountV-UseKeyFiles", 1)
                                         } else {
                                             UserSettings.setSetting("MountV-UseKeyFiles", 0)
-                                        }
+                                        }*/
                                     }
                                 }
                             }

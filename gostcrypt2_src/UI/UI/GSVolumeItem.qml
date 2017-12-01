@@ -49,7 +49,7 @@ Component {
                 id:rightPartTexts
                 anchors.fill: parent
                 Text {
-                    text: { console.log(mountPoint_); return mountPoint_ + Translation.tr }
+                    text: { return mountPoint_ + Translation.tr }
                     color: "#bdbdbd"
                     font.pixelSize: 14
                     y: 7
@@ -463,10 +463,11 @@ Component {
                 cursorShape = Qt.ArrowCursor
             }
             onClicked: {
-                qmlRequest("openmountpoint", {"path": mountPoint});
+
+                qmlRequest("openmountpoint", {"path": mountPoint_});
             }
             onDoubleClicked: {
-                qmlRequest("openmountpoint", {"path": mountPoint});
+                qmlRequest("openmountpoint", {"path": mountPoint_});
             }
 
             ToolTip {

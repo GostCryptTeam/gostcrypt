@@ -71,6 +71,7 @@ Window {
         property color grayWizardDark: "#2b2b2b"
         property color round: "#545454"
         property color roundFilled: "#dfdfdf"
+        property color borderInput: "#333333"
     }
 
     //Window's maximum dimension

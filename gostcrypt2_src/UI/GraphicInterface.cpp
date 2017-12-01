@@ -85,6 +85,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 QProcess::startDetached("explorer", QStringList(GI_KEY(aContent, "path").toString()));
             else
 #else
+        qDebug() << QUrl(GI_KEY(aContent, "path").toString());
         QDesktopServices::openUrl(QUrl(GI_KEY(aContent, "path").toString()));
 #endif
         }

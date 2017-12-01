@@ -212,15 +212,40 @@ Item {
         UI.SecureTextField {
             id: password_value
             y: password_txt.y + password_txt.height + 10
-            x: -combo.width/2
-            radius_: 0
-            width: use_Keyfiles.checked ? combo.width/2 : combo.width
+            x: -combo.width/2-2
+            radius_: 3
+            width: use_Keyfiles.checked ? combo.width/2-2 : combo.width
             horizontalAlignment: TextInput.AlignHCenter
+            bordercolor: palette.darkInput
             height_: combo.height
             onValidated: {
                 sendInfoVolume()
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
+            }
+            onShiftPressed: {
+                if(isPressed)
+                    shift.opacity = 1.0
+                else
+                    shift.opacity = 0.0
+            }
+        }
+
+        Image {
+            id: shift
+            fillMode: Image.PreserveAspectFit
+            source: "../ressource/caps.png"
+            height: 40
+            width: 40
+            anchors.top: password_value.top
+            anchors.right: password_value.left
+            anchors.rightMargin: 5
+            opacity: 0.0
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: app.duration/2;
+                    easing.type: Easing.OutQuad;
+                }
             }
         }
 
@@ -236,7 +261,7 @@ Item {
         }
 
         Rectangle {
-            visible: (keyfiles_paths.text !== "") ? true : false
+            visible: (keyfiles_paths.model !== [""]) ? true : false
             anchors.left: keyfiles_paths.right
             anchors.leftMargin: 5
             color: palette.darkInput

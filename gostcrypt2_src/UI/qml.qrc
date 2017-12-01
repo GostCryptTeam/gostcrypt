@@ -135,5 +135,6 @@
         <file>UI/ressource/arrow.png</file>
         <file>UI/dialogs/RestoreHeaderVolume.qml</file>
         <file>UI/dialogs/BackupHeaderVolume.qml</file>
+        <file>UI/ressource/caps.png</file>
     </qresource>
 </RCC>

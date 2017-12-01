@@ -68,10 +68,34 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: connectSudo_Form.width / 2 - 50
             horizontalAlignment: TextInput.AlignHCenter
-            height: 25
+            height: 40
             onValidated: {
                 app.toggleSudo(0)
                 sendSudoPassword(password_value.text);
+            }
+            onShiftPressed: {
+                if(isPressed)
+                    shift.opacity = 1.0
+                else
+                    shift.opacity = 0.0
+            }
+        }
+
+        Image {
+            id: shift
+            fillMode: Image.PreserveAspectFit
+            source: "ressource/caps.png"
+            height: 40
+            width: 40
+            anchors.top: password_value.top
+            anchors.right: password_value.left
+            anchors.rightMargin: 5
+            opacity: 0.0
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: app.duration/2;
+                    easing.type: Easing.OutQuad;
+                }
             }
         }
 

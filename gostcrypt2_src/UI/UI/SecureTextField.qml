@@ -8,7 +8,9 @@ ControlsOld.TextField {
     property bool type: false
     property int radius_: 5
     property int height_: 24
+    property color bordercolor: palette.borderInput
     signal validated()
+    signal shiftPressed(bool isPressed)
     id: top
 
     echoMode: (type === false) ? TextInput.Password : TextInput.Normal
@@ -20,7 +22,7 @@ ControlsOld.TextField {
             radius: radius_
             implicitWidth: 100
             implicitHeight: height_
-            border.color: "#333"
+            border.color: bordercolor
             border.width: 1
             color: palette.darkInput
         }
@@ -29,4 +31,20 @@ ControlsOld.TextField {
     /* Keydown management */
     Keys.onReturnPressed: top.validated();
     Keys.onEnterPressed: top.validated();
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Shift || event.key === Qt.Key_Kana_Shift || event.key === Qt.Key_Eisu_Shift)
+          top.shiftPressed(false);
+    }
+
+    Keys.onPressed: {
+        if ((event.modifiers & Qt.ShiftModifier))
+          top.shiftPressed(true);
+        else
+          top.shiftPressed(false);
+        if(event.key === Qt.Key_CapsLock)
+            top.shiftPressed(false);
+        else if(isNaN(event.text * 1) && event.text.match(/[a-zA-Z]+/g) && event.text === event.text.toUpperCase())
+            top.shiftPressed(true);
+    }
 }
