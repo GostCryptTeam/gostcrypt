@@ -338,29 +338,6 @@ in_line void mul_lex8_64(mode(32t) x[2])   /* mutiply with long words  */
 
 #endif
 
-#if 1 || (PLATFORM_BYTE_ORDER == BRG_LITTLE_ENDIAN)
-
-#undef  xp_fun
-#define xp_fun(x,y)    ((mode(32t))(y)) | (((mode(32t))(x)) << 8)
-static const unsigned __int16 gft_be[256] = gf_dat(xp);
-static const unsigned __int16 gft_be64[256] = gf_dat(xp64);
-
-in_line void mul_bex8(mode(32t) x[4])   /* mutiply with long words  */
-{   mode(32t)   t = (x[3] & 0xff);      /* in big endian format     */
-    x[3] = (x[3] >> 8) | (x[2] << 24);
-    x[2] = (x[2] >> 8) | (x[1] << 24);
-    x[1] = (x[1] >> 8) | (x[0] << 24);
-    x[0] = (x[0] >> 8) ^ (((mode(32t))gft_be[t]) << 16);
-}
-
-in_line void mul_bex8_64(mode(32t) x[2])   /* mutiply with long words  */
-{   mode(32t)   t = (x[1] & 0xff);      /* in big endian format     */
-    x[1] = (x[1] >> 8) | (x[0] << 24);
-    x[0] = (x[0] >> 8) ^ (((mode(32t))gft_be64[t]) << 16);
-}
-
-#endif
-
 /* hence choose the correct version for the machine endianess       */
 
 #if PLATFORM_BYTE_ORDER == BRG_BIG_ENDIAN
@@ -542,141 +519,13 @@ void MirrorBits64 (unsigned __int8 *a)
 	burn (t,sizeof (t));
 }
 
-/* Allocate and initialize speed optimization table
-   for multiplication by 64-bit operand in MSB-first mode */
-int Gf128Tab64Init (unsigned __int8 *a, GfCtx *ctx)
-{
-	GfCtx8k *ctx8k;
-	unsigned __int8 am[16];
-	int i, j;
-
-	ctx8k = (GfCtx8k *) GSTalloc (sizeof (GfCtx8k));
-	if (!ctx8k)
-		return FALSE;
-
-	memcpy (am, a, 16);
-	MirrorBits128 (am);
-    compile_8k_table (am, ctx8k);
-
-	/* Convert 8k LSB-first table to 4k MSB-first */
-	for (i = 16; i < 32; i++) 
-	{
-		for (j = 0; j < 16; j++) 
-		{
-			int jm = 0;
-			jm |= (j & 0x1) << 3;
-			jm |= (j & 0x2) << 1;
-			jm |= (j & 0x4) >> 1;
-			jm |= (j & 0x8) >> 3;
-
-			memcpy (&ctx->gf_t128[i-16][jm], (unsigned char *)&ctx8k->gf_t8k[31-i][j], 16);
-			MirrorBits128 ((unsigned char *)&ctx->gf_t128[i-16][jm]);
-		}
-	}
-
-	burn (ctx8k ,sizeof (*ctx8k));
-	burn (am, sizeof (am));
-	GSTfree (ctx8k);
-	return TRUE;
-}
-
-int Gf64TabInit (unsigned __int8 *a, GfCtx *ctx)
-{
-	/* Deprecated/legacy */
-
-	GfCtx4k64 *ctx4k;
-	unsigned __int8 am[8];
-	int i, j;
-
-	ctx4k = (GfCtx4k64 *) GSTalloc (sizeof (GfCtx4k64));
-	if (!ctx4k)
-		return FALSE;
-
-	memcpy (am, a, 8);
-	MirrorBits64 (am);
-    compile_4k_table64 (am, ctx4k);
-
-	/* Convert LSB-first table to MSB-first */
-	for (i = 0; i < 16; i++) 
-	{
-		for (j = 0; j < 16; j++) 
-		{
-			int jm = 0;
-			jm |= (j & 0x1) << 3;
-			jm |= (j & 0x2) << 1;
-			jm |= (j & 0x4) >> 1;
-			jm |= (j & 0x8) >> 3;
-
-			memcpy (&ctx->gf_t64[i][jm], (unsigned char *)&ctx4k->gf_t4k[15-i][j], 8);
-			MirrorBits64 ((unsigned char *)&ctx->gf_t64[i][jm]);
-		}
-	}
-
-	burn (ctx4k,sizeof (*ctx4k));
-	burn (am, sizeof (am));
-	GSTfree (ctx4k);
-	return TRUE;
-}
-
 #define xor_8kt64(i)   \
     xor_block_aligned(r, ctx->gf_t128[i + i][a[i] & 15]); \
     xor_block_aligned(r, ctx->gf_t128[i + i + 1][a[i] >> 4])
 
-/* Multiply a 128-bit number by a 64-bit number in the finite field GF(2^128) */
-void Gf128MulBy64Tab (unsigned __int8 a[8], unsigned __int8 p[16], GfCtx *ctx)
-{  
-	unsigned __int32 r[CBLK_LEN >> 2];
-
-	move_block_aligned(r, ctx->gf_t128[7*2][a[7] & 15]);
-    xor_block_aligned(r,  ctx->gf_t128[7*2+1][a[7] >> 4]);
-
-	if (*(unsigned __int16 *)a)
-	{
-		xor_8kt64(0);
-		xor_8kt64(1);
-	}
-	if (a[2])
-	{
-		xor_8kt64(2);
-	}
-	xor_8kt64(3);
-    xor_8kt64(4);
-	xor_8kt64(5);
-	xor_8kt64(6);
-
-    move_block_aligned(p, r);
-}
-
 #define xor_8k64(i)   \
     xor_block_aligned64(r, ctx->gf_t64[i + i][a[i] & 15]); \
     xor_block_aligned64(r, ctx->gf_t64[i + i + 1][a[i] >> 4])
-
-/* Multiply two 64-bit numbers in the finite field GF(2^64) */
-void Gf64MulTab (unsigned char a[8], unsigned char p[8], GfCtx *ctx)
-{  
-	/* Deprecated/legacy */
-
-	unsigned __int32 r[CBLK_LEN8 >> 2];
-
-	move_block_aligned64(r, ctx->gf_t64[7*2][a[7] & 15]);
-    xor_block_aligned64(r,  ctx->gf_t64[7*2+1][a[7] >> 4]);
-
-	if (*(unsigned __int16 *)a)
-	{
-		xor_8k64(0);
-		xor_8k64(1);
-	}
-	if (a[2])
-	{
-		xor_8k64(2);
-	}
-	xor_8k64(3);
-    xor_8k64(4);
-	xor_8k64(5);
-	xor_8k64(6);
-
-    move_block_aligned64(p, r);
-}
 
 
 /* Basic algorithms for testing of optimized algorithms */

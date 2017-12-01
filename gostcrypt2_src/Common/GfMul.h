@@ -61,11 +61,7 @@ typedef struct
 
 typedef int  ret_type;
 
-int Gf128Tab64Init (unsigned __int8 *a, GfCtx *ctx);
-void Gf128MulBy64Tab (unsigned __int8 a[8], unsigned __int8 p[16], GfCtx *ctx);
-int Gf64TabInit (unsigned __int8 *a, GfCtx *ctx);
-void Gf64MulTab (unsigned char a[8], unsigned char p[8], GfCtx *ctx);
-void MirrorBits128 (unsigned __int8 *a);
+
 void MirrorBits64 (unsigned __int8 *a);
 
 #if defined(__cplusplus)
