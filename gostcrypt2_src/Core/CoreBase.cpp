@@ -63,7 +63,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -92,7 +92,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
         }
 
@@ -153,7 +153,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -221,7 +221,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -467,7 +467,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 

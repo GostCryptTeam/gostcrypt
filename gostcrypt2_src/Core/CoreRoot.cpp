@@ -142,7 +142,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     emit sendMountVolume(response);
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
@@ -170,7 +170,7 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
@@ -239,7 +239,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     return response;
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
@@ -483,7 +483,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
@@ -497,7 +497,7 @@ void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, 
 
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
@@ -525,7 +525,7 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSha
 
     } catch(GostCryptException &e) {
         e.setRequestId(params->id.requestId);
-        throw e;
+        throw;
     }
 }
 
