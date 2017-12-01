@@ -223,19 +223,6 @@ void loopcxt_enable_debug(struct loopdev_cxt *lc, int enable)
 	if (lc)
 		lc->debug = enable ? 1 : 0;
 }
-
-/*
- * @lc: context
- *
- * Returns newly allocated device path.
- */
-char *loopcxt_strdup_device(struct loopdev_cxt *lc)
-{
-	if (!lc || !lc->device || !*lc->device)
-		return NULL;
-	return strdup(lc->device);
-}
-
 /*
  * @lc: context
  *
@@ -759,63 +746,6 @@ int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino)
 	DBG(lc, loopdev_debug("get_backing_inode [rc=%d]", rc));
 	return rc;
 }
-
-/*
- * Check if the kernel supports partitioned loop devices.
- *
- * Notes:
- *   - kernels < 3.2 support partitioned loop devices and PT scanning
- *     only if max_part= module paremeter is non-zero
- *
- *   - kernels >= 3.2 always support partitioned loop devices
- *
- *   - kernels >= 3.2 always support BLKPG_{ADD,DEL}_PARTITION ioctls
- *
- *   - kernels >= 3.2 enable PT scanner only if max_part= is non-zero or if the
- *     LO_FLAGS_PARTSCAN flag is set for the device. The PT scanner is disabled
- *     by default.
- *
- *  See kernel commit e03c8dd14915fabc101aa495828d58598dc5af98.
- */
-int loopmod_supports_partscan(void)
-{
-	int rc, ret = 0;
-	FILE *f;
-
-	if (get_linux_version() >= KERNEL_VERSION(3,2,0))
-		return 1;
-
-	f = fopen("/sys/module/loop/parameters/max_part", "r" UL_CLOEXECSTR);
-	if (!f)
-		return 0;
-	rc = fscanf(f, "%d", &ret);
-	fclose(f);
-	return rc == 1 ? ret : 0;
-}
-
-/*
- * @lc: context
- *
- * Returns: 1 if the autoclear flags is set.
- */
-int loopcxt_is_autoclear(struct loopdev_cxt *lc)
-{
-	struct sysfs_cxt *sysfs = loopcxt_get_sysfs(lc);
-
-	if (sysfs) {
-		int fl;
-		if (sysfs_read_int(sysfs, "loop/autoclear", &fl) == 0)
-			return fl;
-	}
-
-	if (loopcxt_ioctl_enabled(lc)) {
-		struct loop_info64 *lo = loopcxt_get_info(lc);
-		if (lo)
-			return lo->lo_flags & LO_FLAGS_AUTOCLEAR;
-	}
-	return 0;
-}
-
 /*
  * @lc: context
  * @st: backing file stat or NULL
@@ -1199,35 +1129,6 @@ int loopcxt_find_unused(struct loopdev_cxt *lc)
 		loopcxt_deinit_iterator(lc);
 		DBG(lc, loopdev_debug("find_unused by scan [rc=%d]", rc));
 	}
-	return rc;
-}
-
-/*
- * Returns: 0 = success, < 0 error, 1 not found
- */
-int loopcxt_find_by_backing_file(struct loopdev_cxt *lc, const char *filename,
-				 uint64_t offset, int flags)
-{
-	int rc, hasst;
-	struct stat st;
-
-	if (!filename)
-		return -EINVAL;
-
-	hasst = !stat(filename, &st);
-
-	rc = loopcxt_init_iterator(lc, LOOPITER_FL_USED);
-	if (rc)
-		return rc;
-
-	while ((rc = loopcxt_next(lc)) == 0) {
-
-		if (loopcxt_is_used(lc, hasst ? &st : NULL,
-					filename, offset, flags))
-			break;
-	}
-
-	loopcxt_deinit_iterator(lc);
 	return rc;
 }
 

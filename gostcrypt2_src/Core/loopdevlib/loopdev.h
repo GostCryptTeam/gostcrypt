@@ -125,8 +125,6 @@ enum {
 /*
  * High-level
  */
-extern int loopmod_supports_partscan(void);
-
 extern int is_loopdev(const char *device);
 extern int loopcxt_find_unused(struct loopdev_cxt *lc);
 /*
@@ -139,7 +137,6 @@ extern void loopcxt_enable_debug(struct loopdev_cxt *lc, int enable);
 
 extern int loopcxt_set_device(struct loopdev_cxt *lc, const char *device)
 				__attribute__ ((warn_unused_result));
-extern char *loopcxt_strdup_device(struct loopdev_cxt *lc);
 extern const char *loopcxt_get_device(struct loopdev_cxt *lc);
 extern struct sysfs_cxt *loopcxt_get_sysfs(struct loopdev_cxt *lc);
 extern struct loop_info64 *loopcxt_get_info(struct loopdev_cxt *lc);
@@ -161,10 +158,6 @@ extern char *loopcxt_get_backing_file(struct loopdev_cxt *lc);
 extern int loopcxt_get_backing_devno(struct loopdev_cxt *lc, dev_t *devno);
 extern int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino);
 extern int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset);
-extern int loopcxt_is_autoclear(struct loopdev_cxt *lc);
-extern int loopcxt_find_by_backing_file(struct loopdev_cxt *lc,
-				const char *filename,
-                                uint64_t offset, int flags);
 
 extern int loopcxt_is_used(struct loopdev_cxt *lc,
                     struct stat *st,
