@@ -273,7 +273,8 @@ Window {
             rightPadding: 20
             x: 60
             anchors.verticalCenter: parent.verticalCenter
-            color: palette.text                    }
+            color: palette.text
+        }
 
         CircleLoadingBar {
             id: circle
@@ -513,6 +514,7 @@ Window {
             subWindow.isOpen = true
             subWindow.w = path
             subWindow.name = name
+            //subWindow.height = height
             subWindow.parameter = parameter
             subWindow.loadForm(height, title)
         }

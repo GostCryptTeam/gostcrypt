@@ -47,7 +47,7 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         mSettings.setValue("Pref-PKCSLibPath", "");
         mSettings.setValue("Pref-CloseTokenSessionAfterMount", 0);
         //Keyfile generator
-        mSettings.setValue("KFG-POOL", 1);
+        //mSettings.setValue("KFG-POOL", 1);
         //Test Vectors
         mSettings.setValue("XTS-mode", 1);
     }

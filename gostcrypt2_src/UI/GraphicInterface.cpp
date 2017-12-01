@@ -198,6 +198,18 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
+    case FirstGI::createkeyfiles: //"createkeyfiles":
+        {
+            QString keyfile;
+            keyfile = GI_KEY(aContent, "keyfile").toUrl().path();
+            //TODO : use KDF
+
+            // TODO multiple keyfiles not supported yet
+            QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
+            options->file.reset(new QFileInfo(keyfile));
+            emit request(QVariant::fromValue(options));
+        }
+        break;
     }
 }
 
