@@ -9,7 +9,6 @@ Item {
     Connections {
         target: top
         onUpdate: {
-            qmlRequest("kfgenerator", {"prf": pRFType.currentText})
             catchClose();
         }
     }
@@ -57,8 +56,10 @@ Item {
             var param ={}
             param["prf"] = pRFType.text
             param["keyfile"] = fileDialog.fileUrl
-            console.log(fileDialog.fileUrl)
+            param["name"] = qsTr("Keyfile Generator");
+            param["desc"] = qsTr("Generating ") + fileDialog.fileUrl
             qmlRequest("createkeyfiles", param);
+            top.update();
         }
         onRejected: {
         }

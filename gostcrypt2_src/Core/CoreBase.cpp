@@ -432,7 +432,10 @@ namespace GostCrypt {
             CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
 
             if(params->emitResponse)
-				emit sendCreateKeyFile(QSharedPointer<CreateKeyFileResponse>(nullptr));
+            {
+                UPDATE_PROGRESS(1.0);
+                emit sendCreateKeyFile(QSharedPointer<CreateKeyFileResponse>(nullptr));
+            }
 
 			return response;
 		}

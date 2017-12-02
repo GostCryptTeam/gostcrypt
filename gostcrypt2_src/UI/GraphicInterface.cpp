@@ -203,10 +203,11 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QString keyfile;
             keyfile = GI_KEY(aContent, "keyfile").toUrl().path();
             //TODO : use KDF
-
             // TODO multiple keyfiles not supported yet
+            qDebug() << "id vaut = " << GI_KEY(aContent, "id").toInt();
             QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
             options->file.reset(new QFileInfo(keyfile));
+            options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
