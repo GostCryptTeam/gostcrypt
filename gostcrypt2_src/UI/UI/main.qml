@@ -401,7 +401,6 @@ Window {
             height:429
             visible: false
             opacity: 0.0
-            heightSubWindow: 429
             isOpen: false
         }
     }
@@ -514,7 +513,7 @@ Window {
             subWindow.isOpen = true
             subWindow.w = path
             subWindow.name = name
-            //subWindow.height = height
+            subWindow.height = height
             subWindow.parameter = parameter
             subWindow.loadForm(height, title)
         }
@@ -576,7 +575,6 @@ Window {
         {
             notifications.push([content.name, content.desc, Number(notifications.length)+1, 0]);
             content.id = Number(notifications.length);
-            console.log("AAA" + Number(notifications.length));
         }
         sendQmlRequest(type, content);
     }

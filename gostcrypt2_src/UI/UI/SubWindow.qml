@@ -5,15 +5,11 @@ import QtQml 2.0 as QML
 
 Item {
     id:subWindow_
-    x: 0
-    y: 51
     property alias loadedItem : loader.item
     property string title: ""
-    property int height_: 0
     property string w
     property string name: ""
     property var object
-    property var heightSubWindow
     property bool isOpen
     property variant parameter: {"name" : "", "value" : "", "type": false}
 
@@ -72,7 +68,7 @@ Item {
         visible: (parameter.type === true) ? true : false
         width: 608
         anchors.centerIn: parent
-        height: heightSubWindow
+        height: parent.height
         radius: 10
         y: parent.y
         color: "transparent";
@@ -168,11 +164,11 @@ Item {
         color: palette.shadow
         anchors.centerIn: parent
         width: parent.width - 80
-        height: heightSubWindow
+        height: parent.height
         y: parent.y
         radius: 0
         visible: (parameter.type === 0 || parameter.type === undefined) ? true : false
-        Behavior on height { NumberAnimation { duration: app.duration; easing.type: Easing.OutQuad; } }
+        Behavior on height { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
         Rectangle {
             width:parent.width-2
             x:1
@@ -281,8 +277,6 @@ Item {
     function loadForm(height, title) {
         loader.setSource("");
         var parent = scrollArea;
-
-        subWindow_.height_ = height;
         subWindow_.title = title;
         loader.setSource(w);
     }
@@ -296,7 +290,6 @@ Item {
         {
         case "dropVolume":
             loader.item.initDrag(parameter)
-
             break;
         case "favorite-volumes":
             loader.item.volumePath = parameter.value
@@ -314,7 +307,6 @@ Item {
         //fermer la subwindow
         subWindow_.opacity = 0.0
         subWindow_.isOpen = false
-        heightSubWindow = 429
     }
 
     function changeSubWindowHeight(value) {
