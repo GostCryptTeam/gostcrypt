@@ -10,6 +10,7 @@
 #include "CipherAlgorithm.h"
 #include "CipherAlgorithmGOST.h"
 #include "Common/Crc.h"
+#include "Volume/VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionAlgorithm.h"
 #include "EncryptionMode.h"
@@ -59,7 +60,7 @@ namespace Volume {
 			cipher.EncryptBlock (buffer);
 
 			if (memcmp (buffer, testVector[i].Ciphertext, buffer.Size()) != 0)
-                throw;// TestFailed (SRC_POS);
+                throw EncryptionTestFailedException();
 		}
 	}
 
@@ -80,12 +81,12 @@ namespace Volume {
 			gost.EncryptBlocks (testData, testData.Size() / gost.GetBlockSize());
 
 			if (Crc32::ProcessBuffer (testData) != 0xc06e0704)
-                throw;// TestFailed (SRC_POS);
+                throw EncryptionTestFailedException();
 
 			gost.DecryptBlocks (testData, testData.Size() / gost.GetBlockSize());
 
 			if (origCrc != Crc32::ProcessBuffer (testData))
-                throw;// TestFailed (SRC_POS);
+                throw EncryptionTestFailedException();
 
 	}
 
@@ -382,22 +383,22 @@ namespace Volume {
 					{
 					case 0:
 						if (crc != 0x5eacf7d)
-                            throw;// TestFailed (SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 1:
 						if (crc != 0x5b5926d9)
-                            throw;// TestFailed (SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 2:
 						if (crc != 0xcf0cfdd1)
-                            throw;// TestFailed (SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 3:
 						if (crc != 0xe82865a8)
-                            throw;// TestFailed (SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					}
@@ -408,33 +409,33 @@ namespace Volume {
 					{
 					case 0:
 						if (crc != 0x6b86e72e)
-                            throw;// TestFailed(SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 1:
 						if (crc != 0xa4f8637d)
-                            throw;// TestFailed(SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 2:
 						if (crc != 0xfd83e76d)
-                            throw;// TestFailed(SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					case 3:
 						if (crc != 0xb24fc47b)
-                            throw;// TestFailed(SRC_POS);
+                            throw EncryptionTestFailedException();
 						nTestsPerformed++;
 						break;
 					}
 				}
 				if (crc == 0x9f5edd58)
-                    throw;// TestFailed (SRC_POS);
+                    throw EncryptionTestFailedException();
 
                 ea->DecryptSectors (buf, unitNo, nbrUnits, ENCRYPTION_DATA_UNIT_SIZE);
 
 				if (GetCrc32 (buf, sizeof (buf)) != 0x9f5edd58)
-                    throw;// TestFailed (SRC_POS);
+                    throw EncryptionTestFailedException();
 
 				nTestsPerformed++;
 			}
@@ -478,29 +479,29 @@ namespace Volume {
             if (typeid (*ea) == typeid (GOST))
 			{
 				if (crc != 0x5d31eec2)
-                    throw;// TestFailed (SRC_POS);
+                    throw EncryptionTestFailedException();
 				nTestsPerformed++;
 			}
             else if (typeid(*ea) == typeid(GRASSHOPPER))
 			{
 				if(crc != 0xd6d39cdb)
-                    throw;// TestFailed (SRC_POS);
+                    throw EncryptionTestFailedException();
 				nTestsPerformed++;
 			}
 
 			if (crc == 0x9f5edd58)
-                throw;// TestFailed (SRC_POS);
+                throw EncryptionTestFailedException();
 
             ea->Decrypt (buf, sizeof (buf));
 
 			if (GetCrc32 (buf, sizeof (buf)) != 0x9f5edd58)
-                throw;// TestFailed (SRC_POS);
+                throw EncryptionTestFailedException();
 
 			nTestsPerformed++;
 		}
 
 		if (nTestsPerformed != 20) // 2* number of algorithms
-            throw;// TestFailed (SRC_POS);
+            throw EncryptionTestFailedException();
 	}
 
 	void EncryptionTest::TestPkcs5 ()
@@ -513,17 +514,17 @@ namespace Volume {
         VolumeHashWhirlpool pkcs5HmacWhirlpool;
 		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x50\x7c\x36\x6f", 4) != 0)
-            throw;// TestFailed (SRC_POS);
+            throw EncryptionTestFailedException();
 
         VolumeHashStribog pkcs5HmacStribog;
 		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\xc7\x13\x56\xb6", 4) != 0)
-            throw;// TestFailed (SRC_POS);
+            throw EncryptionTestFailedException();
 
         VolumeHashGostHash pkcs5HmacGostHash;
 		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
 		if (memcmp (derivedKey.Ptr(), "\x7d\x53\xe0\x7e", 4) != 0)
-            throw;// TestFailed (SRC_POS);
+            throw EncryptionTestFailedException();
 	}
 }
 }

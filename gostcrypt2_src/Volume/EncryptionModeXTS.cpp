@@ -9,7 +9,8 @@
 
 #include "EncryptionModeXTS.h"
 #include "Common/Crypto.h"
-#include "Volume/VolumeHeader.h"
+#include "VolumeHeader.h"
+#include "VolumeException.h"
 
 namespace GostCrypt
 {
@@ -277,8 +278,7 @@ namespace Volume {
 	size_t EncryptionModeXTS::GetKeySize () const
 	{
 		if (Ciphers.empty())
-            throw;// NotInitialized (SRC_POS);
-
+            throw EncryptionModeNotInitializedException();
 		size_t keySize = 0;
         for (const QSharedPointer<CipherAlgorithm> cipher : SecondaryCiphers)
 		{

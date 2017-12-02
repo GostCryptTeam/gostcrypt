@@ -26,21 +26,21 @@ namespace GostCrypt
 
 		int urandom = open ("/dev/urandom", O_RDONLY);
         if (urandom == -1)
-            throw; //sys exception
+            throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo(QStringLiteral("/dev/urandom"))));
 
         if (read (urandom, buffer, buffer.Size()) == -1)
-            throw;
-		AddToPool (buffer);
+            throw FailedUsingSystemRandomSourceException();
+        AddToPool (buffer);
 
 		if (!fast)
 		{
 			// Read all bytes available in /dev/random up to buffer size
 			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
             if (random == -1)
-                throw;
+                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo(QStringLiteral("/dev/random"))));
 
             if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN)
-                throw;
+                throw FailedUsingSystemRandomSourceException();
 			AddToPool (buffer);
             close(random);
         }
@@ -70,10 +70,10 @@ namespace GostCrypt
 	void RandomNumberGenerator::GetData (const BufferPtr &buffer, bool fast)
 	{
 		if (!Running)
-            throw;// NotInitialized (SRC_POS);
+            throw RandomNumberGeneratorNotRunningException();
 
 		if (buffer.Size() > PoolSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("buffer.size > PoolSize");
 
         QMutexLocker lock (&AccessMutex);
 

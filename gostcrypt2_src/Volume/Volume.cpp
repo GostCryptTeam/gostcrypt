@@ -8,6 +8,7 @@
 
 
 #include <errno.h>
+#include "VolumeException.h"
 #include "EncryptionModeXTS.h"
 #include "Volume.h"
 #include "VolumeHeader.h"
@@ -39,27 +40,24 @@ namespace Volume {
 		if ((writeHostOffset < ProtectedRangeStart) ? (writeHostEndOffset >= ProtectedRangeStart) : (writeHostOffset <= ProtectedRangeEnd - 1))
 		{
 			HiddenVolumeProtectionTriggered = true;
-            throw;// VolumeProtected (SRC_POS);
-		}
+            throw VolumeProtectedException();
+        }
 	}
 
 	void Volume::Close ()
 	{
         if (volumeFile.isNull())
-            throw;// NotInitialized (SRC_POS);
-
+            throw VolumeNotOpenException();
         this->volumeFile.reset();
 	}
 
 	QSharedPointer <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
 	{
-        //if_debug (ValidateState ());
 		return EA;
 	}
 
 	QSharedPointer <EncryptionMode> Volume::GetEncryptionMode () const
 	{
-        //if_debug (ValidateState ());
 		return EA->GetMode();
 	}
 
@@ -77,9 +75,9 @@ namespace Volume {
 	{
         QSharedPointer<VolumeFile> volumeFile = QSharedPointer<VolumeFile>(new VolumeFile());
 
-        if(protection == VolumeProtection::HiddenVolumeReadOnly){
+        if(protection == VolumeProtection::HiddenVolumeReadOnly) {
             // we first open the hidden volume to get its size
-            //try
+            try
             {
                 Volume protectedVolume;
 
@@ -94,41 +92,19 @@ namespace Volume {
                     partitionInSystemEncryptionScope);
 
                 if (protectedVolume.GetType() != VolumeType::Hidden)
-                    throw; //ParameterIncorrect (SRC_POS);
+                    throw IncorrectParameterException("protection is set to HiddenVolumeReadOnly, but the volume type is not hidden.")
 
                 ProtectedRangeStart = protectedVolume.VolumeDataOffset;
                 ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
             }
-            /*
-            catch (PasswordException&)
+            catch (PasswordOrKeyfilesIncorrect&)
             {
-                if (protectionKeyfiles && !protectionKeyfiles->empty())
-                    throw;// ProtectionPasswordKeyfilesIncorrect (SRC_POS);
-                throw;// ProtectionPasswordIncorrect (SRC_POS);
-            }//*/
+                throw ProtectionPasswordOrKeyfilesIncorrectException();
+            }
         }
 
         // We First open the file (or device) we want to decrypt
-        //try
-		{
-                volumeFile->Open (volumePath, (protection == VolumeProtection::ReadOnly), preserveTimestamps);
-		}
-        /*
-        catch (SystemException &e)
-		{
-			if (e.GetErrorCode() == EAGAIN)
-			{
-				if (!sharedAccessAllowed)
-					throw VolumeHostInUse (SRC_POS);
-
-                volumeFile->Open (volumePath, protection == VolumeProtection::ReadOnly ? File::OpenRead : File::OpenReadWrite, File::ShareReadWriteIgnoreLock, flags);
-			}
-			else
-				throw;
-        }//*/
-
-        if (!volumeFile)
-            throw;// ParameterIncorrect (SRC_POS); // TODO : wrong error
+        volumeFile->Open (volumePath, (protection == VolumeProtection::ReadOnly), preserveTimestamps);
 
 		Protection = protection;
         this->volumeFile = volumeFile; // why not directly use the volumeFile from the object ?
@@ -183,21 +159,18 @@ namespace Volume {
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-                            throw;// PasswordIncorrect (SRC_POS); // the password of the inner volume was put instead of the one of the outer volume.
+                            throw PasswordOrKeyfilesIncorrectException(); // the password of the inner volume was put instead of the one of the outer volume.
                         // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
 			}
-
-			if (keyfiles && !keyfiles->empty())
-                throw;// PasswordKeyfilesIncorrect (SRC_POS);
-            throw;// PasswordIncorrect (SRC_POS);
+            throw PasswordOrKeyfilesIncorrectException();
 		}
 		catch (...)
 		{
 			Close();
-			throw;
+            throw; //rethrow
 		}
 	}
 
@@ -209,10 +182,10 @@ namespace Volume {
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("length or offset not aligned with sector");
 
         if (this->volumeFile->ReadAt (buffer, hostOffset) != length)
-            throw;// MissingVolumeData (SRC_POS);
+            throw VolumeCorruptedException();
 
 		EA->DecryptSectors (buffer, hostOffset / SectorSize, length / SectorSize, SectorSize);
 
@@ -224,7 +197,7 @@ namespace Volume {
         //if_debug (ValidateState ());
 
 		if (Protection == VolumeProtection::ReadOnly)
-            throw;// VolumeReadOnly (SRC_POS);
+            throw VolumeReadOnlyException();
 
 		SecureBuffer newHeaderBuffer (Layout->GetHeaderSize());
 
@@ -240,29 +213,22 @@ namespace Volume {
         this->volumeFile->Write (newHeaderBuffer);
 	}
 
-	void Volume::ValidateState () const
-	{
-        if (this->volumeFile.isNull())
-            throw;// NotInitialized (SRC_POS);
-	}
-
     void Volume::WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset)
 	{
-        //if_debug (ValidateState ());
-
         quint64 length = buffer.Size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0
-			|| byteOffset % SectorSize != 0
-			|| byteOffset + length > VolumeDataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            || byteOffset % SectorSize != 0)
+            throw IncorrectParameterException("length or offset not aligned with sector");
+
+        if (byteOffset + length > VolumeDataSize)
+            throw IncorrectParameterException("Trying to read after the end of the volume file");
 
 		if (Protection == VolumeProtection::ReadOnly)
-            throw;// VolumeReadOnly (SRC_POS);
-
-		if (HiddenVolumeProtectionTriggered)
-            throw;// VolumeProtected (SRC_POS);
+            throw VolumeReadOnlyException();
+        if (HiddenVolumeProtectionTriggered)
+            throw VolumeProtectedException();
 
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 			CheckProtectedRange (hostOffset, length);

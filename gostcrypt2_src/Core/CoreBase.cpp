@@ -106,7 +106,7 @@ namespace GostCrypt {
 			QFile file("/proc/partitions");
 
 			if(!file.open(QFile::ReadOnly))
-				throw FailedOpenFileException(QFileInfo("/proc/partitions"));
+                                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo("/proc/partitions")));
 			QByteArray fileContent = file.readAll();
 			QTextStream ts(&fileContent);
 			while(!ts.atEnd()) {
@@ -234,7 +234,7 @@ namespace GostCrypt {
 			if (!mtab)
 				mtab = setmntent ("/proc/mounts", "r");
 			if(!mtab)
-				throw FailedOpenFileException(QFileInfo("/proc/mounts"));
+                                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo("/proc/mounts")));
 
 			static QMutex mutex;
 			mutex.lock();

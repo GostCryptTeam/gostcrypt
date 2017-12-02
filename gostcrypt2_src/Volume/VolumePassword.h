@@ -23,7 +23,6 @@ namespace Volume {
 		VolumePassword ();
 		VolumePassword (const quint8 *password, size_t size);
 		VolumePassword (const char *password, size_t size);
-		VolumePassword (const wchar_t *password, size_t charCount);
 		VolumePassword (const VolumePassword &password) { Set (password); }
 		virtual ~VolumePassword ();
 
@@ -33,12 +32,10 @@ namespace Volume {
 
 		operator BufferPtr () const { return BufferPtr (PasswordBuffer); }
 
-		void CheckPortability () const;
 		quint8 *DataPtr () const { return PasswordBuffer; }
 		bool IsEmpty () const { return PasswordSize == 0; }
 		size_t Size () const { return PasswordSize; }
 		void Set (const quint8 *password, size_t size);
-		void Set (const wchar_t *password, size_t charCount);
 		void Set (const ConstBufferPtr &password);
 		void Set (const VolumePassword &password);
 

@@ -149,11 +149,119 @@ class FailedOpenFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedOpenFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file.absoluteFilePath() + "\".\n")
+        FailedOpenFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file->absoluteFilePath() + "\".\n")
     protected:
-        QFileInfo file; /**< TODO: describe */
+        QSharedPointer<QFileInfo> file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedOpenFile);
+};
+
+#define FailedReadFileException(file) GostCrypt::FailedReadFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedReadFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedReadFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedReadFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to read file \""+file->absoluteFilePath() + "\".\n")
+    protected:
+        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedReadFile);
+};
+
+#define FailedWriteFileException(file) GostCrypt::FailedWriteFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedWriteFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedWriteFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedWriteFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedWriteFile, SystemException, "Unable to write file \""+file->absoluteFilePath() + "\".\n")
+    protected:
+        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedWriteFile);
+};
+
+#define FailedLseekFileException(file) GostCrypt::FailedLseekFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedLseekFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedLseekFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedLseekFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedLseekFile, SystemException, "Unable to lseek file \""+file->absoluteFilePath() + "\".\n")
+    protected:
+        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedLseekFile);
+};
+
+#define FailedStatFileException(file) GostCrypt::FailedStatFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedStatFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedStatFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedStatFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedStatFile, SystemException, "Unable to lseek file \""+file->absoluteFilePath() + "\".\n")
+    protected:
+        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedStatFile);
 };
 
 #define FailedCreateDirectoryException(dir) GostCrypt::FailedCreateDirectory(__PRETTY_FUNCTION__, __FILE__, __LINE__, dir);
@@ -182,11 +290,72 @@ class FailedCreateDirectory : public SystemException {
         QString dir; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedCreateDirectory);
 };
+
+#define FailedMemoryAllocationException() GostCrypt::FailedMemoryAllocation(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+/**
+ * @brief
+ *
+ */
+class FailedMemoryAllocation : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedMemoryAllocation() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param dir
+         */
+        FailedMemoryAllocation(QString fonction, QString filename, quint32 line) : SystemException(fonction, filename, line) {}
+        DEF_EXCEPTION_WHAT(FailedMemoryAllocation, SystemException, "Fail to allocate memory\n")
+
+    DEC_SERIALIZABLE(FailedMemoryAllocation);
+};
+
+#define IncorrectParameterException(comment) GostCrypt::IncorrectParameter(__PRETTY_FUNCTION__, __FILE__, __LINE__, comment);
+/**
+ * @brief
+ *
+ */
+class IncorrectParameter : public GostCryptException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        IncorrectParameter() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param parameterName
+         */
+        IncorrectParameter(QString fonction, QString filename, quint32 line, QString comment) : GostCryptException(fonction, filename, line), comment(comment) {}
+        DEF_EXCEPTION_WHAT(IncorrectParameter, GostCryptException, "Parameter is incorrect ("+comment+")")
+    protected:
+        QString comment; /**< TODO: describe */
+
+    DEC_SERIALIZABLE(IncorrectParameter);
+};
 }
 
 SERIALIZABLE(GostCrypt::SystemException)
 SERIALIZABLE(GostCrypt::GostCryptException)
 SERIALIZABLE(GostCrypt::FailedOpenFile)
+SERIALIZABLE(GostCrypt::FailedReadFile)
+SERIALIZABLE(GostCrypt::FailedWriteFile)
+SERIALIZABLE(GostCrypt::FailedLseekFile)
+SERIALIZABLE(GostCrypt::FailedStatFile)
 SERIALIZABLE(GostCrypt::FailedCreateDirectory)
+SERIALIZABLE(GostCrypt::FailedMemoryAllocation)
+SERIALIZABLE(GostCrypt::IncorrectParameter)
+
 
 #endif // GOSTCRYPTEXCEPTION_H

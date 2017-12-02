@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include "VolumeException.h"
 #include "EncryptionAlgorithm.h"
 #include "EncryptionAlgorithmGOST.h"
 #include "EncryptionAlgorithmGrasshopper.h"
@@ -85,7 +85,7 @@ namespace Volume {
 	size_t EncryptionAlgorithm::GetKeySize () const
 	{
 		if (Ciphers.size() < 1)
-            throw;// NotInitialized (SRC_POS);
+            throw EncryptionAlgorithmNotInitializedException();
 
 		size_t keySize = 0;
 
@@ -123,7 +123,7 @@ namespace Volume {
     QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
 	{
         if (Mode.isNull())
-            throw;// NotInitialized (SRC_POS);
+            throw EncryptionAlgorithmNotInitializedException();
 
 		return Mode;
 	}
@@ -131,7 +131,7 @@ namespace Volume {
 	std::wstring EncryptionAlgorithm::GetName () const
 	{
 		if (Ciphers.size() < 1)
-            throw;// NotInitialized (SRC_POS);
+            throw EncryptionAlgorithmNotInitializedException();
 
 		std::wstring name;
 
@@ -149,7 +149,7 @@ namespace Volume {
         std::wstring EncryptionAlgorithm::GetDescription () const
         {
                 if (Ciphers.size() < 1)
-                        throw;// NotInitialized (SRC_POS);
+                        throw EncryptionAlgorithmNotInitializedException();
 
                 std::wstring desc;
 
@@ -189,7 +189,7 @@ namespace Volume {
     void EncryptionAlgorithm::SetMode (QSharedPointer <EncryptionMode> mode)
 	{
 		if (!IsModeSupported (*mode))
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Encryption mode not supported");
 
 		mode->SetCiphers (Ciphers);
 		Mode = mode;
@@ -198,10 +198,10 @@ namespace Volume {
 	void EncryptionAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (Ciphers.size() < 1)
-            throw;// NotInitialized (SRC_POS);
+            throw EncryptionAlgorithmNotInitializedException();
 
 		if (GetKeySize() != key.Size())
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Key size mismatch");
 
 		size_t keyOffset = 0;
         for (QSharedPointer<CipherAlgorithm> c : Ciphers)
@@ -214,7 +214,7 @@ namespace Volume {
 	void EncryptionAlgorithm::ValidateState () const
 	{
         if (Ciphers.size() < 1 || Mode.isNull())
-            throw;// NotInitialized (SRC_POS);
+            throw EncryptionAlgorithmNotInitializedException();
 	}
 }
 }

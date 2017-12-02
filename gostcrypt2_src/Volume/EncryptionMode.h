@@ -32,7 +32,7 @@ namespace Volume {
 		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const = 0;
 		static EncryptionModeList GetAvailableModes ();
-        virtual const SecureBuffer &GetKey () const { throw; }
+        virtual const SecureBuffer &GetKey () const = 0;
 		virtual size_t GetKeySize () const = 0;
         virtual std::wstring GetName () const = 0;
 		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
@@ -45,11 +45,7 @@ namespace Volume {
 	protected:
 		EncryptionMode ();
 
-		virtual void ValidateState () const;
-		void ValidateParameters (quint8 *data, quint64 length) const;
-		virtual void ValidateParameters (quint8 *data, quint64 sectorCount, size_t sectorSize) const;
-
-		static const size_t EncryptionDataUnitSize = ENCRYPTION_DATA_UNIT_SIZE;
+        static const size_t EncryptionDataUnitSize = ENCRYPTION_DATA_UNIT_SIZE;
 
         CipherAlgorithmList Ciphers;
 		bool KeySet;

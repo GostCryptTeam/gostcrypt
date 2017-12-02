@@ -17,6 +17,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include "VolumeException.h"
+#include "VolumeException.h"
 #include "VolumeFile.h"
 #include <QTextStream>
 
@@ -28,53 +30,34 @@ namespace Volume
 void VolumeFile::Close ()
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
 
         close (FileHandle);
         FileIsOpen = false;
 
-        if ((preserveTimestamps) && IsTypeFile())
-        {
-            struct utimbuf u;
-            u.actime = AccTime;
-            u.modtime = ModTime;
-
-            try
-            {
-                if (utime (Path->absoluteFilePath().toLocal8Bit().data(), &u) == -1) // should be in a dedicated method of File.
-                    throw;
-            }
-            catch (...) // Suppress errors to allow using read-only files
-            {
-#ifdef DEBUG
-                throw;
-#endif
-            }
-        }
+        if (preserveTimestamps)
+            ResetTimestamps();
 
 	}
 
     quint32 VolumeFile::GetDeviceSectorSize () const
 	{
-        if (isTypeDevice())
-		{
-			int blockSize;
-            if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
-                throw;
-			return blockSize;
-		}
-		else
-            throw; // (SRC_POS);
+        int blockSize;
+
+        if (!isTypeDevice())
+            throw IncorrectParameterException("Volume is not contained in a device");
+        if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
+            throw FailedGetSectorSizeException();
+
+        return blockSize;
 	}
 
     quint64 VolumeFile::Length () const
 	{
-//		//if_debug (ValidateState());
-
 		off_t current = lseek (FileHandle, 0, SEEK_CUR);
         if (current == -1)
-            throw;
-		SeekEnd (0);
+            throw FailedLseekFileException(Path);
+        SeekEnd (0);
         quint64 length = lseek (FileHandle, 0, SEEK_CUR);
 		SeekAt (current);
 		return length;
@@ -94,14 +77,14 @@ void VolumeFile::Close ()
 		{
 			struct stat statData;
             if (stat (path->absoluteFilePath().toLocal8Bit().data(), &statData) == -1)
-                throw;
+                throw FailedGetTimestampsException();
 			AccTime = statData.st_atime;
 			ModTime = statData.st_mtime;
 		}
 
         FileHandle = open (path->absoluteFilePath().toLocal8Bit().data(), sysFlags, S_IRUSR | S_IWUSR);
         if (FileHandle == -1)
-            throw;
+            throw FailedOpenFileException(Path);
 
 		Path = path;
         this->preserveTimestamps = preserveTimestamps;
@@ -111,10 +94,10 @@ void VolumeFile::Close ()
     quint64 VolumeFile::Read (const BufferPtr &buffer) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
         ssize_t bytesRead = read (FileHandle, buffer, buffer.Size());
         if (bytesRead == -1)
-            throw;
+            throw FailedReadFileException(Path);
 
 		return bytesRead;
 	}
@@ -122,11 +105,11 @@ void VolumeFile::Close ()
     quint64 VolumeFile::ReadAt (const BufferPtr &buffer, quint64 position) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
 
 		ssize_t bytesRead = pread (FileHandle, buffer, buffer.Size(), position);
         if (bytesRead == -1)
-            throw;
+            throw FailedReadFileException(Path);
 
 		return bytesRead;
 	}
@@ -134,42 +117,42 @@ void VolumeFile::Close ()
     void VolumeFile::SeekAt (quint64 position) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
         if (lseek (FileHandle, position, SEEK_SET) == -1)
-            throw;
-	}
+            throw FailedLseekFileException(Path);
+    }
 
     void VolumeFile::SeekEnd (int offset) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
         if (lseek (FileHandle, offset, SEEK_END) == -1)
-               throw;//TODO
+               throw FailedLseekFileException(Path);
 	}
 
     void VolumeFile::Write (const ConstBufferPtr &buffer) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
 
         if (write (FileHandle, buffer, buffer.Size()) != (ssize_t) buffer.Size())
-            throw; //TODO
-	}
+            throw FailedWriteFileException(Path)
+    }
 
     void VolumeFile::WriteAt (const ConstBufferPtr &buffer, quint64 position) const
 	{
         if (!FileIsOpen)
-            throw; //TODO
+            throw VolumeNotOpenException();
 
         if(pwrite (FileHandle, buffer, buffer.Size(), position) != (ssize_t) buffer.Size())
-            throw; //TODO
+            throw FailedWriteFileException(Path)
     }
 
     FileType::Enum VolumeFile::GetType() const
     {
         struct stat statData;
         if (stat (Path->absoluteFilePath().toLocal8Bit().data(), &statData) != 0)
-            throw;
+            throw FailedStatFileException(Path);
 
         if (S_ISREG (statData.st_mode)) return FileType::File;
         if (S_ISCHR (statData.st_mode)) return FileType::CharacterDevice;
@@ -177,6 +160,28 @@ void VolumeFile::Close ()
         if (S_ISLNK (statData.st_mode)) return FileType::SymbolickLink;
 
         return FileType::Unknown;
+    }
+
+    void VolumeFile::ResetTimestamps()
+    {
+        if(!IsTypeFile())
+            return;
+
+        struct utimbuf u;
+        u.actime = AccTime;
+        u.modtime = ModTime;
+
+        try
+        {
+            if (utime (Path->absoluteFilePath().toLocal8Bit().data(), &u) == -1)
+                throw FailedResetTimestampsException();
+        }
+        catch (FailedResetTimestamps &e) // Suppress errors to allow using read-only files
+        {
+#ifdef DEBUG
+            throw; //rethrow
+#endif
+        }
     }
 
     VolumeFile::~VolumeFile ()

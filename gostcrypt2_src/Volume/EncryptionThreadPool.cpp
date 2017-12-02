@@ -9,6 +9,7 @@
 
 
 #include <unistd.h>
+#include "Core/GostCryptException.h"
 #include "Common/Crypto.h"
 #include "EncryptionThreadPool.h"
 
@@ -43,8 +44,8 @@ namespace Volume {
 				break;
 
 			default:
-                throw; //ParameterIncorrect (SRC_POS);
-			}
+                throw IncorrectParameterException("Unknown WorkType");
+            }
 
 			return;
 		}
@@ -176,7 +177,7 @@ namespace Volume {
 				Stop();
 			} catch (...) { }
 
-			throw;
+            throw; //rethrow
 		}
         WorkItemCompletedEventMutex.lock();
         WorkItemReadyEventMutex.lock();
@@ -243,8 +244,8 @@ namespace Volume {
 						break;
 
 					default:
-                        throw;// ParameterIncorrect (SRC_POS);
-					}
+                        throw IncorrectParameterException("Unknown WorkType");
+                    }
 				}
                 //catch (Exception &e)
                 //{

@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include "VolumeException.h"
 #include "CipherAlgorithm.h"
 #include "CipherAlgorithmGOST.h"
 #include "CipherAlgorithmGrasshopper.h"
@@ -26,7 +26,7 @@ namespace Volume {
     void CipherAlgorithm::DecryptBlock (quint8 *data) const
 	{
 		if (!Initialized)
-            throw;// NotInitialized (SRC_POS);
+            throw CipherAlgorithmNotInitializedException();
 
 		Decrypt (data);
 	}
@@ -34,7 +34,7 @@ namespace Volume {
     void CipherAlgorithm::DecryptBlocks (quint8 *data, size_t blockCount) const
 	{
 		if (!Initialized)
-            throw;// NotInitialized (SRC_POS);
+            throw CipherAlgorithmNotInitializedException();
 
 		while (blockCount-- > 0)
 		{
@@ -46,7 +46,7 @@ namespace Volume {
     void CipherAlgorithm::EncryptBlock (quint8 *data) const
 	{
 		if (!Initialized)
-            throw;// NotInitialized (SRC_POS);
+            throw CipherAlgorithmNotInitializedException();
 
 		Encrypt (data);
 	}
@@ -54,7 +54,7 @@ namespace Volume {
     void CipherAlgorithm::EncryptBlocks (quint8 *data, size_t blockCount) const
 	{
 		if (!Initialized)
-            throw;// NotInitialized (SRC_POS);
+            throw CipherAlgorithmNotInitializedException();
 
 		while (blockCount-- > 0)
 		{
@@ -76,7 +76,7 @@ namespace Volume {
     void CipherAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (key.Size() != GetKeySize ())
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("key.Size() != GetKeySize ()");
 
 		if (!Initialized)
 			ScheduledKey.Allocate (GetScheduledKeySize ());

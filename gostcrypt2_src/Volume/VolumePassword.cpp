@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include "Core/GostCryptException.h"
 #include "VolumePassword.h"
 
 namespace GostCrypt
@@ -28,17 +28,6 @@ namespace Volume {
 		Set (password, size);
 	}
 
-	VolumePassword::VolumePassword (const wchar_t *password, size_t charCount)
-	{
-		Set (password, charCount);
-	}
-
-    /*
-        VolumePassword::VolumePassword (const std::wstring &password)
-	{
-		Set (password.c_str(), password.size());
-        }//*/
-
 	VolumePassword::~VolumePassword ()
 	{
 	}
@@ -47,12 +36,6 @@ namespace Volume {
 	{
 		if (!PasswordBuffer.IsAllocated ())
 			PasswordBuffer.Allocate (MaxSize);
-	}
-
-	void VolumePassword::CheckPortability () const
-	{
-		if (Unportable || !IsPortable())
-            throw;// UnportablePassword (SRC_POS);
 	}
 
 	bool VolumePassword::IsPortable () const
@@ -70,7 +53,7 @@ namespace Volume {
 		AllocateBuffer ();
 
 		if (size > MaxSize)
-            throw;// (SRC_POS);
+            throw IncorrectParameterException("Password size too big");
 
 		PasswordBuffer.CopyFrom (ConstBufferPtr (password, size));
 		PasswordSize = size;
@@ -78,55 +61,9 @@ namespace Volume {
 		Unportable = !IsPortable();
 	}
 
-	void VolumePassword::Set (const wchar_t *password, size_t charCount)
-	{
-		if (charCount > MaxSize)
-            throw;// (SRC_POS);
-
-		union Conv
-		{
-			quint8 b[sizeof (wchar_t)];
-			wchar_t c;
-		};
-
-		Conv conv;
-		conv.c = L'A';
-
-		int lsbPos = -1;
-		for (size_t i = 0; i < sizeof (conv.b); ++i)
-		{
-			if (conv.b[i] == L'A')
-			{
-				lsbPos = i;
-				break;
-			}
-		}
-
-		if (lsbPos == -1)
-            throw;// (SRC_POS);
-
-		bool unportable = false;
-		quint8 passwordBuf[MaxSize];
-		for (size_t i = 0; i < charCount; ++i)
-		{
-			conv.c = password[i];
-			passwordBuf[i] = conv.b[lsbPos];
-			for (int j = 0; j < (int) sizeof (wchar_t); ++j)
-			{
-				if (j != lsbPos && conv.b[j] != 0)
-					unportable = true;
-			}
-		}
-
-		Set (passwordBuf, charCount);
-
-		if (unportable)
-			Unportable = true;
-	}
-
 	void VolumePassword::Set (const ConstBufferPtr &password)
 	{
-		Set (password, password.Size());
+        Set (password.Get(), password.Size());
 	}
 
 	void VolumePassword::Set (const VolumePassword &password)

@@ -125,11 +125,11 @@ namespace GostCrypt {
 					sendResponseWhenReady(QVariant::fromValue(response));
 				} catch (...) {
                     QDir(params->fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
-					throw;
+                    throw; //rethrow
 				}
 			} catch (...) {
 				mountedVolume->Close();
-				throw;
+                throw; //rethrow
 			}
 		}
 
@@ -252,7 +252,7 @@ namespace GostCrypt {
 		{
 			try
 			{
-				throw;
+                throw; //rethrow
 			}
 			catch (std::bad_alloc)
 			{

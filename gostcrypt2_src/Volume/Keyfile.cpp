@@ -7,6 +7,7 @@
 */
 
 
+#include "Core/GostCryptException.h"
 #include "Crc32.h"
 #include "Keyfile.h"
 #include <QFile>
@@ -29,7 +30,7 @@ namespace Volume {
         while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.Ptr()), keyfileBuf.Size())))
 		{
             if(readLength == -1)
-                throw;
+                throw FailedReadFileException(Path);
             for (qint64 i = 0; i < readLength; i++)
 			{
                 quint32 crc = crc32.Process (keyfileBuf[i]);

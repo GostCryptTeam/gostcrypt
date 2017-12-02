@@ -68,7 +68,8 @@ HEADERS += \
     ../Crypto/GostHash.h \
     ../Crypto/GrasshopperCipher.h \
     ../Crypto/Stribog.h \
-    ../Crypto/Whirlpool.h
+    ../Crypto/Whirlpool.h \
+    VolumeException.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -102,4 +103,5 @@ SOURCES += \
     ../Crypto/GostHash.c \
     ../Crypto/GrasshopperCipher.c \
     ../Crypto/Stribog.c \
-    ../Crypto/Whirlpool.c
+    ../Crypto/Whirlpool.c \
+    VolumeException.cpp

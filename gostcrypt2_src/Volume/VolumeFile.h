@@ -53,6 +53,7 @@ namespace Volume
         FileType::Enum GetType () const;
         bool IsTypeFile () const { return GetType() == FileType::File; }
         bool isTypeDevice () const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }
+        void ResetTimestamps();
 		
 	protected:
 

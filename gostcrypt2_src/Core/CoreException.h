@@ -685,6 +685,27 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
             DEC_SERIALIZABLE(RandomNumberGeneratorNotRunning);
         };
 
+        #define FailedUsingSystemRandomSourceException() GostCrypt::Core::FailedUsingSystemRandomSource(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        class FailedUsingSystemRandomSource : public CoreException {
+            public:
+                /**
+                 * @brief Default Constructor used when deserializing
+                 *
+                 */
+                FailedUsingSystemRandomSource() {}
+                /**
+                 * @brief Constructor used when throwing the exception
+                 *
+                 * @param fonction Name of the function where the exception is thrown
+                 * @param filename Name of the file where the exception is thrown
+                 * @param line Line where the exception is thrown
+                 */
+                FailedUsingSystemRandomSource(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
+                DEF_EXCEPTION_WHAT(FailedUsingSystemRandomSource, CoreException, "Failed using system random source.")
+            protected:
+            DEC_SERIALIZABLE(FailedUsingSystemRandomSource);
+        };
+
 	}
 }
 
@@ -714,5 +735,6 @@ SERIALIZABLE(GostCrypt::Core::FailFindFilesystemType)
 SERIALIZABLE(GostCrypt::Core::InvalidParam)
 SERIALIZABLE(GostCrypt::Core::IncorrectVolumePassword)
 SERIALIZABLE(GostCrypt::Core::RandomNumberGeneratorNotRunning)
+SERIALIZABLE(GostCrypt::Core::FailedUsingSystemRandomSource)
 
 #endif // COREEXCEPTION_H

@@ -8,6 +8,7 @@
 
 
 #include "Buffer.h"
+#include "Volume/VolumeException.h"
 
 namespace GostCrypt
 {
@@ -29,7 +30,7 @@ namespace GostCrypt
 	void Buffer::Allocate (size_t size)
 	{
 		if (size < 1)
-            throw;
+            throw IncorrectParameterException("size is null");
 
 		if (DataPtr != nullptr)
 		{
@@ -47,7 +48,7 @@ namespace GostCrypt
 		{
 			DataPtr = nullptr;
 			DataSize = 0;
-			throw;
+            throw; //rethrow
 		}
 	}
 
@@ -56,7 +57,7 @@ namespace GostCrypt
 		if (!IsAllocated ())
 			Allocate (bufferPtr.Size());
 		else if (bufferPtr.Size() > DataSize)
-            throw;// ParameterTooLarge (SRC_POS);
+            throw IncorrectParameterException("bufferPtr.size > DataSize")
 
 		Memory::Copy (DataPtr, bufferPtr.Get(), bufferPtr.Size());
 	}
@@ -70,7 +71,7 @@ namespace GostCrypt
 	void Buffer::Free ()
 	{
 		if (DataPtr == nullptr)
-            throw;// NotInitialized (SRC_POS);
+            throw BufferAlreadyFreedException();
 
 		Memory::Free (DataPtr);
 		DataPtr = nullptr;
@@ -80,7 +81,7 @@ namespace GostCrypt
 	BufferPtr Buffer::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("offset+size > DataSize");
 
 		return BufferPtr (DataPtr + offset, size);
 	}
@@ -110,7 +111,7 @@ namespace GostCrypt
 	void SecureBuffer::Free ()
 	{
 		if (DataPtr == nullptr)
-            throw;// NotInitialized (SRC_POS);
+            throw BufferAlreadyFreedException();
 
 		Erase ();
 		Buffer::Free ();
@@ -119,7 +120,7 @@ namespace GostCrypt
 	void BufferPtr::CopyFrom (const ConstBufferPtr &bufferPtr) const
 	{
 		if (bufferPtr.Size() > DataSize)
-            throw;// ParameterTooLarge (SRC_POS);
+            throw IncorrectParameterException("bufferPtr.size > DataSize");
 
 		Memory::Copy (DataPtr, bufferPtr.Get(), bufferPtr.Size());
 	}
@@ -127,7 +128,7 @@ namespace GostCrypt
 	BufferPtr BufferPtr::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("offset+size > DataSize");
 
 		return BufferPtr (DataPtr + offset, size);
 	}
@@ -135,7 +136,7 @@ namespace GostCrypt
 	ConstBufferPtr ConstBufferPtr::GetRange (size_t offset, size_t size) const
 	{
 		if (offset + size > DataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("offset+size > DataSize");
 
 		return ConstBufferPtr (DataPtr + offset, size);
 	}

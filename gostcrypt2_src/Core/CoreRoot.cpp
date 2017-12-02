@@ -92,7 +92,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             FuseDriver::sendAuxDeviceInfo(params->fuseMountPoint, virtualDevice);
         } catch(...) {
             LoopDeviceManager::detachLoopDevice(virtualDevice);
-            throw;
+            throw; //rethrow
         }
         UPDATE_PROGRESS(0.78);
         if(params->doMount) {
@@ -131,7 +131,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
         } catch (...) {}
         if(mountDirCreated)
             QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
-        throw;
+        throw; //rethrow
     }
 	UPDATE_PROGRESS(1);
     if(params->forVolumeCreation) {

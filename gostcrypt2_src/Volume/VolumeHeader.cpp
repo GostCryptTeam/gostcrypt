@@ -7,6 +7,7 @@
 */
 
 
+#include "VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
 #include "VolumeHeader.h"
@@ -45,8 +46,10 @@ namespace Volume {
 
 	void VolumeHeader::Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options)
 	{
-		if (options.DataKey.Size() != options.EA->GetKeySize() * 2 || options.Salt.Size() != GetSaltSize())
-            throw;// ParameterIncorrect (SRC_POS);
+        if (options.DataKey.Size() != options.EA->GetKeySize() * 2)
+            throw IncorrectParameterException("Given Key size different from the encryption algorithm key size");
+        if (options.Salt.Size() != GetSaltSize())
+            throw IncorrectParameterException("Given salt size incorrect");
 
 		headerBuffer.Zero();
 
@@ -69,8 +72,8 @@ namespace Volume {
 			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
 			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
 		{
-            throw;// ParameterIncorrect (SRC_POS);
-		}
+            throw IncorrectParameterException("sector size");
+        }
 
 		EA = options.EA;
 		QSharedPointer <EncryptionMode> mode (new EncryptionModeXTS ());
@@ -82,7 +85,7 @@ namespace Volume {
     bool VolumeHeader::Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
 	{
 		if (password.Size() < 1)
-            throw;// PasswordEmpty (SRC_POS);
+            throw IncorrectParameterException("Empty password");
 
 		ConstBufferPtr salt (encryptedData.GetRange (SaltOffset, SaltSize));
 		SecureBuffer header (EncryptedHeaderDataSize);
@@ -137,7 +140,7 @@ namespace Volume {
 	{
 
 		if (header.Size() != EncryptedHeaderDataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("header buffer size");
 
 		if (header[0] != 'T' ||
 			header[1] != 'R' ||
@@ -145,15 +148,15 @@ namespace Volume {
 			header[3] != 'E')
 			return false;
 
-/* Vérification de la version du header */
+        /* Vérification de la version du header */
 		size_t offset = 4;
 		HeaderVersion =	DeserializeEntry <quint16> (header, offset);
 
 		if (HeaderVersion < MinAllowedHeaderVersion)
-            throw;// OlderVersionRequired (SRC_POS);
+            throw VolumeVersionNotCompatibleException("Volume version too old");
 
 		if (HeaderVersion > CurrentHeaderVersion)
-            throw;// HigherVersionRequired (SRC_POS);
+            throw VolumeVersionNotCompatibleException("Volume version too young");
 
 		if (HeaderVersion >= 4
 			&& Crc32::ProcessBuffer (header.GetRange (0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
@@ -166,7 +169,7 @@ namespace Volume {
 
 
 		if (RequiredMinProgramVersion > Version::Number())
-            throw;// HigherVersionRequired (SRC_POS);
+            throw VolumeVersionNotCompatibleException("Volume version too young");
 
 		VolumeKeyAreaCrc32 = DeserializeEntry <quint32> (header, offset);
 		VolumeCreationTime = DeserializeEntry <quint64> (header, offset);
@@ -186,7 +189,7 @@ namespace Volume {
 			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
 			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
 		{
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("sector size");
 		}
 
 #if !(defined (GST_WINDOWS) || defined (GST_LINUX))
@@ -227,7 +230,7 @@ namespace Volume {
 		offset += sizeof (T);
 
 		if (offset > header.Size())
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
 		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
 	}
@@ -236,15 +239,17 @@ namespace Volume {
 	T VolumeHeader::DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const
 	{
 		if (offset > header.Size())
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
 		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
     void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
-		if (newHeaderBuffer.Size() != HeaderSize || newSalt.Size() != SaltSize)
-            throw;// ParameterIncorrect (SRC_POS);
+        if (newHeaderBuffer.Size() != HeaderSize)
+            throw IncorrectParameterException("Incorrect new header buffer size");
+        if (newSalt.Size() != SaltSize)
+            throw IncorrectParameterException("Incorrect new salt size");
 
 		QSharedPointer <EncryptionMode> mode = EA->GetMode()->GetNew();
 		QSharedPointer <EncryptionAlgorithm> ea = EA->GetNew();
@@ -287,7 +292,7 @@ namespace Volume {
 	void VolumeHeader::Serialize (const BufferPtr &header) const
 	{
 		if (header.Size() != EncryptedHeaderDataSize)
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Incorrect header buffer size");
 
 		header.Zero();
 
@@ -318,8 +323,8 @@ namespace Volume {
 			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
 			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
 		{
-            throw;// ParameterIncorrect (SRC_POS);
-		}
+            throw IncorrectParameterException("incorrect sector size");
+        }
 
 		SerializeEntry (SectorSize, header, offset);
 
@@ -333,7 +338,7 @@ namespace Volume {
 		offset += sizeof (T);
 
 		if (offset > header.Size())
-            throw;// ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
 
 		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
 	}

@@ -7,6 +7,7 @@
 */
 
 #include <stdlib.h>
+#include "Core/GostCryptException.h"
 #include "Common/Gstdefs.h"
 #include "Memory.h"
 
@@ -15,11 +16,10 @@ namespace GostCrypt
 	void *Memory::Allocate (std::size_t size)
 	{
 		if (size < 1)
-            throw;// ParameterIncorrect (SRC_POS);
-
+            throw IncorrectParameterException("size is null");
         void *bufPtr = malloc (size);
 		if (!bufPtr)
-            throw;// bad_alloc();
+            throw FailedMemoryAllocationException();
 
 		return bufPtr;
 	}
