@@ -52,20 +52,14 @@ namespace Volume {
         bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
         void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
-		quint64 GetEncryptedAreaLength () const { return EncryptedAreaLength; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
-		quint32 GetFlags () const { return Flags; }
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
-		quint64 GetHiddenVolumeDataSize () const { return HiddenVolumeDataSize; }
 		static size_t GetLargestSerializedKeySize ();
         QSharedPointer <VolumeHash> GetVolumeHash () const { return volumeHash; }
-		quint16 GetRequiredMinProgramVersion () const { return RequiredMinProgramVersion; }
 		size_t GetSectorSize () const { return SectorSize; }
 		static quint32 GetSaltSize () { return SaltSize; }
 		quint64 GetVolumeDataSize () const { return VolumeDataSize; }
 		VolumeTime GetVolumeCreationTime () const { return VolumeCreationTime; }
-		void SetSize (quint32 headerSize);
-		quint16 GetHeaderVersion () const { return HeaderVersion; }
 
 	protected:
 		bool Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);

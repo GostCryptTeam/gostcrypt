@@ -81,7 +81,7 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::FailedWriteFile& Valeur)
     QString path;
     in >> static_cast<SystemException&>(Valeur);
     in >> path;
-    Valeur.file.setFile(path);
+                         Valeur.file.setFile(path);
     return in;
 }
 
@@ -97,7 +97,7 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::FailedLseekFile& Valeur)
     QString path;
     in >> static_cast<SystemException&>(Valeur);
     in >> path;
-    Valeur.file.setFile(path);
+                         Valeur.file.setFile(path);
     return in;
 }
 
@@ -113,7 +113,7 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::FailedStatFile& Valeur)
     QString path;
     in >> static_cast<SystemException&>(Valeur);
     in >> path;
-    Valeur.file.setFile(path);
+                         Valeur.file.setFile(path);
     return in;
 }
 
@@ -129,7 +129,7 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::FailedReadFile& Valeur)
     QString path;
     in >> static_cast<SystemException&>(Valeur);
     in >> path;
-    Valeur.file.setFile(path);
+                         Valeur.file.setFile(path);
     return in;
 }
 

@@ -126,10 +126,10 @@ namespace GostCrypt {
                  * @param line
                  * @param volumePath
                  */
-                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath->absoluteFilePath() + " is already mounted.\n")
+                VolumeAlreadyMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath.absoluteFilePath() + " is already mounted.\n")
 			protected:
-                QSharedPointer<QFileInfo> volumePath; /**< TODO: describe */
+                QFileInfo volumePath; /**< TODO: describe */
 			DEC_SERIALIZABLE(VolumeAlreadyMounted);
 		};
 
@@ -153,10 +153,10 @@ namespace GostCrypt {
                  * @param line
                  * @param volumePath
                  */
-                FailedOpenVolume(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, "Opening of volume " + volumePath->absoluteFilePath() + " failed.\n")
+                FailedOpenVolume(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(FailedOpenVolume, CoreException, "Opening of volume " + volumePath.absoluteFilePath() + " failed.\n")
 			protected:
-                QSharedPointer<QFileInfo> volumePath; /**< TODO: describe */
+                QFileInfo volumePath; /**< TODO: describe */
 			DEC_SERIALIZABLE(FailedOpenVolume);
 		};
 
@@ -457,10 +457,10 @@ namespace GostCrypt {
                  * @param line
                  * @param volumePath
                  */
-                VolumeNotMounted(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath->absoluteFilePath() + " is not mounted.\n")
+                VolumeNotMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath.absoluteFilePath() + " is not mounted.\n")
             protected:
-                QSharedPointer<QFileInfo> volumePath; /**< TODO: describe */
+                QFileInfo volumePath; /**< TODO: describe */
             DEC_SERIALIZABLE(VolumeNotMounted);
         };
 

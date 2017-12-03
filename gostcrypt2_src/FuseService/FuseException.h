@@ -52,10 +52,10 @@ namespace GostCrypt
 				 * @param line Line of the file where the exception was thrown
                  * @param volumePath path of the volume Fuse was trying to mount
                  */
-                FuseTimeout(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : FuseException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(FuseTimeout, FuseException, "Fuseservice timed out while trying to mount "+ volumePath->absoluteFilePath() + "\n")
+                FuseTimeout(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : FuseException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(FuseTimeout, FuseException, "Fuseservice timed out while trying to mount "+ volumePath.absoluteFilePath() + "\n")
             protected:
-				QSharedPointer<QFileInfo> volumePath; /**< path of the volume Fuse was trying to mount */
+                                QFileInfo volumePath; /**< path of the volume Fuse was trying to mount */
 			DEC_SERIALIZABLE(FuseTimeout);
 		};
 

@@ -95,31 +95,6 @@ namespace Volume {
 		return keySize;
 	}
 
-	size_t EncryptionAlgorithm::GetMaxBlockSize () const
-	{
-		size_t blockSize = 0;
-
-        for (const QSharedPointer<CipherAlgorithm> c : Ciphers) {
-            if (c->GetBlockSize() > blockSize)
-                blockSize = c->GetBlockSize();
-        }
-
-		return blockSize;
-	}
-
-	size_t EncryptionAlgorithm::GetMinBlockSize () const
-	{
-		size_t blockSize = 0;
-
-        for (const QSharedPointer<CipherAlgorithm> c : Ciphers) {
-            if (blockSize == 0 || c->GetBlockSize() < blockSize) {
-                blockSize = c->GetBlockSize();
-             }
-         }
-
-		return blockSize;
-	}
-
     QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
 	{
         if (Mode.isNull())
@@ -209,12 +184,6 @@ namespace Volume {
             c->SetKey (key.GetRange (keyOffset, c->GetKeySize()));
             keyOffset += c->GetKeySize();
 		}
-	}
-
-	void EncryptionAlgorithm::ValidateState () const
-	{
-        if (Ciphers.size() < 1 || Mode.isNull())
-            throw EncryptionAlgorithmNotInitializedException();
 	}
 }
 }

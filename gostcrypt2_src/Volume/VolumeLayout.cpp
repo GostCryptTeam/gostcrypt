@@ -18,6 +18,9 @@ namespace GostCrypt {
 namespace Volume {
 
 VolumeLayout::VolumeLayout ()
+    : BackupHeaderOffset(0),
+      HeaderOffset(0),
+      Type(VolumeType::Enum::Unknown)
 {
 }
 

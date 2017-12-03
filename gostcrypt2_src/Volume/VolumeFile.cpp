@@ -63,7 +63,7 @@ void VolumeFile::Close ()
 		return length;
 	}
 
-    void VolumeFile::Open (const QSharedPointer<QFileInfo> path, bool readOnly, bool preserveTimestamps)
+    void VolumeFile::Open (const QFileInfo path, bool readOnly, bool preserveTimestamps)
 	{
 		int sysFlags = O_LARGEFILE;
 
@@ -76,13 +76,13 @@ void VolumeFile::Close ()
         if (preserveTimestamps)
 		{
 			struct stat statData;
-            if (stat (path->absoluteFilePath().toLocal8Bit().data(), &statData) == -1)
+            if (stat (path.absoluteFilePath().toLocal8Bit().data(), &statData) == -1)
                 throw FailedGetTimestampsException();
 			AccTime = statData.st_atime;
 			ModTime = statData.st_mtime;
 		}
 
-        FileHandle = open (path->absoluteFilePath().toLocal8Bit().data(), sysFlags, S_IRUSR | S_IWUSR);
+        FileHandle = open (path.absoluteFilePath().toLocal8Bit().data(), sysFlags, S_IRUSR | S_IWUSR);
         if (FileHandle == -1)
             throw FailedOpenFileException(Path);
 
@@ -151,7 +151,7 @@ void VolumeFile::Close ()
     FileType::Enum VolumeFile::GetType() const
     {
         struct stat statData;
-        if (stat (Path->absoluteFilePath().toLocal8Bit().data(), &statData) != 0)
+        if (stat (Path.absoluteFilePath().toLocal8Bit().data(), &statData) != 0)
             throw FailedStatFileException(Path);
 
         if (S_ISREG (statData.st_mode)) return FileType::File;
@@ -173,7 +173,7 @@ void VolumeFile::Close ()
 
         try
         {
-            if (utime (Path->absoluteFilePath().toLocal8Bit().data(), &u) == -1)
+            if (utime (Path.absoluteFilePath().toLocal8Bit().data(), &u) == -1)
                 throw FailedResetTimestampsException();
         }
         catch (FailedResetTimestamps &e) // Suppress errors to allow using read-only files
@@ -195,7 +195,7 @@ void VolumeFile::Close ()
     }
 
 
-    QSharedPointer<QFileInfo> VolumeFile::GetPath () const
+    const QFileInfo VolumeFile::GetPath () const
     {
         return Path;
     }

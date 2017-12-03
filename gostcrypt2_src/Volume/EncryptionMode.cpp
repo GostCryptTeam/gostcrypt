@@ -32,14 +32,5 @@ namespace Volume {
 	{
 		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::EncryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
 	}
-
-	EncryptionModeList EncryptionMode::GetAvailableModes ()
-	{
-		EncryptionModeList l;
-
-		l.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
-
-		return l;
-	}
 }
 }

@@ -26,7 +26,6 @@ namespace Volume {
 		virtual void DecryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		virtual void Encrypt (quint8 *data, quint64 length) const;
 		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
-		virtual const SecureBuffer &GetKey () const { return SecondaryKey; }
 		virtual size_t GetKeySize () const;
         virtual std::wstring GetName () const { return L"XTS"; }
 		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }

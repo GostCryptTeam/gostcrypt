@@ -23,13 +23,8 @@ namespace GostCrypt
 	public:
 		static void AddToPool (const ConstBufferPtr &buffer);
 		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
-		static void GetDataFast (const BufferPtr &buffer) { GetData (buffer, true); }
-		static QSharedPointer <Volume::VolumeHash> GetHash ();
-		static bool IsEnrichedByUser () { return EnrichedByUser; }
 		static bool IsRunning () { return Running; }
 		static ConstBufferPtr PeekPool () { return Pool; }
-		static void SetEnrichedByUserStatus (bool enriched) { EnrichedByUser = enriched; }
-		static void SetHash (QSharedPointer <Volume::VolumeHash> hash);
 		static void Start ();
 		static void Stop ();
 

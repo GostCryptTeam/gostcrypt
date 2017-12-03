@@ -15,7 +15,7 @@ struct VolumeInformation
     QString encryptionAlgorithmName;
     QSharedPointer<QFileInfo> virtualDevice;
     QSharedPointer<QFileInfo> mountPoint;
-    QSharedPointer<QFileInfo> volumePath;
+    QFileInfo volumePath;
     VolumeProtection::Enum protection;
     quint64 size;
     VolumeType::Enum type;

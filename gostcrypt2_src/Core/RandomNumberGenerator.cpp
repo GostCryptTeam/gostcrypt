@@ -26,7 +26,7 @@ namespace GostCrypt
 
 		int urandom = open ("/dev/urandom", O_RDONLY);
         if (urandom == -1)
-            throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo(QStringLiteral("/dev/urandom"))));
+            throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
         if (read (urandom, buffer, buffer.Size()) == -1)
             throw FailedUsingSystemRandomSourceException();
@@ -37,7 +37,7 @@ namespace GostCrypt
 			// Read all bytes available in /dev/random up to buffer size
 			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
             if (random == -1)
-                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo(QStringLiteral("/dev/random"))));
+                throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/random")));
 
             if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN)
                 throw FailedUsingSystemRandomSourceException();
@@ -107,13 +107,7 @@ namespace GostCrypt
 			if (ReadOffset >= PoolSize)
 				ReadOffset = 0;
 		}
-	}
-
-	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::GetHash ()
-	{
-        QMutexLocker lock (&AccessMutex);
-		return PoolHash;
-	}
+    }
 
 	void RandomNumberGenerator::HashMixPool ()
 	{
@@ -132,12 +126,6 @@ namespace GostCrypt
 				Pool[poolPos++] += digest[digestPos];
 			}
 		}
-	}
-
-	void RandomNumberGenerator::SetHash (QSharedPointer <Volume::VolumeHash> hash)
-	{
-        QMutexLocker lock (&AccessMutex);
-		PoolHash = hash;
 	}
 
 	void RandomNumberGenerator::Start ()

@@ -18,14 +18,12 @@ namespace Volume {
 
 	class EncryptionTest
 	{
-	public:
-		static void TestAll ();
-	protected:
-		static void TestCiphers ();
-		static void TestPkcs5 ();
-		static void TestXts ();
-
-	struct XtsTestVector
+    public:
+        void TestCiphers ();
+        void TestPkcs5 ();
+        void TestXts ();
+    protected:
+    struct XtsTestVector
 	{
 		quint8 key1[32];
 		quint8 key2[32];

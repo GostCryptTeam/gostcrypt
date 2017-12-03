@@ -71,7 +71,7 @@ struct CreateVolumeRequest : CoreRequest {
         QString filesystem; // the filesystem to use
         DEC_SERIALIZABLE(VolumeParams);
     };
-    QSharedPointer <QFileInfo> path; // path of the file to create or device to format
+    QFileInfo path; // path of the file to create or device to format
     Volume::VolumeType::Enum type; // Normal or hidden ?
     quint64 size; // size of the container
     QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
@@ -91,7 +91,7 @@ struct ChangeVolumePasswordRequest : CoreRequest {
 };
 
 struct CreateKeyFileRequest : CoreRequest {
-    QSharedPointer<QFileInfo> file; // the path of the file to fill with random data
+    QFileInfo file; // the path of the file to fill with random data
     DEC_SERIALIZABLE(CreateKeyFileRequest);
 };
 
@@ -105,7 +105,7 @@ struct MountVolumeRequest : CoreRequest {
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
     QSharedPointer <QByteArray> password; // password of the volume
     QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
-    QSharedPointer <QFileInfo> path; // path of the container or device to mount
+    QFileInfo path; // path of the container or device to mount
     QSharedPointer <QFileInfo> fuseMountPoint; // mountpoint for the special fuse filesystem
     Volume::VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
     QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
@@ -120,7 +120,7 @@ struct MountVolumeRequest : CoreRequest {
 
 struct DismountVolumeRequest : CoreRequest {
     DismountVolumeRequest();
-    QSharedPointer<QFileInfo> volumePath; // path of the file mounted, not the mount point
+    QFileInfo volumePath; // path of the file mounted, not the mount point
     bool force;
     bool forVolumeCreation;
     DEC_SERIALIZABLE(DismountVolumeRequest);
@@ -131,7 +131,7 @@ struct GetHostDevicesRequest : CoreRequest {
 }; // no parameters
 
 struct GetMountedVolumesRequest : CoreRequest {
-    QSharedPointer<QFileInfo> volumePath; // optional path to select VolumeInfo from one particular volume
+    QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
     DEC_SERIALIZABLE(GetMountedVolumesRequest);
 };
 

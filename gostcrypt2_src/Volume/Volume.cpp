@@ -21,11 +21,16 @@ namespace Volume {
 
 	Volume::Volume ()
 		: HiddenVolumeProtectionTriggered (false),
+        Protection(VolumeProtection::Enum::None),
+        SectorSize(0),
 		SystemEncryption (false),
+        Type (VolumeType::Enum::Unknown),
 		VolumeDataSize (0),
 		TopWriteOffset (0),
 		TotalDataRead (0),
-		TotalDataWritten (0)
+        TotalDataWritten (0)
+
+
 	{
 	}
 
@@ -56,12 +61,7 @@ namespace Volume {
 		return EA;
 	}
 
-	QSharedPointer <EncryptionMode> Volume::GetEncryptionMode () const
-	{
-		return EA->GetMode();
-	}
-
-    void Volume::Open (const QSharedPointer<QFileInfo> volumePath,
+    void Volume::Open (const QFileInfo volumePath,
                     bool preserveTimestamps,
                     QSharedPointer <VolumePassword> password,
                     QSharedPointer <KeyfileList> keyfiles,

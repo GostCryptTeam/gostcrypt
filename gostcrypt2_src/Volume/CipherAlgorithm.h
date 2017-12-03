@@ -26,25 +26,16 @@ namespace Volume {
 	public:
         virtual ~CipherAlgorithm ();
 
-		virtual void DecryptBlock (quint8 *data) const;
 		virtual void DecryptBlocks (quint8 *data, size_t blockCount) const;
-		static void EnableHwSupport (bool enable) { HwSupportEnabled = enable; }
 		virtual void EncryptBlock (quint8 *data) const;
 		virtual void EncryptBlocks (quint8 *data, size_t blockCount) const;
-        static CipherAlgorithmList GetAvailableCiphers ();
 		virtual size_t GetBlockSize () const = 0;
-		virtual const SecureBuffer &GetKey () const { return Key; }
 		virtual size_t GetKeySize () const = 0;
         virtual std::wstring GetName () const = 0;
         virtual std::wstring GetDescription () const = 0;
         virtual QSharedPointer <CipherAlgorithm> GetNew () const = 0;
-		virtual bool IsHwSupportAvailable () const { return false; }
-		static bool IsHwSupportEnabled () { return HwSupportEnabled; }
 		virtual void SetKey (const ConstBufferPtr &key);
 
-		virtual void StoreCipherKey ();
-		virtual void RestoreCipherKey ();
-		virtual bool IsKeySwapped ();
 		virtual void XorCipherKey (quint8 *ks, quint8 *data, int len) const = 0;
 		virtual void EncryptWithKS (quint8 *data, quint8 *ks) const = 0;
 		virtual void DecryptWithKS (quint8 *data, quint8 *ks) const = 0;
@@ -65,7 +56,6 @@ namespace Volume {
 		SecureBuffer Key;
 		SecureBuffer ScheduledKey;
 		SecureBuffer SwapScheduledKey;
-		bool KeySwapped;
 
 	private:
         CipherAlgorithm (const CipherAlgorithm &);

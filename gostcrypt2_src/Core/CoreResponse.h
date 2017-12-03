@@ -40,7 +40,7 @@ namespace GostCrypt {
 		};
 
 		struct DismountVolumeResponse : CoreResponse {
-			QList<QSharedPointer<QFileInfo>> volumePath; // path of the file dismounted, not the mount point
+                        QList<QFileInfo> volumePath; // path of the file dismounted, not the mount point
 			DEC_SERIALIZABLE(DismountVolumeResponse);
 		};
 

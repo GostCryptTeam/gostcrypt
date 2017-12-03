@@ -154,7 +154,7 @@ namespace GostCrypt {
 			 * @param volumeFile Path of the volume file
 			 * @return bool True if the given volume is currently mounted
 			 */
-			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
+                        bool isVolumeMounted(QFileInfo volumeFile);
             /**
              * @brief Give the next available fuse mountpoint (/tmp/.gostcrypt_aux_mntN)
              *
@@ -169,7 +169,7 @@ namespace GostCrypt {
              * @param algorithm Name of the cipher algorithm to use for random generation
              * @param random If False null bytes will be used instead of random data
              */
-            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "", bool random = true);
+            void createRandomFile(QFileInfo path, quint64 size, QString algorithm = "", bool random = true);
             /**
              * @brief Set a random key for the given cipher algorithm. This function is used by createRandomFile
              *

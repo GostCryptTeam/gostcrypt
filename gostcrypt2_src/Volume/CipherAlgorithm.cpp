@@ -23,14 +23,6 @@ namespace Volume {
 	{
 	}
 
-    void CipherAlgorithm::DecryptBlock (quint8 *data) const
-	{
-		if (!Initialized)
-            throw CipherAlgorithmNotInitializedException();
-
-		Decrypt (data);
-	}
-
     void CipherAlgorithm::DecryptBlocks (quint8 *data, size_t blockCount) const
 	{
 		if (!Initialized)
@@ -63,16 +55,6 @@ namespace Volume {
 		}
 	}
 
-    CipherAlgorithmList CipherAlgorithm::GetAvailableCiphers ()
-	{
-        CipherAlgorithmList l;
-
-        l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
-        l.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGrasshopper()));
-
-		return l;
-	}
-
     void CipherAlgorithm::SetKey (const ConstBufferPtr &key)
 	{
 		if (key.Size() != GetKeySize ())
@@ -84,24 +66,6 @@ namespace Volume {
 		SetCipherKey (key);
 		Key.CopyFrom (key);
 		Initialized = true;
-		KeySwapped = false;
-	}
-
-    void CipherAlgorithm::StoreCipherKey ()
-	{
-		SwapScheduledKey.CopyFrom ((ConstBufferPtr) ScheduledKey);
-		KeySwapped = true;
-	}
-
-    void CipherAlgorithm::RestoreCipherKey ()
-	{
-		ScheduledKey.CopyFrom ((ConstBufferPtr) SwapScheduledKey);
-		KeySwapped = false;
-	}
-
-    bool CipherAlgorithm::IsKeySwapped ()
-	{
-		return KeySwapped;
 	}
 
     bool CipherAlgorithm::HwSupportEnabled = false;

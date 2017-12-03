@@ -40,9 +40,9 @@ namespace Volume
 			
 		void Close ();
         quint32 GetDeviceSectorSize () const;
-        QSharedPointer<QFileInfo> GetPath () const;
+        const QFileInfo GetPath () const;
         quint64 Length () const;
-        void Open (const QSharedPointer<QFileInfo> path, bool readOnly, bool preserveTimestamps);
+        void Open (const QFileInfo path, bool readOnly, bool preserveTimestamps);
         quint64 Read (const BufferPtr &buffer) const;
         quint64 ReadAt (const BufferPtr &buffer, quint64 position) const;
         void SeekAt (quint64 position) const;
@@ -59,7 +59,7 @@ namespace Volume
 
 		bool FileIsOpen;
         bool preserveTimestamps;
-        QSharedPointer<QFileInfo> Path;
+        QFileInfo Path;
         int FileHandle;
 
 		time_t AccTime;

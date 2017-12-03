@@ -149,10 +149,10 @@ class FailedOpenFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedOpenFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file->absoluteFilePath() + "\".\n")
+        FailedOpenFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to open file \""+file.absoluteFilePath() + "\".\n")
     protected:
-        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+        QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedOpenFile);
 };
 
@@ -176,10 +176,10 @@ class FailedReadFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedReadFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to read file \""+file->absoluteFilePath() + "\".\n")
+        FailedReadFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to read file \""+file.absoluteFilePath() + "\".\n")
     protected:
-        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+        QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedReadFile);
 };
 
@@ -203,10 +203,10 @@ class FailedWriteFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedWriteFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedWriteFile, SystemException, "Unable to write file \""+file->absoluteFilePath() + "\".\n")
+        FailedWriteFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedWriteFile, SystemException, "Unable to write file \""+file.absoluteFilePath() + "\".\n")
     protected:
-        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+        QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedWriteFile);
 };
 
@@ -230,10 +230,10 @@ class FailedLseekFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedLseekFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedLseekFile, SystemException, "Unable to lseek file \""+file->absoluteFilePath() + "\".\n")
+        FailedLseekFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedLseekFile, SystemException, "Unable to lseek file \""+file.absoluteFilePath() + "\".\n")
     protected:
-        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+        QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedLseekFile);
 };
 
@@ -257,10 +257,10 @@ class FailedStatFile : public SystemException {
          * @param line
          * @param file
          */
-        FailedStatFile(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedStatFile, SystemException, "Unable to lseek file \""+file->absoluteFilePath() + "\".\n")
+        FailedStatFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedStatFile, SystemException, "Unable to lseek file \""+file.absoluteFilePath() + "\".\n")
     protected:
-        QSharedPointer<QFileInfo> file; /**< TODO: describe */
+        QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedStatFile);
 };
 

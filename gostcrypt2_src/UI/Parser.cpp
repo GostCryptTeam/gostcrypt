@@ -34,7 +34,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
     if (positionalArguments.size() > 2)
         throw Parser::ParseException(QString("Too many arguments specified."));
 
-    options->path.reset(new QFileInfo(positionalArguments.at(1)));
+    options->path.setFile(positionalArguments.at(1));
 
     // Parsing all options
 
@@ -125,7 +125,7 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
 	if (positionalArguments.size() > 2)
         throw Parser::ParseException(QString("Too many arguments specified."));
 
-    volume->volumePath.reset(new QFileInfo(positionalArguments.at(1)));
+    volume->volumePath.setFile(positionalArguments.at(1));
 
     volume->force = false;
     //TODO add force option
@@ -199,7 +199,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     if (positionalArguments.size() > 2)
         throw Parser::ParseException(QString("Too many arguments specified."));
 
-    options->path = QSharedPointer<QFileInfo>(new QFileInfo(positionalArguments.at(1)));
+    options->path.setFile(positionalArguments.at(1));
 
     // Parsing all options
 

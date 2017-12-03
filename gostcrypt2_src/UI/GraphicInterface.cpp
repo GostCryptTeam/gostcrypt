@@ -106,7 +106,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             if(GI_KEY(aContent, "volumepath") != "") {
-                options.data()->volumePath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
+                options.data()->volumePath.setFile(GI_KEY(aContent, "volumepath").toString());
                 emit request(QVariant::fromValue(options));
             }else{
                 //TODO : send error to QML
@@ -118,7 +118,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QSharedPointer <GostCrypt::Core::MountVolumeRequest> options(new GostCrypt::Core::MountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             QString canonicalPath = GI_KEY(aContent, "path").toUrl().path();
-            options->path.reset(new QFileInfo(canonicalPath));
+            options->path.setFile(canonicalPath);
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
             emit request(QVariant::fromValue(options));
@@ -134,8 +134,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             if(type == GostCrypt::Volume::VolumeType::Normal)
             {
                 options->type = GostCrypt::Volume::VolumeType::Normal;
-                options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
-
+                options->path.setFile(GI_KEY(aContent, "path").toString());
                 GostCrypt::Core::CreateVolumeRequest::VolumeParams *params = new GostCrypt::Core::CreateVolumeRequest::VolumeParams;
                 options->size = DEFAULT_SIZE; // default value is 10Mio
                 params->size = DEFAULT_OUTER_SIZE; // default value
@@ -147,7 +146,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 params->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8()));
                 options->outerVolume.reset(params);
 
-                qDebug() << options->path->canonicalFilePath() << " "
+                qDebug() << options->path.canonicalFilePath() << " "
                          << options->size << " "
                          << options->outerVolume->size << " "
                          << options->outerVolume->encryptionAlgorithm << " "
@@ -201,7 +200,7 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
            if((*v)->mountPoint)
                 vol.insert("mountPoint", (*v)->mountPoint->filePath());
            vol.insert("algo", (*v)->encryptionAlgorithmName);
-           vol.insert("volumePath", (*v)->volumePath->filePath());
+           vol.insert("volumePath", (*v)->volumePath.filePath());
            vol.insert("volumeSize", formatSize((*v)->size));
            list.append(vol);
     }

@@ -140,7 +140,7 @@ Commands:\n\
                 Parser::parseCreateKeyFiles(parser, files); // TODO multiple keyfiles not supported yet
                 QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
                 for(QStringList::Iterator file = files.begin(); file != files.end(); file++) {
-                    options->file.reset(new QFileInfo(*file));
+                    options->file.setFile(*file);
                     emit request(QVariant::fromValue(options));
                 }
             }
@@ -262,7 +262,7 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
         throw MissingParamException("response");
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
-        qStdOut() << v->volumePath->absoluteFilePath() << "\t";
+        qStdOut() << v->volumePath.absoluteFilePath() << "\t";
         qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;

@@ -63,7 +63,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -92,7 +92,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
         }
 
@@ -106,7 +106,7 @@ namespace GostCrypt {
 			QFile file("/proc/partitions");
 
 			if(!file.open(QFile::ReadOnly))
-                                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo("/proc/partitions")));
+                                throw FailedOpenFileException(QFileInfo("/proc/partitions"));
 			QByteArray fileContent = file.readAll();
 			QTextStream ts(&fileContent);
 			while(!ts.atEnd()) {
@@ -153,7 +153,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -187,7 +187,7 @@ namespace GostCrypt {
 						continue;
 					if(mountedVol.isNull())
 						continue;
-                                        if(mountedVol->volumePath)
+                                        if(!mountedVol->volumePath.exists())
 						continue;
 				}
 				catch (...)
@@ -196,7 +196,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty() && mountedVol->volumePath->absoluteFilePath() != params->volumePath->absoluteFilePath())
+                if(params && !params->volumePath.absoluteFilePath().isEmpty() && mountedVol->volumePath.absoluteFilePath() != params->volumePath.absoluteFilePath())
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -211,7 +211,7 @@ namespace GostCrypt {
 				response->volumeInfoList.append(mountedVol);
 
 				/* If volume path specified no need to stay in the loop */
-                if(params && params->volumePath && !params->volumePath->absoluteFilePath().isEmpty())
+                if(params && !params->volumePath.absoluteFilePath().isEmpty())
 					break;
 			}
 
@@ -221,7 +221,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
@@ -234,7 +234,7 @@ namespace GostCrypt {
 			if (!mtab)
 				mtab = setmntent ("/proc/mounts", "r");
 			if(!mtab)
-                                throw FailedOpenFileException(QSharedPointer<QFileInfo>(new QFileInfo("/proc/mounts")));
+                                throw FailedOpenFileException(QFileInfo("/proc/mounts"));
 
 			static QMutex mutex;
 			mutex.lock();
@@ -326,14 +326,11 @@ namespace GostCrypt {
             encryptionAlgorithm->GetMode()->SetKey (modeKey);
         }
 
-        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm, bool random)
+        void CoreBase::createRandomFile(QFileInfo path, quint64 size, QString algorithm, bool random)
         {
             std::fstream file;
 
-            if(!path)
-                 throw MissingParamException("path");
-
-            file.open(path->absoluteFilePath().toStdString(), std::ios::out | std::ios::binary);
+            file.open(path.absoluteFilePath().toStdString(), std::ios::out | std::ios::binary);
             if(!file.is_open())
                 throw /* TODO add exception here */;
 
@@ -377,7 +374,7 @@ namespace GostCrypt {
 
         }
 
-		bool CoreBase::isVolumeMounted(QSharedPointer<QFileInfo> volumeFile)
+                bool CoreBase::isVolumeMounted(QFileInfo volumeFile)
 		{
 			QSharedPointer<GetMountedVolumesRequest> params(new GetMountedVolumesRequest);
             params->volumePath = volumeFile;
@@ -467,7 +464,7 @@ namespace GostCrypt {
 
             } catch(GostCryptException &e) {
                 e.setRequestId(params->id.requestId);
-                throw e;
+                throw;
             }
 		}
 
