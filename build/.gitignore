@@ -3,10 +3,13 @@ last.log
 FuseDriver/
 GostCrypt
 Makefile
-NewCore/
-NewFuseService/
+Core/
+FuseService/
 Platform/
 UI/
 Volume/
 make.log
 preparation.log
+requestsDump_*
+hashlist.txt
+algolist.txt
