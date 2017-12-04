@@ -21,34 +21,27 @@ namespace Volume {
 	{
 	public:
 		VolumePassword ();
-		VolumePassword (const quint8 *password, size_t size);
+        //VolumePassword (const quint8 *password, size_t size);
 		VolumePassword (const char *password, size_t size);
-		VolumePassword (const VolumePassword &password) { Set (password); }
-		virtual ~VolumePassword ();
 
 		bool operator== (const VolumePassword &other) const { return ConstBufferPtr (DataPtr(), Size()).IsDataEqual (ConstBufferPtr (other.DataPtr(), other.Size())); }
 		bool operator!= (const VolumePassword &other) const { return !(*this == other); }
-		VolumePassword &operator= (const VolumePassword &password) { Set (password); return *this; }
 
-		operator BufferPtr () const { return BufferPtr (PasswordBuffer); }
+        operator const BufferPtr () const { return BufferPtr (PasswordBuffer); }
 
-		quint8 *DataPtr () const { return PasswordBuffer; }
+        const quint8 *DataPtr () const { return PasswordBuffer.Ptr(); }
 		size_t Size () const { return PasswordSize; }
 		void Set (const quint8 *password, size_t size);
 		void Set (const ConstBufferPtr &password);
-		void Set (const VolumePassword &password);
 
 		static const size_t MaxSize = 64;
 		static const size_t WarningSizeThreshold = 12;
 
 	protected:
 		void AllocateBuffer ();
-		bool IsPortable () const;
 
 		SecureBuffer PasswordBuffer;
-
 		size_t PasswordSize;
-		bool Unportable;
 	};
 
 }
