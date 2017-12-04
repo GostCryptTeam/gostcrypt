@@ -617,9 +617,9 @@ static const quint8 C[12][64] = {
 }
 };
 
-static void set_blocks(quint8 *ptr, quint8 val, gst_dword len)
+static void set_blocks(quint8 *ptr, quint8 val, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < len; i++)
 		ptr[i] = val;
 }
@@ -627,25 +627,25 @@ static void set_blocks(quint8 *ptr, quint8 val, gst_dword len)
 static void Add512 (quint8 *dest, const quint8 *a, const quint8 *b)
 {
 	quint8 carry = 0;
-    gst_dword i;
+    qint32 i;
 	for (i = 63; i >= 0; i--)
 	{
         quint8 tmp = a[i] + b[i] + carry;
-		carry = (quint8)((gst_uword)(a[i] + b[i]) >> 8);
+        carry = (quint8)((quint16)(a[i] + b[i]) >> 8);
 		dest[i] = tmp;
 	}
 }
 
-static void copy_blocks(quint8 *dest, quint8 *src, gst_dword len)
+static void copy_blocks(quint8 *dest, quint8 *src, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < len; i++)
 		dest[i] = src[i];
 }
 
 static void Xor512(quint8 *dest, quint8 *a, quint8 *b)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < 64; i++)
 		dest[i] = a[i] ^ b[i];
 }
@@ -673,7 +673,7 @@ static void F(quint8 *K)
 
 static void E(quint8 *K, quint8 *m, quint8 *T)
 {
-	gst_dword i;
+    qint32 i;
 	Xor512(T, K, m);
 	for (i = 0; i < 12; i++)
 	{
@@ -707,7 +707,7 @@ void STRIBOG_init(STRIBOG_CTX *ctx)
 #define LAST_BLOCK(ptr, len) (ptr + len - 64)
 #define SUBTRACT_BLOCK(len) (len -= 64)
 
-void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len)
+void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, quint32 len)
 {
 	/* Current message position and the position we're not supposed to cross */
 	quint8 *msg_ptr = msg;
@@ -716,9 +716,9 @@ void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len)
 	if (ctx->left)
 	{
 		/*Check if there are enough bytes available to pass a round*/
-		if ((gst_udword)(64 - ctx->left) > len)
+        if ((quint32)(64 - ctx->left) > len)
 		{
-			copy_blocks(ctx->remainder + ctx->left, msg_ptr, (gst_dword)len);
+            copy_blocks(ctx->remainder + ctx->left, msg_ptr, (qint32)len);
 			ctx->left += (quint8)len;
 			return;
 		}
@@ -738,7 +738,7 @@ void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len)
 	/* Not enough left to perform a full round */
 	else if (len < 64)
 	{
-		copy_blocks(ctx->remainder, msg_ptr, (gst_dword)len);
+        copy_blocks(ctx->remainder, msg_ptr, (qint32)len);
 		ctx->left = (quint8)len;
 		return;
 	}
