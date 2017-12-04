@@ -154,9 +154,6 @@ extern int loopcxt_set_capacity(struct loopdev_cxt *lc);
 int loopcxt_set_flags(struct loopdev_cxt *lc, uint32_t flags);
 int loopcxt_set_backing_file(struct loopdev_cxt *lc, const char *filename);
 
-extern char *loopcxt_get_backing_file(struct loopdev_cxt *lc);
-extern int loopcxt_get_backing_devno(struct loopdev_cxt *lc, dev_t *devno);
-extern int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino);
 extern int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset);
 
 #endif /* UTIL_LINUX_LOOPDEV_H */

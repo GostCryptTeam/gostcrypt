@@ -650,38 +650,6 @@ struct loop_info64 *loopcxt_get_info(struct loopdev_cxt *lc)
 
 /*
  * @lc: context
- *
- * Returns (allocated) string with path to the file assicieted
- * with the current loop device.
- */
-char *loopcxt_get_backing_file(struct loopdev_cxt *lc)
-{
-	struct sysfs_cxt *sysfs = loopcxt_get_sysfs(lc);
-	char *res = NULL;
-
-	if (sysfs)
-		/*
-		 * This is always preffered, the loop_info64
-		 * has too small buffer for the filename.
-		 */
-		res = sysfs_strdup(sysfs, "loop/backing_file");
-
-	if (!res && loopcxt_ioctl_enabled(lc)) {
-		struct loop_info64 *lo = loopcxt_get_info(lc);
-
-		if (lo) {
-			lo->lo_file_name[LO_NAME_SIZE - 2] = '*';
-			lo->lo_file_name[LO_NAME_SIZE - 1] = '\0';
-			res = strdup((char *) lo->lo_file_name);
-		}
-	}
-
-	DBG(lc, loopdev_debug("get_backing_file [%s]", res));
-	return res;
-}
-
-/*
- * @lc: context
  * @offset: returns offset number for the given device
  *
  * Returns: <0 on error, 0 on success
@@ -704,46 +672,6 @@ int loopcxt_get_offset(struct loopdev_cxt *lc, uint64_t *offset)
 	}
 
 	DBG(lc, loopdev_debug("get_offset [rc=%d]", rc));
-	return rc;
-}
-
-/*
- * @lc: context
- * @devno: returns backing file devno
- *
- * Returns: <0 on error, 0 on success
- */
-int loopcxt_get_backing_devno(struct loopdev_cxt *lc, dev_t *devno)
-{
-	struct loop_info64 *lo = loopcxt_get_info(lc);
-	int rc = -EINVAL;
-
-	if (lo) {
-		if (devno)
-			*devno = lo->lo_device;
-		rc = 0;
-	}
-	DBG(lc, loopdev_debug("get_backing_devno [rc=%d]", rc));
-	return rc;
-}
-
-/*
- * @lc: context
- * @ino: returns backing file inode
- *
- * Returns: <0 on error, 0 on success
- */
-int loopcxt_get_backing_inode(struct loopdev_cxt *lc, ino_t *ino)
-{
-	struct loop_info64 *lo = loopcxt_get_info(lc);
-	int rc = -EINVAL;
-
-	if (lo) {
-		if (ino)
-			*ino = lo->lo_inode;
-		rc = 0;
-	}
-	DBG(lc, loopdev_debug("get_backing_inode [rc=%d]", rc));
 	return rc;
 }
 
