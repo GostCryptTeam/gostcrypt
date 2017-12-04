@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include <QtEndian>
 #include "EncryptionModeXTS.h"
 #include "Crypto/Crypto.h"
 #include "VolumeHeader.h"
@@ -53,7 +53,7 @@ namespace Volume {
 		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian(dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -130,7 +130,7 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
@@ -161,7 +161,7 @@ namespace Volume {
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
@@ -263,7 +263,7 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));
@@ -325,7 +325,7 @@ namespace Volume {
 		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -402,7 +402,7 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
@@ -426,7 +426,7 @@ namespace Volume {
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
@@ -526,7 +526,7 @@ namespace Volume {
 			startBlock = 0;
 			dataUnitNo++;
 
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));
