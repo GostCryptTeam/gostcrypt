@@ -225,7 +225,7 @@ namespace Volume {
 
 
 	template <typename T>
-	T VolumeHeader::DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const
+    T VolumeHeader::DeserializeEntry (const ConstBufferPtr &header, size_t &offset)
 	{
 		offset += sizeof (T);
 
@@ -236,7 +236,7 @@ namespace Volume {
 	}
 
 	template <typename T>
-	T VolumeHeader::DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const
+    T VolumeHeader::DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset)
 	{
 		if (offset > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
@@ -333,7 +333,7 @@ namespace Volume {
 	}
 
 	template <typename T>
-	void VolumeHeader::SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset) const
+    void VolumeHeader::SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset)
 	{
 		offset += sizeof (T);
 
