@@ -44,16 +44,6 @@ extern "C"
 
 typedef struct
 {
-    unsigned __int32 gf_t8k[CBLK_LEN * 2][16][CBLK_LEN / 4];
-} GfCtx8k;
-
-typedef struct
-{
-		unsigned __int32 gf_t4k[CBLK_LEN8 * 2][16][CBLK_LEN / 4];//ccw : unusedStructMember:struct member 'GfCtx4k64::gf_t4k' is never used.'- This is  a false positive (struct used in GfMul.c)
-} GfCtx4k64;
-
-typedef struct
-{
 	/* union not used to support faster mounting */
     unsigned __int32 gf_t128[CBLK_LEN * 2 / 2][16][CBLK_LEN / 4];
     unsigned __int32 gf_t64[CBLK_LEN8 * 2][16][CBLK_LEN8 / 4];

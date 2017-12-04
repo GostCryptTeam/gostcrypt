@@ -236,64 +236,6 @@ in_line void bsw_32(void * p, unsigned int n)
     (i & 0x08 ? 0x80 : 0) ^ (i & 0x04 ? 0xc0 : 0) ^ \
     (i & 0x02 ? 0x60 : 0) ^ (i & 0x01 ? 0xb0 : 0) )
 
-static mode(32t) gf_poly[2] = { 0, 0xe1000000 };
-static mode(32t) gf_poly64[2] = { 0, 0xd8000000 };
-
-/* Multiply of a GF128 field element by x.   The field element  */
-/* is held in an array of bytes in which field bits 8n..8n + 7  */
-/* are held in byte[n], with lower indexed bits placed in the   */
-/* more numerically significant bit positions in bytes.         */
-
-/* This function multiples a field element x, in the polynomial */
-/* field representation. It uses 32-bit word operations to gain */
-/* speed but compensates for machine endianess and hence works  */
-/* correctly on both styles of machine                          */
-
-in_line void mul_x(mode(32t) x[4])
-{   mode(32t)   t;
-
-    bsw_32(x, 4);
-
-    /* at this point the filed element bits 0..127 are set out  */
-    /* as follows in 32-bit words (where the most significant   */
-    /* (ms) numeric bits are to the left)                       */
-    /*                                                          */
-    /*            x[0]      x[1]      x[2]      x[3]            */
-    /*          ms    ls  ms    ls  ms    ls  ms     ls         */
-    /* field:   0 ... 31  32 .. 63  64 .. 95  96 .. 127         */
-
-    t = gf_poly[x[3] & 1];          /* bit 127 of the element   */
-    x[3] = (x[3] >> 1) | (x[2] << 31);  /* shift bits up by one */
-    x[2] = (x[2] >> 1) | (x[1] << 31);  /* position             */
-    x[1] = (x[1] >> 1) | (x[0] << 31);  /* if bit 7 is 1 xor in */
-    x[0] = (x[0] >> 1) ^ t;             /* the field polynomial */
-    bsw_32(x, 4);
-}
-
-in_line void mul_x64(mode(32t) x[2])
-{   mode(32t)   t;
-
-    bsw_32(x, 2);
-
-    /* at this point the filed element bits 0..127 are set out  */
-    /* as follows in 32-bit words (where the most significant   */
-    /* (ms) numeric bits are to the left)                       */
-    /*                                                          */
-    /*            x[0]      x[1]      x[2]      x[3]            */
-    /*          ms    ls  ms    ls  ms    ls  ms     ls         */
-    /* field:   0 ... 31  32 .. 63  64 .. 95  96 .. 127         */
-
-    t = gf_poly64[x[1] & 1];          /* bit 127 of the element   */
-										/* shift bits up by one */
-										/* position             */
-    x[1] = (x[1] >> 1) | (x[0] << 31);  /* if bit 7 is 1 xor in */
-    x[0] = (x[0] >> 1) ^ t;             /* the field polynomial */
-    bsw_32(x, 2);
-}
-
-/* Multiply of a GF128 field element by x^8 using 32-bit words  */
-/* for speed - machine endianess matters here                   */
-
 #if (PLATFORM_BYTE_ORDER == BRG_LITTLE_ENDIAN)
 
 #define xp_fun(x,y)    ((mode(32t))(x)) | (((mode(32t))(y)) << 8)
