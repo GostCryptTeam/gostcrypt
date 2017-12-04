@@ -126,7 +126,7 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
         throw Parser::ParseException(QString("Too many arguments specified."));
 
     volume->volumePath.setFile(positionalArguments.at(1));
-
+    volume->all = false;
     volume->force = false;
     //TODO add force option
 }

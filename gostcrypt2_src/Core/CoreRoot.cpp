@@ -112,6 +112,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
 		QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
 		QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
 		getMountedVolumesParams->volumePath = params->path;
+                getMountedVolumesParams->all = false;
 		getMountedVolumesParams->emitResponse = false;
 		getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
 		QList<QSharedPointer<Volume::VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
@@ -185,11 +186,13 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     {
         QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
         QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
-        if(params)
+        if(params) {
             getMountedVolumesParams->volumePath = params->volumePath;
+            getMountedVolumesParams->all = params->all;
+        }
         getMountedVolumesParams->emitResponse = false;
         getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-        if(params && getMountedVolumesResponse->volumeInfoList.isEmpty())
+        if(params && !params->all && getMountedVolumesResponse->volumeInfoList.isEmpty())
             throw VolumeNotMountedException(params->volumePath);
         mountedVolumes = getMountedVolumesResponse->volumeInfoList;
     }

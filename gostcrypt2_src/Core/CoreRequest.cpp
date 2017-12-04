@@ -177,6 +177,7 @@ QDataStream& operator << (QDataStream& out, const DismountVolumeRequest& Valeur)
     out << Valeur.volumePath;
     out << Valeur.force;
     out << Valeur.forVolumeCreation;
+    out << Valeur.all;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, DismountVolumeRequest& Valeur)
@@ -185,6 +186,7 @@ QDataStream& operator >> (QDataStream& in, DismountVolumeRequest& Valeur)
     in >> Valeur.volumePath;
     in >> Valeur.force;
     in >> Valeur.forVolumeCreation;
+    in >> Valeur.all;
     return in;
 }
 DEF_SERIALIZABLE(DismountVolumeRequest)
@@ -205,12 +207,14 @@ QDataStream& operator << (QDataStream& out, const GetMountedVolumesRequest& Vale
 {
     out << static_cast<const CoreRequest&>(Valeur);
     out << Valeur.volumePath;
+    out << Valeur.all;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, GetMountedVolumesRequest& Valeur)
 {
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.volumePath;
+    in >> Valeur.all;
     return in;
 }
 DEF_SERIALIZABLE(GetMountedVolumesRequest)
@@ -269,8 +273,14 @@ MountVolumeRequest::MountVolumeRequest()
 
 DismountVolumeRequest::DismountVolumeRequest()
 {
+    this->all = false;
     this->force = false;
-    this->forVolumeCreation = false;
+                         this->forVolumeCreation = false;
+}
+
+GetMountedVolumesRequest::GetMountedVolumesRequest()
+{
+    this->all = true;
 }
 
 }

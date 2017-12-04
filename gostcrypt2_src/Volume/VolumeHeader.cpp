@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include <QtEndian>
 #include "VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
@@ -232,7 +232,7 @@ namespace Volume {
 		if (offset > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
+        return qToBigEndian (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
 	}
 
 	template <typename T>
@@ -241,7 +241,7 @@ namespace Volume {
 		if (offset > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
+        return qToBigEndian (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
     void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
@@ -340,7 +340,7 @@ namespace Volume {
 		if (offset > header.Size())
             throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
 
-		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
+        *reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = qToBigEndian (entry);
 	}
 }
 }

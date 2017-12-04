@@ -36,7 +36,6 @@ namespace GostCrypt
 
 	void Memory::Copy (void *memoryDestination, const void *memorySource, size_t size)
 	{
-        //assert (memoryDestination != nullptr && memorySource != nullptr);
 		memcpy (memoryDestination, memorySource, size);
 	}
 
@@ -52,7 +51,6 @@ namespace GostCrypt
 
 	void Memory::Free (void *memory)
 	{
-        //assert (memory != nullptr);
 		free (memory);
 	}
 }

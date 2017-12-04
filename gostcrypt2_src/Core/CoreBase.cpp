@@ -196,7 +196,7 @@ namespace GostCrypt {
 				}
 
 				/* If specific volume asked, check if this is the one */
-                if(params && !params->volumePath.absoluteFilePath().isEmpty() && mountedVol->volumePath.absoluteFilePath() != params->volumePath.absoluteFilePath())
+                if(params && !params->all && mountedVol->volumePath.absoluteFilePath() != params->volumePath.absoluteFilePath())
 					continue;
 
 				/* Adding Fuse mount point information thanks to previous found mounted filesystem */
@@ -378,6 +378,7 @@ namespace GostCrypt {
 		{
 			QSharedPointer<GetMountedVolumesRequest> params(new GetMountedVolumesRequest);
             params->volumePath = volumeFile;
+            params->all = false;
             params->emitResponse = false;
 			return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 		}
@@ -436,7 +437,6 @@ namespace GostCrypt {
 			else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
 			else HANDLE_REQUEST(GetHostDevices, getHostDevices)
 			else HANDLE_REQUEST(CreateKeyFile, createKeyFile)
-            else HANDLE_REQUEST(GetMountedVolumes, getMountedVolumes)
             else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
             else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
             else HANDLE_REQUEST(GetHostDevices, getHostDevices)
