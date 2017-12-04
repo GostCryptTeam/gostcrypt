@@ -9,7 +9,7 @@
 
 #include "CipherAlgorithm.h"
 #include "CipherAlgorithmGOST.h"
-#include "Common/Crc.h"
+#include "Crypto/Crc.h"
 #include "Volume/VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionAlgorithm.h"

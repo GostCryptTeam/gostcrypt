@@ -13,7 +13,7 @@
 #include "Volume.h"
 #include "VolumeHeader.h"
 #include "VolumeLayout.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 
 namespace GostCrypt
 {

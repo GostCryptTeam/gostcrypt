@@ -56,19 +56,18 @@ HEADERS += \
     VolumeLayoutV2Normal.h \
     VolumeLayoutV2Hidden.h \
     VolumeFile.h \
-    ../Common/Crc.h \
-    ../Common/Crypto.h \
-    ../Common/GfMul.h \
-    ../Common/Gstdefs.h \
-    ../Common/Pkcs5.h \
-    ../Common/Random.h \
-    ../Common/Volumes.h \
-    ../Crypto/GostCipher.h \
-    ../Crypto/GostHash.h \
-    ../Crypto/GrasshopperCipher.h \
-    ../Crypto/Stribog.h \
-    ../Crypto/Whirlpool.h \
-    VolumeException.h
+    VolumeException.h \
+    Crypto/Crc.h \
+    Crypto/Crypto.h \
+    Crypto/GostCipher.h \
+    Crypto/GostHash.h \
+    Crypto/GrasshopperCipher.h \
+    Crypto/Gstdefs.h \
+    Crypto/Pkcs5.h \
+    Crypto/Random.h \
+    Crypto/Stribog.h \
+    Crypto/Volumes.h \
+    Crypto/Whirlpool.h
 
 SOURCES += \
     VolumePassword.cpp \
@@ -94,12 +93,11 @@ SOURCES += \
     VolumeLayoutV2Normal.cpp \
     VolumeLayoutV2Hidden.cpp \
     VolumeFile.cpp \
-    ../Common/Crc.c \
-    ../Common/GfMul.c \
-    ../Common/Pkcs5.c \
-    ../Crypto/GostCipher.c \
-    ../Crypto/GostHash.c \
-    ../Crypto/GrasshopperCipher.c \
-    ../Crypto/Stribog.c \
-    ../Crypto/Whirlpool.c \
-    VolumeException.cpp
+    VolumeException.cpp \
+    Crypto/Crc.c \
+    Crypto/GostCipher.c \
+    Crypto/GostHash.c \
+    Crypto/GrasshopperCipher.c \
+    Crypto/Pkcs5.c \
+    Crypto/Stribog.c \
+    Crypto/Whirlpool.c

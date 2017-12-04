@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include "Core/GostCryptException.h"
-#include "Common/Gstdefs.h"
+#include "Volume/Crypto/Gstdefs.h"
 #include "Memory.h"
 
 namespace GostCrypt

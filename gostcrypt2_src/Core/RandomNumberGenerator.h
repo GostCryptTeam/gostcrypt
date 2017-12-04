@@ -10,18 +10,18 @@
 #ifndef GST_HEADER_Core_RandomNumberGenerator
 #define GST_HEADER_Core_RandomNumberGenerator
 
+
 #include <QMutex>
-#include "Common/Random.h"
+#include "Platform/Buffer.h"
+#include "Volume/Crypto/Random.h"
 #include "Volume/VolumeHash.h"
 
-
-namespace GostCrypt
-{
+namespace GostCrypt {
 	namespace Core {
 	class RandomNumberGenerator
 	{
 	public:
-		static void AddToPool (const ConstBufferPtr &buffer);
+        static void AddToPool (const ConstBufferPtr &buffer);
 		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
 		static bool IsRunning () { return Running; }
 		static ConstBufferPtr PeekPool () { return Pool; }

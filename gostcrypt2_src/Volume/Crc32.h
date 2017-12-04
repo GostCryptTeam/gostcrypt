@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Encryption_Crc32
 #define GST_HEADER_Encryption_Crc32
 
-#include "Common/Crc.h"
+#include "Crypto/Crc.h"
 #include "Platform/Buffer.h"
 
 namespace GostCrypt

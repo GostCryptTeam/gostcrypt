@@ -10,8 +10,8 @@
 #ifndef GST_HEADER_Volume_VolumeHeader
 #define GST_HEADER_Volume_VolumeHeader
 
-#include "Common/Gstdefs.h"
-#include "Common/Volumes.h"
+#include "Crypto/Gstdefs.h"
+#include "Crypto/Volumes.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Volume/EncryptionMode.h"
 #include "Volume/Keyfile.h"
