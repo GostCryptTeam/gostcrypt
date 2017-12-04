@@ -178,14 +178,6 @@ int sysfs_read_u64(struct sysfs_cxt *cxt, const char *attr, uint64_t *res)
 	}
 	return -1;
 }
-
-char *sysfs_strdup(struct sysfs_cxt *cxt, const char *attr)
-{
-	char buf[1024];
-	return sysfs_scanf(cxt, attr, "%1023[^\n]", buf) == 1 ?
-						strdup(buf) : NULL;
-}
-
 #ifdef TEST_PROGRAM_SYSFS
 #include <errno.h>
 #include <err.h>
