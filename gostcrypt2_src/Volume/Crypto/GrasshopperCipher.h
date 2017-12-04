@@ -18,42 +18,36 @@
 
 #ifndef GOST_GRASSHOPPER_H
 #define GOST_GRASSHOPPER_H
+#include<QtGlobal>
 
 #if defined(__cplusplus)
 extern "C"
 {
 #endif //defined __cplusplus
 
-typedef unsigned char quint8;
-typedef short gst_word;
-typedef int gst_dword;
-typedef unsigned short gst_uword;
-typedef unsigned int gst_udword;
-typedef unsigned long long gst_ludword;
-
 //Structure of gost subkeys. 10 subkeys of 2 parts
 typedef struct grasshopper_kds
 {
-	gst_ludword x00; //K[0][0]
-	gst_ludword x01; //K[0][1]
-	gst_ludword x10; //K[1][0]
-	gst_ludword x11; //K[1][1]
-	gst_ludword x20; //K[2][0]
-	gst_ludword x21; //K[2][1]
-	gst_ludword x30; //K[3][0]
-	gst_ludword x31; //K[3][1]
-	gst_ludword x40; //K[4][0]
-	gst_ludword x41; //K[4][1]
-	gst_ludword x50; //K[5][0]
-	gst_ludword x51; //K[5][1]
-	gst_ludword x60; //K[6][0]
-	gst_ludword x61; //K[6][1]
-	gst_ludword x70; //K[7][0]
-	gst_ludword x71; //K[7][1]
-	gst_ludword x80; //K[8][0]
-	gst_ludword x81; //K[8][1]
-	gst_ludword x90; //K[9][0]
-	gst_ludword x91; //K[9][1]
+    quint64 x00; //K[0][0]
+    quint64 x01; //K[0][1]
+    quint64 x10; //K[1][0]
+    quint64 x11; //K[1][1]
+    quint64 x20; //K[2][0]
+    quint64 x21; //K[2][1]
+    quint64 x30; //K[3][0]
+    quint64 x31; //K[3][1]
+    quint64 x40; //K[4][0]
+    quint64 x41; //K[4][1]
+    quint64 x50; //K[5][0]
+    quint64 x51; //K[5][1]
+    quint64 x60; //K[6][0]
+    quint64 x61; //K[6][1]
+    quint64 x70; //K[7][0]
+    quint64 x71; //K[7][1]
+    quint64 x80; //K[8][0]
+    quint64 x81; //K[8][1]
+    quint64 x90; //K[9][0]
+    quint64 x91; //K[9][1]
 
 } grasshopper_kds ;
 

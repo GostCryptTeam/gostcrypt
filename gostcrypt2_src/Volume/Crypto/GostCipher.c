@@ -41,7 +41,7 @@ static void xor_s_box(gost_s_box *s_box, quint8 *seed)
 }
 #endif
 
-static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox)
+static quint32 r(quint32 n1, quint32 n2, quint32 X, gost_s_box *sbox)
 {
 	n1 += X;
 #ifdef GOST_DYNAMIC_SBOXES
@@ -50,10 +50,10 @@ static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox
 				| sbox->k4[(n1>>12)&0xF] | sbox->k3[(n1>>8)&0xF]
 				| sbox->k2[(n1>>4)&0xF] | sbox->k1[n1&0xF];
 #else
-	n1 =  (gst_udword)sbox->k8[(n1>>28)&0xF]<<28 | (gst_udword)sbox->k7[(n1>>24)&0xF]<<24
-				| (gst_udword)sbox->k6[(n1>>20)&0xF]<<20 | (gst_udword)sbox->k5[(n1>>16)&0xF]<<16
-				| (gst_udword)sbox->k4[(n1>>12)&0xF]<<12 | (gst_udword)sbox->k3[(n1>>8)&0xF]<<8
-				| (gst_udword)sbox->k2[(n1>>4)&0xF]<<4 | (gst_udword)sbox->k1[n1&0xF];
+    n1 =  (quint32)sbox->k8[(n1>>28)&0xF]<<28 | (quint32)sbox->k7[(n1>>24)&0xF]<<24
+                | (quint32)sbox->k6[(n1>>20)&0xF]<<20 | (quint32)sbox->k5[(n1>>16)&0xF]<<16
+                | (quint32)sbox->k4[(n1>>12)&0xF]<<12 | (quint32)sbox->k3[(n1>>8)&0xF]<<8
+                | (quint32)sbox->k2[(n1>>4)&0xF]<<4 | (quint32)sbox->k1[n1&0xF];
 #endif
 	n1 = rotl32(n1, 11);
 	n2 ^= n1;
@@ -62,11 +62,11 @@ static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X, gost_s_box *sbox
 
 void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
-	gst_udword n1, n2;
+    quint32 n1, n2;
 	gost_s_box *sbox;
 
-	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
-	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+    n1 = (quint32)in[3] << 24 | (quint32)in[2] << 16 | (quint32)in[1] << 8 | (quint32)in[0];
+    n2 = (quint32)in[7] << 24 | (quint32)in[6] << 16 | (quint32)in[5] << 8 | (quint32)in[4];
 #ifdef GOST_DYNAMIC_SBOXES
 	sbox = &ks->sbox;
 #else
@@ -117,11 +117,11 @@ void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks)
 
 void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks)
 {
-	gst_udword n1, n2;
+    quint32 n1, n2;
 	gost_s_box *sbox;
 
-	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
-	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+    n1 = (quint32)in[3] << 24 | (quint32)in[2] << 16 | (quint32)in[1] << 8 | (quint32)in[0];
+    n2 = (quint32)in[7] << 24 | (quint32)in[6] << 16 | (quint32)in[5] << 8 | (quint32)in[4];
 #ifdef GOST_DYNAMIC_SBOXES
 	sbox = &ks->sbox;
 #else
@@ -172,7 +172,7 @@ void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks)
 
 void gost_set_key(quint8 *key, gost_kds *ks)
 {
-    gst_udword i;
+    quint32 i;
 
 #ifdef GOST_DYNAMIC_SBOXES
 	STRIBOG_CTX sctx;
@@ -218,20 +218,20 @@ void gost_set_key(quint8 *key, gost_kds *ks)
 	//Set the key
 	for (i = 0; i < GOST_KEYSIZE / 8; i++)
 	{
-		ks->X0 |= (gst_udword)key[i + 0] << (i * 8);
-		ks->X1 |= (gst_udword)key[i + 4] << (i * 8);
-		ks->X2 |= (gst_udword)key[i + 8] << (i * 8);
-		ks->X3 |= (gst_udword)key[i + 12] << (i * 8);
-		ks->X4 |= (gst_udword)key[i + 16] << (i * 8);
-		ks->X5 |= (gst_udword)key[i + 20] << (i * 8);
-		ks->X6 |= (gst_udword)key[i + 24] << (i * 8);
-		ks->X7 |= (gst_udword)key[i + 28] << (i * 8);
+        ks->X0 |= (quint32)key[i + 0] << (i * 8);
+        ks->X1 |= (quint32)key[i + 4] << (i * 8);
+        ks->X2 |= (quint32)key[i + 8] << (i * 8);
+        ks->X3 |= (quint32)key[i + 12] << (i * 8);
+        ks->X4 |= (quint32)key[i + 16] << (i * 8);
+        ks->X5 |= (quint32)key[i + 20] << (i * 8);
+        ks->X6 |= (quint32)key[i + 24] << (i * 8);
+        ks->X7 |= (quint32)key[i + 28] << (i * 8);
 	}
 }
 
-void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, gst_udword *in, gst_dword len)
+void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, quint32 *in, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	if (!len)
 		return;
 

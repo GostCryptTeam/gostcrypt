@@ -11,6 +11,7 @@
 
 #ifndef GOSTHASH_H
 #define GOSTHASH_H
+#include<QtGlobal>
 
 #if defined(__cplusplus)
 extern "C"
@@ -21,12 +22,6 @@ extern "C"
 
 #define GOSTHASH_GOST_SBOX_SIZE	16
 #define GOSTHASH_GOST_KEYSIZE		32
-
-typedef unsigned char quint8;
-typedef short gst_word;
-typedef int gst_dword;
-typedef unsigned short gst_uword;
-typedef unsigned int gst_udword;
 
 
 typedef struct gosthash_s_box
@@ -43,15 +38,15 @@ typedef struct gosthash_s_box
 
 typedef struct
 {
-	gst_dword len;
-	gst_udword left;
+    qint32 len;
+    quint32 left;
 	quint8 H[32];
 	quint8 S[32];
 	quint8 remainder[32];
 } gost_hash_ctx;
 
 void GOSTHASH_init (gost_hash_ctx *ctx);
-void GOSTHASH_add (quint8 *in, gst_udword len, gost_hash_ctx *ctx);
+void GOSTHASH_add (quint8 *in, quint32 len, gost_hash_ctx *ctx);
 void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out);
 
 #if defined(__cplusplus)

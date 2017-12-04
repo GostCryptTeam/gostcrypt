@@ -22,8 +22,5 @@ extern int fstat_at(int dir, const char *dirname,
 extern int open_at(int dir, const char *dirname,
 			const char *filename, int flags);
 
-extern FILE *fopen_at(int dir, const char *dirname, const char *filename,
-			int flags, const char *mode);
-
 
 #endif /* UTIL_LINUX_AT_H */

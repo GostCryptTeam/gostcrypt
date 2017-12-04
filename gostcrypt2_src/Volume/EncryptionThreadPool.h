@@ -56,17 +56,14 @@ namespace Volume {
             QAtomicInteger<quint8> State;
 			WorkType::Enum Type;
 
-			union
-			{
-				struct
-				{
-					const EncryptionMode *Mode;
-					quint8 *Data;
-					quint64 StartUnitNo;
-					quint64 UnitCount;
-					size_t SectorSize;
-				} Encryption;
-			};
+            struct
+            {
+                const EncryptionMode *Mode;
+                quint8 *Data;
+                quint64 StartUnitNo;
+                quint64 UnitCount;
+                size_t SectorSize;
+            } Encryption;
 		};
 
 		static void DoWork (WorkType::Enum type, const EncryptionMode *mode, quint8 *data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize);
