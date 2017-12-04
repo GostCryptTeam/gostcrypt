@@ -62,12 +62,12 @@ namespace GostCrypt {
                         protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
                     if(!params->protectionKeyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                            protectionKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
 
