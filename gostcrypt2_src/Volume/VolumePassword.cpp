@@ -23,12 +23,6 @@ namespace Volume {
 		Set ((const quint8 *) password, size);
 	}
 
-       /*
-    VolumePassword::VolumePassword (const quint8 *password, size_t size)
-	{
-		Set (password, size);
-    }//*/
-
     void VolumePassword::AllocateBuffer ()
 	{
 		if (!PasswordBuffer.IsAllocated ())

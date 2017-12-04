@@ -21,7 +21,6 @@ namespace Volume {
 	{
 	public:
 		VolumePassword ();
-        //VolumePassword (const quint8 *password, size_t size);
 		VolumePassword (const char *password, size_t size);
 
 		bool operator== (const VolumePassword &other) const { return ConstBufferPtr (DataPtr(), Size()).IsDataEqual (ConstBufferPtr (other.DataPtr(), other.Size())); }
