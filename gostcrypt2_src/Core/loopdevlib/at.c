@@ -83,22 +83,6 @@ ssize_t readlink_at(int dir, const char *dirname __attribute__ ((__unused__)),
 	return readlinkat(dir, pathname, buf, bufsiz);
 }
 #else
-ssize_t readlink_at(int dir, const char *dirname, const char *pathname,
-		    char *buf, size_t bufsiz)
-{
-	(void)dir;
-	if (*pathname != '/') {
-		char path[PATH_MAX];
-		int len;
-
-		len = snprintf(path, sizeof(path), "%s/%s", dirname, pathname);
-		if (len < 0 || (unsigned int)len + 1 > sizeof(path))
-			return -1;
-
-		return readlink(path, buf, bufsiz);
-	}
-	return readlink(pathname, buf, bufsiz);
-}
 #endif
 
 #ifdef TEST_PROGRAM_AT
