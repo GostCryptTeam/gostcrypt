@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Encryption_EncryptionMode
 #define GST_HEADER_Encryption_EncryptionMode
 
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 #include "CipherAlgorithm.h"
 
 namespace GostCrypt

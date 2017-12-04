@@ -125,9 +125,6 @@ enum
 #include "Stribog.h"
 #include "GostHash.h"
 
-#include "GfMul.h"
-
-
 #define GOST_KS	(sizeof(gost_kds))
 #define GRASSHOPPER_KS (sizeof(grasshopper_kds))
 
@@ -145,8 +142,6 @@ typedef struct CRYPTO_INFO_t
 	BOOL hiddenVolume;						// Indicates whether the volume is mounted/mountable as hidden volume
 
 	quint16 HeaderVersion;
-
-	GfCtx gf_ctx; 
 
 	unsigned __int8 master_keydata[MASTER_KEYDATA_SIZE];	/* This holds the volume header area containing concatenated master key(s) and secondary key(s) (XTS mode). */
 	unsigned __int8 k2[MASTER_KEYDATA_SIZE];				/* For XTS, this contains the secondary key (if cascade, multiple concatenated). */

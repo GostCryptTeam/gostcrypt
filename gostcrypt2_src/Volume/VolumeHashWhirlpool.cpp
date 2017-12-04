@@ -1,7 +1,7 @@
 #include "VolumeHashWhirlpool.h"
 
 #include "Crypto/Whirlpool.h"
-#include "Common/Pkcs5.h"
+#include "Crypto/Pkcs5.h"
 
 namespace GostCrypt {
 namespace Volume {

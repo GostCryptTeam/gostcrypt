@@ -1,7 +1,7 @@
 #include "VolumeHashGostHash.h"
 
 #include "Crypto/GostHash.h"
-#include "Common/Pkcs5.h"
+#include "Crypto/Pkcs5.h"
 
 namespace GostCrypt {
 namespace Volume {

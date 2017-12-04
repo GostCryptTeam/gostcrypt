@@ -10,7 +10,7 @@
 
 #include <unistd.h>
 #include "Core/GostCryptException.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 #include "EncryptionThreadPool.h"
 
 namespace GostCrypt

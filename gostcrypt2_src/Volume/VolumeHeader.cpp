@@ -11,7 +11,7 @@
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
 #include "VolumeHeader.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 #include <typeinfo>
 
 namespace GostCrypt

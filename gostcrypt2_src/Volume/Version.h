@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Volume_Version
 #define GST_HEADER_Volume_Version
 
-#include "Common/Gstdefs.h"
+#include "Crypto/Gstdefs.h"
 
 namespace GostCrypt
 {

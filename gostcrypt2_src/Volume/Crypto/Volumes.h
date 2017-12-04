@@ -123,8 +123,6 @@ extern "C" {
 
 #ifndef GST_HEADER_Volume_VolumeHeader
 
-#include "Password.h"
-
 extern BOOL ReadVolumeHeaderRecoveryMode;
 
 uint16 GetHeaderField16 (byte *header, int offset);

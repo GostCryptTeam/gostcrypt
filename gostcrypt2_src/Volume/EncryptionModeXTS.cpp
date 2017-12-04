@@ -8,7 +8,7 @@
 
 
 #include "EncryptionModeXTS.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 #include "VolumeHeader.h"
 #include "VolumeException.h"
 
