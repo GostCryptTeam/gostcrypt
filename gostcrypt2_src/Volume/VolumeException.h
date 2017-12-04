@@ -138,7 +138,7 @@ class VolumeNotOpen : public VolumeException
      */
     VolumeNotOpen(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(VolumeNotOpen, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(VolumeNotOpen, VolumeException, "Trying to use the volume but it is not open.")
 
     DEC_SERIALIZABLE(VolumeNotOpen);
 };
@@ -157,7 +157,7 @@ class VolumeReadOnly : public VolumeException
      */
     VolumeReadOnly(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(VolumeReadOnly, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(VolumeReadOnly, VolumeException, "The volume is opened in read-only.")
 
     DEC_SERIALIZABLE(VolumeReadOnly);
 };
@@ -176,7 +176,7 @@ class VolumeProtected : public VolumeException
      */
     VolumeProtected(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(VolumeProtected, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(VolumeProtected, VolumeException, "Trying to write in a protected area.")
 
     DEC_SERIALIZABLE(VolumeProtected);
 };
@@ -195,7 +195,7 @@ class VolumeCorrupted : public VolumeException
      */
     VolumeCorrupted(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(VolumeCorrupted, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(VolumeCorrupted, VolumeException, "The volume is corrupted")
 
     DEC_SERIALIZABLE(VolumeCorrupted);
 };
@@ -214,7 +214,7 @@ class PasswordOrKeyfilesIncorrect : public VolumeException
      */
     PasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles are incorrect.")
 
     DEC_SERIALIZABLE(PasswordOrKeyfilesIncorrect);
 };
@@ -233,7 +233,7 @@ class ProtectionPasswordOrKeyfilesIncorrect : public VolumeException
      */
     ProtectionPasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for hidden volume are incorrect.")
 
     DEC_SERIALIZABLE(ProtectionPasswordOrKeyfilesIncorrect);
 };
@@ -271,7 +271,7 @@ class FailedResetTimestamps : public VolumeException
      */
     FailedResetTimestamps(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(FailedResetTimestamps, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(FailedResetTimestamps, VolumeException, "Failed to reset the timestamp of the volume file.")
 
     DEC_SERIALIZABLE(FailedResetTimestamps);
 };
@@ -290,7 +290,7 @@ class FailedGetSectorSize : public VolumeException
      */
     FailedGetSectorSize(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(FailedGetSectorSize, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(FailedGetSectorSize, VolumeException, "Failed to get the sector size")
 
     DEC_SERIALIZABLE(FailedGetSectorSize);
 };
@@ -309,7 +309,7 @@ class FailedGetTimestamps : public VolumeException
      */
     FailedGetTimestamps(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(FailedGetTimestamps, VolumeException, "The buffer has already been freed.")
+    DEF_EXCEPTION_WHAT(FailedGetTimestamps, VolumeException, "Failed to get the timestamps of the volume file.")
 
     DEC_SERIALIZABLE(FailedGetTimestamps);
 };

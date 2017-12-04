@@ -11,6 +11,7 @@
 #define GST_HEADER_Volume_EncryptionThreadPool
 
 #include "EncryptionMode.h"
+#include "Core/GostCryptException.h"
 #include <QMutex>
 #include <QThread>
 #include <QWaitCondition>
@@ -48,7 +49,7 @@ namespace Volume {
 			};
 
 			struct WorkItem *FirstFragment;
-            //QSharedPointer <Exception> ItemException;
+            QSharedPointer <GostCryptException> ItemException;
             QWaitCondition ItemCompletedEvent;
             QMutex ItemCompletedEventMutex;
             QAtomicInteger<size_t> OutstandingFragmentCount;

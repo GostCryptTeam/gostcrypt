@@ -120,6 +120,7 @@ struct MountVolumeRequest : CoreRequest {
 
 struct DismountVolumeRequest : CoreRequest {
     DismountVolumeRequest();
+    bool all;
     QFileInfo volumePath; // path of the file mounted, not the mount point
     bool force;
     bool forVolumeCreation;
@@ -131,6 +132,8 @@ struct GetHostDevicesRequest : CoreRequest {
 }; // no parameters
 
 struct GetMountedVolumesRequest : CoreRequest {
+    GetMountedVolumesRequest();
+    bool all;
     QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
     DEC_SERIALIZABLE(GetMountedVolumesRequest);
 };

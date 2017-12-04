@@ -116,21 +116,17 @@ namespace Volume {
 
         firstFragmentWorkItem->ItemCompletedEvent.wait(&firstFragmentWorkItem->ItemCompletedEventMutex);
 
-        /*
-        QSharedPointer <Exception> itemException;
+        QSharedPointer <GostCryptException> itemException;
         if (!firstFragmentWorkItem->ItemException.isNull())
 			itemException = firstFragmentWorkItem->ItemException;
-    //*/
+
         firstFragmentWorkItem->State = WorkItem::State::Free;
         firstFragmentWorkItem->ItemCompletedEventMutex.unlock();
 
         WorkItemCompletedEvent.wakeOne();
 
-        /*
         if (!itemException.isNull())
-			itemException->Throw();
-            //*/
-
+            itemException->raise();
 	}
 
 	void EncryptionThreadPool::Start ()
@@ -247,17 +243,17 @@ namespace Volume {
                         throw IncorrectParameterException("Unknown WorkType");
                     }
 				}
-                //catch (Exception &e)
-                //{
-                    //workItem->FirstFragment->ItemException.reset (e.CloneNew());
-                //}
+                catch (GostCryptException &e)
+                {
+                    workItem->FirstFragment->ItemException.reset(e.clone());
+                }
                 catch (std::exception &e)
 				{
-                    //workItem->FirstFragment->ItemException.reset (new ExternalException (SRC_POS, StringConverter::ToExceptionString (e)));
-				}
+                    workItem->FirstFragment->ItemException.reset(new ExternalExceptionException(e));
+                }
 				catch (...)
 				{
-                    //workItem->FirstFragment->ItemException.reset (new UnknownException (SRC_POS));
+                    workItem->FirstFragment->ItemException.reset (new UnknowExceptionException());
 				}
 
 				if (workItem != workItem->FirstFragment)

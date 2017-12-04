@@ -227,7 +227,7 @@ namespace Volume {
 
 		if (Protection == VolumeProtection::ReadOnly)
             throw VolumeReadOnlyException();
-        if (HiddenVolumeProtectionTriggered)
+        if (HiddenVolumeProtectionTriggered)//TODO why always throwing when the protection is triggered ?
             throw VolumeProtectedException();
 
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)

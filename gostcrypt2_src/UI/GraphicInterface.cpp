@@ -98,6 +98,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         {
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            options->all = true;
             emit request(QVariant::fromValue(options));
         }
         break;

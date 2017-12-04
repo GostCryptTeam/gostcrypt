@@ -464,33 +464,6 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(VolumeNotMounted);
         };
 
-        #define ExceptionFromVolumeException(message) GostCrypt::Core::ExceptionFromVolume(__PRETTY_FUNCTION__, __FILE__, __LINE__, message);
-        /**
-         * @brief
-         *
-         */
-        class ExceptionFromVolume : public CoreException {
-            public:
-                /**
-                 * @brief
-                 *
-                 */
-                ExceptionFromVolume() {}
-                /**
-                 * @brief
-                 *
-                 * @param fonction
-                 * @param filename
-                 * @param line
-                 * @param message
-                 */
-                ExceptionFromVolume(QString fonction, QString filename, quint32 line, QString message) : CoreException(fonction, filename, line), message(message) {}
-                DEF_EXCEPTION_WHAT(ExceptionFromVolume, CoreException, message)
-            protected:
-                QString message; /**< TODO: describe */
-            DEC_SERIALIZABLE(ExceptionFromVolume);
-        };
-
         #define ContentSizeInvalidException(size) GostCrypt::Core::ContentSizeInvalid(__PRETTY_FUNCTION__, __FILE__, __LINE__, size);
         /**
          * @brief
@@ -730,7 +703,6 @@ SERIALIZABLE(GostCrypt::Core::FilesystemNotSupported)
 SERIALIZABLE(GostCrypt::Core::AlgorithmNotFound)
 SERIALIZABLE(GostCrypt::Core::IncorrectSudoPassword)
 SERIALIZABLE(GostCrypt::Core::WorkerProcessCrashed)
-SERIALIZABLE(GostCrypt::Core::ExceptionFromVolume)
 SERIALIZABLE(GostCrypt::Core::FailFindFilesystemType)
 SERIALIZABLE(GostCrypt::Core::InvalidParam)
 SERIALIZABLE(GostCrypt::Core::IncorrectVolumePassword)

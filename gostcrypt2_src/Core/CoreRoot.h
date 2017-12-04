@@ -92,7 +92,7 @@ namespace GostCrypt {
              * @param params
              * @return QSharedPointer<DismountVolumeResponse>
              */
-            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>());
+            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params);
             /**
              * @brief
              *
