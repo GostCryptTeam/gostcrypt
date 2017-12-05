@@ -496,7 +496,7 @@ namespace GostCrypt {
             DEC_SERIALIZABLE(MountFilesystemManagerException);
         };
 
-		#define FailMountFilesystemException(error_number, mountpoint, devicePath) GostCrypt::Core::FailMountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint, devicePath);
+        #define FailMountFilesystemException(error_number, mountpoint, devicePath, filesystemtype) GostCrypt::Core::FailMountFilesystem(__PRETTY_FUNCTION__, __FILE__, __LINE__, error_number, mountpoint, devicePath, filesystemtype);
         /**
          * @brief
          *
@@ -518,10 +518,11 @@ namespace GostCrypt {
                  * @param mountpoint
                  * @param devicePath
                  */
-                FailMountFilesystem(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint, QSharedPointer<QFileInfo> devicePath) : MountFilesystemManagerException(fonction, filename, line, error_number, mountpoint), devicePath(devicePath) {}
-                DEF_EXCEPTION_WHAT(FailMountFilesystem, MountFilesystemManagerException, "Unable to mount " + devicePath->absoluteFilePath() + " in " + mountpoint->absoluteFilePath() + "("+ QString::number(error_number) + ": " + QString(strerror(error_number)) + ")\n")
+                FailMountFilesystem(QString fonction, QString filename, quint32 line, quint32 error_number, QSharedPointer<QFileInfo> mountpoint, QSharedPointer<QFileInfo> devicePath, QString filesystemtype) : MountFilesystemManagerException(fonction, filename, line, error_number, mountpoint), devicePath(devicePath), filesystemtype(filesystemtype) {}
+                DEF_EXCEPTION_WHAT(FailMountFilesystem, MountFilesystemManagerException, "Unable to mount " + devicePath->absoluteFilePath() + " in " + mountpoint->absoluteFilePath() + " as " +filesystemtype+ " ("+QString::number(error_number) + ":" + QString(strerror(error_number)) + ")\n")
             protected:
                 QSharedPointer<QFileInfo> devicePath; /**< TODO: describe */
+                QString filesystemtype;
 
             DEC_SERIALIZABLE(FailMountFilesystem);
         };

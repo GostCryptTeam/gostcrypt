@@ -21,7 +21,7 @@ namespace Core {
 			if(filesystemType.isEmpty())
 				filesystemType =getFileSystemType(devicePath);
 			if(mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
-				throw FailMountFilesystemException(errno, mountPoint, devicePath);
+                throw FailMountFilesystemException(errno, mountPoint, devicePath, filesystemType);
         }
 
 
