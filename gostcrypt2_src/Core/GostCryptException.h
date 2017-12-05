@@ -209,6 +209,33 @@ class FailedWriteFile : public SystemException {
     DEC_SERIALIZABLE(FailedWriteFile);
 };
 
+#define FailedFlushFileException(file) GostCrypt::FailedFlushFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedFlushFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedFlushFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedFlushFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedFlushFile, SystemException, "Unable to write file \""+file.absoluteFilePath() + "\".\n")
+    protected:
+        QFileInfo file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedFlushFile);
+};
+
 #define FailedLseekFileException(file) GostCrypt::FailedLseekFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
 /**
  * @brief
@@ -405,6 +432,7 @@ SERIALIZABLE(GostCrypt::GostCryptException)
 SERIALIZABLE(GostCrypt::FailedOpenFile)
 SERIALIZABLE(GostCrypt::FailedReadFile)
 SERIALIZABLE(GostCrypt::FailedWriteFile)
+SERIALIZABLE(GostCrypt::FailedFlushFile)
 SERIALIZABLE(GostCrypt::FailedLseekFile)
 SERIALIZABLE(GostCrypt::FailedStatFile)
 SERIALIZABLE(GostCrypt::FailedCreateDirectory)

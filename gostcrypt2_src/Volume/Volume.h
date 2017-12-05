@@ -33,6 +33,7 @@ namespace Volume {
         QSharedPointer <VolumeFile> GetFile () const { return volumeFile; }
 		QSharedPointer <VolumeHeader> GetHeader () const { return Header; }
 		quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
+        QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
         const QFileInfo GetPath () const { return volumeFile->GetPath(); }
         QSharedPointer <VolumeHash> GetVolumeHash () const { return Header->GetVolumeHash(); }
 		quint32 GetSaltSize () const { return Header->GetSaltSize(); }

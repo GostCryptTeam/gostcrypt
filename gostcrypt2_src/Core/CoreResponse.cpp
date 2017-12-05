@@ -50,13 +50,11 @@ DEF_SERIALIZABLE(ChangeVolumePasswordResponse)
 QDataStream& operator << (QDataStream& out, const ChangeVolumePasswordResponse& Valeur)
 {
     out << static_cast<const CoreResponse&>(Valeur);
-    out << Valeur.changeMasterKey;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, ChangeVolumePasswordResponse& Valeur)
 {
     in >> static_cast<CoreResponse&>(Valeur);
-    in >> Valeur.changeMasterKey;
     return in;
 }
 

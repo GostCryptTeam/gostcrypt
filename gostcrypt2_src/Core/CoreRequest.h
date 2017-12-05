@@ -80,13 +80,14 @@ struct CreateVolumeRequest : CoreRequest {
 };
 
 struct ChangeVolumePasswordRequest : CoreRequest {
-    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool") {}
-    QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
+    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool"), changeMasterKey(false) {}
+    QFileInfo path; // path of the volume we want to change the password (never null)
     QSharedPointer <QByteArray> password; // old password, optional if volume is already opened
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // old keyfiles, optional if volume is already opened
     QString newVolumeHeaderKdf; // new key derivation function (never null)
     QSharedPointer <QByteArray> newPassword; // new password (never null)
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> newKeyfiles; // new keyfiles
+    bool changeMasterKey;
     DEC_SERIALIZABLE(ChangeVolumePasswordRequest);
 };
 

@@ -12,6 +12,7 @@ void initGostCryptException()
     INIT_SERIALIZE(FailedCreateDirectory);
     INIT_SERIALIZE(FailedOpenFile);
     INIT_SERIALIZE(FailedReadFile);
+    INIT_SERIALIZE(FailedFlushFile);
     INIT_SERIALIZE(FailedWriteFile);
     INIT_SERIALIZE(FailedLseekFile);
     INIT_SERIALIZE(FailedStatFile);
@@ -76,6 +77,22 @@ QDataStream& operator << (QDataStream& out, const GostCrypt::FailedWriteFile& Va
     return out;
 }
 QDataStream& operator >> (QDataStream& in, GostCrypt::FailedWriteFile& Valeur)
+{
+    QString path;
+    in >> static_cast<SystemException&>(Valeur);
+    in >> path;
+    Valeur.file.setFile(path);
+    return in;
+}
+
+DEF_SERIALIZABLE(GostCrypt::FailedFlushFile)
+QDataStream& operator << (QDataStream& out, const GostCrypt::FailedFlushFile& Valeur)
+{
+    out << static_cast<const SystemException&>(Valeur);
+    out << Valeur.file.canonicalPath();
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, GostCrypt::FailedFlushFile& Valeur)
 {
     QString path;
     in >> static_cast<SystemException&>(Valeur);

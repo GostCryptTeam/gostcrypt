@@ -92,6 +92,7 @@ QDataStream& operator << (QDataStream& out, const ChangeVolumePasswordRequest& V
     out << Valeur.newVolumeHeaderKdf;
     out << Valeur.newPassword;
     out << Valeur.newKeyfiles;
+    out << Valeur.changeMasterKey;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, ChangeVolumePasswordRequest& Valeur)
@@ -103,6 +104,7 @@ QDataStream& operator >> (QDataStream& in, ChangeVolumePasswordRequest& Valeur)
     in >> Valeur.newVolumeHeaderKdf;
     in >> Valeur.newPassword;
     in >> Valeur.newKeyfiles;
+    in << Valeur.changeMasterKey;
     return in;
 }
 DEF_SERIALIZABLE(ChangeVolumePasswordRequest)

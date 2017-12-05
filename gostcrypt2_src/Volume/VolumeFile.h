@@ -50,6 +50,7 @@ namespace Volume
 		void Write (const ConstBufferPtr &buffer) const;
 		void Write (const ConstBufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
         void WriteAt (const ConstBufferPtr &buffer, quint64 position) const;
+        void Flush () const;
         FileType::Enum GetType () const;
         bool IsTypeFile () const { return GetType() == FileType::File; }
         bool isTypeDevice () const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }

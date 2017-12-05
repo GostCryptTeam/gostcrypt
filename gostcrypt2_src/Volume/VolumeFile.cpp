@@ -148,6 +148,12 @@ void VolumeFile::Close ()
             throw FailedWriteFileException(Path)
     }
 
+    void VolumeFile::Flush() const
+    {
+        if(fsync(FileHandle) != 0)
+            throw FailedFlushFileException(Path);
+    }
+
     FileType::Enum VolumeFile::GetType() const
     {
         struct stat statData;
