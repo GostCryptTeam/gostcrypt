@@ -47,6 +47,9 @@ namespace GostCrypt {
 			#ifdef DEBUG_SERVICE_HANDLER
 			qDebug() << "Sending exit request";
 			#endif
+#ifdef GENERATE_REQUESTS_DUMP
+            requestDumpFile.close();
+#endif
 			sendToService(QVariant::fromValue(request));
 		}
 
@@ -106,6 +109,7 @@ namespace GostCrypt {
             while(!waitingRequests.isEmpty()) {
 #ifdef GENERATE_REQUESTS_DUMP
                 requestsDumpStream << waitingRequests.head();
+                requestDumpFile.flush();
 #endif
                 processStream << waitingRequests.dequeue();
             }
