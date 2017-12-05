@@ -156,6 +156,24 @@ Window {
     */
     property variant notifications: []
 
+    /*!
+      \property hashs
+      \brief Table of hashes usable in the current version of gostcrypt
+    */
+    property variant hashs: []
+
+    /*!
+      \property algorithms
+      \brief Table of algorithms usable in the current version of gostcrypt
+    */
+    property variant algorithms: []
+
+    /*!
+      \property filesystems
+      \brief Table of filesystems usable in the current version of gostcrypt
+    */
+    property variant filesystems: []
+
     signal sendQmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
     signal appQuit()

@@ -5,7 +5,7 @@ import "../" as UI
 
 Item {
     id: top
-    property variant format: ["FAT", "Default", false] //file system, cluster & dynamic(bool) (standard volumes)
+    property variant format: [app.filesystems[0]] //file system, cluster & dynamic(bool) (standard volumes)
     property int type: 0
 
     MouseArea {
@@ -13,7 +13,7 @@ Item {
         hoverEnabled : true
         onPositionChanged: {
             //Wizard.sendRandomPosition(mouse.x, mouse.y)
-            //TODO : send mouse position to randomly change the pool & header/master keys
+            //TODO? : send mouse position to randomly change the pool & header/master keys
         }
     }
 
@@ -45,7 +45,7 @@ Item {
 
         UI.GSCustomComboBox {
             id: typeFilesystem
-            model: ["FAT", qsTr("None") + Translation.tr]
+            model: app.filesystems
             x: fileSystem.x + fileSystem.width + 10
             y: fileSystem.y-5
             width: parent.width * 0.2

@@ -12,8 +12,11 @@ Item {
         target: ConnectSignals;
 
         onConnectFinished: {
+            //Getting the list of mounted volumes, algorithm(s), filesystem(s) and hash(s)
             qmlRequest("mountedvolumes", "");
-
+            qmlRequest("algorithms", "");
+            qmlRequest("hashs", "");
+            qmlRequest("filesystems", "");
         }
 
         onSprintGetMountedVolumes: {
@@ -35,19 +38,20 @@ Item {
         }
 
         onSprintSendError: {
-            /*switch(aTitle)
-            {
-            case "badvolumepassword":
-                break;
-            }*/
-            openErrorMessage(l[0], l [1]);
+            openErrorMessage(l[0], l[1]);
+        }
+
+        onSprintGetFileSystem: {
+            app.filesystems = l
+        }
+
+        onSprintGetDerivationFunctions: {
+            app.hashs = l
         }
 
         onSprintGetEncryptionAlgorithms:
         {
-            subWindow.loadedItem.page.getAlgos(l);
-            subWindow.loadedItem.page.used[0] = l[0];
-            subWindow.loadedItem.page.used[1] = l[1];
+            app.algorithms = l
         }
 
         onSprintGetHostDevices:
@@ -68,7 +72,6 @@ Item {
 
         onSprintProgressUpdate:
         {
-            //console.log("Mise à jour avec l'id " + l[0]["id"] + " --->" + l[0]["progress"]*100);
             if(l === undefined) return;
             notifs.updateNotification(l[0]["id"],l[0]["progress"]*100,notifications[l[0]["id"]-1][0],notifications[l[0]["id"]-1][1]);
             if(notifs.visible === false) title.showIcon(true);

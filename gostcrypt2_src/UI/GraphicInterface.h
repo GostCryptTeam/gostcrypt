@@ -15,6 +15,7 @@
 #include "SecureTextField.h"
 #include <QUrl>
 #include <QString>
+#include "Parser.h"
 
 #define GI_ENUM(name) name // TODO move to external file ?
 #define GI_STRTAB(name) #name
@@ -28,6 +29,7 @@
     func(createkeyfiles), \
     func(mountedvolumes), \
     func(algorithms), \
+    func(filesystems), \
     func(hashs), \
     func(devices), \
     func(openmountpoint), \
@@ -112,6 +114,7 @@ signals:
     DEC_QML_PRINT_SIGNAL(GetEncryptionAlgorithms)
     DEC_QML_PRINT_SIGNAL(GetDerivationFunctions)
     DEC_QML_PRINT_SIGNAL(GetHostDevices)
+    DEC_QML_PRINT_SIGNAL(GetFileSystem)
     DEC_QML_PRINT_SIGNAL(CreateKeyFile)
     DEC_QML_PRINT_SIGNAL(ChangeVolumePassword)
     DEC_QML_PRINT_SIGNAL(ProgressUpdate)

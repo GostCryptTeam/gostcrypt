@@ -129,9 +129,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 
             //Adding Keyfiles
             options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
-            for(QString file : keyfilesList) {
+            for(QString file : keyfilesList)
                 options->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
-            }
 
             emit request(QVariant::fromValue(options));
         }
@@ -141,36 +140,39 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options(new GostCrypt::Core::CreateVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             //Detection of the volume type
-            int type = GI_KEY(aContent, "type").toInt();
+            int type = GI_KEY(aContent, "type").toInt(); //UI returns 0 for normal and 1 for Hidden
             qDebug() << "type = " << type;//GI_KEY(aContent, "path").toString();
             if(type == GostCrypt::VolumeType::Normal)
             {
-                options->type = GostCrypt::VolumeType::Normal;
-                options->path.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "path").toString()).canonicalFilePath()));//QSharedPointer <QFileInfo>()
+                options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
+                options->type = GostCrypt::VolumeType::Normal; //Setting the volume Type
+                options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
+                //options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //hidden pwd
+                //CLUSTER : very unsafe, not allowed for now!
 
-                GostCrypt::Core::CreateVolumeRequest::VolumeParams *params = new GostCrypt::Core::CreateVolumeRequest::VolumeParams;
-                options->size = DEFAULT_SIZE; // default value is 10Mio
-                params->size = DEFAULT_OUTER_SIZE; // default value
-                params->encryptionAlgorithm = DEFAULT_ALGORITHM;//GI_KEY(aContent, "encryptionAlgorithm").toString();
-                params->volumeHeaderKdf = DEFAULT_KDF; // default value//GI_KEY(aContent, "volumeHeaderKdf").toString();
-                //params->filesystem = GI_KEY(aContent, "filesystem").toString();
-                params->filesystem = QString("vfat"); // default value
-                //params->keyfiles = nullptr;//GI_KEY(aContent, "keyfiles").toString();
-                params->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8()));
-                options->outerVolume.reset(params);
+                options->outerVolume->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>()); //outer volume keyfile(s)
+                QStringList keyfilesList;
+                for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
+                    keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
+                for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
+                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
 
-                qDebug() << options->path->canonicalFilePath() << " "
-                         << options->size << " "
-                         << options->outerVolume->size << " "
-                         << options->outerVolume->encryptionAlgorithm << " "
-                         << options->outerVolume->volumeHeaderKdf << " "
-                         << options->outerVolume->filesystem << " "
-                         << options->outerVolume->password->data() << ", "<< GI_KEY(aContent, "password").toString();
+                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet.
 
-            }else if(type == GostCrypt::VolumeType::Hidden)
+                options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
+                options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
+                options->outerVolume->filesystem = GI_KEY(aContent, "filesystem").toString(); //Outer volume file system
+                options->outerVolume->size = GI_KEY(aContent, "outer-size").toReal(); //Relative size of the outer volume
+                bool ok = false;
+                QString s = GI_KEY(aContent, "size").toString();
+                options->size = Parser::parseSize(s, &ok); //Total volume file size
+            }
+            else if(type == GostCrypt::VolumeType::Hidden)
             {
-
-            }else //Unknown
+                options->type = GostCrypt::VolumeType::Hidden;
+                options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
+            }
+            else //Unknown
             {
 
             }
@@ -211,6 +213,13 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
+    case FirstGI::filesystems: //"filesystems"
+        {
+            QVariantList filesystem;
+            filesystem << GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
+            emit QML_SIGNAL(printGetFileSystem, filesystem)
+        }
+        break;
     }
 }
 
@@ -225,6 +234,8 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
            QVariantMap vol;
            if((*v)->mountPoint)
                 vol.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
+           else
+               vol.insert("mountPoint", tr("Not mounted"));
            vol.insert("algo", (*v)->encryptionAlgorithmName);
            vol.insert("volumePath", (*v)->volumePath->filePath());
            vol.insert("volumeSize", formatSize((*v)->size));
@@ -253,7 +264,6 @@ void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateV
 
 void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> response)
 {
-    (void)response;
     QVariantList list;
     for(auto k : response->algorithms) list << k;
     emit QML_SIGNAL(printGetEncryptionAlgorithms, list)
@@ -261,8 +271,9 @@ void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Co
 
 void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> response)
 {
-    (void)response;
-    emit QML_SIGNAL(printGetDerivationFunctions, QVariantList())
+    QVariantList list;
+    for(auto k : response->algorithms) list << k;
+    emit QML_SIGNAL(printGetDerivationFunctions, list)
 }
 
 void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r)
@@ -364,7 +375,6 @@ void GraphicInterface::connectSignals()
     mApp->connect(core.data(), SIGNAL(exited()), mApp, SLOT(quit()));
 
     mApp->connect(mApp, SIGNAL(askExit()), this, SIGNAL(exit()));
-
 
     //Notifying the QML that the signals are binded
     emit connectFinished();

@@ -3,15 +3,8 @@ import "../" as UI
 
 Item {
     id: top
-    property variant algoHash: [[],["GOST 34", "Whirlpool"]]
-    property variant used: ["",""]
+    property variant used: [app.hashs[0], app.algorithms[0]]
     property int type: 0
-
-    function getAlgos(algos)
-    {
-        algoHash[0] = algos;
-        algo.model = algoHash[0];
-    }
 
     Row {
         id: content
@@ -33,13 +26,12 @@ Item {
 
             UI.GSCustomComboBox {
                 id: algo
-                model: "Algo name here.";
+                model: app.algorithms;
                 anchors.top: text.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width -20
                 onActivated: {
-                    //description.text = Wizard.getAlgosDescription(algo.currentIndex);
                     used[0] = algo.textAt(algo.currentIndex)
                 }
 
@@ -110,7 +102,7 @@ Item {
 
             UI.GSCustomComboBox {
                 id: hash
-                model: algoHash[1];
+                model: app.hashs;
                 anchors.top: text2.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter

@@ -15,12 +15,12 @@ Item {
         "VOLUME_PWD": "",                       //volume password (hidden+direct volume)
         "VOLUME_KEYFILES": [],                  //volume keyfile(s) (hidden+direct volume)
         "ALGORITHM_HASH_NAMES": ["", ""],       //name of the algorithm (standard volume) and name of the hash algorithm
-        "VOLUME_SIZE": [0, ""],                 //volume size and type (KB, MB, GB) (standard volumes)
+        "VOLUME_SIZE": "",                      //volume size and type (KB, MB, GB) (standard volumes)
         "VOLUME_NEW_PASSWORD": ["", ""],        //volume password with verification (standard volume)
         "VOLUME_NEW_KEYFILES": [],              //volume keyfile(s)
         "FORMAT_INFOS": ["", "", false],        //file system, cluster & dynamic(bool) (standard volumes)
         "HIDDEN_ALGORITHM_HASH": ["", ""],      //HIDDEN VOLUME : algorithm & hash
-        "HIDDEN_VOLUME_SIZE": [0, ""],          //HIDDEN VOLUME: volume size
+        "HIDDEN_VOLUME_SIZE": "",               //HIDDEN VOLUME: volume size
         "HIDDEN_VOLUME_PASSWORD": ["",""],      //HIDDEN VOLUME: volume password (with verification)
         "HIDDEN_VOLUME_KEYFILES": [],           //HIDDEN VOLUME: volume keyfile(s)
         "HIDDEN_FORMAT_INFOS":  ["","", false]  //HIDDEN VOLUME: file system, cluster & dynamic(bool) (standard volumes)*/
@@ -397,9 +397,9 @@ Item {
             typeBranch = content.item.type
             //type 0 & 1 (normal) => volumeInfos.VOLUME_SIZE, else volumeInfos.HIDDEN_VOLUME_SIZE
             if(content.item.type !== 2)
-                volumeInfos.VOLUME_SIZE = content.item.sizeType
+                volumeInfos.VOLUME_SIZE = content.item.sizeType[0] + content.item.sizeType[1]
             else
-                volumeInfos.HIDDEN_VOLUME_SIZE = content.item.sizeType
+                volumeInfos.HIDDEN_VOLUME_SIZE = content.item.sizeType[0] + content.item.sizeType[1]
             if(direction === 1
                     && content.item.sizeType
                     && content.item.sizeType[0] > 0) //1 => normal
@@ -629,8 +629,23 @@ Item {
         switch(type)
         {
         case 0: //normal without hidden
+            console.log("algo = " + volumeInfos.ALGORITHM_HASH_NAMES[0]);
             qmlRequest("createvolume", {
                            "type": 1,
+                           "path": volumeInfos.VOLUME_PATH,
+                           "outer-size": 1, //TODO
+                           "size": volumeInfos.VOLUME_SIZE,
+                           "algorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
+                           "hash": volumeInfos.ALGORITHM_HASH_NAMES[1],
+                           "volumeHeaderKdf": "", //TODO
+                           "filesystem": volumeInfos.FORMAT_INFOS[0],
+                           "keyfiles": "", //TODO
+                           "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                       });
+            break;
+       /* case 1: //hidden + normal
+            qmlRequest("createvolume", {
+                           "type": 2,
                            "path": volumeInfos.VOLUME_PATH,
                            "size": volumeInfos.VOLUME_SIZE,
                            "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
@@ -640,6 +655,18 @@ Item {
                            "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
                        });
             break;
+        case 2: //hidden + existing normal
+            qmlRequest("createvolume", {
+                           "type": 2,
+                           "path": volumeInfos.VOLUME_PATH,
+                           "size": volumeInfos.VOLUME_SIZE,
+                           "encryptionAlgorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
+                           "volumeHeaderKdf": "", //TODO
+                           "filesystem": volumeInfos.FORMAT_INFOS[0],
+                           "keyfiles": "", //TODO
+                           "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                       });
+            break;*/
         }
     }
 
