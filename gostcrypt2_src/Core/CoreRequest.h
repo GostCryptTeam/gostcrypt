@@ -114,6 +114,7 @@ struct MountVolumeRequest : CoreRequest {
     QString mountedForUser;
     QString mountedForGroup;
     bool forVolumeCreation;
+    ProgressTrackingParameters volumeCreationFormatId;
     DEC_SERIALIZABLE(MountVolumeRequest);
 };
 
