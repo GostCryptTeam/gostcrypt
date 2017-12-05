@@ -42,7 +42,7 @@ Window {
     /*!
       \flags Setting the window frameless
       */
-    flags: Qt.FramelessWindowHint | Qt.Window
+   // flags: Qt.FramelessWindowHint | Qt.Window
 
     /*!
         \class QtObject
@@ -89,12 +89,12 @@ Window {
         \property maximumHeight
         \brief Window's maximum height
      */
-    maximumHeight: minimumHeight
+   // maximumHeight: 570
     /*!
         \property maximumWidth
         \brief Window's maximum width
      */
-    maximumWidth: minimumWidth
+  //  maximumWidth: 790
     /*!
         \property width
         \brief The window's default width
@@ -187,9 +187,9 @@ Window {
     Loader {
         id: pageLoader
         source: "frames/HomeFrame.qml"
-        y:40
-        x:0
         onSourceChanged: animation.running = true
+        anchors.fill: parent
+        anchors.topMargin: 40
         onLoaded: {
             pageLoader.item.mainWindow_ = app
         }
@@ -392,7 +392,6 @@ Window {
     }
 
 
-
     TitleBar {
         id: title
         x:0
@@ -410,22 +409,25 @@ Window {
         \brief Sub window inside of the main window
      */
     Item {
-        x: 0
+        id: containSub
         y: 40
+        anchors.fill: parent
         SubWindow {
             id: subWindow
-            width:app.width
-            y:40
-            height:429
+            width: 790; height:429
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            y: 40
             visible: false
             opacity: 0.0
             isOpen: false
         }
     }
 
-    GSSudo{
+    GSSudo {
         id: sudo_
         isVisible: false
+        width: 350
         visible:false
         opacity : 0.0
         title: "Sudo password"
@@ -592,6 +594,7 @@ Window {
         if(content.name !== undefined && content.desc !== undefined)
         {
             notifications.push([content.name, content.desc, Number(notifications.length)+1, 0]);
+            console.log("ID = " + Number(notifications.length))
             content.id = Number(notifications.length);
         }
         sendQmlRequest(type, content);

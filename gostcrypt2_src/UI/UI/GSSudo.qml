@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.4
 
 Item {
     id: connectSudo_Form
-    anchors.fill : parent
+    anchors.centerIn: parent
     property string title: ""
     property string contentText: ""
     property bool isVisible: false
@@ -34,7 +34,10 @@ Item {
     }
 
     Rectangle {
-        anchors.fill: connectSudo_Form
+        width: app.width
+        height: app.height
+        x: -parent.x
+        y: -parent.y + 40
         color: "#000000"
         opacity: 0.9
     }
@@ -42,7 +45,7 @@ Item {
     Rectangle {
         color: palette.darkThird
         anchors.centerIn: parent
-        width: connectSudo_Form.width / 2
+        width: connectSudo_Form.width
         height: 165
         Rectangle {
             width: parent.width
@@ -66,7 +69,7 @@ Item {
             id: password_value
             y: password_txt.y + 40
             anchors.horizontalCenter: parent.horizontalCenter
-            width: connectSudo_Form.width / 2 - 50
+            width: connectSudo_Form.width - 50
             horizontalAlignment: TextInput.AlignHCenter
             height: 40
             onValidated: {

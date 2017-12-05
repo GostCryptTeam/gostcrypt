@@ -51,7 +51,7 @@ Item {
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = "" //TODO: stock password in C++
-                keyfiles_paths.model = [""]
+                keyfiles_paths.model = []
                 listKeyfiles = []
             }else{
                 app.openErrorMessage("Empty password", "Please enter a password or select keyfiles.");
@@ -251,7 +251,7 @@ Item {
 
         UI.GSCustomComboBox {
             id: keyfiles_paths
-            model: [""]
+            model: []
             x: password_value.width - combo.width/2
             y: password_txt.y + password_txt.height + 10
             width: combo.width/2
@@ -261,7 +261,7 @@ Item {
         }
 
         Rectangle {
-            visible: (keyfiles_paths.model !== [""]) ? true : false
+            visible: use_Keyfiles.checked ? true : false
             anchors.left: keyfiles_paths.right
             anchors.leftMargin: 5
             color: palette.darkInput
@@ -281,7 +281,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     listKeyfiles = []
-                    keyfiles_paths.model = [""]
+                    keyfiles_paths.model = []
                 }
             }
         }
@@ -435,7 +435,7 @@ Item {
             else if(sudo_.isVisible === false && UserSettings.getSetting("MountV-UseKeyFiles") === "1")
             {
                 sendKeyFileInfoVolume()
-                keyfiles_paths.model = [""]
+                keyfiles_paths.model = []
             }
         }
         Behavior on opacity { NumberAnimation { duration: 500; easing.type: Easing.OutQuad; } }

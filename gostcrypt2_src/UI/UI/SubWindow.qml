@@ -22,9 +22,9 @@ Item {
     //Black background
     Rectangle {
         width: app.width
-        height:app.height
-        x:0
-        y:-parent.y
+        height: app.height
+        x: -parent.x
+        y: -parent.y
         color: palette.shadow
         opacity: 0.7
         MouseArea {
@@ -70,7 +70,7 @@ Item {
         anchors.centerIn: parent
         height: parent.height
         radius: 10
-        y: parent.y
+        y: 40
         color: "transparent";
         Rectangle {
             id: imgWizard
@@ -124,7 +124,7 @@ Item {
             radius: 5
             anchors.right: parent.right
             anchors.rightMargin: 10
-            y: parent.y + 50
+            y: 50
             anchors.topMargin: 10
             Text{
                 color: palette.text
@@ -165,7 +165,7 @@ Item {
         anchors.centerIn: parent
         width: parent.width - 80
         height: parent.height
-        y: parent.y
+        y: 40
         radius: 0
         visible: (parameter.type === 0 || parameter.type === undefined) ? true : false
         Behavior on height { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
@@ -313,7 +313,7 @@ Item {
         if(parameter.type === true)
             loader.item.y = 10
         else
-            loader.item.y = subWindow_.y
+            loader.item.y = 40
     }
 
     function changeSubWindowTitle() {
