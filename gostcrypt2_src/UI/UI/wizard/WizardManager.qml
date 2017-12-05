@@ -4,6 +4,7 @@ import QtQuick.Controls 1.4
 import "../" as UI
 
 Item {
+    id: top
     property alias page : content.item
     property int currentPage: 1
     property var typeBranch
@@ -72,30 +73,7 @@ Item {
                 }
     }
 
-    Row {
-        spacing: 22
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 5
 
-        UI.GSButtonBordered {
-            id: help_
-            color_: palette.green
-            text: qsTr("Help")
-        }
-        UI.GSButtonBordered {
-            id: back_
-            color_: palette.blue
-            text: qsTr("< Back")
-            onClicked: manageWizard(0)
-        }
-        UI.GSButtonBordered {
-            id: next_
-            color_: palette.blue
-            text: qsTr("Next >")
-            onClicked: manageWizard(1)
-        }
-    }
 
     Row {
         id: steps
@@ -119,6 +97,23 @@ Item {
             id: step5
         }
 
+    }
+
+    Row {
+        spacing: 22
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: steps.top
+        anchors.topMargin: -5
+        anchors.right: top.right;
+        anchors.rightMargin: 5
+
+        UI.GSButtonBordered {
+            id: help_
+            height: 25
+            width: 80
+            color_: palette.blue
+            text: qsTr("Help")
+        }
     }
 
     NextPreviousButton {
@@ -629,11 +624,10 @@ Item {
         switch(type)
         {
         case 0: //normal without hidden
-            console.log("algo = " + volumeInfos.ALGORITHM_HASH_NAMES[0]);
             qmlRequest("createvolume", {
                            "type": 1,
                            "path": volumeInfos.VOLUME_PATH,
-                           "outer-size": 1, //TODO
+                           "outer-size": 1,
                            "size": volumeInfos.VOLUME_SIZE,
                            "algorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
                            "hash": volumeInfos.ALGORITHM_HASH_NAMES[1],
@@ -641,6 +635,8 @@ Item {
                            "filesystem": volumeInfos.FORMAT_INFOS[0],
                            "keyfiles": "", //TODO
                            "password": volumeInfos.VOLUME_NEW_PASSWORD[0],
+                           "name": qsTr("Create volume"),
+                           "desc": qsTr("Creating the ") + volumeInfos.VOLUME_PATH + qsTr(" volume...")
                        });
             break;
        /* case 1: //hidden + normal

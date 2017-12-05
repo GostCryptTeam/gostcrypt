@@ -85,7 +85,9 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 QProcess::startDetached("explorer", QStringList(GI_KEY(aContent, "path").toString()));
             else
 #else
+#ifdef QT_DEBUG
         qDebug() << QUrl(GI_KEY(aContent, "path").toString());
+#endif
         QDesktopServices::openUrl(QUrl(GI_KEY(aContent, "path").toString()));
 #endif
         }
@@ -141,7 +143,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             //Detection of the volume type
             int type = GI_KEY(aContent, "type").toInt(); //UI returns 0 for normal and 1 for Hidden
-            qDebug() << "type = " << type;//GI_KEY(aContent, "path").toString();
             if(type == GostCrypt::VolumeType::Normal)
             {
                 options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
@@ -206,7 +207,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             keyfile = GI_KEY(aContent, "keyfile").toUrl().path();
             //TODO : use KDF
             // TODO multiple keyfiles not supported yet
-            qDebug() << "id vaut = " << GI_KEY(aContent, "id").toInt();
             QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
             options->file.reset(new QFileInfo(keyfile));
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
