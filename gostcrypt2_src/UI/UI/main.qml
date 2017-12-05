@@ -42,7 +42,7 @@ Window {
     /*!
       \flags Setting the window frameless
       */
-   // flags: Qt.FramelessWindowHint | Qt.Window
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     /*!
         \class QtObject
@@ -89,12 +89,12 @@ Window {
         \property maximumHeight
         \brief Window's maximum height
      */
-   // maximumHeight: 570
+    maximumHeight: 570
     /*!
         \property maximumWidth
         \brief Window's maximum width
      */
-  //  maximumWidth: 790
+    maximumWidth: 790
     /*!
         \property width
         \brief The window's default width

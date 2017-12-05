@@ -60,7 +60,6 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     uid_t mountedForUserId;
     gid_t mountedForGroupId;
 
-    UPDATE_PROGRESS(0);
     if (params->mountedForUser.isEmpty())
     {
         mountedForUserId = realUserId;
@@ -326,6 +325,7 @@ void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointe
     mountparams->passThrough.insert("filesystem", QVariant::fromValue(filesystem));
     mountparams->passThrough.insert("parentParams", QVariant::fromValue(parentParams));
     mountparams->passThrough.insert("parentResponse", QVariant::fromValue(parentResponse));
+    mountparams->id = parentParams->id;
     mountVolume(mountparams);
 
 }
@@ -388,6 +388,7 @@ void CoreRoot::continueDismountFormat(QSharedPointer<DismountVolumeResponse> dis
 
 void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 {
+    UPDATE_PROGRESS(0.0);
     QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
@@ -409,6 +410,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     if(isVolumeMounted(params->path))
         throw VolumeAlreadyMountedException(params->path);
 
+    UPDATE_PROGRESS(0.05);
+
     // this is the CoreRoot class. we are assuming that it is launched as root.
 
     /*
@@ -416,6 +419,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
      */
 
     createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
+
+    UPDATE_PROGRESS(0.50);
 
     // opening file (or device)
     volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
@@ -435,6 +440,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     QSharedPointer<VolumeLayout> innerlayout;
     innerlayout.reset(new VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it can just be a fake one
 
+    UPDATE_PROGRESS(0.60);
+
     if(params->type == VolumeType::Hidden) { // writing the inner volume headers if any
         writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);
     } else { // writing random data to the hidden headers location
@@ -451,6 +458,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }
 
+    UPDATE_PROGRESS(0.64);
+
     /*
      * FORMATTING THE VOLUME
      */
@@ -458,6 +467,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(continueFormatHidden(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
     else
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
+    UPDATE_PROGRESS(0.65);
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response);
 }
 
