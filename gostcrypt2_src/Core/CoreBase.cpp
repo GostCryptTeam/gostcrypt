@@ -374,6 +374,88 @@ namespace GostCrypt {
 
         }
 
+        QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
+        {
+            try {
+
+            QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
+            if(!params.isNull())
+                response->passThrough = params->passThrough;
+
+            if(params->changeMasterKey)
+                throw IncorrectParameterException("Not implemented yet"); //TODO
+
+            //Open Volume
+            QSharedPointer<Volume::VolumePassword> password;
+            QSharedPointer <Volume::KeyfileList> keyfiles;
+            QSharedPointer<Volume::Volume> volume;
+
+            // Conversions :(
+            if(!params->password.isNull())
+                password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+            else
+                throw MissingParamException("password");
+            if(!params->keyfiles.isNull()) {
+                for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+                    keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                }
+            }
+
+            volume->Open(
+                params->path,
+                false,
+                password,
+                keyfiles,
+                Volume::VolumeProtection::Enum::None,
+                QSharedPointer <Volume::VolumePassword> (), QSharedPointer <Volume::KeyfileList> (),
+                false
+            );
+
+            params->password->fill('\0');
+
+            QSharedPointer<Volume::VolumeHash> newVolumeHeaderKdf = getDerivationKeyFunction(params->newVolumeHeaderKdf);
+            Buffer newSalt(volume->GetSaltSize());
+            SecureBuffer newHeaderKey(Volume::VolumeHeader::GetLargestSerializedKeySize());
+
+            RandomNumberGenerator::SetHash(newVolumeHeaderKdf);
+
+            // Conversions :(
+            Volume::VolumePassword newPassword(params->newPassword->data(), params->newPassword->size());
+
+            bool backupHeader = false;
+            while(true) {
+                for (int i = 1; i <= PRAND_DISK_WIPE_PASSES ; i++) {
+                //TODO AskFiliol, Why several dummy header write (SecureWipePassCount)
+                    if(i == PRAND_DISK_WIPE_PASSES)
+                        RandomNumberGenerator::GetData(newSalt);
+                    else
+                        RandomNumberGenerator::GetDataFast(newSalt);
+
+                    newVolumeHeaderKdf->DeriveKey(newHeaderKey, newPassword, newSalt);
+                    volume->ReEncryptHeader(backupHeader, newSalt, newHeaderKey, newVolumeHeaderKdf);
+
+                    volume->GetFile()->Flush();
+                }
+
+                if(!volume->GetLayout()->HasBackupHeader() || backupHeader)
+                    break;
+
+                backupHeader = true;
+            }
+
+            volume->Close();
+
+            if(params->emitResponse)
+                emit sendChangeVolumePassword(response);
+
+            return response;
+
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw;
+            }
+        }
+
                 bool CoreBase::isVolumeMounted(QFileInfo volumeFile)
 		{
 			QSharedPointer<GetMountedVolumesRequest> params(new GetMountedVolumesRequest);
@@ -440,6 +522,7 @@ namespace GostCrypt {
             else HANDLE_REQUEST(GetEncryptionAlgorithms, getEncryptionAlgorithms)
             else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
             else HANDLE_REQUEST(GetHostDevices, getHostDevices)
+            else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
 			else {
 				return false;
 			}
