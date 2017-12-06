@@ -99,8 +99,6 @@
         <file>UI/dialogs/Performance.qml</file>
         <file>UI/GSButtonGreen.qml</file>
         <file>UI/GSMenuBar.qml</file>
-        <file>UI/TranslationApp.cpp</file>
-        <file>UI/TranslationApp.h</file>
         <file>CmdLineInterface.cpp</file>
         <file>CmdLineInterface.h</file>
         <file>DragWindowProvider.h</file>
@@ -119,8 +117,6 @@
         <file>UI.pro</file>
         <file>UserSettings.cpp</file>
         <file>UserSettings.h</file>
-        <file>volumecreation.cpp</file>
-        <file>volumecreation.h</file>
         <file>volumelist.cpp</file>
         <file>volumelist.h</file>
         <file>UI/dialogs/Preferences.qml</file>

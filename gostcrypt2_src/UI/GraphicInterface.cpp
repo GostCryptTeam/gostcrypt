@@ -56,12 +56,6 @@ int GraphicInterface::start()
     return mApp->exec();
 }
 
-/*!
- * \brief GraphicInterface::receiveSignal
- * This slot is called when the QML sends a signal
- * Analyzes the signal content to call the right
- * GostCrypt function
- */
 void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 {
 #ifdef QT_DEBUG
@@ -372,10 +366,6 @@ void GraphicInterface::askSudoPassword()
     emit getSudoPassword();
 }
 
-/*!
- * \brief GraphicInterface::connectSignals Binds the signals between the
- * GostCrypt core and the QML interface
- */
 void GraphicInterface::connectSignals()
 {
     /************* QML -----> C++ ************

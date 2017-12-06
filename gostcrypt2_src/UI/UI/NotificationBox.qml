@@ -125,7 +125,6 @@ Item {
                         anchors.bottom: parent.bottom
                         color: palette.border
                     }
-                     SwipeDelegate.onClicked: console.log("Moving...")
                 }
 
                 enabled:  Notif_percent == 100 ? true : false

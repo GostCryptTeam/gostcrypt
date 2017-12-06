@@ -585,11 +585,10 @@ Item {
              * Done !
              */
         case progress.VOLUME_END:
-
             break;
         }
 
-        console.log("==================================");
+        /*console.log("==================================");
         console.log("CONTAINER_TYPE = " + volumeInfos.CONTAINER_TYPE);
         console.log("CONTAINER_SIZE = " + volumeInfos.CONTAINER_SIZE);
         console.log("VOLUME_TYPE = " + volumeInfos.VOLUME_TYPE);
@@ -606,7 +605,7 @@ Item {
         console.log("HIDDEN_VOLUME_SIZE = " + volumeInfos.HIDDEN_VOLUME_SIZE);
         console.log("HIDDEN_VOLUME_PASSWORD = " + volumeInfos.HIDDEN_VOLUME_PASSWORD);
         console.log("HIDDEN_VOLUME_KEYFILES = " + volumeInfos.HIDDEN_VOLUME_KEYFILES);
-        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);
+        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);*/
     }
 
     /*!

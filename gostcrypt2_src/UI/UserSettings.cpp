@@ -212,7 +212,6 @@ void UserSettings::addKeyfile(const QString &aPath)
 void UserSettings::addKeyfilePath(const QString &aPath)
 {
     QString tmp = QUrl(aPath+"/").path();
-    qDebug() << tmp;
     //Iterate through all the subfiles of a given directory
     QDirIterator it(tmp,
                     QDir::Files, QDirIterator::Subdirectories);
@@ -226,7 +225,7 @@ void UserSettings::addKeyfilePath(const QString &aPath)
 
 void UserSettings::removeKeyfile(const QString &aPath)
 {
-    qDebug() << "remove" << aPath;
+    qDebug() << "Remove" << aPath;
     QList<keyfileInfo> favoritePath = mSettings.value("Favorite-Keyfiles").value<QList<keyfileInfo>>();
     for(auto i : favoritePath)
         if(i.sPath == aPath)

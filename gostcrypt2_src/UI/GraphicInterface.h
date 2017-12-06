@@ -9,7 +9,6 @@
 #include "Core/CoreRequest.h"
 #include "Core/CoreBase.h"
 #include "DragWindowProvider.h"
-#include "volumecreation.h"
 #include "UserSettings.h"
 #include "TranslationApp.h"
 #include "SecureTextField.h"
