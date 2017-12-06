@@ -91,6 +91,7 @@ struct ChangeVolumePasswordRequest : CoreRequest {
 
 struct CreateKeyFileRequest : CoreRequest {
     QSharedPointer<QFileInfo> file; // the path of the file to fill with random data
+    ProgressTrackingParameters keyFileCreationId;
     DEC_SERIALIZABLE(CreateKeyFileRequest);
 };
 

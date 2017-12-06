@@ -168,7 +168,7 @@ namespace GostCrypt {
              * @param algorithm Name of the cipher algorithm to use for random generation
              * @param random If False null bytes will be used instead of random data
              */
-            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm = "", bool random = true);
+            void createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, ProgressTrackingParameters id, QString algorithm = "", bool random = true);
             /**
              * @brief Set a random key for the given cipher algorithm. This function is used by createRandomFile
              *
