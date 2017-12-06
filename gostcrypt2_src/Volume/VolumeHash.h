@@ -12,7 +12,7 @@
 
 #include <QList>
 #include <QSharedPointer>
-#include "Platform/Buffer.h"
+#include "Core/Buffer.h"
 #include "VolumePassword.h"
 
 namespace GostCrypt

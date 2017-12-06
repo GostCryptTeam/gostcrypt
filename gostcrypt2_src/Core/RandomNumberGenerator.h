@@ -13,7 +13,7 @@
 
 #include <QMutex>
 #include <QSharedPointer>
-#include "Platform/Buffer.h"
+#include "Core/Buffer.h"
 #include "Volume/Crypto/Random.h"
 #include "Volume/VolumeHash.h"
 

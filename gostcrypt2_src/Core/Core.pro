@@ -51,7 +51,8 @@ HEADERS += \
     CoreRequest.h \
     Service.h \
     ServiceHandler.h \
-    GostCryptException.h
+    GostCryptException.h \
+    Buffer.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -74,4 +75,5 @@ SOURCES += \
     CoreRequest.cpp \
     Service.cpp \
     ServiceHandler.cpp \
-    GostCryptException.cpp
+    GostCryptException.cpp \
+    Buffer.cpp

@@ -11,7 +11,7 @@
 #define GST_HEADER_Encryption_Password
 
 #include <QtGlobal>
-#include "Platform/Buffer.h"
+#include "Core/Buffer.h"
 
 namespace GostCrypt
 {

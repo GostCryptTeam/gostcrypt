@@ -11,7 +11,7 @@
 #define GST_HEADER_Encryption_Keyfile
 
 #include "VolumePassword.h"
-#include "Platform/Buffer.h"
+#include "Core/Buffer.h"
 #include <QSharedPointer>
 #include <QFileInfo>
 #include <QList>

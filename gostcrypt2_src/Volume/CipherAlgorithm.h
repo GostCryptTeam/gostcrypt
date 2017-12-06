@@ -10,7 +10,7 @@
 #ifndef GST_HEADER_Encryption_Ciphers
 #define GST_HEADER_Encryption_Ciphers
 
-#include "Platform/Buffer.h"
+#include "Core/Buffer.h"
 #include <QList>
 #include <QSharedPointer>
 

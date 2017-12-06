@@ -66,7 +66,6 @@ LIBS += \
         ../Core/libCore.a \
         ../FuseService/libFuseService.a \
         ../Volume/libVolume.a \
-        ../Platform/libPlatform.a \
         -ldl \
         -pthread \
         -lfuse \
