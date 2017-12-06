@@ -20,7 +20,8 @@
 		fct (request); \
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
-#define UPDATE_PROGRESS(p) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(params->id.requestId,params->id.end*p+params->id.start*(1-p))))
+#define UPDATE_PROGRESS_S(p, id) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(id.requestId,id.end*p+id.start*(1-p))))
+#define UPDATE_PROGRESS(p) UPDATE_PROGRESS_S(p, params->id)
 //TODO create a ProgressUpdateResponse constructor containing the forumula
 
 /* Progress tracking analysis helpers */

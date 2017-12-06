@@ -131,7 +131,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     }
 	UPDATE_PROGRESS(1);
     if(params->forVolumeCreation) {
-        continueMountFormat(response);
+        continueMountFormat(response, params->volumeCreationFormatId);
         return;
     }
 
@@ -310,9 +310,8 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
 
 }
 
-void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse)
+void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id)
 {
-    QSharedPointer<MountVolumeResponse> mountresponse;
     QSharedPointer<MountVolumeRequest> mountparams(new MountVolumeRequest());
     mountparams->keyfiles = keyfiles;
     mountparams->doMount = false;
@@ -325,13 +324,15 @@ void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointe
     mountparams->passThrough.insert("filesystem", QVariant::fromValue(filesystem));
     mountparams->passThrough.insert("parentParams", QVariant::fromValue(parentParams));
     mountparams->passThrough.insert("parentResponse", QVariant::fromValue(parentResponse));
-    mountparams->id = parentParams->id;
-    mountVolume(mountparams);
+    mountparams->id = ProgressTrackingParameters(id, 0.0, 0.25);
+    mountparams->volumeCreationFormatId = ProgressTrackingParameters(id, 0.25, 1.0);
 
+    mountVolume(mountparams);
 }
 
-void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse)
+void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse, ProgressTrackingParameters id)
 {
+    UPDATE_PROGRESS_S(0.0, id);
     QSharedPointer<QFileInfo> volume = mountResponse->passThrough.value("volume").value<QSharedPointer<QFileInfo>>();
     QSharedPointer<QByteArray> password = mountResponse->passThrough.value("password").value<QSharedPointer<QByteArray>>();
     QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles = mountResponse->passThrough.value("keyfiles").value<QSharedPointer<QList<QSharedPointer<QFileInfo>>>>();
@@ -345,12 +346,14 @@ void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResp
     dismountparams->forVolumeCreation = true;
     dismountparams->passThrough.insert("parentParams", mountResponse->passThrough.value("parentParams"));
     dismountparams->passThrough.insert("parentResponse", mountResponse->passThrough.value("parentResponse"));
+    dismountparams->id = ProgressTrackingParameters(id, 0.9, 1.0);
 
     QStringList arguments;
     arguments << mountResponse->volumeInfo->virtualDevice->absoluteFilePath();
 
     QProcess *formatProcess = new QProcess();
     formatProcess->start(formatter, arguments);
+    UPDATE_PROGRESS_S(0.1, id);
 
     if (!formatProcess->waitForFinished() || formatProcess->exitStatus() != QProcess::NormalExit) {
         try {
@@ -371,10 +374,11 @@ void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResp
         }
         throw FilesystemNotSupportedException(filesystem);
     }
+    UPDATE_PROGRESS_S(0.8, id);
 
-    // Gve time for formatting to apply change on file
+    // Give time for formatting to apply change on file
     QThread::msleep(100);
-    try {
+    try {        
         dismountVolume(dismountparams); // finally dismounting the volume
     } catch (CoreException &e) {
         throw FormattingSubExceptionException(e.qwhat());
@@ -463,19 +467,23 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     /*
      * FORMATTING THE VOLUME
      */
-    if(params->type == VolumeType::Hidden)
+    ProgressTrackingParameters mountFormatId;
+    if(params->type == VolumeType::Hidden) {
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(continueFormatHidden(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
-    else
+        mountFormatId = ProgressTrackingParameters(params->id, 0.65, 0.825);
+    } else {
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
+        mountFormatId = ProgressTrackingParameters(params->id, 0.65, 1.0);
+    }
     UPDATE_PROGRESS(0.65);
-    mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response);
+    mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response, mountFormatId);
 }
 
 void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
 {
     disconnect(this, SIGNAL(formatVolumeDone(QVariantMap)), 0, 0);
     connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>)));
-    mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response);
+    mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response, ProgressTrackingParameters(params->id, 0.825, 1.0));
 }
 
 void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)

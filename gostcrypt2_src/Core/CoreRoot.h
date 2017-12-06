@@ -72,7 +72,7 @@ namespace GostCrypt {
              *
              * @param mountResponse
              */
-            void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse);
+            void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse, ProgressTrackingParameters id);
             /**
              * @brief
              *
@@ -126,7 +126,7 @@ namespace GostCrypt {
              * @param parentParams
              * @param parentResponse
              */
-            void mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse);
+            void mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
             uid_t realUserId; /**< TODO: describe */
             gid_t realGroupId; /**< TODO: describe */
             GostCrypt::FuseDriver::FuseServiceHandler fuseServiceHandler; /**< TODO: describe */
