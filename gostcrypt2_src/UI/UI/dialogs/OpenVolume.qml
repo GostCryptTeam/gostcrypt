@@ -2,6 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.4
 import QtQuick.Window 2.2
 import QtQuick.Controls.Styles 1.4
 import "../" as UI
@@ -23,7 +24,27 @@ Item {
         onSendInfoVolume: {
             if(password_value.text.length !== 0)
             {
-                qmlRequest("mount", {"path": volumePath, "password": password_value.text, "nb-keyfiles": 0, "name": qsTr("Mount volume"), "desc": volumePath});
+                var params = {
+                    "path": volumePath,
+                    "password": password_value.text,
+                    "nb-keyfiles": 0,
+                    "name": qsTr("Mount volume"),
+                    "desc": volumePath
+                }
+
+                //Use Mount Options
+                if(UserSettings.getSetting("Pref-useCurrentMO") === "1")
+                {
+                    params["use-mount-option"] = 1
+                    params["timestamp"] = UserSettings.getSetting("Pref-TimeStamp")
+                    params["protection"] = UserSettings.getSetting("Pref-ReadOnly")
+                    params["backup-headers"] = UserSettings.getSetting("Pref-backup-headers")
+                    params["shared"] = UserSettings.getSetting("Pref-shared")
+                    params["user"] = UserSettings.getSetting("Pref-user")
+                    params["group"] = UserSettings.getSetting("Pref-group")
+                }
+
+                qmlRequest("mount", params);
                 var password_blank = new Array(password_value.length+1).join('#');
                 password_value.text = password_blank
                 password_value.text = "" //TODO: stock password in C++
@@ -41,6 +62,17 @@ Item {
                     "name": qsTr("Mount volume"),
                     "desc": qsTr("Volume mounted using "+ listKeyfiles.length +" keyfiles")
                 };
+
+                //Use Mount Options
+                if(UserSettings.getSetting("Pref-useCurrentMO") === "1")
+                {
+                    request["timestamp"] = UserSettings.getSetting("Pref-TimeStamp")
+                    request["protection"] = UserSettings.getSetting("Pref-ReadOnly")
+                    request["backup-headers"] = UserSettings.getSetting("Pref-backup-headers")
+                    request["shared"] = UserSettings.getSetting("Pref-shared")
+                    request["user"] = UserSettings.getSetting("Pref-user")
+                    request["group"] = UserSettings.getSetting("Pref-group")
+                }
 
                 for(var i in listKeyfiles)
                     request["keyfile"+i] = listKeyfiles[i];
@@ -311,31 +343,10 @@ Item {
         }
 
         UI.GSCheckBox {
-            id: cache
-            text_: qsTr("Cache password and keyfiles in memory")  + Translation.tr
-            x: combo.x
-            y: password_value.y + password_value.height + 10
-            height: 20
-            width: 300
-            size_: 20
-            sizeText: 10
-            checked: {
-                var isChecked = UserSettings.getSetting("MountV-CachePwd")
-                return (isChecked === "1") ? true : false;
-            }
-            onCheckedChanged: {
-                if(cache.checked == true)
-                    UserSettings.setSetting("MountV-SaveHistory", 1)
-                else
-                    UserSettings.setSetting("MountV-SaveHistory", 0)
-            }
-        }
-
-        UI.GSCheckBox {
             id: display
             text_: qsTr("Display password")  + Translation.tr
             x: combo.x
-            anchors.top: cache.bottom
+            anchors.top: password_value.bottom
             anchors.topMargin: 5
             height: 20
             size_: 20
@@ -381,10 +392,28 @@ Item {
             }
         }
 
+        UI.GSCheckBox {
+            id: useMountOptions
+            text_: qsTr("Use current \"Mount Options\" configuration")  + Translation.tr
+            x: combo.x
+            anchors.top: use_Keyfiles.bottom
+            anchors.topMargin: 5
+            height: 20
+            size_: 20
+            sizeText: 10
+            checked: (UserSettings.getSetting("Pref-useCurrentMO") === "1") ? true : false
+            onCheckedChanged: {
+                if(useMountOptions.checked == true)
+                    UserSettings.setSetting("Pref-useCurrentMO", 1)
+                else
+                    UserSettings.setSetting("Pref-useCurrentMO", 0)
+            }
+        }
+
         UI.GSButtonBordered {
             id: buttonKeyfiles
             x: combo.x + combo.width - 150
-            y: cache.y
+            y: display.y
             height: 30
             text: qsTr("Keyfiles...") + Translation.tr
             width: 150
@@ -402,6 +431,9 @@ Item {
             text: qsTr("Mount Options...") + Translation.tr
             width: 150
             color_: palette.green
+            onClicked: {
+                mountOptions.opacity = 1.0
+            }
         }
         Behavior on opacity {
             NumberAnimation {
@@ -455,89 +487,89 @@ Item {
                 } } }
 
         Component {
-                id: deviceDelegate
-                Item {
-                    id: elementDevice
-                    width: 320;
-                    height: 70;
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Behavior on height { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
-                    Behavior on width { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
+            id: deviceDelegate
+            Item {
+                id: elementDevice
+                width: 320;
+                height: 70;
+                anchors.horizontalCenter: parent.horizontalCenter
+                Behavior on height { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
+                Behavior on width { NumberAnimation { duration: app.duration/3; easing.type: Easing.OutQuad; } }
+                Rectangle {
+                    id: contentDevice
+                    anchors.fill: parent
+                    color: '#3b3b3b'
+                    border.color: palette.darkThird
+                    border.width: 1
+                    radius: 2
+
+                    //Circle (number)
                     Rectangle {
-                        id: contentDevice
-                        anchors.fill: parent
-                        color: '#3b3b3b'
-                        border.color: palette.darkThird
-                        border.width: 1
-                        radius: 2
-
-                        //Circle (number)
-                        Rectangle {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: 50
-                            height: 50
-                            radius: 50
-                            color: palette.darkInput
-                            x:10
-                            Text {
-                                color: palette.text
-                                text: number
-                                anchors.centerIn: parent
-                                font.pixelSize: 15
-                            }
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 50
+                        height: 50
+                        radius: 50
+                        color: palette.darkInput
+                        x:10
+                        Text {
+                            color: palette.text
+                            text: number
+                            anchors.centerIn: parent
+                            font.pixelSize: 15
                         }
-                        Column {
-                            id: infos
-                            x: 70
-                            y: 8
-                            Text {
-                                id: infos_Path
-                                font.pixelSize: 18
-                                color:palette.text;
-                                text: '<b>Path:</b> ' + path
-                            }
-                            Text {
-                                font.pixelSize: 11
-                                color:palette.text;
-                                text: '<b>Size:</b> ' + size
-                            }
-                            Text {
-                                font.pixelSize: 11
-                                color:palette.text;
-                                text: '<b>Mount point:</b> ' + mountPoint
-                            }
+                    }
+                    Column {
+                        id: infos
+                        x: 70
+                        y: 8
+                        Text {
+                            id: infos_Path
+                            font.pixelSize: 18
+                            color:palette.text;
+                            text: '<b>Path:</b> ' + path
                         }
+                        Text {
+                            font.pixelSize: 11
+                            color:palette.text;
+                            text: '<b>Size:</b> ' + size
+                        }
+                        Text {
+                            font.pixelSize: 11
+                            color:palette.text;
+                            text: '<b>Mount point:</b> ' + mountPoint
+                        }
+                    }
 
-                        MouseArea {
-                            id:area
-                            anchors.fill:parent
-                            hoverEnabled: true
-                            cursorShape: area.containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
-                            onEntered: {
-                                contentDevice.color = "#454545"
-                                elementDevice.width = 400
-                               // elementDevice.height = 87
-                            }
-                            onExited: {
-                                contentDevice.color = "#3B3B3B"
-                                elementDevice.width = 320
-                               // elementDevice.height = 70
-                            }
-                            onClicked: {
-                                openVolume_Form.moving(path)
-                                if(historique.pressed === false)
-                                    UserSettings.addVolumePath(path)
-                                combo.model = UserSettings.getVolumePaths(0)
-                                devicesSelection.opacity = 0.0
-                                changeSubWindowTitle(qsTr("Open a GostCrypt Volume"))
-                            }
+                    MouseArea {
+                        id:area
+                        anchors.fill:parent
+                        hoverEnabled: true
+                        cursorShape: area.containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        onEntered: {
+                            contentDevice.color = "#454545"
+                            elementDevice.width = 400
+                            // elementDevice.height = 87
+                        }
+                        onExited: {
+                            contentDevice.color = "#3B3B3B"
+                            elementDevice.width = 320
+                            // elementDevice.height = 70
+                        }
+                        onClicked: {
+                            openVolume_Form.moving(path)
+                            if(historique.pressed === false)
+                                UserSettings.addVolumePath(path)
+                            combo.model = UserSettings.getVolumePaths(0)
+                            devicesSelection.opacity = 0.0
+                            changeSubWindowTitle(qsTr("Open a GostCrypt Volume"))
                         }
                     }
                 }
             }
+        }
 
         ListModel {
-             id: listDeviceModel
+            id: listDeviceModel
         }
 
         ListView {
@@ -552,6 +584,232 @@ Item {
             spacing:10
             anchors.topMargin: 10
             anchors.bottomMargin: 10
+        }
+    }
+
+    // mount option part
+    Rectangle {
+        id: mountOptions
+        visible: false
+        opacity: 0.0
+        width: parent.width - 2
+        x: 1
+        height: parent.height
+        color: palette.darkSecond
+        Behavior on opacity {
+            NumberAnimation {
+                id: anim2_;
+                duration: app.duration/2;
+                easing.type: Easing.OutQuad;
+                onRunningChanged: {
+                    if(!anim2_.running) {
+                        mountOptions.visible = !mountOptions.visible
+                    }
+                }
+            }
+        }
+
+        MouseArea {
+            id:area
+            anchors.fill:parent
+            hoverEnabled: true
+
+        }
+
+        Rectangle {
+            id: block5
+            color: "transparent"
+            border.width: 1
+            border.color: palette.border
+            radius: 5
+            width: parent.width - 100
+            x: 1
+            y: 10
+            height: parent.height - 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            Column {
+                id: mountOptionsContent
+                spacing: 15
+                height: parent.height
+                anchors.centerIn: parent
+                y: 10
+                Text {
+                    id: text5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: 25
+                    y: 5
+                    color: palette.green
+                    text: qsTr("Mount Options") + Translation.tr
+                    font.pointSize: 11
+                }
+
+                UI.GSCheckBox {
+                    id: timestamp
+                    text_: qsTr("Preserve Timestamp of file")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    size_: 20
+                    sizeText: 10
+                    checked: {
+                        var isChecked = UserSettings.getSetting("Pref-TimeStamp")
+                        return (isChecked === "1") ? true : false;
+                    }
+                    onCheckedChanged: {
+                        if(timestamp.checked == true)
+                            UserSettings.setSetting("Pref-TimeStamp", 1)
+                        else
+                            UserSettings.setSetting("Pref-TimeStamp", 0)
+                    }
+                }
+
+
+
+                Row {
+                    spacing: 5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: qsTr("Volume protection :")
+                        color: palette.text
+                        font.pointSize: 10
+                    }
+                    ExclusiveGroup { id: group }
+                    UI.GSCheckBox {
+                        id: readOnly1
+                        text_: qsTr("None")
+                        size_: 20
+                        sizeText: 10
+                        exclusiveGroup: group
+                        checked: {
+                            var isChecked = UserSettings.getSetting("Pref-ReadOnly")
+                            return (isChecked === "0") ? true : false;
+                        }
+                        onCheckedChanged: {
+                            if(readOnly1.checked === true)
+                                UserSettings.setSetting("Pref-ReadOnly", 0)
+                        }
+                    }
+
+                    UI.GSCheckBox {
+                        id: readOnly2
+                        text_: qsTr("Normal volume Read Only")
+                        size_: 20
+                        sizeText: 10
+                        exclusiveGroup: group
+                        checked: {
+                            var isChecked = UserSettings.getSetting("Pref-ReadOnly")
+                            return (isChecked === "1") ? true : false;
+                        }
+                        onCheckedChanged: {
+                            if(readOnly2.checked === true)
+                                UserSettings.setSetting("Pref-ReadOnly", 1)
+                        }
+                    }
+
+                    UI.GSCheckBox {
+                        id: readOnly3
+                        text_: qsTr("Hidden volume Read Only")
+                        size_: 20
+                        sizeText: 10
+                        exclusiveGroup: group
+                        checked: {
+                            var isChecked = UserSettings.getSetting("Pref-ReadOnly")
+                            return (isChecked === "2") ? true : false;
+                        }
+                        onCheckedChanged: {
+                            if(readOnly3.checked === true)
+                                UserSettings.setSetting("Pref-ReadOnly", 2)
+                        }
+                    }
+                }
+
+                UI.GSCheckBox {
+                    id: useBackup
+                    text_: qsTr("Open volume with its backup header")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    size_: 20
+                    sizeText: 10
+                    checked: {
+                        var isChecked = UserSettings.getSetting("Pref-backup-headers")
+                        return (isChecked === "1") ? true : false;
+                    }
+                    onCheckedChanged: {
+                        if(useBackup.checked === true)
+                            UserSettings.setSetting("Pref-backup-headers", 1)
+                        else
+                            UserSettings.setSetting("Pref-backup-headers", 0)
+                    }
+                }
+
+                UI.GSCheckBox {
+                    id: shared
+                    text_: qsTr("Allow shared access to the volume")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    size_: 20
+                    sizeText: 10
+                    checked: {
+                        var isChecked = UserSettings.getSetting("Pref-shared")
+                        return (isChecked === "1") ? true : false;
+                    }
+                    onCheckedChanged: {
+                        if(shared.checked === true)
+                            UserSettings.setSetting("Pref-shared", 1)
+                        else
+                            UserSettings.setSetting("Pref-shared", 0)
+                    }
+                }
+
+                Row {
+                    spacing: 5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: qsTr("Mount the volume for the specified <b>user</b> (leave empty for the current user) :")
+                        color: palette.text
+                        font.pointSize: 10
+                    }
+
+                    UI.SecureTextField {
+                        id: mountedForUser
+                        type: true
+                        width: 100
+                        text: UserSettings.getSetting("Pref-user")
+                        Keys.onReleased: UserSettings.setSetting("Pref-user", mountedForUser.text)
+                    }
+
+                }
+
+                Row {
+                    spacing: 5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Text {
+                        text: qsTr("Mount the volume for the specified <b>group</b> (leave empty for the current user) :")
+                        color: palette.text
+                        font.pointSize: 10
+                    }
+
+                    UI.SecureTextField {
+                        id: mountedForGroup
+                        type: true
+                        width: 100
+                        text: UserSettings.getSetting("Pref-group")
+                        Keys.onReleased: UserSettings.setSetting("Pref-group", mountedForGroup.text)
+                    }
+                }
+            }
+
+            UI.GSButtonBordered {
+                id: saveChanges
+                height: 40
+                text: qsTr("Save changes") + Translation.tr
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 120
+                onClicked: {
+                    UserSettings.setSetting("Pref-user", mountedForUser.text)
+                    UserSettings.setSetting("Pref-group", mountedForGroup.text)
+                    mountOptions.opacity = 0.0
+                }
+                color_: palette.blue
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+            }
         }
     }
 

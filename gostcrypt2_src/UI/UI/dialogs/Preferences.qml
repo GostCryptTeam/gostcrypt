@@ -14,8 +14,6 @@ Item {
         }
     }
 
-
-
     Flickable {
         id: flickable
         y: 15
@@ -415,7 +413,7 @@ Item {
                     }
                     UI.GSCheckBox {
                         id: forceAutoDismount
-                        text_: qsTr("Force auto-dismount even if colume containes open files or directories")
+                        text_: qsTr("Force auto-dismount even if volume contains open files or directories")
                         size_: 20
                         sizeText: 10
                         checked: {
