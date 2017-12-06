@@ -56,12 +56,6 @@ int GraphicInterface::start()
     return mApp->exec();
 }
 
-/*!
- * \brief GraphicInterface::receiveSignal
- * This slot is called when the QML sends a signal
- * Analyzes the signal content to call the right
- * GostCrypt function
- */
 void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 {
 #ifdef QT_DEBUG
@@ -80,16 +74,10 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
     case FirstGI::openmountpoint: //"openmountpoint" command
         {
-#ifdef Q_WS_WIN
-            if (QFileInfo(aContent["path"]).isDir())
-                QProcess::startDetached("explorer", QStringList(GI_KEY(aContent, "path").toString()));
-            else
-#else
 #ifdef QT_DEBUG
         qDebug() << QUrl(GI_KEY(aContent, "path").toString());
 #endif
         QDesktopServices::openUrl(QUrl(GI_KEY(aContent, "path").toString()));
-#endif
         }
         break;
     case FirstGI::automount: //"automount" command
@@ -111,8 +99,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             if(GI_KEY(aContent, "volumepath") != "") {
                 options.data()->volumePath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
                 emit request(QVariant::fromValue(options));
-            }else{
-                //TODO : send error to QML
             }
         }
         break;
@@ -128,6 +114,29 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             options->path.reset(new QFileInfo(canonicalPath));
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
+
+            //Mount options
+            qDebug() << GI_KEY(aContent, "use-mount-option").toBool();
+            if(GI_KEY(aContent, "use-mount-option").toBool())
+            {
+                options->preserveTimestamps = GI_KEY(aContent, "timestamp").toBool();
+                switch(GI_KEY(aContent, "protection").toInt())
+                {
+                case 0:
+                    options->protection = GostCrypt::VolumeProtection::None;
+                    break;
+                case 1:
+                    options->protection = GostCrypt::VolumeProtection::ReadOnly;
+                    break;
+                case 2:
+                    options->protection = GostCrypt::VolumeProtection::HiddenVolumeReadOnly;
+                    break;
+                }
+                options->useBackupHeaders = GI_KEY(aContent, "backup-headers").toBool();
+                options->sharedAccessAllowed = GI_KEY(aContent, "shared").toBool();
+                options->mountedForUser = GI_KEY(aContent, "user").toString();
+                options->mountedForGroup = GI_KEY(aContent, "group").toString();
+            }
 
             //Adding Keyfiles
             options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
@@ -156,26 +165,49 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
                     keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
                 for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
-                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
+                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
 
-                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet.
+                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
 
                 options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
                 options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
                 options->outerVolume->filesystem = GI_KEY(aContent, "filesystem").toString(); //Outer volume file system
-                options->outerVolume->size = GI_KEY(aContent, "outer-size").toReal(); //Relative size of the outer volume
+                options->outerVolume->size = 1.0; //GI_KEY(aContent, "outer-size").toReal(); //Relative size of the outer volume
                 bool ok = false;
                 QString s = GI_KEY(aContent, "size").toString();
                 options->size = Parser::parseSize(s, &ok); //Total volume file size
             }
             else if(type == GostCrypt::VolumeType::Hidden)
             {
-                options->type = GostCrypt::VolumeType::Hidden;
-                options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
-            }
-            else //Unknown
-            {
+                options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
+                options->type = GostCrypt::VolumeType::Hidden; //Setting the volume Type
+                options->size = QFile(options->path->canonicalFilePath()).size();
 
+                //Outer volume path and password/keyfile(s)
+                options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
+                options->outerVolume->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>()); //outer volume keyfile(s)
+                QStringList keyfilesList;
+                for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
+                    keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
+                for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
+                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
+
+                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
+
+                //Inner volume information
+                options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
+                options->innerVolume->encryptionAlgorithm = GI_KEY(aContent, "halgorithm").toString(); //Inner volume algorithm
+                options->innerVolume->volumeHeaderKdf = GI_KEY(aContent, "hhash").toString(); //Inner volume algorithm
+                options->innerVolume->filesystem = GI_KEY(aContent, "hfilesystem").toString(); //Inner volume file system
+                options->innerVolume->size = GI_KEY(aContent, "inner-size").toReal(); //Relative size of the inner volume
+                options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //Setting the inner volume password
+                QStringList hkeyfilesList;
+                for(int i = 0; i<GI_KEY(aContent, "nb-hkeyfiles").toInt(); i++)
+                    hkeyfilesList.append(GI_KEY(aContent, "hkeyfile"+QString::number(i)).toString());
+                for(QString file : hkeyfilesList) //Adding the keyfile(s) to the outer volume object
+                    options->innerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
+                qDebug() << GI_KEY(aContent, "hpassword").toString().toUtf8();
+                options->innerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
             }
             emit request(QVariant::fromValue(options));
         }
@@ -205,7 +237,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         {
             QString keyfile;
             keyfile = GI_KEY(aContent, "keyfile").toUrl().path();
-            //TODO : use KDF
+            // TODO : use KDF
             // TODO multiple keyfiles not supported yet
             QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
             options->file.reset(new QFileInfo(keyfile));
@@ -334,10 +366,6 @@ void GraphicInterface::askSudoPassword()
     emit getSudoPassword();
 }
 
-/*!
- * \brief GraphicInterface::connectSignals Binds the signals between the
- * GostCrypt core and the QML interface
- */
 void GraphicInterface::connectSignals()
 {
     /************* QML -----> C++ ************

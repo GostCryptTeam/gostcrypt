@@ -105,7 +105,7 @@ Item {
                 anchors.top: buttonKeyfiles.bottom
                 anchors.topMargin: 10
                 anchors.horizontalCenter: parent.horizontalCenter
-                model: [""]
+                model: []
             }
 
         }

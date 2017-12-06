@@ -45,7 +45,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     UserSettings.h \
     DragWindowProvider.h \
-    volumecreation.h \
     TranslationApp.h \
     Parser.h \
     CmdLineInterface.h \
@@ -55,7 +54,6 @@ HEADERS += \
 SOURCES += \
     main.cpp \
     UserSettings.cpp \
-    volumecreation.cpp \
     TranslationApp.cpp \
     Parser.cpp \
     CmdLineInterface.cpp \

@@ -18,7 +18,6 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         //Mount volume preferences & history
         mSettings.setValue("default", 0);
         mSettings.setValue("MountV-ShowPassword", 0);
-        mSettings.setValue("MountV-SaveHistory", 0);
         mSettings.setValue("MountV-CachePwd", 0);
         mSettings.setValue("MountV-UseKeyFiles", 0);
         mSettings.setValue("Perf-Use", 0);
@@ -50,6 +49,12 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         //mSettings.setValue("KFG-POOL", 1);
         //Test Vectors
         mSettings.setValue("XTS-mode", 1);
+        //Mount options
+        mSettings.setValue("Pref-useCurrentMO", 0); //Use current mount options configuration
+        mSettings.setValue("Pref-backup-headers", 0); //open the volume with its backup header.
+        mSettings.setValue("Pref-shared", 0);
+        mSettings.setValue("Pref-user", ""); //empty for the default value
+        mSettings.setValue("Pref-group", ""); //empty for the default value
     }
 }
 
@@ -207,7 +212,6 @@ void UserSettings::addKeyfile(const QString &aPath)
 void UserSettings::addKeyfilePath(const QString &aPath)
 {
     QString tmp = QUrl(aPath+"/").path();
-    qDebug() << tmp;
     //Iterate through all the subfiles of a given directory
     QDirIterator it(tmp,
                     QDir::Files, QDirIterator::Subdirectories);
@@ -221,7 +225,7 @@ void UserSettings::addKeyfilePath(const QString &aPath)
 
 void UserSettings::removeKeyfile(const QString &aPath)
 {
-    qDebug() << "remove" << aPath;
+    qDebug() << "Remove" << aPath;
     QList<keyfileInfo> favoritePath = mSettings.value("Favorite-Keyfiles").value<QList<keyfileInfo>>();
     for(auto i : favoritePath)
         if(i.sPath == aPath)

@@ -40,36 +40,29 @@ Item {
         id: buttonsOpenVolume
         spacing: 25
         anchors.horizontalCenter: parent.horizontalCenter
-        y: h10
+        y: 10
 
             //password part
-            TextField {
+
+            UI.SecureTextField {
                 id: password_value
                 width: use_Keyfiles.checked ? (top.width-100)/2 : top.width-100
                 horizontalAlignment: TextInput.AlignHCenter
                 echoMode: TextInput.Password
                 height: 40
                 focus: true
-                Keys.onPressed: password = password_value.text+event.text
-                style: TextFieldStyle {
-                    textColor: "#e1e1e1"
-                    background: Rectangle {
-                        id: password_value_style
-                        radius: 5
-                        implicitWidth: 100
-                        implicitHeight: 24
-                        border.color: "#333"
-                        border.width: 1
-                        color: palette.darkInput
-                    }
-                }
+                Keys.onReleased: password = password_value.text
+                bordercolor: palette.darkInput
+                radius_: 3
+                Keys.onReturnPressed: manageWizard(1)
+                Keys.onEnterPressed: manageWizard(1)
             }
 
             UI.GSCustomComboBox {
                 id: keyfiles_paths
-                model: [""]
+                model: []
                 width: (top.width-100)/2
-                height: combo.height
+                height: 40
                 borderWidth: 0
                 visible: use_Keyfiles.checked ? true : false
             }

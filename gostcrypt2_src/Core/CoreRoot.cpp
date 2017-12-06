@@ -129,12 +129,12 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
         throw;
     }
-	UPDATE_PROGRESS(1);
+
     if(params->forVolumeCreation) {
         continueMountFormat(response, params->volumeCreationFormatId);
         return;
     }
-
+    UPDATE_PROGRESS(1);
     emit sendMountVolume(response);
 }
 
@@ -422,7 +422,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
      * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME
      */
 
-    createRandomFile(params->path, params->size, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
+    ProgressTrackingParameters fillFileId(params->id, 0.05, 0.50);
+    createRandomFile(params->path, params->size, fillFileId, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
 
     UPDATE_PROGRESS(0.50);
 
@@ -476,7 +477,10 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         mountFormatId = ProgressTrackingParameters(params->id, 0.65, 1.0);
     }
     UPDATE_PROGRESS(0.65);
+
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response, mountFormatId);
+
+    UPDATE_PROGRESS(1);
 }
 
 void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)

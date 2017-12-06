@@ -72,7 +72,6 @@ Item {
 
         onSprintProgressUpdate:
         {
-            console.log(l[0]["progress"]*100);
             if(l === undefined) return;
             notifs.updateNotification(l[0]["id"],l[0]["progress"]*100,notifications[l[0]["id"]-1][0],notifications[l[0]["id"]-1][1]);
             if(notifs.visible === false) title.showIcon(true);

@@ -298,9 +298,11 @@ namespace GostCrypt {
             encryptionAlgorithm->GetMode()->SetKey (modeKey);
         }
 
-        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, QString algorithm, bool random)
+        void CoreBase::createRandomFile(QSharedPointer<QFileInfo> path, quint64 size, ProgressTrackingParameters id, QString algorithm, bool random)
         {
             fstream file;
+
+            UPDATE_PROGRESS_S(0.0, id);
 
             if(!path)
                  throw MissingParamException("path");
@@ -320,6 +322,8 @@ namespace GostCrypt {
                 randomizeEncryptionAlgorithmKey (ea);
             }
 
+            UPDATE_PROGRESS_S(0.10, id);
+
             quint64 dataFragmentLength = File::GetOptimalWriteSize(); // TODO define
 
             // we can't get more than the pool size a each run. Very slow.
@@ -329,6 +333,8 @@ namespace GostCrypt {
             SecureBuffer outputBuffer (dataFragmentLength);
             quint64 offset = 0; // offset where the data starts
             quint64 sizetodo = size; // size of the data to override
+
+            UPDATE_PROGRESS_S(0.20, id);
 
             while (sizetodo > 0)
             {
@@ -346,7 +352,11 @@ namespace GostCrypt {
 
                 offset += dataFragmentLength;
                 sizetodo -= dataFragmentLength;
+
+                UPDATE_PROGRESS_S(0.80 * ((float)offset / (float)size), id);
             }
+
+            UPDATE_PROGRESS_S(1.0, id);
 
         }
 
@@ -428,9 +438,8 @@ namespace GostCrypt {
             QSharedPointer<CreateKeyFileResponse> response(new CreateKeyFileResponse());
             if(!params.isNull())
 				response->passThrough = params->passThrough;
-
-            CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
-
+            params->keyFileCreationId = ProgressTrackingParameters(params->id, 0.0, 0.9);
+            CoreBase::createRandomFile(params->file, VolumePassword::MaxSize, params->keyFileCreationId, "Gost Grasshopper", true); // certain values of MaxSize may no work with encryption AND random
             if(params->emitResponse)
             {
                 UPDATE_PROGRESS(1.0);

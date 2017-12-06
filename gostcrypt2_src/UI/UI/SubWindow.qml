@@ -24,7 +24,7 @@ Item {
         width: app.width
         height: app.height
         x: -parent.x
-        y: -parent.y
+        y: -parent.y+40
         color: palette.shadow
         opacity: 0.7
         MouseArea {
