@@ -594,7 +594,6 @@ Window {
         if(content.name !== undefined && content.desc !== undefined)
         {
             notifications.push([content.name, content.desc, Number(notifications.length)+1, 0]);
-            console.log("ID = " + Number(notifications.length))
             content.id = Number(notifications.length);
         }
         sendQmlRequest(type, content);

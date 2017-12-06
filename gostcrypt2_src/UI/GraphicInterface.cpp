@@ -156,9 +156,9 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
                     keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
                 for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
-                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
+                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
 
-                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet.
+                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
 
                 options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
                 options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
@@ -170,12 +170,35 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
             else if(type == GostCrypt::VolumeType::Hidden)
             {
-                options->type = GostCrypt::VolumeType::Hidden;
-                options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
-            }
-            else //Unknown
-            {
+                options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
+                options->type = GostCrypt::VolumeType::Hidden; //Setting the volume Type
+                options->size = QFile(options->path->canonicalFilePath()).size();
 
+                //Outer volume path and password/keyfile(s)
+                options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
+                options->outerVolume->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>()); //outer volume keyfile(s)
+                QStringList keyfilesList;
+                for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
+                    keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
+                for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
+                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
+
+                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
+
+                //Inner volume information
+                options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
+                options->innerVolume->encryptionAlgorithm = GI_KEY(aContent, "halgorithm").toString(); //Inner volume algorithm
+                options->innerVolume->volumeHeaderKdf = GI_KEY(aContent, "hhash").toString(); //Inner volume algorithm
+                options->innerVolume->filesystem = GI_KEY(aContent, "hfilesystem").toString(); //Inner volume file system
+                options->innerVolume->size = GI_KEY(aContent, "inner-size").toReal(); //Relative size of the inner volume
+                options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //Setting the inner volume password
+                QStringList hkeyfilesList;
+                for(int i = 0; i<GI_KEY(aContent, "nb-hkeyfiles").toInt(); i++)
+                    hkeyfilesList.append(GI_KEY(aContent, "hkeyfile"+QString::number(i)).toString());
+                for(QString file : hkeyfilesList) //Adding the keyfile(s) to the outer volume object
+                    options->innerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
+                qDebug() << GI_KEY(aContent, "hpassword").toString().toUtf8();
+                options->innerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
             }
             emit request(QVariant::fromValue(options));
         }
