@@ -35,14 +35,14 @@ static gosthash_s_box GostR3411_94_CryptoProParamSet = {
 	{0xA,0x4,0x5,0x6,0x8,0x1,0x3,0x7,0xD,0xC,0xE,0x0,0x9,0x2,0xB,0xF}
 };
 
-static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X)
+static quint32 r(quint32 n1, quint32 n2, quint32 X)
 {
 	gosthash_s_box *sbox = &GostR3411_94_CryptoProParamSet;
 	n1 += X;
-	n1 =  (gst_udword)sbox->k8[(n1>>28)&0xF]<<28 | (gst_udword)sbox->k7[(n1>>24)&0xF]<<24
-				| (gst_udword)sbox->k6[(n1>>20)&0xF]<<20 | (gst_udword)sbox->k5[(n1>>16)&0xF]<<16
-				| (gst_udword)sbox->k4[(n1>>12)&0xF]<<12 | (gst_udword)sbox->k3[(n1>>8)&0xF]<<8
-				| (gst_udword)sbox->k2[(n1>>4)&0xF]<<4 | (gst_udword)sbox->k1[n1&0xF];
+    n1 =  (quint32)sbox->k8[(n1>>28)&0xF]<<28 | (quint32)sbox->k7[(n1>>24)&0xF]<<24
+                | (quint32)sbox->k6[(n1>>20)&0xF]<<20 | (quint32)sbox->k5[(n1>>16)&0xF]<<16
+                | (quint32)sbox->k4[(n1>>12)&0xF]<<12 | (quint32)sbox->k3[(n1>>8)&0xF]<<8
+                | (quint32)sbox->k2[(n1>>4)&0xF]<<4 | (quint32)sbox->k1[n1&0xF];
 	n1 = gosthash_rotl32(n1, 11);
 	n2 ^= n1;
 	return n2;
@@ -50,12 +50,12 @@ static gst_udword r(gst_udword n1, gst_udword n2, gst_udword X)
 
 static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
 {
-	gst_dword i;
-	gst_udword n1, n2;
-	gst_udword X0, X1, X2, X3, X4, X5, X6, X7;
+    qint32 i;
+    quint32 n1, n2;
+    quint32 X0, X1, X2, X3, X4, X5, X6, X7;
 
-	n1 = (gst_udword)in[3] << 24 | (gst_udword)in[2] << 16 | (gst_udword)in[1] << 8 | (gst_udword)in[0];
-	n2 = (gst_udword)in[7] << 24 | (gst_udword)in[6] << 16 | (gst_udword)in[5] << 8 | (gst_udword)in[4];
+    n1 = (quint32)in[3] << 24 | (quint32)in[2] << 16 | (quint32)in[1] << 8 | (quint32)in[0];
+    n2 = (quint32)in[7] << 24 | (quint32)in[6] << 16 | (quint32)in[5] << 8 | (quint32)in[4];
 
 	/* Set the 8 round keys */
 	X0 = 0;
@@ -69,14 +69,14 @@ static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
 
 	for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
 	{
-		X0 |= (gst_udword)key[i + 0] << (i * 8);
-		X1 |= (gst_udword)key[i + 4] << (i * 8);
-		X2 |= (gst_udword)key[i + 8] << (i * 8);
-		X3 |= (gst_udword)key[i + 12] << (i * 8);
-		X4 |= (gst_udword)key[i + 16] << (i * 8);
-		X5 |= (gst_udword)key[i + 20] << (i * 8);
-		X6 |= (gst_udword)key[i + 24] << (i * 8);
-		X7 |= (gst_udword)key[i + 28] << (i * 8);
+        X0 |= (quint32)key[i + 0] << (i * 8);
+        X1 |= (quint32)key[i + 4] << (i * 8);
+        X2 |= (quint32)key[i + 8] << (i * 8);
+        X3 |= (quint32)key[i + 12] << (i * 8);
+        X4 |= (quint32)key[i + 16] << (i * 8);
+        X5 |= (quint32)key[i + 20] << (i * 8);
+        X6 |= (quint32)key[i + 24] << (i * 8);
+        X7 |= (quint32)key[i + 28] << (i * 8);
 	}
 
 	/* Encryption rounds 1-24 */
@@ -123,16 +123,16 @@ static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
 
 
 /* Library-neutral memset, memcpy and memmove */
-static void copy_blocks(quint8 *dst, quint8 *src, gst_dword len)
+static void copy_blocks(quint8 *dst, quint8 *src, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < len; i++)
 		dst[i] = src[i];
 }
 
-static void move_blocks (quint8 *to, quint8 *from, gst_dword len)
+static void move_blocks (quint8 *to, quint8 *from, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	if (from < to)
 		for (i = len-1; i >= 0; i--)
 			to[i] = from[i];
@@ -141,29 +141,29 @@ static void move_blocks (quint8 *to, quint8 *from, gst_dword len)
 			to[i] = from[i];
 }
 
-static void set_blocks (quint8 *ptr, quint8 val, gst_dword len)
+static void set_blocks (quint8 *ptr, quint8 val, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < len; i++)
 		ptr[i] = val;
 }
 
 /* arbitrary-length add and xor */
-static void add_blocks (quint8 *T, quint8 *F, gst_dword len)
+static void add_blocks (quint8 *T, quint8 *F, qint32 len)
 {
-	gst_dword i;
-	gst_word carry = 0;
+    qint32 i;
+    qint16 carry = 0;
 	for (i = 0; i < len; i++)
 	{
-        gst_word sum = (gst_word)T[i] + (gst_word)F[i] + carry;
+        qint16 sum = (qint16)T[i] + (qint16)F[i] + carry;
 		T[i] = (quint8)sum & 0xFF;
 		carry = sum >> 8;
 	}
 }
 
-static void xor_blocks (quint8 *T, quint8 *F, quint8 *S, gst_dword len)
+static void xor_blocks (quint8 *T, quint8 *F, quint8 *S, qint32 len)
 {
-	gst_dword i;
+    qint32 i;
 	for (i = 0; i < len; i++)
 		T[i] = F[i] ^ S[i];
 }
@@ -176,7 +176,7 @@ static void xor_blocks (quint8 *T, quint8 *F, quint8 *S, gst_dword len)
  */
 static void P_transform (quint8 *F, quint8 *T)
 {
-	gst_dword i, k;
+    qint32 i, k;
 	for (i = 0; i < 4; i++)
 		for (k = 0; k < 8; k++)
 			T[i+4*k] = F[8*i+k];
@@ -196,10 +196,10 @@ static void A(quint8 *F, quint8 *T)
 
 static void PSI (quint8 *X)
 {
-	gst_word T;
+    qint16 T;
 
-	T = (gst_word)(X[0]^X[2]^X[4]^X[6]^X[24]^X[30])|
-		((gst_word)(X[1]^X[3]^X[5]^X[7]^X[25]^X[31])<<8);
+    T = (qint16)(X[0]^X[2]^X[4]^X[6]^X[24]^X[30])|
+        ((qint16)(X[1]^X[3]^X[5]^X[7]^X[25]^X[31])<<8);
 	move_blocks(X, X+2, 30);
 	X[30] = (quint8)(T&0xFF);
 	X[31] = (quint8)(T>>8);
@@ -213,7 +213,7 @@ void GOSTHASH_init (gost_hash_ctx *ctx)
 static void step (quint8 *H, quint8 *M, gost_hash_ctx *ctx)
 {
 	quint8 U[32], W[32], V[32], S[32], K[4][32];
-	gst_dword i;
+    qint32 i;
 
 	(void)ctx;
 	xor_blocks(W, H, M, 32);
@@ -258,15 +258,15 @@ static void step (quint8 *H, quint8 *M, gost_hash_ctx *ctx)
 	copy_blocks (H, S, 32);
 }
 
-void GOSTHASH_add (quint8 *block, gst_udword len, gost_hash_ctx *ctx)
+void GOSTHASH_add (quint8 *block, quint32 len, gost_hash_ctx *ctx)
 {
 	quint8 *curptr = block;
 	quint8 *barrier = block + (len - 32); //In order that curptr += 32 won't overshoot len.
 
 	if (ctx->left) //There are unsigned chars left from the last GOSTHASH_add
 	{
-        gst_udword add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
-		copy_blocks(ctx->remainder + (quint8)ctx->left, block, (gst_dword)add_bytes);
+        quint32 add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
+        copy_blocks(ctx->remainder + (quint8)ctx->left, block, (qint32)add_bytes);
 		if ((ctx->left + add_bytes) < 32) //This can be finished in the finalize stage if needed
 		{
 			return;
@@ -280,7 +280,7 @@ void GOSTHASH_add (quint8 *block, gst_udword len, gost_hash_ctx *ctx)
 	}
 	else if (ctx->left + len < 32)
 	{
-		copy_blocks(ctx->remainder + (quint8)ctx->left, block, (gst_dword)len);
+        copy_blocks(ctx->remainder + (quint8)ctx->left, block, (qint32)len);
 		ctx->left += len;
 		return;
 	}
@@ -297,8 +297,8 @@ void GOSTHASH_add (quint8 *block, gst_udword len, gost_hash_ctx *ctx)
 
 	if (curptr != block + len) //If we have unsigned chars remaining, add them for the next GOSTHASH_add of _finalize
 	{
-		ctx->left = (gst_udword)(block + len - curptr);
-		copy_blocks(ctx->remainder, curptr, (gst_dword)ctx->left);
+        ctx->left = (quint32)(block + len - curptr);
+        copy_blocks(ctx->remainder, curptr, (qint32)ctx->left);
 	}
 }
 
@@ -307,8 +307,8 @@ void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out)
 	quint8 buf[32];
 	quint8 H[32];
 	quint8 S[32];
-	gst_dword final_len;
-	gst_dword bptr;
+    qint32 final_len;
+    qint32 bptr;
 
 	final_len = ctx->len;
 
@@ -318,7 +318,7 @@ void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out)
 	if (ctx->left) //Handle any remaining bytes
 	{
 		set_blocks(buf, 0, 32);
-		copy_blocks(buf, ctx->remainder, (gst_dword)ctx->left);
+        copy_blocks(buf, ctx->remainder, (qint32)ctx->left);
 		step (H, buf, ctx);
 		add_blocks (S, buf, 32);
 		final_len += ctx->left;

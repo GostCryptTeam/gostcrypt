@@ -34,11 +34,11 @@ namespace Volume {
 
 	protected:
 		void DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
-        void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)const;
+       static void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
+        static void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
 		void EncryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
-        void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const;
-        void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)const;
+       static void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
+        static void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
 		void SetSecondaryCipherKeys ();
 
 		SecureBuffer SecondaryKey;

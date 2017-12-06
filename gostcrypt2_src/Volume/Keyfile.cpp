@@ -56,7 +56,7 @@ namespace Volume {
 		if (!password)
 			password.reset (new VolumePassword);
 
-		if (!keyfiles || keyfiles->size() < 1)
+        if (!keyfiles || keyfiles->size() < 1)
 			return password;
 
         QSharedPointer<VolumePassword> newPassword (new VolumePassword());

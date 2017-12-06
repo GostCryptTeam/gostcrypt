@@ -12,14 +12,14 @@ void initGostCryptException()
     INIT_SERIALIZE(FailedCreateDirectory);
     INIT_SERIALIZE(FailedOpenFile);
     INIT_SERIALIZE(FailedReadFile);
+    INIT_SERIALIZE(FailedFlushFile);
     INIT_SERIALIZE(FailedWriteFile);
     INIT_SERIALIZE(FailedLseekFile);
     INIT_SERIALIZE(FailedStatFile);
     INIT_SERIALIZE(FailedMemoryAllocation);
     INIT_SERIALIZE(IncorrectParameter);
-
-
-    //add here all systemException
+    INIT_SERIALIZE(UnknowException);
+    INIT_SERIALIZE(ExternalException);
     Core::initCoreException();
     FuseDriver::initFuseException();
     Volume::initVolumeException();
@@ -77,6 +77,22 @@ QDataStream& operator << (QDataStream& out, const GostCrypt::FailedWriteFile& Va
     return out;
 }
 QDataStream& operator >> (QDataStream& in, GostCrypt::FailedWriteFile& Valeur)
+{
+    QString path;
+    in >> static_cast<SystemException&>(Valeur);
+    in >> path;
+    Valeur.file.setFile(path);
+    return in;
+}
+
+DEF_SERIALIZABLE(GostCrypt::FailedFlushFile)
+QDataStream& operator << (QDataStream& out, const GostCrypt::FailedFlushFile& Valeur)
+{
+    out << static_cast<const SystemException&>(Valeur);
+    out << Valeur.file.canonicalPath();
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, GostCrypt::FailedFlushFile& Valeur)
 {
     QString path;
     in >> static_cast<SystemException&>(Valeur);
@@ -170,6 +186,32 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::IncorrectParameter& Valeur
 {
     in >> static_cast<GostCryptException&>(Valeur);
     in >> Valeur.comment;
+    return in;
+}
+
+DEF_SERIALIZABLE(GostCrypt::UnknowException)
+QDataStream& operator << (QDataStream& out, const GostCrypt::UnknowException& Valeur)
+{
+    out << static_cast<const GostCryptException&>(Valeur);
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, GostCrypt::UnknowException& Valeur)
+{
+    in >> static_cast<GostCryptException&>(Valeur);
+    return in;
+}
+
+DEF_SERIALIZABLE(GostCrypt::ExternalException)
+QDataStream& operator << (QDataStream& out, const GostCrypt::ExternalException& Valeur)
+{
+    out << static_cast<const GostCryptException&>(Valeur);
+    out << Valeur.info;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, GostCrypt::ExternalException& Valeur)
+{
+    in >> static_cast<GostCryptException&>(Valeur);
+    in >> Valeur.info;
     return in;
 }
 

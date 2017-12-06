@@ -24,7 +24,6 @@ namespace GostCrypt {
 		};
 
 		struct ChangeVolumePasswordResponse : CoreResponse {
-			bool changeMasterKey;
 			DEC_SERIALIZABLE(ChangeVolumePasswordResponse);
 		};
 

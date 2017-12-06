@@ -7,6 +7,7 @@
 #include "FuseService/FuseServiceHandler.h"
 #include "Volume/VolumeLayoutV2Normal.h"
 #include "Volume/VolumeLayoutV2Hidden.h"
+#include "Volume/VolumeHeader.h"
 
 namespace GostCrypt {
 namespace Core {
@@ -45,7 +46,6 @@ void CoreRoot::request(QVariant r)
     HANDLE_REQUEST(MountVolume, mountVolume)
     else HANDLE_REQUEST(DismountVolume, dismountVolume)
         else HANDLE_REQUEST(CreateVolume, createVolume)
-            else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
                 else if(!processNonRootRequest(r)) {
                     throw UnknowRequestException(r.typeName());
                 }
@@ -112,6 +112,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
 		QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
 		QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
 		getMountedVolumesParams->volumePath = params->path;
+                getMountedVolumesParams->all = false;
 		getMountedVolumesParams->emitResponse = false;
 		getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
 		QList<QSharedPointer<Volume::VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
@@ -185,11 +186,13 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     {
         QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
         QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
-        if(params)
+        if(params) {
             getMountedVolumesParams->volumePath = params->volumePath;
+            getMountedVolumesParams->all = params->all;
+        }
         getMountedVolumesParams->emitResponse = false;
         getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-        if(params && getMountedVolumesResponse->volumeInfoList.isEmpty())
+        if(params && !params->all && getMountedVolumesResponse->volumeInfoList.isEmpty())
             throw VolumeNotMountedException(params->volumePath);
         mountedVolumes = getMountedVolumesResponse->volumeInfoList;
     }
@@ -289,7 +292,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     QSharedPointer <Volume::KeyfileList> keyfiles;
     if(params->keyfiles)
         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-            keyfiles->push_back(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
         }
     QSharedPointer<Volume::VolumePassword> password;
     if(!params->password.isNull())
@@ -503,28 +506,6 @@ void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QS
 {
     if(params->emitResponse)
         emit sendCreateVolume(response);
-}
-
-QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
-{
-    try {
-
-    QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
-    if(!params.isNull())
-        response->passThrough = params->passThrough;
-    (void)params;
-
-    //TODO
-
-    if(params->emitResponse)
-        emit sendChangeVolumePassword(response);
-
-    return response;
-
-    } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
-    }
 }
 
 }

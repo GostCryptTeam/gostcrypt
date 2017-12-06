@@ -14,6 +14,7 @@
 #include "Platform/Buffer.h"
 #include <QSharedPointer>
 #include <QFileInfo>
+#include <QList>
 
 //move
 #define FILE_OPTIMAL_READ_SIZE 256*1024
@@ -23,7 +24,7 @@ namespace GostCrypt
 namespace Volume {
 
 	class Keyfile;
-    typedef std::list < QSharedPointer <Keyfile> > KeyfileList;
+    typedef QList < QSharedPointer <Keyfile> > KeyfileList;
 
     class Keyfile
 	{

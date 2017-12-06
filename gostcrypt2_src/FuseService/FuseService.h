@@ -54,7 +54,7 @@ namespace GostCrypt {
 			 *
 			 * @return int error code corresponding to the last thrown Exception
 			 */
-			static int exceptionToErrorCode();
+            static int handleExceptions();
 			/**
 			 * @brief Close the volume and shutdown the encryption thread in order to destroy the FUSE mount.
 			 *

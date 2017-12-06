@@ -58,7 +58,8 @@ namespace GostCrypt {
 			if(serviceName == "CoreService") {
 				inputFileMonitor.reset(new QSocketNotifier(inputFile.handle(), QSocketNotifier::Read));
 				connect(inputFileMonitor.data(), SIGNAL(activated(int)), this, SLOT(receiveRequest()));
-				return app.exec();
+                qDebug() <<"start async";
+                return app.exec();
 			}
 
 			try {

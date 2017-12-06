@@ -11,17 +11,12 @@
 
 #ifndef STRIBOG_H
 #define STRIBOG_H
+#include<QtGlobal>
 
 #if defined(__cplusplus)
 extern "C"
 {
 #endif
-
-typedef unsigned char quint8;
-typedef short gst_word;
-typedef int gst_dword;
-typedef unsigned short gst_uword;
-typedef unsigned int gst_udword;
 
 typedef struct
 {
@@ -35,7 +30,7 @@ typedef struct
 } STRIBOG_CTX;
 
 void STRIBOG_init(STRIBOG_CTX *ctx);
-void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, gst_udword len);
+void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, quint32 len);
 void STRIBOG_finalize(STRIBOG_CTX *ctx, quint8 *out);
 
 #if defined(__cplusplus)

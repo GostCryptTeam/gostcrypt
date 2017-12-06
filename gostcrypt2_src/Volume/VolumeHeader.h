@@ -63,11 +63,11 @@ namespace Volume {
 
 	protected:
         bool Deserialize (const BufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
-        template <typename T> T DeserializeEntry (const BufferPtr &header, size_t &offset) const;
-        template <typename T> T DeserializeEntryAt (const BufferPtr &header, const size_t &offset) const;
+        template <typename T> static T DeserializeEntry (const BufferPtr &header, size_t &offset);
+        template <typename T> static T DeserializeEntryAt (const BufferPtr &header, const size_t &offset);
 		void Init ();
         void Serialize (BufferPtr &header) const;
-        template <typename T> void SerializeEntry (const T &entry, BufferPtr &header, size_t &offset) const;
+        template <typename T> static void SerializeEntry (const T &entry, BufferPtr &header, size_t &offset);
 
 		quint32 HeaderSize;
 

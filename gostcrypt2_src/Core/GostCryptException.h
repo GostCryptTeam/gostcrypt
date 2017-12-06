@@ -34,7 +34,7 @@ class GostCryptException : public QException {
         QString getFilename() const {return filename; }
         QString getFonction() const {return fonction; }
         quint32 getRequestId() const {return *requestId; }
-        void setRequestId(quint32 requestId) const {*this->requestId = requestId; }
+        void setRequestId(quint32 requestId) const { (void)requestId;/*this->requestId = requestId; TOFIX*/}
 
         GostCryptException *clone() const { return new GostCryptException(*this); }
         const char * what () const throw () {
@@ -125,7 +125,6 @@ class SystemException : public GostCryptException {
          */
         SystemException(QString fonction, QString filename, quint32 line) : GostCryptException(fonction, filename, line) {}
         DEF_EXCEPTION_WHAT(SystemException, GostCryptException, "")
-
     DEC_SERIALIZABLE(SystemException);
 };
 
@@ -208,6 +207,33 @@ class FailedWriteFile : public SystemException {
     protected:
         QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedWriteFile);
+};
+
+#define FailedFlushFileException(file) GostCrypt::FailedFlushFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
+/**
+ * @brief
+ *
+ */
+class FailedFlushFile : public SystemException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        FailedFlushFile() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param file
+         */
+        FailedFlushFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
+        DEF_EXCEPTION_WHAT(FailedFlushFile, SystemException, "Unable to write file \""+file.absoluteFilePath() + "\".\n")
+    protected:
+        QFileInfo file; /**< TODO: describe */
+    DEC_SERIALIZABLE(FailedFlushFile);
 };
 
 #define FailedLseekFileException(file) GostCrypt::FailedLseekFile(__PRETTY_FUNCTION__, __FILE__, __LINE__, file);
@@ -344,6 +370,61 @@ class IncorrectParameter : public GostCryptException {
 
     DEC_SERIALIZABLE(IncorrectParameter);
 };
+
+#define UnknowExceptionException() GostCrypt::UnknowException(__PRETTY_FUNCTION__, __FILE__, __LINE__)
+/**
+ * @brief
+ *
+ */
+class UnknowException : public GostCryptException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        UnknowException() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param parameterName
+         */
+        UnknowException(QString fonction, QString filename, quint32 line) : GostCryptException(fonction, filename, line) {}
+        DEF_EXCEPTION_WHAT(UnknowException, GostCryptException, "Unknow exception")
+    DEC_SERIALIZABLE(UnknowException);
+};
+
+#define ExternalExceptionException(ex) GostCrypt::ExternalException(__PRETTY_FUNCTION__, __FILE__, __LINE__, ex)
+/**
+ * @brief
+ *
+ */
+class ExternalException : public GostCryptException {
+    public:
+        /**
+         * @brief
+         *
+         */
+        ExternalException() {}
+        /**
+         * @brief
+         *
+         * @param fonction
+         * @param filename
+         * @param line
+         * @param parameterName
+         */
+        ExternalException(QString fonction, QString filename, quint32 line, std::exception ex) : GostCryptException(fonction, filename, line){
+            info = QString(ex.what());
+        }
+        DEF_EXCEPTION_WHAT(ExternalException, GostCryptException, "External exception: "+info)
+    protected:
+        QString info; /**< TODO: describe */
+
+    DEC_SERIALIZABLE(ExternalException);
+};
 }
 
 SERIALIZABLE(GostCrypt::SystemException)
@@ -351,11 +432,14 @@ SERIALIZABLE(GostCrypt::GostCryptException)
 SERIALIZABLE(GostCrypt::FailedOpenFile)
 SERIALIZABLE(GostCrypt::FailedReadFile)
 SERIALIZABLE(GostCrypt::FailedWriteFile)
+SERIALIZABLE(GostCrypt::FailedFlushFile)
 SERIALIZABLE(GostCrypt::FailedLseekFile)
 SERIALIZABLE(GostCrypt::FailedStatFile)
 SERIALIZABLE(GostCrypt::FailedCreateDirectory)
 SERIALIZABLE(GostCrypt::FailedMemoryAllocation)
 SERIALIZABLE(GostCrypt::IncorrectParameter)
+SERIALIZABLE(GostCrypt::UnknowException)
+SERIALIZABLE(GostCrypt::ExternalException)
 
 
 #endif // GOSTCRYPTEXCEPTION_H

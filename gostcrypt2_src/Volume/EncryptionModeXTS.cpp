@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include <QtEndian>
 #include "EncryptionModeXTS.h"
 #include "Crypto/Crypto.h"
 #include "VolumeHeader.h"
@@ -32,14 +32,14 @@ namespace Volume {
 			if ((**iCipher).GetBlockSize() == 8)
 				EncryptBufferXTS8Byte (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
 			else
-				EncryptBufferXTS (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
+                EncryptBufferXTS (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo+SectorOffset, 0);
 			++iSecondaryCipher;
 		}
 
         //assert (iSecondaryCipher == SecondaryCiphers.end());
 	}
 
-    void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)
 	{
 		quint8 finalCarry;
 		quint8 whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
@@ -53,7 +53,7 @@ namespace Volume {
 		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian(dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -130,12 +130,12 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-    void EncryptionModeXTS::EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)
 	{
 		quint8 finalCarry;
 		quint8 whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
@@ -149,7 +149,8 @@ namespace Volume {
 		quint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
 		quint64 blockCount, dataUnitNo;
 
-		startDataUnitNo += SectorOffset;
+        //moved to method call to make it static
+        //startDataUnitNo += SectorOffset;
 
 		/* The encrypted data unit number (i.e. the resultant ciphertext block) is to be multiplied in the
 		finite field GF(2^128) by j-th power of n, where j is the sequential plaintext/ciphertext block
@@ -161,7 +162,7 @@ namespace Volume {
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
@@ -263,7 +264,7 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));
@@ -305,13 +306,13 @@ namespace Volume {
 			if ((**iCipher).GetBlockSize() == 8)
 				DecryptBufferXTS8Byte (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
 			else
-				DecryptBufferXTS (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo, 0);
+                DecryptBufferXTS (**iCipher, **iSecondaryCipher, data, length, startDataUnitNo+SectorOffset, 0); //AskFiliol Why SectorOffset (always = 0)
 		}
 
         //assert (iSecondaryCipher == SecondaryCiphers.begin());
 	}
 
-    void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)
 	{
 		quint8 finalCarry;
 		quint8 whiteningValue [BYTES_PER_XTS_BLOCK_SMALL];
@@ -325,7 +326,7 @@ namespace Volume {
 		quint32 modulus = 27;
 
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
 			GST_THROW_FATAL_EXCEPTION;
@@ -402,12 +403,12 @@ namespace Volume {
 			blockCount -= endBlock - startBlock;
 			startBlock = 0;
 			dataUnitNo++;
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 		FAST_ERASE64(whiteningValue, sizeof(whiteningValue));
 	}
 
-    void EncryptionModeXTS::DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo) const
+    void EncryptionModeXTS::DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo)
 	{
 		quint8 finalCarry;
 		quint8 whiteningValues [ENCRYPTION_DATA_UNIT_SIZE];
@@ -421,12 +422,13 @@ namespace Volume {
 		quint64 *const finalInt64WhiteningValuesPtr = whiteningValuesPtr64 + sizeof (whiteningValues) / sizeof (*whiteningValuesPtr64) - 1;
 		quint64 blockCount, dataUnitNo;
 
-		startDataUnitNo += SectorOffset;
+        //moved to method call
+        //startDataUnitNo += SectorOffset;
 
 		// Convert the 64-bit data unit number into a little-endian 16-byte array.
 		// Note that as we are converting a 64-bit number into a 16-byte array we can always zero the last 8 bytes.
 		dataUnitNo = startDataUnitNo;
-		*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+        *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
@@ -526,7 +528,7 @@ namespace Volume {
 			startBlock = 0;
 			dataUnitNo++;
 
-			*((quint64 *) byteBufUnitNo) = Endian::Little (dataUnitNo);
+            *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 		}
 
 		FAST_ERASE64 (whiteningValue, sizeof (whiteningValue));

@@ -48,6 +48,4 @@ extern int sysfs_scanf(struct sysfs_cxt *cxt,  const char *attr,
 
 extern int sysfs_read_u64(struct sysfs_cxt *cxt, const char *attr, uint64_t *res);
 
-extern char *sysfs_strdup(struct sysfs_cxt *cxt, const char *attr);
-
 #endif /* UTIL_LINUX_SYSFS_H */

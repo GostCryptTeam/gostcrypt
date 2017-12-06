@@ -30,7 +30,7 @@ static QString GetFileSystemTypePlatformNative () {
 struct ProgressTrackingParameters
 {
     explicit ProgressTrackingParameters(quint32 requestId) : requestId(requestId), start(0), end(1) {}
-    explicit ProgressTrackingParameters() : start(0), end(1) {}
+    explicit ProgressTrackingParameters() :  requestId(0), start(0), end(1) {}
     explicit ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
 
 
@@ -80,13 +80,14 @@ struct CreateVolumeRequest : CoreRequest {
 };
 
 struct ChangeVolumePasswordRequest : CoreRequest {
-    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool") {}
-    QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
+    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool"), changeMasterKey(false) {}
+    QFileInfo path; // path of the volume we want to change the password (never null)
     QSharedPointer <QByteArray> password; // old password, optional if volume is already opened
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // old keyfiles, optional if volume is already opened
     QString newVolumeHeaderKdf; // new key derivation function (never null)
     QSharedPointer <QByteArray> newPassword; // new password (never null)
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> newKeyfiles; // new keyfiles
+    bool changeMasterKey;
     DEC_SERIALIZABLE(ChangeVolumePasswordRequest);
 };
 
@@ -120,6 +121,7 @@ struct MountVolumeRequest : CoreRequest {
 
 struct DismountVolumeRequest : CoreRequest {
     DismountVolumeRequest();
+    bool all;
     QFileInfo volumePath; // path of the file mounted, not the mount point
     bool force;
     bool forVolumeCreation;
@@ -131,6 +133,8 @@ struct GetHostDevicesRequest : CoreRequest {
 }; // no parameters
 
 struct GetMountedVolumesRequest : CoreRequest {
+    GetMountedVolumesRequest();
+    bool all;
     QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
     DEC_SERIALIZABLE(GetMountedVolumesRequest);
 };

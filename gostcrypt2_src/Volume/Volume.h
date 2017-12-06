@@ -22,54 +22,185 @@
 namespace GostCrypt {
 namespace Volume {
 
-	class Volume
+    /**
+     * @brief
+     *
+     */
+    class Volume
 	{
 	public:
 		Volume ();
-		virtual ~Volume ();
+        /**
+         * @brief
+         *
+         */
+        virtual ~Volume ();
 
-		void Close ();
-		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const;
+        /**
+         * @brief
+         *
+         */
+        void Close ();
+         /**
+          * @brief
+          *
+          * @param volumePath
+          * @param preserveTimestamps
+          * @param password
+          * @param keyfiles
+          * @param protection
+          * @param protectionPassword
+          * @param protectionKeyfiles
+          * @param sharedAccessAllowed
+          * @param volumeType
+          * @param useBackupHeaders
+          * @param partitionInSystemEncryptionScope
+          *
+         * @return QSharedPointer<EncryptionAlgorithm>
+         */
+        QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const;
+        /**
+         * @brief
+         *
+         * @return QSharedPointer<VolumeFile>
+         */
         QSharedPointer <VolumeFile> GetFile () const { return volumeFile; }
-		QSharedPointer <VolumeHeader> GetHeader () const { return Header; }
-		quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
+        QSharedPointer <VolumeLayout> GetLayout () const { return Layout; }
+        /**
+         * @brief
+         *
+         * @return QSharedPointer<VolumeHeader>
+         */
+        QSharedPointer <VolumeHeader> GetHeader () const { return Header; }
+        /**
+         * @brief
+         *
+         * @return quint64
+         */
+        quint64 GetHeaderCreationTime () const { return Header->GetHeaderCreationTime(); }
+        /**
+         * @brief
+         *
+         * @return const QFileInfo
+         */
         const QFileInfo GetPath () const { return volumeFile->GetPath(); }
+        /**
+         * @brief
+         *
+         * @return QSharedPointer<VolumeHash>
+         */
         QSharedPointer <VolumeHash> GetVolumeHash () const { return Header->GetVolumeHash(); }
-		quint32 GetSaltSize () const { return Header->GetSaltSize(); }
-		size_t GetSectorSize () const { return SectorSize; }
-		quint64 GetSize () const { return VolumeDataSize; }
-		VolumeType::Enum GetType () const { return Type; }
-		quint64 GetVolumeCreationTime () const { return Header->GetVolumeCreationTime(); }
+        /**
+         * @brief
+         *
+         * @return quint32
+         */
+        quint32 GetSaltSize () const { return Header->GetSaltSize(); }
+        /**
+         * @brief
+         *
+         * @return size_t
+         */
+        size_t GetSectorSize () const { return SectorSize; }
+        /**
+         * @brief
+         *
+         * @return quint64
+         */
+        quint64 GetSize () const { return VolumeDataSize; }
+        /**
+         * @brief
+         *
+         * @return VolumeType::Enum
+         */
+        VolumeType::Enum GetType () const { return Type; }
+        /**
+         * @brief
+         *
+         * @return quint64
+         */
+        quint64 GetVolumeCreationTime () const { return Header->GetVolumeCreationTime(); }
+        /**
+         * @brief
+         *
+         * @param volumePath
+         * @param preserveTimestamps
+         * @param password
+         * @param keyfiles
+         * @param protection
+         * @param protectionPassword
+         * @param protectionKeyfiles
+         * @param sharedAccessAllowed
+         * @param volumeType
+         * @param useBackupHeaders
+         * @param partitionInSystemEncryptionScope
+         */
         void Open (const QFileInfo volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
+        /**
+         * @brief
+         *
+         * @param buffer
+         * @param byteOffset
+         */
         void ReadSectors (BufferPtr &buffer, quint64 byteOffset);
+        /**
+         * @brief Encrypt the header and write it on the volume
+         *
+         * @param backupHeader Wether the header should be written at the normal header place or at the backup header place
+         * @param newSalt
+         * @param newHeaderKey New header cipher key
+         * @param newVolumeHash New DerivationFunction that has been used to derive the newHeaderKey from the password/keyfiles
+         */
         void ReEncryptHeader (bool backupHeader, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
+        /**
+         * @brief
+         *
+         * @param buffer
+         * @param byteOffset
+         */
         void WriteSectors (const BufferPtr &buffer, quint64 byteOffset);
-
-		QSharedPointer<VolumeInformation> getVolumeInformation();
+        /**
+         * @brief
+         *
+         * @return QSharedPointer<VolumeInformation>
+         */
+        QSharedPointer<VolumeInformation> getVolumeInformation();
 	protected:
-		void CheckProtectedRange (quint64 writeHostOffset, quint64 writeLength);
+        /**
+         * @brief
+         *
+         * @param writeHostOffset
+         * @param writeLength
+         */
+        void CheckProtectedRange (quint64 writeHostOffset, quint64 writeLength);
 
-        QSharedPointer <EncryptionAlgorithm> EA;
-		QSharedPointer <VolumeHeader> Header;
-		bool HiddenVolumeProtectionTriggered;
-		QSharedPointer <VolumeLayout> Layout;
-		quint64 ProtectedRangeStart;
-		quint64 ProtectedRangeEnd;
-		VolumeProtection::Enum Protection;
-		size_t SectorSize;
-		bool SystemEncryption;
-		VolumeType::Enum Type;
-        QSharedPointer <VolumeFile> volumeFile;
-		quint64 VolumeHostSize;
-		quint64 VolumeDataOffset;
-		quint64 VolumeDataSize;
-		quint64 TopWriteOffset;
-		quint64 TotalDataRead;
-		quint64 TotalDataWritten;
+        QSharedPointer <EncryptionAlgorithm> EA; /**< TODO: describe */
+        QSharedPointer <VolumeHeader> Header; /**< TODO: describe */
+        bool HiddenVolumeProtectionTriggered; /**< TODO: describe */
+        QSharedPointer <VolumeLayout> Layout; /**< TODO: describe */
+        quint64 ProtectedRangeStart; /**< TODO: describe */
+        quint64 ProtectedRangeEnd; /**< TODO: describe */
+        VolumeProtection::Enum Protection; /**< TODO: describe */
+        size_t SectorSize; /**< TODO: describe */
+        bool SystemEncryption; /**< TODO: describe */
+        VolumeType::Enum Type; /**< TODO: describe */
+        QSharedPointer <VolumeFile> volumeFile; /**< TODO: describe */
+        quint64 VolumeHostSize; /**< TODO: describe */
+        quint64 VolumeDataOffset; /**< TODO: describe */
+        quint64 VolumeDataSize; /**< TODO: describe */
+        quint64 TopWriteOffset; /**< TODO: describe */
+        quint64 TotalDataRead; /**< TODO: describe */
+        quint64 TotalDataWritten; /**< TODO: describe */
 
 	private:
 		//Volume (const Volume &);
-		Volume &operator= (const Volume &);
+        /**
+         * @brief
+         *
+         * @param
+         * @return Volume &operator
+         */
+        Volume &operator= (const Volume &);
 	};
 }
 }

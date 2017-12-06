@@ -13,7 +13,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	VolumePassword::VolumePassword () : PasswordSize (0), Unportable (false)
+    VolumePassword::VolumePassword () : PasswordSize (0)
 	{
 		AllocateBuffer ();
 	}
@@ -22,15 +22,6 @@ namespace Volume {
 	{
 		Set ((const quint8 *) password, size);
 	}
-
-	VolumePassword::VolumePassword (const quint8 *password, size_t size)
-	{
-		Set (password, size);
-	}
-
-	VolumePassword::~VolumePassword ()
-    {
-    }
 
     bool VolumePassword::operator==(const VolumePassword &other) const
     {
@@ -55,7 +46,8 @@ namespace Volume {
 		return true;
 	}
 
-    void VolumePassword::Set (const quint8 *password, size_t size)
+
+	void VolumePassword::Set (const quint8 *password, size_t size)
 	{
 		AllocateBuffer ();
 
@@ -64,19 +56,11 @@ namespace Volume {
 
         PasswordBuffer.CopyFrom (BufferPtr (password, size));
 		PasswordSize = size;
-
-		Unportable = !IsPortable();
 	}
 
     void VolumePassword::Set (const BufferPtr &password)
 	{
         Set (password.Get(), password.Size());
 	}
-
-	void VolumePassword::Set (const VolumePassword &password)
-	{
-		Set (password.DataPtr(), password.Size());
-	}
-
 }
 }

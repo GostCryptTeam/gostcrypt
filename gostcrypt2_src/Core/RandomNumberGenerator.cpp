@@ -64,8 +64,14 @@ namespace GostCrypt
 
 			if (++BytesAddedSincePoolHashMix >= MaxBytesAddedBeforePoolHashMix)
 				HashMixPool();
-		}
-	}
+        }
+    }
+
+    void RandomNumberGenerator::SetHash(QSharedPointer<Volume::VolumeHash> hashfct)
+    {
+        QMutexLocker lock(&RandomNumberGenerator::AccessMutex);
+        RandomNumberGenerator::PoolHash = hashfct;
+    }
 
     void RandomNumberGenerator::GetData (BufferPtr &buffer, bool fast)
 	{

@@ -104,6 +104,14 @@ namespace GostCrypt {
 			 */
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
             /**
+             * @brief
+             *
+             * @param params
+             * @return QSharedPointer<ChangeVolumePasswordResponse>
+             */
+            QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
+
+            /**
              * @brief Create a random key file
              *
              * @param params Parameters of the function

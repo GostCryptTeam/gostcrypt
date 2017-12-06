@@ -12,6 +12,7 @@
 
 
 #include <QMutex>
+#include <QSharedPointer>
 #include "Platform/Buffer.h"
 #include "Volume/Crypto/Random.h"
 #include "Volume/VolumeHash.h"
@@ -23,8 +24,10 @@ namespace GostCrypt {
 	public:
         static void AddToPool (const BufferPtr &buffer);
         static void GetData (BufferPtr &buffer) { GetData (buffer, false); }
+        static void GetDataFast (BufferPtr &buffer) { GetData (buffer, true); }
 		static bool IsRunning () { return Running; }
         static const BufferPtr PeekPool () { return Pool; }
+        static void SetHash(QSharedPointer<Volume::VolumeHash> hashfct);
 		static void Start ();
 		static void Stop ();
 

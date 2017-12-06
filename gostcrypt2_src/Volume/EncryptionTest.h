@@ -19,9 +19,9 @@ namespace Volume {
 	class EncryptionTest
 	{
     public:
-        void TestCiphers ();
-        void TestPkcs5 ();
-        void TestXts ();
+        static void TestCiphers ();
+        static void TestPkcs5 ();
+        static void TestXts ();
     protected:
     struct XtsTestVector
 	{

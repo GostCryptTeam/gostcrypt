@@ -131,6 +131,7 @@ Commands:\n\
         case FirstCMD::dismountall://"dismountall":
             {
                 QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
+                options->all = true;
                 emit request(QVariant::fromValue(options)); // dismount-all is just a dismount with no params.
             }
             break;

@@ -6,7 +6,7 @@
  packages.
 */
 
-
+#include <QtEndian>
 #include "VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
@@ -225,23 +225,23 @@ namespace Volume {
 
 
 	template <typename T>
-    T VolumeHeader::DeserializeEntry (const BufferPtr &header, size_t &offset) const
+    T VolumeHeader::DeserializeEntry (const BufferPtr &header, size_t &offset)
 	{
-		offset += sizeof (T);
+        offset += sizeof (T);
 
-		if (offset > header.Size())
+        if (offset > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
+        return qToBigEndian (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
 	}
 
 	template <typename T>
-    T VolumeHeader::DeserializeEntryAt (const BufferPtr &header, const size_t &offset) const
+    T VolumeHeader::DeserializeEntryAt (const BufferPtr &header, const size_t &offset)
 	{
-		if (offset > header.Size())
+        if (offset + sizeof (T) > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
+        return qToBigEndian (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
     void VolumeHeader::EncryptNew (BufferPtr &newHeaderBuffer, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
@@ -333,12 +333,14 @@ namespace Volume {
 	}
 
 	template <typename T>
-    void VolumeHeader::SerializeEntry (const T &entry, BufferPtr &header, size_t &offset) const
+    void VolumeHeader::SerializeEntry (const T &entry, BufferPtr &header, size_t &offset)
 	{
-        if (offset + sizeof (T) > header.Size())
+        offset += sizeof(T);
+
+        if (offset > header.Size())
             throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
 
-        *reinterpret_cast<T *> (header.Get() + offset) = Endian::Big (entry);
+        *reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = qToBigEndian (entry);
 	}
 }
 }
