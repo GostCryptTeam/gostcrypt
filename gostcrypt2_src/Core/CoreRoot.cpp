@@ -310,7 +310,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
             throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
         file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
     }
-    file.write((char*)headerBuffer.Ptr(), headerBuffer.Size()); // writing header
+    file.write((char*)headerBuffer.Get(), headerBuffer.Size()); // writing header
 
     if(!layout->HasBackupHeader())
         return;
@@ -326,7 +326,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
         file.seekp(layout->GetBackupHeaderOffset(), std::ios_base::beg);
     else
         file.seekp(containersize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
-    file.write((char *)headerBuffer.Ptr(), headerBuffer.Size()); // writing backup header crypted with new salt
+    file.write((char *)headerBuffer.Get(), headerBuffer.Size()); // writing backup header crypted with new salt
 
 }
 
@@ -466,7 +466,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         SecureBuffer pass;
         pass.Allocate(Volume::VolumePassword::MaxSize);
         RandomNumberGenerator::GetData(pass);
-        randomparams->password.reset(new QByteArray((char *)pass.Ptr(), pass.Size()));
+        randomparams->password.reset(new QByteArray((char *)pass.Get(), pass.Size()));
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }
 

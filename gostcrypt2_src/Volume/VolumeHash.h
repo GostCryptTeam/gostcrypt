@@ -29,24 +29,24 @@ namespace Volume {
 		virtual ~VolumeHash () { }
 
 		static VolumeHashList GetAvailableAlgorithms ();
-        virtual void GetDigest (const BufferPtr &buffer) = 0;
+        virtual void GetDigest (BufferPtr &buffer) = 0;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
         virtual std::wstring GetName () const = 0;
 		virtual QSharedPointer <VolumeHash> GetNew () const = 0;
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }
-		virtual void ProcessData (const ConstBufferPtr &data) = 0;
+        virtual void ProcessData (const BufferPtr &data) = 0;
 
         // derivation functions
         virtual int GetIterationCount () const = 0;
-        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const;
-        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const = 0;
+        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const;
+        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const = 0;
 
 	protected:
 		SecureBuffer Context;
 		bool Deprecated;
-        static void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount);
+        static void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount);
 
 	private:
 		VolumeHash (const VolumeHash &);

@@ -30,7 +30,7 @@ namespace Volume {
         virtual std::wstring GetName () const { return L"XTS"; }
 		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
         virtual void SetCiphers (const CipherAlgorithmList &ciphers);
-		virtual void SetKey (const ConstBufferPtr &key);
+        virtual void SetKey (const BufferPtr &key);
 
 	protected:
 		void DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;

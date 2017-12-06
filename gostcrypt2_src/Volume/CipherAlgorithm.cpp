@@ -55,7 +55,7 @@ namespace Volume {
 		}
 	}
 
-    void CipherAlgorithm::SetKey (const ConstBufferPtr &key)
+    void CipherAlgorithm::SetKey (const BufferPtr &key)
 	{
 		if (key.Size() != GetKeySize ())
             throw IncorrectParameterException("key.Size() != GetKeySize ()");

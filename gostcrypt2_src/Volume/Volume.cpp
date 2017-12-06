@@ -174,7 +174,7 @@ namespace Volume {
 		}
 	}
 
-    void Volume::ReadSectors (const BufferPtr &buffer, quint64 byteOffset)
+    void Volume::ReadSectors (BufferPtr &buffer, quint64 byteOffset)
 	{
         //if_debug (ValidateState ());
 
@@ -192,7 +192,7 @@ namespace Volume {
 		TotalDataRead += length;
 	}
 
-    void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
+    void Volume::ReEncryptHeader (bool backupHeader, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
         //if_debug (ValidateState ());
 
@@ -213,7 +213,7 @@ namespace Volume {
         this->volumeFile->Write (newHeaderBuffer);
 	}
 
-    void Volume::WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset)
+    void Volume::WriteSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{
         quint64 length = buffer.Size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;

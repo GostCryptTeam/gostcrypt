@@ -228,5 +228,18 @@ GostCrypt::Volume::BufferAlreadyFreed& Valeur)
                              in >> static_cast<VolumeException&>(Valeur);
                              return in;
                          }
+                         DEF_SERIALIZABLE(GostCrypt::Volume::DataNotMutable)
+                         QDataStream& operator << (QDataStream& out,
+                             const GostCrypt::Volume::DataNotMutable& Valeur)
+                         {
+                             out << static_cast<const VolumeException&>(Valeur);
+                             return out;
+                         }
+                         QDataStream& operator >> (QDataStream& in,
+                         GostCrypt::Volume::DataNotMutable& Valeur)
+                         {
+                             in >> static_cast<VolumeException&>(Valeur);
+                             return in;
+                         }
 }
 }

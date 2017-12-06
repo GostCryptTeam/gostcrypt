@@ -30,7 +30,7 @@ namespace Volume {
 			return CrcValue = crc_32_tab[(quint8) (CrcValue ^ data)] ^ (CrcValue >> 8);
 		}
 
-		static quint32 ProcessBuffer (const ConstBufferPtr &buffer)
+        static quint32 ProcessBuffer (const BufferPtr &buffer)
 		{
 			return ::GetCrc32 (const_cast<quint8 *> (buffer.Get()), static_cast<int> (buffer.Size()));
 		}

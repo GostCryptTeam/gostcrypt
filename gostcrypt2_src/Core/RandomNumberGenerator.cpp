@@ -48,7 +48,7 @@ namespace GostCrypt
         close(urandom);
 	}
 
-	void RandomNumberGenerator::AddToPool (const ConstBufferPtr &data)
+    void RandomNumberGenerator::AddToPool (const BufferPtr &data)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
@@ -67,7 +67,7 @@ namespace GostCrypt
 		}
 	}
 
-	void RandomNumberGenerator::GetData (const BufferPtr &buffer, bool fast)
+    void RandomNumberGenerator::GetData (BufferPtr &buffer, bool fast)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
@@ -171,7 +171,7 @@ namespace GostCrypt
 		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
         PoolHash.reset (new Volume::VolumeHashStribog());
 
-		Pool.Zero();
+        Pool.Erase(); // erase will set everything to zero
 		Buffer buffer (1);
 		for (size_t i = 0; i < PoolSize * 10; ++i)
 		{

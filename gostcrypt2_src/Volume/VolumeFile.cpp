@@ -91,7 +91,7 @@ void VolumeFile::Close ()
 		FileIsOpen = true;
 	}
 
-    quint64 VolumeFile::Read (const BufferPtr &buffer) const
+    quint64 VolumeFile::Read (BufferPtr &buffer) const
 	{
         if (!FileIsOpen)
             throw VolumeNotOpenException();
@@ -102,7 +102,7 @@ void VolumeFile::Close ()
 		return bytesRead;
 	}
 
-    quint64 VolumeFile::ReadAt (const BufferPtr &buffer, quint64 position) const
+    quint64 VolumeFile::ReadAt (BufferPtr &buffer, quint64 position) const
 	{
         if (!FileIsOpen)
             throw VolumeNotOpenException();
@@ -130,7 +130,7 @@ void VolumeFile::Close ()
                throw FailedLseekFileException(Path);
 	}
 
-    void VolumeFile::Write (const ConstBufferPtr &buffer) const
+    void VolumeFile::Write (const BufferPtr &buffer) const
 	{
         if (!FileIsOpen)
             throw VolumeNotOpenException();
@@ -139,7 +139,7 @@ void VolumeFile::Close ()
             throw FailedWriteFileException(Path)
     }
 
-    void VolumeFile::WriteAt (const ConstBufferPtr &buffer, quint64 position) const
+    void VolumeFile::WriteAt (const BufferPtr &buffer, quint64 position) const
 	{
         if (!FileIsOpen)
             throw VolumeNotOpenException();

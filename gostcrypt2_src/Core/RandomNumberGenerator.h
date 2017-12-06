@@ -21,10 +21,10 @@ namespace GostCrypt {
 	class RandomNumberGenerator
 	{
 	public:
-        static void AddToPool (const ConstBufferPtr &buffer);
-		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
+        static void AddToPool (const BufferPtr &buffer);
+        static void GetData (BufferPtr &buffer) { GetData (buffer, false); }
 		static bool IsRunning () { return Running; }
-		static ConstBufferPtr PeekPool () { return Pool; }
+        static const BufferPtr PeekPool () { return Pool; }
 		static void Start ();
 		static void Stop ();
 
@@ -32,7 +32,7 @@ namespace GostCrypt {
 
 	protected:
 		static void AddSystemDataToPool (bool fast);
-		static void GetData (const BufferPtr &buffer, bool fast);
+        static void GetData (BufferPtr &buffer, bool fast);
 		static void HashMixPool ();
 		static void Test ();
 		RandomNumberGenerator ();

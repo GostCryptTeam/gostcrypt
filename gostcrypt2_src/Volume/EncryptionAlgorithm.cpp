@@ -31,7 +31,7 @@ namespace Volume {
 		Mode->Decrypt (data, length);
 	}
 
-	void EncryptionAlgorithm::Decrypt (const BufferPtr &data) const
+    void EncryptionAlgorithm::Decrypt (BufferPtr &data) const
 	{
 		Decrypt (data, data.Size());
 	}
@@ -48,7 +48,7 @@ namespace Volume {
 		Mode->Encrypt (data, length);
 	}
 
-	void EncryptionAlgorithm::Encrypt (const BufferPtr &data) const
+    void EncryptionAlgorithm::Encrypt (BufferPtr &data) const
 	{
 		Encrypt (data, data.Size());
 	}
@@ -170,7 +170,7 @@ namespace Volume {
 		Mode = mode;
 	}
 
-	void EncryptionAlgorithm::SetKey (const ConstBufferPtr &key)
+    void EncryptionAlgorithm::SetKey (const BufferPtr &key)
 	{
 		if (Ciphers.size() < 1)
             throw EncryptionAlgorithmNotInitializedException();

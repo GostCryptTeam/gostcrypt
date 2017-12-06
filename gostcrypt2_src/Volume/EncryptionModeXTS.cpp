@@ -553,7 +553,7 @@ namespace Volume {
 			SetSecondaryCipherKeys();
 	}
 
-	void EncryptionModeXTS::SetKey (const ConstBufferPtr &key)
+    void EncryptionModeXTS::SetKey (const BufferPtr &key)
 	{
 		SecondaryKey.Allocate (key.Size());
 		SecondaryKey.CopyFrom (key);

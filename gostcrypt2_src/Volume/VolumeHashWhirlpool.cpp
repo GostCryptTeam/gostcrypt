@@ -13,24 +13,24 @@ VolumeHashWhirlpool::VolumeHashWhirlpool ()
     Init();
 }
 
-void VolumeHashWhirlpool::GetDigest (const BufferPtr &buffer)
+void VolumeHashWhirlpool::GetDigest (BufferPtr &buffer)
 {
     //if_debug (ValidateDigestParameters (buffer));
-    WHIRLPOOL_finalize ((WHIRLPOOL_CTX *) Context.Ptr(), buffer);
+    WHIRLPOOL_finalize ((WHIRLPOOL_CTX *) Context.Get(), buffer);
 }
 
 void VolumeHashWhirlpool::Init ()
 {
-    WHIRLPOOL_init ((WHIRLPOOL_CTX *) Context.Ptr());
+    WHIRLPOOL_init ((WHIRLPOOL_CTX *) Context.Get());
 }
 
-void VolumeHashWhirlpool::ProcessData (const ConstBufferPtr &data)
+void VolumeHashWhirlpool::ProcessData (const BufferPtr &data)
 {
     //if_debug (ValidateDataParameters (data));
-    WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Ptr());
+    WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Get());
 }
 
-void VolumeHashWhirlpool::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount) const
+void VolumeHashWhirlpool::DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const
 {
     ValidateKeyDerivationParameters (key, password, salt, iterationCount);
     derive_key_whirlpool ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());

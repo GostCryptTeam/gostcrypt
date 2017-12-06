@@ -41,9 +41,9 @@ namespace Volume {
 		VolumeType::Enum GetType () const { return Type; }
 		quint64 GetVolumeCreationTime () const { return Header->GetVolumeCreationTime(); }
         void Open (const QFileInfo volumePath, bool preserveTimestamps, QSharedPointer <VolumePassword> password, QSharedPointer <KeyfileList> keyfiles, VolumeProtection::Enum protection = VolumeProtection::None, QSharedPointer <VolumePassword> protectionPassword = QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> protectionKeyfiles = QSharedPointer <KeyfileList> (), bool sharedAccessAllowed = false, VolumeType::Enum volumeType = VolumeType::Unknown, bool useBackupHeaders = false, bool partitionInSystemEncryptionScope = false);
-        void ReadSectors (const BufferPtr &buffer, quint64 byteOffset);
-        void ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
-		void WriteSectors (const ConstBufferPtr &buffer, quint64 byteOffset);
+        void ReadSectors (BufferPtr &buffer, quint64 byteOffset);
+        void ReEncryptHeader (bool backupHeader, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
+        void WriteSectors (const BufferPtr &buffer, quint64 byteOffset);
 
 		QSharedPointer<VolumeInformation> getVolumeInformation();
 	protected:

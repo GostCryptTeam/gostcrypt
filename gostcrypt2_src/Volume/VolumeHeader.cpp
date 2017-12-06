@@ -44,19 +44,19 @@ namespace Volume {
 		SectorSize = 0;
 	}
 
-	void VolumeHeader::Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options)
+    void VolumeHeader::Create (BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options)
 	{
         if (options.DataKey.Size() != options.EA->GetKeySize() * 2)
             throw IncorrectParameterException("Given Key size different from the encryption algorithm key size");
         if (options.Salt.Size() != GetSaltSize())
             throw IncorrectParameterException("Given salt size incorrect");
 
-		headerBuffer.Zero();
+        headerBuffer.Erase();
 
 		HeaderVersion = CurrentHeaderVersion;
 		RequiredMinProgramVersion = CurrentRequiredMinProgramVersion;
 
-		DataAreaKey.Zero();
+        DataAreaKey.Erase();
 		DataAreaKey.CopyFrom (options.DataKey);
 
 		VolumeCreationTime = 0;
@@ -82,12 +82,12 @@ namespace Volume {
         EncryptNew (headerBuffer, options.Salt, options.HeaderKey, options.Hash);
 	}
 
-    bool VolumeHeader::Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
+    bool VolumeHeader::Decrypt (const BufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
 	{
 		if (password.Size() < 1)
             throw IncorrectParameterException("Empty password");
 
-		ConstBufferPtr salt (encryptedData.GetRange (SaltOffset, SaltSize));
+        const BufferPtr salt (encryptedData.GetRange (SaltOffset, SaltSize));
 		SecureBuffer header (EncryptedHeaderDataSize);
 		SecureBuffer headerKey (GetLargestSerializedKeySize());
 
@@ -136,7 +136,7 @@ namespace Volume {
 	}
 
 
-	bool VolumeHeader::Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode)
+    bool VolumeHeader::Deserialize (const BufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode)
 	{
 
 		if (header.Size() != EncryptedHeaderDataSize)
@@ -225,7 +225,7 @@ namespace Volume {
 
 
 	template <typename T>
-	T VolumeHeader::DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const
+    T VolumeHeader::DeserializeEntry (const BufferPtr &header, size_t &offset) const
 	{
 		offset += sizeof (T);
 
@@ -236,7 +236,7 @@ namespace Volume {
 	}
 
 	template <typename T>
-	T VolumeHeader::DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const
+    T VolumeHeader::DeserializeEntryAt (const BufferPtr &header, const size_t &offset) const
 	{
 		if (offset > header.Size())
             throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
@@ -244,7 +244,7 @@ namespace Volume {
 		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
 	}
 
-    void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
+    void VolumeHeader::EncryptNew (BufferPtr &newHeaderBuffer, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
         if (newHeaderBuffer.Size() != HeaderSize)
             throw IncorrectParameterException("Incorrect new header buffer size");
@@ -289,12 +289,12 @@ namespace Volume {
 		return largestKey * 2;
 	}
 
-	void VolumeHeader::Serialize (const BufferPtr &header) const
+    void VolumeHeader::Serialize (BufferPtr &header) const
 	{
 		if (header.Size() != EncryptedHeaderDataSize)
             throw IncorrectParameterException("Incorrect header buffer size");
 
-		header.Zero();
+        header.Erase();
 
 		header[0] = 'T';
 		header[1] = 'R';
@@ -333,14 +333,12 @@ namespace Volume {
 	}
 
 	template <typename T>
-	void VolumeHeader::SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset) const
+    void VolumeHeader::SerializeEntry (const T &entry, BufferPtr &header, size_t &offset) const
 	{
-		offset += sizeof (T);
-
-		if (offset > header.Size())
+        if (offset + sizeof (T) > header.Size())
             throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
 
-		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
+        *reinterpret_cast<T *> (header.Get() + offset) = Endian::Big (entry);
 	}
 }
 }

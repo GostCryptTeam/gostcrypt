@@ -78,14 +78,14 @@ namespace GostCrypt {
 			 * @param buffer Buffer where to store the read data
 			 * @param byteOffset Offset of the sectors to read (in bytes)
 			 */
-			static void readVolumeSectors(const BufferPtr &buffer, quint64 byteOffset);
+            static void readVolumeSectors(BufferPtr &buffer, quint64 byteOffset);
 			/**
 			 * @brief Write sectoris in the volume
 			 *
 			 * @param buffer Buffer containing the data to write
 			 * @param byteOffset Offset of the sectors where to write the data (in bytes)
 			 */
-			static void writeVolumeSectors (const ConstBufferPtr &buffer, quint64 byteOffset);
+            static void writeVolumeSectors (const BufferPtr &buffer, quint64 byteOffset);
 			/**
 			 * @brief Return whether or not the path of the virtual device had been stored
 			 *

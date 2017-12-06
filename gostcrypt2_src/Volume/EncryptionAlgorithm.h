@@ -28,10 +28,10 @@ namespace Volume {
 		virtual ~EncryptionAlgorithm ();
 
 		virtual void Decrypt (quint8 *data, quint64 length) const;
-		virtual void Decrypt (const BufferPtr &data) const;
+        virtual void Decrypt (BufferPtr &data) const;
 		virtual void DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		virtual void Encrypt (quint8 *data, quint64 length) const;
-		virtual void Encrypt (const BufferPtr &data) const;
+        virtual void Encrypt (BufferPtr &data) const;
 		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		static EncryptionAlgorithmList GetAvailableAlgorithms ();
         virtual QSharedPointer <EncryptionAlgorithm> GetNew () const = 0;
@@ -43,7 +43,7 @@ namespace Volume {
 		bool IsDeprecated () const { return Deprecated; }
 		virtual bool IsModeSupported (const EncryptionMode &mode) const;
 		virtual bool IsModeSupported (const QSharedPointer <EncryptionMode> mode) const;
-		virtual void SetKey (const ConstBufferPtr &key);
+        virtual void SetKey (const BufferPtr &key);
 		virtual void SetMode (QSharedPointer <EncryptionMode> mode);
 
 	protected:

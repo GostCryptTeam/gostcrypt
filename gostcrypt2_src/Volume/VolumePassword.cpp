@@ -29,8 +29,15 @@ namespace Volume {
 	}
 
 	VolumePassword::~VolumePassword ()
-	{
-	}
+    {
+    }
+
+    bool VolumePassword::operator==(const VolumePassword &other) const
+    {
+        const BufferPtr data1(DataPtr(), Size());
+        const BufferPtr data2(other.DataPtr(), other.Size());
+        return data1.IsDataEqual(data2);
+    }
 
 	void VolumePassword::AllocateBuffer ()
 	{
@@ -48,20 +55,20 @@ namespace Volume {
 		return true;
 	}
 
-	void VolumePassword::Set (const quint8 *password, size_t size)
+    void VolumePassword::Set (const quint8 *password, size_t size)
 	{
 		AllocateBuffer ();
 
 		if (size > MaxSize)
             throw IncorrectParameterException("Password size too big");
 
-		PasswordBuffer.CopyFrom (ConstBufferPtr (password, size));
+        PasswordBuffer.CopyFrom (BufferPtr (password, size));
 		PasswordSize = size;
 
 		Unportable = !IsPortable();
 	}
 
-	void VolumePassword::Set (const ConstBufferPtr &password)
+    void VolumePassword::Set (const BufferPtr &password)
 	{
         Set (password.Get(), password.Size());
 	}

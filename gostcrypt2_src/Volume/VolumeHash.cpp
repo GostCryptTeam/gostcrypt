@@ -27,13 +27,13 @@ namespace Volume {
 		return l;
 	}
 
-    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt, int iterationCount)
+    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount)
     {
         if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
             throw IncorrectParameterException("Incorrect key derivation parameters");
     }
 
-    void VolumeHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const ConstBufferPtr &salt) const
+    void VolumeHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const
     {
         DeriveKey (key, password, salt, GetIterationCount());
     }

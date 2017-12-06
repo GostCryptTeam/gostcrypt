@@ -194,7 +194,7 @@ namespace GostCrypt {
 			return mountedVolume->GetSectorSize();
 		}
 
-		void FuseService::readVolumeSectors(const BufferPtr &buffer, quint64 byteOffset)
+        void FuseService::readVolumeSectors(BufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -202,7 +202,7 @@ namespace GostCrypt {
 			mountedVolume->ReadSectors (buffer, byteOffset);
 		}
 
-		void FuseService::writeVolumeSectors(const ConstBufferPtr &buffer, quint64 byteOffset)
+        void FuseService::writeVolumeSectors(const BufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -486,7 +486,8 @@ namespace GostCrypt {
 						}
 						else
 						{
-							FuseService::readVolumeSectors(BufferPtr ((quint8 *) buf, size), offset);
+                            BufferPtr tmp((quint8 *) buf, size);
+                            FuseService::readVolumeSectors(tmp, offset);
 						}
 					}
                     /*

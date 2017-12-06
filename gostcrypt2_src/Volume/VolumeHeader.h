@@ -31,11 +31,11 @@ namespace Volume {
 
 	struct VolumeHeaderCreationOptions
 	{
-		ConstBufferPtr DataKey;
+        BufferPtr DataKey; // TODO : should be const ?
         QSharedPointer <EncryptionAlgorithm> EA;
         QSharedPointer <VolumeHash> Hash;
-		ConstBufferPtr HeaderKey;
-		ConstBufferPtr Salt;
+        BufferPtr HeaderKey; // TODO : should be const ?
+        BufferPtr Salt; // TODO : should be const ?
 		quint32 SectorSize;
 		quint64 VolumeDataSize;
 		quint64 VolumeDataStart;
@@ -48,9 +48,9 @@ namespace Volume {
         explicit VolumeHeader (quint32 HeaderSize);
 		virtual ~VolumeHeader ();
 
-		void Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
-        bool Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
-        void EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
+        void Create (BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
+        bool Decrypt (const BufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
+        void EncryptNew (BufferPtr &newHeaderBuffer, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
@@ -62,12 +62,12 @@ namespace Volume {
 		VolumeTime GetVolumeCreationTime () const { return VolumeCreationTime; }
 
 	protected:
-		bool Deserialize (const ConstBufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
-		template <typename T> T DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const;
-		template <typename T> T DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const;
+        bool Deserialize (const BufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
+        template <typename T> T DeserializeEntry (const BufferPtr &header, size_t &offset) const;
+        template <typename T> T DeserializeEntryAt (const BufferPtr &header, const size_t &offset) const;
 		void Init ();
-		void Serialize (const BufferPtr &header) const;
-		template <typename T> void SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset) const;
+        void Serialize (BufferPtr &header) const;
+        template <typename T> void SerializeEntry (const T &entry, BufferPtr &header, size_t &offset) const;
 
 		quint32 HeaderSize;
 

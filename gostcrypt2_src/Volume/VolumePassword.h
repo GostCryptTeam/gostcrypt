@@ -26,16 +26,17 @@ namespace Volume {
 		VolumePassword (const VolumePassword &password) { Set (password); }
 		virtual ~VolumePassword ();
 
-		bool operator== (const VolumePassword &other) const { return ConstBufferPtr (DataPtr(), Size()).IsDataEqual (ConstBufferPtr (other.DataPtr(), other.Size())); }
-		bool operator!= (const VolumePassword &other) const { return !(*this == other); }
+        bool operator== (const VolumePassword &other) const;
+        bool operator!= (const VolumePassword &other) const { return !(*this == other); }
 		VolumePassword &operator= (const VolumePassword &password) { Set (password); return *this; }
 
 		operator BufferPtr () const { return BufferPtr (PasswordBuffer); }
 
-		quint8 *DataPtr () const { return PasswordBuffer; }
+        quint8 *DataPtr () { return PasswordBuffer.Get(); }
+        const quint8 *DataPtr () const { return PasswordBuffer.Get(); }
 		size_t Size () const { return PasswordSize; }
-		void Set (const quint8 *password, size_t size);
-		void Set (const ConstBufferPtr &password);
+        void Set (const quint8 *password, size_t size);
+        void Set (const BufferPtr &password);
 		void Set (const VolumePassword &password);
 
 		static const size_t MaxSize = 64;

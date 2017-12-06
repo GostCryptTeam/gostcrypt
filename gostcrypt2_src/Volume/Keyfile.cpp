@@ -16,7 +16,7 @@ namespace GostCrypt
 {
 namespace Volume {
 
-	void Keyfile::Apply (const BufferPtr &pool) const
+    void Keyfile::Apply (BufferPtr &pool) const
 	{
         QFile file(Path.absoluteFilePath());
 		Crc32 crc32;
@@ -27,7 +27,7 @@ namespace Volume {
 
         file.open(QIODevice::ReadOnly);
 
-        while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.Ptr()), keyfileBuf.Size())))
+        while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.Get()), keyfileBuf.Size())))
 		{
             if(readLength == -1)
                 throw FailedReadFileException(Path);
@@ -64,8 +64,8 @@ namespace Volume {
         SecureBuffer keyfilePool (VolumePassword::MaxSize);
 
         // Pad password with zeros if shorter than max length
-        keyfilePool.Zero();
-        keyfilePool.CopyFrom (ConstBufferPtr (password->DataPtr(), password->Size()));
+        keyfilePool.Erase();
+        keyfilePool.CopyFrom (BufferPtr (password->DataPtr(), password->Size()));
 
         // Apply all keyfiles
         for (const QSharedPointer<Keyfile> k : *keyfiles)

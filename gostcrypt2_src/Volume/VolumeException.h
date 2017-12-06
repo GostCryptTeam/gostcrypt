@@ -314,6 +314,25 @@ class FailedGetTimestamps : public VolumeException
     DEC_SERIALIZABLE(FailedGetTimestamps);
 };
 
+#define DataNotMutableException() GostCrypt::Volume::DataNotMutable(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+class DataNotMutable : public VolumeException
+{
+ public:
+    DataNotMutable() {}
+    /**
+     * @brief Base class for all exception concerning Volume module
+     *
+     * @param fonction Name of the function where the exception was thrown
+     * @param filename Path of the file where the exception was thrown
+     * @param line Line of the file where the exception was thrown
+     */
+    DataNotMutable(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
+                filename, line) {}
+    DEF_EXCEPTION_WHAT(DataNotMutable, VolumeException, "The buffer was created with a cont buffer but is not const itself and you're trying to access it.")
+
+    DEC_SERIALIZABLE(DataNotMutable);
+};
+
 }
 }
 
@@ -333,6 +352,6 @@ SERIALIZABLE(GostCrypt::Volume::VolumeVersionNotCompatible)
 SERIALIZABLE(GostCrypt::Volume::FailedResetTimestamps)
 SERIALIZABLE(GostCrypt::Volume::FailedGetSectorSize)
 SERIALIZABLE(GostCrypt::Volume::FailedGetTimestamps)
-
+SERIALIZABLE(GostCrypt::Volume::DataNotMutable)
 
 #endif // VOLUMEEXCEPTION_H

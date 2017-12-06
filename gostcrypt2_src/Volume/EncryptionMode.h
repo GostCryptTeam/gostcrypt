@@ -34,7 +34,7 @@ namespace Volume {
 		virtual size_t GetKeySize () const = 0;
         virtual std::wstring GetName () const = 0;
 		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
-		virtual void SetKey (const ConstBufferPtr &key) = 0;
+        virtual void SetKey (const BufferPtr &key) = 0;
         virtual void SetCiphers (const CipherAlgorithmList &ciphers) { Ciphers = ciphers; }
 
 	protected:

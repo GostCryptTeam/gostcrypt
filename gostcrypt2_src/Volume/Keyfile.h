@@ -37,7 +37,7 @@ namespace Volume {
 		static const size_t MaxProcessedLength = 1024 * 1024;
 
 	protected:
-		void Apply (const BufferPtr &pool) const;
+        void Apply (BufferPtr &pool) const;
         QFileInfo Path;
 
 	private:

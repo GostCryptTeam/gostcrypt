@@ -362,11 +362,11 @@ namespace GostCrypt {
                 if(random)
                     RandomNumberGenerator::GetData(outputBuffer); // getting random data
                 else
-                    outputBuffer.Zero();
+                    outputBuffer.Erase();
 
                 if(ea)
-                    ea->EncryptSectors (outputBuffer.Ptr(), offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
-                file.write((char *)outputBuffer.Ptr(), (size_t) dataFragmentLength); // writing it
+                    ea->EncryptSectors (outputBuffer.Get(), offset / ENCRYPTION_DATA_UNIT_SIZE, dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE); // encrypting it
+                file.write((char *)outputBuffer.Get(), (size_t) dataFragmentLength); // writing it
 
                 offset += dataFragmentLength;
                 sizetodo -= dataFragmentLength;

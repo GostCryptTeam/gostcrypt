@@ -48,8 +48,8 @@ namespace Volume {
 		Buffer buffer (cipher.GetBlockSize());
 		for (size_t i = 0; i < testVectorCount; ++i)
 		{
-			cipher.SetKey (ConstBufferPtr (testVector[i].Key, sizeof (testVector[i].Key)));
-			buffer.CopyFrom (ConstBufferPtr (testVector[i].Plaintext, buffer.Size()));
+            cipher.SetKey (BufferPtr (testVector[i].Key, sizeof (testVector[i].Key)));
+            buffer.CopyFrom (BufferPtr (testVector[i].Plaintext, buffer.Size()));
 			cipher.EncryptBlock (buffer);
 
 			if (memcmp (buffer, testVector[i].Ciphertext, buffer.Size()) != 0)
@@ -70,7 +70,7 @@ namespace Volume {
 
 			quint32 origCrc = Crc32::ProcessBuffer (testData);
 
-			gost.SetKey (ConstBufferPtr (testData, gost.GetKeySize()));
+            gost.SetKey (BufferPtr (testData, gost.GetKeySize()));
 			gost.EncryptBlocks (testData, testData.Size() / gost.GetBlockSize());
 
 			if (Crc32::ProcessBuffer (testData) != 0xc06e0704)
@@ -347,12 +347,12 @@ namespace Volume {
                 if (!ea->IsModeSupported (mode))
 					continue;
 
-                ea->SetKey(ConstBufferPtr (testKey, ea->GetKeySize()));
+                ea->SetKey(BufferPtr (testKey, ea->GetKeySize()));
 
                 Buffer modeKey (ea->GetKeySize());
 				for (size_t mi = 0; mi < modeKey.Size(); mi++)
 					modeKey[mi] = (quint8) mi;
-                modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0])) -1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
+                modeKey.CopyFrom (BufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0])) -1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
 
 				mode->SetKey (modeKey);
                 ea->SetMode (mode);
@@ -447,12 +447,12 @@ namespace Volume {
             if (!ea->IsModeSupported (mode))
 				continue;
 
-            ea->SetKey (ConstBufferPtr (testKey, ea->GetKeySize()));
+            ea->SetKey (BufferPtr (testKey, ea->GetKeySize()));
 
             Buffer modeKey (ea->GetKeySize());
 			for (size_t mi = 0; mi < modeKey.Size(); mi++)
 				modeKey[mi] = (quint8) mi;
-            modeKey.CopyFrom (ConstBufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
+            modeKey.CopyFrom (BufferPtr (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2, sizeof (XtsTestVectors[(sizeof(XtsTestVectors)/sizeof(XtsTestVectors[0]))-1].key2)));
 
 			mode->SetKey (modeKey);
             ea->SetMode (mode);
@@ -501,22 +501,22 @@ namespace Volume {
 	{
 		VolumePassword password ("password", 8);
 		static const quint8 saltData[] = { 0x12, 0x34, 0x56, 0x78 };
-		ConstBufferPtr salt (saltData, sizeof (saltData));
+        const BufferPtr salt (saltData, sizeof (saltData));
 		Buffer derivedKey (4);
 
         VolumeHashWhirlpool pkcs5HmacWhirlpool;
 		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
-		if (memcmp (derivedKey.Ptr(), "\x50\x7c\x36\x6f", 4) != 0)
+        if (memcmp (derivedKey.Get(), "\x50\x7c\x36\x6f", 4) != 0)
             throw EncryptionTestFailedException();
 
         VolumeHashStribog pkcs5HmacStribog;
 		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
-		if (memcmp (derivedKey.Ptr(), "\xc7\x13\x56\xb6", 4) != 0)
+        if (memcmp (derivedKey.Get(), "\xc7\x13\x56\xb6", 4) != 0)
             throw EncryptionTestFailedException();
 
         VolumeHashGostHash pkcs5HmacGostHash;
 		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
-		if (memcmp (derivedKey.Ptr(), "\x7d\x53\xe0\x7e", 4) != 0)
+        if (memcmp (derivedKey.Get(), "\x7d\x53\xe0\x7e", 4) != 0)
             throw EncryptionTestFailedException();
 	}
 }

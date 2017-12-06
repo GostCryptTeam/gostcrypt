@@ -43,13 +43,13 @@ namespace Volume
         const QFileInfo GetPath () const;
         quint64 Length () const;
         void Open (const QFileInfo path, bool readOnly, bool preserveTimestamps);
-        quint64 Read (const BufferPtr &buffer) const;
-        quint64 ReadAt (const BufferPtr &buffer, quint64 position) const;
+        quint64 Read (BufferPtr &buffer) const;
+        quint64 ReadAt (BufferPtr &buffer, quint64 position) const;
         void SeekAt (quint64 position) const;
         void SeekEnd (int offset) const;
-		void Write (const ConstBufferPtr &buffer) const;
-		void Write (const ConstBufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
-        void WriteAt (const ConstBufferPtr &buffer, quint64 position) const;
+        void Write (const BufferPtr &buffer) const;
+        void Write (const BufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
+        void WriteAt (const BufferPtr &buffer, quint64 position) const;
         FileType::Enum GetType () const;
         bool IsTypeFile () const { return GetType() == FileType::File; }
         bool isTypeDevice () const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }

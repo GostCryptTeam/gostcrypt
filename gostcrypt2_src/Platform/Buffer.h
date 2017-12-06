@@ -13,84 +13,79 @@
 #include <QtGlobal>
 #include "Memory.h"
 
+#include "Volume/VolumeException.h"
+//#define DataNotMutableException() FailedMemoryAllocationException()
+
 namespace GostCrypt
 {
-    class ConstBufferPtr //no need for a special Const class, just use Const BufferPtr (will need to create GetConst to retrieve the pointer without allowing modifications
-	{
-	public:
-		ConstBufferPtr ()
-			: DataPtr (nullptr), DataSize (0) { }
-        ConstBufferPtr (const quint8 *data, size_t size)
-			: DataPtr (data), DataSize (size) { }
-		virtual ~ConstBufferPtr () { }
-
-        operator const quint8 * () const { return DataPtr; }
-
-		bool IsDataEqual (const ConstBufferPtr &other) const { return Memory::Compare (DataPtr, DataSize, other.DataPtr, other.DataSize) == 0; }
-        const quint8 *Get () const { return DataPtr; }
-		ConstBufferPtr GetRange (size_t offset, size_t size) const;
-        void Set (const quint8 *data, size_t size) { DataPtr = data; DataSize = size; }
-		size_t Size () const { return DataSize; }
-
-	protected:
-        const quint8 *DataPtr;
-		size_t DataSize;
-	};
-
-
 	class BufferPtr
 	{
 	public:
 		BufferPtr ()
-			: DataPtr (nullptr), DataSize (0) { }
+            : DataPtrMutable (nullptr), DataPtrReadonly (nullptr), DataSize (0) { }
         BufferPtr (quint8 *data, size_t size)
-			: DataPtr (data), DataSize (size) { }
-		virtual ~BufferPtr () { }
+            : DataPtrMutable (data), DataPtrReadonly (data), DataSize (size) { }
+        BufferPtr (const quint8 *data, size_t size) // const version. should not be used with a non-const object
+            : DataPtrMutable (nullptr), DataPtrReadonly (data), DataSize (size) { }
+        virtual ~BufferPtr () { }
 
-        operator quint8 * () const { return DataPtr; }
-		void CopyFrom (const ConstBufferPtr &bufferPtr) const;
-		void Erase () const { Zero(); }
-        quint8 *Get () const { return DataPtr; }
-		BufferPtr GetRange (size_t offset, size_t size) const;
-        void Set (quint8 *data, size_t size) { DataPtr = data; DataSize = size; }
+        operator const quint8 * () const { return DataPtrReadonly; } // const version does not allow any changes
+        operator quint8 * () { if(DataPtrReadonly != DataPtrMutable) throw DataNotMutableException(); return DataPtrMutable; }
+        virtual bool IsDataEqual (const BufferPtr &otherbufferptr) const;
+
+        void CopyFrom (const BufferPtr &bufferPtr);
+        void Erase () { if(!DataPtrMutable) throw DataNotMutableException(); memset (DataPtrMutable, 0, DataSize); }
+
+        quint8 *Get () { if(DataPtrReadonly != DataPtrMutable) throw DataNotMutableException(); return DataPtrMutable; }
+        const quint8 *Get () const { return DataPtrReadonly; } // const version
+
+        BufferPtr GetRange (size_t offset, size_t size);
+        const BufferPtr GetRange (size_t offset, size_t size) const; // const version
+
+        void Set (quint8 *data, size_t size) { DataPtrMutable = data; DataPtrReadonly = data; DataSize = size; }
 		size_t Size () const { return DataSize; }
-		void Zero () const { Memory::Zero (DataPtr, DataSize); }
-
-		operator ConstBufferPtr () const { return ConstBufferPtr (DataPtr, DataSize); }
 
 	protected:
-        quint8 *DataPtr;
+        quint8 *DataPtrMutable;
+        const quint8 *DataPtrReadonly;
 		size_t DataSize;
 	};
 
-    class Buffer //Why Buffer and BufferPtr Merge ? NO. Buffers are always allocated when created, not BufferPtr However, Buffer should inherits from BufferPtr
+    class SecureBuffer; // used to disallow cast from SecureBuffer to Buffer
+    class Buffer
 	{
 	public:
-		Buffer ();
+        Buffer () : Data(), Usersize(0) {}
 		Buffer (size_t size);
-		Buffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
+        Buffer (const BufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
 		virtual ~Buffer ();
 
-		virtual void Allocate (size_t size);
-		virtual void CopyFrom (const ConstBufferPtr &bufferPtr);
-        virtual quint8 *Ptr () const { return DataPtr; }
+        virtual void Allocate (size_t size);
+        virtual void CopyFrom (const BufferPtr &bufferPtr);
 		virtual void Erase ();
 		virtual void Free ();
-		virtual BufferPtr GetRange (size_t offset, size_t size) const;
-		virtual size_t Size () const { return DataSize; }
-		virtual bool IsAllocated () const { return DataSize != 0; }
-		virtual void Zero ();
 
-        virtual operator quint8 * () const { return DataPtr; }
-		virtual operator BufferPtr () const { return BufferPtr (DataPtr, DataSize); }
-		virtual operator ConstBufferPtr () const { return ConstBufferPtr (DataPtr, DataSize); }
+        virtual size_t Size () const { return Usersize; }
+        virtual bool IsAllocated () const { return Data.Size() != 0; }
 
-	protected:
-        quint8 *DataPtr;
-		size_t DataSize;
+        virtual quint8 *Get () { return Data.Get(); }
+        virtual const quint8 *Get () const { return Data.Get(); } // const version
 
+        virtual BufferPtr GetRange (size_t offset, size_t size);
+        virtual const BufferPtr GetRange (size_t offset, size_t size) const; // const version
+
+        virtual operator quint8 * () { return Data.Get(); }
+        virtual operator const quint8 * () const { return Data.Get(); }
+
+        virtual operator BufferPtr& () { return Data; }
+        virtual operator const BufferPtr& () const { return Data; }
+
+    protected:
+        BufferPtr Data;
+        size_t Usersize; // actual used size. (optimisation)
 	private:
 		Buffer (const Buffer &);
+        Buffer (const SecureBuffer &); // used to disallow cast from SecureBuffer to Buffer
 		Buffer &operator= (const Buffer &);
 	};
 
@@ -98,10 +93,11 @@ namespace GostCrypt
 	{
 	public:
 		SecureBuffer () { }
-		SecureBuffer (size_t size);
-		SecureBuffer (const ConstBufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
+        SecureBuffer (size_t size) { Allocate (size); }
+        SecureBuffer (const BufferPtr &bufferPtr) { CopyFrom (bufferPtr); }
 		virtual ~SecureBuffer ();
 
+        virtual void Erase ();
 		virtual void Allocate (size_t size);
 		virtual void Free ();
 
