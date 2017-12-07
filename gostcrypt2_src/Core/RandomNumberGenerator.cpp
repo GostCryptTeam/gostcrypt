@@ -52,16 +52,16 @@ namespace GostCrypt
         #endif
 	}
 
-    void RandomNumberGenerator::AddToPool (const BufferPtr &data)
+    void RandomNumberGenerator::AddToPool (const BufferPtr &buffer)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
 
         QMutexLocker lock (&AccessMutex);
 
-		for (size_t i = 0; i < data.Size(); ++i)
+        for (size_t i = 0; i < buffer.Size(); ++i)
 		{
-			Pool[WriteOffset++] += data[i];
+            Pool[WriteOffset++] += buffer[i];
 
 			if (WriteOffset >= PoolSize)
 				WriteOffset = 0;

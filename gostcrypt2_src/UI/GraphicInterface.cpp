@@ -189,13 +189,13 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     }
 }
 
-void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> response)
+void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> r)
 {
 #ifdef QT_DEBUG
     qDebug() << "[Debug] : Receiving the list of mounted volumes.";
 #endif
     QVariantList list;
-    for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v)
+    for(auto v = r->volumeInfoList.begin(); v < r->volumeInfoList.end(); ++v)
     {
            QVariantMap vol;
            if((*v)->mountPoint)
@@ -209,36 +209,36 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     //sprintGetMountedVolume(list);
 }
 
-void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> response)
+void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printDismountVolume, QVariantList());
 }
 
-void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> response)
+void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printMountVolume, QVariantList());
-    //TODO  QVariantList(response->volumeInfo));
+    //TODO  QVariantList(r->volumeInfo));
 }
 
-void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> response)
+void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printCreateVolume, QVariantList())
 }
 
-void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> response)
+void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> r)
 {
-    (void)response;
+    (void)r;
     QVariantList list;
-    for(auto k : response->algorithms) list << k;
+    for(auto k : r->algorithms) list << k;
     emit QML_SIGNAL(printGetEncryptionAlgorithms, list)
 }
 
-void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> response)
+void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printGetDerivationFunctions, QVariantList())
 }
 
@@ -252,10 +252,10 @@ void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::Progr
     emit QML_SIGNAL(printProgressUpdate, list)
 }
 
-void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> response)
+void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> r)
 {
     QVariantList list;
-    for(auto v = response->hostDevices.begin(); v < response->hostDevices.end(); ++v)
+    for(auto v = r->hostDevices.begin(); v < r->hostDevices.end(); ++v)
     {
         if((*v)->mountPoint)
         {
@@ -279,16 +279,16 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
     emit QML_SIGNAL(printGetHostDevices, list)
 }
 
-void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> response)
+void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> r)
 {
-    (void)response;
+    (void)r;
     //emit sPrintCreateKeyFile(QString()); //TODO
     emit QML_SIGNAL(printCreateKeyFile, QVariantList())
 }
 
-void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> response)
+void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
 }
 
