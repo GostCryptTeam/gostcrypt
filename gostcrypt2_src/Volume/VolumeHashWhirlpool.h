@@ -20,8 +20,8 @@ public:
     virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new VolumeHashWhirlpool); }
     virtual void Init ();
     virtual void ProcessData (const BufferPtr &data);
-    virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const;
-    virtual int GetIterationCount () const { return 1000; }
+    virtual void HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const;
+    virtual int HMAC_GetIterationCount () const { return 1000; }
 
 protected:
 

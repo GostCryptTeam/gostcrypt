@@ -12,6 +12,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#ifdef HAVE_GETRANDOM
+#include <sys/random.h>
+#endif
+
 #include "CoreException.h"
 #include "RandomNumberGenerator.h"
 #include "Volume/Crc32.h"
@@ -24,40 +28,40 @@ namespace GostCrypt
 	{
 		SecureBuffer buffer (PoolSize);
 
-		int urandom = open ("/dev/urandom", O_RDONLY);
-        if (urandom == -1)
+        #ifdef HAVE_GETRANDOM
+        if(fast){
+            getrandom(buffer, buffer.Size(), 0);
+        } else {
+            getrandom(buffer, buffer.Size(), GRND_RANDOM);
+        }
+        #else
+        int randsource;
+        if(fast){
+            randsource = open ("/dev/urandom", O_RDONLY);
+        } else {
+			// Read all bytes available in /dev/random up to buffer size
+            randsource = open ("/dev/random", O_RDONLY); // blocking as we are not in fast mode
+        }
+        if (randsource == -1)
             throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
-        if (read (urandom, buffer, buffer.Size()) == -1)
+        if (read (randsource, buffer, buffer.Size()) < (int64_t)buffer.Size())
             throw FailedUsingSystemRandomSourceException();
         AddToPool (buffer);
-
-		if (!fast)
-		{
-			// Read all bytes available in /dev/random up to buffer size
-			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
-            if (random == -1)
-                throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/random")));
-
-            if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN)
-                throw FailedUsingSystemRandomSourceException();
-			AddToPool (buffer);
-            close(random);
-        }
-
-        close(urandom);
+        close(randsource);
+        #endif
 	}
 
-    void RandomNumberGenerator::AddToPool (const BufferPtr &data)
+    void RandomNumberGenerator::AddToPool (const BufferPtr &buffer)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
 
         QMutexLocker lock (&AccessMutex);
 
-		for (size_t i = 0; i < data.Size(); ++i)
+        for (size_t i = 0; i < buffer.Size(); ++i)
 		{
-			Pool[WriteOffset++] += data[i];
+            Pool[WriteOffset++] += buffer[i];
 
 			if (WriteOffset >= PoolSize)
 				WriteOffset = 0;

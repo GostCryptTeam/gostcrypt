@@ -39,7 +39,7 @@ namespace Parser {
 
     void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::MountVolumeRequest> options);
     void parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options);
-    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> options);
+    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> volume);
     void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
 

@@ -33,9 +33,9 @@ namespace Volume {
             throw IncorrectParameterException("Incorrect key derivation parameters");
     }
 
-    void VolumeHash::DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const
+    void VolumeHash::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const
     {
-        DeriveKey (key, password, salt, GetIterationCount());
+        HMAC_DeriveKey (key, password, salt, HMAC_GetIterationCount());
     }
 
 }

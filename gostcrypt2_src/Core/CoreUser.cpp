@@ -24,11 +24,11 @@ namespace GostCrypt {
 			}
 		}
 
-		void CoreUser::request(QVariant r)
+        void CoreUser::request(QVariant r)
 		{
 		//TODO add other non-root requests
-			if(!processNonRootRequest(r))
-				csh.sendToService(r);
+            if(!processNonRootRequest(r))
+                csh.sendToService(r);
 		}
 
         //TODO : remove the QSTRING with a c++ password class
@@ -37,14 +37,14 @@ namespace GostCrypt {
             emit sendSudoPassword(QSharedPointer<QByteArray>(new QByteArray(password.toLocal8Bit())));
         }
 
-		void CoreUser::receiveResponse(QVariant &r)
+        void CoreUser::receiveResponse(QVariant &r)
 		{
 			HANDLE_RESPONSE(MountVolume)
 			else HANDLE_RESPONSE(DismountVolume)
 			else HANDLE_RESPONSE(CreateVolume)
 			else HANDLE_RESPONSE(ChangeVolumePassword)
 			else HANDLE_RESPONSE(ProgressUpdate)
-			else throw UnknowResponseException(r.typeName());
+            else throw UnknowResponseException(r.typeName());
 		}
 	}
 }

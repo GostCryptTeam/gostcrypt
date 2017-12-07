@@ -100,7 +100,7 @@ bool VolumeHeader::Decrypt(const BufferPtr& encryptedData, const VolumePassword&
 
     for (QSharedPointer <VolumeHash> derivationfunction : keyDerivationFunctions)
     {
-        derivationfunction->DeriveKey(headerKey, password, salt);
+        derivationfunction->HMAC_DeriveKey(headerKey, password, salt);
 
         for (QSharedPointer <EncryptionAlgorithm> ea : encryptionAlgorithms)
         {

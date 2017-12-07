@@ -300,7 +300,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     else
         throw MissingParamException("password");
     QSharedPointer <Volume::VolumePassword> passwordkey = Volume::Keyfile::ApplyListToPassword (keyfiles, password);
-    options.Hash->DeriveKey (headerkey, *passwordkey, salt);
+    options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
 
     header->Create (headerBuffer, options); // header created !
@@ -321,7 +321,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     // Write The Backup Header if any
 
     RandomNumberGenerator::GetData (salt); // getting new salt
-    options.Hash->DeriveKey (headerkey, *passwordkey, salt);
+    options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
     header->Create (headerBuffer, options); // creating new header
 

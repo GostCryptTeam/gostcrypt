@@ -430,7 +430,7 @@ namespace GostCrypt {
                     else
                         RandomNumberGenerator::GetDataFast(newSalt);
 
-                    newVolumeHeaderKdf->DeriveKey(newHeaderKey, newPassword, newSalt);
+                    newVolumeHeaderKdf->HMAC_DeriveKey(newHeaderKey, newPassword, newSalt);
                     volume->ReEncryptHeader(backupHeader, newSalt, newHeaderKey, newVolumeHeaderKdf);
 
                     volume->GetFile()->Flush();

@@ -46,7 +46,7 @@ typedef struct
 } gost_hash_ctx;
 
 void GOSTHASH_init (gost_hash_ctx *ctx);
-void GOSTHASH_add (quint8 *in, quint32 len, gost_hash_ctx *ctx);
+void GOSTHASH_add (quint8 *block, quint32 len, gost_hash_ctx *ctx);
 void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out);
 
 #if defined(__cplusplus)

@@ -30,7 +30,7 @@ void VolumeHashWhirlpool::ProcessData (const BufferPtr &data)
     WHIRLPOOL_add (data.Get(), (int) data.Size() * 8, (WHIRLPOOL_CTX *) Context.Get());
 }
 
-void VolumeHashWhirlpool::DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const
+void VolumeHashWhirlpool::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const
 {
     ValidateKeyDerivationParameters (key, password, salt, iterationCount);
     derive_key_whirlpool ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());
