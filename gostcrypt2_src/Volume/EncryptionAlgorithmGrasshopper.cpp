@@ -4,11 +4,13 @@
 namespace GostCrypt {
 namespace Volume {
     //GRASSHOPPER
-    EncryptionAlgorithmGrasshopper::EncryptionAlgorithmGrasshopper()
+    EncryptionAlgorithmGrasshopper::EncryptionAlgorithmGrasshopper(QSharedPointer <EncryptionMode> mode)
     {
-        Ciphers.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGrasshopper ()));
-        SupportedModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
+        CipherAlgorithmList ciphers;
+        ciphers.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGrasshopper ()));
 
+        this->Mode = mode;
+        this->Mode->SetCiphers(ciphers);
     }
 
 }

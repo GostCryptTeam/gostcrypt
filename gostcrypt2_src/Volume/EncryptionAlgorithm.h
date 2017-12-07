@@ -41,18 +41,12 @@ namespace Volume {
         virtual std::wstring GetName () const;
         virtual std::wstring GetDescription () const;
 		bool IsDeprecated () const { return Deprecated; }
-		virtual bool IsModeSupported (const EncryptionMode &mode) const;
-		virtual bool IsModeSupported (const QSharedPointer <EncryptionMode> mode) const;
         virtual void SetKey (const BufferPtr &key);
-		virtual void SetMode (QSharedPointer <EncryptionMode> mode);
 
 	protected:
 		EncryptionAlgorithm ();
-
-        CipherAlgorithmList Ciphers;
 		bool Deprecated;
 		QSharedPointer <EncryptionMode> Mode;
-		EncryptionModeList SupportedModes;
 
 	private:
 		EncryptionAlgorithm (const EncryptionAlgorithm &);

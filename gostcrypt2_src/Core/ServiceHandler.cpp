@@ -84,7 +84,7 @@ namespace GostCrypt {
 
 			if(v.canConvert<ExceptionResponse>()) {
 					ExceptionResponse er = v.value<ExceptionResponse>();
-                                        const GostCrypt::GostCryptException *exceptionPtr = reinterpret_cast<const GostCrypt::GostCryptException*>(er.exception.constData());
+                    const GostCrypt::GostCryptException *exceptionPtr = reinterpret_cast<const GostCrypt::GostCryptException*>(er.exception.constData());
 
 					#ifdef DEBUG_SERVICE_HANDLER
 					qDebug() << "Exception occured in child service:";

@@ -12,10 +12,10 @@ class EncryptionAlgorithm;
 class EncryptionAlgorithmGrasshopper : public EncryptionAlgorithm
 {
 public:
-    EncryptionAlgorithmGrasshopper ();
+    EncryptionAlgorithmGrasshopper (QSharedPointer <EncryptionMode> mode);
     virtual ~EncryptionAlgorithmGrasshopper () { }
 
-    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()); }
+    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper(this->Mode->GetNew())); }
 
 private:
     EncryptionAlgorithmGrasshopper (const EncryptionAlgorithmGrasshopper &);

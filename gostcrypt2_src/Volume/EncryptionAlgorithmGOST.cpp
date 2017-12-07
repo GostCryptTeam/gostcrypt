@@ -5,11 +5,13 @@
 namespace GostCrypt {
 namespace Volume {
     // GOST
-    EncryptionAlgorithmGOST::EncryptionAlgorithmGOST ()
+    EncryptionAlgorithmGOST::EncryptionAlgorithmGOST (QSharedPointer <EncryptionMode> mode)
     {
-        Ciphers.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
+        CipherAlgorithmList ciphers;
+        ciphers.push_back (QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST ()));
 
-        SupportedModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
+        this->Mode = mode;
+        this->Mode->SetCiphers(ciphers);
     }
 
 }

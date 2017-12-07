@@ -9,10 +9,10 @@ namespace Volume {
 class EncryptionAlgorithmGOST : public EncryptionAlgorithm
 {
 public:
-    EncryptionAlgorithmGOST ();
+    EncryptionAlgorithmGOST (QSharedPointer <EncryptionMode>);
     virtual ~EncryptionAlgorithmGOST () { }
 
-    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()); }
+    virtual QSharedPointer <EncryptionAlgorithm> GetNew () const { return QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST(this->Mode->GetNew())); }
 
 private:
     EncryptionAlgorithmGOST (const EncryptionAlgorithmGOST &);

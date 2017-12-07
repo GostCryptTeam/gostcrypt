@@ -334,12 +334,11 @@ namespace GostCrypt {
             if(!file.is_open())
                 throw /* TODO add exception here */;
 
-            QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (nullptr);
+            QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea;
             if(!algorithm.isEmpty()) {
                 ea = getEncryptionAlgorithm(algorithm);
                 if(!ea)
                     throw /* TODO */;
-                ea->SetMode(QSharedPointer<Volume::EncryptionMode>(new Volume::EncryptionModeXTS()));
 
                 // Empty sectors are encrypted with different key to randomize plaintext
                 randomizeEncryptionAlgorithmKey (ea);

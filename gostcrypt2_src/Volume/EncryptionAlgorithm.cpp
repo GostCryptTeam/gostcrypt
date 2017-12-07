@@ -63,8 +63,8 @@ namespace Volume {
 	{
 		EncryptionAlgorithmList l;
 
-        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST()));
-        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
+        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST(QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
+        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper(QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
 
 		return l;
 	}
@@ -84,15 +84,7 @@ namespace Volume {
 
 	size_t EncryptionAlgorithm::GetKeySize () const
 	{
-		if (Ciphers.size() < 1)
-            throw EncryptionAlgorithmNotInitializedException();
-
-		size_t keySize = 0;
-
-        for  (const QSharedPointer<CipherAlgorithm> c : Ciphers)
-            keySize += c->GetKeySize();
-
-		return keySize;
+        return this->Mode->GetKeySize();
 	}
 
     QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
@@ -105,12 +97,12 @@ namespace Volume {
 
 	std::wstring EncryptionAlgorithm::GetName () const
 	{
-		if (Ciphers.size() < 1)
+        if (this->Mode->GetCiphers().size() < 1)
             throw EncryptionAlgorithmNotInitializedException();
 
 		std::wstring name;
 
-        for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
+        for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
 		{
 			if (name.empty())
                 name = c->GetName();
@@ -123,12 +115,12 @@ namespace Volume {
 
         std::wstring EncryptionAlgorithm::GetDescription () const
         {
-                if (Ciphers.size() < 1)
+                if (this->Mode->GetCiphers().size() < 1)
                         throw EncryptionAlgorithmNotInitializedException();
 
                 std::wstring desc;
 
-                for (const QSharedPointer<CipherAlgorithm> c : Ciphers)
+                for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
                 {
                         if (desc.empty())
                                 desc = c->GetDescription();
@@ -139,47 +131,16 @@ namespace Volume {
                 return desc;
         }
 
-	bool EncryptionAlgorithm::IsModeSupported (const EncryptionMode &mode) const
-	{
-		bool supported = false;
-
-        for (const QSharedPointer<EncryptionMode> em : SupportedModes)
-		{
-            if (typeid (mode) == typeid (*em))
-			{
-				supported = true;
-				break;
-			}
-		}
-
-		return supported;
-	}
-
-
-    bool EncryptionAlgorithm::IsModeSupported (const QSharedPointer <EncryptionMode> mode) const
-	{
-		return IsModeSupported (*mode);
-	}
-
-    void EncryptionAlgorithm::SetMode (QSharedPointer <EncryptionMode> mode)
-	{
-		if (!IsModeSupported (*mode))
-            throw IncorrectParameterException("Encryption mode not supported");
-
-		mode->SetCiphers (Ciphers);
-		Mode = mode;
-	}
-
     void EncryptionAlgorithm::SetKey (const BufferPtr &key)
 	{
-		if (Ciphers.size() < 1)
+                if (this->Mode->GetCiphers().size() < 1)
             throw EncryptionAlgorithmNotInitializedException();
 
 		if (GetKeySize() != key.Size())
             throw IncorrectParameterException("Key size mismatch");
 
 		size_t keyOffset = 0;
-        for (QSharedPointer<CipherAlgorithm> c : Ciphers)
+        for (QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
 		{
             c->SetKey (key.GetRange (keyOffset, c->GetKeySize()));
             keyOffset += c->GetKeySize();

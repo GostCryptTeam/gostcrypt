@@ -49,7 +49,7 @@ namespace Volume {
 		virtual ~VolumeHeader ();
 
         void Create (BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
-        bool Decrypt (const BufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes);
+        bool Decrypt (const BufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms);
         void EncryptNew (BufferPtr &newHeaderBuffer, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
 		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
@@ -62,7 +62,7 @@ namespace Volume {
 		VolumeTime GetVolumeCreationTime () const { return VolumeCreationTime; }
 
 	protected:
-        bool Deserialize (const BufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea, QSharedPointer <EncryptionMode> &mode);
+        bool Deserialize (const BufferPtr &header, QSharedPointer <EncryptionAlgorithm> &ea);
         template <typename T> static T DeserializeEntry (const BufferPtr &header, size_t &offset);
         template <typename T> static T DeserializeEntryAt (const BufferPtr &header, const size_t &offset);
 		void Init ();

@@ -12,8 +12,8 @@ VolumeLayoutV2Normal::VolumeLayoutV2Normal ()
     HeaderSize = GST_VOLUME_HEADER_SIZE;
     BackupHeaderOffset = -GST_VOLUME_HEADER_GROUP_SIZE;
 
-    SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST ()));
-    SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper()));
+    SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST (QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
+    SupportedEncryptionAlgorithms.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper(QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
 
     SupportedEncryptionModes.push_back (QSharedPointer <EncryptionMode> (new EncryptionModeXTS ()));
 }

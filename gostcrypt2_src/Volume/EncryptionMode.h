@@ -10,6 +10,8 @@
 #ifndef GST_HEADER_Encryption_EncryptionMode
 #define GST_HEADER_Encryption_EncryptionMode
 
+#include <QList>
+#include <QSharedPointer>
 #include "Crypto/Crypto.h"
 #include "CipherAlgorithm.h"
 
@@ -36,7 +38,7 @@ namespace Volume {
 		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
         virtual void SetKey (const BufferPtr &key) = 0;
         virtual void SetCiphers (const CipherAlgorithmList &ciphers) { Ciphers = ciphers; }
-
+        virtual const CipherAlgorithmList GetCiphers () { return Ciphers; }
 	protected:
 		EncryptionMode ();
 
