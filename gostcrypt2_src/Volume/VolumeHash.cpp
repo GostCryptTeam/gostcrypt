@@ -35,7 +35,7 @@ namespace Volume {
 
     void VolumeHash::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const
     {
-        HMAC_DeriveKey (key, password, salt, GetIterationCount());
+        HMAC_DeriveKey (key, password, salt, HMAC_GetIterationCount());
     }
 
 }
