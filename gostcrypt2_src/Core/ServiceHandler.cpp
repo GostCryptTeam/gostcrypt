@@ -47,10 +47,10 @@ namespace GostCrypt {
 			#ifdef DEBUG_SERVICE_HANDLER
 			qDebug() << "Sending exit request";
 			#endif
+			sendToService(QVariant::fromValue(request));
 #ifdef GENERATE_REQUESTS_DUMP
             requestDumpFile.close();
 #endif
-			sendToService(QVariant::fromValue(request));
 		}
 
 		void ServiceHandler::writeToStdin(QSharedPointer<QByteArray> data, bool newline)
@@ -181,7 +181,7 @@ namespace GostCrypt {
 
 #ifdef GENERATE_REQUESTS_DUMP
             requestsDumpStream.setDevice(&requestDumpFile);
-            requestDumpFile.setFileName("requestsDump_"+((args.length() > 0) ? args[0] : programName));
+            requestDumpFile.setFileName("requestsDump_"+ args.last());
             requestDumpFile.open(QIODevice::WriteOnly);
 #endif
 		}
