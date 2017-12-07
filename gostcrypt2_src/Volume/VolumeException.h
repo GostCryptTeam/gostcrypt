@@ -250,8 +250,8 @@ class VolumeVersionNotCompatible : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    VolumeVersionNotCompatible(QString fonction, QString filename, quint32 line, QString comment) : VolumeException(fonction,
-                filename, line), comment(comment) {}
+    VolumeVersionNotCompatible(QString fonction, QString filename, quint32 line, QString c) : VolumeException(fonction,
+                filename, line), comment(c) {}
     DEF_EXCEPTION_WHAT(VolumeVersionNotCompatible, VolumeException, "The volume version is not compatible with this version of GostCrypt ("+comment+")")
     QString comment;
     DEC_SERIALIZABLE(VolumeVersionNotCompatible);
