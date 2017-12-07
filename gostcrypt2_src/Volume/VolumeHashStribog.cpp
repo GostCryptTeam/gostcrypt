@@ -30,7 +30,7 @@ void VolumeHashStribog::ProcessData (const BufferPtr &data)
     STRIBOG_add ((STRIBOG_CTX *) Context.Get(), (quint8 *) data.Get(), data.Size());
 }
 
-void VolumeHashStribog::DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const
+void VolumeHashStribog::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const
 {
     ValidateKeyDerivationParameters (key, password, salt, iterationCount);
     derive_key_stribog ((char *) password.DataPtr(), (int) password.Size(), (char *) salt.Get(), (int) salt.Size(), iterationCount, (char *) key.Get(), (int) key.Size());

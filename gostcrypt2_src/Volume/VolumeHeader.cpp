@@ -93,7 +93,7 @@ namespace Volume {
 
         for (QSharedPointer <VolumeHash> derivationfunction : keyDerivationFunctions)
 		{
-            derivationfunction->DeriveKey (headerKey, password, salt);
+            derivationfunction->HMAC_DeriveKey (headerKey, password, salt);
 
             for (QSharedPointer <EncryptionMode> mode : encryptionModes)
 			{

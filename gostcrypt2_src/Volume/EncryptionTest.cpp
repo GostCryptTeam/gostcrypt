@@ -505,17 +505,17 @@ namespace Volume {
 		Buffer derivedKey (4);
 
         VolumeHashWhirlpool pkcs5HmacWhirlpool;
-		pkcs5HmacWhirlpool.DeriveKey (derivedKey, password, salt, 5);
+		pkcs5HmacWhirlpool.HMAC_DeriveKey (derivedKey, password, salt, 5);
         if (memcmp (derivedKey.Get(), "\x50\x7c\x36\x6f", 4) != 0)
             throw EncryptionTestFailedException();
 
         VolumeHashStribog pkcs5HmacStribog;
-		pkcs5HmacStribog.DeriveKey (derivedKey, password, salt, 5);
+		pkcs5HmacStribog.HMAC_DeriveKey (derivedKey, password, salt, 5);
         if (memcmp (derivedKey.Get(), "\xc7\x13\x56\xb6", 4) != 0)
             throw EncryptionTestFailedException();
 
         VolumeHashGostHash pkcs5HmacGostHash;
-		pkcs5HmacGostHash.DeriveKey (derivedKey, password, salt, 5);
+		pkcs5HmacGostHash.HMAC_DeriveKey (derivedKey, password, salt, 5);
         if (memcmp (derivedKey.Get(), "\x7d\x53\xe0\x7e", 4) != 0)
             throw EncryptionTestFailedException();
 	}

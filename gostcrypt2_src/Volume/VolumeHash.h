@@ -39,9 +39,9 @@ namespace Volume {
         virtual void ProcessData (const BufferPtr &data) = 0;
 
         // derivation functions
-        virtual int GetIterationCount () const = 0;
-        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const;
-        virtual void DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const = 0;
+        virtual int HMAC_GetIterationCount () const = 0;
+        virtual void HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const;
+        virtual void HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const = 0;
 
 	protected:
 		SecureBuffer Context;
