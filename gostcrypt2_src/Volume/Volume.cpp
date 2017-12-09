@@ -68,10 +68,8 @@ namespace Volume {
                     VolumeProtection::Enum protection,
                     QSharedPointer <VolumePassword> protectionPassword, // in case you wqnt to open it as
                     QSharedPointer <KeyfileList> protectionKeyfiles,
-                    bool sharedAccessAllowed,
                     VolumeType::Enum volumeType,
-                    bool useBackupHeaders,
-                    bool partitionInSystemEncryptionScope)
+                    bool useBackupHeaders)
 	{
         QSharedPointer<VolumeFile> volumeFile = QSharedPointer<VolumeFile>(new VolumeFile());
 
@@ -86,11 +84,8 @@ namespace Volume {
                     protectionPassword, protectionKeyfiles,
                     VolumeProtection::ReadOnly,
                     QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> (),
-                    sharedAccessAllowed,
                     VolumeType::Hidden,
-                    useBackupHeaders,
-                    partitionInSystemEncryptionScope);
-
+                    useBackupHeaders);
                 if (protectedVolume.GetType() != VolumeType::Hidden)
                     throw IncorrectParameterException("protection is set to HiddenVolumeReadOnly, but the volume type is not hidden.")
 
@@ -137,7 +132,6 @@ namespace Volume {
 					continue;
 
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
-				EncryptionModeList layoutEncryptionModes = layout->GetSupportedEncryptionModes();
 
 				QSharedPointer <VolumeHeader> header = layout->GetHeader();
 
