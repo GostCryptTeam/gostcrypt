@@ -20,6 +20,8 @@ void initCoreResponse()
     INIT_SERIALIZE(GetDerivationFunctionsResponse);
     INIT_SERIALIZE(HostDevice);
     INIT_SERIALIZE(MountedFilesystem);
+    INIT_SERIALIZE(BackupHeaderResponse);
+    INIT_SERIALIZE(RestoreHeaderResponse);
 }
 
 DEF_SERIALIZABLE(CoreResponse)
@@ -41,6 +43,30 @@ QDataStream& operator << (QDataStream& out, const CreateVolumeResponse& Valeur)
     return out;
 }
 QDataStream& operator >> (QDataStream& in, CreateVolumeResponse& Valeur)
+{
+    in >> static_cast<CoreResponse&>(Valeur);
+    return in;
+}
+
+DEF_SERIALIZABLE(BackupHeaderResponse)
+QDataStream& operator << (QDataStream& out, const BackupHeaderResponse& Valeur)
+{
+    out << static_cast<const CoreResponse&>(Valeur);
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, BackupHeaderResponse& Valeur)
+{
+    in >> static_cast<CoreResponse&>(Valeur);
+    return in;
+}
+
+DEF_SERIALIZABLE(RestoreHeaderResponse)
+QDataStream& operator << (QDataStream& out, const RestoreHeaderResponse& Valeur)
+{
+    out << static_cast<const CoreResponse&>(Valeur);
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, RestoreHeaderResponse& Valeur)
 {
     in >> static_cast<CoreResponse&>(Valeur);
     return in;
@@ -187,31 +213,6 @@ QDataStream& operator >> (QDataStream& in, MountedFilesystem& Valeur)
     in >> Valeur.Type;
     return in;
 }
-
-/*
-VolumeInformation::VolumeInformation(VolumeInfo v)
-{
-    encryptionAlgorithmName = QString::fromStdWString(v.EncryptionAlgorithmName);
-    if (!v.AuxMountPoint.IsEmpty())
-    {
-        fuseMountPoint.reset(new QFileInfo(QString::fromStdWString(v.AuxMountPoint)));
-    }
-    if (!v.MountPoint.IsEmpty())
-    {
-        mountPoint.reset(new QFileInfo(QString::fromStdWString(v.MountPoint)));
-    }
-    protection = v.Protection;
-    size = v.Size;
-    type = v.Type;
-    if (!v.VirtualDevice.IsEmpty())
-    {
-        virtualDevice.reset(new QFileInfo(QString::fromStdWString(v.VirtualDevice)));
-    }
-    if (!v.Path.IsEmpty())
-    {
-        volumePath.reset(new QFileInfo(QString::fromStdWString(v.Path)));
-    }
-}//*/
 
 MountVolumeResponse::MountVolumeResponse()
 {

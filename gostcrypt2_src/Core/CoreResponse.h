@@ -31,6 +31,14 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(CreateKeyFileResponse);
 		};
 
+        struct BackupHeaderResponse : CoreResponse {
+            DEC_SERIALIZABLE(BackupHeaderResponse);
+        };
+
+        struct RestoreHeaderResponse : CoreResponse {
+            DEC_SERIALIZABLE(RestoreHeaderResponse);
+        };
+
 		struct MountVolumeResponse : CoreResponse {
 			MountVolumeResponse();
 			bool readOnlyFailover;
@@ -93,5 +101,7 @@ SERIALIZABLE(GostCrypt::Core::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsResponse)
 SERIALIZABLE(GostCrypt::Core::HostDevice)
 SERIALIZABLE(GostCrypt::Core::MountedFilesystem)
+SERIALIZABLE(GostCrypt::Core::BackupHeaderResponse)
+SERIALIZABLE(GostCrypt::Core::RestoreHeaderResponse)
 
 #endif // CORERESPONSE_H

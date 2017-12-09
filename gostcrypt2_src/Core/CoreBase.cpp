@@ -522,6 +522,8 @@ namespace GostCrypt {
             else HANDLE_REQUEST(GetDerivationFunctions, getDerivationFunctions)
             else HANDLE_REQUEST(GetHostDevices, getHostDevices)
             else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
+            else HANDLE_REQUEST(BackupHeader, backupHeader)
+            else HANDLE_REQUEST(RestoreHeader, restoreHeader)
 			else {
 				return false;
 			}
@@ -548,7 +550,35 @@ namespace GostCrypt {
                 e.setRequestId(params->id.requestId);
                 throw;
             }
-		}
+        }
+
+        QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<BackupHeaderRequest> params)
+        {
+            try {
+                QSharedPointer<BackupHeaderResponse> response(new BackupHeaderResponse);
+
+                if(params->emitResponse)
+                    emit sendBackupHeader(response);
+                return response;
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw;
+            }
+        }
+
+        QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<RestoreHeaderRequest> params)
+        {
+            try {
+                QSharedPointer<RestoreHeaderResponse> response(new RestoreHeaderResponse);
+
+                if(params->emitResponse)
+                    emit sendRestoreHeader(response);
+                return response;
+            } catch(GostCryptException &e) {
+                e.setRequestId(params->id.requestId);
+                throw;
+            }
+        }
 
 		uid_t getUserId(QString username)
 		{

@@ -21,6 +21,8 @@ void initCoreRequest()
     INIT_SERIALIZE(GetEncryptionAlgorithmsRequest);
     INIT_SERIALIZE(GetDerivationFunctionsRequest);
     INIT_SERIALIZE(ProgressTrackingParameters);
+    INIT_SERIALIZE(BackupHeaderRequest);
+    INIT_SERIALIZE(RestoreHeaderRequest);
 }
 
 QDataStream& operator<< (QDataStream& out, const CoreRequest& Valeur)
@@ -260,6 +262,34 @@ QDataStream& operator >> (QDataStream& in, ProgressTrackingParameters& Valeur)
     return in;
 }
 DEF_SERIALIZABLE(ProgressTrackingParameters)
+
+QDataStream& operator << (QDataStream& out, const BackupHeaderRequest& Valeur)
+{
+    out << static_cast<const CoreRequest&>(Valeur);
+    out << Valeur.volumePath;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, BackupHeaderRequest& Valeur)
+{
+    in >> static_cast<CoreRequest&>(Valeur);
+    in >> Valeur.volumePath;
+    return in;
+}
+DEF_SERIALIZABLE(BackupHeaderRequest)
+
+QDataStream& operator << (QDataStream& out, const RestoreHeaderRequest& Valeur)
+{
+    out << static_cast<const CoreRequest&>(Valeur);
+    out << Valeur.volumePath;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
+{
+    in >> static_cast<CoreRequest&>(Valeur);
+    in >> Valeur.volumePath;
+    return in;
+}
+DEF_SERIALIZABLE(RestoreHeaderRequest)
 
 MountVolumeRequest::MountVolumeRequest()
 {

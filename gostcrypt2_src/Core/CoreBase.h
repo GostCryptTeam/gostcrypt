@@ -119,6 +119,22 @@ namespace GostCrypt {
              */
             QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params = QSharedPointer<CreateKeyFileRequest>());
 
+            /**
+             * @brief Backup the header of the given volume
+             *
+             * @param params Parameters of the function
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             */
+            QSharedPointer<BackupHeaderResponse> backupHeader(QSharedPointer<BackupHeaderRequest> params);
+
+            /**
+             * @brief Restore the header of the given volume
+             *
+             * @param params Parameters of the function
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             */
+            QSharedPointer<RestoreHeaderResponse> restoreHeader(QSharedPointer<RestoreHeaderRequest> params);
+
 			/**
 			 * @brief Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint.
 			 *
@@ -211,6 +227,8 @@ namespace GostCrypt {
 			DEC_REQUEST_SIGNAL(GetMountedVolumes);
 			DEC_REQUEST_SIGNAL(CreateKeyFile);
             DEC_REQUEST_SIGNAL(ProgressUpdate);
+            DEC_REQUEST_SIGNAL(BackupHeader);
+            DEC_REQUEST_SIGNAL(RestoreHeader);
 
 			/**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)

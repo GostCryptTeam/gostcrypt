@@ -146,6 +146,17 @@ struct GetEncryptionAlgorithmsRequest : CoreRequest {
 struct GetDerivationFunctionsRequest : CoreRequest {
     DEC_SERIALIZABLE(GetDerivationFunctionsRequest);
 }; // no parameters
+
+struct BackupHeaderRequest : CoreRequest {
+    QFileInfo volumePath; // the path of the volume file
+    DEC_SERIALIZABLE(BackupHeaderRequest);
+};
+
+struct RestoreHeaderRequest : CoreRequest {
+    QFileInfo volumePath; // the path of the volume file
+    DEC_SERIALIZABLE(RestoreHeaderRequest);
+};
+
 }
 }
 
@@ -161,5 +172,7 @@ SERIALIZABLE(GostCrypt::Core::GetMountedVolumesRequest)
 SERIALIZABLE(GostCrypt::Core::GetEncryptionAlgorithmsRequest)
 SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsRequest)
 SERIALIZABLE(GostCrypt::Core::ProgressTrackingParameters)
+SERIALIZABLE(GostCrypt::Core::BackupHeaderRequest)
+SERIALIZABLE(GostCrypt::Core::RestoreHeaderRequest)
 
 #endif // COREPARAMS_H
