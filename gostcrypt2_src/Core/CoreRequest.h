@@ -161,6 +161,8 @@ struct BackupHeaderRequest : CoreRequest {
 
 struct RestoreHeaderRequest : CoreRequest {
     QFileInfo volumePath; // the path of the volume file
+    bool useInternalBackup;
+    QFileInfo backupHeaderFile;
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
 

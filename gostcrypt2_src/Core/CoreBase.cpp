@@ -665,6 +665,8 @@ namespace GostCrypt {
             try {
                 QSharedPointer<RestoreHeaderResponse> response(new RestoreHeaderResponse);
 
+                //TODO cf TextUserInterface.cpp:1258
+
                 if(params->emitResponse)
                     emit sendRestoreHeader(response);
                 return response;

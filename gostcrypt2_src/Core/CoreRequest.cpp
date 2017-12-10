@@ -293,12 +293,16 @@ QDataStream& operator << (QDataStream& out, const RestoreHeaderRequest& Valeur)
 {
     out << static_cast<const CoreRequest&>(Valeur);
     out << Valeur.volumePath;
+    out << Valeur.useInternalBackup;
+    out << Valeur.backupHeaderFile;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
 {
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.volumePath;
+    in >> Valeur.useInternalBackup;
+    in >> Valeur.backupHeaderFile;
     return in;
 }
 DEF_SERIALIZABLE(RestoreHeaderRequest)
