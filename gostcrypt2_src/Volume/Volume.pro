@@ -33,7 +33,6 @@ HEADERS += \
     VolumeLayout.h \
     VolumeHeader.h \
     Volume.h \
-    Version.h \
     Keyfile.h \
     EncryptionThreadPool.h \
     EncryptionTest.h \

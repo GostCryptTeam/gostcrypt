@@ -163,7 +163,7 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
     RequiredMinProgramVersion = DeserializeEntry <quint16> (header, offset);
 
 
-    if (RequiredMinProgramVersion > Version::Number())
+    if (RequiredMinProgramVersion > VERSION_NUM)
     {
         throw VolumeVersionNotCompatibleException("Volume version too young");
     }

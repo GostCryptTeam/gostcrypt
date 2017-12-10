@@ -17,7 +17,6 @@
 #include "Volume/Keyfile.h"
 #include "Volume/VolumePassword.h"
 #include "Volume/VolumeHash.h"
-#include "Version.h"
 #include <QSharedPointer>
 #include "VolumeType.h"
 
