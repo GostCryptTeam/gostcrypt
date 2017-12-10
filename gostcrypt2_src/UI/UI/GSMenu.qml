@@ -143,7 +143,7 @@ Item {
                                     toggleMenu()
                                 }
                                 //Action mode
-                                else
+                                else if(action !== undefined)
                                 {
                                     qmlRequest(action, {"name": name_, "desc": desc_})
                                 }

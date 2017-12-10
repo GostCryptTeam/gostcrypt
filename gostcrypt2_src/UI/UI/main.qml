@@ -592,11 +592,21 @@ Window {
     {
         //If we want to add a notification
         if(content.name !== undefined && content.desc !== undefined && content.name !== "")
-        {
-            notifications.push([content.name, content.desc, Number(notifications.length)+1, 0]);
-            content.id = Number(notifications.length);
-        }
+            content.id = addNotification("progress", content.name, content.desc);
+
         sendQmlRequest(type, content);
+    }
+
+    function addNotification(type, title, description)
+    {
+        if(type === "progress")
+            notifications.push([title, description, Number(notifications.length)+1, 0]);
+        if(type === "error") {
+            notifications.push([title, description, Number(notifications.length)+1, -1]);
+            notifs.updateNotification(Number(notifications.length), -1);
+        }
+
+        return Number(notifications.length);
     }
 
     function refreshFavorite()

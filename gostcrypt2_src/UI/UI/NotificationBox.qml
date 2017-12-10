@@ -92,7 +92,7 @@ Item {
             SwipeDelegate {
                 id: delegate
                 property int id: Notif_id
-                width: 248; height: 65
+                width: 248; height: body.height
                 clip: true
                 background: Item {
                     Rectangle { //body
@@ -100,25 +100,29 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.fill: parent
                         color: palette.darkSecond
-
+                        height: 150
                         Text {
+                            id: delegateText
                             text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
                             wrapMode: Text.WordWrap
                             width: parent.width - 50
-                            leftPadding: 10
+                            leftPadding: 20
                             rightPadding: 20
-                            x: 60
+                            x: (Number(Notif_percent) !== -1) ? 60 : 0
                             anchors.verticalCenter: parent.verticalCenter
-                            color: palette.text                    }
+                            color: palette.text
+                        }
 
                         CircleLoadingBar {
                             id: circle
                             anchors.verticalCenter: parent.verticalCenter
                             x: 10
                             size: 50
+                            visible: (Number(Notif_percent) !== -1) ? true : false
                             percent: Number(Notif_percent)
                         }
                     }
+
                     Rectangle { //border
                         height:1
                         width: 248
@@ -127,7 +131,7 @@ Item {
                     }
                 }
 
-                enabled:  Notif_percent == 100 ? true : false
+                enabled:  (Notif_percent == 100 || Number(Notif_percent) === -1) ? true : false
                 swipe.right: removeComponent
                 swipe.onCompleted: {
                     if(swipe.position === -1.0 && index !== -1) listOfNotifications.remove(index)
@@ -202,6 +206,7 @@ Item {
             focus: true
             ScrollBar.vertical: ScrollBar {
                 snapMode: ScrollBar.SnapOnRelease
+                policy: ScrollBar.AlwaysOn
             }
             clip: true
         }

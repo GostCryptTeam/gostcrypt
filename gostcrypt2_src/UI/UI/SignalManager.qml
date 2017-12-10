@@ -38,7 +38,8 @@ Item {
         }
 
         onSprintSendError: {
-            openErrorMessage(l[0], l[1]);
+            //openErrorMessage(l[0], l[1]);
+            addNotification("error", l[0], l[1])
         }
 
         onSprintGetFileSystem: {
