@@ -667,10 +667,8 @@ namespace GostCrypt {
                 QSharedPointer<Volume::VolumePassword> password;
                 QSharedPointer <Volume::KeyfileList> keyfiles;
                 QSharedPointer<Volume::Volume> volume;
-
-                if(!params->useInternalBackup)
-                    throw IncorrectParameterException("not implemented yet");                 //TODO cf TextUserInterface.cpp:1258
-
+                QSharedPointer<Volume::VolumeLayout> decryptedLayout;
+                QSharedPointer<Volume::VolumeHeader> backupHeader;
 
                 // Conversions :(
                 if(!params->password.isNull())
@@ -683,23 +681,47 @@ namespace GostCrypt {
                     }
                 }
 
-                try {
-                    volume->Open(params->volumePath, false, password, keyfiles, Volume::VolumeProtection::None,QSharedPointer<Volume::VolumePassword>(), QSharedPointer<Volume::KeyfileList>(), Volume::VolumeType::Unknown, true);
-                } catch(...) {
-                    //TODO or maybe not  necessary actually since the exception thrown should make sense
+                // Open Volume
+                volume->Open(params->volumePath, false, password, keyfiles, Volume::VolumeProtection::None,QSharedPointer<Volume::VolumePassword>(), QSharedPointer<Volume::KeyfileList>(), Volume::VolumeType::Unknown, params->useInternalBackup);
+
+
+                if(params->useInternalBackup)
+                {
+                    decryptedLayout = volume->GetLayout();
+                    if(!decryptedLayout->HasBackupHeader())
+                        throw; //TODO
+                    backupHeader = volume->GetHeader();
+                } else {
+                    QFile backupFile(params->backupHeaderFile.absoluteFilePath());
+                    if(!backupFile.open(QIODevice::ReadOnly))
+                        throw FailedOpenFileException(QFileInfo(params->backupHeaderFile));
+
+
+                    for (QSharedPointer<Volume::VolumeLayout> layout : Volume::VolumeLayout::GetAvailableLayouts()) {
+                        SecureBuffer headerBuffer(layout->GetHeaderSize());
+
+                        if(!backupFile.seek(layout->GetType() == Volume::VolumeType::Hidden ? layout->GetHeaderSize() : 0))
+                            throw FailedLseekFileException(params->backupHeaderFile);
+                        backupFile.read(reinterpret_cast<char*>( headerBuffer.Get()), headerBuffer.Size());
+
+                        QSharedPointer<Volume::VolumePassword> passwordKey = Volume::Keyfile::ApplyListToPassword(keyfiles, password);
+                        if(layout->GetHeader()->Decrypt(headerBuffer, *passwordKey, layout->GetSupportedKeyDerivationFunctions(), layout->GetSupportedEncryptionAlgorithms())) {
+                            decryptedLayout = layout;
+                            break;
+                        }
+                    }
+                    if(decryptedLayout.isNull())
+                        throw PasswordOrKeyfilesIncorrectException();
+                    backupHeader = decryptedLayout->GetHeader();
                 }
 
-                if(!volume->GetLayout()->HasBackupHeader())
-                    throw; //TODO
-
-                SecureBuffer newHeaderBuffer(volume->GetLayout()->GetHeaderSize());
-                ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, volume->GetHeader(), password, keyfiles);
-
-                int headeroffset = volume->GetLayout()->GetHeaderOffset();
-                if(headeroffset >= 0)
-                    volume->GetFile()->SeekAt(headeroffset);
+                SecureBuffer newHeaderBuffer(decryptedLayout->GetHeaderSize());
+                ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, backupHeader, password, keyfiles);
+                int headerOffset = decryptedLayout->GetHeaderOffset();
+                if(headerOffset >= 0)
+                    volume->GetFile()->SeekAt(headerOffset);
                 else
-                    volume->GetFile()->SeekEnd(headeroffset);
+                    volume->GetFile()->SeekEnd(headerOffset);
                 volume->GetFile()->Write(newHeaderBuffer);
 
                 if(params->emitResponse)
