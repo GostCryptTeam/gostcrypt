@@ -163,6 +163,8 @@ struct RestoreHeaderRequest : CoreRequest {
     QFileInfo volumePath; // the path of the volume file
     bool useInternalBackup;
     QFileInfo backupHeaderFile;
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to decrypt the backup header
+    QSharedPointer <QByteArray> password; // password of the volume to decrypt the backup header
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
 

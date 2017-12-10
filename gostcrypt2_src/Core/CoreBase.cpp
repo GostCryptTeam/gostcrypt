@@ -592,8 +592,8 @@ namespace GostCrypt {
                     password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
                 else
                     throw MissingParamException("password");
-                if(!params->hiddenVolumeKeyfiles.isNull()) {
-                    for(QSharedPointer<QFileInfo> keyfile : *params->hiddenVolumeKeyfiles) {
+                if(!params->keyfiles.isNull()) {
+                    for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
                         keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                     }
                 }
@@ -664,8 +664,43 @@ namespace GostCrypt {
         {
             try {
                 QSharedPointer<RestoreHeaderResponse> response(new RestoreHeaderResponse);
+                QSharedPointer<Volume::VolumePassword> password;
+                QSharedPointer <Volume::KeyfileList> keyfiles;
+                QSharedPointer<Volume::Volume> volume;
 
-                //TODO cf TextUserInterface.cpp:1258
+                if(!params->useInternalBackup)
+                    throw IncorrectParameterException("not implemented yet");                 //TODO cf TextUserInterface.cpp:1258
+
+
+                // Conversions :(
+                if(!params->password.isNull())
+                    password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+                else
+                    throw MissingParamException("password");
+                if(!params->keyfiles.isNull()) {
+                    for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
+                        keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                    }
+                }
+
+                try {
+                    volume->Open(params->volumePath, false, password, keyfiles, Volume::VolumeProtection::None,QSharedPointer<Volume::VolumePassword>(), QSharedPointer<Volume::KeyfileList>(), Volume::VolumeType::Unknown, true);
+                } catch(...) {
+                    //TODO or maybe not  necessary actually since the exception thrown should make sense
+                }
+
+                if(!volume->GetLayout()->HasBackupHeader())
+                    throw; //TODO
+
+                SecureBuffer newHeaderBuffer(volume->GetLayout()->GetHeaderSize());
+                ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, volume->GetHeader(), password, keyfiles);
+
+                int headeroffset = volume->GetLayout()->GetHeaderOffset();
+                if(headeroffset >= 0)
+                    volume->GetFile()->SeekAt(headeroffset);
+                else
+                    volume->GetFile()->SeekEnd(headeroffset);
+                volume->GetFile()->Write(newHeaderBuffer);
 
                 if(params->emitResponse)
                     emit sendRestoreHeader(response);

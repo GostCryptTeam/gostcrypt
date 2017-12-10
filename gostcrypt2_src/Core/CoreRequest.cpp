@@ -295,6 +295,8 @@ QDataStream& operator << (QDataStream& out, const RestoreHeaderRequest& Valeur)
     out << Valeur.volumePath;
     out << Valeur.useInternalBackup;
     out << Valeur.backupHeaderFile;
+    out << Valeur.password;
+    out << Valeur.keyfiles;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
@@ -303,6 +305,8 @@ QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
     in >> Valeur.volumePath;
     in >> Valeur.useInternalBackup;
     in >> Valeur.backupHeaderFile;
+    in >> Valeur.password;
+    in >> Valeur.keyfiles;
     return in;
 }
 DEF_SERIALIZABLE(RestoreHeaderRequest)
