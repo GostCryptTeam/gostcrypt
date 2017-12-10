@@ -23,7 +23,6 @@ namespace Volume {
 		: HiddenVolumeProtectionTriggered (false),
         Protection(VolumeProtection::Enum::None),
         SectorSize(0),
-		SystemEncryption (false),
         Type (VolumeType::Enum::Unknown),
 		VolumeDataSize (0),
 		TopWriteOffset (0),
@@ -103,7 +102,6 @@ namespace Volume {
 
 		Protection = protection;
         this->volumeFile = volumeFile; // why not directly use the volumeFile from the object ?
-		SystemEncryption = partitionInSystemEncryptionScope;
 
 		try
 		{
@@ -117,9 +115,6 @@ namespace Volume {
 					continue;
 
 				SecureBuffer headerBuffer (layout->GetHeaderSize());
-
-				if (partitionInSystemEncryptionScope)
-					continue;
 
 				int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
 
@@ -205,7 +200,7 @@ namespace Volume {
             this->volumeFile->SeekEnd (headerOffset);
 
         this->volumeFile->Write (newHeaderBuffer);
-	}
+    }
 
     void Volume::WriteSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{

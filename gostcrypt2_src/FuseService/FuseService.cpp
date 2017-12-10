@@ -79,7 +79,8 @@ namespace GostCrypt {
 						params->protection,
                         protectionPassword,
                         protectionKeyfiles,
-						params->useBackupHeaders
+                        Volume::VolumeType::Unknown,
+                        params->useBackupHeaders
 					);
                 } catch(FailedOpenFile &e) {
 					// In case of permission issue try again in read-only

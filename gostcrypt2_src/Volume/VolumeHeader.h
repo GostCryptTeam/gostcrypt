@@ -51,7 +51,7 @@ namespace Volume {
         void Create (BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options);
         bool Decrypt (const BufferPtr &encryptedData, const VolumePassword &password, const VolumeHashList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms);
         void EncryptNew (BufferPtr &newHeaderBuffer, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash);
-		quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
+        quint64 GetEncryptedAreaStart () const { return EncryptedAreaStart; }
 		QSharedPointer <EncryptionAlgorithm> GetEncryptionAlgorithm () const { return EA; }
 		VolumeTime GetHeaderCreationTime () const { return HeaderCreationTime; }
 		static size_t GetLargestSerializedKeySize ();

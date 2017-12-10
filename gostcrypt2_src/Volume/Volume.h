@@ -182,7 +182,6 @@ namespace Volume {
         quint64 ProtectedRangeEnd; /**< TODO: describe */
         VolumeProtection::Enum Protection; /**< TODO: describe */
         size_t SectorSize; /**< TODO: describe */
-        bool SystemEncryption; /**< TODO: describe */
         VolumeType::Enum Type; /**< TODO: describe */
         QSharedPointer <VolumeFile> volumeFile; /**< TODO: describe */
         quint64 VolumeHostSize; /**< TODO: describe */
