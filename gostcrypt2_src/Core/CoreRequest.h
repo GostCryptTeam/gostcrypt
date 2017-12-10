@@ -148,7 +148,14 @@ struct GetDerivationFunctionsRequest : CoreRequest {
 }; // no parameters
 
 struct BackupHeaderRequest : CoreRequest {
+    BackupHeaderRequest();
     QFileInfo volumePath; // the path of the volume file
+    QFileInfo backupHeaderFile; //the path of the file where to store the backup header
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
+    QSharedPointer <QByteArray> password; // password of the volume
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> hiddenVolumeKeyfiles; // keyfiles to mount the volume
+    QSharedPointer <QByteArray> hiddenVolumePassword; // password of the volume
+    bool hiddenVolume;
     DEC_SERIALIZABLE(BackupHeaderRequest);
 };
 

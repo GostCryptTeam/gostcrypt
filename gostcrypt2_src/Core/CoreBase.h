@@ -55,6 +55,9 @@ namespace GostCrypt {
 			 * @param parent parent object
 			 */
 			explicit CoreBase(QObject *parent = nullptr);
+
+            ~CoreBase();
+
 		public slots:
 			/**
 			 * @brief Execute the given action request (mount, dismount, create a volume, etc)
@@ -207,7 +210,9 @@ namespace GostCrypt {
              * @param userId UserID of the user for which we want the next available default mountpoint
              * @return QSharedPointer<QFileInfo> Path of the next available default mountpoint
              */
-            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);     
+
+            void ReEncryptVolumeHeaderWithNewSalt (BufferPtr &newHeaderBuffer, QSharedPointer <Volume::VolumeHeader> header, QSharedPointer<Volume::VolumePassword> password, QSharedPointer <Volume::KeyfileList> keyfiles) const;
             /**
              * @brief Try to process the given request. Only requests which don't need root privilileges will be handled.
              *

@@ -38,8 +38,13 @@ namespace GostCrypt {
 
 		CoreBase::CoreBase(QObject *parent) : QObject(parent)
 		{
-			RandomNumberGenerator::Start();
-		}
+            RandomNumberGenerator::Start();
+        }
+
+        CoreBase::~CoreBase()
+        {
+            RandomNumberGenerator::Stop();
+        }
 
 		QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params)
 		{
@@ -406,8 +411,7 @@ namespace GostCrypt {
                 password,
                 keyfiles,
                 Volume::VolumeProtection::Enum::None,
-                QSharedPointer <Volume::VolumePassword> (), QSharedPointer <Volume::KeyfileList> (),
-                false
+                QSharedPointer <Volume::VolumePassword> (), QSharedPointer <Volume::KeyfileList> ()
             );
 
             params->password->fill('\0');
@@ -509,8 +513,25 @@ namespace GostCrypt {
                         continue;
                     throw FailedCreateFuseMountPointException(e.getMountpoint());
                 }
-			}
-		}
+            }
+        }
+
+        void CoreBase::ReEncryptVolumeHeaderWithNewSalt(BufferPtr &newHeaderBuffer, QSharedPointer<Volume::VolumeHeader> header, QSharedPointer<Volume::VolumePassword> password, QSharedPointer<Volume::KeyfileList> keyfiles) const
+        {
+            QSharedPointer <Volume::VolumeHash> hash = header->GetVolumeHash();
+
+            RandomNumberGenerator::SetHash (hash);
+
+            SecureBuffer newSalt (header->GetSaltSize());
+            SecureBuffer newHeaderKey (Volume::VolumeHeader::GetLargestSerializedKeySize());
+
+            QSharedPointer <Volume::VolumePassword> passwordKey (Volume::Keyfile::ApplyListToPassword (keyfiles, password));
+
+            RandomNumberGenerator::GetData (newSalt);
+            hash->HMAC_DeriveKey(newHeaderKey, *passwordKey, newSalt);
+
+            header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, hash);
+        }
 
 		bool CoreBase::processNonRootRequest(QVariant r)
 		{
@@ -556,6 +577,79 @@ namespace GostCrypt {
         {
             try {
                 QSharedPointer<BackupHeaderResponse> response(new BackupHeaderResponse);
+
+                QSharedPointer<Volume::Volume> normalVolume;
+                QSharedPointer<Volume::Volume> hiddenVolume;
+
+                QSharedPointer<Volume::VolumePassword> password;
+                QSharedPointer <Volume::KeyfileList> keyfiles;
+                QSharedPointer<Volume::VolumePassword> hiddenVolumePassord;
+                QSharedPointer <Volume::KeyfileList> hiddenVolumeKeyfiles;
+
+
+                // Conversions :(
+                if(!params->password.isNull())
+                    password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+                else
+                    throw MissingParamException("password");
+                if(!params->hiddenVolumeKeyfiles.isNull()) {
+                    for(QSharedPointer<QFileInfo> keyfile : *params->hiddenVolumeKeyfiles) {
+                        keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                    }
+                }
+
+                try {
+                    normalVolume->Open(params->volumePath, false, password, keyfiles, Volume::VolumeProtection::ReadOnly,QSharedPointer<Volume::VolumePassword>(), QSharedPointer<Volume::KeyfileList>(), Volume::VolumeType::Enum::Normal);
+                } catch(...) {
+                    //TODO or maybe not  necessary actually since the exception thrown should make sense
+                }
+
+                if(params->hiddenVolume) {
+
+
+                    // Conversion :(
+                    if(!params->hiddenVolumePassword.isNull())
+                        hiddenVolumePassord.reset(new Volume::VolumePassword(params->hiddenVolumePassword->constData(), params->hiddenVolumePassword->size()));
+                    else
+                        throw MissingParamException("hiddenVolumePassword");
+                    if(!params->hiddenVolumeKeyfiles.isNull()) {
+                        for(QSharedPointer<QFileInfo> keyfile : *params->hiddenVolumeKeyfiles) {
+                            hiddenVolumeKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
+                        }
+                    }
+
+                    try {
+                        hiddenVolume->Open(params->volumePath, false, hiddenVolumePassord, hiddenVolumeKeyfiles, Volume::VolumeProtection::ReadOnly,QSharedPointer<Volume::VolumePassword>(), QSharedPointer<Volume::KeyfileList>(), Volume::VolumeType::Enum::Hidden);
+                    } catch(...) {
+                        //TODO
+                    }
+                }
+
+                QFile backupHeaderFile;
+                backupHeaderFile.setFileName(params->backupHeaderFile.absoluteFilePath());
+                if(!backupHeaderFile.open(QIODevice::WriteOnly))
+                    throw FailedOpenFileException(QFileInfo(params->backupHeaderFile));
+
+                SecureBuffer newHeaderBuffer(normalVolume->GetLayout()->GetHeaderSize());
+
+                //Rencryt volume header with new salt
+                ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, normalVolume->GetHeader(), password, keyfiles);
+                normalVolume->Close();
+                backupHeaderFile.write(reinterpret_cast<char *> (newHeaderBuffer.Get()), newHeaderBuffer.Size());
+
+                if(params->hiddenVolume) {
+                    ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, hiddenVolume->GetHeader(), hiddenVolumePassord, hiddenVolumeKeyfiles);
+                    hiddenVolume->Close();
+                } else {
+                    // Store random data in place of hidden volume (normal volume backuped header reencrypted with a random key)
+                    QSharedPointer<Volume::EncryptionAlgorithm> ea = normalVolume->GetEncryptionAlgorithm();
+                    randomizeEncryptionAlgorithmKey(ea);
+                    ea->Encrypt(newHeaderBuffer);
+                }
+
+                backupHeaderFile.write(reinterpret_cast<char *> (newHeaderBuffer.Get()), newHeaderBuffer.Size());
+
+                backupHeaderFile.close();
 
                 if(params->emitResponse)
                     emit sendBackupHeader(response);

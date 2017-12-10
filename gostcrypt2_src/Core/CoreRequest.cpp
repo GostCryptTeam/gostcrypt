@@ -267,12 +267,24 @@ QDataStream& operator << (QDataStream& out, const BackupHeaderRequest& Valeur)
 {
     out << static_cast<const CoreRequest&>(Valeur);
     out << Valeur.volumePath;
+    out << Valeur.backupHeaderFile;
+    out << Valeur.hiddenVolume;
+    out << Valeur.password;
+    out << Valeur.keyfiles;
+    out << Valeur.hiddenVolumePassword;
+    out << Valeur.hiddenVolumeKeyfiles;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, BackupHeaderRequest& Valeur)
 {
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.volumePath;
+    in >> Valeur.backupHeaderFile;
+    in >> Valeur.hiddenVolume;
+    in >> Valeur.password;
+    in >> Valeur.keyfiles;
+    in >> Valeur.hiddenVolumePassword;
+    in >> Valeur.hiddenVolumeKeyfiles;
     return in;
 }
 DEF_SERIALIZABLE(BackupHeaderRequest)
@@ -312,7 +324,12 @@ DismountVolumeRequest::DismountVolumeRequest()
 
 GetMountedVolumesRequest::GetMountedVolumesRequest()
 {
-    this->all = true;
+                         this->all = true;
+}
+
+BackupHeaderRequest::BackupHeaderRequest()
+{
+    this->hiddenVolume = false;
 }
 
 }
