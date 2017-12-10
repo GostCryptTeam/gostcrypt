@@ -134,7 +134,7 @@ private:
     DragWindowProvider mDrag;
     TranslationApp mTranslation;
 
-    struct FirstGI {
+    struct UI {
         enum Enum GI_ALL_COMMANDS(GI_ENUM);
         static const QStringList Str;
     };

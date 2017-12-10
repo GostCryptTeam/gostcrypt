@@ -120,7 +120,6 @@
         <file>volumelist.cpp</file>
         <file>volumelist.h</file>
         <file>UI/dialogs/Preferences.qml</file>
-        <file>UI/dialogs/SecurityToken.qml</file>
         <file>UI/dialogs/DefaultKeyfile.qml</file>
         <file>UI/dialogs/Contributors.qml</file>
         <file>UI/dialogs/ChangePassword.qml</file>

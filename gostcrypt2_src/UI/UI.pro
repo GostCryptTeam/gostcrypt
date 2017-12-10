@@ -107,7 +107,6 @@ DISTFILES += \
     UI/dialogs/OpenVolume.qml \
     UI/dialogs/Performance.qml \
     UI/dialogs/Preferences.qml \
-    UI/dialogs/SecurityToken.qml \
     UI/dialogs/DefaultKeyfile.qml \
     UI/dialogs/Contributors.qml \
     UI/dialogs/ChangePassword.qml \

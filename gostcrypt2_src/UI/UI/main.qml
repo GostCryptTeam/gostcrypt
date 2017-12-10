@@ -591,7 +591,7 @@ Window {
     function qmlRequest(type, content)
     {
         //If we want to add a notification
-        if(content.name !== undefined && content.desc !== undefined)
+        if(content.name !== undefined && content.desc !== undefined && content.name !== "")
         {
             notifications.push([content.name, content.desc, Number(notifications.length)+1, 0]);
             content.id = Number(notifications.length);

@@ -1,6 +1,6 @@
 #include "GraphicInterface.h"
 
-const QStringList GraphicInterface::FirstGI::Str = GI_ALL_COMMANDS(GI_STRTAB);
+const QStringList GraphicInterface::UI::Str = GI_ALL_COMMANDS(GI_STRTAB);
 
 /*! converts byte to MB, GB, KB */
 QString formatSize(uint64 sizeInByte) {
@@ -62,17 +62,17 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     qDebug() << "Command requested by QML = " << command;
 #endif
     //using the mix between a QString tab and a enumeration.
-    uint32 value = FirstGI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
+    uint32 value = UI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
 
     switch(value){
-    case FirstGI::mountedvolumes: //"mountedvolumes" command
+    case UI::mountedvolumes: //"mountedvolumes" command
         {
             QSharedPointer <GostCrypt::Core::GetMountedVolumesRequest> options(new GostCrypt::Core::GetMountedVolumesRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::openmountpoint: //"openmountpoint" command
+    case UI::openmountpoint: //"openmountpoint" command
         {
 #ifdef QT_DEBUG
         qDebug() << QUrl(GI_KEY(aContent, "path").toString());
@@ -80,19 +80,19 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         QDesktopServices::openUrl(QUrl(GI_KEY(aContent, "path").toString()));
         }
         break;
-    case FirstGI::automount: //"automount" command
+    case UI::automount: //"automount" command
         {
             //TODO : automount
         }
         break;
-    case FirstGI::dismountall: //"dismountall" command
+    case UI::dismountall: //"dismountall" command
         {
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::dismount: //"dismount" command
+    case UI::dismount: //"dismount" command
         {
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
@@ -102,7 +102,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
         }
         break;
-    case FirstGI::mount: //"mount"
+    case UI::mount: //"mount"
         {
             QStringList keyfilesList;
             for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
@@ -146,7 +146,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::createvolume: //"create-volume"
+    case UI::createvolume: //"create-volume"
         {
             QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options(new GostCrypt::Core::CreateVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
@@ -212,28 +212,28 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::algorithms: //"algorithms":
+    case UI::algorithms: //"algorithms":
         {
             QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsRequest> options(new GostCrypt::Core::GetEncryptionAlgorithmsRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::hashs: //"hashs":
+    case UI::hashs: //"hashs":
         {
             QSharedPointer<GostCrypt::Core::GetDerivationFunctionsRequest> options(new GostCrypt::Core::GetDerivationFunctionsRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::devices: //"devices":
+    case UI::devices: //"devices":
         {
             QSharedPointer<GostCrypt::Core::GetHostDevicesRequest> options(new GostCrypt::Core::GetHostDevicesRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::createkeyfiles: //"createkeyfiles":
+    case UI::createkeyfiles: //"createkeyfiles":
         {
             QString keyfile;
             keyfile = GI_KEY(aContent, "keyfile").toUrl().path();
@@ -245,13 +245,20 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
-    case FirstGI::filesystems: //"filesystems"
+    case UI::filesystems: //"filesystems"
         {
             QVariantList filesystem;
             filesystem << GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
             emit QML_SIGNAL(printGetFileSystem, filesystem)
         }
         break;
+    case UI::clearvolumehistory: //"clearvolumehistory"
+        {
+            QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> response;
+            response.reset(new GostCrypt::Core::ProgressUpdateResponse((qint32)GI_KEY(aContent, "id").toInt(), (qreal)0.0));
+            response->progress = 1.0;
+            printProgressUpdate(response);
+        }
     }
 }
 
