@@ -21,6 +21,9 @@ namespace Volume
 void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* encryptionMode,
                                   quint8* data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize)
 {
+    //int c = 1;
+    //while(c);
+
     size_t fragmentCount;
     size_t unitsPerFragment;
     size_t remainder;
@@ -85,7 +88,7 @@ void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* enc
         }
 
         firstFragmentWorkItem->OutstandingFragmentCount = fragmentCount;
-        //firstFragmentWorkItem->ItemException.reset();
+        firstFragmentWorkItem->ItemException.reset();
 
         while (fragmentCount-- > 0)
         {
@@ -119,6 +122,8 @@ void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* enc
             }
 
             workItem->State = WorkItem::State::Ready;
+
+            EncryptionThreadPool::WorkItemReadyEventMutex.unlock();
             WorkItemReadyEvent.wakeOne();
         }
         firstFragmentWorkItem->ItemCompletedEventMutex.lock();
@@ -212,7 +217,7 @@ void EncryptionThreadPool::Stop()
     }
 
     StopPending = true;
-    WorkItemReadyEvent.wakeOne();
+    WorkItemReadyEvent.wakeAll();
 
     for (const QSharedPointer<EncryptionThread> thread : RunningThreads)
     {
@@ -243,10 +248,11 @@ void EncryptionThread::run()
                     EncryptionThreadPool::DequeuePosition = 0;
                 }
 
+                // Waiting for current workItem to be Ready (there is work to do)
                 while (!EncryptionThreadPool::StopPending &&
                         workItem->State != EncryptionThreadPool::WorkItem::State::Ready)
                 {
-                    EncryptionThreadPool::WorkItemReadyEvent.wait(&EncryptionThreadPool::WorkItemReadyEventMutex);
+                    EncryptionThreadPool::WorkItemReadyEvent.wait(&EncryptionThreadPool::WorkItemReadyEventMutex);//, 100);
                 }
 
                 workItem->State = EncryptionThreadPool::WorkItem::State::Busy;
