@@ -566,7 +566,6 @@ namespace GostCrypt {
 			return -ENOENT;
 		}
         void FuseService::launchFuse() {
-		{
 			int forkedPid = fork();
 			if(forkedPid == -1)
 				throw FuseForkFailedException();

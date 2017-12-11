@@ -123,13 +123,13 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 switch(GI_KEY(aContent, "protection").toInt())
                 {
                 case 0:
-                    options->protection = GostCrypt::VolumeProtection::None;
+                    options->protection = GostCrypt::Volume::VolumeProtection::None;
                     break;
                 case 1:
-                    options->protection = GostCrypt::VolumeProtection::ReadOnly;
+                    options->protection = GostCrypt::Volume::VolumeProtection::ReadOnly;
                     break;
                 case 2:
-                    options->protection = GostCrypt::VolumeProtection::HiddenVolumeReadOnly;
+                    options->protection = GostCrypt::Volume::VolumeProtection::HiddenVolumeReadOnly;
                     break;
                 }
                 options->useBackupHeaders = GI_KEY(aContent, "backup-headers").toBool();
@@ -152,10 +152,10 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             //Detection of the volume type
             int type = GI_KEY(aContent, "type").toInt(); //UI returns 0 for normal and 1 for Hidden
-            if(type == GostCrypt::VolumeType::Normal)
+            if(type == GostCrypt::Volume::VolumeType::Normal)
             {
-                options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
-                options->type = GostCrypt::VolumeType::Normal; //Setting the volume Type
+                options->path = QFileInfo(GI_KEY(aContent, "path").toString());
+                options->type = GostCrypt::Volume::VolumeType::Normal; //Setting the volume Type
                 options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
                 //options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //hidden pwd
                 //CLUSTER : very unsafe, not allowed for now!
@@ -177,11 +177,11 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 QString s = GI_KEY(aContent, "size").toString();
                 options->size = Parser::parseSize(s, &ok); //Total volume file size
             }
-            else if(type == GostCrypt::VolumeType::Hidden)
+            else if(type == GostCrypt::Volume::VolumeType::Hidden)
             {
-                options->path = QSharedPointer<QFileInfo>(new QFileInfo(GI_KEY(aContent, "path").toString()));
-                options->type = GostCrypt::VolumeType::Hidden; //Setting the volume Type
-                options->size = QFile(options->path->canonicalFilePath()).size();
+                options->path = QFileInfo(GI_KEY(aContent, "path").toString());
+                options->type = GostCrypt::Volume::VolumeType::Hidden; //Setting the volume Type
+                options->size = QFile(options->path.canonicalFilePath()).size();
 
                 //Outer volume path and password/keyfile(s)
                 options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
@@ -240,7 +240,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             // TODO : use KDF
             // TODO multiple keyfiles not supported yet
             QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
-            options->file.reset(new QFileInfo(keyfile));
+            options->file.setFile(keyfile);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             emit request(QVariant::fromValue(options));
         }

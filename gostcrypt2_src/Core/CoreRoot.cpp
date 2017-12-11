@@ -332,7 +332,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
 
 }
 
-void CoreRoot::mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse)
+void CoreRoot::mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id)
 {
     QSharedPointer<MountVolumeRequest> mountparams(new MountVolumeRequest());
     mountparams->keyfiles = keyfiles;
