@@ -142,8 +142,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
 
     emit sendMountVolume(response);
     } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
+        e.clone(params->id.requestId)->raise();
     }
 }
 
@@ -170,8 +169,7 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 #endif
 
     } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
+        e.clone(params->id.requestId)->raise();
     }
 }
 
@@ -241,9 +239,10 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
 
     return response;
     } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
+        e.clone(params->id.requestId)->raise();
     }
+
+    return QSharedPointer<DismountVolumeResponse>();
 }
 
 void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
@@ -483,8 +482,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response);
 
     } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
+        e.clone(params->id.requestId)->raise();
     }
 }
 
@@ -497,8 +495,7 @@ void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, 
     mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response);
 
     } catch(GostCryptException &e) {
-        e.setRequestId(params->id.requestId);
-        throw;
+        e.clone(params->id.requestId)->raise();
     }
 }
 

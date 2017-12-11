@@ -6,6 +6,7 @@
 #include "SerializationUtil.h"
 
 #define DEF_EXCEPTION_WHAT(exceptionName, parent, message) \
+    exceptionName (const exceptionName &copy, quint32 requestId) : exceptionName (copy) { this->requestId = requestId; } \
     virtual QString getName() const { \
         return parent::getName() + "/"#exceptionName; \
     } \
@@ -20,7 +21,15 @@
     } \
     virtual void raise() const { \
         throw *this; \
+    } \
+    virtual GostCryptException *clone() const { \
+        return new exceptionName (*this); \
+    } \
+    virtual GostCryptException *clone(quint32 requestId) const { \
+        return new exceptionName(*this, requestId); \
     }
+
+
 
 namespace GostCrypt {
 
@@ -30,13 +39,15 @@ class GostCryptException : public QException {
     public:
         GostCryptException() {}
         GostCryptException(QString fonction, QString filename, quint32 line) : fonction(fonction), filename(QFileInfo(filename).fileName()), line(line) {}
+        GostCryptException(const GostCryptException &copy, quint32 requestId) : GostCryptException(copy) { this->requestId = requestId; }
         quint32 getLine() const {return line; }
         QString getFilename() const {return filename; }
         QString getFonction() const {return fonction; }
-        quint32 getRequestId() const {return *requestId; }
-        void setRequestId(quint32 requestId) const { (void)requestId;/*this->requestId = requestId; TOFIX*/}
+        quint32 getRequestId() const {return requestId; }
 
-        GostCryptException *clone() const { return new GostCryptException(*this); }
+        virtual GostCryptException *clone() const { return new GostCryptException(*this); }
+        virtual GostCryptException *clone(quint32 requestId) const { return new GostCryptException(*this, requestId); }
+
         const char * what () const throw () {
             return qwhat().toLocal8Bit().data();
         }
@@ -104,7 +115,7 @@ class GostCryptException : public QException {
         QString fonction;
         QString filename;
         quint32 line;
-        QSharedPointer<quint32> requestId;
+        quint32 requestId;
     DEC_SERIALIZABLE(GostCryptException);
 };
 
@@ -176,7 +187,7 @@ class FailedReadFile : public SystemException {
          * @param file
          */
         FailedReadFile(QString fonction, QString filename, quint32 line, QFileInfo file) : SystemException(fonction, filename, line), file(file) {}
-        DEF_EXCEPTION_WHAT(FailedOpenFile, SystemException, "Unable to read file \""+file.absoluteFilePath() + "\".\n")
+        DEF_EXCEPTION_WHAT(FailedReadFile, SystemException, "Unable to read file \""+file.absoluteFilePath() + "\".\n")
     protected:
         QFileInfo file; /**< TODO: describe */
     DEC_SERIALIZABLE(FailedReadFile);

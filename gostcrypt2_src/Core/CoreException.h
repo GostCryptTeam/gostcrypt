@@ -100,7 +100,7 @@ namespace GostCrypt {
                  * @param param
                  */
                 InvalidParam(QString fonction, QString filename, quint32 line, QString param) : CoreException(fonction, filename, line), param(param) {}
-                DEF_EXCEPTION_WHAT(MissingParam, CoreException, "The parameter " + param + " is invalid.\n")
+                DEF_EXCEPTION_WHAT(InvalidParam, CoreException, "The parameter " + param + " is invalid.\n")
 			protected:
                 QString param; /**< TODO: describe */
 			DEC_SERIALIZABLE(InvalidParam);
@@ -458,7 +458,7 @@ namespace GostCrypt {
                  * @param volumePath
                  */
                 VolumeNotMounted(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : CoreException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(VolumeAlreadyMounted, CoreException, "The volume " + volumePath.absoluteFilePath() + " is not mounted.\n")
+                DEF_EXCEPTION_WHAT(VolumeNotMounted, CoreException, "The volume " + volumePath.absoluteFilePath() + " is not mounted.\n")
             protected:
                 QFileInfo volumePath; /**< TODO: describe */
             DEC_SERIALIZABLE(VolumeNotMounted);
