@@ -505,7 +505,7 @@ Item {
         x: rectangle2.x+1;
         y: rectangle2.y+1;
         width: rectangle2.width-2;
-        height: rectangle2.height-81
+        height: rectangle2.height
 
         Rectangle {
             anchors.fill: parent
