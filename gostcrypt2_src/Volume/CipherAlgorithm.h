@@ -31,8 +31,8 @@ namespace Volume {
 		virtual void EncryptBlocks (quint8 *data, size_t blockCount) const;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetKeySize () const = 0;
-        virtual std::wstring GetName () const = 0;
-        virtual std::wstring GetDescription () const = 0;
+        virtual QString GetName () const = 0;
+        virtual QString GetDescription () const = 0;
         virtual QSharedPointer <CipherAlgorithm> GetNew () const = 0;
         virtual void SetKey (const BufferPtr &key);
 

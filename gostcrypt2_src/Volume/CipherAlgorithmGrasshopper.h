@@ -14,8 +14,8 @@ public:
 
     virtual size_t GetBlockSize () const { return 8; }
     virtual size_t GetKeySize () const { return 32; }
-    virtual std::wstring GetName () const { return L"Gost Grasshopper"; }
-    virtual std::wstring GetDescription () const { return L"No description for Gost Grasshopper."; }
+    virtual QString GetName () const { return QStringLiteral("Gost Grasshopper"); }
+    virtual QString GetDescription () const { return QStringLiteral("No description for Gost Grasshopper."); }
     virtual QSharedPointer <CipherAlgorithm> GetNew () const { return QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGrasshopper()); }
 
     virtual void XorCipherKey (quint8 *ks, quint8 *data, int len) const;

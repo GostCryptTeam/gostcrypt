@@ -38,8 +38,8 @@ namespace Volume {
 		static size_t GetLargestKeySize (const EncryptionAlgorithmList &algorithms);
 		virtual size_t GetKeySize () const;
 		virtual QSharedPointer <EncryptionMode> GetMode () const;
-        virtual std::wstring GetName () const;
-        virtual std::wstring GetDescription () const;
+        virtual QString GetName () const;
+        virtual QString GetDescription () const;
 		bool IsDeprecated () const { return Deprecated; }
         virtual void SetKey (const BufferPtr &key);
 

@@ -95,37 +95,37 @@ namespace Volume {
 		return Mode;
 	}
 
-	std::wstring EncryptionAlgorithm::GetName () const
+    QString EncryptionAlgorithm::GetName () const
 	{
         if (this->Mode->GetCiphers().size() < 1)
             throw EncryptionAlgorithmNotInitializedException();
 
-		std::wstring name;
+        QString name;
 
         for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
 		{
-			if (name.empty())
+            if (name.isEmpty())
                 name = c->GetName();
 			else
-                name += std::wstring (L"-") + c->GetName();
+                name += "-" + c->GetName();
 		}
 
 		return name;
 	}
 
-        std::wstring EncryptionAlgorithm::GetDescription () const
+        QString EncryptionAlgorithm::GetDescription () const
         {
                 if (this->Mode->GetCiphers().size() < 1)
                         throw EncryptionAlgorithmNotInitializedException();
 
-                std::wstring desc;
+                QString desc;
 
                 for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
                 {
-                        if (desc.empty())
+                        if (desc.isEmpty())
                                 desc = c->GetDescription();
                         else
-                                desc += std::wstring (L"\n\n") + c->GetDescription();
+                                desc += "\n\n" + c->GetDescription();
                 }
 
                 return desc;

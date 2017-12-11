@@ -69,7 +69,7 @@ QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithm
         {
             if (!(*algorithm)->IsDeprecated())  // we don't allow deprecated algorithms
             {
-                response->algorithms.append(QString::fromStdWString((*algorithm)->GetName()));
+                response->algorithms.append((*algorithm)->GetName());
             }
         }
     }
@@ -359,7 +359,7 @@ QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> CoreBase::getEncryptionAl
     {
         if (!(*ea)->IsDeprecated())  // we don't allow deprecated algorithms
         {
-            if (algorithm.compare(QString::fromStdWString((*ea)->GetName()), Qt::CaseInsensitive))
+            if (algorithm.compare((*ea)->GetName(), Qt::CaseInsensitive))
             {
                 return *ea;
             }

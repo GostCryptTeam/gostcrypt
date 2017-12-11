@@ -239,7 +239,7 @@ namespace Volume {
 	{
 		QSharedPointer<VolumeInformation> vi = QSharedPointer<VolumeInformation>(new VolumeInformation);
 
-		vi->encryptionAlgorithmName = QString::fromStdWString(this->GetEncryptionAlgorithm()->GetName());
+        vi->encryptionAlgorithmName = this->GetEncryptionAlgorithm()->GetName();
 		vi->protection = this->Protection;
 		vi->size = this->GetSize();
 		vi->type = this->Type;

@@ -14,12 +14,12 @@ public:
 
     virtual size_t GetBlockSize () const { return 8; }
     virtual size_t GetKeySize () const { return 32; }
-    virtual std::wstring GetName () const { return L"GOST 28147-89"; }
-    virtual std::wstring GetDescription () const { return L"The GOST 28147-89 block cipher is part of "
+    virtual QString GetName () const { return QStringLiteral("GOST 28147-89"); }
+    virtual QString GetDescription () const { return QStringLiteral("The GOST 28147-89 block cipher is part of "
                                                           "the Russian cryptographic standard algorithms. "
                                                           "It is a symmetric key block cipher based on a balanced "
                                                           "Feistel network.<br><font color='719c24'><a href='#'>"
-                                                          "More information on GOST 28147-89</a></font>"; }
+                                                          "More information on GOST 28147-89</a></font>"); }
     virtual QSharedPointer <CipherAlgorithm> GetNew () const { return QSharedPointer <CipherAlgorithm> (new CipherAlgorithmGOST()); }
 
     virtual void XorCipherKey (quint8 *ks, quint8 *data, int len) const;
