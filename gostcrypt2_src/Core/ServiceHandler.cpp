@@ -48,6 +48,9 @@ namespace GostCrypt {
 			qDebug() << "Sending exit request";
 			#endif
 			sendToService(QVariant::fromValue(request));
+#ifdef GENERATE_REQUESTS_DUMP
+            requestDumpFile.close();
+#endif
 		}
 
 		void ServiceHandler::writeToStdin(QSharedPointer<QByteArray> data, bool newline)
@@ -81,7 +84,7 @@ namespace GostCrypt {
 
 			if(v.canConvert<ExceptionResponse>()) {
 					ExceptionResponse er = v.value<ExceptionResponse>();
-					const GostCrypt::Core::GostCryptException *exceptionPtr = reinterpret_cast<const GostCrypt::Core::GostCryptException*>(er.exception.constData());
+                    const GostCrypt::GostCryptException *exceptionPtr = reinterpret_cast<const GostCrypt::GostCryptException*>(er.exception.constData());
 
 					#ifdef DEBUG_SERVICE_HANDLER
 					qDebug() << "Exception occured in child service:";
@@ -106,6 +109,7 @@ namespace GostCrypt {
             while(!waitingRequests.isEmpty()) {
 #ifdef GENERATE_REQUESTS_DUMP
                 requestsDumpStream << waitingRequests.head();
+                requestDumpFile.flush();
 #endif
                 processStream << waitingRequests.dequeue();
             }
@@ -177,7 +181,7 @@ namespace GostCrypt {
 
 #ifdef GENERATE_REQUESTS_DUMP
             requestsDumpStream.setDevice(&requestDumpFile);
-            requestDumpFile.setFileName("requestsDump_"+((args.length() > 0) ? args[0] : programName));
+            requestDumpFile.setFileName("requestsDump_"+ args.last());
             requestDumpFile.open(QIODevice::WriteOnly);
 #endif
 		}

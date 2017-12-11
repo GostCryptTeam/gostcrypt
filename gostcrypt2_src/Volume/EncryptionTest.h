@@ -10,28 +10,27 @@
 #ifndef GST_HEADER_Encryption_EncryptionTest
 #define GST_HEADER_Encryption_EncryptionTest
 
-#include "Platform/Platform.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class EncryptionTest
 	{
-	public:
-		static void TestAll ();
-	protected:
-		static void TestCiphers ();
-		static void TestPkcs5 ();
-		static void TestXts ();
-
-	struct XtsTestVector
+    public:
+        static void TestCiphers ();
+        static void TestPkcs5 ();
+        static void TestXts ();
+    protected:
+    struct XtsTestVector
 	{
-		byte key1[32];
-		byte key2[32];
-		byte dataUnitNo[8];
+		quint8 key1[32];
+		quint8 key2[32];
+		quint8 dataUnitNo[8];
 		unsigned int blockNo;
-		byte plaintext[ENCRYPTION_DATA_UNIT_SIZE];
-		byte ciphertext[ENCRYPTION_DATA_UNIT_SIZE];
+		quint8 plaintext[ENCRYPTION_DATA_UNIT_SIZE];
+		quint8 ciphertext[ENCRYPTION_DATA_UNIT_SIZE];
 	};
 
 	static const XtsTestVector XtsTestVectors[];
@@ -42,6 +41,7 @@ namespace GostCrypt
 		EncryptionTest (const EncryptionTest &);
 		EncryptionTest &operator= (const EncryptionTest &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_EncryptionTest

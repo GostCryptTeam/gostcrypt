@@ -30,7 +30,7 @@ namespace GostCrypt {
 			 *
 			 * @param response Response from the FUSE service containing some information about the FUSE mount
 			 */
-			void receiveResponse(QVariant &response);
+            void receiveResponse(QVariant &r);
 			/**
 			 * @brief Slot called when the FUSE service exited
 			 *

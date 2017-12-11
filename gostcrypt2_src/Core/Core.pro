@@ -13,7 +13,7 @@ CONFIG += staticlib
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing
 
-DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH HAVE_NANOSLEEP
+DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH HAVE_NANOSLEEP HAVE_FSTATAT
 unix {
     DEFINES += GST_UNIX
     linux-g++ {
@@ -50,7 +50,9 @@ HEADERS += \
     CoreService.h \
     CoreRequest.h \
     Service.h \
-    ServiceHandler.h
+    ServiceHandler.h \
+    GostCryptException.h \
+    Buffer.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -72,4 +74,6 @@ SOURCES += \
     SerializationUtil.cpp \
     CoreRequest.cpp \
     Service.cpp \
-    ServiceHandler.cpp
+    ServiceHandler.cpp \
+    GostCryptException.cpp \
+    Buffer.cpp

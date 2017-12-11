@@ -10,3 +10,6 @@ UI/
 Volume/
 make.log
 preparation.log
+requestsDump_*
+hashlist.txt
+algolist.txt

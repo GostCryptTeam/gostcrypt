@@ -92,20 +92,13 @@ namespace GostCrypt {
              * @param params
              * @return QSharedPointer<DismountVolumeResponse>
              */
-            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params = QSharedPointer<DismountVolumeRequest>());
+            QSharedPointer<DismountVolumeResponse> dismountVolume(QSharedPointer<DismountVolumeRequest> params);
             /**
              * @brief
              *
              * @param params
              */
             void createVolume(QSharedPointer<CreateVolumeRequest> params);
-            /**
-             * @brief
-             *
-             * @param params
-             * @return QSharedPointer<ChangeVolumePasswordResponse>
-             */
-            QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
 
             /**
              * @brief
@@ -115,7 +108,7 @@ namespace GostCrypt {
              * @param layout
              * @param containersize
              */
-            void writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize);
+            void writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize);
             /**
              * @brief
              *
@@ -126,7 +119,7 @@ namespace GostCrypt {
              * @param parentParams
              * @param parentResponse
              */
-            void mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
+            void mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
             uid_t realUserId; /**< TODO: describe */
             gid_t realGroupId; /**< TODO: describe */
             GostCrypt::FuseDriver::FuseServiceHandler fuseServiceHandler; /**< TODO: describe */

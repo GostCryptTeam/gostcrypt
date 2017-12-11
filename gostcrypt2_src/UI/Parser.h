@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QCommandLineParser>
 #include <QException>
+#include <QTranslator>
 
 namespace Parser {
 
@@ -18,8 +19,9 @@ namespace Parser {
 
     class ParseException : QException {
     public:
-        ParseException() { this->message = ""; }
-        ParseException(const QString &message) { this->message = message; }
+        ParseException() : message("") { }
+        ParseException(const ParseException &p) : message(p.message) {}
+        explicit ParseException(const QString &message) { this->message = message; }
         void raise() const { throw *this; }
         ParseException *clone() const { return new ParseException(*this); }
         QString getMessage() { return this->message; }
@@ -37,12 +39,12 @@ namespace Parser {
 
     void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::MountVolumeRequest> options);
     void parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::CreateVolumeRequest> options);
-    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> options);
+    void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> volume);
     void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
 
     quint64 parseSize(QString s, bool *ok);
-    bool askPassword(string volume, QString &p);
+    bool askPassword(std::string volume, QString &p);
 
 }
 

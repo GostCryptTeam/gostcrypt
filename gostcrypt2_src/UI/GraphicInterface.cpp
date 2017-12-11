@@ -3,7 +3,7 @@
 const QStringList GraphicInterface::UI::Str = GI_ALL_COMMANDS(GI_STRTAB);
 
 /*! converts byte to MB, GB, KB */
-QString formatSize(uint64 sizeInByte) {
+QString formatSize(quint64 sizeInByte) {
     if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
         + QString::number(sizeInByte)
         + QString("</font>")
@@ -62,8 +62,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     qDebug() << "Command requested by QML = " << command;
 #endif
     //using the mix between a QString tab and a enumeration.
-    uint32 value = UI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
-
+    quint32 value = UI::Str.indexOf(QRegExp(command, Qt::CaseInsensitive));
     switch(value){
     case UI::mountedvolumes: //"mountedvolumes" command
         {
@@ -89,6 +88,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         {
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
+            options->all = true;
             emit request(QVariant::fromValue(options));
         }
         break;
@@ -97,7 +97,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             if(GI_KEY(aContent, "volumepath") != "") {
-                options.data()->volumePath.reset(new QFileInfo(QFileInfo(GI_KEY(aContent, "volumepath").toString())));
+                options.data()->volumePath.setFile(GI_KEY(aContent, "volumepath").toString());
                 emit request(QVariant::fromValue(options));
             }
         }
@@ -111,7 +111,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             QSharedPointer <GostCrypt::Core::MountVolumeRequest> options(new GostCrypt::Core::MountVolumeRequest);
             options->id = GostCrypt::Core::ProgressTrackingParameters(GI_KEY(aContent, "id").toInt());
             QString canonicalPath = GI_KEY(aContent, "path").toUrl().path();
-            options->path.reset(new QFileInfo(canonicalPath));
+            options->path.setFile(canonicalPath);
             options->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toLocal8Bit()));
             options->doMount = true;
 
@@ -262,56 +262,57 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
     }
 }
 
-void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> response)
+void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> r)
 {
 #ifdef QT_DEBUG
     qDebug() << "[Debug] : Receiving the list of mounted volumes.";
 #endif
     QVariantList list;
-    for(auto v = response->volumeInfoList.begin(); v < response->volumeInfoList.end(); ++v)
+    for(auto v = r->volumeInfoList.begin(); v < r->volumeInfoList.end(); ++v)
     {
            QVariantMap vol;
            if((*v)->mountPoint)
-                vol.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
+           vol.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
            else
                vol.insert("mountPoint", tr("Not mounted"));
            vol.insert("algo", (*v)->encryptionAlgorithmName);
-           vol.insert("volumePath", (*v)->volumePath->filePath());
+           vol.insert("volumePath", (*v)->volumePath.filePath());
            vol.insert("volumeSize", formatSize((*v)->size));
            list.append(vol);
     }
     emit QML_SIGNAL(printGetMountedVolumes, list)
 }
 
-void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> response)
+void GraphicInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::DismountVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printDismountVolume, QVariantList());
 }
 
-void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> response)
+void GraphicInterface::printMountVolume(QSharedPointer<GostCrypt::Core::MountVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printMountVolume, QVariantList());
+    //TODO  QVariantList(r->volumeInfo));
 }
 
-void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> response)
+void GraphicInterface::printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printCreateVolume, QVariantList())
 }
 
-void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> response)
+void GraphicInterface::printGetEncryptionAlgorithms(QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsResponse> r)
 {
     QVariantList list;
-    for(auto k : response->algorithms) list << k;
+    for(auto k : r->algorithms) list << k;
     emit QML_SIGNAL(printGetEncryptionAlgorithms, list)
 }
 
-void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> response)
+void GraphicInterface::printGetDerivationFunctions(QSharedPointer<GostCrypt::Core::GetDerivationFunctionsResponse> r)
 {
     QVariantList list;
-    for(auto k : response->algorithms) list << k;
+    for(auto k : r->algorithms) list << k;
     emit QML_SIGNAL(printGetDerivationFunctions, list)
 }
 
@@ -325,10 +326,10 @@ void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::Progr
     emit QML_SIGNAL(printProgressUpdate, list)
 }
 
-void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> response)
+void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHostDevicesResponse> r)
 {
     QVariantList list;
-    for(auto v = response->hostDevices.begin(); v < response->hostDevices.end(); ++v)
+    for(auto v = r->hostDevices.begin(); v < r->hostDevices.end(); ++v)
     {
         if((*v)->mountPoint)
         {
@@ -352,15 +353,16 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
     emit QML_SIGNAL(printGetHostDevices, list)
 }
 
-void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> response)
+void GraphicInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::CreateKeyFileResponse> r)
 {
-    (void)response;
+    (void)r;
+    //emit sPrintCreateKeyFile(QString()); //TODO
     emit QML_SIGNAL(printCreateKeyFile, QVariantList())
 }
 
-void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> response)
+void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> r)
 {
-    (void)response;
+    (void)r;
     emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
 }
 

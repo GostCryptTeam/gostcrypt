@@ -6,341 +6,341 @@
  packages.
 */
 
-
+#include <QtEndian>
+#include "VolumeException.h"
 #include "Crc32.h"
 #include "EncryptionModeXTS.h"
-#include "Pkcs5Kdf.h"
-#include "Pkcs5Kdf.h"
 #include "VolumeHeader.h"
-#include "VolumeException.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
+#include <typeinfo>
 
 namespace GostCrypt
 {
-	VolumeHeader::VolumeHeader (uint32 size)
-	{
-		Init();
-		HeaderSize = size;
-		EncryptedHeaderDataSize = size - EncryptedHeaderDataOffset;
-	}
+namespace Volume
+{
 
-	VolumeHeader::~VolumeHeader ()
-	{
-		Init();
-	}
+VolumeHeader::VolumeHeader(quint32 size)
+{
+    Init();
+    HeaderSize = size;
+    EncryptedHeaderDataSize = size - EncryptedHeaderDataOffset;
+}
 
-	void VolumeHeader::Init ()
-	{
-		VolumeKeyAreaCrc32 = 0;
-		VolumeCreationTime = 0;
-		HeaderCreationTime = 0;
-		mVolumeType = VolumeType::Unknown;
-		HiddenVolumeDataSize = 0;
-		VolumeDataSize = 0;
-		EncryptedAreaStart = 0;
-		EncryptedAreaLength = 0;
-		Flags = 0;
-		SectorSize = 0;
-	}
+VolumeHeader::~VolumeHeader()
+{
+    Init();
+}
 
-	void VolumeHeader::Create (const BufferPtr &headerBuffer, VolumeHeaderCreationOptions &options)
-	{
-		if (options.DataKey.Size() != options.EA->GetKeySize() * 2 || options.Salt.Size() != GetSaltSize())
-			throw ParameterIncorrect (SRC_POS);
+void VolumeHeader::Init()
+{
+    VolumeKeyAreaCrc32 = 0;
+    VolumeCreationTime = 0;
+    HeaderCreationTime = 0;
+    mVolumeType = VolumeType::Unknown;
+    HiddenVolumeDataSize = 0;
+    VolumeDataSize = 0;
+    EncryptedAreaStart = 0;
+    EncryptedAreaLength = 0;
+    Flags = 0;
+    SectorSize = 0;
+}
 
-		headerBuffer.Zero();
+void VolumeHeader::Create(BufferPtr& headerBuffer, VolumeHeaderCreationOptions& options)
+{
+    if (options.DataKey.Size() != options.EA->GetKeySize() * 2)
+    {
+        throw IncorrectParameterException("Given Key size different from the encryption algorithm key size");
+    }
+    if (options.Salt.Size() != GetSaltSize())
+    {
+        throw IncorrectParameterException("Given salt size incorrect");
+    }
 
-		HeaderVersion = CurrentHeaderVersion;
-		RequiredMinProgramVersion = CurrentRequiredMinProgramVersion;
+    headerBuffer.Erase();
 
-		DataAreaKey.Zero();
-		DataAreaKey.CopyFrom (options.DataKey);
+    HeaderVersion = CurrentHeaderVersion;
+    RequiredMinProgramVersion = CurrentRequiredMinProgramVersion;
 
-		VolumeCreationTime = 0;
-        HiddenVolumeDataSize = (options.Type == VolumeType::Hidden ? options.VolumeDataSize : 0); // to know if the volume is hidden or not. useless since the layout already contains this information.
-		VolumeDataSize = options.VolumeDataSize;
+    DataAreaKey.Erase();
+    DataAreaKey.CopyFrom(options.DataKey);
 
-		EncryptedAreaStart = options.VolumeDataStart;
-		EncryptedAreaLength = options.VolumeDataSize;
+    VolumeCreationTime = 0;
+    HiddenVolumeDataSize = (options.Type == VolumeType::Hidden ? options.VolumeDataSize :
+                            0); // to know if the volume is hidden or not. useless since the layout already contains this information.
+    VolumeDataSize = options.VolumeDataSize;
 
-		SectorSize = options.SectorSize;
+    EncryptedAreaStart = options.VolumeDataStart;
+    EncryptedAreaLength = options.VolumeDataSize;
 
-		if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
-			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
-			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
-		{
-			throw ParameterIncorrect (SRC_POS);
-		}
+    SectorSize = options.SectorSize;
 
-		EA = options.EA;
-		shared_ptr <EncryptionMode> mode (new EncryptionModeXTS ());
-		EA->SetMode (mode);
+    if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
+            || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
+            || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
+    {
+        throw IncorrectParameterException("sector size");
+    }
 
-		EncryptNew (headerBuffer, options.Salt, options.HeaderKey, options.Kdf);
-	}
+    EA = options.EA;
 
-	bool VolumeHeader::Decrypt (const ConstBufferPtr &encryptedData, const VolumePassword &password, const Pkcs5KdfList &keyDerivationFunctions, const EncryptionAlgorithmList &encryptionAlgorithms, const EncryptionModeList &encryptionModes)
-	{
-		if (password.Size() < 1)
-			throw PasswordEmpty (SRC_POS);
+    EncryptNew(headerBuffer, options.Salt, options.HeaderKey, options.Hash);
+}
 
-		ConstBufferPtr salt (encryptedData.GetRange (SaltOffset, SaltSize));
-		SecureBuffer header (EncryptedHeaderDataSize);
-		SecureBuffer headerKey (GetLargestSerializedKeySize());
+bool VolumeHeader::Decrypt(const BufferPtr& encryptedData, const VolumePassword& password,
+                           const VolumeHashList& keyDerivationFunctions, const EncryptionAlgorithmList& encryptionAlgorithms)
+{
+    if (password.Size() < 1)
+    {
+        throw IncorrectParameterException("Empty password");
+    }
 
-		foreach (shared_ptr <Pkcs5Kdf> pkcs5, keyDerivationFunctions)
-		{
-			pkcs5->DeriveKey (headerKey, password, salt);
+    const BufferPtr salt(encryptedData.GetRange(SaltOffset, SaltSize));
+    SecureBuffer header(EncryptedHeaderDataSize);
+    SecureBuffer headerKey(GetLargestSerializedKeySize());
 
-			foreach (shared_ptr <EncryptionMode> mode, encryptionModes)
-			{
-				if (typeid (*mode) != typeid (EncryptionModeXTS))
-					mode->SetKey (headerKey.GetRange (0, mode->GetKeySize()));
+    for (QSharedPointer <VolumeHash> derivationfunction : keyDerivationFunctions)
+    {
+        derivationfunction->HMAC_DeriveKey(headerKey, password, salt);
 
-				foreach (shared_ptr <EncryptionAlgorithm> ea, encryptionAlgorithms)
-				{
-					if (!ea->IsModeSupported (mode))
-						continue;
+        for (QSharedPointer <EncryptionAlgorithm> ea : encryptionAlgorithms)
+        {
+            ea->SetKey(headerKey.GetRange(0, ea->GetKeySize()));
+            ea->GetMode()->SetKey(headerKey.GetRange(ea->GetKeySize(), ea->GetKeySize()));
 
-					if (typeid (*mode) == typeid (EncryptionModeXTS))
-					{
-						ea->SetKey (headerKey.GetRange (0, ea->GetKeySize()));
-						
-						mode = mode->GetNew();
-						mode->SetKey (headerKey.GetRange (ea->GetKeySize(), ea->GetKeySize()));
-					}
-					else
-					{
-						ea->SetKey (headerKey.GetRange (LegacyEncryptionModeKeyAreaSize, ea->GetKeySize()));
-					}
+            header.CopyFrom(encryptedData.GetRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize));
+            ea->Decrypt(header);
 
-					ea->SetMode (mode);
+            if (Deserialize(header, ea))
+            {
+                this->EA = ea;
+                this->volumeHash = derivationfunction;
+                return true;
+            }
+        }
+    }
 
-					header.CopyFrom (encryptedData.GetRange (EncryptedHeaderDataOffset, EncryptedHeaderDataSize));
-					ea->Decrypt (header);
-
-					if (Deserialize (header, ea, mode))
-					{
-						EA = ea;
-						Pkcs5 = pkcs5;
-						return true;
-					}
-				}
-			}
-		}
-
-		return false;
-	}
+    return false;
+}
 
 
-	bool VolumeHeader::Deserialize (const ConstBufferPtr &header, shared_ptr <EncryptionAlgorithm> &ea, shared_ptr <EncryptionMode> &mode)
-	{
+bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <EncryptionAlgorithm>& ea)
+{
 
-		if (header.Size() != EncryptedHeaderDataSize)
-			throw ParameterIncorrect (SRC_POS);
+    if (header.Size() != EncryptedHeaderDataSize)
+    {
+        throw IncorrectParameterException("header buffer size");
+    }
 
-		if (header[0] != 'T' ||
-			header[1] != 'R' ||
-			header[2] != 'U' ||
-			header[3] != 'E')
-			return false;
+    if (header[0] != 'T' ||
+            header[1] != 'R' ||
+            header[2] != 'U' ||
+            header[3] != 'E')
+    {
+        return false;
+    }
 
-/* Vérification de la version du header */
-		size_t offset = 4;
-		HeaderVersion =	DeserializeEntry <uint16> (header, offset);
+    /* Vérification de la version du header */
+    size_t offset = 4;
+    HeaderVersion = DeserializeEntry <quint16> (header, offset);
 
-		if (HeaderVersion < MinAllowedHeaderVersion)
-			throw OlderVersionRequired (SRC_POS);
+    if (HeaderVersion < MinAllowedHeaderVersion)
+    {
+        throw VolumeVersionNotCompatibleException("Volume version too old");
+    }
 
-		if (HeaderVersion > CurrentHeaderVersion)
-			throw HigherVersionRequired (SRC_POS);
+    if (HeaderVersion > CurrentHeaderVersion)
+    {
+        throw VolumeVersionNotCompatibleException("Volume version too young");
+    }
 
-		if (HeaderVersion >= 4
-			&& Crc32::ProcessBuffer (header.GetRange (0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
-			!= DeserializeEntryAt <uint32> (header, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
-		{
-			return false;
-		}
+    if (HeaderVersion >= 4
+            && Crc32::ProcessBuffer(header.GetRange(0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
+            != DeserializeEntryAt <quint32> (header, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
+    {
+        return false;
+    }
 
-		RequiredMinProgramVersion = DeserializeEntry <uint16> (header, offset);
-		
-		
-		if (RequiredMinProgramVersion > Version::Number())
-			throw HigherVersionRequired (SRC_POS);
+    RequiredMinProgramVersion = DeserializeEntry <quint16> (header, offset);
 
-		VolumeKeyAreaCrc32 = DeserializeEntry <uint32> (header, offset);
-		VolumeCreationTime = DeserializeEntry <uint64> (header, offset);
-		HeaderCreationTime = DeserializeEntry <uint64> (header, offset);
-		HiddenVolumeDataSize = DeserializeEntry <uint64> (header, offset);
-		mVolumeType = (HiddenVolumeDataSize != 0 ? VolumeType::Hidden : VolumeType::Normal);
-		VolumeDataSize = DeserializeEntry <uint64> (header, offset);
-		EncryptedAreaStart = DeserializeEntry <uint64> (header, offset);
-		EncryptedAreaLength = DeserializeEntry <uint64> (header, offset);
-		Flags = DeserializeEntry <uint32> (header, offset);
 
-		SectorSize = DeserializeEntry <uint32> (header, offset);
-		if (HeaderVersion < 5)
-			SectorSize = GST_SECTOR_SIZE_LEGACY;
+    if (RequiredMinProgramVersion > VERSION_NUM)
+    {
+        throw VolumeVersionNotCompatibleException("Volume version too young");
+    }
 
-		if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
-			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
-			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
-		{
-			throw ParameterIncorrect (SRC_POS);
-		}
+    VolumeKeyAreaCrc32 = DeserializeEntry <quint32> (header, offset);
+    VolumeCreationTime = DeserializeEntry <quint64> (header, offset);
+    HeaderCreationTime = DeserializeEntry <quint64> (header, offset);
+    HiddenVolumeDataSize = DeserializeEntry <quint64> (header, offset);
+    mVolumeType = (HiddenVolumeDataSize != 0 ? VolumeType::Hidden : VolumeType::Normal);
+    VolumeDataSize = DeserializeEntry <quint64> (header, offset);
+    EncryptedAreaStart = DeserializeEntry <quint64> (header, offset);
+    EncryptedAreaLength = DeserializeEntry <quint64> (header, offset);
+    Flags = DeserializeEntry <quint32> (header, offset);
+
+    SectorSize = DeserializeEntry <quint32> (header, offset);
+    if (HeaderVersion < 5)
+    {
+        SectorSize = GST_SECTOR_SIZE_LEGACY;
+    }
+
+    if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
+            || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
+            || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
+    {
+        throw IncorrectParameterException("sector size");
+    }
 
 #if !(defined (GST_WINDOWS) || defined (GST_LINUX))
-		if (SectorSize != GST_SECTOR_SIZE_LEGACY)
-			throw UnsupportedSectorSize (SRC_POS);
+    if (SectorSize != GST_SECTOR_SIZE_LEGACY)
+    {
+        throw UnsupportedSectorSize(SRC_POS);
+    }
 #endif
 
-		offset = DataAreaKeyOffset;
+    offset = DataAreaKeyOffset;
 
-		if (VolumeKeyAreaCrc32 != Crc32::ProcessBuffer (header.GetRange (offset, DataKeyAreaMaxSize)))
-			return false;
+    if (VolumeKeyAreaCrc32 != Crc32::ProcessBuffer(header.GetRange(offset, DataKeyAreaMaxSize)))
+    {
+        return false;
+    }
 
-		DataAreaKey.CopyFrom (header.GetRange (offset, DataKeyAreaMaxSize));
-		
-		ea = ea->GetNew();
-		mode = mode->GetNew();
-		
-		if (typeid (*mode) == typeid (EncryptionModeXTS))
-		{
-			ea->SetKey (header.GetRange (offset, ea->GetKeySize()));
-			mode->SetKey (header.GetRange (offset + ea->GetKeySize(), ea->GetKeySize()));
-		}
-		else
-		{
-			mode->SetKey (header.GetRange (offset, mode->GetKeySize()));
-			ea->SetKey (header.GetRange (offset + LegacyEncryptionModeKeyAreaSize, ea->GetKeySize()));
-		}
+    DataAreaKey.CopyFrom(header.GetRange(offset, DataKeyAreaMaxSize));
 
-		ea->SetMode (mode);
+    //Reset keys for use on the whole volume
+    ea->SetKey(header.GetRange(offset, ea->GetKeySize()));
+    ea->GetMode()->SetKey(header.GetRange(offset + ea->GetKeySize(), ea->GetKeySize()));
 
-		return true;
-	}
-	
+    return true;
+}
 
-	template <typename T>
-	T VolumeHeader::DeserializeEntry (const ConstBufferPtr &header, size_t &offset) const
-	{
-		offset += sizeof (T);
 
-		if (offset > header.Size())
-			throw ParameterIncorrect (SRC_POS);
+template <typename T>
+T VolumeHeader::DeserializeEntry(const BufferPtr& header, size_t& offset)
+{
+    offset += sizeof(T);
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset - sizeof (T)));
-	}
+    if (offset > header.Size())
+    {
+        throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
+    }
 
-	template <typename T>
-	T VolumeHeader::DeserializeEntryAt (const ConstBufferPtr &header, const size_t &offset) const
-	{
-		if (offset > header.Size())
-			throw ParameterIncorrect (SRC_POS);
+    return qToBigEndian(*reinterpret_cast<const T*>(header.Get() + offset - sizeof(T)));
+}
 
-		return Endian::Big (*reinterpret_cast<const T *> (header.Get() + offset));
-	}
+template <typename T>
+T VolumeHeader::DeserializeEntryAt(const BufferPtr& header, const size_t& offset)
+{
+    if (offset + sizeof(T) > header.Size())
+    {
+        throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
+    }
 
-	void VolumeHeader::EncryptNew (const BufferPtr &newHeaderBuffer, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf)
-	{
-		if (newHeaderBuffer.Size() != HeaderSize || newSalt.Size() != SaltSize)
-			throw ParameterIncorrect (SRC_POS);
+    return qToBigEndian(*reinterpret_cast<const T*>(header.Get() + offset));
+}
 
-		shared_ptr <EncryptionMode> mode = EA->GetMode()->GetNew();
-		shared_ptr <EncryptionAlgorithm> ea = EA->GetNew();
+void VolumeHeader::EncryptNew(BufferPtr& newHeaderBuffer, const BufferPtr& newSalt,
+                              const BufferPtr& newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
+{
+    if (newHeaderBuffer.Size() != HeaderSize)
+    {
+        throw IncorrectParameterException("Incorrect new header buffer size");
+    }
+    if (newSalt.Size() != SaltSize)
+    {
+        throw IncorrectParameterException("Incorrect new salt size");
+    }
 
-		if (typeid (*mode) == typeid (EncryptionModeXTS))
-		{
-			mode->SetKey (newHeaderKey.GetRange (EA->GetKeySize(), EA->GetKeySize()));
-			ea->SetKey (newHeaderKey.GetRange (0, ea->GetKeySize()));
-		}
-		else
-		{
-			mode->SetKey (newHeaderKey.GetRange (0, mode->GetKeySize()));
-			ea->SetKey (newHeaderKey.GetRange (LegacyEncryptionModeKeyAreaSize, ea->GetKeySize()));
-		}
+    QSharedPointer <EncryptionAlgorithm> ea = EA->GetNew();
 
-		ea->SetMode (mode);
+    ea->GetMode()->SetKey(newHeaderKey.GetRange(ea->GetKeySize(), ea->GetKeySize()));
+    ea->SetKey(newHeaderKey.GetRange(0, ea->GetKeySize()));
 
-		newHeaderBuffer.CopyFrom (newSalt);
+    newHeaderBuffer.CopyFrom(newSalt);
 
-		BufferPtr headerData = newHeaderBuffer.GetRange (EncryptedHeaderDataOffset, EncryptedHeaderDataSize);
-		Serialize (headerData);
-		ea->Encrypt (headerData);
+    BufferPtr headerData = newHeaderBuffer.GetRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize);
+    Serialize(headerData);
+    ea->Encrypt(headerData);
 
-		if (newPkcs5Kdf)
-			Pkcs5 = newPkcs5Kdf;
-	}
+    if (newVolumeHash)
+    {
+        this->volumeHash = newVolumeHash;
+    }
+}
 
-	size_t VolumeHeader::GetLargestSerializedKeySize ()
-	{
-		size_t largestKey = EncryptionAlgorithm::GetLargestKeySize (EncryptionAlgorithm::GetAvailableAlgorithms());
-		
-		// XTS mode requires the same key size as the encryption algorithm.
-		// Legacy modes may require larger key than XTS.
-		if (LegacyEncryptionModeKeyAreaSize + largestKey > largestKey * 2)
-			return LegacyEncryptionModeKeyAreaSize + largestKey;
+size_t VolumeHeader::GetLargestSerializedKeySize()
+{
+    size_t largestKey = EncryptionAlgorithm::GetLargestKeySize(
+                            EncryptionAlgorithm::GetAvailableAlgorithms());
 
-		return largestKey * 2;
-	}
+    // XTS mode requires the same key size as the encryption algorithm.
+    // Legacy modes may require larger key than XTS.
+    if (LegacyEncryptionModeKeyAreaSize + largestKey > largestKey * 2)
+    {
+        return LegacyEncryptionModeKeyAreaSize + largestKey;
+    }
 
-	void VolumeHeader::Serialize (const BufferPtr &header) const
-	{
-		if (header.Size() != EncryptedHeaderDataSize)
-			throw ParameterIncorrect (SRC_POS);
+    return largestKey * 2;
+}
 
-		header.Zero();
+void VolumeHeader::Serialize(BufferPtr& header) const
+{
+    if (header.Size() != EncryptedHeaderDataSize)
+    {
+        throw IncorrectParameterException("Incorrect header buffer size");
+    }
 
-		header[0] = 'T';
-		header[1] = 'R';
-		header[2] = 'U';
-		header[3] = 'E';
-		size_t offset = 4;
+    header.Erase();
 
-		header.GetRange (DataAreaKeyOffset, DataAreaKey.Size()).CopyFrom (DataAreaKey);
+    header[0] = 'T';
+    header[1] = 'R';
+    header[2] = 'U';
+    header[3] = 'E';
+    size_t offset = 4;
 
-		uint16 headerVersion = CurrentHeaderVersion;
-		SerializeEntry (headerVersion, header, offset);
-		SerializeEntry (RequiredMinProgramVersion, header, offset);
-		SerializeEntry (Crc32::ProcessBuffer (header.GetRange (DataAreaKeyOffset, DataKeyAreaMaxSize)), header, offset);
+    header.GetRange(DataAreaKeyOffset, DataAreaKey.Size()).CopyFrom(DataAreaKey);
 
-		uint64 reserved64 = 0;
-		SerializeEntry (reserved64, header, offset);
-		SerializeEntry (reserved64, header, offset);
+    quint16 headerVersion = CurrentHeaderVersion;
+    SerializeEntry(headerVersion, header, offset);
+    SerializeEntry(RequiredMinProgramVersion, header, offset);
+    SerializeEntry(Crc32::ProcessBuffer(header.GetRange(DataAreaKeyOffset, DataKeyAreaMaxSize)), header,
+                   offset);
 
-		SerializeEntry (HiddenVolumeDataSize, header, offset);
-		SerializeEntry (VolumeDataSize, header, offset);
-		SerializeEntry (EncryptedAreaStart, header, offset);
-		SerializeEntry (EncryptedAreaLength, header, offset);
-		SerializeEntry (Flags, header, offset);
+    quint64 reserved64 = 0;
+    SerializeEntry(reserved64, header, offset);
+    SerializeEntry(reserved64, header, offset);
 
-		if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
-			|| SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
-			|| SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
-		{
-			throw ParameterIncorrect (SRC_POS);
-		}
+    SerializeEntry(HiddenVolumeDataSize, header, offset);
+    SerializeEntry(VolumeDataSize, header, offset);
+    SerializeEntry(EncryptedAreaStart, header, offset);
+    SerializeEntry(EncryptedAreaLength, header, offset);
+    SerializeEntry(Flags, header, offset);
 
-		SerializeEntry (SectorSize, header, offset);
+    if (SectorSize < GST_MIN_VOLUME_SECTOR_SIZE
+            || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
+            || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
+    {
+        throw IncorrectParameterException("incorrect sector size");
+    }
 
-		offset = GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC;
-		SerializeEntry (Crc32::ProcessBuffer (header.GetRange (0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC)), header, offset);
-	}
+    SerializeEntry(SectorSize, header, offset);
 
-	template <typename T>
-	void VolumeHeader::SerializeEntry (const T &entry, const BufferPtr &header, size_t &offset) const
-	{
-		offset += sizeof (T);
+    offset = GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC;
+    SerializeEntry(Crc32::ProcessBuffer(header.GetRange(0,
+                                        GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC)), header, offset);
+}
 
-		if (offset > header.Size())
-			throw ParameterIncorrect (SRC_POS);
+template <typename T>
+void VolumeHeader::SerializeEntry(const T& entry, BufferPtr& header, size_t& offset)
+{
+    offset += sizeof(T);
 
-		*reinterpret_cast<T *> (header.Get() + offset - sizeof (T)) = Endian::Big (entry);
-	}
+    if (offset > header.Size())
+    {
+        throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
+    }
 
-	void VolumeHeader::SetSize (uint32 headerSize)
-	{
-		HeaderSize = headerSize;
-		EncryptedHeaderDataSize = HeaderSize - EncryptedHeaderDataOffset;
-	}
+    *reinterpret_cast<T*>(header.Get() + offset - sizeof(T)) = qToBigEndian(entry);
+}
+}
 }

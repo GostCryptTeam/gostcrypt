@@ -1,5 +1,4 @@
 #include "GraphicInterface.h"
-#include "Platform/SystemLog.h"
 #include "CmdLineInterface.h"
 #include "Core/CoreService.h"
 #include "Core/CoreException.h"

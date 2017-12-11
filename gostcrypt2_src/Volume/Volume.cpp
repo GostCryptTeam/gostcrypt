@@ -8,21 +8,28 @@
 
 
 #include <errno.h>
+#include "VolumeException.h"
 #include "EncryptionModeXTS.h"
 #include "Volume.h"
 #include "VolumeHeader.h"
 #include "VolumeLayout.h"
-#include "Common/Crypto.h"
+#include "Crypto/Crypto.h"
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	Volume::Volume ()
 		: HiddenVolumeProtectionTriggered (false),
-		SystemEncryption (false),
+        Protection(VolumeProtection::Enum::None),
+        SectorSize(0),
+        Type (VolumeType::Enum::Unknown),
 		VolumeDataSize (0),
 		TopWriteOffset (0),
 		TotalDataRead (0),
-		TotalDataWritten (0)
+        TotalDataWritten (0)
+
+
 	{
 	}
 
@@ -30,170 +37,102 @@ namespace GostCrypt
 	{
 	}
 
-	void Volume::CheckProtectedRange (uint64 writeHostOffset, uint64 writeLength)
+    void Volume::CheckProtectedRange (quint64 writeHostOffset, quint64 writeLength)
 	{
-		uint64 writeHostEndOffset = writeHostOffset + writeLength - 1;
+        quint64 writeHostEndOffset = writeHostOffset + writeLength - 1;
 
 		if ((writeHostOffset < ProtectedRangeStart) ? (writeHostEndOffset >= ProtectedRangeStart) : (writeHostOffset <= ProtectedRangeEnd - 1))
 		{
 			HiddenVolumeProtectionTriggered = true;
-			throw VolumeProtected (SRC_POS);
-		}
+            throw VolumeProtectedException();
+        }
 	}
 
 	void Volume::Close ()
 	{
-        if (VolumeFile.isNull())
-			throw NotInitialized (SRC_POS);
-		
-		VolumeFile.reset();
+        if (volumeFile.isNull())
+            throw VolumeNotOpenException();
+        this->volumeFile.reset();
 	}
 
-	shared_ptr <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
+	QSharedPointer <EncryptionAlgorithm> Volume::GetEncryptionAlgorithm () const
 	{
-		if_debug (ValidateState ());
 		return EA;
 	}
 
-	shared_ptr <EncryptionMode> Volume::GetEncryptionMode () const
+    void Volume::Open (const QFileInfo volumePath,
+                    bool preserveTimestamps,
+                    QSharedPointer <VolumePassword> password,
+                    QSharedPointer <KeyfileList> keyfiles,
+                    VolumeProtection::Enum protection,
+                    QSharedPointer <VolumePassword> protectionPassword, // in case you wqnt to open it as
+                    QSharedPointer <KeyfileList> protectionKeyfiles,
+                    VolumeType::Enum volumeType,
+                    bool useBackupHeaders)
 	{
-		if_debug (ValidateState ());
-		return EA->GetMode();
-	}
+        QSharedPointer<VolumeFile> volumeFile = QSharedPointer<VolumeFile>(new VolumeFile());
 
-	void Volume::Open (const VolumePath &volumePath, bool preserveTimestamps, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection, shared_ptr <VolumePassword> protectionPassword, shared_ptr <KeyfileList> protectionKeyfiles, bool sharedAccessAllowed, VolumeType::Enum volumeType, bool useBackupHeaders, bool partitionInSystemEncryptionScope)
-	{
-		make_shared_auto (File, file);
+        if(protection == VolumeProtection::HiddenVolumeReadOnly) {
+            // we first open the hidden volume to get its size
+            try
+            {
+                Volume protectedVolume;
 
-		File::FileOpenFlags flags = (preserveTimestamps ? File::PreserveTimestamps : File::FlagsNone);
+                protectedVolume.Open (volumePath,
+                    preserveTimestamps,
+                    protectionPassword, protectionKeyfiles,
+                    VolumeProtection::ReadOnly,
+                    QSharedPointer <VolumePassword> (), QSharedPointer <KeyfileList> (),
+                    VolumeType::Hidden,
+                    useBackupHeaders);
+                if (protectedVolume.GetType() != VolumeType::Hidden)
+                    throw IncorrectParameterException("protection is set to HiddenVolumeReadOnly, but the volume type is not hidden.")
 
-		try
-		{
-			if (protection == VolumeProtection::ReadOnly)
-				file->Open (volumePath, File::OpenRead, File::ShareRead, flags);
-			else
-				file->Open (volumePath, File::OpenReadWrite, File::ShareNone, flags);
-		}
-		catch (SystemException &e)
-		{
-			if (e.GetErrorCode() == EAGAIN)
-			{
-				if (!sharedAccessAllowed)
-					throw VolumeHostInUse (SRC_POS);
+                ProtectedRangeStart = protectedVolume.VolumeDataOffset;
+                ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
+            }
+            catch (PasswordOrKeyfilesIncorrect&)
+            {
+                throw ProtectionPasswordOrKeyfilesIncorrectException();
+            }
+        }
 
-				file->Open (volumePath, protection == VolumeProtection::ReadOnly ? File::OpenRead : File::OpenReadWrite, File::ShareReadWriteIgnoreLock, flags);
-			}
-			else
-				throw;
-		}
-
-		return Open (file, password, keyfiles, protection, protectionPassword, protectionKeyfiles, volumeType, useBackupHeaders, partitionInSystemEncryptionScope);
-	}
-
-	void Volume::Open (shared_ptr <File> volumeFile, shared_ptr <VolumePassword> password, shared_ptr <KeyfileList> keyfiles, VolumeProtection::Enum protection, shared_ptr <VolumePassword> protectionPassword, shared_ptr <KeyfileList> protectionKeyfiles, VolumeType::Enum volumeType, bool useBackupHeaders, bool partitionInSystemEncryptionScope)
-	{
-		if (!volumeFile)
-			throw ParameterIncorrect (SRC_POS);
+        // We First open the file (or device) we want to decrypt
+        volumeFile->Open (volumePath, (protection == VolumeProtection::ReadOnly), preserveTimestamps);
 
 		Protection = protection;
-		VolumeFile = volumeFile;
-		SystemEncryption = partitionInSystemEncryptionScope;
+        this->volumeFile = volumeFile; // why not directly use the volumeFile from the object ?
 
 		try
 		{
-			VolumeHostSize = VolumeFile->Length();
-			shared_ptr <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
-
-			bool skipLayoutV1Normal = false;
-
-			bool deviceHosted = GetPath().IsDevice();
-			size_t hostDeviceSectorSize = 0;
-			if (deviceHosted)
-				hostDeviceSectorSize = volumeFile->GetDeviceSectorSize();
-
+            VolumeHostSize = this->volumeFile->Length();
+			QSharedPointer <VolumePassword> passwordKey = Keyfile::ApplyListToPassword (keyfiles, password);
 			// Test volume layouts
-			foreach (shared_ptr <VolumeLayout> layout, VolumeLayout::GetAvailableLayouts (volumeType))
+            for (QSharedPointer <VolumeLayout> layout : VolumeLayout::GetAvailableLayouts (volumeType))
 			{
-				if (skipLayoutV1Normal && typeid (*layout) == typeid (VolumeLayoutV1Normal))
-				{
-					// Skip VolumeLayoutV1Normal as it shares header location with VolumeLayoutV2Normal
-					continue;
-				}
 
 				if (useBackupHeaders && !layout->HasBackupHeader())
 					continue;
 
-				if (typeid (*layout) == typeid (VolumeLayoutV1Hidden)
-					&& deviceHosted
-					&& hostDeviceSectorSize != GST_SECTOR_SIZE_LEGACY)
-				{
-					continue;
-				}
-
 				SecureBuffer headerBuffer (layout->GetHeaderSize());
 
-				if (layout->HasDriveHeader())
-				{
-					if (!partitionInSystemEncryptionScope)
-						continue;
+				int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
 
-					if (!GetPath().IsDevice())
-						throw PartitionDeviceRequired (SRC_POS);
-
-					File driveDevice;
-					driveDevice.Open (DevicePath (wstring (GetPath())).ToHostDriveOfPartition());
-
-					int headerOffset = layout->GetHeaderOffset();
-
-					if (headerOffset >= 0)
-						driveDevice.SeekAt (headerOffset);
-					else
-						driveDevice.SeekEnd (headerOffset);
-
-					if (driveDevice.Read (headerBuffer) != layout->GetHeaderSize())
-						continue;
-				}
+				if (headerOffset >= 0)
+                    this->volumeFile->SeekAt (headerOffset);
 				else
-				{
-					if (partitionInSystemEncryptionScope)
-						continue;
+                    this->volumeFile->SeekEnd (headerOffset);
 
-					int headerOffset = useBackupHeaders ? layout->GetBackupHeaderOffset() : layout->GetHeaderOffset();
-
-					if (headerOffset >= 0)
-						VolumeFile->SeekAt (headerOffset);
-					else
-						VolumeFile->SeekEnd (headerOffset);
-
-					if (VolumeFile->Read (headerBuffer) != layout->GetHeaderSize())
-						continue;
-				}
+                if (this->volumeFile->Read (headerBuffer) != layout->GetHeaderSize())
+					continue;
 
 				EncryptionAlgorithmList layoutEncryptionAlgorithms = layout->GetSupportedEncryptionAlgorithms();
-				EncryptionModeList layoutEncryptionModes = layout->GetSupportedEncryptionModes();
 
-				if (typeid (*layout) == typeid (VolumeLayoutV2Normal))
-				{
-					skipLayoutV1Normal = true;
+				QSharedPointer <VolumeHeader> header = layout->GetHeader();
 
-					// Test all algorithms and modes of VolumeLayoutV1Normal as it shares header location with VolumeLayoutV2Normal
-					layoutEncryptionAlgorithms = EncryptionAlgorithm::GetAvailableAlgorithms();
-					layoutEncryptionModes = EncryptionMode::GetAvailableModes();
-				}
-
-				shared_ptr <VolumeHeader> header = layout->GetHeader();
-
-				if (header->Decrypt (headerBuffer, *passwordKey, layout->GetSupportedKeyDerivationFunctions(), layoutEncryptionAlgorithms, layoutEncryptionModes))
+                if (header->Decrypt (headerBuffer, *passwordKey, layout->GetSupportedKeyDerivationFunctions(), layoutEncryptionAlgorithms))
 				{
 					// Header decrypted
-
-					if (typeid (*layout) == typeid (VolumeLayoutV2Normal) && header->GetRequiredMinProgramVersion() < 0x600)
-					{
-						// VolumeLayoutV1Normal has been opened as VolumeLayoutV2Normal
-						layout.reset (new VolumeLayoutV1Normal);
-						header->SetSize (layout->GetHeaderSize());
-						layout->SetHeader (header);
-					}
 
 					Type = layout->GetType();
 					SectorSize = header->GetSectorSize();
@@ -204,160 +143,81 @@ namespace GostCrypt
 					Header = header;
 					Layout = layout;
 					EA = header->GetEncryptionAlgorithm();
-					EncryptionMode &mode = *EA->GetMode();
-
-					if (layout->HasDriveHeader())
-					{
-						if (header->GetEncryptedAreaLength() != header->GetVolumeDataSize())
-							throw VolumeEncryptionNotCompleted (SRC_POS);
-
-						uint64 partitionStartOffset = VolumeFile->GetPartitionDeviceStartOffset();
-
-						if (partitionStartOffset < header->GetEncryptedAreaStart()
-							|| partitionStartOffset >= header->GetEncryptedAreaStart() + header->GetEncryptedAreaLength())
-							throw PasswordIncorrect (SRC_POS);
-
-						mode.SetSectorOffset (partitionStartOffset / ENCRYPTION_DATA_UNIT_SIZE);
-					}
 
 					// Volume protection
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-							throw PasswordIncorrect (SRC_POS);
-						else
-						{
-							try
-							{
-								Volume protectedVolume;
-
-								protectedVolume.Open (VolumeFile,
-									protectionPassword, protectionKeyfiles,
-									VolumeProtection::ReadOnly,
-									shared_ptr <VolumePassword> (), shared_ptr <KeyfileList> (),
-									VolumeType::Hidden,
-									useBackupHeaders);
-
-								if (protectedVolume.GetType() != VolumeType::Hidden)
-									ParameterIncorrect (SRC_POS);
-
-								ProtectedRangeStart = protectedVolume.VolumeDataOffset;
-								ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
-
-								if (typeid (*protectedVolume.Layout) == typeid (VolumeLayoutV1Hidden))
-									ProtectedRangeEnd += protectedVolume.Layout->GetHeaderSize();
-							}
-							catch (PasswordException&)
-							{
-								if (protectionKeyfiles && !protectionKeyfiles->empty())
-									throw ProtectionPasswordKeyfilesIncorrect (SRC_POS);
-								throw ProtectionPasswordIncorrect (SRC_POS);
-							}
-						}
+                            throw PasswordOrKeyfilesIncorrectException(); // the password of the inner volume was put instead of the one of the outer volume.
+                        // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
 			}
-
-			if (partitionInSystemEncryptionScope)
-				throw PasswordOrKeyboardLayoutIncorrect (SRC_POS);
-
-			if (!partitionInSystemEncryptionScope && GetPath().IsDevice())
-			{
-				// Check if the device contains GostCrypt Boot Loader
-				try
-				{
-					File driveDevice;
-					driveDevice.Open (DevicePath (wstring (GetPath())).ToHostDriveOfPartition());
-					
-					Buffer mbr (VolumeFile->GetDeviceSectorSize());
-					driveDevice.ReadAt (mbr, 0);
-
-					// Search for the string "GostCrypt"
-					size_t nameLen = strlen (GST_APP_NAME);
-					for (size_t i = 0; i < mbr.Size() - nameLen; ++i)
-					{
-						if (memcmp (mbr.Ptr() + i, GST_APP_NAME, nameLen) == 0)
-							throw PasswordOrMountOptionsIncorrect (SRC_POS);
-					}
-				}
-				catch (PasswordOrMountOptionsIncorrect&) { throw; }
-				catch (...) { }
-			}
-
-			if (keyfiles && !keyfiles->empty())
-				throw PasswordKeyfilesIncorrect (SRC_POS);
-			throw PasswordIncorrect (SRC_POS);
+            throw PasswordOrKeyfilesIncorrectException();
 		}
 		catch (...)
 		{
 			Close();
-			throw;
+            throw; //rethrow
 		}
 	}
 
-	void Volume::ReadSectors (const BufferPtr &buffer, uint64 byteOffset)
+    void Volume::ReadSectors (BufferPtr &buffer, quint64 byteOffset)
 	{
-		if_debug (ValidateState ());
+        //if_debug (ValidateState ());
 
-		uint64 length = buffer.Size();
-		uint64 hostOffset = VolumeDataOffset + byteOffset;
+        quint64 length = buffer.Size();
+        quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
-			throw ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("length or offset not aligned with sector");
 
-		if (VolumeFile->ReadAt (buffer, hostOffset) != length)
-			throw MissingVolumeData (SRC_POS);
+        if (this->volumeFile->ReadAt (buffer, hostOffset) != length)
+            throw VolumeCorruptedException();
 
 		EA->DecryptSectors (buffer, hostOffset / SectorSize, length / SectorSize, SectorSize);
 
 		TotalDataRead += length;
 	}
 
-	void Volume::ReEncryptHeader (bool backupHeader, const ConstBufferPtr &newSalt, const ConstBufferPtr &newHeaderKey, shared_ptr <Pkcs5Kdf> newPkcs5Kdf)
+    void Volume::ReEncryptHeader (bool backupHeader, const BufferPtr &newSalt, const BufferPtr &newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 	{
-		if_debug (ValidateState ());
-		
+        //if_debug (ValidateState ());
+
 		if (Protection == VolumeProtection::ReadOnly)
-			throw VolumeReadOnly (SRC_POS);
+            throw VolumeReadOnlyException();
 
 		SecureBuffer newHeaderBuffer (Layout->GetHeaderSize());
-		
-		Header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, newPkcs5Kdf);
+
+        Header->EncryptNew (newHeaderBuffer, newSalt, newHeaderKey, newVolumeHash);
 
 		int headerOffset = backupHeader ? Layout->GetBackupHeaderOffset() : Layout->GetHeaderOffset();
 
 		if (headerOffset >= 0)
-			VolumeFile->SeekAt (headerOffset);
+            this->volumeFile->SeekAt (headerOffset);
 		else
-			VolumeFile->SeekEnd (headerOffset);
+            this->volumeFile->SeekEnd (headerOffset);
 
-		VolumeFile->Write (newHeaderBuffer);
-	}
+        this->volumeFile->Write (newHeaderBuffer);
+    }
 
-	void Volume::ValidateState () const
+    void Volume::WriteSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{
-        if (VolumeFile.isNull())
-			throw NotInitialized (SRC_POS);
-	}
-
-	void Volume::WriteSectors (const ConstBufferPtr &buffer, uint64 byteOffset)
-	{
-		if_debug (ValidateState ());
-
-		uint64 length = buffer.Size();
-		uint64 hostOffset = VolumeDataOffset + byteOffset;
+        quint64 length = buffer.Size();
+        quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0
-			|| byteOffset % SectorSize != 0
-			|| byteOffset + length > VolumeDataSize)
-			throw ParameterIncorrect (SRC_POS);
+            || byteOffset % SectorSize != 0)
+            throw IncorrectParameterException("length or offset not aligned with sector");
+
+        if (byteOffset + length > VolumeDataSize)
+            throw IncorrectParameterException("Trying to read after the end of the volume file");
 
 		if (Protection == VolumeProtection::ReadOnly)
-			throw VolumeReadOnly (SRC_POS);
-
-		if (HiddenVolumeProtectionTriggered)
-			throw VolumeProtected (SRC_POS);
+            throw VolumeReadOnlyException();
+        if (HiddenVolumeProtectionTriggered)//TODO why always throwing when the protection is triggered ?
+            throw VolumeProtectedException();
 
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 			CheckProtectedRange (hostOffset, length);
@@ -366,12 +226,26 @@ namespace GostCrypt
 		encBuf.CopyFrom (buffer);
 
 		EA->EncryptSectors (encBuf, hostOffset / SectorSize, length / SectorSize, SectorSize);
-		VolumeFile->WriteAt (encBuf, hostOffset);
+        this->volumeFile->WriteAt (encBuf, hostOffset);
 
 		TotalDataWritten += length;
-		
-		uint64 writeEndOffset = byteOffset + buffer.Size();
+
+        quint64 writeEndOffset = byteOffset + buffer.Size();
 		if (writeEndOffset > TopWriteOffset)
 			TopWriteOffset = writeEndOffset;
 	}
+
+	QSharedPointer<VolumeInformation> Volume::getVolumeInformation()
+	{
+		QSharedPointer<VolumeInformation> vi = QSharedPointer<VolumeInformation>(new VolumeInformation);
+
+		vi->encryptionAlgorithmName = QString::fromStdWString(this->GetEncryptionAlgorithm()->GetName());
+		vi->protection = this->Protection;
+		vi->size = this->GetSize();
+		vi->type = this->Type;
+        vi->volumePath = this->volumeFile->GetPath();
+
+                return vi;
+	}
+}
 }

@@ -10,42 +10,42 @@
 #ifndef GST_HEADER_Encryption_Keyfile
 #define GST_HEADER_Encryption_Keyfile
 
-#include "Platform/Platform.h"
-#include "Platform/Stream.h"
 #include "VolumePassword.h"
+#include "Core/Buffer.h"
 #include <QSharedPointer>
+#include <QFileInfo>
+#include <QList>
+
+//move
+#define FILE_OPTIMAL_READ_SIZE 256*1024
 
 namespace GostCrypt
 {
-	class Keyfile;
-	typedef list < shared_ptr <Keyfile> > KeyfileList;
+namespace Volume {
 
-	class Keyfile
+	class Keyfile;
+    typedef QList < QSharedPointer <Keyfile> > KeyfileList;
+
+    class Keyfile
 	{
 	public:
-                Keyfile (const FilesystemPath &path){ (void)path; }
-		virtual ~Keyfile () { };
+        explicit Keyfile (const QFileInfo &path) : Path(path) {}
+        virtual ~Keyfile () { }
 
-		operator FilesystemPath () const { return Path; }
-        static shared_ptr <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
-		static shared_ptr <KeyfileList> DeserializeList (shared_ptr <Stream> stream, const string &name);
-		static void SerializeList (shared_ptr <Stream> stream, const string &name, shared_ptr <KeyfileList> keyfiles);
-		static bool WasHiddenFilePresentInKeyfilePath() { bool r = HiddenFileWasPresentInKeyfilePath; HiddenFileWasPresentInKeyfilePath = false; return r; }
+        static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
 
 		static const size_t MinProcessedLength = 1;
 		static const size_t MaxProcessedLength = 1024 * 1024;
 
 	protected:
-		void Apply (const BufferPtr &pool) const;
-
-		static bool HiddenFileWasPresentInKeyfilePath;
-
-		FilesystemPath Path;
+        void Apply (BufferPtr &pool) const;
+        QFileInfo Path;
 
 	private:
 		Keyfile (const Keyfile &);
 		Keyfile &operator= (const Keyfile &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Keyfile

@@ -4,8 +4,6 @@ namespace GostCrypt
 {
 	namespace FuseDriver
 	{
-
-
 		void initFuseException()
 		{
 			INIT_SERIALIZE(FuseException);
@@ -13,15 +11,16 @@ namespace GostCrypt
 			INIT_SERIALIZE(FuseControlFileAccessFailed);
 			INIT_SERIALIZE(FuseForkFailed);
 			INIT_SERIALIZE(VolumeNotOpenedYet);
+            INIT_SERIALIZE(FailedCreateFuseMountPoint);
 		}
 
         DEF_SERIALIZABLE(GostCrypt::FuseDriver::FuseException)
         QDataStream & operator << (QDataStream & out, const GostCrypt::FuseDriver::FuseException & Valeur) {
-            out << static_cast<const Core::GostCryptException&>(Valeur);
+            out << static_cast<const GostCryptException&>(Valeur);
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::FuseDriver::FuseException & Valeur) {
-            in >> static_cast<Core::GostCryptException&>(Valeur);
+            in >> static_cast<GostCryptException&>(Valeur);
             return in;
         }
 
@@ -66,6 +65,20 @@ namespace GostCrypt
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::FuseDriver::VolumeNotOpenedYet & Valeur) {
             in >> static_cast<FuseException&>(Valeur);
+            return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::FuseDriver::FailedCreateFuseMountPoint)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::FuseDriver::FailedCreateFuseMountPoint & Valeur) {
+            out << static_cast<const FuseException&>(Valeur);
+            out << Valeur.mountpoint->absoluteFilePath();
+            return out;
+        }
+        QDataStream & operator >> (QDataStream & in, GostCrypt::FuseDriver::FailedCreateFuseMountPoint & Valeur) {
+            QString path;
+            in >> static_cast<FuseException&>(Valeur);
+            in >> path;
+            Valeur.mountpoint.reset(new QFileInfo(path));
             return in;
         }
 	}

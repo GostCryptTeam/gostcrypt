@@ -10,63 +10,82 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <unistd.h>
 
+#ifdef HAVE_GETRANDOM
+#include <sys/random.h>
+#endif
+
+#include "CoreException.h"
 #include "RandomNumberGenerator.h"
 #include "Volume/Crc32.h"
+#include "Volume/VolumeHashStribog.h"
 
 namespace GostCrypt
 {
+	namespace Core {
 	void RandomNumberGenerator::AddSystemDataToPool (bool fast)
 	{
 		SecureBuffer buffer (PoolSize);
 
-		int urandom = open ("/dev/urandom", O_RDONLY);
-		throw_sys_sub_if (urandom == -1, L"/dev/urandom");
-		finally_do_arg (int, urandom, { close (finally_arg); });
-
-		throw_sys_sub_if (read (urandom, buffer, buffer.Size()) == -1, L"/dev/urandom");
-		AddToPool (buffer);
-
-		if (!fast)
-		{
+        #ifdef HAVE_GETRANDOM
+        if(fast){
+            getrandom(buffer, buffer.Size(), 0);
+        } else {
+            getrandom(buffer, buffer.Size(), GRND_RANDOM);
+        }
+        #else
+        int randsource;
+        if(fast){
+            randsource = open ("/dev/urandom", O_RDONLY);
+        } else {
 			// Read all bytes available in /dev/random up to buffer size
-			int random = open ("/dev/random", O_RDONLY | O_NONBLOCK);
-			throw_sys_sub_if (random == -1, L"/dev/random");
-			finally_do_arg (int, random, { close (finally_arg); });
+            randsource = open ("/dev/random", O_RDONLY); // blocking as we are not in fast mode
+        }
+        if (randsource == -1)
+            throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
-			throw_sys_sub_if (read (random, buffer, buffer.Size()) == -1 && errno != EAGAIN, L"/dev/random");
-			AddToPool (buffer);
-		}
+        if (read (randsource, buffer, buffer.Size()) < (int64_t)buffer.Size())
+            throw FailedUsingSystemRandomSourceException();
+        AddToPool (buffer);
+        close(randsource);
+        #endif
 	}
 
-	void RandomNumberGenerator::AddToPool (const ConstBufferPtr &data)
+    void RandomNumberGenerator::AddToPool (const BufferPtr &buffer)
 	{
 		if (!Running)
-			throw NotInitialized (SRC_POS);
+            throw RandomNumberGeneratorNotRunningException();
 
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
-		for (size_t i = 0; i < data.Size(); ++i)
+        for (size_t i = 0; i < buffer.Size(); ++i)
 		{
-			Pool[WriteOffset++] += data[i];
+            Pool[WriteOffset++] += buffer[i];
 
 			if (WriteOffset >= PoolSize)
 				WriteOffset = 0;
 
 			if (++BytesAddedSincePoolHashMix >= MaxBytesAddedBeforePoolHashMix)
 				HashMixPool();
-		}
-	}
+        }
+    }
 
-	void RandomNumberGenerator::GetData (const BufferPtr &buffer, bool fast)
+    void RandomNumberGenerator::SetHash(QSharedPointer<Volume::VolumeHash> hashfct)
+    {
+        QMutexLocker lock(&RandomNumberGenerator::AccessMutex);
+        RandomNumberGenerator::PoolHash = hashfct;
+    }
+
+    void RandomNumberGenerator::GetData (BufferPtr &buffer, bool fast)
 	{
 		if (!Running)
-			throw NotInitialized (SRC_POS);
+            throw RandomNumberGeneratorNotRunningException();
 
 		if (buffer.Size() > PoolSize)
-			throw ParameterIncorrect (SRC_POS);
+            throw IncorrectParameterException("buffer.size > PoolSize");
 
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		// Poll system for data
 		AddSystemDataToPool (fast);
@@ -98,13 +117,7 @@ namespace GostCrypt
 			if (ReadOffset >= PoolSize)
 				ReadOffset = 0;
 		}
-	}
-
-	shared_ptr <Hash> RandomNumberGenerator::GetHash ()
-	{
-		ScopeLock lock (AccessMutex);
-		return PoolHash;
-	}
+    }
 
 	void RandomNumberGenerator::HashMixPool ()
 	{
@@ -125,15 +138,9 @@ namespace GostCrypt
 		}
 	}
 
-	void RandomNumberGenerator::SetHash (shared_ptr <Hash> hash)
-	{
-		ScopeLock lock (AccessMutex);
-		PoolHash = hash;
-	}
-
 	void RandomNumberGenerator::Start ()
 	{
-		ScopeLock lock (AccessMutex);
+        QMutexLocker lock (&AccessMutex);
 
 		if (IsRunning())
 			return;
@@ -150,15 +157,15 @@ namespace GostCrypt
 		if (!PoolHash)
 		{
 			// First hash algorithm is the default one
-			PoolHash = Hash::GetAvailableAlgorithms().front();
+			PoolHash = Volume::VolumeHash::GetAvailableAlgorithms().front();
 		}
 
 		AddSystemDataToPool (true);
 	}
 
 	void RandomNumberGenerator::Stop ()
-	{		
-		ScopeLock lock (AccessMutex);
+	{
+        QMutexLocker lock (&AccessMutex);
 
 		if (Pool.IsAllocated())
 			Pool.Free ();
@@ -171,14 +178,14 @@ namespace GostCrypt
 
 	void RandomNumberGenerator::Test ()
 	{
-		shared_ptr <Hash> origPoolHash = PoolHash;
-		PoolHash.reset (new Stribog());
+		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
+        PoolHash.reset (new Volume::VolumeHashStribog());
 
-		Pool.Zero();
+        Pool.Erase(); // erase will set everything to zero
 		Buffer buffer (1);
 		for (size_t i = 0; i < PoolSize * 10; ++i)
 		{
-			buffer[0] = (byte) i;
+			buffer[0] = (quint8) i;
 			AddToPool (buffer);
 		}
 
@@ -195,12 +202,13 @@ namespace GostCrypt
 		PoolHash = origPoolHash;
 	}
 
-	Mutex RandomNumberGenerator::AccessMutex;
+    QMutex RandomNumberGenerator::AccessMutex(QMutex::Recursive);
 	size_t RandomNumberGenerator::BytesAddedSincePoolHashMix;
 	bool RandomNumberGenerator::EnrichedByUser;
 	SecureBuffer RandomNumberGenerator::Pool;
-	shared_ptr <Hash> RandomNumberGenerator::PoolHash;
+	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::PoolHash;
 	size_t RandomNumberGenerator::ReadOffset;
 	bool RandomNumberGenerator::Running = false;
 	size_t RandomNumberGenerator::WriteOffset;
+}
 }

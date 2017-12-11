@@ -6,7 +6,7 @@
 #include <QFileInfo>
 
 #define SERIALIZABLE(ClassName) \
-	Q_DECLARE_METATYPE(ClassName) \
+    Q_DECLARE_METATYPE(ClassName) \
     Q_DECLARE_METATYPE(QSharedPointer<ClassName>)
 
 #define DEC_SERIALIZABLE(ClassName) \

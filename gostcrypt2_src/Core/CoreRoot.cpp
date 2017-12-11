@@ -5,6 +5,9 @@
 #include "LoopDeviceManager.h"
 #include "MountFilesystemManager.h"
 #include "FuseService/FuseServiceHandler.h"
+#include "Volume/VolumeLayoutV2Normal.h"
+#include "Volume/VolumeLayoutV2Hidden.h"
+#include "Volume/VolumeHeader.h"
 
 namespace GostCrypt {
 namespace Core {
@@ -43,7 +46,6 @@ void CoreRoot::request(QVariant r)
     HANDLE_REQUEST(MountVolume, mountVolume)
     else HANDLE_REQUEST(DismountVolume, dismountVolume)
         else HANDLE_REQUEST(CreateVolume, createVolume)
-            else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
                 else if(!processNonRootRequest(r)) {
                     throw UnknowRequestException(r.typeName());
                 }
@@ -60,6 +62,8 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     uid_t mountedForUserId;
     gid_t mountedForGroupId;
 
+    try {
+    UPDATE_PROGRESS(0);
     if (params->mountedForUser.isEmpty())
     {
         mountedForUserId = realUserId;
@@ -82,13 +86,13 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
 
         QSharedPointer<QFileInfo> virtualDevice;
         QSharedPointer<QFileInfo> imageFile(new QFileInfo(params->fuseMountPoint->absoluteFilePath() + FuseDriver::getVolumeImagePath()));
-        virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == VolumeProtection::ReadOnly);
+        virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == Volume::VolumeProtection::ReadOnly);
 		UPDATE_PROGRESS(0.76);
         try {
             FuseDriver::sendAuxDeviceInfo(params->fuseMountPoint, virtualDevice);
         } catch(...) {
             LoopDeviceManager::detachLoopDevice(virtualDevice);
-            throw;
+            throw; //rethrow
         }
         UPDATE_PROGRESS(0.78);
         if(params->doMount) {
@@ -102,15 +106,16 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
                     throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
                 mountDirCreated = true;
             }
-            MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
+            MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == Volume::VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
         }
 		UPDATE_PROGRESS(0.91);
 		QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
 		QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
 		getMountedVolumesParams->volumePath = params->path;
+                getMountedVolumesParams->all = false;
 		getMountedVolumesParams->emitResponse = false;
 		getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-		QList<QSharedPointer<VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
+		QList<QSharedPointer<Volume::VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
 		if(volumeInfoList.size() < 1) {
 			throw CoreException(); //TODO
 		}
@@ -127,7 +132,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
         } catch (...) {}
         if(mountDirCreated)
             QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
-        throw;
+        throw; //rethrow
     }
 
     if(params->forVolumeCreation) {
@@ -136,10 +141,15 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     }
     UPDATE_PROGRESS(1);
     emit sendMountVolume(response);
+    } catch(GostCryptException &e) {
+        e.clone(params->id.requestId)->raise();
+    }
 }
 
 void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
 {
+    try {
+
     if(!params)
         throw MissingParamException("params");
 
@@ -147,7 +157,7 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
         throw VolumeAlreadyMountedException(params->path);
 
     params->fuseMountPoint = getFreeFuseMountPoint();
-    params->isDevice = isDevice(params->path->canonicalFilePath());
+    params->isDevice = isDevice(params->path.canonicalFilePath());
 
     /* Create FUSE mounting */
 #ifndef FUSE_SERVICE_DEBUG
@@ -157,27 +167,34 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
     FuseDriver::FuseService tmpnfs;
     tmpnfs.mountRequestHandler(QVariant::fromValue(params));
 #endif
+
+    } catch(GostCryptException &e) {
+        e.clone(params->id.requestId)->raise();
+    }
 }
 
 QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<DismountVolumeRequest> params)
 {
+    try {
     QSharedPointer<DismountVolumeResponse> response(new DismountVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
     /* Get mounted volume infos */
-    QList<QSharedPointer<VolumeInformation>> mountedVolumes;
+    QList<QSharedPointer<Volume::VolumeInformation>> mountedVolumes;
     {
         QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
         QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
-        if(params)
+        if(params) {
             getMountedVolumesParams->volumePath = params->volumePath;
+            getMountedVolumesParams->all = params->all;
+        }
         getMountedVolumesParams->emitResponse = false;
         getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
-        if(params && params->volumePath && getMountedVolumesResponse->volumeInfoList.isEmpty())
+        if(params && !params->all && getMountedVolumesResponse->volumeInfoList.isEmpty())
             throw VolumeNotMountedException(params->volumePath);
         mountedVolumes = getMountedVolumesResponse->volumeInfoList;
     }
-    for (QSharedPointer<VolumeInformation> mountedVolume : mountedVolumes) {
+    for (QSharedPointer<Volume::VolumeInformation> mountedVolume : mountedVolumes) {
         /* Unmount filesystem */
         try {
             if(mountedVolume->mountPoint) {
@@ -209,7 +226,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
         QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
 
         /* Saving the volume path to confirm to the QML that the volume was successfully dismounted */
-        response.data()->volumePath.append(mountedVolume->volumePath);
+        response->volumePath.append(mountedVolume->volumePath);
     }
 
     if(params->forVolumeCreation) {
@@ -221,22 +238,27 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
         sendDismountVolume(response);
 
     return response;
+    } catch(GostCryptException &e) {
+        e.clone(params->id.requestId)->raise();
+    }
+
+    return QSharedPointer<DismountVolumeResponse>();
 }
 
-void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<VolumeLayout> layout, quint64 containersize)
+void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
 {
     // getting the volume header to fill it
-    QSharedPointer<VolumeHeader> header (layout->GetHeader());
-    QSharedPointer<GostCrypt::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
-    QSharedPointer<Pkcs5Kdf> Kdf (getDerivationKeyFunction(params->volumeHeaderKdf));
+    QSharedPointer<Volume::VolumeHeader> header (layout->GetHeader());
+    QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
+    QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
-    VolumeHeaderCreationOptions options;
+    Volume::VolumeHeaderCreationOptions options;
     options.EA = ea;
-    options.Kdf = Kdf;
+    options.Hash = hash;
     options.Type = layout->GetType();
     options.SectorSize = 512; // TODO : ALWAYS 512 !
 
-    if(options.Type == VolumeType::Hidden) {
+    if(options.Type == Volume::VolumeType::Hidden) {
         options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - params->size;
     } else {
         options.VolumeDataStart = layout->GetHeaderSize() * 2;
@@ -260,24 +282,24 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
     options.DataKey = masterkey;
 
     // PKCS5 salt
-    salt.Allocate (VolumeHeader::GetSaltSize());
+    salt.Allocate (Volume::VolumeHeader::GetSaltSize());
     RandomNumberGenerator::GetData (salt);
     options.Salt = salt;
 
     // Header key
-    headerkey.Allocate (VolumeHeader::GetLargestSerializedKeySize());
-    shared_ptr <KeyfileList> keyfiles;
+    headerkey.Allocate (Volume::VolumeHeader::GetLargestSerializedKeySize());
+    QSharedPointer <Volume::KeyfileList> keyfiles;
     if(params->keyfiles)
         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-            keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
         }
-    shared_ptr<VolumePassword> password;
+    QSharedPointer<Volume::VolumePassword> password;
     if(!params->password.isNull())
-        password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
     else
         throw MissingParamException("password");
-    QSharedPointer <VolumePassword> passwordkey = Keyfile::ApplyListToPassword (keyfiles, password);
-    options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+    QSharedPointer <Volume::VolumePassword> passwordkey = Volume::Keyfile::ApplyListToPassword (keyfiles, password);
+    options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
 
     header->Create (headerBuffer, options); // header created !
@@ -290,7 +312,7 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
             throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
         file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
     }
-    file.write((char*)headerBuffer.Ptr(), headerBuffer.Size()); // writing header
+    file.write((char*)headerBuffer.Get(), headerBuffer.Size()); // writing header
 
     if(!layout->HasBackupHeader())
         return;
@@ -298,7 +320,7 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
     // Write The Backup Header if any
 
     RandomNumberGenerator::GetData (salt); // getting new salt
-    options.Kdf->DeriveKey (headerkey, *passwordkey, salt);
+    options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
     header->Create (headerBuffer, options); // creating new header
 
@@ -306,11 +328,11 @@ void CoreRoot::writeHeaderToFile(fstream &file, QSharedPointer<CreateVolumeReque
         file.seekp(layout->GetBackupHeaderOffset(), std::ios_base::beg);
     else
         file.seekp(containersize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
-    file.write((char *)headerBuffer.Ptr(), headerBuffer.Size()); // writing backup header crypted with new salt
+    file.write((char *)headerBuffer.Get(), headerBuffer.Size()); // writing backup header crypted with new salt
 
 }
 
-void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id)
+void CoreRoot::mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse)
 {
     QSharedPointer<MountVolumeRequest> mountparams(new MountVolumeRequest());
     mountparams->keyfiles = keyfiles;
@@ -333,7 +355,7 @@ void CoreRoot::mountFormatVolume(QSharedPointer<QFileInfo> volume, QSharedPointe
 void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse, ProgressTrackingParameters id)
 {
     UPDATE_PROGRESS_S(0.0, id);
-    QSharedPointer<QFileInfo> volume = mountResponse->passThrough.value("volume").value<QSharedPointer<QFileInfo>>();
+    QFileInfo volume = mountResponse->passThrough.value("volume").value<QFileInfo>();
     QSharedPointer<QByteArray> password = mountResponse->passThrough.value("password").value<QSharedPointer<QByteArray>>();
     QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles = mountResponse->passThrough.value("keyfiles").value<QSharedPointer<QList<QSharedPointer<QFileInfo>>>>();
     QString filesystem = mountResponse->passThrough.value("filesystem").value<QString>();
@@ -393,10 +415,11 @@ void CoreRoot::continueDismountFormat(QSharedPointer<DismountVolumeResponse> dis
 void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 {
     UPDATE_PROGRESS(0.0);
+    try {
     QSharedPointer<CreateVolumeResponse> response(new CreateVolumeResponse);
     if(!params.isNull())
         response->passThrough = params->passThrough;
-    fstream volumefile;
+    std::fstream volumefile;
 
     /*  Steps:
             write headers directly in file.
@@ -407,8 +430,6 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
 
     if(!params)
         throw MissingParamException("params");
-    if(!params->path)
-        throw MissingParamException("params->path");
     if(!params->outerVolume)
         throw MissingParamException("params->outervolume");
     if(isVolumeMounted(params->path))
@@ -428,7 +449,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     UPDATE_PROGRESS(0.50);
 
     // opening file (or device)
-    volumefile.open(params->path->absoluteFilePath().toStdString(), ios::in | ios::out | ios::binary);
+    volumefile.open(params->path.absoluteFilePath().toStdString(), std::ios::in | std::ios::out | std::ios::binary);
     if(!volumefile.is_open())
         throw FailedOpenVolumeException(params->path);
 
@@ -437,17 +458,17 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
      */
 
     // getting the outer volume layout to write the header
-    QSharedPointer<VolumeLayout> outerlayout;
-    outerlayout.reset(new VolumeLayoutV2Normal()); // we only use the V2
+    QSharedPointer<Volume::VolumeLayout> outerlayout;
+    outerlayout.reset(new Volume::VolumeLayoutV2Normal()); // we only use the V2
 
     writeHeaderToFile(volumefile, params->outerVolume, outerlayout, params->size);
 
-    QSharedPointer<VolumeLayout> innerlayout;
-    innerlayout.reset(new VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it can just be a fake one
+    QSharedPointer<Volume::VolumeLayout> innerlayout;
+    innerlayout.reset(new Volume::VolumeLayoutV2Hidden()); // we ALWAYS have a hidden volume header, it can just be a fake one
 
     UPDATE_PROGRESS(0.60);
 
-    if(params->type == VolumeType::Hidden) { // writing the inner volume headers if any
+    if(params->type == Volume::VolumeType::Hidden) { // writing the inner volume headers if any
         writeHeaderToFile(volumefile, params->innerVolume, innerlayout, params->size);
     } else { // writing random data to the hidden headers location
         QSharedPointer<CreateVolumeRequest::VolumeParams> randomparams(new CreateVolumeRequest::VolumeParams());
@@ -457,9 +478,9 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         randomparams->volumeHeaderKdf = params->outerVolume->volumeHeaderKdf;
         // creating a completely random password for a non-existent hidden volume
         SecureBuffer pass;
-        pass.Allocate(VolumePassword::MaxSize);
+        pass.Allocate(Volume::VolumePassword::MaxSize);
         RandomNumberGenerator::GetData(pass);
-        randomparams->password.reset(new QByteArray((char *)pass.Ptr(), pass.Size()));
+        randomparams->password.reset(new QByteArray((char *)pass.Get(), pass.Size()));
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }
 
@@ -469,7 +490,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
      * FORMATTING THE VOLUME
      */
     ProgressTrackingParameters mountFormatId;
-    if(params->type == VolumeType::Hidden) {
+    if(params->type == Volume::VolumeType::Hidden) {
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(continueFormatHidden(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
         mountFormatId = ProgressTrackingParameters(params->id, 0.65, 0.825);
     } else {
@@ -481,34 +502,29 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response, mountFormatId);
 
     UPDATE_PROGRESS(1);
+
+    } catch(GostCryptException &e) {
+        e.clone(params->id.requestId)->raise();
+    }
 }
 
 void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
 {
+    try {
+
     disconnect(this, SIGNAL(formatVolumeDone(QVariantMap)), 0, 0);
     connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>)));
     mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response, ProgressTrackingParameters(params->id, 0.825, 1.0));
+
+    } catch(GostCryptException &e) {
+        e.clone(params->id.requestId)->raise();
+    }
 }
 
 void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
 {
     if(params->emitResponse)
         emit sendCreateVolume(response);
-}
-
-QSharedPointer<ChangeVolumePasswordResponse> CoreRoot::changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params)
-{
-    QSharedPointer<ChangeVolumePasswordResponse> response(new ChangeVolumePasswordResponse());
-    if(!params.isNull())
-        response->passThrough = params->passThrough;
-    (void)params;
-
-    //TODO
-
-    if(params->emitResponse)
-        emit sendChangeVolumePassword(response);
-
-    return response;
 }
 
 }

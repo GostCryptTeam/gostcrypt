@@ -58,7 +58,7 @@ int CmdLineInterface::start(int argc, char **argv)
         qDebug().noquote() << e.getMessage();
         parser.showHelp();
         return -1;
-    } catch(GostCrypt::Core::GostCryptException &e) {
+    } catch(GostCrypt::GostCryptException &e) {
         qDebug().noquote() << e.displayedMessage();
         return -1;
     } catch (QException &e) { // TODO : handle exceptions here
@@ -101,7 +101,7 @@ Commands:\n\
 
     parser.clearPositionalArguments();
 
-    uint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
+    quint32 value = FirstCMD::Str.indexOf(QRegExp(command, Qt::CaseInsensitive)); // using the mix between a QString tab and a enumeration.
 
     switch(value){
         case FirstCMD::mount: //"mount":
@@ -131,6 +131,7 @@ Commands:\n\
         case FirstCMD::dismountall://"dismountall":
             {
                 QSharedPointer<GostCrypt::Core::DismountVolumeRequest> options(new GostCrypt::Core::DismountVolumeRequest);
+                options->all = true;
                 emit request(QVariant::fromValue(options)); // dismount-all is just a dismount with no params.
             }
             break;
@@ -140,7 +141,7 @@ Commands:\n\
                 Parser::parseCreateKeyFiles(parser, files); // TODO multiple keyfiles not supported yet
                 QSharedPointer <GostCrypt::Core::CreateKeyFileRequest> options(new GostCrypt::Core::CreateKeyFileRequest());
                 for(QStringList::Iterator file = files.begin(); file != files.end(); file++) {
-                    options->file.reset(new QFileInfo(*file));
+                    options->file.setFile(*file);
                     emit request(QVariant::fromValue(options));
                 }
             }
@@ -220,7 +221,7 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::Core::GostCryptException &e) {
+    } catch(GostCrypt::GostCryptException &e) {
         CmdLineInterface::qStdOut() << e.displayedMessage();
         emit askExit();
     } catch (QException &e) { // TODO : handle exceptions here
@@ -261,8 +262,8 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     if(!r)
         throw MissingParamException("response");
     qStdOut() << "\r";
-    for(QSharedPointer<GostCrypt::Core::VolumeInformation> v : r->volumeInfoList){
-        qStdOut() << v->volumePath->absoluteFilePath() << "\t";
+    for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
+        qStdOut() << v->volumePath.absoluteFilePath() << "\t";
         qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;

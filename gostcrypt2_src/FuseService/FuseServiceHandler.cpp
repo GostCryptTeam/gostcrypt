@@ -10,7 +10,6 @@ namespace GostCrypt {
 		{
 			connect(this, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
 			connect(this, SIGNAL(exited()), this, SLOT(done()));
-			initFuseException();
 			this->succeed = false;
 		}
 
@@ -20,14 +19,14 @@ namespace GostCrypt {
 			this->sendToService(QVariant::fromValue(request));
 		}
 
-		void FuseServiceHandler::receiveResponse(QVariant &r)
+        void FuseServiceHandler::receiveResponse(QVariant &r)
 		{
-			if(!r.canConvert<QSharedPointer<Core::MountVolumeResponse>>())
-				throw UnknowResponseException(r.typeName());
+            if(!r.canConvert<QSharedPointer<Core::MountVolumeResponse>>())
+                throw UnknowResponseException(r.typeName());
 
 			this->succeed = true;
 			this->exit();
-			this->response = r.value<QSharedPointer<Core::MountVolumeResponse>>();
+            this->response = r.value<QSharedPointer<Core::MountVolumeResponse>>();
 			if(this->response.isNull())
 				this->response.reset(new Core::MountVolumeResponse());
 			if(!this->params.isNull())

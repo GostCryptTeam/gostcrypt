@@ -58,12 +58,13 @@ namespace GostCrypt {
 			if(serviceName == "CoreService") {
 				inputFileMonitor.reset(new QSocketNotifier(inputFile.handle(), QSocketNotifier::Read));
 				connect(inputFileMonitor.data(), SIGNAL(activated(int)), this, SLOT(receiveRequest()));
-				return app.exec();
+                qDebug() <<"start async";
+                return app.exec();
 			}
 
 			try {
 				while(receiveRequest());
-			} catch(GostCrypt::Core::GostCryptException &e) {
+            } catch(GostCrypt::GostCryptException &e) {
 				emit sendException(e);
 			} catch (QException &e) {
 				qDebug() << e.what();
@@ -132,7 +133,7 @@ namespace GostCrypt {
 			bool done = true;
 			try {
 				done = QCoreApplication::notify(receiver, event);
-			} catch(GostCrypt::Core::GostCryptException &e) {
+            } catch(GostCrypt::GostCryptException &e) {
 				#ifdef DEBUG_SERVICE_HANDLER
 				qDebug() << "Exception catched, forwarding to parent process";
 				#endif

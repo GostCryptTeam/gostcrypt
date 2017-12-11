@@ -1,6 +1,6 @@
 #ifndef FUSEEXCEPTION_H
 #define FUSEEXCEPTION_H
-#include "Core/CoreException.h"
+#include "Core/GostCryptException.h"
 
 namespace GostCrypt
 {
@@ -16,7 +16,7 @@ namespace GostCrypt
 		 * @brief Initialize FuseExceptions to make them serializable, and thus be able to transmit them between processes
 		 *
 		 */
-		class FuseException : public Core::GostCryptException {
+        class FuseException : public GostCryptException {
 			public:
 				FuseException() {}
 				/**
@@ -27,7 +27,7 @@ namespace GostCrypt
 				 * @param line Line of the file where the exception was thrown
 				 */
 				FuseException(QString fonction, QString filename, quint32 line) : GostCryptException(fonction, filename, line) {}
-				DEF_EXCEPTION_WHAT(FuseException, Core::GostCryptException, "")
+                DEF_EXCEPTION_WHAT(FuseException, GostCryptException, "")
 
 			DEC_SERIALIZABLE(FuseException);
 		};
@@ -52,10 +52,10 @@ namespace GostCrypt
 				 * @param line Line of the file where the exception was thrown
                  * @param volumePath path of the volume Fuse was trying to mount
                  */
-                FuseTimeout(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> volumePath) : FuseException(fonction, filename, line), volumePath(volumePath) {}
-                DEF_EXCEPTION_WHAT(FuseTimeout, FuseException, "Fuseservice timed out while trying to mount "+ volumePath->absoluteFilePath() + "\n")
+                FuseTimeout(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : FuseException(fonction, filename, line), volumePath(volumePath) {}
+                DEF_EXCEPTION_WHAT(FuseTimeout, FuseException, "Fuseservice timed out while trying to mount "+ volumePath.absoluteFilePath() + "\n")
             protected:
-				QSharedPointer<QFileInfo> volumePath; /**< path of the volume Fuse was trying to mount */
+                                QFileInfo volumePath; /**< path of the volume Fuse was trying to mount */
 			DEC_SERIALIZABLE(FuseTimeout);
 		};
 
@@ -130,7 +130,33 @@ namespace GostCrypt
                 DEF_EXCEPTION_WHAT(VolumeNotOpenedYet, FuseException, "Information about the volume were requested before the volume had been opened\n")
 			DEC_SERIALIZABLE(VolumeNotOpenedYet);
 		};
-	}
+        #define FailedCreateFuseMountPointException(mountpoint) GostCrypt::FuseDriver::FailedCreateFuseMountPoint(__PRETTY_FUNCTION__, __FILE__, __LINE__, mountpoint);
+        /**
+         * @brief
+         *
+         */
+        class FailedCreateFuseMountPoint : public FuseException {
+            public:
+                /**
+                 * @brief
+                 *
+                 */
+                FailedCreateFuseMountPoint() {}
+                /**
+                 * @brief
+                 *
+                 * @param fonction
+                 * @param filename
+                 * @param line
+                 * @param mountpoint
+                 */
+                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : FuseException(fonction, filename, line), mountpoint(mountpoint) {}
+                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, FuseException, "Creation of fuse mount point " + mountpoint->absoluteFilePath() + " failed\n")
+            protected:
+                QSharedPointer<QFileInfo> mountpoint; /**< TODO: describe */
+            DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
+        };
+    }
 }
 
 SERIALIZABLE(GostCrypt::FuseDriver::FuseException)
@@ -138,6 +164,8 @@ SERIALIZABLE(GostCrypt::FuseDriver::FuseTimeout)
 SERIALIZABLE(GostCrypt::FuseDriver::FuseControlFileAccessFailed)
 SERIALIZABLE(GostCrypt::FuseDriver::FuseForkFailed)
 SERIALIZABLE(GostCrypt::FuseDriver::VolumeNotOpenedYet)
+SERIALIZABLE(GostCrypt::FuseDriver::FailedCreateFuseMountPoint)
+
 
 
 #endif // FUSEEXCEPTION_H

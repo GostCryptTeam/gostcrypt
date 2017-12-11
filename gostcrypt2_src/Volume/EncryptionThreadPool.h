@@ -10,14 +10,22 @@
 #ifndef GST_HEADER_Volume_EncryptionThreadPool
 #define GST_HEADER_Volume_EncryptionThreadPool
 
-#include "Platform/Platform.h"
 #include "EncryptionMode.h"
+#include "Core/GostCryptException.h"
+#include <QMutex>
+#include <QThread>
+#include <QWaitCondition>
 
 namespace GostCrypt
 {
-	class EncryptionThreadPool
+namespace Volume {
+
+    class EncryptionThread;
+
+    class EncryptionThreadPool
 	{
-	public:
+    friend class EncryptionThread;
+    public:
 		struct WorkType
 		{
 			enum Enum
@@ -41,48 +49,52 @@ namespace GostCrypt
 			};
 
 			struct WorkItem *FirstFragment;
-			shared_ptr <Exception> ItemException;
-			SyncEvent ItemCompletedEvent;
-			SharedVal <size_t> OutstandingFragmentCount;
-			SharedVal <State::Enum> State;
+            QSharedPointer <GostCryptException> ItemException;
+            QWaitCondition ItemCompletedEvent;
+            QMutex ItemCompletedEventMutex;
+            QAtomicInteger<size_t> OutstandingFragmentCount;
+            QAtomicInteger<quint8> State;
 			WorkType::Enum Type;
 
-			union
-			{
-				struct
-				{
-					const EncryptionMode *Mode;
-					byte *Data;
-					uint64 StartUnitNo;
-					uint64 UnitCount;
-					size_t SectorSize;
-				} Encryption;
-			};
+            struct
+            {
+                const EncryptionMode *Mode;
+                quint8 *Data;
+                quint64 StartUnitNo;
+                quint64 UnitCount;
+                size_t SectorSize;
+            } Encryption;
 		};
 
-		static void DoWork (WorkType::Enum type, const EncryptionMode *mode, byte *data, uint64 startUnitNo, uint64 unitCount, size_t sectorSize);
+		static void DoWork (WorkType::Enum type, const EncryptionMode *mode, quint8 *data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize);
 		static bool IsRunning () { return ThreadPoolRunning; }
 		static void Start ();
 		static void Stop ();
 
 	protected:
-		static void WorkThreadProc ();
+        static const int MaxThreadCount = 32;
+        static const int QueueSize = MaxThreadCount * 2;
 
-		static const size_t MaxThreadCount = 32;
-		static const size_t QueueSize = MaxThreadCount * 2;
-
-		static Mutex DequeueMutex;
+        static QMutex DequeueMutex;
 		static volatile size_t DequeuePosition;
 		static volatile size_t EnqueuePosition;
-		static Mutex EnqueueMutex;
-		static list < shared_ptr <Thread> > RunningThreads;
+        static QMutex EnqueueMutex;
+        static QList < QSharedPointer <EncryptionThread> > RunningThreads;
 		static volatile bool StopPending;
-		static size_t ThreadCount;
+        static quint8 ThreadCount;
 		static volatile bool ThreadPoolRunning;
-		static SyncEvent WorkItemCompletedEvent;
+        static QWaitCondition WorkItemCompletedEvent;
+        static QMutex WorkItemCompletedEventMutex;
 		static WorkItem WorkItemQueue[QueueSize];
-		static SyncEvent WorkItemReadyEvent;
-	};
+        static QWaitCondition WorkItemReadyEvent;
+        static QMutex WorkItemReadyEventMutex;
+    };
+
+    class EncryptionThread : public QThread {
+        Q_OBJECT
+        void run();
+    };
+}
 }
 
 #endif // GST_HEADER_Volume_EncryptionThreadPool

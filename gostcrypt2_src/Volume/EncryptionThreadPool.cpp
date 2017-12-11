@@ -7,314 +7,336 @@
 */
 
 
-#ifdef GST_UNIX
-#	include <unistd.h>
-#endif
 
-#ifdef GST_MACOSX
-#	include <sys/types.h>
-#	include <sys/sysctl.h>
-#endif
-
-#include "Platform/SyncEvent.h"
-#include "Platform/SystemLog.h"
-#include "Common/Crypto.h"
+#include <unistd.h>
+#include "Core/GostCryptException.h"
+#include "Crypto/Crypto.h"
 #include "EncryptionThreadPool.h"
 
 namespace GostCrypt
 {
-	void EncryptionThreadPool::DoWork (WorkType::Enum type, const EncryptionMode *encryptionMode, byte *data, uint64 startUnitNo, uint64 unitCount, size_t sectorSize)
-	{
-		size_t fragmentCount;
-		size_t unitsPerFragment;
-		size_t remainder;
+namespace Volume
+{
 
-		byte *fragmentData;
-		uint64 fragmentStartUnitNo;
+void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* encryptionMode,
+                                  quint8* data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize)
+{
+    //int c = 1;
+    //while(c);
 
-		WorkItem *workItem;
-		WorkItem *firstFragmentWorkItem;
+    size_t fragmentCount;
+    size_t unitsPerFragment;
+    size_t remainder;
 
-		if (unitCount == 0)
-			return;
+    quint8* fragmentData;
+    quint64 fragmentStartUnitNo;
 
-		if (!ThreadPoolRunning || unitCount == 1)
-		{
-			switch (type)
-			{
-			case WorkType::DecryptDataUnits:
-				encryptionMode->DecryptSectorsCurrentThread (data, startUnitNo, unitCount, sectorSize);
-				break;
+    WorkItem* firstFragmentWorkItem;
 
-			case WorkType::EncryptDataUnits:
-				encryptionMode->EncryptSectorsCurrentThread (data, startUnitNo, unitCount, sectorSize);
-				break;
+    if (unitCount == 0)
+    {
+        return;
+    }
 
-			default:
-				throw ParameterIncorrect (SRC_POS);
-			}
+    if (!ThreadPoolRunning || unitCount == 1)
+    {
+        switch (type)
+        {
+            case WorkType::DecryptDataUnits:
+                encryptionMode->DecryptSectorsCurrentThread(data, startUnitNo, unitCount, sectorSize);
+                break;
 
-			return;
-		}
+            case WorkType::EncryptDataUnits:
+                encryptionMode->EncryptSectorsCurrentThread(data, startUnitNo, unitCount, sectorSize);
+                break;
 
-		if (unitCount <= ThreadCount)
-		{
-			fragmentCount = (size_t) unitCount;
-			unitsPerFragment = 1;
-			remainder = 0;
-		}
-		else
-		{
-			fragmentCount = ThreadCount;
-			unitsPerFragment = (size_t) unitCount / ThreadCount;
-			remainder = (size_t) unitCount % ThreadCount;
+            default:
+                throw IncorrectParameterException("Unknown WorkType");
+        }
 
-			if (remainder > 0)
-				++unitsPerFragment;
-		}
+        return;
+    }
 
-		fragmentData = data;
-		fragmentStartUnitNo = startUnitNo;
+    if (unitCount <= ThreadCount)
+    {
+        fragmentCount = (size_t) unitCount;
+        unitsPerFragment = 1;
+        remainder = 0;
+    }
+    else
+    {
+        fragmentCount = ThreadCount;
+        unitsPerFragment = (size_t) unitCount / ThreadCount;
+        remainder = (size_t) unitCount % ThreadCount;
 
-		{
-			ScopeLock lock (EnqueueMutex);
-			firstFragmentWorkItem = &WorkItemQueue[EnqueuePosition];
+        if (remainder > 0)
+        {
+            ++unitsPerFragment;
+        }
+    }
 
-			while (firstFragmentWorkItem->State != WorkItem::State::Free)
-			{
-				WorkItemCompletedEvent.Wait();
-			}
+    fragmentData = data;
+    fragmentStartUnitNo = startUnitNo;
 
-			firstFragmentWorkItem->OutstandingFragmentCount.Set (fragmentCount);
-			firstFragmentWorkItem->ItemException.reset();
+    {
+        QMutexLocker lock(&EnqueueMutex);
+        firstFragmentWorkItem = &WorkItemQueue[EnqueuePosition];
 
-			while (fragmentCount-- > 0)
-			{
-				workItem = &WorkItemQueue[EnqueuePosition++];
+        while (firstFragmentWorkItem->State != WorkItem::State::Free)
+        {
+            WorkItemCompletedEvent.wait(&WorkItemCompletedEventMutex);
+        }
 
-				if (EnqueuePosition >= QueueSize)
-					EnqueuePosition = 0;
+        firstFragmentWorkItem->OutstandingFragmentCount = fragmentCount;
+        firstFragmentWorkItem->ItemException.reset();
 
-				while (workItem->State != WorkItem::State::Free)
-				{
-					WorkItemCompletedEvent.Wait();
-				}
+        while (fragmentCount-- > 0)
+        {
+            WorkItem* workItem = &WorkItemQueue[EnqueuePosition++];
 
-				workItem->Type = type;
-				workItem->FirstFragment = firstFragmentWorkItem;
+            if (EnqueuePosition >= QueueSize)
+            {
+                EnqueuePosition = 0;
+            }
 
-				workItem->Encryption.Mode = encryptionMode;
-				workItem->Encryption.Data = fragmentData;
-				workItem->Encryption.UnitCount = unitsPerFragment;
-				workItem->Encryption.StartUnitNo = fragmentStartUnitNo;
-				workItem->Encryption.SectorSize = sectorSize;
+            while (workItem->State != WorkItem::State::Free)
+            {
+                WorkItemCompletedEvent.wait(&WorkItemCompletedEventMutex);
+            }
 
-				fragmentData += unitsPerFragment * ENCRYPTION_DATA_UNIT_SIZE;
-				fragmentStartUnitNo += unitsPerFragment;
+            workItem->Type = type;
+            workItem->FirstFragment = firstFragmentWorkItem;
 
-				if (remainder > 0 && --remainder == 0)
-					--unitsPerFragment;
+            workItem->Encryption.Mode = encryptionMode;
+            workItem->Encryption.Data = fragmentData;
+            workItem->Encryption.UnitCount = unitsPerFragment;
+            workItem->Encryption.StartUnitNo = fragmentStartUnitNo;
+            workItem->Encryption.SectorSize = sectorSize;
 
-				workItem->State.Set (WorkItem::State::Ready);
-				WorkItemReadyEvent.Signal();
-			}
-		}
+            fragmentData += unitsPerFragment * ENCRYPTION_DATA_UNIT_SIZE;
+            fragmentStartUnitNo += unitsPerFragment;
 
-		firstFragmentWorkItem->ItemCompletedEvent.Wait();
-		
-		shared_ptr <Exception> itemException;
-        if (!firstFragmentWorkItem->ItemException.isNull())
-			itemException = firstFragmentWorkItem->ItemException;
+            if (remainder > 0 && --remainder == 0)
+            {
+                --unitsPerFragment;
+            }
 
-		firstFragmentWorkItem->State.Set (WorkItem::State::Free);
-		WorkItemCompletedEvent.Signal();
+            workItem->State = WorkItem::State::Ready;
 
-        if (!itemException.isNull())
-			itemException->Throw();
-	}
+            EncryptionThreadPool::WorkItemReadyEventMutex.unlock();
+            WorkItemReadyEvent.wakeOne();
+        }
+        firstFragmentWorkItem->ItemCompletedEventMutex.lock();
+    }
 
-	void EncryptionThreadPool::Start ()
-	{
-		if (ThreadPoolRunning)
-			return;
+    firstFragmentWorkItem->ItemCompletedEvent.wait(&firstFragmentWorkItem->ItemCompletedEventMutex);
 
-		size_t cpuCount;
+    QSharedPointer <GostCryptException> itemException;
+    if (!firstFragmentWorkItem->ItemException.isNull())
+    {
+        itemException = firstFragmentWorkItem->ItemException;
+    }
 
-#if defined (_SC_NPROCESSORS_ONLN)
-		
-		cpuCount = (size_t) sysconf (_SC_NPROCESSORS_ONLN);
-		if (cpuCount == (size_t) -1)
-			cpuCount = 1;
+    firstFragmentWorkItem->State = WorkItem::State::Free;
+    firstFragmentWorkItem->ItemCompletedEventMutex.unlock();
 
-#elif defined (GST_MACOSX)
+    WorkItemCompletedEvent.wakeOne();
 
-		int cpuCountSys;
-		int mib[2] = { CTL_HW, HW_NCPU };
+    if (!itemException.isNull())
+    {
+        itemException->raise();
+    }
+}
 
-		size_t len = sizeof (cpuCountSys);
-		if (sysctl (mib, 2, &cpuCountSys, &len, nullptr, 0) == -1)
-			cpuCountSys = 1;
+void EncryptionThreadPool::Start()
+{
+    if (ThreadPoolRunning)
+    {
+        return;
+    }
 
-		cpuCount = (size_t) cpuCountSys;
+    int cpuCount;
 
-#else
-#	error Cannot determine CPU count
-#endif
+    cpuCount = QThread::idealThreadCount();
+    if (cpuCount == -1)
+    {
+        cpuCount = 1;
+    }
 
-		if (cpuCount < 2)
-			return;
 
-		if (cpuCount > MaxThreadCount)
-			cpuCount = MaxThreadCount;
+    if (cpuCount < 2)
+    {
+        return;
+    }
 
-		StopPending = false;
-		DequeuePosition = 0;
-		EnqueuePosition = 0;
+    if (cpuCount > MaxThreadCount)
+    {
+        cpuCount = MaxThreadCount;
+    }
 
-		for (size_t i = 0; i < sizeof (WorkItemQueue) / sizeof (WorkItemQueue[0]); ++i)
-		{
-			WorkItemQueue[i].State.Set (WorkItem::State::Free);
-		}
+    StopPending = false;
+    DequeuePosition = 0;
+    EnqueuePosition = 0;
 
-		try
-		{
-			for (ThreadCount = 0; ThreadCount < cpuCount; ++ThreadCount)
-			{
-				struct ThreadFunctor : public Functor
-				{
-					virtual void operator() ()
-					{
-						WorkThreadProc();
-					}
-				};
+    for (size_t i = 0; i < sizeof(WorkItemQueue) / sizeof(WorkItemQueue[0]); ++i)
+    {
+        WorkItemQueue[i].State = WorkItem::State::Free;
+    }
 
-				make_shared_auto (Thread, thread);
-				thread->Start (new ThreadFunctor ());
-				RunningThreads.push_back (thread);
-			}
-		}
-		catch (...)
-		{
-			try
-			{
-				ThreadPoolRunning = true;
-				Stop();
-			} catch (...) { }
+    try
+    {
+        for (ThreadCount = 0; ThreadCount < cpuCount; ++ThreadCount)
+        {
+            QSharedPointer<EncryptionThread> thread(new EncryptionThread());
+            thread->start();
+            RunningThreads.append(thread);
+        }
+    }
+    catch (...)
+    {
+        try
+        {
+            ThreadPoolRunning = true;
+            Stop();
+        }
+        catch (...) { }
 
-			throw;
-		}
+        throw; //rethrow
+    }
+    WorkItemCompletedEventMutex.lock();
+    WorkItemReadyEventMutex.lock();
 
-		ThreadPoolRunning = true;
-	}
+    ThreadPoolRunning = true;
+}
 
-	void EncryptionThreadPool::Stop ()
-	{
-		if (!ThreadPoolRunning)
-			return;
+void EncryptionThreadPool::Stop()
+{
+    if (!ThreadPoolRunning)
+    {
+        return;
+    }
 
-		StopPending = true;
-		WorkItemReadyEvent.Signal();
+    StopPending = true;
+    WorkItemReadyEvent.wakeAll();
 
-		foreach_ref (const Thread &thread, RunningThreads)
-		{
-			thread.Join();
-		}
+    for (const QSharedPointer<EncryptionThread> thread : RunningThreads)
+    {
+        thread->wait();
+    }
+    WorkItemCompletedEventMutex.unlock();
+    WorkItemReadyEventMutex.unlock();
+    ThreadCount = 0;
+    ThreadPoolRunning = false;
+}
 
-		ThreadCount = 0;
-		ThreadPoolRunning = false;
-	}
 
-	void EncryptionThreadPool::WorkThreadProc ()
-	{
-		try
-		{
-			WorkItem *workItem;
 
-			while (!StopPending)
-			{
-				{
-					ScopeLock lock (DequeueMutex);
+void EncryptionThread::run()
+{
+    try
+    {
+        while (!EncryptionThreadPool::StopPending)
+        {
+            EncryptionThreadPool::WorkItem* workItem;
+            {
+                QMutexLocker lock(&EncryptionThreadPool::DequeueMutex);
 
-					workItem = &WorkItemQueue[DequeuePosition++];
+                workItem = &EncryptionThreadPool::WorkItemQueue[EncryptionThreadPool::DequeuePosition++];
 
-					if (DequeuePosition >= QueueSize)
-						DequeuePosition = 0;
+                if (EncryptionThreadPool::DequeuePosition >= EncryptionThreadPool::QueueSize)
+                {
+                    EncryptionThreadPool::DequeuePosition = 0;
+                }
 
-					while (!StopPending && workItem->State != WorkItem::State::Ready)
-					{
-						WorkItemReadyEvent.Wait();
-					}
+                // Waiting for current workItem to be Ready (there is work to do)
+                while (!EncryptionThreadPool::StopPending &&
+                        workItem->State != EncryptionThreadPool::WorkItem::State::Ready)
+                {
+                    EncryptionThreadPool::WorkItemReadyEvent.wait(&EncryptionThreadPool::WorkItemReadyEventMutex);//, 100);
+                }
 
-					workItem->State.Set (WorkItem::State::Busy);
-				}
+                workItem->State = EncryptionThreadPool::WorkItem::State::Busy;
+            }
 
-				if (StopPending)
-					break;
+            if (EncryptionThreadPool::StopPending)
+            {
+                break;
+            }
 
-				try
-				{
-					switch (workItem->Type)
-					{
-					case WorkType::DecryptDataUnits:
-						workItem->Encryption.Mode->DecryptSectorsCurrentThread (workItem->Encryption.Data, workItem->Encryption.StartUnitNo, workItem->Encryption.UnitCount, workItem->Encryption.SectorSize);
-						break;
+            try
+            {
+                switch (workItem->Type)
+                {
+                    case EncryptionThreadPool::WorkType::DecryptDataUnits:
+                        workItem->Encryption.Mode->DecryptSectorsCurrentThread(workItem->Encryption.Data,
+                                workItem->Encryption.StartUnitNo, workItem->Encryption.UnitCount, workItem->Encryption.SectorSize);
+                        break;
 
-					case WorkType::EncryptDataUnits:
-						workItem->Encryption.Mode->EncryptSectorsCurrentThread (workItem->Encryption.Data, workItem->Encryption.StartUnitNo, workItem->Encryption.UnitCount, workItem->Encryption.SectorSize);
-						break;
+                    case EncryptionThreadPool::WorkType::EncryptDataUnits:
+                        workItem->Encryption.Mode->EncryptSectorsCurrentThread(workItem->Encryption.Data,
+                                workItem->Encryption.StartUnitNo, workItem->Encryption.UnitCount, workItem->Encryption.SectorSize);
+                        break;
 
-					default:
-						throw ParameterIncorrect (SRC_POS);
-					}
-				}
-				catch (Exception &e)
-				{
-					workItem->FirstFragment->ItemException.reset (e.CloneNew());
-				}
-				catch (exception &e)
-				{
-					workItem->FirstFragment->ItemException.reset (new ExternalException (SRC_POS, StringConverter::ToExceptionString (e)));
-				}
-				catch (...)
-				{
-					workItem->FirstFragment->ItemException.reset (new UnknownException (SRC_POS));
-				}
+                    default:
+                        throw IncorrectParameterException("Unknown WorkType");
+                }
+            }
+            catch (GostCryptException& e)
+            {
+                workItem->FirstFragment->ItemException.reset(e.clone());
+            }
+            catch (std::exception& e)
+            {
+                workItem->FirstFragment->ItemException.reset(new ExternalExceptionException(e));
+            }
+            catch (...)
+            {
+                workItem->FirstFragment->ItemException.reset(new UnknowExceptionException());
+            }
 
-				if (workItem != workItem->FirstFragment)
-				{
-					workItem->State.Set (WorkItem::State::Free);
-					WorkItemCompletedEvent.Signal();
-				}
+            if (workItem != workItem->FirstFragment)
+            {
+                workItem->State = EncryptionThreadPool::WorkItem::State::Free;
+                EncryptionThreadPool::WorkItemCompletedEvent.wakeOne();
+            }
 
-				if (workItem->FirstFragment->OutstandingFragmentCount.Decrement() == 0)
-					workItem->FirstFragment->ItemCompletedEvent.Signal();
-			}
-		}
-		catch (exception &e)
-		{
-			SystemLog::WriteException (e);
-		}
-		catch (...)
-		{
-			SystemLog::WriteException (UnknownException (SRC_POS));
-		}
-	}
+            if (!workItem->FirstFragment->OutstandingFragmentCount.deref())
+            {
+                workItem->FirstFragment->ItemCompletedEvent.wakeOne();
+            }
+        }
+    }
+    catch (std::exception& e)
+    {
+        // SystemLog::WriteException (e); TODO
+    }
+    catch (...)
+    {
+        //SystemLog::WriteException (UnknownException (SRC_POS));
+    }
+}
 
-	volatile bool EncryptionThreadPool::ThreadPoolRunning = false;
-	volatile bool EncryptionThreadPool::StopPending = false;
+volatile bool EncryptionThreadPool::ThreadPoolRunning = false;
+volatile bool EncryptionThreadPool::StopPending = false;
 
-	size_t EncryptionThreadPool::ThreadCount;
+quint8 EncryptionThreadPool::ThreadCount;
 
-	EncryptionThreadPool::WorkItem EncryptionThreadPool::WorkItemQueue[QueueSize];
+EncryptionThreadPool::WorkItem EncryptionThreadPool::WorkItemQueue[QueueSize];
 
-	volatile size_t EncryptionThreadPool::EnqueuePosition;
-	volatile size_t EncryptionThreadPool::DequeuePosition;
+volatile size_t EncryptionThreadPool::EnqueuePosition;
+volatile size_t EncryptionThreadPool::DequeuePosition;
 
-	Mutex EncryptionThreadPool::EnqueueMutex;
-	Mutex EncryptionThreadPool::DequeueMutex;
+QMutex EncryptionThreadPool::EnqueueMutex;
+QMutex EncryptionThreadPool::DequeueMutex;
 
-	SyncEvent EncryptionThreadPool::WorkItemReadyEvent;
-	SyncEvent EncryptionThreadPool::WorkItemCompletedEvent;
+QWaitCondition EncryptionThreadPool::WorkItemReadyEvent;
+QWaitCondition EncryptionThreadPool::WorkItemCompletedEvent;
+QMutex EncryptionThreadPool::WorkItemCompletedEventMutex;
+QMutex EncryptionThreadPool::WorkItemReadyEventMutex;
 
-	list < shared_ptr <Thread> > EncryptionThreadPool::RunningThreads;
+
+
+QList < QSharedPointer <EncryptionThread> > EncryptionThreadPool::RunningThreads;
+
+}
 }

@@ -5,10 +5,11 @@
 #include <QFileInfo>
 #include "SerializationUtil.h"
 #include "Volume/Volume.h"
+#include "Volume/VolumeHeader.h"
 #include "Volume/Keyfile.h"
 #include "Volume/Volume.h"
-#include "Volume/VolumeSlot.h"
 #include "Volume/VolumePassword.h"
+#include "Volume/VolumeType.h"
 
 namespace GostCrypt {
 namespace Core {
@@ -28,9 +29,9 @@ static QString GetFileSystemTypePlatformNative () {
 
 struct ProgressTrackingParameters
 {
-    ProgressTrackingParameters(quint32 requestId) : requestId(requestId), start(0), end(1) {}
-    ProgressTrackingParameters() : start(0), end(1) {}
-    ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
+    explicit ProgressTrackingParameters(quint32 requestId) : requestId(requestId), start(0), end(1) {}
+    explicit ProgressTrackingParameters() :  requestId(0), start(0), end(1) {}
+    explicit ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
 
 
     quint32 requestId;
@@ -50,7 +51,7 @@ struct CoreRequest
 
 struct CreateVolumeRequest : CoreRequest {
     CreateVolumeRequest() {
-        type = VolumeType::Normal;
+        type = Volume::VolumeType::Normal;
         size = 0;
 		innerVolume.reset();
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
@@ -59,7 +60,7 @@ struct CreateVolumeRequest : CoreRequest {
         VolumeParams() {
             filesystem = GetFileSystemTypePlatformNative();
             size = 0;
-            volumeHeaderKdf = "HMAC-Whirlpool";
+            volumeHeaderKdf = "Whirlpool";
             encryptionAlgorithm = "Gost Grasshopper";
         }
         QSharedPointer <QByteArray> password; // password of the volume (never null)
@@ -70,8 +71,8 @@ struct CreateVolumeRequest : CoreRequest {
         QString filesystem; // the filesystem to use
         DEC_SERIALIZABLE(VolumeParams);
     };
-    QSharedPointer <QFileInfo> path; // path of the file to create or device to format
-    VolumeType::Enum type; // Normal or hidden ?
+    QFileInfo path; // path of the file to create or device to format
+    Volume::VolumeType::Enum type; // Normal or hidden ?
     quint64 size; // size of the container
     QSharedPointer <VolumeParams> outerVolume; // defines the outer volume (never null)
     QSharedPointer <VolumeParams> innerVolume; // defines the inner volume
@@ -79,19 +80,19 @@ struct CreateVolumeRequest : CoreRequest {
 };
 
 struct ChangeVolumePasswordRequest : CoreRequest {
-    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool") {}
-    QSharedPointer <QFileInfo> path; // path of the volume we want to change the password (never null)
+    ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool"), changeMasterKey(false) {}
+    QFileInfo path; // path of the volume we want to change the password (never null)
     QSharedPointer <QByteArray> password; // old password, optional if volume is already opened
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // old keyfiles, optional if volume is already opened
     QString newVolumeHeaderKdf; // new key derivation function (never null)
     QSharedPointer <QByteArray> newPassword; // new password (never null)
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> newKeyfiles; // new keyfiles
+    bool changeMasterKey;
     DEC_SERIALIZABLE(ChangeVolumePasswordRequest);
 };
 
 struct CreateKeyFileRequest : CoreRequest {
-    QSharedPointer<QFileInfo> file; // the path of the file to fill with random data
-    ProgressTrackingParameters keyFileCreationId;
+    QFileInfo file; // the path of the file to fill with random data
     DEC_SERIALIZABLE(CreateKeyFileRequest);
 };
 
@@ -105,9 +106,9 @@ struct MountVolumeRequest : CoreRequest {
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
     QSharedPointer <QByteArray> password; // password of the volume
     QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
-    QSharedPointer <QFileInfo> path; // path of the container or device to mount
+    QFileInfo path; // path of the container or device to mount
     QSharedPointer <QFileInfo> fuseMountPoint; // mountpoint for the special fuse filesystem
-    VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
+    Volume::VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
     QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; // keyfiles to mount the hidden protected volume
     bool useBackupHeaders; // open the volume with its backup header.
@@ -121,7 +122,8 @@ struct MountVolumeRequest : CoreRequest {
 
 struct DismountVolumeRequest : CoreRequest {
     DismountVolumeRequest();
-    QSharedPointer<QFileInfo> volumePath; // path of the file mounted, not the mount point
+    bool all;
+    QFileInfo volumePath; // path of the file mounted, not the mount point
     bool force;
     bool forVolumeCreation;
     DEC_SERIALIZABLE(DismountVolumeRequest);
@@ -132,7 +134,9 @@ struct GetHostDevicesRequest : CoreRequest {
 }; // no parameters
 
 struct GetMountedVolumesRequest : CoreRequest {
-    QSharedPointer<QFileInfo> volumePath; // optional path to select VolumeInfo from one particular volume
+    GetMountedVolumesRequest();
+    bool all;
+    QFileInfo volumePath; // optional path to select VolumeInfo from one particular volume
     DEC_SERIALIZABLE(GetMountedVolumesRequest);
 };
 
@@ -143,6 +147,28 @@ struct GetEncryptionAlgorithmsRequest : CoreRequest {
 struct GetDerivationFunctionsRequest : CoreRequest {
     DEC_SERIALIZABLE(GetDerivationFunctionsRequest);
 }; // no parameters
+
+struct BackupHeaderRequest : CoreRequest {
+    BackupHeaderRequest();
+    QFileInfo volumePath; // the path of the volume file
+    QFileInfo backupHeaderFile; //the path of the file where to store the backup header
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
+    QSharedPointer <QByteArray> password; // password of the volume
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> hiddenVolumeKeyfiles; // keyfiles to mount the volume
+    QSharedPointer <QByteArray> hiddenVolumePassword; // password of the volume
+    bool hiddenVolume;
+    DEC_SERIALIZABLE(BackupHeaderRequest);
+};
+
+struct RestoreHeaderRequest : CoreRequest {
+    QFileInfo volumePath; // the path of the volume file
+    bool useInternalBackup;
+    QFileInfo backupHeaderFile;
+    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to decrypt the backup header
+    QSharedPointer <QByteArray> password; // password of the volume to decrypt the backup header
+    DEC_SERIALIZABLE(RestoreHeaderRequest);
+};
+
 }
 }
 
@@ -158,5 +184,7 @@ SERIALIZABLE(GostCrypt::Core::GetMountedVolumesRequest)
 SERIALIZABLE(GostCrypt::Core::GetEncryptionAlgorithmsRequest)
 SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsRequest)
 SERIALIZABLE(GostCrypt::Core::ProgressTrackingParameters)
+SERIALIZABLE(GostCrypt::Core::BackupHeaderRequest)
+SERIALIZABLE(GostCrypt::Core::RestoreHeaderRequest)
 
 #endif // COREPARAMS_H

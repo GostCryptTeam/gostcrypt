@@ -6,7 +6,6 @@
 #include <QFileInfo>
 #include <QtGlobal>
 #include "SerializationUtil.h"
-#include "Volume/VolumeInfo.h"
 #include "CoreRequest.h"
 #include "CoreException.h"
 
@@ -15,7 +14,6 @@ namespace GostCrypt {
         void initCoreResponse();
 
 		struct HostDevice;
-		struct VolumeInformation;
 		struct CoreResponse {
 			QVariantMap passThrough;
 			DEC_SERIALIZABLE(CoreResponse);
@@ -26,7 +24,6 @@ namespace GostCrypt {
 		};
 
 		struct ChangeVolumePasswordResponse : CoreResponse {
-			bool changeMasterKey;
 			DEC_SERIALIZABLE(ChangeVolumePasswordResponse);
 		};
 
@@ -34,15 +31,23 @@ namespace GostCrypt {
 			DEC_SERIALIZABLE(CreateKeyFileResponse);
 		};
 
+        struct BackupHeaderResponse : CoreResponse {
+            DEC_SERIALIZABLE(BackupHeaderResponse);
+        };
+
+        struct RestoreHeaderResponse : CoreResponse {
+            DEC_SERIALIZABLE(RestoreHeaderResponse);
+        };
+
 		struct MountVolumeResponse : CoreResponse {
 			MountVolumeResponse();
 			bool readOnlyFailover;
-			QSharedPointer<VolumeInformation> volumeInfo;
+			QSharedPointer<Volume::VolumeInformation> volumeInfo;
 			DEC_SERIALIZABLE(MountVolumeResponse);
 		};
 
 		struct DismountVolumeResponse : CoreResponse {
-			QList<QSharedPointer<QFileInfo>> volumePath; // path of the file dismounted, not the mount point
+                        QList<QFileInfo> volumePath; // path of the file dismounted, not the mount point
 			DEC_SERIALIZABLE(DismountVolumeResponse);
 		};
 
@@ -52,7 +57,7 @@ namespace GostCrypt {
 		};
 
 		struct GetMountedVolumesResponse : CoreResponse {
-			QList<QSharedPointer<VolumeInformation>> volumeInfoList;
+			QList<QSharedPointer<Volume::VolumeInformation>> volumeInfoList;
 			DEC_SERIALIZABLE(GetMountedVolumesResponse);
 		};
 
@@ -81,21 +86,7 @@ namespace GostCrypt {
 			QList<QSharedPointer<HostDevice>> partitions;
 			DEC_SERIALIZABLE(HostDevice);
 		};
-
-		struct VolumeInformation {
-			VolumeInformation() = default;
-			VolumeInformation(VolumeInfo v);
-			QSharedPointer<QFileInfo> fuseMountPoint;
-			QString encryptionAlgorithmName;
-			QSharedPointer<QFileInfo> virtualDevice;
-			QSharedPointer<QFileInfo> mountPoint;
-			QSharedPointer<QFileInfo> volumePath;
-			VolumeProtection::Enum protection;
-			quint64 size;
-			VolumeType::Enum type;
-			DEC_SERIALIZABLE(VolumeInformation);
-		};
-	}
+}
 }
 
 SERIALIZABLE(GostCrypt::Core::CoreResponse)
@@ -110,6 +101,7 @@ SERIALIZABLE(GostCrypt::Core::GetEncryptionAlgorithmsResponse)
 SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsResponse)
 SERIALIZABLE(GostCrypt::Core::HostDevice)
 SERIALIZABLE(GostCrypt::Core::MountedFilesystem)
-SERIALIZABLE(GostCrypt::Core::VolumeInformation)
+SERIALIZABLE(GostCrypt::Core::BackupHeaderResponse)
+SERIALIZABLE(GostCrypt::Core::RestoreHeaderResponse)
 
 #endif // CORERESPONSE_H

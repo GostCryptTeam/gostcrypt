@@ -8,6 +8,7 @@
 #include "Core/Service.h"
 #include "FuseService/FuseException.h"
 #include "Volume/Volume.h"
+#include "Volume/VolumeInformation.h"
 
 
 namespace GostCrypt {
@@ -53,7 +54,7 @@ namespace GostCrypt {
 			 *
 			 * @return int error code corresponding to the last thrown Exception
 			 */
-			static int exceptionToErrorCode();
+            static int handleExceptions();
 			/**
 			 * @brief Close the volume and shutdown the encryption thread in order to destroy the FUSE mount.
 			 *
@@ -64,27 +65,27 @@ namespace GostCrypt {
 			 *
 			 * @return uint64 size of the volume in byte
 			 */
-			static uint64 getVolumeSize();
+			static quint64 getVolumeSize();
 			/**
 			 * @brief Return the sector size of the volume in byte
 			 *
 			 * @return uint64 size of the volume in byte
 			 */
-			static uint64 getVolumeSectorSize();
+			static quint64 getVolumeSectorSize();
 			/**
 			 * @brief Read sectors in the volume
 			 *
 			 * @param buffer Buffer where to store the read data
 			 * @param byteOffset Offset of the sectors to read (in bytes)
 			 */
-			static void readVolumeSectors(const BufferPtr &buffer, uint64 byteOffset);
+            static void readVolumeSectors(BufferPtr &buffer, quint64 byteOffset);
 			/**
 			 * @brief Write sectoris in the volume
 			 *
 			 * @param buffer Buffer containing the data to write
 			 * @param byteOffset Offset of the sectors where to write the data (in bytes)
 			 */
-			static void writeVolumeSectors (const ConstBufferPtr &buffer, uint64 byteOffset);
+            static void writeVolumeSectors (const BufferPtr &buffer, quint64 byteOffset);
 			/**
 			 * @brief Return whether or not the path of the virtual device had been stored
 			 *
@@ -116,10 +117,10 @@ namespace GostCrypt {
 			 */
 			static gid_t getGroupId() { return FuseService::groupId; }
 		private:
-			static QSharedPointer<Volume> mountedVolume; /**< Pointer to the mounted volume object */
-			static QSharedPointer<Core::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */
             static QSharedPointer<QFileInfo> fuseMountPoint;
             static uid_t userId; /**< User id of the user for which the volume had been mounted */
+			static QSharedPointer<Volume::Volume> mountedVolume; /**< Pointer to the mounted volume object */
+			static QSharedPointer<Volume::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */
 			static gid_t groupId; /**< Group id of the group for which the volume had been mounted */
 			static QMutex volumeInfoMutex; /**< Mutex to handle access to the volumeInfo object */
 			/**
@@ -143,7 +144,6 @@ namespace GostCrypt {
 			 *
 			 */
             void launchFuse();
-
 		public slots:			 //TODO : make private
 			/**
 			 * @brief Handle mount request by opening the given volume and launching FUSE in order to create the FUSE mount

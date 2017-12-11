@@ -10,24 +10,24 @@
 #ifndef GST_HEADER_Core_RandomNumberGenerator
 #define GST_HEADER_Core_RandomNumberGenerator
 
-#include "Platform/Platform.h"
-#include "Volume/Hash.h"
-#include "Common/Random.h"
 
-namespace GostCrypt
-{
+#include <QMutex>
+#include <QSharedPointer>
+#include "Core/Buffer.h"
+#include "Volume/Crypto/Random.h"
+#include "Volume/VolumeHash.h"
+
+namespace GostCrypt {
+	namespace Core {
 	class RandomNumberGenerator
 	{
 	public:
-		static void AddToPool (const ConstBufferPtr &buffer);
-		static void GetData (const BufferPtr &buffer) { GetData (buffer, false); }
-		static void GetDataFast (const BufferPtr &buffer) { GetData (buffer, true); }
-		static shared_ptr <Hash> GetHash ();
-		static bool IsEnrichedByUser () { return EnrichedByUser; }
+        static void AddToPool (const BufferPtr &buffer);
+        static void GetData (BufferPtr &buffer) { GetData (buffer, false); }
+        static void GetDataFast (BufferPtr &buffer) { GetData (buffer, true); }
 		static bool IsRunning () { return Running; }
-		static ConstBufferPtr PeekPool () { return Pool; }
-		static void SetEnrichedByUserStatus (bool enriched) { EnrichedByUser = enriched; }
-		static void SetHash (shared_ptr <Hash> hash);
+        static const BufferPtr PeekPool () { return Pool; }
+        static void SetHash(QSharedPointer<Volume::VolumeHash> hashfct);
 		static void Start ();
 		static void Stop ();
 
@@ -35,22 +35,23 @@ namespace GostCrypt
 
 	protected:
 		static void AddSystemDataToPool (bool fast);
-		static void GetData (const BufferPtr &buffer, bool fast);
+        static void GetData (BufferPtr &buffer, bool fast);
 		static void HashMixPool ();
 		static void Test ();
 		RandomNumberGenerator ();
 
 		static const size_t MaxBytesAddedBeforePoolHashMix = RANDMIX_BYTE_INTERVAL;
 
-		static Mutex AccessMutex;
+        static QMutex AccessMutex;
 		static size_t BytesAddedSincePoolHashMix;
 		static bool EnrichedByUser;
 		static SecureBuffer Pool;
-		static shared_ptr <Hash> PoolHash;
+		static QSharedPointer <Volume::VolumeHash> PoolHash;
 		static size_t ReadOffset;
 		static bool Running;
 		static size_t WriteOffset;
 	};
+}
 }
 
 #endif // GST_HEADER_Core_RandomNumberGenerator

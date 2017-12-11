@@ -6,64 +6,34 @@
  packages.
 */
 
-
+#include "Core/GostCryptException.h"
 #include "VolumePassword.h"
-#include "Platform/SerializerFactory.h"
-#include "Platform/StringConverter.h"
 
 namespace GostCrypt
 {
-	VolumePassword::VolumePassword () : PasswordSize (0), Unportable (false)
+namespace Volume {
+
+    VolumePassword::VolumePassword () : PasswordSize (0)
 	{
 		AllocateBuffer ();
 	}
 
 	VolumePassword::VolumePassword (const char *password, size_t size)
 	{
-		Set ((const byte *) password, size);
+		Set ((const quint8 *) password, size);
 	}
 
-	VolumePassword::VolumePassword (const byte *password, size_t size)
-	{
-		Set (password, size);
-	}
-
-	VolumePassword::VolumePassword (const wchar_t *password, size_t charCount)
-	{
-		Set (password, charCount);
-	}
-
-	VolumePassword::VolumePassword (const wstring &password)
-	{
-		Set (password.c_str(), password.size());
-	}
-
-	VolumePassword::~VolumePassword ()
-	{
-	}
+    bool VolumePassword::operator==(const VolumePassword &other) const
+    {
+        const BufferPtr data1(DataPtr(), Size());
+        const BufferPtr data2(other.DataPtr(), other.Size());
+        return data1.IsDataEqual(data2);
+    }
 
 	void VolumePassword::AllocateBuffer ()
 	{
 		if (!PasswordBuffer.IsAllocated ())
 			PasswordBuffer.Allocate (MaxSize);
-	}
-
-	void VolumePassword::CheckPortability () const
-	{
-		if (Unportable || !IsPortable())
-			throw UnportablePassword (SRC_POS);
-	}
-
-	void VolumePassword::Deserialize (shared_ptr <Stream> stream)
-	{
-		Serializer sr (stream);
-		uint64 passwordSize;
-		sr.Deserialize ("PasswordSize", passwordSize);
-		PasswordSize = static_cast <size_t> (passwordSize);
-		sr.Deserialize ("PasswordBuffer", BufferPtr (PasswordBuffer));
-		
-		Buffer wipeBuffer (128 * 1024);
-		sr.Deserialize ("WipeData", wipeBuffer);
 	}
 
 	bool VolumePassword::IsPortable () const
@@ -76,93 +46,21 @@ namespace GostCrypt
 		return true;
 	}
 
-	void VolumePassword::Serialize (shared_ptr <Stream> stream) const
-	{
-		Serializable::Serialize (stream);
-		Serializer sr (stream);
-		sr.Serialize ("PasswordSize", static_cast <uint64> (PasswordSize));
-		sr.Serialize ("PasswordBuffer", ConstBufferPtr (PasswordBuffer));
 
-		// Wipe password from an eventual pipe buffer
-		Buffer wipeBuffer (128 * 1024);
-		wipeBuffer.Zero();
-		sr.Serialize ("WipeData", ConstBufferPtr (wipeBuffer));
-	}
-
-	void VolumePassword::Set (const byte *password, size_t size)
+	void VolumePassword::Set (const quint8 *password, size_t size)
 	{
 		AllocateBuffer ();
-		
+
 		if (size > MaxSize)
-			throw PasswordTooLong (SRC_POS);
-		
-		PasswordBuffer.CopyFrom (ConstBufferPtr (password, size));
+            throw IncorrectParameterException("Password size too big");
+
+        PasswordBuffer.CopyFrom (BufferPtr (password, size));
 		PasswordSize = size;
-
-		Unportable = !IsPortable();
 	}
-	
-	void VolumePassword::Set (const wchar_t *password, size_t charCount)
+
+    void VolumePassword::Set (const BufferPtr &password)
 	{
-		if (charCount > MaxSize)
-			throw PasswordTooLong (SRC_POS);
-
-		union Conv
-		{
-			byte b[sizeof (wchar_t)];
-			wchar_t c;
-		};
-
-		Conv conv;
-		conv.c = L'A';
-		
-		int lsbPos = -1;
-		for (size_t i = 0; i < sizeof (conv.b); ++i)
-		{
-			if (conv.b[i] == L'A')
-			{
-				lsbPos = i;
-				break;
-			}
-		}
-
-		if (lsbPos == -1)
-			throw ParameterIncorrect (SRC_POS);
-
-		bool unportable = false;
-		byte passwordBuf[MaxSize];
-		for (size_t i = 0; i < charCount; ++i)
-		{
-			conv.c = password[i];
-			passwordBuf[i] = conv.b[lsbPos];
-			for (int j = 0; j < (int) sizeof (wchar_t); ++j)
-			{
-				if (j != lsbPos && conv.b[j] != 0)
-					unportable = true;
-			}
-		}
-		
-		Set (passwordBuf, charCount);
-		
-		if (unportable)
-			Unportable = true;
+        Set (password.Get(), password.Size());
 	}
-
-	void VolumePassword::Set (const ConstBufferPtr &password)
-	{
-		Set (password, password.Size());
-	}
-	
-	void VolumePassword::Set (const VolumePassword &password)
-	{
-		Set (password.DataPtr(), password.Size());
-	}
-
-	GST_SERIALIZER_FACTORY_ADD_CLASS (VolumePassword);
-
-#define GST_EXCEPTION(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-#undef GST_EXCEPTION_NODECL
-#define GST_EXCEPTION_NODECL(TYPE) GST_SERIALIZER_FACTORY_ADD(TYPE)
-
-	GST_SERIALIZER_FACTORY_ADD_EXCEPTION_SET (PasswordException);
+}
 }

@@ -7,13 +7,12 @@
 #include <QThread>
 #include <fuse.h>
 #include <signal.h>
+#include <unistd.h>
 #include "Volume/EncryptionThreadPool.h"
+#include "Volume/VolumePassword.h"
 #include "Core/CoreBase.h"
-#include "Core/CoreException.h"
-
-
-//TODO handle exception to send back (should be done in Service)
-//TODO Handle Logging of exceptions
+#include "Core/GostCryptException.h"
+#include "Volume/VolumeException.h"
 
 namespace GostCrypt {
 	namespace FuseDriver {
@@ -28,8 +27,7 @@ namespace GostCrypt {
 		{
 			INIT_SERIALIZE(Core::MountVolumeRequest);
 			INIT_SERIALIZE(Core::MountVolumeResponse);
-			Core::initCoreException();
-			initFuseException();
+            initGostCryptException();
 		}
 
 		void FuseService::mountRequestHandler(QVariant r)
@@ -39,7 +37,7 @@ namespace GostCrypt {
 
 			QSharedPointer<Core::MountVolumeRequest> params = r.value<QSharedPointer<Core::MountVolumeRequest>>();
 			QSharedPointer<Core::MountVolumeResponse> response(new Core::MountVolumeResponse());
-			mountedVolume.reset(new Volume);
+			mountedVolume.reset(new Volume::Volume);
 
 			if(!params->mountedForUser.isEmpty())
 				FuseService::userId = Core::getUserId(params->mountedForUser);
@@ -48,55 +46,51 @@ namespace GostCrypt {
 				FuseService::groupId = Core::getGroupId(params->mountedForGroup);
 
 			do {
-				try {
-                    VolumePath path(params->path->absoluteFilePath().toStdWString());
-                    shared_ptr<VolumePassword> password;
-                    shared_ptr<VolumePassword> protectionPassword;
-                    shared_ptr <KeyfileList> keyfiles;
-                    shared_ptr <KeyfileList> protectionKeyfiles;
+                try {
+                    QSharedPointer<Volume::VolumePassword> password;
+                    QSharedPointer<Volume::VolumePassword> protectionPassword;
+                    QSharedPointer <Volume::KeyfileList> keyfiles;
+                    QSharedPointer <Volume::KeyfileList> protectionKeyfiles;
 
 
                     // Conversions :(
                     if(!params->password.isNull())
-                        password.reset(new VolumePassword(params->password->constData(), params->password->size()));
+                        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
                     else
                         throw MissingParamException("password");
                     if(!params->protectionPassword.isNull())
-                        protectionPassword.reset(new VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
+                        protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
                     if(!params->protectionKeyfiles.isNull()) {
                         for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->push_back(QSharedPointer<Keyfile>(new Keyfile(FilesystemPath(keyfile->absoluteFilePath().toStdWString()))));
+                            protectionKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
                         }
                     }
 
                     mountedVolume->Open(
-						path,
+                        params->path,
 						params->preserveTimestamps,
                         password,
                         keyfiles,
 						params->protection,
                         protectionPassword,
                         protectionKeyfiles,
-						params->useBackupHeaders
+                        Volume::VolumeType::Unknown,
+                        params->useBackupHeaders
 					);
-                } catch(GostCrypt::PasswordException &e) {
-                    throw IncorrectVolumePasswordException(params->path)
-                } catch(GostCrypt::SystemException &e) {
+                } catch(FailedOpenFile &e) {
 					// In case of permission issue try again in read-only
-					if(params->protection != VolumeProtection::ReadOnly && (e.GetErrorCode() == EROFS || e.GetErrorCode() == EACCES || e.GetErrorCode() == EPERM))
+                    if(params->protection != Volume::VolumeProtection::ReadOnly)
 					{
-						params->protection = VolumeProtection::ReadOnly;
+						params->protection = Volume::VolumeProtection::ReadOnly;
 						response->readOnlyFailover = true;
 						continue;
 					}
-                    throw FailedOpenVolumeException(params->path);
-                } catch(GostCrypt::Exception &e) {
-                    throw ExceptionFromVolumeException(e.what());
+                    throw;
                 }
 
 				params->password->fill('\0');
@@ -119,16 +113,17 @@ namespace GostCrypt {
                 if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
                         throw FailedCreateFuseMountPointException(fuseMountPoint);
 
+
 				try {
                     launchFuse();
 					sendResponseWhenReady(QVariant::fromValue(response));
 				} catch (...) {
-                    QDir(fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
-					throw;
+                    QDir(params->fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
+                    throw; //rethrow
 				}
 			} catch (...) {
 				mountedVolume->Close();
-				throw;
+                throw; //rethrow
 			}
 		}
 
@@ -170,6 +165,8 @@ namespace GostCrypt {
             if (envSudoUID) {
                 FuseService::userId =  static_cast <gid_t> (QString(envSudoUID).toLong());
 			}
+
+            qputenv("QT_LOGGING_TO_CONSOLE", QByteArray("0"));
 		}
 
 		bool FuseService::checkAccessRights()
@@ -177,7 +174,7 @@ namespace GostCrypt {
 				return fuse_get_context()->uid == 0 || fuse_get_context()->uid == userId;
 		}
 
-		uint64 FuseService::getVolumeSize ()
+		quint64 FuseService::getVolumeSize ()
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -185,7 +182,7 @@ namespace GostCrypt {
 			return mountedVolume->GetSize();
 		}
 
-		uint64 FuseService::getVolumeSectorSize()
+		quint64 FuseService::getVolumeSectorSize()
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -193,7 +190,7 @@ namespace GostCrypt {
 			return mountedVolume->GetSectorSize();
 		}
 
-		void FuseService::readVolumeSectors(const BufferPtr &buffer, uint64 byteOffset)
+        void FuseService::readVolumeSectors(BufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -201,7 +198,7 @@ namespace GostCrypt {
 			mountedVolume->ReadSectors (buffer, byteOffset);
 		}
 
-		void FuseService::writeVolumeSectors(const ConstBufferPtr &buffer, uint64 byteOffset)
+        void FuseService::writeVolumeSectors(const BufferPtr &buffer, quint64 byteOffset)
 		{
 			if (!mountedVolume)
 				throw VolumeNotOpenedYetException();
@@ -247,43 +244,44 @@ namespace GostCrypt {
 			return buffer;
 		}
 
-		int FuseService::exceptionToErrorCode ()
+        int FuseService::handleExceptions ()
 		{
 			try
 			{
-				throw;
+                throw; //rethrow
 			}
 			catch (std::bad_alloc)
 			{
 				return -ENOMEM;
 			}
-			catch (ParameterIncorrect &e)
+            catch (IncorrectParameter &e)
 			{
-				//SystemLog::WriteException (e);
+                qWarning() << e.qwhat();
 				return -EINVAL;
 			}
-			catch (VolumeProtected&)
+            catch (Volume::VolumeProtected)
 			{
 				return -EPERM;
 			}
-			catch (VolumeReadOnly&)
+            catch (Volume::VolumeReadOnly &)
 			{
 				return -EPERM;
 			}
-			catch (SystemException &e)
+            catch (GostCryptException &e)
 			{
-				//SystemLog::WriteException (e);
-				return -static_cast <int> (e.GetErrorCode());
-			}
+                qWarning() << e.qwhat();
+                return -EINTR;
+            }
 			catch (std::exception &e)
 			{
-				//SystemLog::WriteException (e);
-				return -EINTR;
+                qWarning() << e.what();
+                return -EINTR;
 			}
 			catch (...)
 			{
-				//SystemLog::WriteException (UnknownException (SRC_POS));
-				return -EINTR;
+                UnknowException e;
+                qWarning() << e.qwhat();
+                return -EINTR;
 			}
 		}
 
@@ -291,9 +289,9 @@ namespace GostCrypt {
 		{
 			mountedVolume->Close();
 			mountedVolume.reset();
-
-			if (EncryptionThreadPool::IsRunning())
-				EncryptionThreadPool::Stop();
+            //TODO check if normal umount necessary
+			if (Volume::EncryptionThreadPool::IsRunning())
+				Volume::EncryptionThreadPool::Stop();
 		}
 
 		static int fuse_service_access (const char *path, int mask)
@@ -307,7 +305,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return 0;
@@ -327,17 +325,12 @@ namespace GostCrypt {
 				sigaction (SIGQUIT, &action, nullptr);
 				sigaction (SIGTERM, &action, nullptr);
 
-				if (!EncryptionThreadPool::IsRunning())
-					EncryptionThreadPool::Start();
-			}
-			catch (exception &e)
+				if (!Volume::EncryptionThreadPool::IsRunning())
+					Volume::EncryptionThreadPool::Start();
+            } catch (...)
 			{
-				//SystemLog::WriteException (e);
-			}
-			catch (...)
-			{
-				//SystemLog::WriteException (UnknownException (SRC_POS));
-			}
+                FuseService::handleExceptions();
+            }
 
 			return nullptr;
 		}
@@ -348,15 +341,10 @@ namespace GostCrypt {
 			try
 			{
 				FuseService::dismount();
-			}
-			catch (exception &e)
+            } catch (...)
 			{
-				//SystemLog::WriteException (e);
-			}
-			catch (...)
-			{
-				//SystemLog::WriteException (UnknownException (SRC_POS));
-			}
+                FuseService::handleExceptions();
+            }
 		}
 
 		static int fuse_service_getattr (const char *path, struct stat *statData)
@@ -401,7 +389,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return 0;
@@ -420,7 +408,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return 0;
@@ -444,7 +432,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 			return -ENOENT;
 		}
@@ -459,10 +447,10 @@ namespace GostCrypt {
 
 				if (strcmp (path, getVolumeImagePath()) == 0)
 				{
-					try
+                    try
 					{
 						// Test for read beyond the end of the volume
-						if ((uint64) offset + size > FuseService::getVolumeSize())
+						if ((quint64) offset + size > FuseService::getVolumeSize())
 							size = FuseService::getVolumeSize() - offset;
 
 						size_t sectorSize = FuseService::getVolumeSectorSize();
@@ -471,8 +459,8 @@ namespace GostCrypt {
 							// Support for non-sector-aligned read operations is required by some loop device tools
 							// which may analyze the volume image before attaching it as a device
 
-							uint64 alignedOffset = offset - (offset % sectorSize);
-							uint64 alignedSize = size + (offset % sectorSize);
+							quint64 alignedOffset = offset - (offset % sectorSize);
+							quint64 alignedSize = size + (offset % sectorSize);
 
 							if (alignedSize % sectorSize != 0)
 								alignedSize += sectorSize - (alignedSize % sectorSize);
@@ -480,17 +468,18 @@ namespace GostCrypt {
 							SecureBuffer alignedBuffer (alignedSize);
 
 							FuseService::readVolumeSectors(alignedBuffer, alignedOffset);
-							BufferPtr ((byte *) buf, size).CopyFrom (alignedBuffer.GetRange (offset % sectorSize, size));
+							BufferPtr ((quint8 *) buf, size).CopyFrom (alignedBuffer.GetRange (offset % sectorSize, size));
 						}
 						else
 						{
-							FuseService::readVolumeSectors(BufferPtr ((byte *) buf, size), offset);
+                            BufferPtr tmp((quint8 *) buf, size);
+                            FuseService::readVolumeSectors(tmp, offset);
 						}
 					}
-					catch (MissingVolumeData)
+                    catch (Volume::VolumeCorrupted)
 					{
 						return 0;
-					}
+                    }
 
 					return size;
 				}
@@ -512,7 +501,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return -ENOENT;
@@ -537,7 +526,7 @@ namespace GostCrypt {
 			}
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return 0;
@@ -554,7 +543,7 @@ namespace GostCrypt {
 
 				if (strcmp (path, getVolumeImagePath()) == 0)
 				{
-					FuseService::writeVolumeSectors(BufferPtr ((byte *) buf, size), offset);
+					FuseService::writeVolumeSectors(BufferPtr ((quint8 *) buf, size), offset);
 					return size;
 				}
 
@@ -571,25 +560,22 @@ namespace GostCrypt {
 
 			catch (...)
 			{
-				return FuseService::exceptionToErrorCode();
+                return FuseService::handleExceptions();
 			}
 
 			return -ENOENT;
 		}
         void FuseService::launchFuse() {
-			#ifndef FUSE_SERVICE_DEBUG
+		{
 			int forkedPid = fork();
 			if(forkedPid == -1)
 				throw FuseForkFailedException();
 
 			if(!forkedPid) {
 				setsid();
-			#endif
-				VolumeInfo vi;
-				vi.Set(*mountedVolume);
 
 				FuseService::volumeInfoMutex.lock();
-				FuseService::volumeInfo.reset(new Core::VolumeInformation (vi));
+				FuseService::volumeInfo = mountedVolume->getVolumeInformation();
 				FuseService::volumeInfo->fuseMountPoint = fuseMountPoint;
 				FuseService::volumeInfoMutex.unlock();
 
@@ -621,13 +607,11 @@ namespace GostCrypt {
 
 				_exit(fuse_main(5, args, &fuse_service_oper));
 				//TODO check that using _exit is memory-clean
-			#ifndef FUSE_SERVICE_DEBUG
 			}
-			#endif
 		}
 
-		QSharedPointer<Volume> FuseService::mountedVolume;
-		QSharedPointer<Core::VolumeInformation> FuseService::volumeInfo;
+		QSharedPointer<Volume::Volume> FuseService::mountedVolume;
+		QSharedPointer<Volume::VolumeInformation> FuseService::volumeInfo;
         QSharedPointer<QFileInfo> FuseService::fuseMountPoint;
 		uid_t FuseService::userId;
 		gid_t FuseService::groupId;

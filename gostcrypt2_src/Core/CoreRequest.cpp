@@ -21,6 +21,8 @@ void initCoreRequest()
     INIT_SERIALIZE(GetEncryptionAlgorithmsRequest);
     INIT_SERIALIZE(GetDerivationFunctionsRequest);
     INIT_SERIALIZE(ProgressTrackingParameters);
+    INIT_SERIALIZE(BackupHeaderRequest);
+    INIT_SERIALIZE(RestoreHeaderRequest);
 }
 
 QDataStream& operator<< (QDataStream& out, const CoreRequest& Valeur)
@@ -53,7 +55,7 @@ QDataStream& operator >> (QDataStream& in, CreateVolumeRequest& Valeur)
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.path;
     in >> tmp;
-    Valeur.type = VolumeType::Enum(tmp);
+    Valeur.type = Volume::VolumeType::Enum(tmp);
     in >> Valeur.size;
     in >> Valeur.outerVolume;
     in >> Valeur.innerVolume;
@@ -92,6 +94,7 @@ QDataStream& operator << (QDataStream& out, const ChangeVolumePasswordRequest& V
     out << Valeur.newVolumeHeaderKdf;
     out << Valeur.newPassword;
     out << Valeur.newKeyfiles;
+    out << Valeur.changeMasterKey;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, ChangeVolumePasswordRequest& Valeur)
@@ -103,6 +106,7 @@ QDataStream& operator >> (QDataStream& in, ChangeVolumePasswordRequest& Valeur)
     in >> Valeur.newVolumeHeaderKdf;
     in >> Valeur.newPassword;
     in >> Valeur.newKeyfiles;
+    in << Valeur.changeMasterKey;
     return in;
 }
 DEF_SERIALIZABLE(ChangeVolumePasswordRequest)
@@ -159,7 +163,7 @@ QDataStream& operator >> (QDataStream& in, MountVolumeRequest& Valeur)
     in >> Valeur.path;
     in >> Valeur.fuseMountPoint;
     in >> tmp;
-    Valeur.protection = GostCrypt::VolumeProtection::Enum(tmp);
+    Valeur.protection = GostCrypt::Volume::VolumeProtection::Enum(tmp);
     in >> Valeur.protectionPassword;
     in >> Valeur.protectionKeyfiles;
     in >> Valeur.useBackupHeaders;
@@ -177,6 +181,7 @@ QDataStream& operator << (QDataStream& out, const DismountVolumeRequest& Valeur)
     out << Valeur.volumePath;
     out << Valeur.force;
     out << Valeur.forVolumeCreation;
+    out << Valeur.all;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, DismountVolumeRequest& Valeur)
@@ -185,6 +190,7 @@ QDataStream& operator >> (QDataStream& in, DismountVolumeRequest& Valeur)
     in >> Valeur.volumePath;
     in >> Valeur.force;
     in >> Valeur.forVolumeCreation;
+    in >> Valeur.all;
     return in;
 }
 DEF_SERIALIZABLE(DismountVolumeRequest)
@@ -205,12 +211,14 @@ QDataStream& operator << (QDataStream& out, const GetMountedVolumesRequest& Vale
 {
     out << static_cast<const CoreRequest&>(Valeur);
     out << Valeur.volumePath;
+    out << Valeur.all;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, GetMountedVolumesRequest& Valeur)
 {
     in >> static_cast<CoreRequest&>(Valeur);
     in >> Valeur.volumePath;
+    in >> Valeur.all;
     return in;
 }
 DEF_SERIALIZABLE(GetMountedVolumesRequest)
@@ -255,21 +263,81 @@ QDataStream& operator >> (QDataStream& in, ProgressTrackingParameters& Valeur)
 }
 DEF_SERIALIZABLE(ProgressTrackingParameters)
 
+QDataStream& operator << (QDataStream& out, const BackupHeaderRequest& Valeur)
+{
+    out << static_cast<const CoreRequest&>(Valeur);
+    out << Valeur.volumePath;
+    out << Valeur.backupHeaderFile;
+    out << Valeur.hiddenVolume;
+    out << Valeur.password;
+    out << Valeur.keyfiles;
+    out << Valeur.hiddenVolumePassword;
+    out << Valeur.hiddenVolumeKeyfiles;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, BackupHeaderRequest& Valeur)
+{
+    in >> static_cast<CoreRequest&>(Valeur);
+    in >> Valeur.volumePath;
+    in >> Valeur.backupHeaderFile;
+    in >> Valeur.hiddenVolume;
+    in >> Valeur.password;
+    in >> Valeur.keyfiles;
+    in >> Valeur.hiddenVolumePassword;
+    in >> Valeur.hiddenVolumeKeyfiles;
+    return in;
+}
+DEF_SERIALIZABLE(BackupHeaderRequest)
+
+QDataStream& operator << (QDataStream& out, const RestoreHeaderRequest& Valeur)
+{
+    out << static_cast<const CoreRequest&>(Valeur);
+    out << Valeur.volumePath;
+    out << Valeur.useInternalBackup;
+    out << Valeur.backupHeaderFile;
+    out << Valeur.password;
+    out << Valeur.keyfiles;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
+{
+    in >> static_cast<CoreRequest&>(Valeur);
+    in >> Valeur.volumePath;
+    in >> Valeur.useInternalBackup;
+    in >> Valeur.backupHeaderFile;
+    in >> Valeur.password;
+    in >> Valeur.keyfiles;
+    return in;
+}
+DEF_SERIALIZABLE(RestoreHeaderRequest)
+
 MountVolumeRequest::MountVolumeRequest()
 {
     this->doMount = true;
     this->fileSystemType = "vfat";
     this->preserveTimestamps = false;
-    this->protection = VolumeProtection::Enum::None;
+    this->protection = Volume::VolumeProtection::Enum::None;
     this->sharedAccessAllowed = false;
     this->useBackupHeaders = false;
     this->forVolumeCreation = false;
+    this->isDevice = false;
 }
 
 DismountVolumeRequest::DismountVolumeRequest()
 {
+    this->all = false;
     this->force = false;
     this->forVolumeCreation = false;
+}
+
+GetMountedVolumesRequest::GetMountedVolumesRequest()
+{
+                         this->all = true;
+}
+
+BackupHeaderRequest::BackupHeaderRequest()
+{
+    this->hiddenVolume = false;
 }
 
 }

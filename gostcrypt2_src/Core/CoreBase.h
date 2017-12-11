@@ -9,8 +9,10 @@
 #include "RandomNumberGenerator.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
-#include "Volume/Pkcs5Kdf.h"
 #include "Service.h"
+
+//used to generate random files (maybe to remove or at least move)
+#define FILE_OPTIMAL_WRITE_SIZE 256*1024
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
 #define HANDLE_REQUEST(requestName, fct) \
@@ -54,6 +56,9 @@ namespace GostCrypt {
 			 * @param parent parent object
 			 */
 			explicit CoreBase(QObject *parent = nullptr);
+
+            ~CoreBase();
+
 		public slots:
 			/**
 			 * @brief Execute the given action request (mount, dismount, create a volume, etc)
@@ -103,12 +108,36 @@ namespace GostCrypt {
 			 */
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
             /**
+             * @brief
+             *
+             * @param params
+             * @return QSharedPointer<ChangeVolumePasswordResponse>
+             */
+            QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
+
+            /**
              * @brief Create a random key file
              *
              * @param params Parameters of the function
              * @return QSharedPointer<CreateKeyFileResponse>, the response of the function
              */
             QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params = QSharedPointer<CreateKeyFileRequest>());
+
+            /**
+             * @brief Backup the header of the given volume
+             *
+             * @param params Parameters of the function
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             */
+            QSharedPointer<BackupHeaderResponse> backupHeader(QSharedPointer<BackupHeaderRequest> params);
+
+            /**
+             * @brief Restore the header of the given volume
+             *
+             * @param params Parameters of the function
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             */
+            QSharedPointer<RestoreHeaderResponse> restoreHeader(QSharedPointer<RestoreHeaderRequest> params);
 
 			/**
 			 * @brief Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint.
@@ -124,14 +153,14 @@ namespace GostCrypt {
              * @param algorithm encryption algorithm name
              * @return QSharedPointer<EncryptionAlgorithm> encryption algorithm object
              */
-            QSharedPointer<EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
+            QSharedPointer<Volume::EncryptionAlgorithm> getEncryptionAlgorithm(QString algorithm);
             /**
              * @brief Return the key derivation function object corresponding to the given name
              *
              * @param function key derivation function name
-             * @return QSharedPointer<Pkcs5Kdf> key derivation function object
+             * @return QSharedPointer<VolumeHash> key derivation function object
              */
-            QSharedPointer<Pkcs5Kdf> getDerivationKeyFunction(QString function);
+            QSharedPointer<Volume::VolumeHash> getDerivationKeyFunction(QString function);
             /**
              * @brief Return the directory where the given device is mounted
              *
@@ -153,7 +182,7 @@ namespace GostCrypt {
 			 * @param volumeFile Path of the volume file
 			 * @return bool True if the given volume is currently mounted
 			 */
-			bool isVolumeMounted(QSharedPointer<QFileInfo> volumeFile);
+                        bool isVolumeMounted(QFileInfo volumeFile);
             /**
              * @brief Give the next available fuse mountpoint (/tmp/.gostcrypt_aux_mntN)
              *
@@ -165,6 +194,7 @@ namespace GostCrypt {
              *
              * @param path Path of the random file to create
              * @param size Size of the random file to create
+             * @param id Progress tracking id used notify about random file creation progression
              * @param algorithm Name of the cipher algorithm to use for random generation
              * @param random If False null bytes will be used instead of random data
              */
@@ -175,14 +205,16 @@ namespace GostCrypt {
              * @param encryptionAlgorithm Name of the cipher algorithm for which to change the key
              * @sa CoreBase::createRandomFile
              */
-            void randomizeEncryptionAlgorithmKey (QSharedPointer <EncryptionAlgorithm> encryptionAlgorithm) const;
+            void randomizeEncryptionAlgorithmKey (QSharedPointer <Volume::EncryptionAlgorithm> encryptionAlgorithm) const;
             /**
              * @brief Give the next available default mountpoint for the given user
              *
              * @param userId UserID of the user for which we want the next available default mountpoint
              * @return QSharedPointer<QFileInfo> Path of the next available default mountpoint
              */
-            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);
+            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);     
+
+            void ReEncryptVolumeHeaderWithNewSalt (BufferPtr &newHeaderBuffer, QSharedPointer <Volume::VolumeHeader> header, QSharedPointer<Volume::VolumePassword> password, QSharedPointer <Volume::KeyfileList> keyfiles) const;
             /**
              * @brief Try to process the given request. Only requests which don't need root privilileges will be handled.
              *
@@ -202,6 +234,8 @@ namespace GostCrypt {
 			DEC_REQUEST_SIGNAL(GetMountedVolumes);
 			DEC_REQUEST_SIGNAL(CreateKeyFile);
             DEC_REQUEST_SIGNAL(ProgressUpdate);
+            DEC_REQUEST_SIGNAL(BackupHeader);
+            DEC_REQUEST_SIGNAL(RestoreHeader);
 
 			/**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)

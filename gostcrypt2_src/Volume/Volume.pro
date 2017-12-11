@@ -29,64 +29,74 @@ unix {
 }
 
 HEADERS += \
-    VolumeSlot.h \
-    VolumePasswordCache.h \
     VolumePassword.h \
     VolumeLayout.h \
-    VolumeInfo.h \
     VolumeHeader.h \
-    VolumeException.h \
     Volume.h \
-    Version.h \
-    Pkcs5Kdf.h \
     Keyfile.h \
-    Hash.h \
     EncryptionThreadPool.h \
     EncryptionTest.h \
     EncryptionModeXTS.h \
-    EncryptionModeLRW.h \
-    EncryptionModeCBC.h \
     EncryptionMode.h \
     EncryptionAlgorithm.h \
     Crc32.h \
-    Cipher.h \
-    ../Crypto/Whirlpool.h \
-    ../Crypto/Stribog.h \
-    ../Crypto/GrasshopperCipher.h \
-    ../Crypto/GostHash.h \
-    ../Crypto/GostCipher.h \
-    ../Common/SecurityToken.h \
-    ../Common/Pkcs5.h \
-    ../Common/GfMul.h \
-    ../Common/Endian.h \
-    ../Common/Crc.h
+    VolumeInformation.h \
+    VolumeProtection.h \
+    VolumeType.h \
+    VolumeHash.h \
+    EncryptionAlgorithmGOST.h \
+    EncryptionAlgorithmGrasshopper.h \
+    CipherAlgorithm.h \
+    CipherAlgorithmGOST.h \
+    CipherAlgorithmGrasshopper.h \
+    VolumeHashWhirlpool.h \
+    VolumeHashGostHash.h \
+    VolumeHashStribog.h \
+    VolumeLayoutV2Normal.h \
+    VolumeLayoutV2Hidden.h \
+    VolumeFile.h \
+    VolumeException.h \
+    Crypto/Crc.h \
+    Crypto/Crypto.h \
+    Crypto/GostCipher.h \
+    Crypto/GostHash.h \
+    Crypto/GrasshopperCipher.h \
+    Crypto/Gstdefs.h \
+    Crypto/Pkcs5.h \
+    Crypto/Random.h \
+    Crypto/Stribog.h \
+    Crypto/Volumes.h \
+    Crypto/Whirlpool.h
 
 SOURCES += \
-    VolumePasswordCache.cpp \
     VolumePassword.cpp \
     VolumeLayout.cpp \
-    VolumeInfo.cpp \
     VolumeHeader.cpp \
-    VolumeException.cpp \
     Volume.cpp \
-    Pkcs5Kdf.cpp \
     Keyfile.cpp \
-    Hash.cpp \
     EncryptionThreadPool.cpp \
     EncryptionTest.cpp \
     EncryptionModeXTS.cpp \
-    EncryptionModeLRW.cpp \
-    EncryptionModeCBC.cpp \
     EncryptionMode.cpp \
     EncryptionAlgorithm.cpp \
-    Cipher.cpp \
-    ../Crypto/Whirlpool.c \
-    ../Crypto/Stribog.c \
-    ../Crypto/GrasshopperCipher.c \
-    ../Crypto/GostHash.c \
-    ../Crypto/GostCipher.c \
-    ../Common/SecurityToken.cpp \
-    ../Common/Pkcs5.c \
-    ../Common/GfMul.c \
-    ../Common/Endian.c \
-    ../Common/Crc.c
+    VolumeInformation.cpp \
+    VolumeHash.cpp \
+    EncryptionAlgorithmGOST.cpp \
+    EncryptionAlgorithmGrasshopper.cpp \
+    CipherAlgorithmGOST.cpp \
+    CipherAlgorithmGrasshopper.cpp \
+    VolumeHashWhirlpool.cpp \
+    VolumeHashGostHash.cpp \
+    VolumeHashStribog.cpp \
+    CipherAlgorithm.cpp \
+    VolumeLayoutV2Normal.cpp \
+    VolumeLayoutV2Hidden.cpp \
+    VolumeFile.cpp \
+    VolumeException.cpp \
+    Crypto/Crc.c \
+    Crypto/GostCipher.c \
+    Crypto/GostHash.c \
+    Crypto/GrasshopperCipher.c \
+    Crypto/Pkcs5.c \
+    Crypto/Stribog.c \
+    Crypto/Whirlpool.c

@@ -10,36 +10,39 @@
 #ifndef GST_HEADER_Encryption_Crc32
 #define GST_HEADER_Encryption_Crc32
 
-#include "Platform/Platform.h"
-#include "Common/Crc.h"
+#include "Crypto/Crc.h"
+#include "Core/Buffer.h"
 
 namespace GostCrypt
 {
+namespace Volume {
+
 	class Crc32
 	{
 	public:
-		Crc32 () : CrcValue (0xffffFFFF) { };
-		virtual ~Crc32 () { };
+        Crc32 () : CrcValue (0xffffFFFF) { }
+        virtual ~Crc32 () { }
 
-		uint32 Get () const { return CrcValue ^ 0xffffFFFF; }
+		quint32 Get () const { return CrcValue ^ 0xffffFFFF; }
 
-		uint32 Process (byte data)
+		quint32 Process (quint8 data)
 		{
-			return CrcValue = crc_32_tab[(byte) (CrcValue ^ data)] ^ (CrcValue >> 8);
+			return CrcValue = crc_32_tab[(quint8) (CrcValue ^ data)] ^ (CrcValue >> 8);
 		}
 
-		static uint32 ProcessBuffer (const ConstBufferPtr &buffer)
+        static quint32 ProcessBuffer (const BufferPtr &buffer)
 		{
-			return ::GetCrc32 (const_cast<byte *> (buffer.Get()), static_cast<int> (buffer.Size()));
+			return ::GetCrc32 (const_cast<quint8 *> (buffer.Get()), static_cast<int> (buffer.Size()));
 		}
 
 	protected:
-		uint32 CrcValue;
+		quint32 CrcValue;
 
 	private:
 		Crc32 (const Crc32 &);
 		Crc32 &operator= (const Crc32 &);
 	};
+}
 }
 
 #endif // GST_HEADER_Encryption_Crc32
