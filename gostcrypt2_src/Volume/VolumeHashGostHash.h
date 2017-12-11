@@ -16,7 +16,7 @@ public:
     virtual void GetDigest (BufferPtr &buffer);
     virtual size_t GetBlockSize () const { return 32; }
     virtual size_t GetDigestSize () const { return 32; }
-    virtual std::wstring GetName () const { return L"GOST R 34.11-94"; }
+    virtual QString GetName () const { return QStringLiteral("GOST R 34.11-94"); }
     virtual QSharedPointer <VolumeHash> GetNew () const { return QSharedPointer <VolumeHash> (new VolumeHashGostHash); }
     virtual void Init ();
     virtual void ProcessData (const BufferPtr &data);

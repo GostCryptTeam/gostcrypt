@@ -32,7 +32,7 @@ namespace Volume {
         virtual void GetDigest (BufferPtr &buffer) = 0;
 		virtual size_t GetBlockSize () const = 0;
 		virtual size_t GetDigestSize () const = 0;
-        virtual std::wstring GetName () const = 0;
+        virtual QString GetName () const = 0;
 		virtual QSharedPointer <VolumeHash> GetNew () const = 0;
 		virtual void Init () = 0;
 		bool IsDeprecated () const { return Deprecated; }

@@ -34,7 +34,7 @@ namespace Volume {
 		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
 		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const = 0;
 		virtual size_t GetKeySize () const = 0;
-        virtual std::wstring GetName () const = 0;
+        virtual QString GetName () const = 0;
 		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
         virtual void SetKey (const BufferPtr &key) = 0;
         virtual void SetCiphers (const CipherAlgorithmList &ciphers) { Ciphers = ciphers; }

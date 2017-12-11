@@ -104,7 +104,7 @@ QSharedPointer<GetDerivationFunctionsResponse> CoreBase::getDerivationFunctions(
         {
             if (!(*pkcs)->IsDeprecated())  // we don't allow deprecated algorithms
             {
-                response->algorithms.append(QString::fromStdWString((*pkcs)->GetName()));
+                response->algorithms.append((*pkcs)->GetName());
             }
         }
     }
@@ -376,7 +376,7 @@ QSharedPointer<Volume::VolumeHash> CoreBase::getDerivationKeyFunction(QString fu
     {
         if (!(*pkcs)->IsDeprecated())  // we don't allow deprecated algorithms
         {
-            if (function.compare(QString::fromStdWString((*pkcs)->GetName()), Qt::CaseInsensitive))
+            if (function.compare((*pkcs)->GetName(), Qt::CaseInsensitive))
             {
                 return *pkcs;
             }
