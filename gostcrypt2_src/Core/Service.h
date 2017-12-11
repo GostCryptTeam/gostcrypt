@@ -11,7 +11,7 @@
 #include "FuseService/FuseException.h"
 #include "CoreResponse.h"
 
-#define DEBUG_SERVICE_HANDLER
+//#define DEBUG_SERVICE_HANDLER
 
 namespace GostCrypt {
     namespace Core {

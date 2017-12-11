@@ -9,15 +9,18 @@ cleanall () {
 	echo "Cleaning Everything..." | tee -a $LOGFILE
 	# dismounting everything...
 	RESPONSE=$($GOSTCRYPT dismountall | tee -a $LOGFILE)
-	if [ "$RESPONSE" != "Volume Dismounted." ]; then
+	
+	expectedResponse=$(echo -e "\rVolume Dismounted.")
+	if [ "$RESPONSE" != "$expectedResponse" ]; then
 		echo "Unable to dismount-all !" | tee -a $LOGFILE
 		echo "Tests can't be resumed.. stopping." | tee -a $LOGFILE
 		exit 1
 	fi
 	
 	#checking if dismount was ok...
+	expectedResponse=$(echo -e "\r")
 	RESPONSE=$($GOSTCRYPT list volumes | tee -a $LOGFILE)
-	if [ ! -z "$RESPONSE" ]; then
+	if [ "$RESPONSE" != "$expectedResponse" ]; then
 		echo "Volumes still mounted !" | tee -a $LOGFILE
 		echo "Tests can't be resumed.. stopping." | tee -a $LOGFILE
 		exit 1
