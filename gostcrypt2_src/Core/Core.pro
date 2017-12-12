@@ -35,7 +35,6 @@ HEADERS += \
     CoreUser.h \
     CoreRoot.h \
     CoreException.h \
-    RandomNumberGenerator.h \
     LoopDeviceManager.h \
     MountFilesystemManager.h \
     loopdevlib/at.h \
@@ -52,7 +51,8 @@ HEADERS += \
     Service.h \
     ServiceHandler.h \
     GostCryptException.h \
-    Buffer.h
+    Buffer.h \
+    RandomGenerator.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -60,7 +60,6 @@ SOURCES += \
     CoreUser.cpp \
     CoreRoot.cpp \
     CoreException.cpp \
-    RandomNumberGenerator.cpp \
     LoopDeviceManager.cpp \
     MountFilesystemManager.cpp \
     loopdevlib/at.c \
@@ -76,4 +75,5 @@ SOURCES += \
     Service.cpp \
     ServiceHandler.cpp \
     GostCryptException.cpp \
-    Buffer.cpp
+    Buffer.cpp \
+    RandomGenerator.cpp

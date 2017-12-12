@@ -19,7 +19,7 @@
 
 namespace GostCrypt {
 	namespace Core {
-	class RandomNumberGenerator
+	class RandomGenerator
 	{
 	public:
         static void AddToPool (const BufferPtr &buffer);
@@ -38,7 +38,7 @@ namespace GostCrypt {
         static void GetData (BufferPtr &buffer, bool fast);
 		static void HashMixPool ();
 		static void Test ();
-		RandomNumberGenerator ();
+		RandomGenerator ();
 
 		static const size_t MaxBytesAddedBeforePoolHashMix = RANDMIX_BYTE_INTERVAL;
 

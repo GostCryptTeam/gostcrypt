@@ -17,14 +17,14 @@
 #endif
 
 #include "CoreException.h"
-#include "RandomNumberGenerator.h"
+#include "RandomGenerator.h"
 #include "Volume/Crc32.h"
 #include "Volume/VolumeHashStribog.h"
 
 namespace GostCrypt
 {
 	namespace Core {
-	void RandomNumberGenerator::AddSystemDataToPool (bool fast)
+    void RandomGenerator::AddSystemDataToPool (bool fast)
 	{
 		SecureBuffer buffer (PoolSize);
 
@@ -53,7 +53,7 @@ namespace GostCrypt
         #endif
 	}
 
-    void RandomNumberGenerator::AddToPool (const BufferPtr &buffer)
+    void RandomGenerator::AddToPool (const BufferPtr &buffer)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
@@ -72,13 +72,13 @@ namespace GostCrypt
         }
     }
 
-    void RandomNumberGenerator::SetHash(QSharedPointer<Volume::VolumeHash> hashfct)
+    void RandomGenerator::SetHash(QSharedPointer<Volume::VolumeHash> hashfct)
     {
-        QMutexLocker lock(&RandomNumberGenerator::AccessMutex);
-        RandomNumberGenerator::PoolHash = hashfct;
+        QMutexLocker lock(&RandomGenerator::AccessMutex);
+        RandomGenerator::PoolHash = hashfct;
     }
 
-    void RandomNumberGenerator::GetData (BufferPtr &buffer, bool fast)
+    void RandomGenerator::GetData (BufferPtr &buffer, bool fast)
 	{
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
@@ -120,7 +120,7 @@ namespace GostCrypt
 		}
     }
 
-	void RandomNumberGenerator::HashMixPool ()
+    void RandomGenerator::HashMixPool ()
 	{
 		BytesAddedSincePoolHashMix = 0;
 
@@ -139,7 +139,7 @@ namespace GostCrypt
 		}
 	}
 
-	void RandomNumberGenerator::Start ()
+    void RandomGenerator::Start ()
 	{
         QMutexLocker lock (&AccessMutex);
 
@@ -164,7 +164,7 @@ namespace GostCrypt
 		AddSystemDataToPool (true);
 	}
 
-	void RandomNumberGenerator::Stop ()
+    void RandomGenerator::Stop ()
 	{
         QMutexLocker lock (&AccessMutex);
 
@@ -177,7 +177,7 @@ namespace GostCrypt
 		Running = false;
 	}
 
-	void RandomNumberGenerator::Test ()
+    void RandomGenerator::Test ()
 	{
 		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
         PoolHash.reset (new Volume::VolumeHashStribog());
@@ -203,13 +203,13 @@ namespace GostCrypt
 		PoolHash = origPoolHash;
 	}
 
-    QMutex RandomNumberGenerator::AccessMutex(QMutex::Recursive);
-	size_t RandomNumberGenerator::BytesAddedSincePoolHashMix;
-	bool RandomNumberGenerator::EnrichedByUser;
-	SecureBuffer RandomNumberGenerator::Pool;
-	QSharedPointer <Volume::VolumeHash> RandomNumberGenerator::PoolHash;
-	size_t RandomNumberGenerator::ReadOffset;
-	bool RandomNumberGenerator::Running = false;
-	size_t RandomNumberGenerator::WriteOffset;
+    QMutex RandomGenerator::AccessMutex(QMutex::Recursive);
+    size_t RandomGenerator::BytesAddedSincePoolHashMix;
+    bool RandomGenerator::EnrichedByUser;
+    SecureBuffer RandomGenerator::Pool;
+    QSharedPointer <Volume::VolumeHash> RandomGenerator::PoolHash;
+    size_t RandomGenerator::ReadOffset;
+    bool RandomGenerator::Running = false;
+    size_t RandomGenerator::WriteOffset;
 }
 }
