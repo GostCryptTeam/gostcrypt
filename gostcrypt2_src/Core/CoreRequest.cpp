@@ -340,5 +340,12 @@ BackupHeaderRequest::BackupHeaderRequest()
     this->hiddenVolume = false;
 }
 
+CreateVolumeRequest::VolumeParams::VolumeParams() {
+     filesystem = GetFileSystemTypePlatformNative();
+     size = 0;
+     volumeHeaderKdf = "Whirlpool";
+     encryptionAlgorithm = "Gost Grasshopper";
+}
+
 }
 }

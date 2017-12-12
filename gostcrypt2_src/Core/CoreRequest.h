@@ -57,12 +57,7 @@ struct CreateVolumeRequest : CoreRequest {
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
     }
     struct VolumeParams {
-        VolumeParams() {
-            filesystem = GetFileSystemTypePlatformNative();
-            size = 0;
-            volumeHeaderKdf = "Whirlpool";
-            encryptionAlgorithm = "Gost Grasshopper";
-        }
+        VolumeParams();
         QSharedPointer <QByteArray> password; // password of the volume (never null)
         QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to use
         qreal size; // size of the volume in percentage
