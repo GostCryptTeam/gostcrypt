@@ -252,14 +252,18 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
     QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
+    if(layout->Type() == Volume::VolumeType::Normal && params->size != 1.f)
+        throw IncorrectParameterException("Primary volume should always use 100% of the container");
+
     Volume::VolumeHeaderCreationOptions options;
     options.EA = ea;
     options.Hash = hash;
     options.Type = layout->GetType();
     options.SectorSize = 512; // TODO : ALWAYS 512 !
+    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
     if(options.Type == Volume::VolumeType::Hidden) {
-        options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - params->size;
+        options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - options.VolumeDataSize;
     } else {
         options.VolumeDataStart = layout->GetHeaderSize() * 2;
     }
@@ -267,8 +271,6 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1]
         throw ContentSizeInvalidException(params->size);
 
-    //TODO: Why multiply ? Why not just checking that asked size (params->size) is lower than the maximum data size given by layout->GetMaxDataSize
-    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
     GostCrypt::SecureBuffer masterkey;  // decrypts the whole filesystem
     GostCrypt::SecureBuffer salt;       // salt to encrypt the header.
