@@ -29,13 +29,13 @@ namespace GostCrypt
 		SecureBuffer buffer (PoolSize);
 
         #ifdef HAVE_GETRANDOM
-        if(fast){
-            getrandom(buffer, buffer.Size(), 0);
-        } else {
-            getrandom(buffer, buffer.Size(), GRND_RANDOM);
+        int getrandomRet = getrandom(buffer, buffer.Size(), (fast) ? 0 : GRND_RANDOM);
+        if(getrandomRet < buffer.Size()) {
+            throw FailedUsingSystemRandomSourceException(getrandomRet);
         }
         #else
         int randsource;
+        int readRet;
         if(fast){
             randsource = open ("/dev/urandom", O_RDONLY);
         } else {
@@ -45,8 +45,9 @@ namespace GostCrypt
         if (randsource == -1)
             throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
-        if (read (randsource, buffer, buffer.Size()) < (int64_t)buffer.Size())
-            throw FailedUsingSystemRandomSourceException();
+        readRet = read (randsource, buffer, buffer.Size()) < (int64_t)buffer.Size();
+        if(readRet < buffer.Size())
+            throw FailedUsingSystemRandomSourceException(readRet);
         AddToPool (buffer);
         close(randsource);
         #endif
