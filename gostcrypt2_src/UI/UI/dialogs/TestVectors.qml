@@ -60,10 +60,7 @@ Item {
                     sizeText: 10
                     height: 30
                     textColor: palette.green
-                    checked: {
-                        var isChecked = UserSettings.getSetting("XTS-mode")
-                        return (isChecked === "1") ? true : false;
-                    }
+                    checked: (UserSettings.getSetting("XTS-mode") === "1") ? true : false
                     onCheckedChanged: {
                         if(xtsmode.checked == true)
                             UserSettings.setSetting("XTS-mode", 1)
