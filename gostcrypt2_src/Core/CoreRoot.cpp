@@ -252,7 +252,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
     QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
-    if(layout->Type() == Volume::VolumeType::Normal && params->size != 1.f)
+    if(layout->GetType() == Volume::VolumeType::Normal && params->size != 1.f)
         throw IncorrectParameterException("Primary volume should always use 100% of the container");
 
     Volume::VolumeHeaderCreationOptions options;
@@ -280,12 +280,12 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
 
     // Master data key
     masterkey.Allocate (options.EA->GetKeySize() * 2);
-    RandomNumberGenerator::GetData (masterkey);
+    RandomGenerator::GetData (masterkey);
     options.DataKey = masterkey;
 
     // PKCS5 salt
     salt.Allocate (Volume::VolumeHeader::GetSaltSize());
-    RandomNumberGenerator::GetData (salt);
+    RandomGenerator::GetData (salt);
     options.Salt = salt;
 
     // Header key
@@ -321,7 +321,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
 
     // Write The Backup Header if any
 
-    RandomNumberGenerator::GetData (salt); // getting new salt
+    RandomGenerator::GetData (salt); // getting new salt
     options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
     header->Create (headerBuffer, options); // creating new header
@@ -481,7 +481,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         // creating a completely random password for a non-existent hidden volume
         SecureBuffer pass;
         pass.Allocate(Volume::VolumePassword::MaxSize);
-        RandomNumberGenerator::GetData(pass);
+        RandomGenerator::GetData(pass);
         randomparams->password.reset(new QByteArray((char *)pass.Get(), pass.Size()));
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }
