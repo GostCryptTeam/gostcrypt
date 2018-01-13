@@ -15,17 +15,7 @@ namespace GostCrypt {
 namespace Core {
 void initCoreRequest();
 
-static QString GetFileSystemTypePlatformNative () {
-#ifdef GST_LINUX
-    return "ext3";
-#elif defined (GST_MACOSX)
-    return "MacOsExt";
-#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
-    return "fs";
-#else
-    return "fat";
-#endif
-}
+QString GetFileSystemTypePlatformNative ();
 
 struct ProgressTrackingParameters
 {
