@@ -208,12 +208,14 @@ QDataStream& operator << (QDataStream& out,
                           const GostCrypt::Volume::VolumeVersionNotCompatible& Valeur)
 {
     out << static_cast<const VolumeException&>(Valeur);
+    out << Valeur.comment;
     return out;
 }
 QDataStream& operator >> (QDataStream& in,
                           GostCrypt::Volume::VolumeVersionNotCompatible& Valeur)
 {
     in >> static_cast<VolumeException&>(Valeur);
+    in >> Valeur.comment;
     return in;
 }
 

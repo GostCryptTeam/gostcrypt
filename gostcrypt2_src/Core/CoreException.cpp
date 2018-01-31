@@ -31,6 +31,7 @@ namespace GostCrypt {
             INIT_SERIALIZE(InvalidParam);
             INIT_SERIALIZE(IncorrectVolumePassword);
             INIT_SERIALIZE(FailedUsingSystemRandomSource);
+            INIT_SERIALIZE(TestFailed);
         }
 
         DEF_SERIALIZABLE(GostCrypt::Core::CoreException)
@@ -351,6 +352,22 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailedUsingSystemRandomSource & Valeur) {
           in >> static_cast<CoreException&>(Valeur);
           return in;
+        }
+
+        DEF_SERIALIZABLE(GostCrypt::Core::TestFailed)
+        QDataStream& operator << (QDataStream& out,
+                                  const GostCrypt::Core::TestFailed& Valeur)
+        {
+            out << static_cast<const GostCryptException&>(Valeur);
+            out << Valeur.testName;
+            return out;
+        }
+        QDataStream& operator >> (QDataStream& in,
+                                  GostCrypt::Core::TestFailed& Valeur)
+        {
+            in >> static_cast<GostCryptException&>(Valeur);
+            in >> Valeur.testName;
+            return in;
         }
     }
 }

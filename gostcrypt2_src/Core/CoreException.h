@@ -681,6 +681,25 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
             DEC_SERIALIZABLE(FailedUsingSystemRandomSource);
         };
 
+        #define TestFailedException(testName) GostCrypt::Volume::TestFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__, testName);
+        class TestFailed : public GostCryptException
+        {
+         public:
+            TestFailed() {}
+            /**
+             * @brief Base class for all exception concerning Volume module
+             *
+             * @param fonction Name of the function where the exception was thrown
+             * @param filename Path of the file where the exception was thrown
+             * @param line Line of the file where the exception was thrown
+             */
+            TestFailed(QString fonction, QString filename, quint32 line, QString testName) : VolumeException(fonction,
+                        filename, line), testName(testName) {}
+            DEF_EXCEPTION_WHAT(TestFailed, GostCryptException, "The following test failed: " + this.testName)
+            QString testName;
+            DEC_SERIALIZABLE(TestFailed);
+        };
+
 	}
 }
 
@@ -710,5 +729,7 @@ SERIALIZABLE(GostCrypt::Core::InvalidParam)
 SERIALIZABLE(GostCrypt::Core::IncorrectVolumePassword)
 SERIALIZABLE(GostCrypt::Core::RandomNumberGeneratorNotRunning)
 SERIALIZABLE(GostCrypt::Core::FailedUsingSystemRandomSource)
+SERIALIZABLE(GostCrypt::Core::TestFailed)
+
 
 #endif // COREEXCEPTION_H
