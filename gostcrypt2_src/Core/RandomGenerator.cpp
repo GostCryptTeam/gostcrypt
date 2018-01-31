@@ -215,14 +215,14 @@ namespace GostCrypt
 			AddToPool (buffer);
 		}
 
-        if (Volume::Crc32::ProcessBuffer (Pool) != 0x2de46d17)
+        if (Volume::Crc32::ProcessBuffer (Pool) != 0x6f54d191)
             throw TestFailedException("RandomGenerator");
 
 		buffer.Allocate (PoolSize);
 		buffer.CopyFrom (PeekPool());
 		AddToPool (buffer);
 
-        if (Volume::Crc32::ProcessBuffer (Pool) != 0xcb88e019)
+        if (Volume::Crc32::ProcessBuffer (Pool) != 0xc5f7df43)
             throw TestFailedException("RandomGenerator");
 
 		PoolHash = origPoolHash;
