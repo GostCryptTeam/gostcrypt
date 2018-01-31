@@ -154,6 +154,11 @@ struct RestoreHeaderRequest : CoreRequest {
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
 
+struct BenchmarkAlgorithmsRequest : CoreRequest {
+    quint32 bufferSize;
+    DEC_SERIALIZABLE(BenchmarkAlgorithmsRequest);
+};
+
 }
 }
 
@@ -171,5 +176,6 @@ SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsRequest)
 SERIALIZABLE(GostCrypt::Core::ProgressTrackingParameters)
 SERIALIZABLE(GostCrypt::Core::BackupHeaderRequest)
 SERIALIZABLE(GostCrypt::Core::RestoreHeaderRequest)
+SERIALIZABLE(GostCrypt::Core::BenchmarkAlgorithmsRequest)
 
 #endif // COREPARAMS_H

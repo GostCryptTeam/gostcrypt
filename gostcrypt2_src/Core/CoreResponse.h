@@ -86,6 +86,14 @@ namespace GostCrypt {
 			QList<QSharedPointer<HostDevice>> partitions;
 			DEC_SERIALIZABLE(HostDevice);
 		};
+
+        struct BenchmarkAlgorithmsResponse: CoreResponse {
+            QStringList algorithmsNames;
+            QList<quint32> encryptionSpeed;// Encryption time
+            QList<quint32> decryptionSpeed;// Decryption time
+            QList<quint32> meanSpeed;// Mean
+            DEC_SERIALIZABLE(BenchmarkAlgorithmsResponse);
+        };
 }
 }
 
@@ -103,5 +111,6 @@ SERIALIZABLE(GostCrypt::Core::HostDevice)
 SERIALIZABLE(GostCrypt::Core::MountedFilesystem)
 SERIALIZABLE(GostCrypt::Core::BackupHeaderResponse)
 SERIALIZABLE(GostCrypt::Core::RestoreHeaderResponse)
+SERIALIZABLE(GostCrypt::Core::BenchmarkAlgorithmsResponse)
 
 #endif // CORERESPONSE_H

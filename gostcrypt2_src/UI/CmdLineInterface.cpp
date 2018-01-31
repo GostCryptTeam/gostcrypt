@@ -35,6 +35,7 @@ int CmdLineInterface::start(int argc, char **argv)
     CONNECT_SIGNAL(CreateKeyFile);
     CONNECT_SIGNAL(ChangeVolumePassword);
     CONNECT_SIGNAL(ProgressUpdate);
+    CONNECT_SIGNAL(BenchmarkAlgorithms);
 
     /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)));*/
 
@@ -92,6 +93,7 @@ Commands:\n\
   backupheaders \tExports the header of a volume to make a backup.\n\
   createkeyfiles\tCreates a random file that can be used as a key.\n\
   list          \tLists the volumes, derivation functions of algorithms that can be used.\n\
+  benchmark     \tTest the speed of the differents Ciphers. \n\
 ");
         parser.showHelp();
     }
@@ -177,6 +179,12 @@ Commands:\n\
                 }
             }
             break;
+    case FirstCMD::benchmark:
+    {
+        QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options(new GostCrypt::Core::BenchmarkAlgorithmsRequest);
+        Parser::parseBenchmark(parser, options);
+        emit request(QVariant::fromValue(options));
+    }
         /*case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
@@ -321,6 +329,17 @@ void CmdLineInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::Create
 void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> r)
 {
     qStdOut() << "\rPassword successfully changed." << endl;
+    (void)r;
+    emit exit();
+}
+
+void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
+{
+    qStdOut() << "\rAglorithm\t Encryption Speed\t Decryption Speed\t Mean Speed" << endl;
+    for (int i = 0; i < r->algorithmsNames.size(); ++i)
+    {
+        qStdOut() << r->algorithmsNames.at(i) << "\t" << r->encryptionSpeed.at(i) << "\t" << r->decryptionSpeed.at(i) << "\t" << r->meanSpeed.at(i) << endl;
+    }
     (void)r;
     emit exit();
 }

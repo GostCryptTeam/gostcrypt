@@ -23,6 +23,7 @@ void initVolumeException()
     INIT_SERIALIZE(FailedResetTimestamps);
     INIT_SERIALIZE(ProtectionPasswordOrKeyfilesIncorrect);
     INIT_SERIALIZE(PasswordOrKeyfilesIncorrect);
+    INIT_SERIALIZE(IncorrectCipherDataLength);
 }
 
 DEF_SERIALIZABLE(GostCrypt::Volume::VolumeException)
@@ -256,5 +257,20 @@ QDataStream& operator >> (QDataStream& in,
     in >> static_cast<VolumeException&>(Valeur);
     return in;
 }
+
+DEF_SERIALIZABLE(GostCrypt::Volume::IncorrectCipherDataLength)
+QDataStream& operator << (QDataStream& out,
+                        const GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
+{
+    out << static_cast<const VolumeException&>(Valeur);
+    return out;
+}
+QDataStream& operator >> (QDataStream& in,
+                        GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
+{
+    in >> static_cast<VolumeException&>(Valeur);
+    return in;
+}
+
 }
 }

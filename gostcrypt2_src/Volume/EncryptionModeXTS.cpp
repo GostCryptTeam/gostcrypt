@@ -56,7 +56,7 @@ namespace Volume {
         *((quint64 *) byteBufUnitNo) = qToLittleEndian(dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
-			GST_THROW_FATAL_EXCEPTION;
+            throw IncorrectCipherDataLengthException();
 
 		blockCount = length / BYTES_PER_XTS_BLOCK_SMALL;
 
@@ -166,7 +166,7 @@ namespace Volume {
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
-			GST_THROW_FATAL_EXCEPTION;
+            throw IncorrectCipherDataLengthException();
 
 		blockCount = length / BYTES_PER_XTS_BLOCK;
 
@@ -329,7 +329,7 @@ namespace Volume {
         *((quint64 *) byteBufUnitNo) = qToLittleEndian (dataUnitNo);
 
 		if (length % BYTES_PER_XTS_BLOCK_SMALL)
-			GST_THROW_FATAL_EXCEPTION;
+            throw IncorrectCipherDataLengthException();
 
 		blockCount = length / BYTES_PER_XTS_BLOCK_SMALL;
 
@@ -432,7 +432,7 @@ namespace Volume {
 		*((quint64 *) byteBufUnitNo + 1) = 0;
 
 		if (length % BYTES_PER_XTS_BLOCK)
-			GST_THROW_FATAL_EXCEPTION;
+            throw IncorrectCipherDataLengthException();
 
 		blockCount = length / BYTES_PER_XTS_BLOCK;
 
