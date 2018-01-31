@@ -693,9 +693,9 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
              * @param filename Path of the file where the exception was thrown
              * @param line Line of the file where the exception was thrown
              */
-            TestFailed(QString fonction, QString filename, quint32 line, QString testName) : VolumeException(fonction,
+            TestFailed(QString fonction, QString filename, quint32 line, QString testName) : GostCryptException(fonction,
                         filename, line), testName(testName) {}
-            DEF_EXCEPTION_WHAT(TestFailed, GostCryptException, "The following test failed: " + this.testName)
+            DEF_EXCEPTION_WHAT(TestFailed, GostCryptException, "The following test failed: " + this->testName)
             QString testName;
             DEC_SERIALIZABLE(TestFailed);
         };
