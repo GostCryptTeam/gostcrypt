@@ -366,9 +366,12 @@ void Parser::parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){
-    s.chop(1);
 	if(ok)
 		*ok = true;
+
+    if(s.at(s.size()-1) == 'B')
+        s.chop(1);
+
     if(s.at(s.size()-1).isNumber())
 		return s.toInt();
     if(s.at(s.size()-1) == 'K'){
