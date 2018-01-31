@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#undef HAVE_GETRANDOM
 #ifdef HAVE_GETRANDOM
 #include <sys/random.h>
 #endif
@@ -24,32 +25,57 @@
 namespace GostCrypt
 {
 	namespace Core {
+
     void RandomGenerator::AddSystemDataToPool (bool fast)
 	{
 		SecureBuffer buffer (PoolSize);
 
         #ifdef HAVE_GETRANDOM
-        int getrandomRet = getrandom(buffer, buffer.Size(), (fast) ? 0 : GRND_RANDOM);
-        if(getrandomRet < buffer.Size()) {
+        int getrandomRet;
+
+        // Fill in the buffer with fast random data
+        getrandomRet = getrandom(buffer, buffer.Size(), 0);
+        if(getrandomRet == -1 || (size_t) getrandomRet < buffer.Size()) {
             throw FailedUsingSystemRandomSourceException(getrandomRet);
         }
+        AddToPool(buffer);
+
+        // If not in fast mode, add non-fast random data too if available
+        if(!fast) {
+            getrandomRet = getrandom(buffer, buffer.Size(), GRND_RANDOM | GRND_NONBLOCK);
+            if(getrandomRet == -1 && errno != EAGAIN) {
+                throw FailedUsingSystemRandomSourceException(getrandomRet);
+            }
+            AddToPool(buffer);
+        }
+
         #else
         int randsource;
         int readRet;
-        if(fast){
-            randsource = open ("/dev/urandom", O_RDONLY);
-        } else {
-			// Read all bytes available in /dev/random up to buffer size
-            randsource = open ("/dev/random", O_RDONLY); // blocking as we are not in fast mode
-        }
+
+        // Fill in the buffer with fast random data
+        randsource = open ("/dev/urandom", O_RDONLY);
         if (randsource == -1)
             throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
-        readRet = read (randsource, buffer, buffer.Size()) < (int64_t)buffer.Size();
-        if(readRet < buffer.Size())
+        readRet = read (randsource, buffer, buffer.Size());
+        close(randsource);
+        if(readRet == -1 || (size_t)readRet < buffer.Size())
             throw FailedUsingSystemRandomSourceException(readRet);
         AddToPool (buffer);
-        close(randsource);
+
+        //If not in fast mode, add non-fast random data too if available
+        if(!fast) {
+            randsource = open ("/dev/random", O_RDONLY | O_NONBLOCK);
+            if (randsource == -1)
+                throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/random")));
+            readRet = read (randsource, buffer, buffer.Size());
+            close(randsource);
+            if(readRet == -1 && errno != EAGAIN)
+                throw FailedUsingSystemRandomSourceException(readRet);
+            AddToPool (buffer);
+        }
+
         #endif
 	}
 

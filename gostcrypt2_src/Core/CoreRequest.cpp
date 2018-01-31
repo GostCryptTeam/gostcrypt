@@ -347,7 +347,7 @@ CreateVolumeRequest::VolumeParams::VolumeParams() {
      encryptionAlgorithm = "Gost Grasshopper";
 }
 
-QString GostCrypt::Core::GetFileSystemTypePlatformNative() {
+QString GetFileSystemTypePlatformNative() {
     #ifdef GST_LINUX
     return "ext3";
     #elif defined (GST_MACOSX)
