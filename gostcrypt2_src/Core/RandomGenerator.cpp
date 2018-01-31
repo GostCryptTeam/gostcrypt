@@ -12,7 +12,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#undef HAVE_GETRANDOM
 #ifdef HAVE_GETRANDOM
 #include <sys/random.h>
 #endif
