@@ -681,7 +681,7 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
             DEC_SERIALIZABLE(FailedUsingSystemRandomSource);
         };
 
-        #define TestFailedException(testName) GostCrypt::Volume::TestFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__, testName);
+        #define TestFailedException(testName) GostCrypt::Core::TestFailed(__PRETTY_FUNCTION__, __FILE__, __LINE__, testName);
         class TestFailed : public GostCryptException
         {
          public:
