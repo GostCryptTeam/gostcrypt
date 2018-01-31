@@ -179,12 +179,13 @@ Commands:\n\
                 }
             }
             break;
-    case FirstCMD::benchmark:
-    {
-        QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options(new GostCrypt::Core::BenchmarkAlgorithmsRequest);
-        Parser::parseBenchmark(parser, options);
-        emit request(QVariant::fromValue(options));
-    }
+        case FirstCMD::benchmark:
+            {
+                QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options(new GostCrypt::Core::BenchmarkAlgorithmsRequest);
+                Parser::parseBenchmark(parser, options);
+                emit request(QVariant::fromValue(options));
+            }
+            break;
         /*case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
