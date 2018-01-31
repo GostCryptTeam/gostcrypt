@@ -25,6 +25,7 @@
     func(dismountall), \
     func(createkeyfiles), \
     func(list), \
+    func(benchmark), \
 }
 
 #define CONNECT_SIGNAL(requestName) app.connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
@@ -62,6 +63,7 @@ private slots:
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
     DEC_PRINT_SLOT(ProgressUpdate);
+    DEC_PRINT_SLOT(BenchmarkAlgorithms);
     void askSudoPassword();
 
 private:

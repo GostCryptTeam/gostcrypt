@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <QString>
 #include <QStandardPaths>
+#include <QElapsedTimer>
 
 #include <grp.h>
 
@@ -710,10 +711,11 @@ bool CoreBase::processNonRootRequest(QVariant r)
                             else HANDLE_REQUEST(ChangeVolumePassword, changeVolumePassword)
                                 else HANDLE_REQUEST(BackupHeader, backupHeader)
                                     else HANDLE_REQUEST(RestoreHeader, restoreHeader)
-                                        else
-                                        {
-                                            return false;
-                                        }
+                                        else HANDLE_REQUEST(BenchmarkAlgorithms, benchmarkAlgorithms)
+                                            else
+                                            {
+                                                return false;
+                                            }
     return true;
 }
 
@@ -977,6 +979,80 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
         emit sendRestoreHeader(response);
     }
     return response;
+}
+
+QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QSharedPointer<BenchmarkAlgorithmsRequest> params)
+{
+    QSharedPointer<BenchmarkAlgorithmsResponse> response(new BenchmarkAlgorithmsResponse);
+
+    try
+    {
+        GostCrypt::Volume::EncryptionAlgorithmList algorithms =
+            GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
+
+        // generate random data of size params->buffer
+        Buffer dataBuffer(params->bufferSize);
+
+        for (GostCrypt::Volume::EncryptionAlgorithmList::iterator algorithm = algorithms.begin();
+                algorithm != algorithms.end(); ++algorithm)
+        {
+            if ((*algorithm)->IsDeprecated())  // we don't allow deprecated algorithms
+                continue;
+
+            QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea = *algorithm;
+            Buffer key(ea->GetKeySize());
+            QElapsedTimer timer;
+            quint64 processedDataSize;
+
+            response->algorithmsNames.append(ea->GetName());
+            ea->SetKey(key);
+            ea->GetMode()->SetKey(key);
+
+            // CPU "warm up" (an attempt to prevent skewed results on systems where CPU frequency gradually changes depending on CPU load).
+            timer.start();
+            do {
+                // no need to cipher the whole buffer
+                ea->EncryptSectors(dataBuffer, 0, ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+            } while(timer.elapsed() < 20);
+
+
+            timer.restart();
+            processedDataSize = 0;
+            do {
+                ea->EncryptSectors(dataBuffer, 0, dataBuffer.Size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+                processedDataSize += dataBuffer.Size();
+            } while (timer.elapsed() < 100);
+
+            //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)
+            response->encryptionSpeed.append((processedDataSize * 1000)/timer.elapsed());
+
+            timer.restart();
+            processedDataSize = 0;
+            do {
+                ea->DecryptSectors(dataBuffer, 0, dataBuffer.Size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+                processedDataSize += dataBuffer.Size();
+            } while (timer.elapsed() < 100);
+
+            //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)
+            response->decryptionSpeed.append((processedDataSize * 1000)/timer.elapsed());
+
+
+            //compute average time (cipher + uncipher times / 2)
+            response->meanSpeed.append((response->encryptionSpeed.last() + response->decryptionSpeed.last())/2);
+        }
+    }
+    catch (GostCryptException& e)
+    {
+        e.clone(params->id.requestId)->raise();
+    }
+
+    if (params->emitResponse)
+    {
+        emit sendBenchmarkAlgorithms(response);
+    }
+    return response;
+
+
 }
 
 uid_t getUserId(QString username)

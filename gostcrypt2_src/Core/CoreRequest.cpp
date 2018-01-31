@@ -23,6 +23,7 @@ void initCoreRequest()
     INIT_SERIALIZE(ProgressTrackingParameters);
     INIT_SERIALIZE(BackupHeaderRequest);
     INIT_SERIALIZE(RestoreHeaderRequest);
+    INIT_SERIALIZE(BenchmarkAlgorithmsRequest);
 }
 
 QDataStream& operator<< (QDataStream& out, const CoreRequest& Valeur)
@@ -310,6 +311,21 @@ QDataStream& operator >> (QDataStream& in, RestoreHeaderRequest& Valeur)
     return in;
 }
 DEF_SERIALIZABLE(RestoreHeaderRequest)
+
+QDataStream& operator<< (QDataStream& out, const BenchmarkAlgorithmsRequest& Valeur)
+{
+
+    out << static_cast<const CoreRequest&>(Valeur);
+    out << Valeur.bufferSize;
+    return out;
+}
+QDataStream& operator>> (QDataStream& in, BenchmarkAlgorithmsRequest& Valeur)
+{
+    in >> static_cast<CoreRequest&>(Valeur);
+    in >> Valeur.bufferSize;
+    return in;
+}
+DEF_SERIALIZABLE(BenchmarkAlgorithmsRequest)
 
 MountVolumeRequest::MountVolumeRequest()
 {

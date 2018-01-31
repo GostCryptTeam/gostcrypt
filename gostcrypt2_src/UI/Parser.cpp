@@ -337,6 +337,34 @@ void Parser::parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files)
             files.append(positionalArguments.at(i));
 }
 
+void Parser::parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options)
+{
+
+    parser.addPositionalArgument("benchmark","execute the benchmark of the differents cipher algorithms", "benchmark");
+    parser.addOption({{"s","size"}, "Precise the size of the buffer to benchmark", "datasize"} );
+    parser.parse(QCoreApplication::arguments());
+
+    if (parser.isSet("help"))
+        throw Parser::ParseException(); // if help requested we throw an empty exception, showing the help and exiting
+
+    // parsing positional arguments
+    const QStringList positionalArguments = parser.positionalArguments();
+    if (positionalArguments.size() > 1)
+        throw Parser::ParseException(QString("Too many arguments specified."));
+
+    if (!parser.isSet("size")) {
+       options->bufferSize = 1024;
+       return;
+    }
+
+    bool isOk;
+    options->bufferSize = parseSize(parser.value("size"), &isOk);
+    if (!isOk)
+       throw Parser::ParseException(QString("'size' must be a number followed by B,KB,MB or GB !"));
+
+
+}
+
 quint64 Parser::parseSize(QString s, bool *ok){
     s.chop(1);
 	if(ok)

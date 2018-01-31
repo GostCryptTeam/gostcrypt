@@ -22,6 +22,7 @@ void initCoreResponse()
     INIT_SERIALIZE(MountedFilesystem);
     INIT_SERIALIZE(BackupHeaderResponse);
     INIT_SERIALIZE(RestoreHeaderResponse);
+    INIT_SERIALIZE(BenchmarkAlgorithmsResponse);
 }
 
 DEF_SERIALIZABLE(CoreResponse)
@@ -211,6 +212,26 @@ QDataStream& operator >> (QDataStream& in, MountedFilesystem& Valeur)
     in >> Valeur.Device;
     in >> Valeur.MountPoint;
     in >> Valeur.Type;
+    return in;
+}
+
+DEF_SERIALIZABLE(BenchmarkAlgorithmsResponse)
+QDataStream& operator << (QDataStream& out, const BenchmarkAlgorithmsResponse& Valeur)
+{
+    out << static_cast<const CoreResponse&>(Valeur);
+    out << Valeur.algorithmsNames;
+    out << Valeur.encryptionSpeed;
+    out << Valeur.decryptionSpeed;
+    out << Valeur.meanSpeed;
+    return out;
+}
+QDataStream& operator >> (QDataStream& in, BenchmarkAlgorithmsResponse& Valeur)
+{
+    in >> static_cast<CoreResponse&>(Valeur);
+    in >> Valeur.algorithmsNames;
+    in >> Valeur.encryptionSpeed;
+    in >> Valeur.decryptionSpeed;
+    in >> Valeur.meanSpeed;
     return in;
 }
 
