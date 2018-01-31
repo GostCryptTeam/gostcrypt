@@ -990,16 +990,17 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
         GostCrypt::Volume::EncryptionAlgorithmList algorithms =
             GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
 
+        if(params->bufferSize < ENCRYPTION_DATA_UNIT_SIZE)
+            throw IncorrectParameterException("The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes");
+
         // generate random data of size params->buffer
         Buffer dataBuffer(params->bufferSize);
 
-        for (GostCrypt::Volume::EncryptionAlgorithmList::iterator algorithm = algorithms.begin();
-                algorithm != algorithms.end(); ++algorithm)
+        for (QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea : algorithms)
         {
-            if ((*algorithm)->IsDeprecated())  // we don't allow deprecated algorithms
+            if (ea->IsDeprecated())  // we don't allow deprecated algorithms
                 continue;
 
-            QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea = *algorithm;
             Buffer key(ea->GetKeySize());
             QElapsedTimer timer;
             quint64 processedDataSize;
@@ -1012,7 +1013,7 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
             timer.start();
             do {
                 // no need to cipher the whole buffer
-                ea->EncryptSectors(dataBuffer, 0, ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+                ea->EncryptSectors(dataBuffer, 0, 1, ENCRYPTION_DATA_UNIT_SIZE);
             } while(timer.elapsed() < 20);
 
 
