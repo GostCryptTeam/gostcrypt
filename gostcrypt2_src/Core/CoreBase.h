@@ -6,7 +6,7 @@
 #include "CoreRequest.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
-#include "RandomNumberGenerator.h"
+#include "RandomGenerator.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Service.h"

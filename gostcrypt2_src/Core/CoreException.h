@@ -659,7 +659,7 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
             DEC_SERIALIZABLE(RandomNumberGeneratorNotRunning);
         };
 
-        #define FailedUsingSystemRandomSourceException() GostCrypt::Core::FailedUsingSystemRandomSource(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+        #define FailedUsingSystemRandomSourceException(errorCode) GostCrypt::Core::FailedUsingSystemRandomSource(__PRETTY_FUNCTION__, __FILE__, __LINE__, errorCode);
         class FailedUsingSystemRandomSource : public CoreException {
             public:
                 /**
@@ -674,9 +674,10 @@ FormattingSubException(QString fonction, QString filename, quint32 line, QString
                  * @param filename Name of the file where the exception is thrown
                  * @param line Line where the exception is thrown
                  */
-                FailedUsingSystemRandomSource(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename, line) {}
-                DEF_EXCEPTION_WHAT(FailedUsingSystemRandomSource, CoreException, "Failed using system random source.")
+                FailedUsingSystemRandomSource(QString fonction, QString filename, quint32 line, qint32 errorCode) : CoreException(fonction, filename, line), errorCode(errorCode) {}
+                DEF_EXCEPTION_WHAT(FailedUsingSystemRandomSource, CoreException, "Failed using system random source. ("+ QString::number(errorCode)+")")
             protected:
+            qint32 errorCode;
             DEC_SERIALIZABLE(FailedUsingSystemRandomSource);
         };
 

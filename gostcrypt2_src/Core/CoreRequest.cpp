@@ -356,5 +356,24 @@ BackupHeaderRequest::BackupHeaderRequest()
     this->hiddenVolume = false;
 }
 
+CreateVolumeRequest::VolumeParams::VolumeParams() {
+     filesystem = GetFileSystemTypePlatformNative();
+     size = 1.0;
+     volumeHeaderKdf = "Whirlpool";
+     encryptionAlgorithm = "Gost Grasshopper";
+}
+
+QString GostCrypt::Core::GetFileSystemTypePlatformNative() {
+    #ifdef GST_LINUX
+    return "ext3";
+    #elif defined (GST_MACOSX)
+    return "MacOsExt";
+    #elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
+    return "fs";
+    #else
+    return "fat";
+    #endif
+}
+
 }
 }
