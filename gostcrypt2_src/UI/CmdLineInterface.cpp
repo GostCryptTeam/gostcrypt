@@ -5,7 +5,7 @@
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
-CmdLineInterface::CmdLineInterface(QObject *parent) : QObject(parent)
+CmdLineInterface::CmdLineInterface(QObject *parent) : UserInterface(parent)
 {
 
 }
@@ -336,10 +336,10 @@ void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
 
 void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
 {
-    qStdOut() << "\rAglorithm\t Encryption Speed\t Decryption Speed\t Mean Speed" << endl;
+    qStdOut() << "\rAglorithm\t\tEncryption Speed\t\tDecryption Speed\t\tMean Speed" << endl;
     for (int i = 0; i < r->algorithmsNames.size(); ++i)
     {
-        qStdOut() << r->algorithmsNames.at(i) << "\t" << r->encryptionSpeed.at(i) << "\t" << r->decryptionSpeed.at(i) << "\t" << r->meanSpeed.at(i) << endl;
+        qStdOut() << r->algorithmsNames.at(i) << "\t\t" << r->encryptionSpeed.at(i) << "\t\t" << r->decryptionSpeed.at(i) << "\t\t" << r->meanSpeed.at(i) << endl;
     }
     (void)r;
     emit exit();
