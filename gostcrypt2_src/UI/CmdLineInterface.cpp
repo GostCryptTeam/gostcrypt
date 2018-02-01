@@ -5,7 +5,7 @@
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
-CmdLineInterface::CmdLineInterface(QObject *parent) : QObject(parent)
+CmdLineInterface::CmdLineInterface(QObject *parent) : UserInterface(parent)
 {
 
 }
@@ -35,6 +35,7 @@ int CmdLineInterface::start(int argc, char **argv)
     CONNECT_SIGNAL(CreateKeyFile);
     CONNECT_SIGNAL(ChangeVolumePassword);
     CONNECT_SIGNAL(ProgressUpdate);
+    CONNECT_SIGNAL(BenchmarkAlgorithms);
 
     /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)));*/
 
@@ -92,6 +93,7 @@ Commands:\n\
   backupheaders \tExports the header of a volume to make a backup.\n\
   createkeyfiles\tCreates a random file that can be used as a key.\n\
   list          \tLists the volumes, derivation functions of algorithms that can be used.\n\
+  benchmark     \tTest the speed of the differents Ciphers. \n\
 ");
         parser.showHelp();
     }
@@ -177,6 +179,13 @@ Commands:\n\
                 }
             }
             break;
+        case FirstCMD::benchmark:
+            {
+                QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options(new GostCrypt::Core::BenchmarkAlgorithmsRequest);
+                Parser::parseBenchmark(parser, options);
+                emit request(QVariant::fromValue(options));
+            }
+            break;
         /*case FirstCMD::test://"test":
             qStdOut() << "Option not supported." << endl; // TODO
             break;
@@ -229,6 +238,11 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
         emit askExit();
     }
     return done;
+}
+
+QString CmdLineInterface::formatSize(quint64 sizeInByte)
+{
+    return  UserInterface::formatSize(sizeInByte, false);
 }
 
 void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r) {
@@ -321,6 +335,17 @@ void CmdLineInterface::printCreateKeyFile(QSharedPointer<GostCrypt::Core::Create
 void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core::ChangeVolumePasswordResponse> r)
 {
     qStdOut() << "\rPassword successfully changed." << endl;
+    (void)r;
+    emit exit();
+}
+
+void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
+{
+    qStdOut() << "\rAglorithm\t\tEncryption Speed\t\tDecryption Speed\t\tMean Speed" << endl;
+    for (int i = 0; i < r->algorithmsNames.size(); ++i)
+    {
+        qStdOut() << r->algorithmsNames.at(i) << "\t\t" << formatSize(r->encryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->decryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->meanSpeed.at(i)) << "/s" << endl;
+    }
     (void)r;
     emit exit();
 }

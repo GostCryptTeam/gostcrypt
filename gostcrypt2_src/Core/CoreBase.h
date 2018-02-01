@@ -6,7 +6,7 @@
 #include "CoreRequest.h"
 #include "CoreResponse.h"
 #include "CoreException.h"
-#include "RandomNumberGenerator.h"
+#include "RandomGenerator.h"
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Service.h"
@@ -139,6 +139,8 @@ namespace GostCrypt {
              */
             QSharedPointer<RestoreHeaderResponse> restoreHeader(QSharedPointer<RestoreHeaderRequest> params);
 
+            QSharedPointer<BenchmarkAlgorithmsResponse> benchmarkAlgorithms(QSharedPointer<BenchmarkAlgorithmsRequest> params);
+
 			/**
 			 * @brief Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint.
 			 *
@@ -236,10 +238,12 @@ namespace GostCrypt {
             DEC_REQUEST_SIGNAL(ProgressUpdate);
             DEC_REQUEST_SIGNAL(BackupHeader);
             DEC_REQUEST_SIGNAL(RestoreHeader);
+            DEC_REQUEST_SIGNAL(BenchmarkAlgorithms);
+
 
 			/**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)
-			 *
+             *
 			 */
 			void exited();
 			/**

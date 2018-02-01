@@ -333,6 +333,25 @@ class DataNotMutable : public VolumeException
     DEC_SERIALIZABLE(DataNotMutable);
 };
 
+#define IncorrectCipherDataLengthException() GostCrypt::Volume::IncorrectCipherDataLength(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+class IncorrectCipherDataLength : public VolumeException
+{
+ public:
+    IncorrectCipherDataLength() {}
+    /**
+     * @brief Base class for all exception concerning Volume module
+     *
+     * @param fonction Name of the function where the exception was thrown
+     * @param filename Path of the file where the exception was thrown
+     * @param line Line of the file where the exception was thrown
+     */
+    IncorrectCipherDataLength(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
+                filename, line) {}
+    DEF_EXCEPTION_WHAT(IncorrectCipherDataLength, VolumeException, "The size of the buffer to cipher is not multiple of block size")
+
+    DEC_SERIALIZABLE(IncorrectCipherDataLength);
+};
+
 }
 }
 
@@ -353,5 +372,6 @@ SERIALIZABLE(GostCrypt::Volume::FailedResetTimestamps)
 SERIALIZABLE(GostCrypt::Volume::FailedGetSectorSize)
 SERIALIZABLE(GostCrypt::Volume::FailedGetTimestamps)
 SERIALIZABLE(GostCrypt::Volume::DataNotMutable)
+SERIALIZABLE(GostCrypt::Volume::IncorrectCipherDataLength)
 
 #endif // VOLUMEEXCEPTION_H

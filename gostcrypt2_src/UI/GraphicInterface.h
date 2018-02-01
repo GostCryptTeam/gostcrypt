@@ -8,6 +8,7 @@
 #include <QQmlContext>
 #include "Core/CoreRequest.h"
 #include "Core/CoreBase.h"
+#include "UserInterface.h"
 #include "DragWindowProvider.h"
 #include "UserSettings.h"
 #include "TranslationApp.h"
@@ -46,7 +47,6 @@
     func(contact) \
 }
 #define GI_KEY(variant, key) variant.toMap().value(key)
-#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
 #define DEC_QML_PRINT_SIGNAL(requestName) void sprint ## requestName (QVariantList l);
 #define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
 #define QML_SIGNAL(requestName, params) s ## requestName (params);
@@ -71,11 +71,12 @@ private:
     GraphicInterface* mGI;
 };
 
-class GraphicInterface : public QObject {
+class GraphicInterface : public UserInterface {
     Q_OBJECT
 public:
     explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
-    int start();
+    int start(int argc, char **argv);
+    static QString formatSize(quint64 sizeInByte);
 
 private slots:
     /*!
@@ -83,11 +84,6 @@ private slots:
      * Binds the signals from QML to the Core side
      */
     void receiveSignal(QString, QVariant);
-    /*!
-     * \brief printGetMountedVolumes
-     * retrieves the list of mounted volumes sent from the core
-     * \param result a pointer of the list of mounted volumes
-     */
     DEC_PRINT_SLOT(CreateVolume);
     DEC_PRINT_SLOT(MountVolume);
     DEC_PRINT_SLOT(DismountVolume);
@@ -98,12 +94,10 @@ private slots:
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
     DEC_PRINT_SLOT(ProgressUpdate);
-    void askSudoPassword();
+    DEC_PRINT_SLOT(BenchmarkAlgorithms);
+    virtual void askSudoPassword();
 
 signals:
-    void request(QVariant request);
-    void exit();
-    void sendSudoPassword(QString password);
     void connectFinished();
 
     //Signals that are called after the Core response :
@@ -130,7 +124,6 @@ private:
     Q_INVOKABLE void connectSignals();
     MyGuiApplication* mApp;
     QQmlApplicationEngine mEngine;
-    QSharedPointer<GostCrypt::Core::CoreBase> core;
     UserSettings mSettings;
     DragWindowProvider mDrag;
     TranslationApp mTranslation;

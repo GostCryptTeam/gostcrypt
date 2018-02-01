@@ -26,13 +26,13 @@ int main(int argc, char *argv[])
                 } else {
 					MyGuiApplication app(argc,argv);
 					GraphicInterface gi(&app);
-					return gi.start();
+                    return gi.start(argc, argv);
                 }
             #endif
         }
     }else{
         MyGuiApplication app(argc,argv);
         GraphicInterface gi(&app);
-        return gi.start();
+        return gi.start(argc, argv);
     }
 }

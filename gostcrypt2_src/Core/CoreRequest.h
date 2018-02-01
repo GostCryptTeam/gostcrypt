@@ -15,17 +15,7 @@ namespace GostCrypt {
 namespace Core {
 void initCoreRequest();
 
-static QString GetFileSystemTypePlatformNative () {
-#ifdef GST_LINUX
-    return "ext3";
-#elif defined (GST_MACOSX)
-    return "MacOsExt";
-#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
-    return "fs";
-#else
-    return "fat";
-#endif
-}
+QString GetFileSystemTypePlatformNative ();
 
 struct ProgressTrackingParameters
 {
@@ -57,12 +47,7 @@ struct CreateVolumeRequest : CoreRequest {
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
     }
     struct VolumeParams {
-        VolumeParams() {
-            filesystem = GetFileSystemTypePlatformNative();
-            size = 0;
-            volumeHeaderKdf = "Whirlpool";
-            encryptionAlgorithm = "Gost Grasshopper";
-        }
+        VolumeParams();
         QSharedPointer <QByteArray> password; // password of the volume (never null)
         QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to use
         qreal size; // size of the volume in percentage
@@ -169,6 +154,11 @@ struct RestoreHeaderRequest : CoreRequest {
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
 
+struct BenchmarkAlgorithmsRequest : CoreRequest {
+    quint32 bufferSize;
+    DEC_SERIALIZABLE(BenchmarkAlgorithmsRequest);
+};
+
 }
 }
 
@@ -186,5 +176,6 @@ SERIALIZABLE(GostCrypt::Core::GetDerivationFunctionsRequest)
 SERIALIZABLE(GostCrypt::Core::ProgressTrackingParameters)
 SERIALIZABLE(GostCrypt::Core::BackupHeaderRequest)
 SERIALIZABLE(GostCrypt::Core::RestoreHeaderRequest)
+SERIALIZABLE(GostCrypt::Core::BenchmarkAlgorithmsRequest)
 
 #endif // COREPARAMS_H

@@ -252,14 +252,18 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea (getEncryptionAlgorithm(params->encryptionAlgorithm));
     QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
+    if(layout->GetType() == Volume::VolumeType::Normal && params->size != 1.f)
+        throw IncorrectParameterException("Primary volume should always use 100% of the container");
+
     Volume::VolumeHeaderCreationOptions options;
     options.EA = ea;
     options.Hash = hash;
     options.Type = layout->GetType();
     options.SectorSize = 512; // TODO : ALWAYS 512 !
+    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
     if(options.Type == Volume::VolumeType::Hidden) {
-        options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - params->size;
+        options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - options.VolumeDataSize;
     } else {
         options.VolumeDataStart = layout->GetHeaderSize() * 2;
     }
@@ -267,8 +271,6 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1]
         throw ContentSizeInvalidException(params->size);
 
-    //TODO: Why multiply ? Why not just checking that asked size (params->size) is lower than the maximum data size given by layout->GetMaxDataSize
-    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
 
     GostCrypt::SecureBuffer masterkey;  // decrypts the whole filesystem
     GostCrypt::SecureBuffer salt;       // salt to encrypt the header.
@@ -278,12 +280,12 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
 
     // Master data key
     masterkey.Allocate (options.EA->GetKeySize() * 2);
-    RandomNumberGenerator::GetData (masterkey);
+    RandomGenerator::GetData (masterkey);
     options.DataKey = masterkey;
 
     // PKCS5 salt
     salt.Allocate (Volume::VolumeHeader::GetSaltSize());
-    RandomNumberGenerator::GetData (salt);
+    RandomGenerator::GetData (salt);
     options.Salt = salt;
 
     // Header key
@@ -319,7 +321,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
 
     // Write The Backup Header if any
 
-    RandomNumberGenerator::GetData (salt); // getting new salt
+    RandomGenerator::GetData (salt); // getting new salt
     options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
     header->Create (headerBuffer, options); // creating new header
@@ -479,7 +481,7 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         // creating a completely random password for a non-existent hidden volume
         SecureBuffer pass;
         pass.Allocate(Volume::VolumePassword::MaxSize);
-        RandomNumberGenerator::GetData(pass);
+        RandomGenerator::GetData(pass);
         randomparams->password.reset(new QByteArray((char *)pass.Get(), pass.Size()));
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }

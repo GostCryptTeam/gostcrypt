@@ -42,7 +42,7 @@ namespace Parser {
     void parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::DismountVolumeRequest> volume);
     void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
-
+    void parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options);
     quint64 parseSize(QString s, bool *ok);
     bool askPassword(std::string volume, QString &p);
 

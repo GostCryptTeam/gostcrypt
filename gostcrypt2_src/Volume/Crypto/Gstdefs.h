@@ -80,12 +80,6 @@ typedef unsigned __int16 uint_16t;
 typedef unsigned __int32 uint_32t;
 
 
-#define GST_THROW_FATAL_EXCEPTION	*(char *) 0 = 0
-
-#define GSTalloc malloc
-#define GSTfree free
-
-
 #ifndef GST_TO_STRING
 #	define GST_TO_STRING2(n) #n
 #	define GST_TO_STRING(n) GST_TO_STRING2(n)

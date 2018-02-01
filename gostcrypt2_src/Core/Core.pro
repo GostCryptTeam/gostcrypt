@@ -13,7 +13,7 @@ CONFIG += staticlib
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing
 
-DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH HAVE_NANOSLEEP HAVE_FSTATAT
+DEFINES += _FILE_OFFSET_BITS=64 _LARGEFILE_SOURCE _LARGE_FILES QT_NO_FOREACH HAVE_NANOSLEEP HAVE_FSTATAT HAVE_GETRANDOM
 unix {
     DEFINES += GST_UNIX
     linux-g++ {
@@ -35,7 +35,6 @@ HEADERS += \
     CoreUser.h \
     CoreRoot.h \
     CoreException.h \
-    RandomNumberGenerator.h \
     LoopDeviceManager.h \
     MountFilesystemManager.h \
     loopdevlib/at.h \
@@ -52,7 +51,8 @@ HEADERS += \
     Service.h \
     ServiceHandler.h \
     GostCryptException.h \
-    Buffer.h
+    Buffer.h \
+    RandomGenerator.h
 
 SOURCES += \
     CoreBase.cpp \
@@ -60,7 +60,6 @@ SOURCES += \
     CoreUser.cpp \
     CoreRoot.cpp \
     CoreException.cpp \
-    RandomNumberGenerator.cpp \
     LoopDeviceManager.cpp \
     MountFilesystemManager.cpp \
     loopdevlib/at.c \
@@ -76,4 +75,5 @@ SOURCES += \
     Service.cpp \
     ServiceHandler.cpp \
     GostCryptException.cpp \
-    Buffer.cpp
+    Buffer.cpp \
+    RandomGenerator.cpp

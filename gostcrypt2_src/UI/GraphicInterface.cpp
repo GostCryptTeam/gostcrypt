@@ -2,38 +2,17 @@
 
 const QStringList GraphicInterface::UI::Str = GI_ALL_COMMANDS(GI_STRTAB);
 
-/*! converts byte to MB, GB, KB */
-QString formatSize(quint64 sizeInByte) {
-    if (sizeInByte < 1024) return QString(QString("<font color=#6e9f45>")
-        + QString::number(sizeInByte)
-        + QString("</font>")
-        + QString(" B"));
-
-    else if (sizeInByte < 1048576) return QString("<font color=#6e9f45>")
-        + QString::number((float)sizeInByte / (float)1024, 'f', 1)
-        + QString("</font>")
-        + QString(" KB");
-
-    else if (sizeInByte < 1073741824) return QString("<font color=#6e9f45>")
-        + QString::number((float)sizeInByte / (float)1048576, 'f', 1)
-        + QString("</font>")
-        + QString(" MB");
-
-    else return QString("<font color=#6e9f45>")
-        + QString::number((float)sizeInByte / (float)1073741824, 'f', 1)
-        + QString("</font>")
-        + QString(" GB");
-}
-
 GraphicInterface::GraphicInterface(MyGuiApplication* aApp, QObject *parent)
-    : QObject(parent)
+    : UserInterface(parent)
 {
     mApp = aApp;
     mApp->setGI(this);
 }
 
-int GraphicInterface::start()
+int GraphicInterface::start(int argc, char **argv)
 {
+    Q_UNUSED(argc);
+    Q_UNUSED(argv);
     mApp->setWindowIcon(QIcon(":/logo_gostcrypt.png"));
 
     core = GostCrypt::Core::getCore();
@@ -54,6 +33,11 @@ int GraphicInterface::start()
     QMetaObject::invokeMethod(this, "connectSignals", Qt::QueuedConnection);
 
     return mApp->exec();
+}
+
+QString GraphicInterface::formatSize(quint64 sizeInByte)
+{
+    return UserInterface::formatSize(sizeInByte, true);
 }
 
 void GraphicInterface::receiveSignal(QString command, QVariant aContent)
@@ -369,6 +353,12 @@ void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
 {
     (void)r;
     emit QML_SIGNAL(printChangeVolumePassword, QVariantList());
+}
+
+void GraphicInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
+{
+    (void)r;
+    //TODO
 }
 
 

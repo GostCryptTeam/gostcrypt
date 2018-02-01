@@ -133,7 +133,7 @@ namespace Volume {
 
     void EncryptionAlgorithm::SetKey (const BufferPtr &key)
 	{
-                if (this->Mode->GetCiphers().size() < 1)
+        if (this->Mode->GetCiphers().size() < 1)
             throw EncryptionAlgorithmNotInitializedException();
 
 		if (GetKeySize() != key.Size())

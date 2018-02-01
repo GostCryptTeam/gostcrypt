@@ -9,6 +9,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include "Parser.h"
+#include "UserInterface.h"
 #include "Core/CoreRequest.h"
 #include "Core/CoreResponse.h"
 #include "Core/CoreBase.h"
@@ -25,11 +26,10 @@
     func(dismountall), \
     func(createkeyfiles), \
     func(list), \
+    func(benchmark), \
 }
 
 #define CONNECT_SIGNAL(requestName) app.connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
-#define DEC_PRINT_SLOT(requestName) void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
-
 
 // redefines the notify function of QCoreApplication to catch all exceptions at once
 class MyApplication : public QCoreApplication {
@@ -41,16 +41,13 @@ signals:
     void askExit();
 };
 
-class CmdLineInterface : public QObject {
+class CmdLineInterface : public UserInterface {
 Q_OBJECT
 public:
     explicit CmdLineInterface(QObject *parent = nullptr);
     static QTextStream &qStdOut();
     int start(int argc, char **argv);
-signals:
-    void request(QVariant request);
-    void exit();
-    void sendSudoPassword(QString password);
+    static QString formatSize(quint64 sizeInByte);
 private slots:
     DEC_PRINT_SLOT(CreateVolume);
     DEC_PRINT_SLOT(MountVolume);
@@ -62,12 +59,11 @@ private slots:
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
     DEC_PRINT_SLOT(ProgressUpdate);
-    void askSudoPassword();
-
+    DEC_PRINT_SLOT(BenchmarkAlgorithms);
+    virtual void askSudoPassword();
 private:
     void processRequest();
 
-    QSharedPointer<GostCrypt::Core::CoreBase> core;
     QCommandLineParser parser;
 
     struct FirstCMD {

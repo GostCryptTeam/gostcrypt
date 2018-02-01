@@ -49,7 +49,8 @@ HEADERS += \
     Parser.h \
     CmdLineInterface.h \
     GraphicInterface.h \
-    SecureTextField.h
+    SecureTextField.h \
+    UserInterface.h
 
 SOURCES += \
     main.cpp \
@@ -58,7 +59,8 @@ SOURCES += \
     Parser.cpp \
     CmdLineInterface.cpp \
     GraphicInterface.cpp \
-    SecureTextField.cpp
+    SecureTextField.cpp \
+    UserInterface.cpp
 
 LIBS += \
         ../Core/libCore.a \

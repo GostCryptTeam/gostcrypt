@@ -9,7 +9,7 @@
 #include "CoreRequest.h"
 #include "CoreResponse.h"
 #include "FuseService/FuseServiceHandler.h"
-#include "RandomNumberGenerator.h"
+#include "RandomGenerator.h"
 
 namespace GostCrypt {
 	namespace Core {
