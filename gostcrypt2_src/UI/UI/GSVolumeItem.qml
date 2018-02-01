@@ -44,7 +44,7 @@ Component {
             y:0
             height:80
             width: 240-85
-            color: "transparent"
+            color: palette.dark
             Item {
                 id:rightPartTexts
                 anchors.fill: parent

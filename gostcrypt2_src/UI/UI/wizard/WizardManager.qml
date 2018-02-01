@@ -17,7 +17,6 @@ Item {
         "VOLUME_PWD": "",                           //volume password (hidden+direct volume)
         "VOLUME_KEYFILES": [],                      //volume keyfile(s) (hidden+direct volume)
         "ALGORITHM_HASH_NAMES": ["", ""],           //name of the algorithm (standard volume) and name of the hash algorithm
-        "VOLUME_SIZE": 0.0,                         //inner volume relative size
         "VOLUME_NEW_PASSWORD": ["", ""],            //volume password with verification (standard volume)
         "VOLUME_NEW_KEYFILES": [],                  //volume keyfile(s)
         "FORMAT_INFOS": ["", "", false],            //file system, cluster & dynamic(bool) (standard volumes)
@@ -408,11 +407,9 @@ Item {
              */
         case progress.VOLUME_SIZE://volume size (standard volume)
             typeBranch = content.item.type
-            //type 0 & 1 (normal) => volumeInfos.VOLUME_SIZE, else volumeInfos.HIDDEN_VOLUME_SIZE
             if(content.item.type !== 2 && content.item.type !== 3)
             {
                 volumeInfos.CONTAINER_SIZE = content.item.sizeType[0] + content.item.sizeType[1]
-                volumeInfos.VOLUME_SIZE = content.item.relativeSize
             }
             else
                 volumeInfos.HIDDEN_VOLUME_SIZE = content.item.relativeSize
@@ -633,7 +630,6 @@ Item {
                     "size": volumeInfos.CONTAINER_SIZE,
                     "algorithm": volumeInfos.ALGORITHM_HASH_NAMES[0],
                     "hash": volumeInfos.ALGORITHM_HASH_NAMES[1],
-                    "outer-size": volumeInfos.VOLUME_SIZE,
                     "filesystem": volumeInfos.FORMAT_INFOS[0],
                     "nb-keyfiles": volumeInfos.VOLUME_NEW_KEYFILES.length,
                     "keyfiles": volumeInfos.VOLUME_NEW_KEYFILES, //TODO

@@ -39,7 +39,7 @@ Item {
                 width: 250
                 height: 40
                 model: {
-                    var paths = ["100 KB", "500 KB", "1 MB", "5 MB", "100 MB", "200 MB", "500 MB", "1 GB"];
+                    var paths = ["100 KiB", "500 KiB", "1 MiB", "5 MiB", "100 MiB", "200 MiB", "500 MiB", "1 GiB"];
                     return paths;
                 }
             }

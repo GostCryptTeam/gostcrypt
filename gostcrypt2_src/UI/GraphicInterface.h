@@ -33,6 +33,7 @@
     func(devices), \
     func(openmountpoint), \
     func(closeallsts), \
+    func(changepassword), \
     func(clearvolumehistory), \
     func(openguide), \
     func(onlinehelp), \

@@ -100,7 +100,7 @@ Item {
                         if(size === "small")
                             if(finale !== undefined) 28;
                             else return 32
-                        else if(size ==="medium")
+                        else if(size === "medium")
                             if(finale !== undefined) 39;
                             else return 43
                         else
@@ -132,7 +132,7 @@ Item {
                             hoverEnabled: true
                             onClicked: {
                                 //Subwindow mode
-                                if(fileName !== undefined)
+                                if(typeof fileName !== 'undefined')
                                 {
                                     var s = 429;
                                     if(size_ !== undefined)
@@ -143,7 +143,7 @@ Item {
                                     toggleMenu()
                                 }
                                 //Action mode
-                                else if(action !== undefined)
+                                else if(typeof action !== 'undefined')
                                 {
                                     qmlRequest(action, {"name": name_, "desc": desc_})
                                 }
@@ -557,11 +557,11 @@ Item {
         //filling the submenu zone
         listSubMenuModel.clear()
         listSubMenuModelFavorite.clear()
-        loaderSub.visible = true
         loaderFavoriteSub.visible = false
+        loaderSub.visible = true
+
         switch(index) {
         case menus.HOME:
-            //nothing here (?)
             app.toggleMenu()
             break;
         case menus.FAVORITE:
@@ -577,6 +577,8 @@ Item {
             listSubMenuModel.append({message: qsTr("Test vectors..."), size: "small", type: qsTr("tests"), finale:"true", fileName: "TestVectors", titleDialog: qsTr("Test Vectors"), description: qsTr("Test Vectors"), size_: 429})       
 
             listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "KeyfileGenerator", finale:"true", titleDialog: qsTr("Keyfile Generator"), description: qsTr("Keyfile generator"), size_: 200})
+
+            listSubMenuModel.append({message: qsTr("Change Volume Password"), size: "medium", type: qsTr("volumepwd"), fileName: "KeyfileGenerator", finale:"true", titleDialog: qsTr("Change Volume Password"), description: qsTr("Change Volume Password"), size_: 200})
 
             listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", action: "clearvolumehistory", size_: 429, name_: "Clearing volume paths...", desc_: "Deleting volume paths saved by gostcrypt"})
             break;
@@ -602,10 +604,13 @@ Item {
             listSubMenuModel.append({message: qsTr("Version History"), size: "medium", type: qsTr("web"), finale:"true", action: "versionhistory", name_:"", desc:""})
 
             listSubMenuModel.append({message: qsTr("Contact"), size: "small", type: qsTr("information"), action: "contact", name_:"", desc:""})
-            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "License", titleDialog: qsTr("GostCrypt License"), description: qsTr("License")})
-            listSubMenuModel.append({message: qsTr("About"), size: "big", type: qsTr("information"), finale:"true", fileName: "Contributors", titleDialog: qsTr("About GostCrypt"), description: qsTr("About GostCrypt")})
+            listSubMenuModel.append({message: qsTr("Legal Notices"), size: "medium", type: qsTr("information"), fileName: "License", titleDialog: qsTr("GostCrypt License"), description: qsTr("License"), size_: 429})
+            listSubMenuModel.append({message: qsTr("About"), size: "big", type: qsTr("information"), finale:"true", fileName: "Contributors", titleDialog: qsTr("About GostCrypt"), description: qsTr("About GostCrypt"), size_: 429})
             break;
         }
+
+
+
     }
 
     function updateFavorites()
@@ -674,7 +679,7 @@ Item {
                 selected = menus.FAVORITE
                 manageSubMenu(selected)
                 toggleSubMenu(true);
-                menuChanged("", menus.FAVORITE)
+               // menuChanged("", menus.FAVORITE)
             }
         }
     }
@@ -692,7 +697,7 @@ Item {
                 selected = menus.TOOLS
                 manageSubMenu(selected)
                 toggleSubMenu(true);
-                menuChanged("", menus.TOOLS)
+             //   menuChanged("", menus.TOOLS)
             }
         }
     }
@@ -710,7 +715,7 @@ Item {
                 selected = menus.SETTINGS
                 manageSubMenu(selected)
                 toggleSubMenu(true);
-                menuChanged("", menus.SETTINGS)
+            //    menuChanged("", menus.SETTINGS)
             }
         }
     }
@@ -728,7 +733,7 @@ Item {
                 selected = menus.HELP
                 manageSubMenu(selected)
                 toggleSubMenu(true);
-                menuChanged("", menus.HELP)
+            //    menuChanged("", menus.HELP)
             }
         }
     }

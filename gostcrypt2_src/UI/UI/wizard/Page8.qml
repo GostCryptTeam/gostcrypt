@@ -12,7 +12,7 @@ Item {
     Row {
         id: containerSize
         spacing: 20
-        width: parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
         Column {
             visible: (type === 2 || type === 3) ? false : true
             spacing: 10
@@ -93,13 +93,14 @@ Item {
         }
 
         Column {
+            visible: (type === 2 || type === 3) ? true : false
             spacing: 10
-            width: (type === 2 || type === 3) ? parent.width : parent.width/2 - 5
+            width: parent.width
             Text {
                 id:titre2
                 font.pointSize: 13
                 font.family: "Helvetica"
-                text: ((type === 2 || type === 3) ? qsTr("Inner volume's relative size: <br>(") : qsTr("Outer volume's relative size: <br>(")) + Translation.tr + Math.floor(slider.value*100) + "%)"
+                text: qsTr("Inner volume's relative size: <br>(") + Translation.tr + Math.floor(slider.value*100) + "%)"
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
                 color: palette.text

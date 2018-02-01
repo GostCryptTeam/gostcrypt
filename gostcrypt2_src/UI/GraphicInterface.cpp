@@ -172,7 +172,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
                 options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
                 options->outerVolume->filesystem = GI_KEY(aContent, "filesystem").toString(); //Outer volume file system
-                options->outerVolume->size = 1.0; //GI_KEY(aContent, "outer-size").toReal(); //Relative size of the outer volume
+                options->outerVolume->size = 1.0;
                 bool ok = false;
                 QString s = GI_KEY(aContent, "size").toString();
                 options->size = Parser::parseSize(s, &ok); //Total volume file size
@@ -256,8 +256,13 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         {
             QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> response;
             response.reset(new GostCrypt::Core::ProgressUpdateResponse((qint32)GI_KEY(aContent, "id").toInt(), (qreal)0.0));
+            mSettings.erasePaths();
             response->progress = 1.0;
             printProgressUpdate(response);
+        }
+    case UI::changepassword: //"changepassword"
+        {
+            //ChangeVolumePasswordRequest
         }
     }
 }

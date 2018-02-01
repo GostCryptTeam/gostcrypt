@@ -126,7 +126,7 @@ Window {
         \property duration
         \brief Duration of animations
      */
-    property int duration: 1000
+    property int duration: 500
     /*!
         \property menuWidth
         \brief The width of the left-sided menu

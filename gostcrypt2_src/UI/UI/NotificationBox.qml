@@ -9,7 +9,7 @@ Item {
 
     function printNotification() {
        if(notifications.length > 0)
-          notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
+          notif_title.text = notifications.length + " " + qsTr("NOTIFICATION(S)") + Translation.tr;
        else
           notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
     }
@@ -100,7 +100,7 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.fill: parent
                         color: palette.darkSecond
-                        height: 150
+                        height: 80
                         Text {
                             id: delegateText
                             text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
