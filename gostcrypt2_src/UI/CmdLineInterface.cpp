@@ -240,6 +240,11 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     return done;
 }
 
+QString CmdLineInterface::formatSize(quint64 sizeInByte)
+{
+    return  UserInterface::formatSize(sizeInByte, false);
+}
+
 void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r) {
     qStdOut() << "\r" << r->progress*100 << "%";
     qStdOut().flush();
@@ -339,7 +344,7 @@ void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::
     qStdOut() << "\rAglorithm\t\tEncryption Speed\t\tDecryption Speed\t\tMean Speed" << endl;
     for (int i = 0; i < r->algorithmsNames.size(); ++i)
     {
-        qStdOut() << r->algorithmsNames.at(i) << "\t\t" << r->encryptionSpeed.at(i) << "\t\t" << r->decryptionSpeed.at(i) << "\t\t" << r->meanSpeed.at(i) << endl;
+        qStdOut() << r->algorithmsNames.at(i) << "\t\t" << formatSize(r->encryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->decryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->meanSpeed.at(i)) << "/s" << endl;
     }
     (void)r;
     emit exit();

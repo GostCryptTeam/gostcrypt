@@ -35,6 +35,11 @@ int GraphicInterface::start(int argc, char **argv)
     return mApp->exec();
 }
 
+QString GraphicInterface::formatSize(quint64 sizeInByte)
+{
+    return UserInterface::formatSize(sizeInByte, true);
+}
+
 void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 {
 #ifdef QT_DEBUG

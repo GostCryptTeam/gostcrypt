@@ -11,7 +11,7 @@ class UserInterface : public QObject
 public:
     explicit UserInterface(QObject *parent = nullptr) : QObject(parent) {}
     virtual int start(int argc, char **argv) = 0;
-    static QString formatSize(quint64 sizeInByte);
+    static QString formatSize(quint64 sizeInByte, bool withFontColor);
 signals:
     void request(QVariant request);
     void exit();

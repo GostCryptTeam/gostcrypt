@@ -75,6 +75,8 @@ class GraphicInterface : public UserInterface {
 public:
     explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
     int start(int argc, char **argv);
+    static QString formatSize(quint64 sizeInByte);
+
 private slots:
     /*!
      * \brief receiveSignal

@@ -47,6 +47,7 @@ public:
     explicit CmdLineInterface(QObject *parent = nullptr);
     static QTextStream &qStdOut();
     int start(int argc, char **argv);
+    static QString formatSize(quint64 sizeInByte);
 private slots:
     DEC_PRINT_SLOT(CreateVolume);
     DEC_PRINT_SLOT(MountVolume);
