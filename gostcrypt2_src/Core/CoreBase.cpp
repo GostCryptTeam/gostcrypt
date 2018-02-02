@@ -6,6 +6,7 @@
 #include "CoreResponse.h"
 #include "CoreRequest.h"
 #include "CoreException.h"
+#include "Volume/EncryptionThreadPool.h"
 #include <QMutex>
 #include <QTextStream>
 #include <QDebug>
@@ -993,8 +994,9 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
         if(params->bufferSize < ENCRYPTION_DATA_UNIT_SIZE)
             throw IncorrectParameterException("The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes");
 
-        // generate random data of size params->buffer
         Buffer dataBuffer(params->bufferSize);
+
+        Volume::EncryptionThreadPool::Start();
 
         for (QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea : algorithms)
         {
@@ -1041,6 +1043,8 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
             //compute average time (cipher + uncipher times / 2)
             response->meanSpeed.append((response->encryptionSpeed.last() + response->decryptionSpeed.last())/2);
         }
+
+        Volume::EncryptionThreadPool::Stop();
     }
     catch (GostCryptException& e)
     {
