@@ -341,11 +341,67 @@ void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
 
 void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
 {
-    qStdOut() << "\rAglorithm\t\tEncryption Speed\t\tDecryption Speed\t\tMean Speed" << endl;
+    QStringList categories = { " Algorithm         ", " Encryption Speed ", " Decryption Speed ", " Mean Speed "};
+    qStdOut() << "+";
+    for ( const auto& i : categories  )
+    {
+        for(int j=0; j<i.length(); ++j)
+            qStdOut() << "-";
+        qStdOut() << "+";
+    }
+    qStdOut() << "\n";
+    qStdOut() << "|";
+    for ( const auto& i : categories  )
+    {
+        qStdOut() << i << "|";
+    }
+    qStdOut() << "\n+";
+    for ( const auto& i : categories  )
+    {
+        for(int j=0; j<i.length(); ++j)
+            qStdOut() << "-";
+        qStdOut() << "+";
+    }
+    qStdOut() << "\n";
+    //Print each algorithm result
     for (int i = 0; i < r->algorithmsNames.size(); ++i)
     {
-        qStdOut() << r->algorithmsNames.at(i) << "\t\t" << formatSize(r->encryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->decryptionSpeed.at(i)) << "/s\t\t" << formatSize(r->meanSpeed.at(i)) << "/s" << endl;
+        //Align center
+        qStdOut() << "| ";
+        qStdOut() << r->algorithmsNames.at(i);
+        int offset = categories.at(0).length() - r->algorithmsNames.at(i).length();
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString encSize = formatSize(r->encryptionSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << encSize;
+        offset = categories.at(1).length() - encSize.length();
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString decSize = formatSize(r->decryptionSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << decSize;
+        offset = categories.at(2).length() - decSize.length();
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString meanSize = formatSize(r->meanSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << meanSize;
+        offset = categories.at(3).length() - meanSize.length();
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|\n+";
+
+        for ( const auto& i : categories  )
+        {
+            for(int j=0; j<i.length(); ++j)
+                qStdOut() << "-";
+            qStdOut() << "+";
+        }
+        qStdOut() << "\n";
     }
-    (void)r;
+
     emit exit();
 }
