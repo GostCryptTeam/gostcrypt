@@ -375,22 +375,22 @@ void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::
 
         QString encSize = formatSize(r->encryptionSpeed.at(i));
         qStdOut() << " ";
-        qStdOut() << encSize;
-        offset = categories.at(1).length() - encSize.length();
+        qStdOut() << encSize << "/s";
+        offset = categories.at(1).length() - encSize.length() - 2;
         for(int j=0; j<offset-1; ++j) qStdOut() << " ";
         qStdOut() << "|";
 
         QString decSize = formatSize(r->decryptionSpeed.at(i));
         qStdOut() << " ";
-        qStdOut() << decSize;
-        offset = categories.at(2).length() - decSize.length();
+        qStdOut() << decSize << "/s";
+        offset = categories.at(2).length() - decSize.length() - 2;
         for(int j=0; j<offset-1; ++j) qStdOut() << " ";
         qStdOut() << "|";
 
         QString meanSize = formatSize(r->meanSpeed.at(i));
         qStdOut() << " ";
-        qStdOut() << meanSize;
-        offset = categories.at(3).length() - meanSize.length();
+        qStdOut() << meanSize << "/s";
+        offset = categories.at(3).length() - meanSize.length() - 2;
         for(int j=0; j<offset-1; ++j) qStdOut() << " ";
         qStdOut() << "|\n+";
 
