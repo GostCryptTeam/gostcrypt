@@ -75,7 +75,6 @@ TARGET = ../GostCrypt
 
 PRE_TARGETDEPS += ../Core/libCore.a \
     ../Volume/libVolume.a \
-    ../Platform/libPlatform.a \
     ../FuseService/libFuseService.a
 
 lupdate_hack{
