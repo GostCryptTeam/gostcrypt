@@ -11,70 +11,68 @@
 #include "Volume/VolumeException.h"
 #include <sys/mman.h>
 
-namespace GostCrypt {
-// BufferPtr
-
-bool BufferPtr::IsDataEqual(const BufferPtr& otherbufferptr) const
+namespace GostCrypt
 {
-    if (DataSize != otherbufferptr.Size())
+
+bool BufferPtr::isDataEqual(const BufferPtr& otherbufferptr) const
+{
+    if (dataSize != otherbufferptr.size())
     {
         return false;
     }
-    return memcmp(DataPtrReadonly, otherbufferptr.Get(), DataSize) == 0;
+    return memcmp(dataPtrReadonly, otherbufferptr.get(), dataSize) == 0;
 }
 
-void BufferPtr::CopyFrom(const BufferPtr& bufferPtr)
+void BufferPtr::copyFrom(const BufferPtr& bufferPtr)
 {
-    if (bufferPtr.Size() > DataSize)
+    if (bufferPtr.size() > dataSize)
     {
         throw IncorrectParameterException("bufferPtr.size > DataSize");
     }
-    if (!DataPtrMutable)
+    if (!dataPtrMutable)
     {
         throw DataNotMutableException();
     }
-    memcpy(DataPtrMutable, bufferPtr.Get(), bufferPtr.Size());
+    memcpy(dataPtrMutable, bufferPtr.get(), bufferPtr.size());
 }
 
-BufferPtr BufferPtr::GetRange(size_t offset, size_t size)
+BufferPtr BufferPtr::getRange(size_t offset, size_t size)
 {
-    if (offset + size > DataSize)
+    if (offset + size > dataSize)
     {
         throw IncorrectParameterException("offset+size > DataSize");
     }
-    if (!DataPtrMutable)
+    if (!dataPtrMutable)
     {
         throw DataNotMutableException();
     }
-    return BufferPtr(DataPtrMutable + offset, size);
+    return BufferPtr(dataPtrMutable + offset, size);
 }
 
-const BufferPtr BufferPtr::GetRange(size_t offset, size_t size) const
+const BufferPtr BufferPtr::getRange(size_t offset, size_t size) const
 {
-    if (offset + size > DataSize)
+    if (offset + size > dataSize)
     {
         throw IncorrectParameterException("offset+size > DataSize");
     }
 
-    return BufferPtr(DataPtrReadonly + offset, size);
+    return BufferPtr(dataPtrReadonly + offset, size);
 }
-
-// Buffer
 
 Buffer::Buffer(size_t size)
 {
-    Allocate(size);
+    allocate(size);
 }
 
 Buffer::~Buffer()
 {
-    if (Data.Get() != nullptr)
+    if (Data.get() != nullptr)
     {
-        Free();
+        freeData();
     }
 }
 
-void Buffer::Allocate(size_t size)
+void Buffer::allocate(size_t size)
 {
     if (size < 1)
     {
@@ -83,94 +81,93 @@ void Buffer::Allocate(size_t size)
 
     Usersize = size;
 
-    if (size <= Data.Size())
+    if (size <= Data.size())
     {
         return;    // everything is fine and alloced already
     }
 
-    if (Data.Size() != 0)
+    if (Data.size() != 0)
     {
-        Free();
+        freeData();
     }
 
     Usersize = size;
 
     try
     {
-        Data.Set(static_cast<quint8*>(malloc(size)), size);   // TODO : calloc ?
-        if (!Data.Get())
+        Data.set(static_cast<quint8*>(malloc(size)), size);   // TODO : calloc ? Why not realloc ?
+        if (!Data.get())
         {
             throw FailedMemoryAllocationException();
         }
     }
     catch (...)
     {
-        Data.Set(nullptr, 0);
+        Data.set(nullptr, 0);
         Usersize = 0;
         throw; //rethrow
     }
 }
 
-void Buffer::CopyFrom(const BufferPtr& bufferPtr)
+void Buffer::copyFrom(const BufferPtr& bufferPtr)
 {
-    if (!IsAllocated())
+    if (!isAllocated())
     {
-        Allocate(bufferPtr.Size());
+        allocate(bufferPtr.size());
     }
-    else if (bufferPtr.Size() > Usersize) {
+    else if (bufferPtr.size() > Usersize)
+    {
         throw IncorrectParameterException("bufferPtr.size > DataSize")
     }
-    memcpy(Data.Get(), bufferPtr.Get(), bufferPtr.Size());
+    memcpy(Data.get(), bufferPtr.get(), bufferPtr.size());
 }
 
-void Buffer::Erase()
+void Buffer::erase()
 {
-    if (Data.Size() > 0)
+    if (Data.size() > 0)
     {
-        memset(Data.Get(), 0, Data.Size());    // erase everything
+        memset(Data.get(), 0, Data.size());    // erase everything
     }
 }
 
-void Buffer::Free()
+void Buffer::freeData()
 {
-    if (Data.Get() == nullptr)
+    if (Data.get() == nullptr)
     {
         throw BufferAlreadyFreedException();
     }
-    free(Data.Get());
-    Data.Set(nullptr, 0);
+    free(Data.get());
+    Data.set(nullptr, 0);
     Usersize = 0;
 }
 
-BufferPtr Buffer::GetRange(size_t offset, size_t size)
+BufferPtr Buffer::getRange(size_t offset, size_t size)
 {
     if (offset + size > Usersize)
     {
         throw IncorrectParameterException("offset+size > Usersize");
     }
-    return Data.GetRange(offset, size);
+    return Data.getRange(offset, size);
 }
 
-const BufferPtr Buffer::GetRange(size_t offset, size_t size) const
+const BufferPtr Buffer::getRange(size_t offset, size_t size) const
 {
     if (offset + size > Usersize)
     {
         throw IncorrectParameterException("offset+size > Usersize");
     }
-    return Data.GetRange(offset, size);
+    return Data.getRange(offset, size);
 }
-
-// SecureBuffer
 
 SecureBuffer::~SecureBuffer()
 {
-    if (Data.Get() != nullptr)
+    if (Data.get() != nullptr)
     {
-        Free();
+        freeData();
     }
 }
 
-void SecureBuffer::Erase()
+void SecureBuffer::erase()
 {
 #ifdef GST_NO_BURN_OPTIMISATION
     volatile size_t number_to_erase8 = Data.Size();
@@ -178,9 +175,9 @@ void SecureBuffer::Erase()
     while (number_to_erase8--) { *burnm8++ = 0; }
 #else
 #ifndef GST_NO_COMPILER_INT64
-    volatile size_t number_to_erase64 = Data.Size() >> 3;
-    volatile size_t number_to_erase8 = Data.Size() % 8;
-    volatile quint64* burnm64 = (volatile quint64*)(Data.Get());
+    volatile size_t number_to_erase64 = Data.size() >> 3;
+    volatile size_t number_to_erase8 = Data.size() % 8;
+    volatile quint64* burnm64 = (volatile quint64*)(Data.get());
     volatile quint8* burnm8;
     while (number_to_erase64--) { *burnm64++ = 0; }
     burnm8 = (volatile quint8*) burnm64;
@@ -197,21 +194,21 @@ void SecureBuffer::Erase()
 #endif
 }
 
-void SecureBuffer::Allocate(size_t size)
+void SecureBuffer::allocate(size_t size)
 {
-    Buffer::Allocate(size);
-    mlock(Data.Get(), Data.Size()); // locking mem to RAM
+    Buffer::allocate(size);
+    mlock(Data.get(), Data.size()); // locking mem to RAM
 }
 
-void SecureBuffer::Free()
+void SecureBuffer::freeData()
 {
-    if (Data.Get() == nullptr)
+    if (Data.get() == nullptr)
     {
         throw BufferAlreadyFreedException();
     }
 
-    Erase();
-    munlock(Data.Get(), Data.Size()); // do not forget to unlock memory
-    Buffer::Free();
+    erase();
+    munlock(Data.get(), Data.size()); // do not forget to unlock memory
+    Buffer::freeData();
 }
 }

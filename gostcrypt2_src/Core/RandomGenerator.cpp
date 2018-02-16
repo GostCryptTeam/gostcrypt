@@ -57,9 +57,9 @@ namespace GostCrypt
         if (randsource == -1)
             throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/urandom")));
 
-        readRet = read (randsource, buffer, buffer.Size());
+        readRet = read (randsource, buffer, buffer.size());
         close(randsource);
-        if(readRet == -1 || (size_t)readRet < buffer.Size())
+        if(readRet == -1 || (size_t)readRet < buffer.size())
             throw FailedUsingSystemRandomSourceException(readRet);
         AddToPool (buffer);
 
@@ -68,7 +68,7 @@ namespace GostCrypt
             randsource = open ("/dev/random", O_RDONLY | O_NONBLOCK);
             if (randsource == -1)
                 throw FailedOpenFileException(QFileInfo(QStringLiteral("/dev/random")));
-            readRet = read (randsource, buffer, buffer.Size());
+            readRet = read (randsource, buffer, buffer.size());
             close(randsource);
             if(readRet == -1 && errno != EAGAIN)
                 throw FailedUsingSystemRandomSourceException(readRet);
@@ -85,7 +85,7 @@ namespace GostCrypt
 
         QMutexLocker lock (&AccessMutex);
 
-        for (size_t i = 0; i < buffer.Size(); ++i)
+        for (size_t i = 0; i < buffer.size(); ++i)
 		{
             Pool[WriteOffset++] += buffer[i];
 
@@ -108,7 +108,7 @@ namespace GostCrypt
 		if (!Running)
             throw RandomNumberGeneratorNotRunningException();
 
-		if (buffer.Size() > PoolSize)
+		if (buffer.size() > PoolSize)
             throw IncorrectParameterException("buffer.size > PoolSize");
 
         QMutexLocker lock (&AccessMutex);
@@ -118,7 +118,7 @@ namespace GostCrypt
 		HashMixPool();
 
 		// Transfer bytes from pool to output buffer
-		for (size_t i = 0; i < buffer.Size(); ++i)
+		for (size_t i = 0; i < buffer.size(); ++i)
 		{
 			buffer[i] += Pool[ReadOffset++];
 
@@ -127,7 +127,7 @@ namespace GostCrypt
 		}
 
 		// Invert and mix the pool
-		for (size_t i = 0; i < Pool.Size(); ++i)
+		for (size_t i = 0; i < Pool.size(); ++i)
 		{
 			Pool[i] = ~Pool[i];
 		}
@@ -136,7 +136,7 @@ namespace GostCrypt
 		HashMixPool();
 
 		// XOR the current pool content into the output buffer to prevent pool state leaks
-		for (size_t i = 0; i < buffer.Size(); ++i)
+		for (size_t i = 0; i < buffer.size(); ++i)
 		{
 			buffer[i] ^= Pool[ReadOffset++];
 
@@ -149,7 +149,7 @@ namespace GostCrypt
 	{
 		BytesAddedSincePoolHashMix = 0;
 
-		for (size_t poolPos = 0; poolPos < Pool.Size(); )
+		for (size_t poolPos = 0; poolPos < Pool.size(); )
 		{
 			// Compute the message digest of the entire pool using the selected hash function
 			SecureBuffer digest (PoolHash->GetDigestSize());
@@ -157,7 +157,7 @@ namespace GostCrypt
 			PoolHash->GetDigest (digest);
 
 			// Add the message digest to the pool
-			for (size_t digestPos = 0; digestPos < digest.Size() && poolPos < Pool.Size(); ++digestPos)
+			for (size_t digestPos = 0; digestPos < digest.size() && poolPos < Pool.size(); ++digestPos)
 			{
 				Pool[poolPos++] += digest[digestPos];
 			}
@@ -177,7 +177,7 @@ namespace GostCrypt
 		Running = true;
 		EnrichedByUser = false;
 
-		Pool.Allocate (PoolSize);
+		Pool.allocate (PoolSize);
 		Test();
 
 		if (!PoolHash)
@@ -193,8 +193,8 @@ namespace GostCrypt
 	{
         QMutexLocker lock (&AccessMutex);
 
-		if (Pool.IsAllocated())
-			Pool.Free ();
+		if (Pool.isAllocated())
+			Pool.freeData ();
 
 		PoolHash.reset();
 
@@ -207,7 +207,7 @@ namespace GostCrypt
 		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
         PoolHash.reset (new Volume::VolumeHashStribog());
 
-        Pool.Erase(); // erase will set everything to zero
+        Pool.erase(); // erase will set everything to zero
 		Buffer buffer (1);
 		for (size_t i = 0; i < PoolSize * 10; ++i)
 		{
@@ -218,8 +218,8 @@ namespace GostCrypt
         if (Volume::Crc32::ProcessBuffer (Pool) != 0x6f54d191)
             throw TestFailedException("RandomGenerator");
 
-		buffer.Allocate (PoolSize);
-		buffer.CopyFrom (PeekPool());
+		buffer.allocate (PoolSize);
+		buffer.copyFrom (PeekPool());
 		AddToPool (buffer);
 
         if (Volume::Crc32::ProcessBuffer (Pool) != 0xc5f7df43)

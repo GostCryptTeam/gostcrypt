@@ -27,7 +27,7 @@ namespace Volume {
 
         file.open(QIODevice::ReadOnly);
 
-        while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.Get()), keyfileBuf.Size())))
+        while ((readLength = file.read(reinterpret_cast<char*> (keyfileBuf.get()), keyfileBuf.size())))
 		{
             if(readLength == -1)
                 throw FailedReadFileException(Path);
@@ -40,7 +40,7 @@ namespace Volume {
                 pool[poolPos++] += (quint8) (crc >> 8);
                 pool[poolPos++] += (quint8) crc;
 
-				if (poolPos >= pool.Size())
+				if (poolPos >= pool.size())
 					poolPos = 0;
 
 				if (++totalLength >= MaxProcessedLength)
@@ -64,8 +64,8 @@ namespace Volume {
         SecureBuffer keyfilePool (VolumePassword::MaxSize);
 
         // Pad password with zeros if shorter than max length
-        keyfilePool.Erase();
-        keyfilePool.CopyFrom (BufferPtr (password->DataPtr(), password->Size()));
+        keyfilePool.erase();
+        keyfilePool.copyFrom (BufferPtr (password->DataPtr(), password->Size()));
 
         // Apply all keyfiles
         for (const QSharedPointer<Keyfile> k : *keyfiles)
