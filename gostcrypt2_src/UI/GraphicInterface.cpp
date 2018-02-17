@@ -35,9 +35,9 @@ int GraphicInterface::start(int argc, char **argv)
     return mApp->exec();
 }
 
-QString GraphicInterface::formatSize(quint64 sizeInByte)
+QString GraphicInterface::formatSize(quint64 sizeInByte, bool choice)
 {
-    return UserInterface::formatSize(sizeInByte, true);
+    return UserInterface::formatSize(sizeInByte, choice);
 }
 
 void GraphicInterface::receiveSignal(QString command, QVariant aContent)
@@ -196,6 +196,21 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             emit request(QVariant::fromValue(options));
         }
         break;
+    case UI::benchmark: //"benchmark"
+        {
+            QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options(new GostCrypt::Core::BenchmarkAlgorithmsRequest);
+            QString size;
+            bool ok;
+            qint32 convertedSize;
+            size = GI_KEY(aContent, "size").toString();
+            convertedSize = Parser::parseSize(size, &ok);
+            if(ok)
+            {
+                options->bufferSize = convertedSize;
+                emit request(QVariant::fromValue(options));
+            }
+        }
+        break;
     case UI::algorithms: //"algorithms":
         {
             QSharedPointer<GostCrypt::Core::GetEncryptionAlgorithmsRequest> options(new GostCrypt::Core::GetEncryptionAlgorithmsRequest);
@@ -244,10 +259,12 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             response->progress = 1.0;
             printProgressUpdate(response);
         }
+        break;
     case UI::changepassword: //"changepassword"
         {
             //ChangeVolumePasswordRequest
         }
+        break;
     }
 }
 
@@ -266,7 +283,7 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
                vol.insert("mountPoint", tr("Not mounted"));
            vol.insert("algo", (*v)->encryptionAlgorithmName);
            vol.insert("volumePath", (*v)->volumePath.filePath());
-           vol.insert("volumeSize", formatSize((*v)->size));
+           vol.insert("volumeSize", formatSize((*v)->size, true));
            list.append(vol);
     }
     emit QML_SIGNAL(printGetMountedVolumes, list)
@@ -357,10 +374,18 @@ void GraphicInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
 
 void GraphicInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
 {
-    (void)r;
-    //TODO
+    QVariantList list;
+    for (int i = 0; i < r->algorithmsNames.size(); ++i)
+    {
+        QVariantMap result;
+        result.insert("name", r->algorithmsNames.at(i));
+        result.insert("decSpeed", formatSize(r->decryptionSpeed.at(i),false));
+        result.insert("encSpeed", formatSize(r->encryptionSpeed.at(i),false));
+        result.insert("meanSpeed", formatSize(r->meanSpeed.at(i),false));
+        list.append(result);
+    }
+    emit QML_SIGNAL(printBenchmarkAlgorithms, list)
 }
-
 
 void GraphicInterface::askSudoPassword()
 {
@@ -396,6 +421,7 @@ void GraphicInterface::connectSignals()
     CONNECT_QML_SIGNAL(CreateKeyFile);
     CONNECT_QML_SIGNAL(ChangeVolumePassword);
     CONNECT_QML_SIGNAL(ProgressUpdate);
+    CONNECT_QML_SIGNAL(BenchmarkAlgorithms);
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));

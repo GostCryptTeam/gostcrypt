@@ -361,8 +361,6 @@ void Parser::parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt
     options->bufferSize = parseSize(parser.value("size"), &isOk);
     if (!isOk)
        throw Parser::ParseException(QString("'size' must be a number followed by B,KB,MB or GB !"));
-
-
 }
 
 quint64 Parser::parseSize(QString s, bool *ok){

@@ -92,6 +92,12 @@ Item {
                                                              "header of a different volume, you will be able to mount the volume, but you will NOT be "+
                                                              "able to decrypt any data stored in the volume (because you will change its master key)."))
         }
+
+        onSprintBenchmarkAlgorithms:
+        {
+            console.log(l)
+            subWindow.getLoader().item.updateTableview(l);
+        }
     }
 
     function manageModel(volumes)
