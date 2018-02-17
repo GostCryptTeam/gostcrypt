@@ -279,17 +279,17 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     SecureBuffer headerBuffer (layout->GetHeaderSize()); // our header we'll write to the container
 
     // Master data key
-    masterkey.Allocate (options.EA->GetKeySize() * 2);
+    masterkey.allocate (options.EA->GetKeySize() * 2);
     RandomGenerator::GetData (masterkey);
     options.DataKey = masterkey;
 
     // PKCS5 salt
-    salt.Allocate (Volume::VolumeHeader::GetSaltSize());
+    salt.allocate (Volume::VolumeHeader::GetSaltSize());
     RandomGenerator::GetData (salt);
     options.Salt = salt;
 
     // Header key
-    headerkey.Allocate (Volume::VolumeHeader::GetLargestSerializedKeySize());
+    headerkey.allocate (Volume::VolumeHeader::GetLargestSerializedKeySize());
     QSharedPointer <Volume::KeyfileList> keyfiles;
     if(params->keyfiles)
         for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
@@ -314,7 +314,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
             throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
         file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
     }
-    file.write((char*)headerBuffer.Get(), headerBuffer.Size()); // writing header
+    file.write((char*)headerBuffer.get(), headerBuffer.size()); // writing header
 
     if(!layout->HasBackupHeader())
         return;
@@ -330,7 +330,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
         file.seekp(layout->GetBackupHeaderOffset(), std::ios_base::beg);
     else
         file.seekp(containersize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
-    file.write((char *)headerBuffer.Get(), headerBuffer.Size()); // writing backup header crypted with new salt
+    file.write((char *)headerBuffer.get(), headerBuffer.size()); // writing backup header crypted with new salt
 
 }
 
@@ -480,9 +480,9 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         randomparams->volumeHeaderKdf = params->outerVolume->volumeHeaderKdf;
         // creating a completely random password for a non-existent hidden volume
         SecureBuffer pass;
-        pass.Allocate(Volume::VolumePassword::MaxSize);
+        pass.allocate(Volume::VolumePassword::MaxSize);
         RandomGenerator::GetData(pass);
-        randomparams->password.reset(new QByteArray((char *)pass.Get(), pass.Size()));
+        randomparams->password.reset(new QByteArray((char *)pass.get(), pass.size()));
         writeHeaderToFile(volumefile, randomparams, innerlayout, params->size);
     }
 

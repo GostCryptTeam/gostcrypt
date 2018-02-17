@@ -33,7 +33,7 @@ namespace Volume {
 
     void EncryptionAlgorithm::Decrypt (BufferPtr &data) const
 	{
-		Decrypt (data, data.Size());
+		Decrypt (data, data.size());
 	}
 
 	void EncryptionAlgorithm::DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
@@ -50,7 +50,7 @@ namespace Volume {
 
     void EncryptionAlgorithm::Encrypt (BufferPtr &data) const
 	{
-		Encrypt (data, data.Size());
+		Encrypt (data, data.size());
 	}
 
 	void EncryptionAlgorithm::EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
@@ -136,13 +136,13 @@ namespace Volume {
         if (this->Mode->GetCiphers().size() < 1)
             throw EncryptionAlgorithmNotInitializedException();
 
-		if (GetKeySize() != key.Size())
+		if (GetKeySize() != key.size())
             throw IncorrectParameterException("Key size mismatch");
 
 		size_t keyOffset = 0;
         for (QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
 		{
-            c->SetKey (key.GetRange (keyOffset, c->GetKeySize()));
+            c->SetKey (key.getRange (keyOffset, c->GetKeySize()));
             keyOffset += c->GetKeySize();
 		}
 	}

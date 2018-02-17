@@ -551,14 +551,14 @@ namespace Volume {
             SecondaryCiphers.push_back (cipher->GetNew());
 		}
 
-		if (SecondaryKey.Size() > 0)
+		if (SecondaryKey.size() > 0)
 			SetSecondaryCipherKeys();
 	}
 
     void EncryptionModeXTS::SetKey (const BufferPtr &key)
 	{
-		SecondaryKey.Allocate (key.Size());
-		SecondaryKey.CopyFrom (key);
+		SecondaryKey.allocate (key.size());
+		SecondaryKey.copyFrom (key);
 
 		if (!SecondaryCiphers.empty())
 			SetSecondaryCipherKeys();
@@ -569,7 +569,7 @@ namespace Volume {
 		size_t keyOffset = 0;
         for (QSharedPointer<CipherAlgorithm> cipher : SecondaryCiphers)
 		{
-            cipher->SetKey (SecondaryKey.GetRange (keyOffset, cipher->GetKeySize()));
+            cipher->SetKey (SecondaryKey.getRange (keyOffset, cipher->GetKeySize()));
             keyOffset += cipher->GetKeySize();
 		}
 

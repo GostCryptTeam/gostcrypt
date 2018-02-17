@@ -476,15 +476,15 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
         }
         else
         {
-            outputBuffer.Erase();
+            outputBuffer.erase();
         }
 
         if (ea)
         {
-            ea->EncryptSectors(outputBuffer.Get(), offset / ENCRYPTION_DATA_UNIT_SIZE,
+            ea->EncryptSectors(outputBuffer.get(), offset / ENCRYPTION_DATA_UNIT_SIZE,
                                dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);    // encrypting it
         }
-        file.write((char*)outputBuffer.Get(), (size_t) dataFragmentLength);  // writing it
+        file.write((char*)outputBuffer.get(), (size_t) dataFragmentLength);  // writing it
 
         offset += dataFragmentLength;
         sizetodo -= dataFragmentLength;
@@ -843,7 +843,7 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
         //Rencryt volume header with new salt
         ReEncryptVolumeHeaderWithNewSalt(newHeaderBuffer, normalVolume->GetHeader(), password, keyfiles);
         normalVolume->Close();
-        backupHeaderFile.write(reinterpret_cast<char*>(newHeaderBuffer.Get()), newHeaderBuffer.Size());
+        backupHeaderFile.write(reinterpret_cast<char*>(newHeaderBuffer.get()), newHeaderBuffer.size());
 
         if (params->hiddenVolume)
         {
@@ -859,7 +859,7 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
             ea->Encrypt(newHeaderBuffer);
         }
 
-        backupHeaderFile.write(reinterpret_cast<char*>(newHeaderBuffer.Get()), newHeaderBuffer.Size());
+        backupHeaderFile.write(reinterpret_cast<char*>(newHeaderBuffer.get()), newHeaderBuffer.size());
 
         backupHeaderFile.close();
 
@@ -938,7 +938,7 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
                 {
                     throw FailedLseekFileException(params->backupHeaderFile);
                 }
-                backupFile.read(reinterpret_cast<char*>(headerBuffer.Get()), headerBuffer.Size());
+                backupFile.read(reinterpret_cast<char*>(headerBuffer.get()), headerBuffer.size());
 
                 QSharedPointer<Volume::VolumePassword> passwordKey = Volume::Keyfile::ApplyListToPassword(keyfiles,
                         password);
@@ -1022,8 +1022,8 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
             timer.restart();
             processedDataSize = 0;
             do {
-                ea->EncryptSectors(dataBuffer, 0, dataBuffer.Size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
-                processedDataSize += dataBuffer.Size();
+                ea->EncryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+                processedDataSize += dataBuffer.size();
             } while (timer.elapsed() < 100);
 
             //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)
@@ -1032,8 +1032,8 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
             timer.restart();
             processedDataSize = 0;
             do {
-                ea->DecryptSectors(dataBuffer, 0, dataBuffer.Size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
-                processedDataSize += dataBuffer.Size();
+                ea->DecryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+                processedDataSize += dataBuffer.size();
             } while (timer.elapsed() < 100);
 
             //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)

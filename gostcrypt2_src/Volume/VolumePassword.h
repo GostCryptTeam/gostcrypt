@@ -30,8 +30,8 @@ namespace Volume {
 
         operator const BufferPtr () const { return BufferPtr (PasswordBuffer); }
 
-        quint8 *DataPtr () { return PasswordBuffer.Get(); }
-        const quint8 *DataPtr () const { return PasswordBuffer.Get(); }
+        quint8 *DataPtr () { return PasswordBuffer.get(); }
+        const quint8 *DataPtr () const { return PasswordBuffer.get(); }
 		size_t Size () const { return PasswordSize; }
         void Set (const quint8 *password, size_t size);
         void Set (const BufferPtr &password);

@@ -167,7 +167,7 @@ namespace Volume {
 	{
         //if_debug (ValidateState ());
 
-        quint64 length = buffer.Size();
+        quint64 length = buffer.size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
@@ -204,7 +204,7 @@ namespace Volume {
 
     void Volume::WriteSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{
-        quint64 length = buffer.Size();
+        quint64 length = buffer.size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0
@@ -222,15 +222,15 @@ namespace Volume {
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 			CheckProtectedRange (hostOffset, length);
 
-		SecureBuffer encBuf (buffer.Size());
-		encBuf.CopyFrom (buffer);
+		SecureBuffer encBuf (buffer.size());
+		encBuf.copyFrom (buffer);
 
 		EA->EncryptSectors (encBuf, hostOffset / SectorSize, length / SectorSize, SectorSize);
         this->volumeFile->WriteAt (encBuf, hostOffset);
 
 		TotalDataWritten += length;
 
-        quint64 writeEndOffset = byteOffset + buffer.Size();
+        quint64 writeEndOffset = byteOffset + buffer.size();
 		if (writeEndOffset > TopWriteOffset)
 			TopWriteOffset = writeEndOffset;
 	}

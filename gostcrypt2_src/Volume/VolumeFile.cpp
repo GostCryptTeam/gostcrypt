@@ -95,7 +95,7 @@ void VolumeFile::Close ()
 	{
         if (!FileIsOpen)
             throw VolumeNotOpenException();
-        ssize_t bytesRead = read (FileHandle, buffer, buffer.Size());
+        ssize_t bytesRead = read (FileHandle, buffer, buffer.size());
         if (bytesRead == -1)
             throw FailedReadFileException(Path);
 
@@ -107,7 +107,7 @@ void VolumeFile::Close ()
         if (!FileIsOpen)
             throw VolumeNotOpenException();
 
-		ssize_t bytesRead = pread (FileHandle, buffer, buffer.Size(), position);
+		ssize_t bytesRead = pread (FileHandle, buffer, buffer.size(), position);
         if (bytesRead == -1)
             throw FailedReadFileException(Path);
 
@@ -135,7 +135,7 @@ void VolumeFile::Close ()
         if (!FileIsOpen)
             throw VolumeNotOpenException();
 
-        if (write (FileHandle, buffer, buffer.Size()) != (ssize_t) buffer.Size())
+        if (write (FileHandle, buffer, buffer.size()) != (ssize_t) buffer.size())
             throw FailedWriteFileException(Path)
     }
 
@@ -144,7 +144,7 @@ void VolumeFile::Close ()
         if (!FileIsOpen)
             throw VolumeNotOpenException();
 
-        if(pwrite (FileHandle, buffer, buffer.Size(), position) != (ssize_t) buffer.Size())
+        if(pwrite (FileHandle, buffer, buffer.size(), position) != (ssize_t) buffer.size())
             throw FailedWriteFileException(Path)
     }
 

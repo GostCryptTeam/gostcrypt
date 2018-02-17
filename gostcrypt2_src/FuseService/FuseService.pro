@@ -12,6 +12,8 @@ CONFIG += staticlib
 
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags)
+QMAKE_CXXFLAGS += -O3
+
 
 DEFINES += NEWFUSESERVICE_LIBRARY QT_NO_FOREACH
 unix {

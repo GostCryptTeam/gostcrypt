@@ -48,7 +48,7 @@ namespace Volume
         void SeekAt (quint64 position) const;
         void SeekEnd (int offset) const;
         void Write (const BufferPtr &buffer) const;
-        void Write (const BufferPtr &buffer, size_t length) const { Write (buffer.GetRange (0, length)); }
+        void Write (const BufferPtr &buffer, size_t length) const { Write (buffer.getRange (0, length)); }
         void WriteAt (const BufferPtr &buffer, quint64 position) const;
         void Flush () const;
         FileType::Enum GetType () const;

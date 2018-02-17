@@ -27,13 +27,13 @@ namespace Volume {
     {
         const BufferPtr data1(DataPtr(), Size());
         const BufferPtr data2(other.DataPtr(), other.Size());
-        return data1.IsDataEqual(data2);
+        return data1.isDataEqual(data2);
     }
 
 	void VolumePassword::AllocateBuffer ()
 	{
-		if (!PasswordBuffer.IsAllocated ())
-			PasswordBuffer.Allocate (MaxSize);
+		if (!PasswordBuffer.isAllocated ())
+			PasswordBuffer.allocate (MaxSize);
 	}
 
 	bool VolumePassword::IsPortable () const
@@ -54,13 +54,13 @@ namespace Volume {
 		if (size > MaxSize)
             throw IncorrectParameterException("Password size too big");
 
-        PasswordBuffer.CopyFrom (BufferPtr (password, size));
+        PasswordBuffer.copyFrom (BufferPtr (password, size));
 		PasswordSize = size;
 	}
 
     void VolumePassword::Set (const BufferPtr &password)
 	{
-        Set (password.Get(), password.Size());
+        Set (password.get(), password.size());
 	}
 }
 }

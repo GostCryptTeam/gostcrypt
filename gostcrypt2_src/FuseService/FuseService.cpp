@@ -468,7 +468,7 @@ namespace GostCrypt {
 							SecureBuffer alignedBuffer (alignedSize);
 
 							FuseService::readVolumeSectors(alignedBuffer, alignedOffset);
-							BufferPtr ((quint8 *) buf, size).CopyFrom (alignedBuffer.GetRange (offset % sectorSize, size));
+							BufferPtr ((quint8 *) buf, size).copyFrom (alignedBuffer.getRange (offset % sectorSize, size));
 						}
 						else
 						{
