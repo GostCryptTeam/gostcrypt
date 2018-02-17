@@ -24,7 +24,7 @@ Item {
                 text: qsTr("Encryption Algorithm :") + Translation.tr
             }
 
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: algo
                 model: app.algorithms;
                 anchors.top: text.bottom
@@ -43,7 +43,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.topMargin: 10
 
-                UI.GSButtonBordered {
+                UI.ButtonBordered {
                     id: testbutton
                     color_: palette.green
                     text: qsTr("Test") + Translation.tr
@@ -54,7 +54,7 @@ Item {
                     }
                 }
 
-                UI.GSButtonBordered {
+                UI.ButtonBordered {
                     id: benchmarkButton
                     color_: palette.green
                     text: qsTr("Benchmark") + Translation.tr
@@ -100,7 +100,7 @@ Item {
                 text: qsTr("Hash Algorithm") + Translation.tr
             }
 
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: hash
                 model: app.hashs;
                 anchors.top: text2.bottom

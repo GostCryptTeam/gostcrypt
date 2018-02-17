@@ -12,7 +12,7 @@ Button {
         leftPadding: 37
         text: buttonGreenIcon.text + Translation.tr
         font.pixelSize: 13
-        color: buttonGreenIcon.down ? "#ffffff" : "#ffffff"
+        color: palette.textVeryLight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -53,7 +53,7 @@ Button {
             when: buttonGreenIcon_mouseArea.containsMouse && !buttonGreenIcon_mouseArea.pressed
             PropertyChanges {
                 target: buttonGreenIcon_rect
-                color : "#7ba430"
+                color : palette.greenHover
             }
         },
         State {
@@ -61,7 +61,7 @@ Button {
             when: buttonGreenIcon_mouseArea.pressed
             PropertyChanges {
                 target: buttonGreenIcon_rect
-                color : "#506f19"
+                color : palette.greenDark
             }
         },
         State {

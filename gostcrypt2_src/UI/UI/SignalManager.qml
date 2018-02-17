@@ -95,7 +95,6 @@ Item {
 
         onSprintBenchmarkAlgorithms:
         {
-            console.log(l)
             subWindow.getLoader().item.updateTableview(l);
         }
     }

@@ -59,7 +59,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 10
                 ExclusiveGroup { id: groupRadio }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: kB_
                     text_: qsTr("KB")
                     checked: false
@@ -69,7 +69,7 @@ Item {
                         if(kB_.checked) sizeType[1] = "KB";
                     }
                 }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: mB_
                     text_: qsTr("MB")
                     checked: true
@@ -79,7 +79,7 @@ Item {
                         if(mB_.checked) sizeType[1] = "MB";
                     }
                 }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: gB_
                     text_: qsTr("GB")
                     checked: false

@@ -105,7 +105,7 @@ Item {
             id: volumeListElement
             anchors.fill: rectangle2
 
-            UI.GSVolumeItem {
+            UI.VolumeItem {
                 id:volumeDelegate
             }
 
@@ -384,7 +384,7 @@ Item {
 
                 Row {
                     spacing: 10
-                    UI.GSButtonBordered {
+                    UI.ButtonBordered {
                         text: qsTr("Favorites Volumes") + Translation.tr
                         width:130
                         onClicked:
@@ -393,7 +393,7 @@ Item {
                         }
                         color_: palette.blue
                     }
-                    UI.GSButtonBordered {
+                    UI.ButtonBordered {
                         text: qsTr("User Guide") + Translation.tr
                         color_: palette.green
                         width:100
@@ -428,11 +428,11 @@ Item {
         anchors.horizontalCenter: horizontalCenters.horizontalCenter
         topPadding: 18
         /*!
-            \class GSButtonGreen_icon
+            \class ButtonGreen_icon
             \brief Button that allow the user to mount
             a volume by opening a subwindow.
          */
-        UI.GSButtonGreen_icon {
+        UI.ButtonGreen_icon {
             text: qsTr("Mount Volume") + Translation.tr
             /*!
             \qmlsignal onClicked
@@ -444,11 +444,11 @@ Item {
             }
         }
         /*!
-        \class GSButtonBlue_icon
+        \class ButtonBlue_icon
         \brief Button that opens the Gostcrypt volume creation
         wizard to create a volume.
      */
-        UI.GSButtonBlue_icon {
+        UI.ButtonBlue_icon {
             text: qsTr("Create Volume") + Translation.tr
             onClicked: {
                 openSubWindow("wizard/WizardManager.qml", qsTr('GostCrypt Volume Creation Wizard'), qsTr("Create a volume"), 429, {"name" : "", "value" : "", "type": true})
@@ -472,10 +472,10 @@ Item {
         anchors.bottom: mainWindow.bottom;
         anchors.bottomMargin: 15
         /*!
-          \class GSButtonBordered
+          \class ButtonBordered
           \brief Auto-mount a device.
         */
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             text: qsTr("Auto Mount Device") + Translation.tr
             width:200
             onClicked:
@@ -485,10 +485,10 @@ Item {
             color_:palette.green
         }
         /*!
-          \class GSButtonBordered
+          \class ButtonBordered
           \brief Dismount all the devices currently mounted
         */
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             text: qsTr("Dismount All") + Translation.tr
             color_:palette.blue
             width:200

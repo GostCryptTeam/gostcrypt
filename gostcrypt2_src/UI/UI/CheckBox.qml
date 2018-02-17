@@ -22,13 +22,13 @@ CheckBox {
             implicitWidth: size_
             implicitHeight: size_
             radius: size_/2
-            border.color: control.activeFocus ? "#719c24" : "#191919"
+            border.color: control.activeFocus ? palette.green : palette.darkSecond
             border.width: 1
             color: palette.bkCheckBox
             Rectangle {
                 visible: control.checked
-                color: "#719c24"
-                border.color: "#57791b"
+                color: palette.green
+                border.color: palette.border
                 radius: 15
                 anchors.margins: 7
                 anchors.fill: parent

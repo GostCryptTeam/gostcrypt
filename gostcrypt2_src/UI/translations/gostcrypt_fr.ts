@@ -266,7 +266,7 @@
     </message>
 </context>
 <context>
-    <name>GSErrorMessage</name>
+    <name>ErrorMessage</name>
     <message>
         <source>OK</source>
         <translation>OK</translation>
@@ -281,7 +281,7 @@
     </message>
 </context>
 <context>
-    <name>GSHelpButton</name>
+    <name>HelpButton</name>
     <message>
         <source>&lt;b&gt;?&lt;/b&gt;</source>
         <translation>&lt;b&gt;?&lt;b&gt;</translation>
@@ -303,7 +303,7 @@
     </message>
 </context>
 <context>
-    <name>GSMenu</name>
+    <name>Menu</name>
     <message>
         <source>Home</source>
         <translation>ACCUEIL</translation>
@@ -669,14 +669,14 @@
     </message>
 </context>
 <context>
-    <name>GSSudo</name>
+    <name>Sudo</name>
     <message>
         <source>Validate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>GSVolumeItem</name>
+    <name>VolumeItem</name>
     <message>
         <source>Double-click to open volume</source>
         <translation type="obsolete">Double-cliquez pour ouvrir un volume</translation>

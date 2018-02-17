@@ -48,30 +48,9 @@ Window {
         \class QtObject
         \brief All the colors used in the program
      */
-    QtObject {
+    AbstractTheme {
         id: palette
-        property color shadow: "#000000"
-        property color dark: "#303030"
-        property color darkSecond: "#2a2a2a"
-        property color darkThird: "#272727"
-        property color textLowOpacity: "#454545"
-        property color text: "#e1e1e1"
-        property color textLight: "#e1e1e1"
-        property color green: "#719c24"
-        property color greenHover: "#7ba430"
-        property color greenDark: "#597d1c"
-        property color blue: "#2f88a7"
-        property color blueHover: "#3d97b6"
-        property color bluePress: "#266f88"
-        property color border: "#202020"
-        property color darkInput: "#181818"
-        property color hoverItemMenu: "#404040"
-        property color bkCheckBox: "#191919"
-        property color grayWizard: "#2e2e2e"
-        property color grayWizardDark: "#2b2b2b"
-        property color round: "#545454"
-        property color roundFilled: "#dfdfdf"
-        property color borderInput: "#333333"
+        type: 1
     }
 
     //Window's maximum dimension
@@ -347,11 +326,11 @@ Window {
     }
 
     /*!
-        \class GSMenuButton
+        \class MenuButton
         \brief The menu button with three horizontal bars
         that changes to an arrow when the menu is opened.
      */
-    GSMenuButton {
+    MenuButton {
         id: menuButton
         x: 20
         y: 55
@@ -380,10 +359,10 @@ Window {
 
 
     /*!
-        \class GSMenu
+        \class Menu
         \brief Menu zone on the left
      */
-    GSMenu {
+    MainMenu {
         id: gs_Menu
         height: app.height-40
         y:40
@@ -424,7 +403,7 @@ Window {
         }
     }
 
-    GSSudo {
+    Sudo {
         id: sudo_
         isVisible: false
         width: 350
@@ -434,7 +413,7 @@ Window {
         contentText: "Enter your admin password"
     }
 
-    GSErrorMessage {
+    ErrorMessage {
         id: errorMessage
         isVisible: false
         visible: false

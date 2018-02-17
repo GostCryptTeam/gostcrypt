@@ -164,7 +164,7 @@ Item {
         anchors.right: top.right;
         anchors.rightMargin: 5
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: help_
             height: 25
             width: 80

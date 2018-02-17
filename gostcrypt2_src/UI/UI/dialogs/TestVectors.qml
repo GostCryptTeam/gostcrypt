@@ -47,13 +47,13 @@ Item {
                     font.pointSize: 11
                     text: qsTr("Cipher :") + Translation.tr
                 }
-                UI.GSCustomComboBox {
+                UI.CustomComboBox {
                     id: algo
                     model: ["GOST 28147-89", "Gost Grasshopper"]
                     width: 200
                     height: 30
                 }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: xtsmode
                     text_: qsTr("XTS mode") + Translation.tr
                     size_: 20
@@ -115,7 +115,7 @@ Item {
                         text: qsTr("Key size:") + Translation.tr
                         font.pointSize: 11
                     }
-                    UI.GSCustomComboBox {
+                    UI.CustomComboBox {
                         id: bits
                         model: ["256"]
                         width: 100
@@ -207,7 +207,7 @@ Item {
                             text: qsTr("Block number: ") + Translation.tr
                             font.pointSize: 11
                         }
-                        UI.GSCustomComboBox {
+                        UI.CustomComboBox {
                             id: blocknumber
                             model: ["0"]
                             width: 100
@@ -264,7 +264,7 @@ Item {
                                 text: qsTr("Plain text size:") + Translation.tr
                                 font.pointSize: 11
                             }
-                            UI.GSCustomComboBox {
+                            UI.CustomComboBox {
                                 id: plainsize
                                 model: ["128"]
                                 width: 100
@@ -326,7 +326,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: encrypt
             height: 40
             text: qsTr("Encrypt") + Translation.tr
@@ -335,7 +335,7 @@ Item {
             color_: palette.blue
             anchors.bottomMargin: 10
         }
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: decrypt
             height: 40
             text: qsTr("Decrypt") + Translation.tr
@@ -345,7 +345,7 @@ Item {
             anchors.bottomMargin: 10
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: autotest
             height: 40
             text: qsTr("Auto-Test All") + Translation.tr
@@ -355,7 +355,7 @@ Item {
             anchors.bottomMargin: 10
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: reset
             height: 40
             text: qsTr("Reset") + Translation.tr

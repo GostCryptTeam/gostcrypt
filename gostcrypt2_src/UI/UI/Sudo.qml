@@ -102,7 +102,7 @@ Item {
             }
         }
 
-        GSButtonBordered {
+        ButtonBordered {
             text: qsTr("Validate") + Translation.tr
             color_:palette.blue
             width:200

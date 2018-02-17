@@ -379,9 +379,9 @@ void GraphicInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::
     {
         QVariantMap result;
         result.insert("name", r->algorithmsNames.at(i));
-        result.insert("decSpeed", formatSize(r->decryptionSpeed.at(i),false));
-        result.insert("encSpeed", formatSize(r->encryptionSpeed.at(i),false));
-        result.insert("meanSpeed", formatSize(r->meanSpeed.at(i),false));
+        result.insert("decSpeed", formatSize(r->decryptionSpeed.at(i),false)+"/s");
+        result.insert("encSpeed", formatSize(r->encryptionSpeed.at(i),false)+"/s");
+        result.insert("meanSpeed", formatSize(r->meanSpeed.at(i),false)+"/s");
         list.append(result);
     }
     emit QML_SIGNAL(printBenchmarkAlgorithms, list)

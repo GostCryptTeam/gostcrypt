@@ -34,7 +34,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 height: 40
             }
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: combo
                 width: 250
                 height: 40
@@ -45,7 +45,7 @@ Item {
             }
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: selectPKCS
             height: combo.height
             text: qsTr("Benchmark") + Translation.tr
@@ -167,7 +167,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: save
             height: 40
             text: qsTr("Close") + Translation.tr
