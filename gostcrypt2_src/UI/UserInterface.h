@@ -12,6 +12,7 @@ public:
     explicit UserInterface(QObject *parent = nullptr) : QObject(parent) {}
     virtual int start(int argc, char **argv) = 0;
     static QString formatSize(quint64 sizeInByte, bool withFontColor);
+    static quint64 parseSize(QString s, bool *ok);
 signals:
     void request(QVariant request);
     void exit();

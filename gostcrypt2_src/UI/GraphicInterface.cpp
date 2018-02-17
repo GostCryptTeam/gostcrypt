@@ -159,7 +159,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 options->outerVolume->size = 1.0;
                 bool ok = false;
                 QString s = GI_KEY(aContent, "size").toString();
-                options->size = Parser::parseSize(s, &ok); //Total volume file size
+                options->size = UserInterface::parseSize(s, &ok); //Total volume file size
             }
             else if(type == GostCrypt::Volume::VolumeType::Hidden)
             {
@@ -203,7 +203,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             bool ok;
             qint32 convertedSize;
             size = GI_KEY(aContent, "size").toString();
-            convertedSize = Parser::parseSize(size, &ok);
+            convertedSize = UserInterface::parseSize(size, &ok);
             if(ok)
             {
                 options->bufferSize = convertedSize;

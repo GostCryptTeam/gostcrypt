@@ -3,6 +3,7 @@
 
 #include "Core/CoreRequest.h"
 #include "Volume/VolumePassword.h"
+#include "UserInterface.h"
 #include <iostream>
 #include <QCommandLineParser>
 #include <QException>
@@ -43,7 +44,6 @@ namespace Parser {
     void parseList(QCommandLineParser &parser, Parser::WhatToList *item);
     void parseCreateKeyFiles(QCommandLineParser &parser, QStringList &files);
     void parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options);
-    quint64 parseSize(QString s, bool *ok);
     bool askPassword(std::string volume, QString &p);
 
 }

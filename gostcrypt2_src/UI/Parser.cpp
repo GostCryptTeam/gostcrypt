@@ -308,7 +308,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     if (parser.isSet("size")) {
         const QString number = parser.value("size");
         bool ok = false;
-        options->size = parseSize(number, &ok);
+        options->size = UserInterface::parseSize(number, &ok);
         if (!ok)
             throw Parser::ParseException(QString("'size' must be a number followed by B,KB,MB or GB !"));
     }else{
@@ -358,35 +358,9 @@ void Parser::parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt
     }
 
     bool isOk;
-    options->bufferSize = parseSize(parser.value("size"), &isOk);
+    options->bufferSize = UserInterface::parseSize(parser.value("size"), &isOk);
     if (!isOk)
        throw Parser::ParseException(QString("'size' must be a number followed by B,KB,MB or GB !"));
-}
-
-quint64 Parser::parseSize(QString s, bool *ok){
-	if(ok)
-		*ok = true;
-
-    if(s.at(s.size()-1) == 'B')
-        s.chop(1);
-
-    if(s.at(s.size()-1).isNumber())
-		return s.toInt();
-    if(s.at(s.size()-1) == 'K'){
-        s.chop(1);
-		return s.toInt()*1024;
-	}
-    if(s.at(s.size()-1) == 'M'){
-        s.chop(1);
-        return s.toInt()*1024*1024;
-	}
-    if(s.at(s.size()-1) == 'G'){
-        s.chop(1);
-		return s.toInt()*1024*1024*1024;
-	}
-	if(ok)
-		*ok = false;
-	return 0;
 }
 
 bool Parser::askPassword(std::string volume, QString &p){
