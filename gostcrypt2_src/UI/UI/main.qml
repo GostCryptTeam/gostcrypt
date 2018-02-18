@@ -50,7 +50,7 @@ Window {
      */
     AbstractTheme {
         id: palette
-        type: 1
+        type: 0
     }
 
     //Window's maximum dimension
