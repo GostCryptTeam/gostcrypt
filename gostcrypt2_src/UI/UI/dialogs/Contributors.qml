@@ -83,7 +83,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("OK") + Translation.tr

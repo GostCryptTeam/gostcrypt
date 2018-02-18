@@ -116,4 +116,5 @@ DISTFILES += \
     UI/dialogs/TestVectors.qml \
     translations/gostcrypt_ar.ts \
     UI/dialogs/RestoreHeaderVolume.qml \
-    UI/dialogs/BackupHeaderVolume.qml
+    UI/dialogs/BackupHeaderVolume.qml \
+    UI/AbstractTheme.qml

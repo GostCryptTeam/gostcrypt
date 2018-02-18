@@ -35,7 +35,7 @@ Item {
             width: 600
             spacing: 15
             anchors.horizontalCenter: parent.horizontalCenter
-            UI.GSCheckBox {
+            UI.CheckBox {
                 id: use
                 text_: qsTr("Do not use following number of processors for encryption/decryption: ")
                 height: 40
@@ -50,7 +50,7 @@ Item {
                         UserSettings.setSetting("Perf-Use", 0)
                 }
             }
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: typePerf
                 model: {
                     return getNumberOfCore(UserSettings.getNumberOfCore());
@@ -79,7 +79,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: saveButton
             height: 40
             text: qsTr("Benchmark") + Translation.tr
@@ -88,7 +88,7 @@ Item {
             color_: palette.green
             anchors.bottomMargin: 10
         }
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("Save changes") + Translation.tr

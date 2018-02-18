@@ -58,7 +58,7 @@ Item {
                 Keys.onEnterPressed: manageWizard(1)
             }
 
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: keyfiles_paths
                 model: []
                 width: (top.width-100)/2
@@ -69,7 +69,7 @@ Item {
 
     }
 
-    UI.GSCheckBox {
+    UI.CheckBox {
         id: display
         text_: qsTr("Display password")
         x: 50
@@ -91,7 +91,7 @@ Item {
 
     }
 
-    UI.GSCheckBox {
+    UI.CheckBox {
         id: use_Keyfiles
         text_: qsTr("Use keyfiles")
         x: 50
@@ -111,7 +111,7 @@ Item {
         }
     }
 
-    UI.GSButtonBordered {
+    UI.ButtonBordered {
         id: buttonKeyfiles
         x: buttonsOpenVolume.x + buttonsOpenVolume.width - 150
         y: 60

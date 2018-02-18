@@ -85,7 +85,7 @@ Item {
                         spacing: 20
                         Column {
                             spacing: 5
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: display
                                 text_: qsTr("Display password")  + Translation.tr
                                 height: 20
@@ -107,7 +107,7 @@ Item {
 
                             }
 
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: use_Keyfiles
                                 text_: qsTr("Use keyfiles") + Translation.tr
                                 height: 20
@@ -127,7 +127,7 @@ Item {
                                 }
                             }
                         }
-                        UI.GSButtonBordered {
+                        UI.ButtonBordered {
                             id: buttonKeyfiles
                             height: 40
                             text: qsTr("Keyfiles...") + Translation.tr
@@ -164,7 +164,7 @@ Item {
                     anchors.topMargin: 10
                     anchors.horizontalCenter: parent.horizontalCenter
 
-                    UI.GSButtonBordered {
+                    UI.ButtonBordered {
                         id: containsHidden
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: 40
@@ -229,7 +229,7 @@ Item {
                             spacing: 20
                             Column {
                                 spacing: 5
-                                UI.GSCheckBox {
+                                UI.CheckBox {
                                     id: displayHidden
                                     text_: qsTr("Display password")  + Translation.tr
                                     height: 20
@@ -251,7 +251,7 @@ Item {
 
                                 }
 
-                                UI.GSCheckBox {
+                                UI.CheckBox {
                                     id: use_Keyfiles_hidden
                                     text_: qsTr("Use keyfiles") + Translation.tr
                                     height: 20
@@ -271,7 +271,7 @@ Item {
                                     }
                                 }
                             }
-                            UI.GSButtonBordered {
+                            UI.ButtonBordered {
                                 id: buttonKeyfiles_hidden
                                 height: 40
                                 text: qsTr("Keyfiles...") + Translation.tr
@@ -284,7 +284,7 @@ Item {
 
                 }
 
-                UI.GSButtonBordered {
+                UI.ButtonBordered {
                     id: removeHidden
                     visible: false
                     anchors.top: blockHidden.top
@@ -312,7 +312,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("Backup header") + Translation.tr

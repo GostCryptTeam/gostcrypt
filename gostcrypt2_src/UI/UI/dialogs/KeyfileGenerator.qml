@@ -28,14 +28,14 @@ Item {
               text: qsTr("Mixing PRF:") + Translation.tr
               font.pointSize: 11
           }
-          UI.GSCustomComboBox {
+          UI.CustomComboBox {
               id: pRFType
               model: ["GOST R 34.11-2012","GOST R 31.11-94", "Whirlpool"]
               width: 200
               height: 30
           }
       }
-      UI.GSButtonBordered {
+      UI.ButtonBordered {
           id: saveButton
           height: 40
           anchors.horizontalCenter: parent.horizontalCenter

@@ -31,7 +31,7 @@ Item {
         wrapMode: Text.WordWrap
     }
 
-    UI.GSButtonBordered {
+    UI.ButtonBordered {
         anchors.top: infos.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 10

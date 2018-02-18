@@ -266,7 +266,7 @@
     </message>
 </context>
 <context>
-    <name>GSErrorMessage</name>
+    <name>ErrorMessage</name>
     <message>
         <source>OK</source>
         <translation type="unfinished"></translation>
@@ -281,7 +281,7 @@
     </message>
 </context>
 <context>
-    <name>GSHelpButton</name>
+    <name>HelpButton</name>
     <message>
         <source>&lt;b&gt;?&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
@@ -295,7 +295,7 @@
     </message>
 </context>
 <context>
-    <name>GSMenu</name>
+    <name>Menu</name>
     <message>
         <source>Home</source>
         <translation type="unfinished">الصفحة الرئيسي</translation>
@@ -553,14 +553,14 @@
     </message>
 </context>
 <context>
-    <name>GSSudo</name>
+    <name>Sudo</name>
     <message>
         <source>Validate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>GSVolumeItem</name>
+    <name>VolumeItem</name>
     <message>
         <source>Volume properties...</source>
         <translation type="unfinished"></translation>

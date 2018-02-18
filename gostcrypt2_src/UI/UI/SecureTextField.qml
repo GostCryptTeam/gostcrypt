@@ -16,7 +16,7 @@ ControlsOld.TextField {
     echoMode: (type === false) ? TextInput.Password : TextInput.Normal
     focus: true
     style: TextFieldStyle {
-        textColor: "#e1e1e1"
+        textColor: palette.text
         background: Rectangle {
             id: password_value_style
             radius: radius_

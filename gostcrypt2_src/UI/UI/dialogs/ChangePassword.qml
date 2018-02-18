@@ -93,7 +93,7 @@ Item {
                         spacing: 20
                         Column {
                             spacing: 5
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: display
                                 text_: qsTr("Display password")  + Translation.tr
                                 height: 20
@@ -115,7 +115,7 @@ Item {
 
                             }
 
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: use_Keyfiles
                                 text_: qsTr("Use keyfiles") + Translation.tr
                                 height: 20
@@ -135,7 +135,7 @@ Item {
                                 }
                             }
                         }
-                        UI.GSButtonBordered {
+                        UI.ButtonBordered {
                             id: buttonKeyfiles
                             height: 40
                             text: qsTr("Keyfiles...") + Translation.tr
@@ -228,7 +228,7 @@ Item {
                         spacing: 20
                         Column {
                             spacing: 5
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: display2
                                 text_: qsTr("Display password")  + Translation.tr
                                 height: 20
@@ -253,7 +253,7 @@ Item {
 
                             }
 
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: use_Keyfiles2
                                 text_: qsTr("Use keyfiles") + Translation.tr
                                 height: 20
@@ -274,7 +274,7 @@ Item {
                                 }
                             }
                         }
-                        UI.GSButtonBordered {
+                        UI.ButtonBordered {
                             id: buttonKeyfiles2
                             height: 40
                             text: qsTr("Keyfiles...") + Translation.tr
@@ -295,7 +295,7 @@ Item {
                             color: palette.text
                             width: 200
                         }
-                        UI.GSCustomComboBox {
+                        UI.CustomComboBox {
                             id: combo
                             width: 250
                             height: 40
@@ -319,7 +319,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("Save changes") + Translation.tr

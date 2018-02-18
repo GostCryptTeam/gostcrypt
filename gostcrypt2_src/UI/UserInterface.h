@@ -35,6 +35,7 @@ public:
      * @return QString
      */
     static QString formatSize(quint64 sizeInByte, bool withFontColor);
+    static quint64 parseSize(QString s, bool *ok);
 signals:
     /**
      * @brief

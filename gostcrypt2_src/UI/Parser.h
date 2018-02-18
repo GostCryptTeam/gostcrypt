@@ -3,6 +3,7 @@
 
 #include "Core/CoreRequest.h"
 #include "Volume/VolumePassword.h"
+#include "UserInterface.h"
 #include <iostream>
 #include <QCommandLineParser>
 #include <QException>
@@ -119,14 +120,6 @@ namespace Parser {
      * @param options
      */
     void parseBenchmark(QCommandLineParser &parser, QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsRequest> options);
-    /**
-     * @brief
-     *
-     * @param s
-     * @param ok
-     * @return quint64
-     */
-    quint64 parseSize(QString s, bool *ok);
     /**
      * @brief
      *

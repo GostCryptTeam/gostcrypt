@@ -43,6 +43,7 @@
     func(website), \
     func(download), \
     func(news), \
+    func(benchmark), \
     func(versionhistory), \
     func(contact) \
 }
@@ -125,7 +126,7 @@ public:
      * @param sizeInByte
      * @return QString
      */
-    static QString formatSize(quint64 sizeInByte);
+    static QString formatSize(quint64 sizeInByte, bool withFontColor = true);
 
 private slots:
     /*!
@@ -170,6 +171,7 @@ signals:
     DEC_QML_PRINT_SIGNAL(ChangeVolumePassword)
     DEC_QML_PRINT_SIGNAL(ProgressUpdate)
     DEC_QML_PRINT_SIGNAL(SendError)
+    DEC_QML_PRINT_SIGNAL(BenchmarkAlgorithms)
     DEC_QML_PRINT_SIGNAL(BackupHeaderComplete)
 
 

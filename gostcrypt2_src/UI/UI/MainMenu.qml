@@ -268,7 +268,7 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 13
                 }
-                GSButtonBordered {
+                ButtonBordered {
                     text: qsTr("Mount favorite volumes") + Translation.tr
                     color_: palette.green
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -650,7 +650,7 @@ Item {
         }
     }
 
-    GSMenuButtonItem {
+    MenuButtonItem {
         id: home
         y: 1
         text: qsTr("Home") + Translation.tr
@@ -663,7 +663,7 @@ Item {
         }
     }
 
-    GSMenuButtonItem {
+    MenuButtonItem {
         id: buttonFavorites
         y: home.y + 60
         text: qsTr("Favorites") + Translation.tr
@@ -683,7 +683,7 @@ Item {
             }
         }
     }
-    GSMenuButtonItem {
+    MenuButtonItem {
         id: buttonTools
         y: buttonFavorites.y + 60
         text: qsTr("Tools") + Translation.tr
@@ -701,7 +701,7 @@ Item {
             }
         }
     }
-    GSMenuButtonItem {
+    MenuButtonItem {
         id: buttonSettings
         y: buttonTools.y + 60
         text: qsTr("Settings") + Translation.tr
@@ -719,7 +719,7 @@ Item {
             }
         }
     }
-    GSMenuButtonItem {
+    MenuButtonItem {
         id: buttonHelp
         y: buttonSettings.y + 60
         text: qsTr("Help") + Translation.tr
