@@ -5,16 +5,53 @@
 #include <Core/CoreBase.h>
 #define DEC_PRINT_SLOT(requestName) virtual void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
 
+/**
+ * @brief
+ *
+ */
 class UserInterface : public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief
+     *
+     * @param parent
+     */
     explicit UserInterface(QObject *parent = nullptr) : QObject(parent) {}
+    /**
+     * @brief
+     *
+     * @param argc
+     * @param argv
+     * @return int
+     */
     virtual int start(int argc, char **argv) = 0;
+    /**
+     * @brief
+     *
+     * @param sizeInByte
+     * @param withFontColor
+     * @return QString
+     */
     static QString formatSize(quint64 sizeInByte, bool withFontColor);
 signals:
+    /**
+     * @brief
+     *
+     * @param request
+     */
     void request(QVariant request);
+    /**
+     * @brief
+     *
+     */
     void exit();
+    /**
+     * @brief
+     *
+     * @param password
+     */
     void sendSudoPassword(QString password);
 private slots:
     DEC_PRINT_SLOT(CreateVolume) = 0;
@@ -28,10 +65,14 @@ private slots:
     DEC_PRINT_SLOT(ChangeVolumePassword) = 0;
     DEC_PRINT_SLOT(ProgressUpdate) = 0;
     DEC_PRINT_SLOT(BenchmarkAlgorithms) = 0;
+    /**
+     * @brief
+     *
+     */
     virtual void askSudoPassword() = 0;
 
 protected:
-    QSharedPointer<GostCrypt::Core::CoreBase> core;
+    QSharedPointer<GostCrypt::Core::CoreBase> core; /**< TODO: describe */
 };
 
 #endif // USERINTERFACE_H

@@ -59,23 +59,72 @@
 
 class GraphicInterface;
 
+/**
+ * @brief
+ *
+ */
 class MyGuiApplication : public QApplication {
 Q_OBJECT
 public:
+    /**
+     * @brief
+     *
+     * @param argc
+     * @param argv
+     */
     MyGuiApplication(int& argc, char** argv) : QApplication(argc, argv), mGI(nullptr) {}
+    /**
+     * @brief
+     *
+     * @param receiver
+     * @param event
+     * @return bool
+     */
     bool notify(QObject* receiver, QEvent* event);
+    /**
+     * @brief
+     *
+     * @param gi
+     */
     void setGI(GraphicInterface* gi) { mGI = gi; }
 signals:
+    /**
+     * @brief
+     *
+     */
     void askExit();
 private:
-    GraphicInterface* mGI;
+    GraphicInterface* mGI; /**< TODO: describe */
 };
 
+/**
+ * @brief
+ *
+ */
 class GraphicInterface : public UserInterface {
     Q_OBJECT
 public:
+    /**
+     * @brief
+     *
+     * @param aApp
+     * @param parent
+     */
     explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
+    /**
+     * @brief
+     *
+     * @param argc
+     * @param argv
+     * @return int
+     */
     int start(int argc, char **argv);
+    /**
+     * @brief
+     *
+     * @param sizeInByte
+     * @return QString
+     */
     static QString formatSize(quint64 sizeInByte);
 
 private slots:
@@ -95,9 +144,17 @@ private slots:
     DEC_PRINT_SLOT(ChangeVolumePassword);
     DEC_PRINT_SLOT(ProgressUpdate);
     DEC_PRINT_SLOT(BenchmarkAlgorithms);
+    /**
+     * @brief
+     *
+     */
     virtual void askSudoPassword();
 
 signals:
+    /**
+     * @brief
+     *
+     */
     void connectFinished();
 
     //Signals that are called after the Core response :
@@ -116,21 +173,41 @@ signals:
     DEC_QML_PRINT_SIGNAL(BackupHeaderComplete)
 
 
+    /**
+     * @brief
+     *
+     */
     void getSudoPassword();
+    /**
+     * @brief
+     *
+     */
     void volumePasswordIncorrect();
     //void printSendError(QString aTitle, QString aContent);
 
 private:
+    /**
+     * @brief
+     *
+     */
     Q_INVOKABLE void connectSignals();
-    MyGuiApplication* mApp;
-    QQmlApplicationEngine mEngine;
-    UserSettings mSettings;
-    DragWindowProvider mDrag;
-    TranslationApp mTranslation;
+    MyGuiApplication* mApp; /**< TODO: describe */
+    QQmlApplicationEngine mEngine; /**< TODO: describe */
+    UserSettings mSettings; /**< TODO: describe */
+    DragWindowProvider mDrag; /**< TODO: describe */
+    TranslationApp mTranslation; /**< TODO: describe */
 
+    /**
+     * @brief
+     *
+     */
     struct UI {
+        /**
+         * @brief
+         *
+         */
         enum Enum GI_ALL_COMMANDS(GI_ENUM);
-        static const QStringList Str;
+        static const QStringList Str; /**< TODO: describe */
     };
 };
 
