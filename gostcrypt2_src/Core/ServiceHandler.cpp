@@ -130,7 +130,7 @@ namespace GostCrypt {
 			} else if (!processInitialized) {
 				processCrashedBeforeInitialization();
 			} else {
-				throw WorkerProcessCrashedException();
+                throw ServiceProcessCrashedException();
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace GostCrypt {
 
 		void ServiceHandler::processCrashedBeforeInitialization()
 		{
-			throw WorkerProcessCrashedException();
+            throw ServiceProcessCrashedException();
 		}
 
 		void ServiceHandler::startProcess()

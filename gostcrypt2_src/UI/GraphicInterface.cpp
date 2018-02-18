@@ -418,9 +418,9 @@ bool MyGuiApplication::notify(QObject *receiver, QEvent *event)
     bool done = true;
     try {
         done = QCoreApplication::notify(receiver, event);
-    } catch(GostCrypt::Core::IncorrectVolumePassword &e) {
+    } catch(GostCrypt::Volume::PasswordOrKeyfilesIncorrect &e) {
        emit mGI->volumePasswordIncorrect();
-    } catch (GostCrypt::Core::CoreException &e) {
+    } catch (GostCrypt::GostCryptException &e) {
         response << e.getName() << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
         +e.getMessage()

@@ -54,10 +54,7 @@ namespace GostCrypt {
 
 
                     // Conversions :(
-                    if(!params->password.isNull())
-                        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
-                    else
-                        throw MissingParamException("password");
+                    password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
                     if(!params->protectionPassword.isNull())
                         protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
                     if(!params->keyfiles.isNull()) {
@@ -103,15 +100,15 @@ namespace GostCrypt {
                 if(params->isDevice)
 				{
 					if(mountedVolume->GetFile()->GetDeviceSectorSize() != mountedVolume->GetSectorSize())
-						throw IncorrectSectorSizeException();
+                        throw InvalidParameterException("sectorSize", "Device sector size does not correspond to sectorSize indicated in volume header");
 					if(mountedVolume->GetSectorSize() != 512)
-						throw IncorrectSectorSizeException();
-				}
+                        throw InvalidParameterException("sectorSize", "GostCrypt only support sectorSize of 512 bytes for volume contained in device");
+                }
 
                 fuseMountPoint = params->fuseMountPoint;
                 QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
                 if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
-                        throw FailedCreateFuseMountPointException(fuseMountPoint);
+                        throw FailedCreateFuseMountPointException(*fuseMountPoint);
 
 
 				try {

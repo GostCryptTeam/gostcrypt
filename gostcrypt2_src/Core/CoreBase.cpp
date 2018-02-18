@@ -171,7 +171,7 @@ QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(
             }
             try
             {
-                hd->mountPoint = getDeviceMountPoint(hd->devicePath);
+                hd->mountPoint = getDeviceMountPoint(*(hd->devicePath));
             }
             catch (DeviceNotMounted& e) {}
 
@@ -271,7 +271,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
             {
                 if (!mountedVol->virtualDevice.isNull())
                 {
-                    mountedVol->mountPoint = getDeviceMountPoint(mountedVol->virtualDevice);
+                    mountedVol->mountPoint = getDeviceMountPoint(*(mountedVol->virtualDevice));
                 }
             }
             catch (DeviceNotMounted) {}  //There is no mountpoint since the virtual device is not mounted
@@ -387,9 +387,9 @@ QSharedPointer<Volume::VolumeHash> CoreBase::getDerivationKeyFunction(QString fu
     throw AlgorithmNotFoundException(function);
 }
 
-QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QSharedPointer<QFileInfo>& devicePath)
+QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QFileInfo devicePath)
 {
-    QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(*devicePath);
+    QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(devicePath);
     if (mpl.isEmpty())
     {
         throw DeviceNotMountedException(devicePath);
@@ -467,7 +467,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
     {
         if (sizetodo < dataFragmentLength)
         {
-            dataFragmentLength = sizetodo;    //RandomNumberGenerator::PoolSize
+            dataFragmentLength = sizetodo;
         }
 
         if (random)
@@ -479,10 +479,10 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
             outputBuffer.erase();
         }
 
-        if (ea)
+        if (!algorithm.isEmpty())
         {
             ea->EncryptSectors(outputBuffer.get(), offset / ENCRYPTION_DATA_UNIT_SIZE,
-                               dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);    // encrypting it
+                               dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);    // TODO : check that if dataFragmentLength is set to minimum (RandomGenerator::PoolSize) there no issue
         }
         file.write((char*)outputBuffer.get(), (size_t) dataFragmentLength);  // writing it
 
@@ -526,7 +526,7 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
         }
         else
         {
-            throw MissingParamException("password");
+            throw InvalidParameterException("params->password", "Password is null.");
         }
         if (!params->keyfiles.isNull())
         {
@@ -626,7 +626,7 @@ QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
             {
                 if (mountedFilesystem->MountPoint->absoluteFilePath() == path)
                 {
-                    throw MountPointUsedException(mountedFilesystem->MountPoint);
+                    throw MountPointUsedException(*(mountedFilesystem->MountPoint));
                 }
             }
 
@@ -661,7 +661,7 @@ QSharedPointer<QFileInfo> CoreBase::getFreeDefaultMountPoint(uid_t userId)
             {
                 if (mountedFilesystem->MountPoint->absoluteFilePath() == path)
                 {
-                    throw MountPointUsedException(mountedFilesystem->MountPoint);
+                    throw MountPointUsedException(*(mountedFilesystem->MountPoint));
                 }
             }
 
@@ -727,17 +727,14 @@ QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<Cre
 
     try
     {
-        if (!params)
+        if (params.isNull())
         {
-            throw MissingParamException("params");
+            throw InvalidParameterException("params", "params is null.");
         }
-        if (!params.isNull())
-        {
-            response->passThrough = params->passThrough;
-        }
+        response->passThrough = params->passThrough;
 
         CoreBase::createRandomFile(params->file, Volume::VolumePassword::MaxSize, params->id, "Gost Grasshopper",
-                                   true); // certain values of MaxSize may no work with encryption AND random
+                                   true); // TODO certain values of MaxSize may no work with encryption AND random
     }
     catch (GostCryptException& e)
     {
@@ -776,7 +773,7 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
         }
         else
         {
-            throw MissingParamException("password");
+            throw InvalidParameterException("params->password", "Password is null.");
         }
         if (!params->keyfiles.isNull())
         {
@@ -809,7 +806,7 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
             }
             else
             {
-                throw MissingParamException("hiddenVolumePassword");
+            throw InvalidParameterException("params->hiddenVolumePassword", "hiddenVolumePassword is null.");
             }
             if (!params->hiddenVolumeKeyfiles.isNull())
             {
@@ -896,7 +893,7 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
         }
         else
         {
-            throw MissingParamException("password");
+            throw InvalidParameterException("params->password", "Password is null.");
         }
         if (!params->keyfiles.isNull())
         {
@@ -951,7 +948,7 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
             }
             if (decryptedLayout.isNull())
             {
-                throw PasswordOrKeyfilesIncorrectException();
+                throw PasswordOrKeyfilesIncorrectException(params->volumePath);
             }
             backupHeader = decryptedLayout->GetHeader();
         }
@@ -1066,7 +1063,7 @@ uid_t getUserId(QString username)
     passwdPtr = getpwnam(username.toLocal8Bit().data());
     if (!passwdPtr)
     {
-        throw InvalidParamException("mountForUser");
+        throw InvalidParameterException("mountForUser", "The given user can not be found on the system.");
     }
     return passwdPtr->pw_uid;
 }
@@ -1077,7 +1074,7 @@ gid_t getGroupId(QString groupname)
     groupPtr = getgrnam(groupname.toLocal8Bit().data());
     if (!groupPtr)
     {
-        throw InvalidParamException("mountForGroup");
+        throw InvalidParameterException("mountForGroup", "The given group can not be found on the system.");
     }
     return groupPtr->gr_gid;
 }

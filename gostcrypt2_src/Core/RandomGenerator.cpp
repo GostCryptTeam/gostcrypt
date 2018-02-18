@@ -178,7 +178,6 @@ namespace GostCrypt
 		EnrichedByUser = false;
 
 		Pool.allocate (PoolSize);
-		Test();
 
 		if (!PoolHash)
 		{
@@ -200,32 +199,6 @@ namespace GostCrypt
 
 		EnrichedByUser = false;
 		Running = false;
-	}
-
-    void RandomGenerator::Test ()
-	{
-		QSharedPointer <Volume::VolumeHash> origPoolHash = PoolHash;
-        PoolHash.reset (new Volume::VolumeHashStribog());
-
-        Pool.erase(); // erase will set everything to zero
-		Buffer buffer (1);
-		for (size_t i = 0; i < PoolSize * 10; ++i)
-		{
-			buffer[0] = (quint8) i;
-			AddToPool (buffer);
-		}
-
-        if (Volume::Crc32::ProcessBuffer (Pool) != 0x6f54d191)
-            throw TestFailedException("RandomGenerator");
-
-		buffer.allocate (PoolSize);
-		buffer.copyFrom (PeekPool());
-		AddToPool (buffer);
-
-        if (Volume::Crc32::ProcessBuffer (Pool) != 0xc5f7df43)
-            throw TestFailedException("RandomGenerator");
-
-		PoolHash = origPoolHash;
 	}
 
     QMutex RandomGenerator::AccessMutex(QMutex::Recursive);

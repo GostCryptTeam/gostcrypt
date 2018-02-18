@@ -273,8 +273,6 @@ void CmdLineInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::Dismo
 
 void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> r)
 {
-    if(!r)
-        throw MissingParamException("response");
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath.absoluteFilePath() << "\t";

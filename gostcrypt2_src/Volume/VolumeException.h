@@ -200,7 +200,7 @@ class VolumeCorrupted : public VolumeException
     DEC_SERIALIZABLE(VolumeCorrupted);
 };
 
-#define PasswordOrKeyfilesIncorrectException() GostCrypt::Volume::PasswordOrKeyfilesIncorrect(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+#define PasswordOrKeyfilesIncorrectException(volumePath) GostCrypt::Volume::PasswordOrKeyfilesIncorrect(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
 class PasswordOrKeyfilesIncorrect : public VolumeException
 {
  public:
@@ -211,15 +211,16 @@ class PasswordOrKeyfilesIncorrect : public VolumeException
      * @param fonction Name of the function where the exception was thrown
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
+     * @param volumePath QFileInfo corresponding to the volume to be mounted
      */
-    PasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
-    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles are incorrect.")
-
+    PasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : VolumeException(fonction,
+                filename, line), volumePath(volumePath) {}
+    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for the volume " + volumePath.canonicalFilePath() + "are incorrect.")
+    QFileInfo volumePath; /**< QFileInfo corresponding to the volume to be mounted */
     DEC_SERIALIZABLE(PasswordOrKeyfilesIncorrect);
 };
 
-#define ProtectionPasswordOrKeyfilesIncorrectException() GostCrypt::Volume::ProtectionPasswordOrKeyfilesIncorrect(__PRETTY_FUNCTION__, __FILE__, __LINE__);
+#define ProtectionPasswordOrKeyfilesIncorrectException(volumePath) GostCrypt::Volume::ProtectionPasswordOrKeyfilesIncorrect(__PRETTY_FUNCTION__, __FILE__, __LINE__, volumePath);
 class ProtectionPasswordOrKeyfilesIncorrect : public VolumeException
 {
  public:
@@ -230,11 +231,12 @@ class ProtectionPasswordOrKeyfilesIncorrect : public VolumeException
      * @param fonction Name of the function where the exception was thrown
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
+     * @param volumePath QFileInfo corresponding to the volume to be mounted
      */
-    ProtectionPasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
-    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for hidden volume are incorrect.")
-
+    ProtectionPasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : VolumeException(fonction,
+                filename, line), volumePath(volumePath) {}
+    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for hidden volume ("+volumePath.canonicalFilePath()+") are incorrect.")
+    QFileInfo volumePath; /**< QFileInfo corresponding to the volume to be mounted */
     DEC_SERIALIZABLE(ProtectionPasswordOrKeyfilesIncorrect);
 };
 

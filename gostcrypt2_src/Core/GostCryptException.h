@@ -436,6 +436,35 @@ class ExternalException : public GostCryptException {
 
     DEC_SERIALIZABLE(ExternalException);
 };
+
+#define InvalidParameterException(param, comment) GostCrypt::InvalidParameter(__PRETTY_FUNCTION__, __FILE__, __LINE__, param, comment);
+/**
+ * @brief Exception thrown when a given parameter is incorrect and prevent the action from beeing executed
+ */
+class InvalidParameter : public GostCryptException
+{
+ public:
+    /**
+    * @brief Default constructor used when deserializing
+    */
+    InvalidParameter() {}
+    /**
+     * @brief Constructor used when throwing the exception
+     *
+     * @param fonction Name of the function where the exception is thrown
+     * @param filename Name of the file where the exception is thrown
+     * @param line Line where the exception is thrown
+     * @param param Name of the incorrect parameter
+     * @param comment Comment giving more information about why the parameter is incorrect
+     */
+    InvalidParameter(QString fonction, QString filename, quint32 line, QString param, QString comment) : GostCryptException(fonction, filename, line), param(param), comment(comment) {}
+    DEF_EXCEPTION_WHAT(InvalidParameter, GostCryptException, "The parameter " + param + " is invalid.\n")
+ protected:
+    QString param; /**< Name of the incorrect parameter */
+    QString comment; /**< Comment giving more information about why the parameter is incorrect */
+    DEC_SERIALIZABLE(InvalidParameter);
+};
+
 }
 
 SERIALIZABLE(GostCrypt::SystemException)
@@ -451,6 +480,8 @@ SERIALIZABLE(GostCrypt::FailedMemoryAllocation)
 SERIALIZABLE(GostCrypt::IncorrectParameter)
 SERIALIZABLE(GostCrypt::UnknowException)
 SERIALIZABLE(GostCrypt::ExternalException)
+SERIALIZABLE(GostCrypt::InvalidParameter)
+
 
 
 #endif // GOSTCRYPTEXCEPTION_H

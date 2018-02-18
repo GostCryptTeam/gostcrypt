@@ -21,14 +21,13 @@ namespace Core {
 			if(filesystemType.isEmpty())
                 filesystemType = getFileSystemType(devicePath);
 			if(mount(devicePath->absoluteFilePath().toLocal8Bit().data(), mountPoint->absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags, mountOptions.toLocal8Bit().data()))
-                throw FailMountFilesystemException(errno, mountPoint, devicePath, filesystemType);
+                throw FailMountFilesystemException(errno, *mountPoint, *devicePath, filesystemType);
         }
-
 
         void MountFilesystemManager::dismountFilesystem(const QSharedPointer<QFileInfo> mountPoint, bool force)
         {
             if(umount2(mountPoint->absoluteFilePath().toLocal8Bit().data(), force ? MNT_FORCE : 0))
-				throw FailUnmountFilesystemException(errno, mountPoint);
+                throw FailUnmountFilesystemException(errno, *mountPoint);
 		}
 
 		QString MountFilesystemManager::getFileSystemType(const QSharedPointer<QFileInfo> devicePath)
@@ -38,7 +37,7 @@ namespace Core {
 			QString typeStr;
 
 			if(!pr)
-				throw FailFindFilesystemTypeException(devicePath);
+                throw FailFindFilesystemTypeException(*devicePath);
 			blkid_do_probe(pr);
 			blkid_probe_lookup_value(pr, "TYPE", &type, NULL);
 			typeStr = QString::fromLocal8Bit(type);

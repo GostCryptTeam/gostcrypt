@@ -71,14 +71,12 @@ namespace GostCrypt
         DEF_SERIALIZABLE(GostCrypt::FuseDriver::FailedCreateFuseMountPoint)
         QDataStream & operator << (QDataStream & out, const GostCrypt::FuseDriver::FailedCreateFuseMountPoint & Valeur) {
             out << static_cast<const FuseException&>(Valeur);
-            out << Valeur.mountpoint->absoluteFilePath();
+            out << Valeur.mountpoint;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::FuseDriver::FailedCreateFuseMountPoint & Valeur) {
-            QString path;
             in >> static_cast<FuseException&>(Valeur);
-            in >> path;
-            Valeur.mountpoint.reset(new QFileInfo(path));
+            in >> Valeur.mountpoint;
             return in;
         }
 	}

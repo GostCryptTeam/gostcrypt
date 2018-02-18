@@ -37,7 +37,6 @@ namespace GostCrypt {
 		static void AddSystemDataToPool (bool fast);
         static void GetData (BufferPtr &buffer, bool fast);
 		static void HashMixPool ();
-		static void Test ();
 		RandomGenerator ();
 
 		static const size_t MaxBytesAddedBeforePoolHashMix = RANDMIX_BYTE_INTERVAL;

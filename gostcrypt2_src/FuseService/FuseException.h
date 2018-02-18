@@ -150,10 +150,10 @@ namespace GostCrypt
                  * @param line
                  * @param mountpoint
                  */
-                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : FuseException(fonction, filename, line), mountpoint(mountpoint) {}
-                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, FuseException, "Creation of fuse mount point " + mountpoint->absoluteFilePath() + " failed\n")
+                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QFileInfo mountpoint) : FuseException(fonction, filename, line), mountpoint(mountpoint) {}
+                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, FuseException, "Creation of fuse mount point " + mountpoint.absoluteFilePath() + " failed\n")
             protected:
-                QSharedPointer<QFileInfo> mountpoint; /**< TODO: describe */
+                QFileInfo mountpoint; /**< TODO: describe */
             DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
         };
     }

@@ -151,7 +151,7 @@ void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
     try {
 
     if(!params)
-        throw MissingParamException("params");
+        throw InvalidParameterException("params", "params is null.");
 
     if(isVolumeMounted(params->path))
         throw VolumeAlreadyMountedException(params->path);
@@ -269,7 +269,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     }
 
     if(params->size > 1.0 || params->size <= 0.0) // a percentage not in [0, 1]
-        throw ContentSizeInvalidException(params->size);
+        throw InvalidParameterException("VolumeParams::size", "Must be in [0,1]");
 
 
     GostCrypt::SecureBuffer masterkey;  // decrypts the whole filesystem
@@ -299,7 +299,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     if(!params->password.isNull())
         password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
     else
-        throw MissingParamException("password");
+        throw InvalidParameterException("params->password", "Password is null.");
     QSharedPointer <Volume::VolumePassword> passwordkey = Volume::Keyfile::ApplyListToPassword (keyfiles, password);
     options.Hash->HMAC_DeriveKey (headerkey, *passwordkey, salt);
     options.HeaderKey = headerkey;
@@ -311,7 +311,8 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
         file.seekp(layout->GetHeaderOffset(), std::ios_base::beg);
     } else {
         if((int64)layout->GetHeaderSize() + layout->GetHeaderOffset() < 0)
-            throw InvalidHeaderOffsetException(layout->GetHeaderOffset(), layout->GetHeaderSize());
+            throw InvalidParameterException("Header size and header offset", "Header size (" + QString::number(layout->GetHeaderSize()) + ") not compatible with header offset (" +
+                       QString::number(layout->GetHeaderOffset()) + ") ! This error comes from the Layout definition.\n");
         file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
     }
     file.write((char*)headerBuffer.get(), headerBuffer.size()); // writing header
@@ -386,7 +387,7 @@ void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResp
         } catch (CoreException &e) {
             throw FormattingSubExceptionException(e.qwhat());
         }
-        throw ProcessFailedException();
+        throw FormatProcessFailedException();
     }
 
     if (formatProcess->exitCode() == 127) { // command not found
@@ -430,10 +431,10 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
             unmount
     */
 
-    if(!params)
-        throw MissingParamException("params");
-    if(!params->outerVolume)
-        throw MissingParamException("params->outervolume");
+    if(params.isNull())
+        throw InvalidParameterException("params", "params is null.");
+    if(params->outerVolume.isNull())
+        throw InvalidParameterException("params->outerVolume", "params->outerVolume is null.");
     if(isVolumeMounted(params->path))
         throw VolumeAlreadyMountedException(params->path);
 

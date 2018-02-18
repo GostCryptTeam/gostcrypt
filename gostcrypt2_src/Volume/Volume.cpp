@@ -93,7 +93,7 @@ namespace Volume {
             }
             catch (PasswordOrKeyfilesIncorrect&)
             {
-                throw ProtectionPasswordOrKeyfilesIncorrectException();
+                throw ProtectionPasswordOrKeyfilesIncorrectException(volumePath);
             }
         }
 
@@ -148,13 +148,13 @@ namespace Volume {
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-                            throw PasswordOrKeyfilesIncorrectException(); // the password of the inner volume was put instead of the one of the outer volume.
+                            throw PasswordOrKeyfilesIncorrectException(volumePath); // the password of the inner volume was put instead of the one of the outer volume.
                         // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
 			}
-            throw PasswordOrKeyfilesIncorrectException();
+            throw PasswordOrKeyfilesIncorrectException(volumePath);
 		}
 		catch (...)
 		{

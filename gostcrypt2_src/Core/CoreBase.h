@@ -43,7 +43,7 @@
 namespace GostCrypt {
 	namespace Core {
 		/**
-		 * @brief Abstract class defining the core object which manage any action handled by GostCrypt (mount, dismount, create a volume, etc)
+         * @brief Abstract class defining the core object containing methods for each action handled by GostCrypt (mount, dismount, create a volume, etc)
 		 *
 		 */
 		class CoreBase : public QObject
@@ -61,84 +61,90 @@ namespace GostCrypt {
 
 		public slots:
 			/**
-			 * @brief Execute the given action request (mount, dismount, create a volume, etc)
+             * @brief Execute the requested action (mount, dismount, create a volume, etc)
 			 *
 			 * @param request QVariant containing the request object which is a child of CoreRequest
 			 * @sa CoreRequest
 			 */
 			virtual void request(QVariant request) = 0;
 			/**
-			 * @brief Close child processes
+             * @brief Close child processes used by this object
 			 *
 			 */
 			virtual void exit() = 0;
 			/**
-			 * @brief Receive password used to get root priviliges using sudo utility
+             * @brief Receive password of the current user in order to get root priviliges using sudo utility. The current user must be authorized to use sudo to launch the GostCrypt executable as root user.
 			 *
-			 * @param password
+             * @param password Password of the current user
 			 */
-            		virtual void receiveSudoPassword(QString password) = 0;//QSharedPointer<QByteArray> password) = 0;
+             virtual void receiveSudoPassword(QString password) = 0;
 		protected:
             /**
-             * @brief Give the supported encryption algorithms names
+             * @brief Give the supported encryption algorithms names. These names should be used to indicate which algorithm to use for other actions
              *
-             * @param params Parameters of the function
-             * @return QSharedPointer<GetEncryptionAlgorithmsResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<GetEncryptionAlgorithmsResponse>, the response of the action
              */
             QSharedPointer<GetEncryptionAlgorithmsResponse> getEncryptionAlgorithms(QSharedPointer<GetEncryptionAlgorithmsRequest> params = QSharedPointer<GetEncryptionAlgorithmsRequest>());
             /**
-             * @brief Give the supported key derivation functions names
+             * @brief Give the supported key derivation functions names. These names should be used to indicate which algorithm to use for other actions
              *
-             * @param params Parameters of the function
-             * @return QSharedPointer<GetDerivationFunctionsResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<GetDerivationFunctionsResponse>, the response of the action
              */
             QSharedPointer<GetDerivationFunctionsResponse> getDerivationFunctions(QSharedPointer<GetDerivationFunctionsRequest> params = QSharedPointer<GetDerivationFunctionsRequest>());
 			/**
 			 * @brief Give the availables storage devices on the computer (Disks, USB keys, etc)
 			 *
-			 * @param params Parameters of the function
-			 * @return QSharedPointer<GetHostDevicesResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<GetHostDevicesResponse>, the response of the action
 			 */
 			QSharedPointer<GetHostDevicesResponse> getHostDevices(QSharedPointer<GetHostDevicesRequest> params = QSharedPointer<GetHostDevicesRequest>());
 			/**
 			 * @brief Give the list of currently mounted volumes
 			 *
-			 * @param params Parameters of the function
-			 * @return QSharedPointer<GetMountedVolumesResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<GetMountedVolumesResponse>, the response of the action
 			 */
 			QSharedPointer<GetMountedVolumesResponse> getMountedVolumes(QSharedPointer<GetMountedVolumesRequest> params = QSharedPointer<GetMountedVolumesRequest>());
             /**
-             * @brief
+             * @brief Change the password of a GostCrypt volume
              *
-             * @param params
-             * @return QSharedPointer<ChangeVolumePasswordResponse>
+             * @param params Parameters of the action
+             * @return QSharedPointer<ChangeVolumePasswordResponse>, the response of the action
              */
             QSharedPointer<ChangeVolumePasswordResponse> changeVolumePassword(QSharedPointer<ChangeVolumePasswordRequest> params);
 
             /**
              * @brief Create a random key file
              *
-             * @param params Parameters of the function
-             * @return QSharedPointer<CreateKeyFileResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<CreateKeyFileResponse>, the response of the action
              */
             QSharedPointer<CreateKeyFileResponse> createKeyFile(QSharedPointer<CreateKeyFileRequest> params = QSharedPointer<CreateKeyFileRequest>());
 
             /**
              * @brief Backup the header of the given volume
              *
-             * @param params Parameters of the function
-             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the action
              */
             QSharedPointer<BackupHeaderResponse> backupHeader(QSharedPointer<BackupHeaderRequest> params);
 
             /**
              * @brief Restore the header of the given volume
              *
-             * @param params Parameters of the function
-             * @return QSharedPointer<BackupHeaderResponse>, the response of the function
+             * @param params Parameters of the action
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the action
              */
             QSharedPointer<RestoreHeaderResponse> restoreHeader(QSharedPointer<RestoreHeaderRequest> params);
 
+            /**
+             * @brief Launch a benchmark of EncryptionAlgorthims supported by GostCrypt and return encryption speed
+             *
+             * @param params Parameters of the action
+             * @return QSharedPointer<BackupHeaderResponse>, the response of the action
+             */
             QSharedPointer<BenchmarkAlgorithmsResponse> benchmarkAlgorithms(QSharedPointer<BenchmarkAlgorithmsRequest> params);
 
 			/**
@@ -170,7 +176,7 @@ namespace GostCrypt {
              * @return QSharedPointer<QFileInfo> Path where the given device is mounted
              * @exception DeviceNotMounted
              */
-            QSharedPointer<QFileInfo> getDeviceMountPoint(const QSharedPointer<QFileInfo> &devicePath);
+            QSharedPointer<QFileInfo> getDeviceMountPoint(const QFileInfo devicePath);
             /**
              * @brief Check if the given path correspond to an host device on the computer
              *
@@ -184,7 +190,7 @@ namespace GostCrypt {
 			 * @param volumeFile Path of the volume file
 			 * @return bool True if the given volume is currently mounted
 			 */
-                        bool isVolumeMounted(QFileInfo volumeFile);
+             bool isVolumeMounted(QFileInfo volumeFile);
             /**
              * @brief Give the next available fuse mountpoint (/tmp/.gostcrypt_aux_mntN)
              *
