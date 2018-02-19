@@ -52,12 +52,6 @@
 #define CONNECT_QML_SIGNAL(requestName) mApp->connect(core.data(), SIGNAL(send ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)), this, SLOT(print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response>)))
 #define QML_SIGNAL(requestName, params) s ## requestName (params);
 
-#define DEFAULT_ALGORITHM "Gost Grasshopper"
-#define DEFAULT_KDF "HMAC-Whirlpool"
-#define DEFAULT_SIZE 10485760 // 10Mio
-#define DEFAULT_OUTER_SIZE 1.0
-#define DEFAULT_INNER_SIZE 0.7
-
 class GraphicInterface;
 
 /**

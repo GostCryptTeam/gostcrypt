@@ -22,6 +22,8 @@ Item {
         onSprintGetMountedVolumes: {
             subWindow.catchClose();
             pageLoader.item.clearVolumes();
+            if(l.length === 0 && exitRequested === true && errorMessage.visible === false)
+                app.appQuit();
             manageModel(l);
         }
 
@@ -47,12 +49,12 @@ Item {
         }
 
         onSprintGetDerivationFunctions: {
-            app.hashs = l
+            app.hashs = l.reverse()
         }
 
         onSprintGetEncryptionAlgorithms:
         {
-            app.algorithms = l
+            app.algorithms = l.reverse()
         }
 
         onSprintGetHostDevices:
@@ -73,13 +75,12 @@ Item {
 
         onSprintProgressUpdate:
         {
-            console.log("Progress update : " + l[0]["progress"]*100 + " -> " + l[0]["id"])
             if(l === undefined) return;
+            console.log(l[0]["id"]);
             notifs.updateNotification(l[0]["id"],l[0]["progress"]*100,notifications[l[0]["id"]-1][0],notifications[l[0]["id"]-1][1]);
             if(notifs.visible === false) title.showIcon(true);
             notifPreview.n = notifications[l[0]["id"]-1][0]
             notifPreview.p = l[0]["progress"]*100
-            if(timerNotifPreview.running === false) timerNotifPreview.start();
         }
 
         onSprintBackupHeaderComplete:

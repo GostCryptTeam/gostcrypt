@@ -95,8 +95,6 @@ Item {
             text: button1Name
             color_: palette.blue
             onClicked: {
-                if(callback !== "")
-                    qmlRequest(callback, callback_params)
                 closeErrorMessage();
             }
         }

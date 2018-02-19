@@ -3,7 +3,7 @@ import "../" as UI
 
 Item {
     id: top
-    property variant used: [app.hashs[0], app.algorithms[0]]
+    property variant used: ["", ""]
     property int type: 0
 
     Row {
@@ -26,7 +26,7 @@ Item {
 
             UI.CustomComboBox {
                 id: algo
-                model: app.algorithms;
+                model: app.algorithms
                 anchors.top: text.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -71,7 +71,7 @@ Item {
                 horizontalAlignment: Text.AlignJustify
                 wrapMode: Text.WordWrap
                 width: parent.width - 20
-                text: "Algo description here rgergergerg qrgq rgqr qerg qrg qrfgq rgerg qrg qerg r";
+                text: "Algo description here";
                 color: palette.text
                 font.pointSize: 10
                 font.family: "Helvetica"
@@ -102,7 +102,7 @@ Item {
 
             UI.CustomComboBox {
                 id: hash
-                model: app.hashs;
+                model: app.hashs
                 anchors.top: text2.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter

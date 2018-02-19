@@ -153,9 +153,15 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 
                 options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
 
-                options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
-                options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
-                options->outerVolume->filesystem = GI_KEY(aContent, "filesystem").toString(); //Outer volume file system
+                if(GI_KEY(aContent, "hash").toString() != "")
+                    options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
+                else
+                    options->outerVolume->volumeHeaderKdf = DEFAULT_KDF;
+                if(GI_KEY(aContent, "algorithm").toString() != "")
+                    options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "algorithm").toString(); //Outer volume algorithm
+                else
+                    options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM;
+                options->outerVolume->filesystem = GostCrypt::Core::GetFileSystemTypePlatformNative(); //Outer volume file system
                 options->outerVolume->size = 1.0;
                 bool ok = false;
                 QString s = GI_KEY(aContent, "size").toString();
@@ -181,11 +187,20 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 
                 //Inner volume information
                 options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
-                options->innerVolume->encryptionAlgorithm = GI_KEY(aContent, "halgorithm").toString(); //Inner volume algorithm
-                options->innerVolume->volumeHeaderKdf = GI_KEY(aContent, "hhash").toString(); //Inner volume algorithm
-                options->innerVolume->filesystem = GI_KEY(aContent, "hfilesystem").toString(); //Inner volume file system
+
+                if(GI_KEY(aContent, "hhash").toString() != "")
+                    options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hhash").toString(); //Inner volume hash
+                else
+                    options->outerVolume->volumeHeaderKdf = DEFAULT_KDF;
+                if(GI_KEY(aContent, "halgorithm").toString() != "")
+                    options->outerVolume->encryptionAlgorithm = GI_KEY(aContent, "halgorithm").toString(); //Inner volume algorithm
+                else
+                    options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM;
+
+                options->innerVolume->filesystem = GostCrypt::Core::GetFileSystemTypePlatformNative(); //Inner volume file system
                 options->innerVolume->size = GI_KEY(aContent, "inner-size").toReal(); //Relative size of the inner volume
                 options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //Setting the inner volume password
+
                 QStringList hkeyfilesList;
                 for(int i = 0; i<GI_KEY(aContent, "nb-hkeyfiles").toInt(); i++)
                     hkeyfilesList.append(GI_KEY(aContent, "hkeyfile"+QString::number(i)).toString());

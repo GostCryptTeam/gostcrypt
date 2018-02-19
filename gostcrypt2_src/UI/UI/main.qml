@@ -153,6 +153,12 @@ Window {
     */
     property variant filesystems: []
 
+    /*!
+      \property exit requested
+      \brief used to know when to close gostcrypt after dismounting all volumes
+    */
+    property bool exitRequested: false
+
     signal sendQmlRequest(string command, variant params)
     signal sendSudoPassword(string password)
     signal appQuit()
@@ -285,9 +291,10 @@ Window {
             id: timerNotifPreview
             running: false
             NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 1000 }
-            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 3000 }
+            NumberAnimation { target: notifPreview; property: "opacity"; to: 1.0; duration: 8000 }
             NumberAnimation { target: notifPreview; property: "opacity"; to: 0.0; duration: 1000 }
         }
+
     }
 
 
@@ -579,11 +586,11 @@ Window {
     function addNotification(type, title, description)
     {
         if(type === "progress")
-            notifications.push([title, description, Number(notifications.length)+1, 0]);
-        if(type === "error") {
-            notifications.push([title, description, Number(notifications.length)+1, -1]);
-            notifs.updateNotification(Number(notifications.length), -1);
-        }
+            notifications.push([title, description, Number(notifications.length)+1, 0, 0]);
+        else
+            notifications.push([title, description, Number(notifications.length)+1, -1, 0]);
+
+        notifs.drawNotification();
 
         return Number(notifications.length);
     }

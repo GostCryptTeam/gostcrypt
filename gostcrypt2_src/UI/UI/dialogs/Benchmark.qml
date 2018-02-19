@@ -86,7 +86,7 @@ Item {
             }
             OLDControl.TableViewColumn {
                 role: "mean"
-                title: "mean"
+                title: "Mean Speed"
                 width: 125
             }
             style: TableViewStyle {
