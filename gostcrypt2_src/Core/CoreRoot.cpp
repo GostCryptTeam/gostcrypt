@@ -445,11 +445,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
     /*
      * WRITING RANDOM DATA ACROSS THE WHOLE VOLUME
      */
-
-    ProgressTrackingParameters fillFileId(params->id, 0.05, 0.50);
+    ProgressTrackingParameters fillFileId(params->id, 0.06, 0.50);
     createRandomFile(params->path, params->size, fillFileId, params->outerVolume->encryptionAlgorithm, false); // no random to create the file faster.
-
-    UPDATE_PROGRESS(0.50);
 
     // opening file (or device)
     volumefile.open(params->path.absoluteFilePath().toStdString(), std::ios::in | std::ios::out | std::ios::binary);
@@ -500,11 +497,8 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>,QSharedPointer<CreateVolumeResponse>)));
         mountFormatId = ProgressTrackingParameters(params->id, 0.65, 1.0);
     }
-    UPDATE_PROGRESS(0.65);
 
     mountFormatVolume(params->path, params->outerVolume->password, params->outerVolume->keyfiles, params->outerVolume->filesystem, params, response, mountFormatId);
-
-    UPDATE_PROGRESS(1);
 
     } catch(GostCryptException &e) {
         e.clone(params->id.requestId)->raise();
@@ -517,8 +511,9 @@ void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, 
 
     disconnect(this, SIGNAL(formatVolumeDone(QVariantMap)), 0, 0);
     connect(this, SIGNAL(formatVolumeDone(QSharedPointer<CreateVolumeRequest>)), this, SLOT(finishCreateVolume(QSharedPointer<CreateVolumeRequest>)));
+    UPDATE_PROGRESS(0.95);
     mountFormatVolume(params->path, params->innerVolume->password, params->innerVolume->keyfiles, params->innerVolume->filesystem, params, response, ProgressTrackingParameters(params->id, 0.825, 1.0));
-
+    UPDATE_PROGRESS(1);
     } catch(GostCryptException &e) {
         e.clone(params->id.requestId)->raise();
     }
@@ -526,6 +521,7 @@ void CoreRoot::continueFormatHidden(QSharedPointer<CreateVolumeRequest> params, 
 
 void CoreRoot::finishCreateVolume(QSharedPointer<CreateVolumeRequest> params, QSharedPointer<CreateVolumeResponse> response)
 {
+    UPDATE_PROGRESS(1);
     if(params->emitResponse)
         emit sendCreateVolume(response);
 }

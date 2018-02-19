@@ -62,69 +62,73 @@ class GraphicInterface;
 
 /**
  * @brief
- *
+ * This class inherits QApplication and allows you to
+ * retrieve events such as exceptions in order to manage
+ * them graphically
  */
 class MyGuiApplication : public QApplication {
 Q_OBJECT
 public:
     /**
-     * @brief
+     * @brief Initializes the QML application and class variables
      *
-     * @param argc
-     * @param argv
+     * @param argc the number of arguments in the main program
+     * @param argv arguments of the main program
      */
     MyGuiApplication(int& argc, char** argv) : QApplication(argc, argv), mGI(nullptr) {}
     /**
-     * @brief
+     * @brief Retrieve exceptions and forward them to the interface for display
      *
-     * @param receiver
-     * @param event
-     * @return bool
+     * @param receiver Object that receives the event
+     * @param event Event that has occurred and must be transmitted
+     * @return bool Boolean indicating whether the event has been transmitted or not
      */
     bool notify(QObject* receiver, QEvent* event);
     /**
-     * @brief
+     * @brief Retrieve a pointer on the graphical interface object
      *
-     * @param gi
+     * @param gi Pointer to the currently instantiated QML interface
      */
     void setGI(GraphicInterface* gi) { mGI = gi; }
 signals:
     /**
-     * @brief
-     *
+     * @brief This signal makes it possible to finish the program neatly
+     * by allowing the interface to tell the core that it will end
      */
     void askExit();
 private:
-    GraphicInterface* mGI; /**< TODO: describe */
+    GraphicInterface* mGI; /**< Pointer that will contain the address of the instantiated QML interface */
 };
 
 /**
  * @brief
- *
+ * This class displays a graphical interface using
+ * QML for GostCrypt
  */
 class GraphicInterface : public UserInterface {
     Q_OBJECT
 public:
     /**
-     * @brief
+     * @brief Graphical user interface constructor, based on the MyGuiApplication class that inherits from QApplication
      *
-     * @param aApp
-     * @param parent
+     * @param aApp Parent object of the GUI: allows you to retrieve signals and start a QApplication
+     * @param parent The object from which the class derives, which has useful methods for making certain calculations
      */
     explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
     /**
-     * @brief
+     * @brief Creates the graphical interface and sends all the necessary objects to it in context
      *
-     * @param argc
-     * @param argv
-     * @return int
+     * @param argc The number of arguments in the main program
+     * @param argv Arguments of the main program
+     * @return int Returns what the "exec" method returns at the end of the interface execution
      */
     int start(int argc, char **argv);
     /**
-     * @brief
+     * @brief Converts A size in bytes into a formatted character string (or not formatted)
      *
-     * @param sizeInByte
-     * @return QString
+     * @param sizeInByte Size in bytes to convert
+     * @param withFontColor This boolean allows you to specify whether you want an output formatted in HTML (true) or not (false)
+     * @return QString Character string of the size converted to the desired format
      */
     static QString formatSize(quint64 sizeInByte, bool withFontColor = true);
 
@@ -147,14 +151,14 @@ private slots:
     DEC_PRINT_SLOT(BenchmarkAlgorithms);
     /**
      * @brief
-     *
+     * Slot called when the core needs the user to enter the sudo password.
      */
     virtual void askSudoPassword();
 
 signals:
     /**
      * @brief
-     *
+     * Control signal sent to the interface to indicate that the signals are well connected
      */
     void connectFinished();
 
@@ -177,39 +181,38 @@ signals:
 
     /**
      * @brief
-     *
+     * Signal to request the sudo password from the user
      */
     void getSudoPassword();
     /**
      * @brief
-     *
+     * Signal to indicate to the interface that the entered password is incorrect (volume)
      */
     void volumePasswordIncorrect();
-    //void printSendError(QString aTitle, QString aContent);
 
 private:
     /**
      * @brief
-     *
+     * Method callable from QML to connect signals between the interface and the Core
      */
     Q_INVOKABLE void connectSignals();
-    MyGuiApplication* mApp; /**< TODO: describe */
-    QQmlApplicationEngine mEngine; /**< TODO: describe */
-    UserSettings mSettings; /**< TODO: describe */
-    DragWindowProvider mDrag; /**< TODO: describe */
-    TranslationApp mTranslation; /**< TODO: describe */
+    MyGuiApplication* mApp; /**< Object inheriting the QApplication, the interface works thanks to this object */
+    QQmlApplicationEngine mEngine; /**< QML rendering engine used to render the display, contains the main context */
+    UserSettings mSettings; /**< User preferences */
+    DragWindowProvider mDrag; /**< Class that allows you to move the window (which is borderless) */
+    TranslationApp mTranslation; /**< Class to translate the interface into different languages */
 
     /**
      * @brief
-     *
+     * Structure that contains all actions that can be done from the interface to parse them with a switch/case in the recovery function
      */
     struct UI {
         /**
          * @brief
-         *
+         * Generates all possible actions (see top of GraphicInterface.h for details)
          */
         enum Enum GI_ALL_COMMANDS(GI_ENUM);
-        static const QStringList Str; /**< TODO: describe */
+        static const QStringList Str; /**< List of all QML actions generated */
     };
 };
 

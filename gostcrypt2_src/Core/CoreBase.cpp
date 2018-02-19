@@ -448,7 +448,6 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
         randomizeEncryptionAlgorithmKey(ea);
     }
 
-    UPDATE_PROGRESS_S(0.10, id);
     quint64 dataFragmentLength = FILE_OPTIMAL_WRITE_SIZE;
     // we can't get more than the pool size a each run. Very slow.
     if (random &&
@@ -461,7 +460,6 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
     quint64 offset = 0; // offset where the data starts
     quint64 sizetodo = size; // size of the data to override
 
-    UPDATE_PROGRESS_S(0.20, id);
     while (sizetodo > 0)
     {
         if (sizetodo < dataFragmentLength)
@@ -488,7 +486,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
         offset += dataFragmentLength;
         sizetodo -= dataFragmentLength;
 
-        UPDATE_PROGRESS_S(0.20 + 0.80 * ((float)offset / (float)size), id);
+        UPDATE_PROGRESS_S(((float)offset / (float)size), id);
     }
 
 }

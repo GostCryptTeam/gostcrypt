@@ -15,7 +15,7 @@ class TranslationApp : public QObject
 {
     Q_OBJECT
     /**
-     * @brief Notifies qml of language change
+     * @brief Notifies QML of language change
      */
     Q_PROPERTY(QString tr READ tr NOTIFY languageChanged)
 
@@ -29,52 +29,39 @@ public:
      */
     TranslationApp();
     /**
-    * TranslationApp destructor
+    * @brief TranslationApp destructor
     * Freeing memory
     */
     ~TranslationApp();
     /**
      * @brief tr
-     * @return empty string
      * This function is used to dynamically notify qml
      * of language change
+     * @return QString an empty text
      */
     QString tr();
     /**
     * @brief setLanguage
-    * @param language : the language suffix code
+    * @param Language The language suffix code
     * associated with the language to be used
     */
     Q_INVOKABLE void setLanguage(const QString& language);
     /*!
     * @brief getAvaibleLanguages
-    * @return A list of all avaible volumes
+    * @return QVariantList A list of all avaible volumes
     */
     Q_INVOKABLE QVariantList getAvaibleLanguages() const;
 signals:
     /**
      * @brief languageChanged
-     * a signal which notify qml fromthe language change
+     * A signal which notify qml fromthe language change
      */
     void languageChanged();
 
 private:
-    /**
-     * @brief mTranslationpath
-     * contains the absolute path of the translation repertory
-     */
-    QString mTranslationpath;
-    /**
-     * @brief mListOfTranslationsAvaible
-     * contains a list of all the translation objects
-     * associated with their language code
-     */
-    QList <QPair<QTranslator*, QString>> mListOfTranslationsAvaible;
-    /**
-     * @brief currentTranslator
-     * A pointer to the current translator
-     */
-    QTranslator * currentTranslator;
+    QString mTranslationpath; /**< Contains the absolute path of the translation repertory */
+    QList <QPair<QTranslator*, QString>> mListOfTranslationsAvaible; /**< Contains a list of all the translation objects associated with their language code */
+    QTranslator * currentTranslator;  /**< A pointer to the current translator */
 };
 
 #endif // TRANSLATIONAPP_H

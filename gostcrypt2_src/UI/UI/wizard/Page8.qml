@@ -22,7 +22,7 @@ Item {
                 font.pointSize: 13
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: "Helvetica"
-                text: qsTr("Set a size for your volume:") + Translation.tr
+                text: qsTr("Set a size for your volume (10MB minimum):") + Translation.tr
                 color: palette.text
                 wrapMode: Text.WordWrap
             }
