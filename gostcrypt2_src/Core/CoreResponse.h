@@ -73,15 +73,15 @@ namespace GostCrypt {
 
 		struct MountedFilesystem
 		{
-            QSharedPointer<QFileInfo> Device;
-            QSharedPointer<QFileInfo> MountPoint;
+            QFileInfo Device;
+            QFileInfo MountPoint;
             QString Type;
             DEC_SERIALIZABLE(MountedFilesystem);
 		};
 
 		struct HostDevice {
-            QSharedPointer<QFileInfo> mountPoint;
-            QSharedPointer<QFileInfo> devicePath;
+            QFileInfo mountPoint;
+            QFileInfo devicePath;
 			quint64 size;
 			QList<QSharedPointer<HostDevice>> partitions;
 			DEC_SERIALIZABLE(HostDevice);

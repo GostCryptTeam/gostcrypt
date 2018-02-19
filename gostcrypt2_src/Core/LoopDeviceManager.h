@@ -9,8 +9,8 @@ namespace GostCrypt {
         class LoopDeviceManager
         {
         public:
-            static QSharedPointer<QFileInfo> attachLoopDevice(QSharedPointer<QFileInfo> imageFile, bool readonly);
-            static void detachLoopDevice(QSharedPointer<QFileInfo> loopDevice);
+            static QFileInfo attachLoopDevice(QFileInfo imageFile, bool readonly);
+            static void detachLoopDevice(QFileInfo loopDevice);
         };
     }
 }

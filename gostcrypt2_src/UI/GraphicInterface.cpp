@@ -277,8 +277,8 @@ void GraphicInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     for(auto v = r->volumeInfoList.begin(); v < r->volumeInfoList.end(); ++v)
     {
            QVariantMap vol;
-           if((*v)->mountPoint)
-           vol.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
+           if(!(*v)->mountPoint.absoluteFilePath().isEmpty())
+           vol.insert("mountPoint", (*v)->mountPoint.absoluteFilePath());
            else
                vol.insert("mountPoint", tr("Not mounted"));
            vol.insert("algo", (*v)->encryptionAlgorithmName);
@@ -337,20 +337,20 @@ void GraphicInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
     QVariantList list;
     for(auto v = r->hostDevices.begin(); v < r->hostDevices.end(); ++v)
     {
-        if((*v)->mountPoint)
+        if((*v)->mountPoint.absoluteFilePath().isEmpty())
         {
             QVariantMap device;
-            device.insert("mountPoint", (*v)->mountPoint->absoluteFilePath());
-            device.insert("path", (*v)->devicePath->absoluteFilePath());
+            device.insert("mountPoint", (*v)->mountPoint.absoluteFilePath());
+            device.insert("path", (*v)->devicePath.absoluteFilePath());
             device.insert("size", formatSize((*v)->size));
             list.append(device);
         }
         for(QSharedPointer<GostCrypt::Core::HostDevice> p : (*v)->partitions) {
-            if(p->mountPoint)
+            if(p->mountPoint.absoluteFilePath().isEmpty())
             {
                 QVariantMap device;
-                device.insert("mountPoint", p->mountPoint->absoluteFilePath());
-                device.insert("path", p->devicePath->absoluteFilePath());
+                device.insert("mountPoint", p->mountPoint.absoluteFilePath());
+                device.insert("path", p->devicePath.absoluteFilePath());
                 device.insert("size", formatSize(p->size));
                 list.append(device);
             }

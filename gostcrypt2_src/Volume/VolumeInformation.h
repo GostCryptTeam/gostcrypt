@@ -11,10 +11,10 @@ namespace Volume {
 struct VolumeInformation
 {
     VolumeInformation() = default;
-    QSharedPointer<QFileInfo> fuseMountPoint;
+    QFileInfo fuseMountPoint;
     QString encryptionAlgorithmName;
-    QSharedPointer<QFileInfo> virtualDevice;
-    QSharedPointer<QFileInfo> mountPoint;
+    QFileInfo virtualDevice;
+    QFileInfo mountPoint;
     QFileInfo volumePath;
     VolumeProtection::Enum protection;
     quint64 size;

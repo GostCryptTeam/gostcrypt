@@ -84,8 +84,8 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
     bool mountDirCreated = false;
     try {
 
-        QSharedPointer<QFileInfo> virtualDevice;
-        QSharedPointer<QFileInfo> imageFile(new QFileInfo(params->fuseMountPoint->absoluteFilePath() + FuseDriver::getVolumeImagePath()));
+        QFileInfo virtualDevice;
+        QFileInfo imageFile(params->fuseMountPoint.absoluteFilePath() + FuseDriver::getVolumeImagePath());
         virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile, params->protection == Volume::VolumeProtection::ReadOnly);
 		UPDATE_PROGRESS(0.76);
         try {
@@ -96,14 +96,14 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
         }
         UPDATE_PROGRESS(0.78);
         if(params->doMount) {
-            if(params->mountPoint.isNull() || params->mountPoint->absoluteFilePath().isEmpty()) {
+            if(params->mountPoint.absoluteFilePath().isEmpty() || params->mountPoint.absoluteFilePath().isEmpty()) {
                 params->mountPoint = getFreeDefaultMountPoint(mountedForUserId);
             }
 
-            QDir mountpoint(params->mountPoint->absoluteFilePath());
+            QDir mountpoint(params->mountPoint.absoluteFilePath());
             if(!mountpoint.exists()) {
-                if(!mountpoint.mkpath(params->mountPoint->absoluteFilePath()))
-                    throw FailedCreateDirectoryException(params->mountPoint->absoluteFilePath());
+                if(!mountpoint.mkpath(params->mountPoint.absoluteFilePath()))
+                    throw FailedCreateDirectoryException(params->mountPoint.absoluteFilePath());
                 mountDirCreated = true;
             }
             MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == Volume::VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
@@ -131,7 +131,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             dismountVolume(dismountParams);
         } catch (...) {}
         if(mountDirCreated)
-            QDir(params->mountPoint->absoluteFilePath()).rmdir(params->mountPoint->absoluteFilePath());
+            QDir(params->mountPoint.absoluteFilePath()).rmdir(params->mountPoint.absoluteFilePath());
         throw; //rethrow
     }
 
@@ -197,7 +197,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     for (QSharedPointer<Volume::VolumeInformation> mountedVolume : mountedVolumes) {
         /* Unmount filesystem */
         try {
-            if(mountedVolume->mountPoint) {
+            if(mountedVolume->mountPoint.absoluteFilePath().isEmpty()) {
                 MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint, (params) ? params->force : false);
             }
         } catch(FailUnmountFilesystem &e) {
@@ -208,7 +208,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
 
         /* Detach loop device */
         try {
-            if(mountedVolume->virtualDevice) {
+            if(mountedVolume->virtualDevice.absoluteFilePath().isEmpty()) {
                 LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
             }
         } catch(FailedDetachLoopDevice &e) {
@@ -223,7 +223,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
         MountFilesystemManager::dismountFilesystem(mountedVolume->fuseMountPoint, (params) ? params->force : false);
 
         /* Delete fuse mount point directory */
-        QDir(mountedVolume->fuseMountPoint->absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint->absoluteFilePath());
+        QDir(mountedVolume->fuseMountPoint.absoluteFilePath()).rmdir(mountedVolume->fuseMountPoint.absoluteFilePath());
 
         /* Saving the volume path to confirm to the QML that the volume was successfully dismounted */
         response->volumePath.append(mountedVolume->volumePath);
@@ -374,7 +374,7 @@ void CoreRoot::continueMountFormat(QSharedPointer<MountVolumeResponse> mountResp
     dismountparams->id = ProgressTrackingParameters(id, 0.9, 1.0);
 
     QStringList arguments;
-    arguments << mountResponse->volumeInfo->virtualDevice->absoluteFilePath();
+    arguments << mountResponse->volumeInfo->virtualDevice.absoluteFilePath();
 
     QProcess *formatProcess = new QProcess();
     formatProcess->start(formatter, arguments);

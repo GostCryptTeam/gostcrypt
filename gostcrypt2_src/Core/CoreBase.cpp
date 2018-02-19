@@ -162,24 +162,23 @@ QSharedPointer<GetHostDevicesResponse> CoreBase::getHostDevices(
                 continue;
             }
             QSharedPointer<HostDevice> hd(new HostDevice());
-            hd->devicePath.reset(new QFileInfo((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(
-                                                   3)));
+            hd->devicePath.setFile((fields.at(3).startsWith("/dev/") ? "" : "/dev/") + fields.at(3));
             hd->size = fields.at(2).toULongLong(&isNumber) * 1024;
             if (!isNumber)
             {
-                qDebug() << "Fail to read device size for device " << hd->devicePath->absoluteFilePath();
+                qDebug() << "Fail to read device size for device " << hd->devicePath.absoluteFilePath();
             }
             try
             {
-                hd->mountPoint = getDeviceMountPoint(*(hd->devicePath));
+                hd->mountPoint = getDeviceMountPoint(hd->devicePath);
             }
             catch (DeviceNotMounted& e) {}
 
             /* Check if device is partition */
             if (!response->hostDevices.isEmpty())
             {
-                if (hd->devicePath->absoluteFilePath().startsWith(
-                            response->hostDevices.last()->devicePath->absoluteFilePath()))
+                if (hd->devicePath.absoluteFilePath().startsWith(
+                            response->hostDevices.last()->devicePath.absoluteFilePath()))
                 {
                     response->hostDevices.last()->partitions.append(hd);
                     continue;
@@ -219,7 +218,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
         for (QSharedPointer<MountedFilesystem> mf : getMountedFilesystems())
         {
             /* Filter only Fuse FileSystems*/
-            if (!mf->MountPoint->absoluteFilePath().startsWith(QStandardPaths::writableLocation(
+            if (!mf->MountPoint.absoluteFilePath().startsWith(QStandardPaths::writableLocation(
                         QStandardPaths::TempLocation) + QStringLiteral("/" GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX)))
             {
                 continue;
@@ -229,7 +228,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
 
             try
             {
-                QFile controlFile(mf->MountPoint->absoluteFilePath() + FuseDriver::getControlPath());
+                QFile controlFile(mf->MountPoint.absoluteFilePath() + FuseDriver::getControlPath());
                 if (!controlFile.open(QIODevice::ReadOnly))
                 {
                     continue;
@@ -269,9 +268,9 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
             /* Add final mount point information if possible */
             try
             {
-                if (!mountedVol->virtualDevice.isNull())
+                if (!mountedVol->virtualDevice.absoluteFilePath().isEmpty())
                 {
-                    mountedVol->mountPoint = getDeviceMountPoint(*(mountedVol->virtualDevice));
+                    mountedVol->mountPoint = getDeviceMountPoint(mountedVol->virtualDevice);
                 }
             }
             catch (DeviceNotMounted) {}  //There is no mountpoint since the virtual device is not mounted
@@ -322,7 +321,7 @@ QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(
 
         if (entry->mnt_fsname)
         {
-            mf->Device.reset(new QFileInfo(QString(entry->mnt_fsname)));
+            mf->Device.setFile(QString(entry->mnt_fsname));
         }
         else
         {
@@ -331,7 +330,7 @@ QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(
 
         if (entry->mnt_dir)
         {
-            mf->MountPoint.reset(new QFileInfo(QString(entry->mnt_dir)));
+            mf->MountPoint.setFile(QString(entry->mnt_dir));
         }
 
         if (entry->mnt_type)
@@ -339,8 +338,8 @@ QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(
             mf->Type = QString(entry->mnt_type);
         }
 
-        if ((devicePath.absoluteFilePath().isEmpty() || devicePath == *mf->Device) && \
-                (mountPoint.absoluteFilePath().isEmpty() || mountPoint == *mf->MountPoint))
+        if ((devicePath.absoluteFilePath().isEmpty() || devicePath == mf->Device) && \
+                (mountPoint.absoluteFilePath().isEmpty() || mountPoint == mf->MountPoint))
         {
             mountedFilesystems.append(mf);
         }
@@ -387,7 +386,7 @@ QSharedPointer<Volume::VolumeHash> CoreBase::getDerivationKeyFunction(QString fu
     throw AlgorithmNotFoundException(function);
 }
 
-QSharedPointer<QFileInfo> CoreBase::getDeviceMountPoint(const QFileInfo devicePath)
+QFileInfo CoreBase::getDeviceMountPoint(const QFileInfo devicePath)
 {
     QList<QSharedPointer<MountedFilesystem> > mpl = getMountedFilesystems(devicePath);
     if (mpl.isEmpty())
@@ -405,7 +404,7 @@ bool CoreBase::isDevice(QString path)
     response = getHostDevices(params);
     for (QSharedPointer<GostCrypt::Core::HostDevice> d : response->hostDevices)
     {
-        if (d->devicePath->canonicalFilePath() == path)
+        if (d->devicePath.canonicalFilePath() == path)
         {
             return true;
         }
@@ -611,7 +610,7 @@ bool CoreBase::isVolumeMounted(QFileInfo volumeFile)
     return !getMountedVolumes(params)->volumeInfoList.isEmpty();
 }
 
-QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
+QFileInfo CoreBase::getFreeFuseMountPoint()
 {
     QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
 
@@ -624,13 +623,13 @@ QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
 
             for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems)
             {
-                if (mountedFilesystem->MountPoint->absoluteFilePath() == path)
+                if (mountedFilesystem->MountPoint.absoluteFilePath() == path)
                 {
-                    throw MountPointUsedException(*(mountedFilesystem->MountPoint));
+                    throw MountPointUsedException(mountedFilesystem->MountPoint);
                 }
             }
 
-            return QSharedPointer<QFileInfo>(new QFileInfo(path));
+            return QFileInfo(path);
 
         }
         catch (MountPointUsed& e)
@@ -644,7 +643,7 @@ QSharedPointer<QFileInfo> CoreBase::getFreeFuseMountPoint()
     }
 }
 
-QSharedPointer<QFileInfo> CoreBase::getFreeDefaultMountPoint(uid_t userId)
+QFileInfo CoreBase::getFreeDefaultMountPoint(uid_t userId)
 {
     passwd* userinfo = getpwuid(userId);
     QString mountPointbase = QStringLiteral("/media/") + QString(userinfo->pw_name) +
@@ -659,14 +658,14 @@ QSharedPointer<QFileInfo> CoreBase::getFreeDefaultMountPoint(uid_t userId)
 
             for (QSharedPointer<MountedFilesystem> mountedFilesystem : mountedFilesystems)
             {
-                if (mountedFilesystem->MountPoint->absoluteFilePath() == path)
+                if (mountedFilesystem->MountPoint.absoluteFilePath() == path)
                 {
-                    throw MountPointUsedException(*(mountedFilesystem->MountPoint));
+                    throw MountPointUsedException(mountedFilesystem->MountPoint);
                 }
             }
 
 
-            return QSharedPointer<QFileInfo>(new QFileInfo(path));
+            return QFileInfo(path);
 
         }
         catch (MountPointUsed& e)

@@ -90,9 +90,9 @@ struct MountVolumeRequest : CoreRequest {
     bool preserveTimestamps; // Preserve timestamps of file ?
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; // keyfiles to mount the volume
     QSharedPointer <QByteArray> password; // password of the volume
-    QSharedPointer <QFileInfo> mountPoint; // mountpoint of the volume
+    QFileInfo mountPoint; // mountpoint of the volume
     QFileInfo path; // path of the container or device to mount
-    QSharedPointer <QFileInfo> fuseMountPoint; // mountpoint for the special fuse filesystem
+    QFileInfo fuseMountPoint; // mountpoint for the special fuse filesystem
     Volume::VolumeProtection::Enum protection; // none, readonly, hiddenvolumereadonly -> to write in outer volume without touching the inner volume
     QSharedPointer <QByteArray> protectionPassword; // password to mount the hidden protected volume
     QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; // keyfiles to mount the hidden protected volume

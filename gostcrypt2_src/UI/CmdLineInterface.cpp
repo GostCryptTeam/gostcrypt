@@ -276,7 +276,7 @@ void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::Ge
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath.absoluteFilePath() << "\t";
-        qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
+        qStdOut() << ((v->mountPoint.absoluteFilePath().isEmpty()) ? QString("-") : v->mountPoint.absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;
     }
@@ -305,16 +305,16 @@ void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
 {
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Core::HostDevice> d : r->hostDevices) {
-        qStdOut() << d->devicePath->absoluteFilePath() << "\t";
-        if(d->mountPoint)
-            qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
+        qStdOut() << d->devicePath.absoluteFilePath() << "\t";
+        if(!d->mountPoint.absoluteFilePath().isEmpty())
+            qStdOut() << d->mountPoint.absoluteFilePath() << "\t";
         else
             qStdOut() << "no mountpoint\t";
         qStdOut() << d->size << endl;
         for(QSharedPointer<GostCrypt::Core::HostDevice> p : d->partitions) {
-            qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
-            if(p->mountPoint)
-                qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
+            qStdOut() << "\t" << p->devicePath.absoluteFilePath() << "\t";
+            if(!p->mountPoint.absoluteFilePath().isEmpty())
+                qStdOut() << p->mountPoint.absoluteFilePath() << "\t";
             else
                 qStdOut() << "no mountpoint\t";
             qStdOut() << p->size << endl;

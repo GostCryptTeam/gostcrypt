@@ -80,7 +80,7 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
 
     if (parser.isSet("mountpoint")) {
         const QString mountpoint = parser.value("mountpoint");
-        options->mountPoint.reset(new QFileInfo(mountpoint));
+        options->mountPoint.setFile(mountpoint);
     }
 
     if (parser.isSet("shared"))
