@@ -32,7 +32,7 @@ namespace GostCrypt {
 	     * @param fuseMountPoint Path of the FUSE mountpoint (Usually /tmp/.gostcrypt_aux_mntN)
 	     * @param virtualDevice Path of the virtual device (Usually /dev/loopN)
 	     */
-	    void sendAuxDeviceInfo (QSharedPointer<QFileInfo> fuseMountPoint, QSharedPointer<QFileInfo> virtualDevice);
+        void sendAuxDeviceInfo (QFileInfo fuseMountPoint, QFileInfo virtualDevice);
 
 		/**
 		 * @brief Class defining the FUSE service in charge of creating the FUSE mount using the FUSE library
@@ -117,7 +117,7 @@ namespace GostCrypt {
 			 */
 			static gid_t getGroupId() { return FuseService::groupId; }
 		private:
-            static QSharedPointer<QFileInfo> fuseMountPoint;
+            static QFileInfo fuseMountPoint;
             static uid_t userId; /**< User id of the user for which the volume had been mounted */
 			static QSharedPointer<Volume::Volume> mountedVolume; /**< Pointer to the mounted volume object */
 			static QSharedPointer<Volume::VolumeInformation> volumeInfo; /**< Pointer to the Volume Information object containg all information about the mounted volume stored in the control file */

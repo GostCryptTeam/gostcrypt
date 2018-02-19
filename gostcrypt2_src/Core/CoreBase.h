@@ -176,7 +176,7 @@ namespace GostCrypt {
              * @return QSharedPointer<QFileInfo> Path where the given device is mounted
              * @exception DeviceNotMounted
              */
-            QSharedPointer<QFileInfo> getDeviceMountPoint(const QFileInfo devicePath);
+            QFileInfo getDeviceMountPoint(const QFileInfo devicePath);
             /**
              * @brief Check if the given path correspond to an host device on the computer
              *
@@ -196,7 +196,7 @@ namespace GostCrypt {
              *
              * @return QSharedPointer<QFileInfo> Path of the next available fuse mountpoint
              */
-            QSharedPointer<QFileInfo> getFreeFuseMountPoint();
+            QFileInfo getFreeFuseMountPoint();
             /**
              * @brief Create a random file. (Used for volume and key file creation)
              *
@@ -218,9 +218,9 @@ namespace GostCrypt {
              * @brief Give the next available default mountpoint for the given user
              *
              * @param userId UserID of the user for which we want the next available default mountpoint
-             * @return QSharedPointer<QFileInfo> Path of the next available default mountpoint
+             * @return QFileInfo Path of the next available default mountpoint
              */
-            QSharedPointer<QFileInfo> getFreeDefaultMountPoint(uid_t userId);     
+            QFileInfo getFreeDefaultMountPoint(uid_t userId);
 
             void ReEncryptVolumeHeaderWithNewSalt (BufferPtr &newHeaderBuffer, QSharedPointer <Volume::VolumeHeader> header, QSharedPointer<Volume::VolumePassword> password, QSharedPointer <Volume::KeyfileList> keyfiles) const;
             /**

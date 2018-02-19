@@ -106,16 +106,16 @@ namespace GostCrypt {
                 }
 
                 fuseMountPoint = params->fuseMountPoint;
-                QDir fuseMountPointDir(fuseMountPoint->absoluteFilePath());
-                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint->absoluteFilePath()))
-                        throw FailedCreateFuseMountPointException(*fuseMountPoint);
+                QDir fuseMountPointDir(fuseMountPoint.absoluteFilePath());
+                if(!fuseMountPointDir.exists() && !fuseMountPointDir.mkdir(fuseMountPoint.absoluteFilePath()))
+                        throw FailedCreateFuseMountPointException(fuseMountPoint);
 
 
 				try {
                     launchFuse();
 					sendResponseWhenReady(QVariant::fromValue(response));
 				} catch (...) {
-                    QDir(params->fuseMountPoint->absoluteFilePath()).rmdir(QStringLiteral("."));
+                    QDir(params->fuseMountPoint.absoluteFilePath()).rmdir(QStringLiteral("."));
                     throw; //rethrow
 				}
 			} catch (...) {
@@ -136,10 +136,10 @@ namespace GostCrypt {
 
 		void FuseService::sendResponseWhenReady(QVariant response)
 		{
-            QSharedPointer<QFileInfo> imageFile(new QFileInfo(fuseMountPoint->absoluteFilePath() + QString(FuseDriver::getVolumeImagePath())));
+            QFileInfo imageFile(fuseMountPoint.absoluteFilePath() + QString(FuseDriver::getVolumeImagePath()));
 			for (int t = 0 ; t < 100 ; t++) {
-				if(imageFile->exists()) {
-					if(QFile(imageFile->absoluteFilePath()).open(QIODevice::ReadWrite)) {
+                if(imageFile.exists()) {
+                    if(QFile(imageFile.absoluteFilePath()).open(QIODevice::ReadWrite)) {
 						sendResponse(response);
 						return;
 					}
@@ -205,7 +205,7 @@ namespace GostCrypt {
 
 		bool FuseService::auxDeviceInfoReceived()
 		{
-			return !FuseService::volumeInfo->virtualDevice.isNull();
+            return !FuseService::volumeInfo->virtualDevice.absoluteFilePath().isEmpty();
 		}
 
 		void FuseService::receiveAuxDeviceInfo(QByteArray &buffer)
@@ -217,9 +217,9 @@ namespace GostCrypt {
 			FuseService::volumeInfoMutex.unlock();
 		}
 
-		void sendAuxDeviceInfo(QSharedPointer<QFileInfo> fuseMountPoint, QSharedPointer<QFileInfo> virtualDevice)
+        void sendAuxDeviceInfo(QFileInfo fuseMountPoint, QFileInfo virtualDevice)
 		{
-			QFile controlFile(fuseMountPoint->canonicalFilePath() + getControlPath());
+            QFile controlFile(fuseMountPoint.canonicalFilePath() + getControlPath());
 
 			if(!controlFile.open(QIODevice::ReadWrite)) {
 				throw FuseControlFileAccessFailedException(fuseMountPoint)
@@ -589,7 +589,7 @@ namespace GostCrypt {
 
 				QByteArray argsByteArray[5];
 				argsByteArray[0] = QByteArray("gostcrypt");
-				argsByteArray[1] = fuseMountPoint->absoluteFilePath().toLatin1();
+                argsByteArray[1] = fuseMountPoint.absoluteFilePath().toLatin1();
 				argsByteArray[2] = QByteArray("-o");
 				argsByteArray[3] = QByteArray("allow_other");
 				argsByteArray[4] = QByteArray("-f");
@@ -608,7 +608,7 @@ namespace GostCrypt {
 
 		QSharedPointer<Volume::Volume> FuseService::mountedVolume;
 		QSharedPointer<Volume::VolumeInformation> FuseService::volumeInfo;
-        QSharedPointer<QFileInfo> FuseService::fuseMountPoint;
+        QFileInfo FuseService::fuseMountPoint;
 		uid_t FuseService::userId;
 		gid_t FuseService::groupId;
 		QMutex FuseService::volumeInfoMutex;
