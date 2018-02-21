@@ -2,6 +2,8 @@
 #include <pthread.h>
 #include <QtGlobal>
 #include <stdlib.h>
+#include <pthread.h>
+#include <sys/time.h>
 
 #include "../gostcrypt2_src/Volume/Crypto/GostCipher.h"
 
@@ -18,29 +20,75 @@
 
 #define THREAD_NUMBER 8
 
+struct parameters {
+	quint64 size;
+	quint8 *data;
+	gost_kds *ks;
+};
 
-void encrypt(quint64 size, quint8 *data, quint8 *ks){
+void encrypt(quint64 size, quint8 *data, gost_kds *ks){
 	quint64 i;	
 	for(i=0; i < size / BLOCK_SIZE; i++)
-		gost_encrypt (data, data, (gost_kds *) ks);
+		gost_encrypt (data, data, ks);
+}
+
+void *thread_encrypt(void *p){
+	struct parameters *params = p;	
+	encrypt(params->size, params->data, params->ks);
+	return NULL;
 }
 
 int main(int argc, char **argv){
 	
-	quint32 i;	
-	quint64 size = 500 * MB;
-	quint8 * dataspace = malloc(BLOCK_SIZE);
-	quint8 * key = malloc(KEY_SIZE);
+	quint32 i;
+	struct timeval  tv1, tv2;
+
+	quint64 size = 4 * GB; // size to encrypt
+	
+	/* Key Creation */
+	quint8 *key = malloc(KEY_SIZE);
 	for(i=0; i<KEY_SIZE; i++) // assigning key
 		key[i] = (quint8)i;
 
-	gost_kds * ks = calloc(sizeof(gost_kds), 1);
+	/* multiple thread vars */
+	pthread_t thread[THREAD_NUMBER];
+	struct parameters *params[THREAD_NUMBER];
 
-	gost_set_key(key, ks); // creating key for gost
+	/* Preparing thread parameters */
+	for(i = 0; i < THREAD_NUMBER; i++){
+		params[i] = malloc(sizeof(struct parameters));
+		params[i]->size = size / THREAD_NUMBER;
+		params[i]->data = malloc(BLOCK_SIZE);
+		params[i]->ks = calloc(sizeof(gost_kds), 1);
+		gost_set_key(key, params[i]->ks); // creating key for gost
+	}
 
-	encrypt(size, dataspace, (quint8 *)ks);
+	/* Getting time before starting */
+	gettimeofday(&tv1, NULL);
 	
-	printf("done.\n");
+	/* creating all threads */
+	for(i = 0; i < THREAD_NUMBER; i++){
+		if(pthread_create(&thread[i], NULL, thread_encrypt, (void *)params[i])){
+			printf("Thread creation error (%d).\n", i);
+			return 1;
+		}
+	}
+	
+	/* waiting for all threads */
+	for(i = 0; i < THREAD_NUMBER; i++){
+		if (pthread_join(thread[i], NULL)) {
+			printf("pthread_join error (%d).\n", i);
+			return 2;
+		}
+	}
+
+	/* Getting execution time */
+	gettimeofday(&tv2, NULL);
+	double timediff =	(double) (tv2.tv_usec - tv1.tv_usec) / 1000000 +
+				(double) (tv2.tv_sec - tv1.tv_sec);
+
+	/* Final print */
+	printf("GOST : %d MB in %.2lf seconds\n", size/MB, timediff);
 
 	return 0;
 }
