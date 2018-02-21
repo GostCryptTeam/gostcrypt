@@ -131,11 +131,8 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
         throw IncorrectParameterException("header buffer size");
     }
 
-    if (header[0] != 'T' ||
-            header[1] != 'R' ||
-            header[2] != 'U' ||
-            header[3] != 'E')
-    {
+    BufferPtr magicNumber("TRUE", 4);
+    if(magicNumber.isDataEqual(header.getRange(0, 4))) {
         return false;
     }
 
