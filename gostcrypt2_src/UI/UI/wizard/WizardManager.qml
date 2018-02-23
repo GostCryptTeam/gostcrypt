@@ -470,12 +470,14 @@ Item {
                     ) //1 => normal
             {
                 if(typeBranch !== 3 && typeBranch !== 2)
-                    changePage(10, qsTr("Volume Format"), currentPage)
+                {
+                    createVolume();
+                    content.source = "PageEnd.qml"
+                    manageButtons(false, false)
+                }
                 else
-                    changePage(10, qsTr("Hidden Volume Format"), currentPage)
+                    changePage(11, qsTr("Outer Volume Contents"), currentPage)
                 manageProgressBar(4)
-                content.item.type = typeBranch
-                //if(typeBranch === 0 || typeBranch === 2 || typeBranch === 3)
             }else if(direction !== 1){
                 if(typeBranch !== 3 && typeBranch !== 2) {
                     changePage(8, qsTr("Volume Size"), currentPage)

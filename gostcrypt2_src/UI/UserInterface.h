@@ -5,6 +5,13 @@
 #include <Core/CoreBase.h>
 #define DEC_PRINT_SLOT(requestName) virtual void print ## requestName (QSharedPointer<GostCrypt::Core::requestName ## Response> r)
 
+// default values for creating a volume
+#define DEFAULT_ALGORITHM "Gost Grasshopper"
+#define DEFAULT_KDF "Whirlpool"
+#define DEFAULT_SIZE 10485760 // 10Mio
+#define DEFAULT_OUTER_SIZE 1.0
+#define DEFAULT_INNER_SIZE 0.7
+
 /**
  * @brief Abstract class inherited by CmdLineInterface and GraphicInterface
  * Centralizes common functionality

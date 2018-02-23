@@ -71,7 +71,12 @@ Rectangle {
             hoverEnabled: true
             onEntered: appclose.color=palette.darkThird
             onExited: appclose.color=palette.border
-            onClicked: app.appQuit();
+            onClicked: {
+                exitRequested = true
+               // openErrorMessage("Information", "WARNING: Close GostCrypt dismounts all volumes currently mounted on the system. Continue anyway?")
+              //  qmlRequest("dismountall", "");
+                app.appQuit();
+            }
         }
     }
 
