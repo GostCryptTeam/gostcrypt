@@ -260,8 +260,20 @@ namespace GostCrypt {
         };
 
 
-		uid_t getUserId(QString username);
-		gid_t getGroupId(QString groupname);
+        /**
+         * @brief Return the user Id corresponding to the given user name
+         *
+         * @param username Name of the user
+         * @return Corresponding user ID
+         */
+        uid_t getUserId(QString username);
+        /**
+         * @brief Return the group Id corresponding to the given group name
+         *
+         * @param groupname Name of the group
+         * @return Corresponding group ID
+         */
+        gid_t getGroupId(QString groupname);
 
         /**
          * @brief Give the core object to use (CoreRoot instance if current user is root, CoreUser instance otherwise).
