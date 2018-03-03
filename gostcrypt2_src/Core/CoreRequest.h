@@ -93,7 +93,7 @@ struct CreateVolumeRequest : CoreRequest {
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
     }
     /**
-     * @brief Class storing all parameters for the creation of of a volume instance inside the volume container (There can be currently be two volume instance: outer and inner (hidden) ones)
+     * @brief Class storing all parameters for the creation of a volume instance inside the volume container (There can be currently be two volume instance: outer and inner (hidden) ones)
      *
      */
     struct VolumeParams {

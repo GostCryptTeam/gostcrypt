@@ -17,6 +17,8 @@ CoreRoot::CoreRoot(QObject* parent): CoreBase(parent)
     realGroupId = static_cast <gid_t>(0);
     realUserId = static_cast <gid_t>(0);
 
+    //TODO check that user is root
+
     const char *envSudoGID = getenv ("SUDO_GID");
     if (envSudoGID) {
         realGroupId =  static_cast <gid_t> (QString(envSudoGID).toLong());
@@ -49,12 +51,6 @@ void CoreRoot::request(QVariant r)
                 else if(!processNonRootRequest(r)) {
                     throw UnknowRequestException(r.typeName());
                 }
-}
-
-//TODO
-void CoreRoot::receiveSudoPassword(QString password)//QSharedPointer<QByteArray> password)
-{
-    password.fill('\0');
 }
 
 void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QSharedPointer<MountVolumeResponse> response)
@@ -245,7 +241,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(QSharedPointer<D
     return QSharedPointer<DismountVolumeResponse>();
 }
 
-void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containersize)
+void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolumeRequest::VolumeParams> params, QSharedPointer<Volume::VolumeLayout> layout, quint64 containerSize)
 {
     // getting the volume header to fill it
     QSharedPointer<Volume::VolumeHeader> header (layout->GetHeader());
@@ -260,10 +256,10 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     options.Hash = hash;
     options.Type = layout->GetType();
     options.SectorSize = 512; // TODO : ALWAYS 512 !
-    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containersize); // unlike truecrypt, we let the user set its own size
+    options.VolumeDataSize = (quint64)params->size*layout->GetMaxDataSize(containerSize); // unlike truecrypt, we let the user set its own size
 
     if(options.Type == Volume::VolumeType::Hidden) {
-        options.VolumeDataStart = containersize - layout->GetHeaderSize() * 2 - options.VolumeDataSize;
+        options.VolumeDataStart = containerSize - layout->GetHeaderSize() * 2 - options.VolumeDataSize;
     } else {
         options.VolumeDataStart = layout->GetHeaderSize() * 2;
     }
@@ -313,7 +309,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
         if((int64)layout->GetHeaderSize() + layout->GetHeaderOffset() < 0)
             throw InvalidParameterException("Header size and header offset", "Header size (" + QString::number(layout->GetHeaderSize()) + ") not compatible with header offset (" +
                        QString::number(layout->GetHeaderOffset()) + ") ! This error comes from the Layout definition.\n");
-        file.seekp(containersize + layout->GetHeaderOffset(), std::ios_base::beg);
+        file.seekp(containerSize + layout->GetHeaderOffset(), std::ios_base::beg);
     }
     file.write((char*)headerBuffer.get(), headerBuffer.size()); // writing header
 
@@ -330,7 +326,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     if (layout->GetBackupHeaderOffset() >= 0)
         file.seekp(layout->GetBackupHeaderOffset(), std::ios_base::beg);
     else
-        file.seekp(containersize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
+        file.seekp(containerSize + layout->GetBackupHeaderOffset(), std::ios_base::beg);
     file.write((char *)headerBuffer.get(), headerBuffer.size()); // writing backup header crypted with new salt
 
 }
