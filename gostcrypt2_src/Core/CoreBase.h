@@ -125,6 +125,7 @@ namespace GostCrypt {
 
             /**
              * @brief Backup the header of the given volume
+             * This action will save the headers of the volume instances contained inside the given volume container
              *
              * @param params Parameters of the action
              * @return QSharedPointer<BackupHeaderResponse>, the response of the action
@@ -133,6 +134,9 @@ namespace GostCrypt {
 
             /**
              * @brief Restore the header of the given volume
+             * This action will restore the header of the volume instance corresponding to given credentials.
+             * It will either use the internal backup or an external header backup file.
+             * For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header
              *
              * @param params Parameters of the action
              * @return QSharedPointer<BackupHeaderResponse>, the response of the action
