@@ -16,7 +16,6 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
                           {{"p","password"}, "Specify an inline password. (unsafe)", "password"},
                           {{"m","mountpoint"}, "Specify a special mountpoint.", "mountpoint"},
                           {"protection", "Specify a special volume protection", "{none|readonly}"},
-                          {{"s","shared"}, "Allows shared access."},
                           {{"b","backup-headers"}, "Use backup headers."},
                           {{"u","user"}, "Gives ownership of the folder to this user.", "user"},
                           {{"g","group"}, "Gives ownership of the folder to this group.", "group"},
@@ -82,9 +81,6 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
         const QString mountpoint = parser.value("mountpoint");
         options->mountPoint.setFile(mountpoint);
     }
-
-    if (parser.isSet("shared"))
-        options->sharedAccessAllowed = true;
 
     if (parser.isSet("backup-headers"))
         options->useBackupHeaders = true;

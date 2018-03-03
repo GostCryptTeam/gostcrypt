@@ -72,7 +72,7 @@ namespace GostCrypt {
              *
              * @param mountResponse
              */
-            void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse, ProgressTrackingParameters id);
+            void continueMountFormat(QSharedPointer<MountVolumeResponse> mountResponse);
             /**
              * @brief
              *

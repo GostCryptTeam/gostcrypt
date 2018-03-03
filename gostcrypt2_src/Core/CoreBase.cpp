@@ -803,7 +803,7 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
             }
             else
             {
-            throw InvalidParameterException("params->hiddenVolumePassword", "hiddenVolumePassword is null.");
+                throw InvalidParameterException("params->hiddenVolumePassword", "hiddenVolumePassword is null.");
             }
             if (!params->hiddenVolumeKeyfiles.isNull())
             {

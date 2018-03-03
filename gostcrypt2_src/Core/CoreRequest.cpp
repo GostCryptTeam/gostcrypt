@@ -143,7 +143,6 @@ QDataStream& operator << (QDataStream& out, const MountVolumeRequest& Valeur)
     out << Valeur.protectionPassword;
     out << Valeur.protectionKeyfiles;
     out << Valeur.useBackupHeaders;
-    out << Valeur.sharedAccessAllowed;
     out << Valeur.mountedForUser;
     out << Valeur.mountedForGroup;
     out << Valeur.forVolumeCreation;
@@ -168,7 +167,6 @@ QDataStream& operator >> (QDataStream& in, MountVolumeRequest& Valeur)
     in >> Valeur.protectionPassword;
     in >> Valeur.protectionKeyfiles;
     in >> Valeur.useBackupHeaders;
-    in >> Valeur.sharedAccessAllowed;
     in >> Valeur.mountedForUser;
     in >> Valeur.mountedForGroup;
     in >> Valeur.forVolumeCreation;
@@ -333,7 +331,6 @@ MountVolumeRequest::MountVolumeRequest()
     this->fileSystemType = "vfat";
     this->preserveTimestamps = false;
     this->protection = Volume::VolumeProtection::Enum::None;
-    this->sharedAccessAllowed = false;
     this->useBackupHeaders = false;
     this->forVolumeCreation = false;
     this->isDevice = false;
@@ -372,7 +369,12 @@ QString GetFileSystemTypePlatformNative() {
     return "fs";
     #else
     return "fat";
-    #endif
+                         #endif
+}
+
+RestoreHeaderRequest::RestoreHeaderRequest()
+{
+    this->useInternalBackup = false;
 }
 
 }

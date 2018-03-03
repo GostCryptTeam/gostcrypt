@@ -117,7 +117,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                     break;
                 }
                 options->useBackupHeaders = GI_KEY(aContent, "backup-headers").toBool();
-                options->sharedAccessAllowed = GI_KEY(aContent, "shared").toBool();
                 options->mountedForUser = GI_KEY(aContent, "user").toString();
                 options->mountedForGroup = GI_KEY(aContent, "group").toString();
             }
