@@ -117,6 +117,7 @@ namespace GostCrypt {
 
             /**
              * @brief Create a random key file
+             * This action will simply create a file of 64 bytes with random bytes
              *
              * @param params Parameters of the action
              * @return QSharedPointer<CreateKeyFileResponse>, the response of the action

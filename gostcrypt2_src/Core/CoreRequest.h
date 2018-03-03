@@ -196,7 +196,7 @@ struct DismountVolumeRequest : CoreRequest {
 };
 
 /**
- * @brief Class storing all parameters for the action to get the current host devices on the system.
+ * @brief Class storing all parameters for the action to get the current devices on the system.
  *
  */
 struct GetHostDevicesRequest : CoreRequest {
