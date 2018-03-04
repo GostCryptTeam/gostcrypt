@@ -24,7 +24,7 @@ namespace GostCrypt {
             /**
              * @brief Default Constructor
              *
-             * @param parent parent Object
+             * @param parent Parent object (See Qt documentation)
              */
             explicit CoreRoot(QObject *parent = nullptr);
 		public slots:
