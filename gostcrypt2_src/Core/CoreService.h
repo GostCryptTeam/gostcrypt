@@ -20,23 +20,27 @@
 namespace GostCrypt {
     namespace Core {
         /**
-         * @brief Class corresponding to CoreService process, handling request which require root permission
+         * @brief Class corresponding to CoreService process, executing request which require root privileges. It is in charge of parsing request coming from its standard input, execute the action and forward back its results to the standard output.
          *
          */
         class CoreService : public Service
 		{
 			Q_OBJECT
 		public:
+            /**
+             * @brief Default constructor
+             *
+             */
 			CoreService() : Service("CoreService") {}
 		private:
-            QSharedPointer<CoreRoot> core; /**< TODO: describe */
+            QSharedPointer<CoreRoot> core; /**< Core object containing methods for each action handled by GostCrypt (mount, dismount, create a volume, etc) The CoreRoot implementation is used since the CoreService process is launched by the root user. */
             /**
-             * @brief
+             * @brief Connect the signals to the slots between CoreService and the core object. This signals/slots are in charge of dealing with the received requests and the responses to send back.
              *
              */
             virtual void connectRequestHandlingSignals();
             /**
-             * @brief
+             * @brief Make all the object that need to be transmitted between the processes serializables ( Requests, Responses, Exceptions)
              *
              */
             virtual void initSerializables();
