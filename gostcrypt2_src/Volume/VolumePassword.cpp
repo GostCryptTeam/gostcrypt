@@ -52,7 +52,7 @@ namespace Volume {
 		AllocateBuffer ();
 
 		if (size > MaxSize)
-            throw IncorrectParameterException("Password size too big");
+            throw InvalidParameterException("Password size", "The password can not be longer than " + QString::number(MaxSize) + " characters");
 
         PasswordBuffer.copyFrom (BufferPtr (password, size));
 		PasswordSize = size;

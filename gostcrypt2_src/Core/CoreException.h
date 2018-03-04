@@ -12,7 +12,7 @@ namespace GostCrypt
 namespace Core
 {
 /**
- * @brief Initialize the CoreException class and subclass to make them serializable across processes
+ * @brief Initialize the CoreException class and subclasses to make them serializable across processes
  */
 void initCoreException();
 
@@ -30,7 +30,7 @@ class CoreException : public GostCryptException
      /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
@@ -56,7 +56,7 @@ class DeviceNotMounted : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param device QFileInfo corresponding to requested device
@@ -86,7 +86,7 @@ class VolumeAlreadyMounted : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param volumePath QFileInfo corresponding to the already mounted volume
@@ -115,7 +115,7 @@ class FailedOpenVolume : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param volumePath QFileInfo corresponding to the volume to open
@@ -144,7 +144,7 @@ class IncorrectSudoPassword : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
@@ -171,7 +171,7 @@ class ServiceProcessCrashed : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
@@ -198,7 +198,7 @@ class MountPointUsed : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param mountpoint QFileInfo correspponding to the tested mountpoint
@@ -233,7 +233,7 @@ class MountFilesystemManagerException : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param errorNumber Value of the errno variable after the failed system call
@@ -265,7 +265,7 @@ class FailMountFilesystem : public MountFilesystemManagerException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param errorNumber Value of the errno variable after the failed system call
@@ -303,7 +303,7 @@ class FailFindFilesystemType : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param devicePath QFileInfo coresponding to the loop device for which it tried to find the filesystem type
@@ -334,7 +334,7 @@ class FailUnmountFilesystem : public MountFilesystemManagerException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param errorNumber Value of the errno variable after the failed system call
@@ -364,7 +364,7 @@ class FailedAttachLoopDevice : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param imageFile QFileInfo corresponding to the volume image file (inside fuse mount)
@@ -396,7 +396,7 @@ class FailedDetachLoopDevice : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param loopDevice QFileInfo corresponding to the loop device file binded to the volume image file
@@ -427,7 +427,7 @@ class VolumeNotMounted : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param volumePath QFileInfo corresponding to the not mounted volume
@@ -456,7 +456,7 @@ class FormattingSubException : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param subExceptionString Description of the exception occured while dismounting the volume
@@ -486,7 +486,7 @@ class FormatProcessFailed : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
@@ -513,7 +513,7 @@ class FilesystemNotSupported : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param filesystem Name of the filesystem requested for the newly created volume
@@ -541,7 +541,7 @@ class AlgorithmNotFound : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param algorithm Name of the algorithm requested
@@ -569,7 +569,7 @@ class RandomNumberGeneratorNotRunning : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
@@ -595,7 +595,7 @@ class FailedUsingSystemRandomSource : public CoreException
     /**
      * @brief Constructor used when throwing the exception
      *
-     * @param fonction Name of the function where the exception is thrown
+     * @param fonction Name of the function in which the exception is thrown
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      * @param errorNumber Value of the errno variable after the failed system call

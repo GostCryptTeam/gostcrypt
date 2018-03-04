@@ -45,7 +45,7 @@ void VolumeFile::Close ()
         int blockSize;
 
         if (!isTypeDevice())
-            throw IncorrectParameterException("Volume is not contained in a device");
+            throw InvalidParameterException("Volume container type", "Volume file is not of device type");
         if (ioctl (FileHandle, BLKSSZGET, &blockSize) == -1)
             throw FailedGetSectorSizeException();
 

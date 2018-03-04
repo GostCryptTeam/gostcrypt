@@ -27,7 +27,7 @@ void BufferPtr::copyFrom(const BufferPtr& bufferPtr)
 {
     if (bufferPtr.size() > dataSize)
     {
-        throw IncorrectParameterException("bufferPtr.size > DataSize");
+        throw InvalidParameterException("bufferPtr.size()", "bufferPtr.size > DataSize")
     }
     if (!dataPtrMutable)
     {
@@ -40,7 +40,7 @@ BufferPtr BufferPtr::getRange(size_t offset, size_t size)
 {
     if (offset + size > dataSize)
     {
-        throw IncorrectParameterException("offset+size > DataSize");
+        throw InvalidParameterException("offset and size", "offset+size > DataSize");
     }
     if (!dataPtrMutable)
     {
@@ -53,7 +53,7 @@ const BufferPtr BufferPtr::getRange(size_t offset, size_t size) const
 {
     if (offset + size > dataSize)
     {
-        throw IncorrectParameterException("offset+size > DataSize");
+        throw InvalidParameterException("offset and size", "offset+size > DataSize");
     }
 
     return BufferPtr(dataPtrReadonly + offset, size);
@@ -76,7 +76,7 @@ void Buffer::allocate(size_t size)
 {
     if (size < 1)
     {
-        throw IncorrectParameterException("size is null");
+        throw InvalidParameterException("size", "size can not be null");
     }
 
     Usersize = size;
@@ -117,7 +117,7 @@ void Buffer::copyFrom(const BufferPtr& bufferPtr)
     }
     else if (bufferPtr.size() > Usersize)
     {
-        throw IncorrectParameterException("bufferPtr.size > DataSize")
+        throw InvalidParameterException("offset and size", "offset+size > Usersize");
     }
     memcpy(Data.get(), bufferPtr.get(), bufferPtr.size());
 }
@@ -145,7 +145,7 @@ BufferPtr Buffer::getRange(size_t offset, size_t size)
 {
     if (offset + size > Usersize)
     {
-        throw IncorrectParameterException("offset+size > Usersize");
+        throw InvalidParameterException("offset and size", "offset+size > Usersize");
     }
     return Data.getRange(offset, size);
 }
@@ -154,7 +154,7 @@ const BufferPtr Buffer::getRange(size_t offset, size_t size) const
 {
     if (offset + size > Usersize)
     {
-        throw IncorrectParameterException("offset+size > Usersize");
+        throw InvalidParameterException("offset and size", "offset+size > Usersize");
     }
     return Data.getRange(offset, size);
 }

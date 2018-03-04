@@ -109,7 +109,7 @@ namespace GostCrypt
             throw RandomNumberGeneratorNotRunningException();
 
 		if (buffer.size() > PoolSize)
-            throw IncorrectParameterException("buffer.size > PoolSize");
+            throw InvalidParameterException("buffer.size()", "buffer.size() > PoolSize");
 
         QMutexLocker lock (&AccessMutex);
 

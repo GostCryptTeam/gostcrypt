@@ -48,7 +48,7 @@ void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* enc
                 break;
 
             default:
-                throw IncorrectParameterException("Unknown WorkType");
+                throw InvalidParameterException("WorkType", "Unknown WorkType");
         }
 
         return;
@@ -275,7 +275,7 @@ void EncryptionThread::run()
                         break;
 
                     default:
-                        throw IncorrectParameterException("Unknown WorkType");
+                        throw InvalidParameterException("WorkType", "Unknown WorkType");
                 }
             }
             catch (GostCryptException& e)

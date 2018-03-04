@@ -58,7 +58,7 @@ namespace Volume {
     void CipherAlgorithm::SetKey (const BufferPtr &key)
 	{
 		if (key.size() != GetKeySize ())
-            throw IncorrectParameterException("key.Size() != GetKeySize ()");
+            throw InvalidParameterException("key", "key.Size() != GetKeySize ()");
 
 		if (!Initialized)
 			ScheduledKey.allocate (GetScheduledKeySize ());

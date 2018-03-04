@@ -86,7 +86,7 @@ namespace Volume {
                     VolumeType::Hidden,
                     useBackupHeaders);
                 if (protectedVolume.GetType() != VolumeType::Hidden)
-                    throw IncorrectParameterException("protection is set to HiddenVolumeReadOnly, but the volume type is not hidden.")
+                    throw InvalidParameterException("password/keyfiles", "The given password/keyfiles to open the inner hidden volume instance are the ones of the outer volume instance")
 
                 ProtectedRangeStart = protectedVolume.VolumeDataOffset;
                 ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
@@ -171,7 +171,7 @@ namespace Volume {
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
-            throw IncorrectParameterException("length or offset not aligned with sector");
+            throw InvalidParameterException("length or offset", "length or offset not aligned with sector");
 
         if (this->volumeFile->ReadAt (buffer, hostOffset) != length)
             throw VolumeCorruptedException();
@@ -209,10 +209,10 @@ namespace Volume {
 
 		if (length % SectorSize != 0
             || byteOffset % SectorSize != 0)
-            throw IncorrectParameterException("length or offset not aligned with sector");
+            throw InvalidParameterException("length or offset", "length or offset not aligned with sector");
 
-        if (byteOffset + length > VolumeDataSize)
-            throw IncorrectParameterException("Trying to read after the end of the volume file");
+        if (byteOffset > VolumeDataSize)
+            throw InvalidParameterException("byteOffset", "Trying to read after the end of the volume file");
 
 		if (Protection == VolumeProtection::ReadOnly)
             throw VolumeReadOnlyException();

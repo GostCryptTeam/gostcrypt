@@ -17,7 +17,6 @@ void initGostCryptException()
     INIT_SERIALIZE(FailedLseekFile);
     INIT_SERIALIZE(FailedStatFile);
     INIT_SERIALIZE(FailedMemoryAllocation);
-    INIT_SERIALIZE(IncorrectParameter);
     INIT_SERIALIZE(UnknowException);
     INIT_SERIALIZE(ExternalException);
     INIT_SERIALIZE(InvalidParameter);
@@ -173,20 +172,6 @@ QDataStream& operator << (QDataStream& out, const GostCrypt::FailedMemoryAllocat
 QDataStream& operator >> (QDataStream& in, GostCrypt::FailedMemoryAllocation& Valeur)
 {
     in >> static_cast<SystemException&>(Valeur);
-    return in;
-}
-
-DEF_SERIALIZABLE(GostCrypt::IncorrectParameter)
-QDataStream& operator << (QDataStream& out, const GostCrypt::IncorrectParameter& Valeur)
-{
-    out << static_cast<const GostCryptException&>(Valeur);
-    out << Valeur.comment;
-    return out;
-}
-QDataStream& operator >> (QDataStream& in, GostCrypt::IncorrectParameter& Valeur)
-{
-    in >> static_cast<GostCryptException&>(Valeur);
-    in >> Valeur.comment;
     return in;
 }
 

@@ -99,7 +99,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
             QDir mountpoint(params->mountPoint.absoluteFilePath());
             if(!mountpoint.exists()) {
                 if(!mountpoint.mkpath(params->mountPoint.absoluteFilePath()))
-                    throw FailedCreateDirectoryException(params->mountPoint.absoluteFilePath());
+                    throw FailedCreateDirectoryException(params->mountPoint);
                 mountDirCreated = true;
             }
             MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType, params->protection == Volume::VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId, params->fileSystemOptions);
@@ -249,7 +249,7 @@ void CoreRoot::writeHeaderToFile(std::fstream &file, QSharedPointer<CreateVolume
     QSharedPointer<Volume::VolumeHash> hash (getDerivationKeyFunction(params->volumeHeaderKdf));
 
     if(layout->GetType() == Volume::VolumeType::Normal && params->size != 1.f)
-        throw IncorrectParameterException("Primary volume should always use 100% of the container");
+        throw InvalidParameterException("params->size", "Primary volume should always use 100% of the container");
 
     Volume::VolumeHeaderCreationOptions options;
     options.EA = ea;

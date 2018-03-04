@@ -137,7 +137,7 @@ namespace Volume {
             throw EncryptionAlgorithmNotInitializedException();
 
 		if (GetKeySize() != key.size())
-            throw IncorrectParameterException("Key size mismatch");
+            throw InvalidParameterException("key", "Key size mismatch");
 
 		size_t keyOffset = 0;
         for (QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())

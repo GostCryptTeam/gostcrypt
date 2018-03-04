@@ -251,7 +251,7 @@ namespace GostCrypt {
 			{
 				return -ENOMEM;
 			}
-            catch (IncorrectParameter &e)
+            catch (InvalidParameter &e)
 			{
                 qWarning() << e.qwhat();
 				return -EINVAL;

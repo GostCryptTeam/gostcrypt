@@ -506,7 +506,7 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
         }
         if (params->changeMasterKey)
         {
-            throw IncorrectParameterException("Not implemented yet");    //TODO
+            throw InvalidParameterException("params->changeMasterKey", "Not implemented yet")
         }
 
         //Open Volume
@@ -986,7 +986,7 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
             GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
 
         if(params->bufferSize < ENCRYPTION_DATA_UNIT_SIZE)
-            throw IncorrectParameterException("The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes");
+            throw InvalidParameterException("params->bufferSize", "The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes")
 
         Buffer dataBuffer(params->bufferSize);
 
