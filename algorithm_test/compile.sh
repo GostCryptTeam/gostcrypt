@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc -o test.out tester.c ../gostcrypt2_src/Volume/Crypto/GostCipher.c ../gostcrypt2_src/Volume/Crypto/Stribog.c -I./customQt -O2 -lpthread
+gcc -o test.out tester.c ../gostcrypt2_src/Volume/Crypto/GostCipher.c ../gostcrypt2_src/Volume/Crypto/GrasshopperCipher.c ../gostcrypt2_src/Volume/Crypto/Stribog.c -I./customQt -O3 -lpthread
 
 
 #includes and libs for the real Qt 5 on my computer

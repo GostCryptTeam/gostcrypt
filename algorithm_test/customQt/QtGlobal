@@ -14,11 +14,11 @@
 typedef uint8_t  quint8;
 typedef uint16_t quint16;
 typedef uint32_t quint32;
-typedef uint64_t quint64;
+typedef unsigned long long quint64;
 
 typedef int8_t  qint8;
 typedef int16_t qint16;
 typedef int32_t qint32;
-typedef int64_t qint64;
+typedef long long qint64;
 
 #endif
