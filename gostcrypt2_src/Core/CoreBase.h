@@ -22,9 +22,6 @@
 		fct (request); \
 	}
 #define DEC_REQUEST_SIGNAL(requestName) void send ## requestName (QSharedPointer<requestName ## Response> r)
-#define UPDATE_PROGRESS_S(p, id) emit sendProgressUpdate(QSharedPointer<ProgressUpdateResponse>(new ProgressUpdateResponse(id.requestId,id.end*p+id.start*(1-p))))
-#define UPDATE_PROGRESS(p) UPDATE_PROGRESS_S(p, params->id)
-//TODO create a ProgressUpdateResponse constructor containing the forumula
 
 /* Progress tracking analysis helpers */
 #define TRACK track_result.append(QPair<QString,int>(QString(__FILE__) + QString(":") + QString::number(__LINE__), t.elapsed()));
@@ -236,6 +233,13 @@ namespace GostCrypt {
              */
             bool processNonRootRequest(QVariant r);
 
+            /**
+             * @brief Send the current progress in the processing of a request to the UI using the progress in the current function and the context stored in the ProgressTrackingParameters object
+             * @param subProgress Progress in the current function
+             * @param id ProgressTrackingParameters object containing the request identifier and the information on where this function stand in the processing of the request
+             */
+            void updateProgress(qreal subProgress, ProgressTrackingParameters id);
+
 		signals:
 			DEC_REQUEST_SIGNAL(CreateVolume);
 			DEC_REQUEST_SIGNAL(MountVolume);
@@ -251,8 +255,14 @@ namespace GostCrypt {
             DEC_REQUEST_SIGNAL(RestoreHeader);
             DEC_REQUEST_SIGNAL(BenchmarkAlgorithms);
 
-
-			/**
+             /**
+             * @brief Send the current progress in the processing of a request to the UI
+             *
+             * @param requestId Request Identifier given by the User Interface module
+             * @param progress Progress of the request processing time between 0 and 1
+             */
+            void sendProgressUpdate(quint32 requestId, qreal progress);
+            /**
 			 * @brief Signal emitted when the program can exit (when the coreservice is closed)
              *
 			 */

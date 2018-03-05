@@ -52,20 +52,16 @@ namespace GostCrypt {
                     QSharedPointer <Volume::KeyfileList> keyfiles;
                     QSharedPointer <Volume::KeyfileList> protectionKeyfiles;
 
-
                     // Conversions :(
                     password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
                     if(!params->protectionPassword.isNull())
                         protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(), params->protectionPassword->size()));
-                    if(!params->keyfiles.isNull()) {
-                        for(QSharedPointer<QFileInfo> keyfile : *params->keyfiles) {
-                            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-                        }
+                    for(QFileInfo keyfile : params->keyfiles) {
+                        keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
                     }
-                    if(!params->protectionKeyfiles.isNull()) {
-                        for(QSharedPointer<QFileInfo> keyfile : *params->protectionKeyfiles) {
-                            protectionKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-                        }
+
+                    for(QFileInfo keyfile : params->protectionKeyfiles) {
+                        protectionKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
                     }
 
                     mountedVolume->Open(

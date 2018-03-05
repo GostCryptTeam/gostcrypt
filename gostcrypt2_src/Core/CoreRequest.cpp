@@ -17,13 +17,15 @@ void initCoreRequest()
     INIT_SERIALIZE(DismountVolumeRequest);
     INIT_SERIALIZE(GetHostDevicesRequest);
     INIT_SERIALIZE(GetMountedVolumesRequest);
-    INIT_SERIALIZE(QFileInfo);
     INIT_SERIALIZE(GetEncryptionAlgorithmsRequest);
     INIT_SERIALIZE(GetDerivationFunctionsRequest);
     INIT_SERIALIZE(ProgressTrackingParameters);
     INIT_SERIALIZE(BackupHeaderRequest);
     INIT_SERIALIZE(RestoreHeaderRequest);
     INIT_SERIALIZE(BenchmarkAlgorithmsRequest);
+
+    qRegisterMetaTypeStreamOperators<QFileInfo>("QFileInfo");
+    qMetaTypeId<QFileInfo>();
 }
 
 QDataStream& operator<< (QDataStream& out, const CoreRequest& Valeur)

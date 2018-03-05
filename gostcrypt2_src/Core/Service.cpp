@@ -12,7 +12,8 @@ namespace GostCrypt {
 
 	int Service::start(int argc, char **argv)
 		{
-			ServiceApplication app(argc, argv);
+            QString inputFilePath;
+            ServiceApplication app(argc, argv);
 
 			INIT_SERIALIZE(InitResponse);
             INIT_SERIALIZE(ExceptionResponse);
@@ -25,13 +26,13 @@ namespace GostCrypt {
 			initSerializables();
 
             if(argc > 2) {
-                this->inputFilePath = QString(argv[2]);
+                inputFilePath = QString(argv[2]);
             }
 
             // Creation of input and output streams for communication with parent process
 			inputStream.setDevice(&inputFile);
 			outputStream.setDevice(&outputFile);
-            if(this->inputFilePath.isEmpty()) {
+            if(inputFilePath.isEmpty()) {
                 inputFile.open(stdin, QFile::ReadOnly);
             } else {
                 inputFile.setFileName(inputFilePath);
@@ -123,9 +124,10 @@ namespace GostCrypt {
 			sendResponse(QVariant::fromValue(r));
 		}
 
-		void Service::sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response)
+        void Service::sendProgressUpdate(quint32 requestId, qreal progress)
 		{
-			sendResponse(QVariant::fromValue(response));
+            QSharedPointer<ProgressUpdateResponse> response(new ProgressUpdateResponse(requestId, progress));
+            sendResponse(QVariant::fromValue(response));
 		}
 
 		bool ServiceApplication::notify(QObject *receiver, QEvent *event)

@@ -122,9 +122,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
 
             //Adding Keyfiles
-            options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
             for(QString file : keyfilesList)
-                options->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
+                options->keyfiles.append(QFileInfo(file));
 
             emit request(QVariant::fromValue(options));
         }
@@ -143,14 +142,11 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 //options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent, "hpassword").toString().toUtf8())); //hidden pwd
                 //CLUSTER : very unsafe, not allowed for now!
 
-                options->outerVolume->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>()); //outer volume keyfile(s)
                 QStringList keyfilesList;
                 for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
                     keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
                 for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
-                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
-
-                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
+                    options->outerVolume->keyfiles.append(QFileInfo(QUrl(file).path()));
 
                 if(GI_KEY(aContent, "hash").toString() != "")
                     options->outerVolume->volumeHeaderKdf = GI_KEY(aContent, "hash").toString(); //Outer volume hash
@@ -175,14 +171,11 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
 
                 //Outer volume path and password/keyfile(s)
                 options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent, "password").toString().toUtf8())); //Setting the outer volume password
-                options->outerVolume->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>()); //outer volume keyfile(s)
                 QStringList keyfilesList;
                 for(int i = 0; i<GI_KEY(aContent, "nb-keyfiles").toInt(); i++)
                     keyfilesList.append(GI_KEY(aContent, "keyfile"+QString::number(i)).toString());
                 for(QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
-                    options->outerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
-
-                options->outerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
+                    options->outerVolume->keyfiles.append(QFileInfo(QUrl(file).path()));
 
                 //Inner volume information
                 options->innerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
@@ -204,9 +197,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 for(int i = 0; i<GI_KEY(aContent, "nb-hkeyfiles").toInt(); i++)
                     hkeyfilesList.append(GI_KEY(aContent, "hkeyfile"+QString::number(i)).toString());
                 for(QString file : hkeyfilesList) //Adding the keyfile(s) to the outer volume object
-                    options->innerVolume->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(QUrl(file).path())));
+                    options->innerVolume->keyfiles.append(QFileInfo(QUrl(file).path()));
                 qDebug() << GI_KEY(aContent, "hpassword").toString().toUtf8();
-                options->innerVolume->keyfiles = nullptr; //Keyfiles not implemented yet. TODO
             }
             emit request(QVariant::fromValue(options));
         }

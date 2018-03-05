@@ -120,7 +120,7 @@ namespace GostCrypt {
              * @param parentResponse Response of the volume creation action which may contain some results
              * @param id Information used to report the action progress duing the volume instance(s) file system building
              */
-            void mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
+            void mountFormatVolume(QFileInfo volume, QSharedPointer<QByteArray> password, QList<QFileInfo> keyfiles, QString filesystem, QSharedPointer<CreateVolumeRequest> parentParams, QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
             uid_t realUserId; /**< ID of the user who launched GostCrypt */
             gid_t realGroupId; /**< ID of the group who launched GostCrypt */
             GostCrypt::FuseDriver::FuseServiceHandler fuseServiceHandler; /**< Object managing the Fuse service in charge of the Fuse file system creation when mounting a volume */

@@ -13,6 +13,7 @@ namespace GostCrypt {
 			connect(this, SIGNAL(request(QVariant)), core.data(), SLOT(request(QVariant)));
 			connect(this, SIGNAL(askExit()), core.data(), SLOT(exit()));
             connect(core.data(), SIGNAL(exited()), this, SIGNAL(exit()));
+            connect(core.data(), SIGNAL(sendProgressUpdate(quint32, qreal)), this, SLOT(sendProgressUpdate(quint32, qreal)));
 
 			/* For each core request */
 			CONNECT_RESPONSE_SLOT(CreateVolume);
@@ -24,7 +25,6 @@ namespace GostCrypt {
 			CONNECT_RESPONSE_SLOT(GetHostDevices);
 			CONNECT_RESPONSE_SLOT(GetMountedVolumes);
 			CONNECT_RESPONSE_SLOT(CreateKeyFile);
-			CONNECT_RESPONSE_SLOT(ProgressUpdate);
 		}
 
 		void CoreService::initSerializables()
@@ -32,7 +32,7 @@ namespace GostCrypt {
 			initCoreRequest();
 			initCoreResponse();
             initGostCryptException();
-			INIT_SERIALIZE(ProgressUpdateResponse);
+            INIT_SERIALIZE(ProgressUpdateResponse); // should not be there but in Service::start
 
 		}
 

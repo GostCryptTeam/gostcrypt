@@ -61,9 +61,8 @@ void Parser::parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::C
 
     if (parser.isSet("file")) {
         const QStringList files = parser.values("file");
-        options->keyfiles.reset(new QList<QSharedPointer<QFileInfo>>());
         for(QString file : files){
-            options->keyfiles->append(QSharedPointer<QFileInfo>(new QFileInfo(file)));
+            options->keyfiles.append(QFileInfo(file));
         }
     }
 

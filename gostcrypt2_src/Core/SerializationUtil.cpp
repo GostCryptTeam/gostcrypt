@@ -12,6 +12,4 @@ QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur){
     return in;
 }
 
-DEF_SERIALIZABLE(QList<QSharedPointer<QFileInfo>>)
-DEF_SERIALIZABLE(QFileInfo)
 DEF_SERIALIZABLE(QByteArray)
