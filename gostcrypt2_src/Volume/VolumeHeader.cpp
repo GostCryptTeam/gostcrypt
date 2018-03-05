@@ -132,7 +132,7 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
     }
 
     BufferPtr magicNumber((const quint8*)"TRUE", 4);
-    if(magicNumber.isDataEqual(header.getRange(0, 4))) {
+    if(!magicNumber.isDataEqual(header.getRange(0, 4))) {
         return false;
     }
 
@@ -142,12 +142,12 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
 
     if (HeaderVersion < MinAllowedHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version too old");
+        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(MinAllowedHeaderVersion, 16) + " and is no longer supported");
     }
 
     if (HeaderVersion > CurrentHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version too young");
+        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(HeaderVersion, 16) + " but this GostCrypt version support only the version " + QString::number(CurrentHeaderVersion, 16) + " and below.");
     }
 
     if (HeaderVersion >= 4
