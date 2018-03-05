@@ -175,7 +175,6 @@ namespace GostCrypt
 		ReadOffset = 0;
 		WriteOffset = 0;
 		Running = true;
-		EnrichedByUser = false;
 
 		Pool.allocate (PoolSize);
 
@@ -197,13 +196,11 @@ namespace GostCrypt
 
 		PoolHash.reset();
 
-		EnrichedByUser = false;
 		Running = false;
 	}
 
     QMutex RandomGenerator::AccessMutex(QMutex::Recursive);
     size_t RandomGenerator::BytesAddedSincePoolHashMix;
-    bool RandomGenerator::EnrichedByUser;
     SecureBuffer RandomGenerator::Pool;
     QSharedPointer <Volume::VolumeHash> RandomGenerator::PoolHash;
     size_t RandomGenerator::ReadOffset;
