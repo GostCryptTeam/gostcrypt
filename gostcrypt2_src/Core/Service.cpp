@@ -41,7 +41,7 @@ namespace GostCrypt {
             outputFile.open(stdout, QFile::WriteOnly);
 
 			// connecting signals
-			connect(&app, SIGNAL(sendException(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));
+            connect(&app, SIGNAL(exceptionCaught(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));
 			connect(this, SIGNAL(exit()), &app, SLOT(quit()));
 
 			connectRequestHandlingSignals();
