@@ -10,7 +10,7 @@
 namespace GostCrypt {
     namespace Core {
 
-		ServiceHandler::ServiceHandler(QString programName, QStringList args) : programName(programName), args(args)
+        ServiceHandler::ServiceHandler(QString programName, QStringList args) : programPath(programName), args(args)
 		{
 
 			INIT_SERIALIZE(InitResponse);
@@ -20,8 +20,9 @@ namespace GostCrypt {
 			INIT_SERIALIZE(UnknowResponse);
 
 			connect(&process, SIGNAL(readyReadStandardOutput()), this, SLOT(receive()));
-			connect(this, SIGNAL(responseReaded()), this, SLOT(receive()));
+            connect(this, SIGNAL(sendResponse(QVariant&)), this, SLOT(receive()));
 			connect(&process, SIGNAL(started()), this, SLOT(processStarted()));
+            connect(&process, SIGNAL(started()), this, SIGNAL(started()));
 			connect(&process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processExited(int)));
 			#ifdef DEBUG_SERVICE_HANDLER
 			connect(&process, SIGNAL(bytesWritten(qint64)), this, SLOT(dbg_bytesWritten(qint64)));
@@ -98,7 +99,6 @@ namespace GostCrypt {
 			qDebug() << "Receiving response: " << v.typeName();
 			#endif
 			emit sendResponse(v);
-			emit responseReaded();
 		}
 
 		void ServiceHandler::sendRequests()
@@ -126,7 +126,7 @@ namespace GostCrypt {
 			Q_UNUSED(exitCode)
 			#endif
 			if(askedToQuit) {
-				emit exited();
+                emit exited();
 			} else if (!processInitialized) {
 				processCrashedBeforeInitialization();
 			} else {
@@ -145,13 +145,12 @@ namespace GostCrypt {
 			qDebug() << "Service process (" << process.processId() << ") started.";
 			#endif
 			processInitialized = false;
-			emit started();
 		}
 
 		bool ServiceHandler::isInitialized()
 		{
-			return (processInitialized || (process.state() == QProcess::NotRunning));
-		}
+            return processInitialized;
+        }
 
 		void ServiceHandler::processCrashedBeforeInitialization()
 		{
@@ -169,7 +168,7 @@ namespace GostCrypt {
 			#endif
 
 			processStream.setDevice(&process);
-			process.setProgram(programName);
+            process.setProgram(programPath);
 			process.setArguments(args);
 			#ifdef DEBUG_SERVICE_HANDLER
 			process.setProcessChannelMode(QProcess::ForwardedErrorChannel);

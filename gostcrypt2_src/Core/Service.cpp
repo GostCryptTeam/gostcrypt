@@ -139,7 +139,7 @@ namespace GostCrypt {
 				#ifdef DEBUG_SERVICE_HANDLER
 				qDebug() << "Exception catched, forwarding to parent process";
 				#endif
-				emit sendException(e);
+                emit exceptionCaught(e);
 			} catch (QException &e) {
 				qDebug() << e.what();
 			}
