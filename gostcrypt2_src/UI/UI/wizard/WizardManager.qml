@@ -36,7 +36,7 @@ Item {
         "VOLUME_ALGO": 7,
         "VOLUME_SIZE": 8,
         "VOLUME_PWD": 9,
-        "VOLUME_FORMAT": 10,
+        //"VOLUME_FORMAT": 10,
         "VOLUME_OUTER_CONTENTS": 11,
         "VOLUME_HIDDEN_VOLUME": 12,
         "VOLUME_END": 666
@@ -99,6 +99,39 @@ Item {
                                + "GUIDE), DO NOT WRITE TO THE OUTER VOLUME. OTHERWISE, YOU MAY OVERWRITE AND DAMAGE THE HIDDEN VOLUME!"),
     }
 
+    //All choices possibilities
+    //Format : "page id / loading bar value"
+    property var pathBase: [{0: 1, 1: 1},
+                            {0: 2, 1: 1},
+                            {0: 3, 1: 1},
+                            {0: 4, 1: 2}]
+
+    property var pathFileNormal: [{0: 7, 1: 3},
+                                  {0: 8, 1: 4},
+                                  {0: 9, 1: 4}]
+
+    property var pathFileHiddenNormal: [
+        {0: 6, 1: 3},
+        {0: 7, 1: 3},
+                                        {0: 8, 1: 3},
+                                        {0: 9, 1: 3},
+                                        {0: 11, 1: 3},
+        {0: 5, 1: 4},
+                                                {0: 12, 1: 4},
+                                                {0: 7, 1: 4},
+                                                {0: 8, 1: 4},
+                                                {0: 9, 1: 4},
+                                                {0: 11, 1: 4}]
+
+    property var pathFileHiddenDirect: [{0: 5, 1: 2},
+                                        {0: 12, 1: 3},
+                                        {0: 7, 1: 3},
+                                        {0: 8, 1: 3},
+                                        {0: 9, 1: 4},
+                                        {0: 11, 1: 4}]
+
+    property var path: {"type": pathBase, "position": 0}
+
     signal next()
     signal back()
     signal cancel()
@@ -129,8 +162,6 @@ Item {
                     easing.type: Easing.InExpo
                 }
     }
-
-
 
     Row {
         id: steps
@@ -198,6 +229,7 @@ Item {
 
     function manageWizard(direction)
     {
+        console.log(currentPage)
         switch(currentPage)
         {
             /* Page1.qml
@@ -206,15 +238,18 @@ Item {
              */
         case progress.VOLUME_TYPE:
             volumeInfos.CONTAINER_TYPE = content.item.type
-            manageProgressBar(1)
-            if(direction === 1)
+            if(volumeInfos.CONTAINER_TYPE === 0) //FILE
             {
-                changePage(2, qsTr("Volume Type"), currentPage)
+                path.position += 1;
+                changePage(qsTr("Volume Type"), currentPage)
                 manageButtons(true, false);
             }
+            else //DEVICE
+            {
+                path.position += 1;
+            }
+
             break;
-
-
 
             /* Page2.qml
              * * Standard GostCrypt Volume
@@ -222,23 +257,26 @@ Item {
              */
         case progress.VOLUME_ISHIDDEN:
             volumeInfos.VOLUME_TYPE = content.item.type
-            manageProgressBar(1)
             if(direction === 1) //1 => normal
             {
                 // Choice: Standard GostCrypt Volume
                 if(volumeInfos.VOLUME_TYPE === 0)
                 {
-                    changePage(4, qsTr("Volume Location"), currentPage)
+                    path.position += 2;
+                    changePage(qsTr("Volume Location"), currentPage)
+                    path.type = pathFileNormal; path.position = 0;
                     manageButtons(true, true);
-                    content.source = "Page4.qml"
                     content.item.message = texts.PAGE_4
                     content.item.type = 0
-                }else { //Choice : Hideden GostCrypt Volume
-                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
+                }else {
+                    //Choice : Hidden GostCrypt Volume
+                    path.position += 1;
+                    changePage(qsTr("Volume Creation Mode"), currentPage)
                     manageButtons(true, true);
                 }
             }else{
-                changePage(1, qsTr("GostCrypt Volume Creation Wizard"), currentPage)
+                path.position -= 1;
+                changePage(qsTr("GostCrypt Volume Creation Wizard"), currentPage)
                 manageButtons(false, false);
             }
             break;
@@ -251,23 +289,26 @@ Item {
              */
         case progress.DIRECT_NORMAL:
             volumeInfos.NORMAL_OR_HIDDEN = content.item.type
-            manageProgressBar(1)
             if(direction === 1) //1 => normal
             {
-                changePage(4, qsTr("Volume Location"), currentPage)
+                path.position += 1
+                changePage(qsTr("Volume Location"), currentPage)
                 //normal
                 if(volumeInfos.NORMAL_OR_HIDDEN === 0)
                 {
+                    path.type = pathFileHiddenNormal; path.position = 0;
                     content.item.message = texts.PAGE_4_OUTER
                     content.item.type = 2
                     content.item.setFileDialog(false)
                 }else{ //direct mode (Quick)
+                    path.type = pathFileHiddenDirect; path.position = 0;
                     content.item.message = texts.PAGE_4_HIDDEN
                     content.item.type = 1
                     content.item.setFileDialog(true)
                 }
             }else{
-                changePage(2, qsTr("Volume Type"), currentPage)
+                path.position -= 1;
+                changePage(qsTr("Volume Type"), currentPage)
                 manageButtons(true, false);
             }
             break;
@@ -284,29 +325,30 @@ Item {
             volumeInfos.VOLUME_PATH = content.item.path
             if(direction === 1 && (volumeInfos.VOLUME_PATH !== "")) //1 => normal
             {
-                manageProgressBar(2)
                 switch (content.item.type) {
                 case 0:
-                    changePage(7, qsTr("Encryption Options"), currentPage)
+                    changePage(qsTr("Encryption Options"), currentPage)
                     qmlRequest("algorithms", "")
                     break;
                 case 1:
-                    changePage(5, qsTr("Volume Password"), currentPage)
+                    changePage(qsTr("Volume Password"), currentPage)
                     break;
                 case 2:
-                    changePage(6, qsTr("Outer Volume"), currentPage)
+                    changePage(qsTr("Outer Volume"), currentPage)
                     break;
                 }
             }else if(direction !== 1){
-                manageProgressBar(2)
+                path.type = pathBase
                 switch (content.item.type) {
                 case 0:
-                    changePage(2, qsTr("Volume Type"), currentPage)
+                    path.position = 1
+                    changePage(qsTr("Volume Type"), currentPage)
                     manageButtons(true, false);
                     break;
                 case 1:
                 case 2:
-                    changePage(3, qsTr("Volume Creation Mode"), currentPage)
+                    path.position = 2
+                    changePage(qsTr("Volume Creation Mode"), currentPage)
                     break;
                 }
             }
@@ -319,20 +361,19 @@ Item {
         case progress.VOLUME_DIRECT_PWD: //volume password (hidden/direct)
             volumeInfos.VOLUME_PWD = content.item.password
             volumeInfos.VOLUME_KEYFILES = content.item.listKeyfiles
-            if(direction === 1 && volumeInfos.VOLUME_PWD !== "") //1 => normal
+            if(direction === 1 && (volumeInfos.VOLUME_PWD !== "" || volumeInfos.VOLUME_KEYFILES.length > 0)) //1 => normal
             {
-                changePage(12, qsTr("Hidden Volume"), currentPage)
-                manageProgressBar(2)
+                path.position += 1
+                changePage(qsTr("Hidden Volume"), currentPage)
                 content.item.type = 3
             }else if(direction !== 1){
-                changePage(4, qsTr("Volume Location"), currentPage)
+                path.type = pathBase; path.position = 3;
+                changePage(qsTr("Volume Location"), currentPage)
                 content.item.message = texts.PAGE_4_HIDDEN
                 content.item.type = 1
                 content.item.setFileDialog(true)
-                manageProgressBar(2)
             }
             break;
-
 
 
             /* Page6.qml
@@ -341,16 +382,17 @@ Item {
         case progress.VOLUME_OUTER_VOLUME: //outer volume message (hidden/normal)
             if(direction === 1)
             {
-                changePage(7, qsTr("Encryption Options"), currentPage)
+                path.position += 1
+                changePage(qsTr("Encryption Options"), currentPage)
                 qmlRequest("algorithms", "")
-                manageProgressBar(3)
                 content.item.type = 1
             }else{
-                changePage(4, qsTr("Volume Location"), currentPage)
+                path.type = pathBase; path.position = 3;
+                changePage(qsTr("Volume Location"), currentPage)
+                path.type = pathFileHiddenNormal; path.position = 0;
                 content.item.message = texts.PAGE_4_OUTER
                 content.item.type = 2
                 content.item.setFileDialog(false)
-                manageProgressBar(6,direction,0)
             }
             break;
 
@@ -361,7 +403,6 @@ Item {
              */
         case progress.VOLUME_ALGO: //algorithm & hash (standard volume)
             typeBranch = content.item.type
-            manageProgressBar(3)
             //type 0 & 1 (normal) => volumeInfos.ALGORITHM_HASH_NAMES, else volumeInfos.HIDDEN_ALGORITHM_HASH_NAMES
             if(content.item.type !== 2 && content.item.type !== 3)
                 volumeInfos.ALGORITHM_HASH_NAMES = content.item.used
@@ -369,29 +410,35 @@ Item {
                 volumeInfos.HIDDEN_ALGORITHM_HASH_NAMES = content.item.used
             if(direction === 1)
             {
-                if(typeBranch !== 3 && typeBranch !== 2) {
-                    changePage(8, qsTr("Volume Size"), currentPage)
+                console.log("type ==== " + typeBranch)
+                path.position += 1;
+                if(typeBranch === 0) {
+                    changePage(qsTr("Volume Size"), currentPage)
                     content.item.setText(texts.PAGE_8_NORMAL_1 + "50Go" + "<br>", texts.PAGE_8_NORMAL_2)
                 }
                 else {
-                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                    changePage(qsTr("Hidden Volume Size"), currentPage)
                     content.item.setText(texts.PAGE_8_HIDDEN_1 + "50Go"+"</b>", texts.PAGE_8_HIDDEN_2)
                 }
                 content.item.type = typeBranch
             }else{
                 switch(content.item.type) {
                 case 0:
-                    changePage(4, qsTr("Volume Location"), currentPage)
+                    path.type = pathBase; path.position = 3;
+                    changePage(qsTr("Volume Location"), currentPage)
+                    path.type = pathFileNormal; path.position = 0;
                     content.item.message = texts.PAGE_4
                     content.item.type = 0
                     content.item.setFileDialog(false)
                     break;
                 case 1:
-                    changePage(6, qsTr("Outer Volume"), currentPage)
+                    path.position -= 1;
+                    changePage(qsTr("Outer Volume"), currentPage)
                     break;
                 case 2:
                 case 3:
-                    changePage(12, qsTr("Hidden Volume"), currentPage)
+                    path.position -= 1;
+                    changePage(qsTr("Hidden Volume"), currentPage)
                     content.item.type = typeBranch
                     break;
                 }
@@ -415,33 +462,31 @@ Item {
                 volumeInfos.HIDDEN_VOLUME_SIZE = content.item.relativeSize
             if(direction === 1 && (content.item.sizeType && content.item.sizeType[0] > 0 || (typeBranch === 3 || typeBranch === 2))) //1 => normal
             {
+                path.position += 1;
                 if(typeBranch !== 3 && typeBranch !== 2) {
-                    changePage(9, qsTr("Volume Password"), currentPage)
+                    changePage(qsTr("Volume Password"), currentPage)
                     content.item.text_ = texts.PAGE_9_NORMAL
                 }
                 else {
-                    changePage(9, qsTr("Hidden Volume Password"), currentPage)
+                    changePage(qsTr("Hidden Volume Password"), currentPage)
                     content.item.text_ = texts.PAGE_9_HIDDEN
                 }
-                manageProgressBar(4)
                 content.item.type = typeBranch
             }else if(direction !== 1){
+                path.position -= 1;
                 if(typeBranch !== 3 && typeBranch !== 2) {
-                    changePage(7, qsTr("Encryption Options"), currentPage)
+                    changePage(qsTr("Encryption Options"), currentPage)
                     content.item.type = typeBranch
                     qmlRequest("algorithms", "")
                 }
                 else {
-                    changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                    changePage(qsTr("Hidden Volume Encryption Options"), currentPage)
                     content.item.type = typeBranch
                     qmlRequest("algorithms", "")
                 }
-                manageProgressBar(4)
                 content.item.type = typeBranch
             }
             break;
-
-
 
 
             /* Page9.qml
@@ -469,26 +514,31 @@ Item {
                     content.item.listKeyfiles.length > 0
                     ) //1 => normal
             {
-                if(typeBranch !== 3 && typeBranch !== 2)
+                if(typeBranch !== 1)
                 {
                     createVolume();
                     content.source = "PageEnd.qml"
-                    manageButtons(false, false)
+                    if(typeBranch === 1)
+                        manageButtons(false, true)
+                    else
+                        manageButtons(false, false)
                 }
                 else
-                    changePage(11, qsTr("Outer Volume Contents"), currentPage)
-                manageProgressBar(4)
+                {
+                    path.position += 1;
+                    changePage(qsTr("Outer Volume Contents"), currentPage)
+                    manageButtons(false, true)
+                }
             }else if(direction !== 1){
+                path.position -= 1;
                 if(typeBranch !== 3 && typeBranch !== 2) {
-                    changePage(8, qsTr("Volume Size"), currentPage)
+                    changePage(qsTr("Volume Size"), currentPage)
                     content.item.setText(texts.PAGE_8_NORMAL_1 + "50Go" + "</b>", texts.PAGE_8_NORMAL_2)
                 }
                 else {
-                    changePage(8, qsTr("Hidden Volume Size"), currentPage)
+                    changePage(qsTr("Hidden Volume Size"), currentPage)
                     content.item.setText(texts.PAGE_8_HIDDEN_1 + "50Go"+"</b>", texts.PAGE_8_HIDDEN_2)
                 }
-
-                manageProgressBar(4)
                 content.item.type = typeBranch
             }else{
                 openErrorMessage(qsTr("Different passwords or no Keyfiles"), qsTr("The passwords are different or empties, or you do not have a password or keyfile. <br>Please try again."))
@@ -497,70 +547,17 @@ Item {
 
 
 
-
-            /* Page10.qml
-             * Volume format : random, filesystem, cluster, dynamic
-             */
-        case progress.VOLUME_FORMAT:
-             //format volume (standard volume)
-            if(content.item.type !== 2 && content.item.type !== 3) {
-                volumeInfos.FORMAT_INFOS[0] = content.item.format[0]
-                volumeInfos.FORMAT_INFOS[1] = content.item.format[1]
-                volumeInfos.FORMAT_INFOS[2] = content.item.format[2]
-            }else {
-                volumeInfos.HIDDEN_FORMAT_INFOS[0] = content.item.format[0]
-                volumeInfos.HIDDEN_FORMAT_INFOS[1] = content.item.format[1]
-                volumeInfos.HIDDEN_FORMAT_INFOS[2] = content.item.format[2]
-            }
-            typeBranch = content.item.type
-            manageProgressBar(5)
-            //TODO : create volume here
-            if(direction === 1) //1 => normal
-            {
-                switch(content.item.type) {
-                case 0:
-                    createVolume();
-                    content.source = "PageEnd.qml"
-                    manageButtons(false, false)
-                    break;
-                case 1:
-                    changePage(11, qsTr("Outer Volume Contents"), currentPage)
-                    break;
-                case 2:
-                case 3:
-                    //TODO : create hidden volume here
-                    openErrorMessage(qsTr("Warning"), texts.HIDDEN_CREATED, 13)
-                    createVolume();
-                    manageButtons(false, false)
-                    content.source = "PageEnd.qml"
-                    changeSubWindowTitle(qsTr("GostCrypt Volume Creation Wizard"))
-                    break;
-                }
-            }else if(direction !== 1){
-                if(typeBranch !== 3 && typeBranch !== 2)
-                    changePage(9, qsTr("Volume password"), currentPage)
-                else
-                    changePage(9, qsTr("Hidden Volume password"), currentPage)
-                content.item.type = typeBranch
-            }
-            break;
-
-
-
-
             /* Page11.qml
              * Outer Volume Contents
              */
         case progress.VOLUME_OUTER_CONTENTS:
             typeBranch = content.item.type
-            manageProgressBar(3)
             if(direction === 1) //1 => normal
             {
-                changePage(12, qsTr("Hidden Volume"), currentPage)
-                content.item.type = typeBranch
+                path.position += 1;
+                changePage(qsTr("Hidden Volume"), currentPage)
             }
             break;
-
 
 
 
@@ -569,12 +566,13 @@ Item {
              */
         case progress.VOLUME_HIDDEN_VOLUME:
             typeBranch = content.item.type
-            manageProgressBar(3)
             if(direction === 1) //1 => normal
             {
-                changePage(7, qsTr("Hidden Volume Encryption Options"), currentPage)
+                path.position += 1;
+                changePage(qsTr("Hidden Volume Encryption Options"), currentPage)
                 qmlRequest("algorithms", "")
                 content.item.type = typeBranch
+                 manageButtons(true, true)
             }
             break;
 
@@ -610,18 +608,18 @@ Item {
     /*!
       * Fn : manages the page loading
       */
-    function changePage(number, title, current) {
-        content.source = "Page"+number+".qml"
+    function changePage(title, current) {
+        console.log(path.type[path.position][0])
+        content.source = "Page"+path.type[path.position][0]+".qml"
         changeSubWindowTitle(title)
-        currentPage+=(number-current)
+        currentPage = path.type[path.position][0]
+        manageProgressBar(path.type[path.position][1])
     }
 
     function createVolume()
     {
         var param, i;
-        //Setting common values
-        //param["volumeHeaderKdf"] = "" //TODO
-
+        console.log(volumeInfos.CONTAINER_TYPE)
         if(volumeInfos.CONTAINER_TYPE === 0) //FILE
         {
             if(volumeInfos.VOLUME_TYPE === 0) //FILE - Normal mode
@@ -644,10 +642,13 @@ Item {
             }
             else if(volumeInfos.VOLUME_TYPE === 1) //FILE - Hidden mode
             {
-                if(volumeInfos.NORMAL_OR_HIDDEN === 0) //FILE - Hidden mode - Create outer and inner
+                if(volumeInfos.NORMAL_OR_HIDDEN === 0)
                 {
+                    //FILE - Hidden mode - Create outer and inner
 
-                }else{ //FILE - Hidden mode - Create inner only
+                }else{
+
+                    //FILE - Hidden mode - Create inner only
                     console.log("Algo = " + volumeInfos.HIDDEN_FORMAT_INFOS[0]);
                     param = {
                         "type": 2,
