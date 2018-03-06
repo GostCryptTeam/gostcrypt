@@ -19,9 +19,9 @@ extern "C"
 #endif
 
 //In unsigned chars
-#define GOST_KEYSIZE	32
-#define GOST_BLOCKSIZE	8
-#define GOST_SBOX_SIZE	16
+#define GOST_KEYSIZE    32
+#define GOST_BLOCKSIZE  8
+#define GOST_SBOX_SIZE  16
 
 //Production setting, but can be turned off to compare the algorithm with other implementations
 #define GOST_DYNAMIC_SBOXES
@@ -51,16 +51,16 @@ typedef struct gost_kds
     quint32 X6;
     quint32 X7;
 #ifdef GOST_DYNAMIC_SBOXES
-	gost_s_box sbox;
+    gost_s_box sbox;
 #else
-	gost_s_box *sbox;
+    gost_s_box* sbox;
 #endif
 } gost_kds;
 
-void gost_encrypt(quint8 *in, quint8 *out, gost_kds *ks);
-void gost_decrypt(quint8 *in, quint8 *out, gost_kds *ks);
-void gost_set_key(quint8 *key, gost_kds *ks);
-void gost_xor_ks(gost_kds *ks, gost_kds *out_ks, quint32 *in, qint32 len);
+void gost_encrypt(quint8* in, quint8* out, gost_kds* ks);
+void gost_decrypt(quint8* in, quint8* out, gost_kds* ks);
+void gost_set_key(quint8* key, gost_kds* ks);
+void gost_xor_ks(gost_kds* ks, gost_kds* out_ks, quint32* in, qint32 len);
 
 #if defined(__cplusplus)
 }

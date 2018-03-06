@@ -19,13 +19,13 @@
 class UserInterface : public QObject
 {
     Q_OBJECT
-public:
+ public:
     /**
      * @brief Class constructor
      *
      * @param parent Parent object
      */
-    explicit UserInterface(QObject *parent = nullptr) : QObject(parent) {}
+    explicit UserInterface(QObject* parent = nullptr) : QObject(parent) {}
     /**
      * @brief Creates the graphical interface or commandline interface and sends all the necessary objects to it in context
      *
@@ -33,7 +33,7 @@ public:
      * @param argv Arguments of the main program
      * @return int Returns what the "exec" method returns at the end of the interface execution
      */
-    virtual int start(int argc, char **argv) = 0; //TODO : never used
+    virtual int start(int argc, char** argv) = 0; //TODO : never used
     /**
      * @brief Converts A size in bytes into a formatted character string (or not formatted)
      *
@@ -42,8 +42,8 @@ public:
      * @return QString Character string of the size converted to the desired format
      */
     static QString formatSize(quint64 sizeInByte, bool withFontColor);
-    static quint64 parseSize(QString s, bool *ok);
-signals:
+    static quint64 parseSize(QString s, bool* ok);
+ signals:
     /**
      * @brief A signal that is sent by GraphicInterface or CLI to the core.
      *
@@ -61,7 +61,7 @@ signals:
      * @param password The password entered by the user
      */
     void sendSudoPassword(QString password);
-private slots:
+ private slots:  // NOLINT
     DEC_PRINT_SLOT(CreateVolume) = 0;
     DEC_PRINT_SLOT(MountVolume) = 0;
     DEC_PRINT_SLOT(DismountVolume) = 0;
@@ -80,7 +80,7 @@ private slots:
      */
     virtual void askSudoPassword() = 0;
 
-protected:
+ protected:
     QSharedPointer<GostCrypt::Core::CoreBase> core; /**< Pointer to the core class */
 };
 

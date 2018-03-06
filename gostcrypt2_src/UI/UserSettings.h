@@ -15,7 +15,8 @@
  * @brief
  *
  */
-struct volumeInfo {
+struct volumeInfo
+{
     /**
      * @brief
      *
@@ -44,8 +45,9 @@ struct volumeInfo {
      * @param rhs
      * @return bool operator
      */
-    friend bool operator==(const volumeInfo& lhs, const volumeInfo& rhs) {
-        if(lhs.sPath == rhs.sPath) return true;
+    friend bool operator==(const volumeInfo& lhs, const volumeInfo& rhs)
+    {
+        if (lhs.sPath == rhs.sPath) { return true; }
         return false;
     }
     /**
@@ -55,8 +57,10 @@ struct volumeInfo {
      * @param v
      * @return QDataStream &operator
      */
-    friend QDataStream &operator<<(QDataStream &out, const volumeInfo &v) {
-        out << v.sPath << v.sName << v.sDoNotMountVolumeOnMountAllFavorite << v.sMountWhenDeviceConnected << v.sOpenExplorerWhenMounted << v.sReadOnly << v.sRemovableMedium << v.sUponLogon;
+    friend QDataStream& operator<<(QDataStream& out, const volumeInfo& v)
+    {
+        out << v.sPath << v.sName << v.sDoNotMountVolumeOnMountAllFavorite << v.sMountWhenDeviceConnected <<
+            v.sOpenExplorerWhenMounted << v.sReadOnly << v.sRemovableMedium << v.sUponLogon;
         return out;
     }
     /**
@@ -66,8 +70,10 @@ struct volumeInfo {
      * @param v
      * @return QDataStream &operator >>
      */
-    friend QDataStream &operator>>(QDataStream &in, volumeInfo &v) {
-        in >> v.sPath >> v.sName >> v.sDoNotMountVolumeOnMountAllFavorite >> v.sMountWhenDeviceConnected >> v.sOpenExplorerWhenMounted >> v.sReadOnly >> v.sRemovableMedium >> v.sUponLogon;
+    friend QDataStream& operator>>(QDataStream& in, volumeInfo& v)
+    {
+        in >> v.sPath >> v.sName >> v.sDoNotMountVolumeOnMountAllFavorite >> v.sMountWhenDeviceConnected >>
+           v.sOpenExplorerWhenMounted >> v.sReadOnly >> v.sRemovableMedium >> v.sUponLogon;
         return in;
     }
 };
@@ -76,7 +82,8 @@ struct volumeInfo {
  * @brief
  *
  */
-struct keyfileInfo {
+struct keyfileInfo
+{
     /**
      * @brief
      *
@@ -93,8 +100,9 @@ struct keyfileInfo {
      * @param rhs
      * @return bool operator
      */
-    friend bool operator==(const keyfileInfo& lhs, const keyfileInfo& rhs) {
-        if(lhs.sPath == rhs.sPath) return true;
+    friend bool operator==(const keyfileInfo& lhs, const keyfileInfo& rhs)
+    {
+        if (lhs.sPath == rhs.sPath) { return true; }
         return false;
     }
     /**
@@ -104,7 +112,8 @@ struct keyfileInfo {
      * @param v
      * @return QDataStream &operator
      */
-    friend QDataStream &operator<<(QDataStream &out, const keyfileInfo &v) {
+    friend QDataStream& operator<<(QDataStream& out, const keyfileInfo& v)
+    {
         out << v.sPath << v.sName;
         return out;
     }
@@ -115,7 +124,8 @@ struct keyfileInfo {
      * @param v
      * @return QDataStream &operator >>
      */
-    friend QDataStream &operator>>(QDataStream &in, keyfileInfo &v) {
+    friend QDataStream& operator>>(QDataStream& in, keyfileInfo& v)
+    {
         in >> v.sPath >> v.sName;
         return in;
     }
@@ -132,7 +142,7 @@ Q_DECLARE_METATYPE(keyfileInfo)
 class UserSettings : public QObject
 {
     Q_OBJECT
-public:
+ public:
     /**
      * @brief
      *
@@ -254,7 +264,7 @@ public:
      */
     Q_INVOKABLE QString getVersion() const;
 
-private:
+ private:
     QSettings mSettings; /**< TODO: describe */
     /**
      * @brief
@@ -278,7 +288,7 @@ private:
                         bool aMountWhenDeviceConnected = false,
                         bool aOpenExplorerWhenMounted = false,
                         bool aDoNotMountVolumeOnMountAllFavorite = false
-            );
+                       );
 
 
 };

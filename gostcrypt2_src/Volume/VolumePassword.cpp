@@ -11,56 +11,64 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-    VolumePassword::VolumePassword () : PasswordSize (0)
-	{
-		AllocateBuffer ();
-	}
+VolumePassword::VolumePassword() : PasswordSize(0)
+{
+    AllocateBuffer();
+}
 
-	VolumePassword::VolumePassword (const char *password, size_t size)
-	{
-		Set ((const quint8 *) password, size);
-	}
+VolumePassword::VolumePassword(const char* password, size_t size)
+{
+    Set((const quint8*) password, size);
+}
 
-    bool VolumePassword::operator==(const VolumePassword &other) const
+bool VolumePassword::operator==(const VolumePassword& other) const
+{
+    const BufferPtr data1(DataPtr(), Size());
+    const BufferPtr data2(other.DataPtr(), other.Size());
+    return data1.isDataEqual(data2);
+}
+
+void VolumePassword::AllocateBuffer()
+{
+    if (!PasswordBuffer.isAllocated())
     {
-        const BufferPtr data1(DataPtr(), Size());
-        const BufferPtr data2(other.DataPtr(), other.Size());
-        return data1.isDataEqual(data2);
+        PasswordBuffer.allocate(MaxSize);
+    }
+}
+
+bool VolumePassword::IsPortable() const
+{
+    for (size_t i = 0; i < PasswordSize; i++)
+    {
+        if (PasswordBuffer[i] >= 0x7f || PasswordBuffer[i] < 0x20)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void VolumePassword::Set(const quint8* password, size_t size)
+{
+    AllocateBuffer();
+
+    if (size > MaxSize)
+    {
+        throw InvalidParameterException("Password size",
+                                        "The password can not be longer than " + QString::number(MaxSize) + " characters");
     }
 
-	void VolumePassword::AllocateBuffer ()
-	{
-		if (!PasswordBuffer.isAllocated ())
-			PasswordBuffer.allocate (MaxSize);
-	}
+    PasswordBuffer.copyFrom(BufferPtr(password, size));
+    PasswordSize = size;
+}
 
-	bool VolumePassword::IsPortable () const
-	{
-		for (size_t i = 0; i < PasswordSize; i++)
-		{
-			if (PasswordBuffer[i] >= 0x7f || PasswordBuffer[i] < 0x20)
-				return false;
-		}
-		return true;
-	}
-
-
-	void VolumePassword::Set (const quint8 *password, size_t size)
-	{
-		AllocateBuffer ();
-
-		if (size > MaxSize)
-            throw InvalidParameterException("Password size", "The password can not be longer than " + QString::number(MaxSize) + " characters");
-
-        PasswordBuffer.copyFrom (BufferPtr (password, size));
-		PasswordSize = size;
-	}
-
-    void VolumePassword::Set (const BufferPtr &password)
-	{
-        Set (password.get(), password.size());
-	}
+void VolumePassword::Set(const BufferPtr& password)
+{
+    Set(password.get(), password.size());
+}
 }
 }

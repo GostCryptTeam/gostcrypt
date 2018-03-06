@@ -49,7 +49,8 @@ void VolumeHeader::Create(BufferPtr& headerBuffer, VolumeHeaderCreationOptions& 
 {
     if (options.DataKey.size() != options.EA->GetKeySize() * 2)
     {
-        throw InvalidParameterException("options.DataKey.size()", "Given Key size different from the encryption algorithm key size");
+        throw InvalidParameterException("options.DataKey.size()",
+                                        "Given Key size different from the encryption algorithm key size");
     }
     if (options.Salt.size() != GetSaltSize())
     {
@@ -78,7 +79,10 @@ void VolumeHeader::Create(BufferPtr& headerBuffer, VolumeHeaderCreationOptions& 
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
+        throw InvalidParameterException("SectorSize",
+                                        "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) +
+                                        ", lower than " + QString::number(GST_MAX_VOLUME_SECTOR_SIZE) + " and multiple of " +
+                                        QString::number(ENCRYPTION_DATA_UNIT_SIZE) + ".");
     }
 
     EA = options.EA;
@@ -132,7 +136,8 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
     }
 
     BufferPtr magicNumber((const quint8*)"TRUE", 4);
-    if(!magicNumber.isDataEqual(header.getRange(0, 4))) {
+    if (!magicNumber.isDataEqual(header.getRange(0, 4)))
+    {
         return false;
     }
 
@@ -142,12 +147,15 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
 
     if (HeaderVersion < MinAllowedHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(MinAllowedHeaderVersion, 16) + " and is no longer supported");
+        throw VolumeVersionNotCompatibleException("Volume version is " + QString::number(
+                    MinAllowedHeaderVersion, 16) + " and is no longer supported");
     }
 
     if (HeaderVersion > CurrentHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(HeaderVersion, 16) + " but this GostCrypt version support only the version " + QString::number(CurrentHeaderVersion, 16) + " and below.");
+        throw VolumeVersionNotCompatibleException("Volume version is " + QString::number(HeaderVersion,
+                16) + " but this GostCrypt version support only the version " + QString::number(
+                    CurrentHeaderVersion, 16) + " and below.");
     }
 
     if (HeaderVersion >= 4
@@ -185,7 +193,10 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
+        throw InvalidParameterException("SectorSize",
+                                        "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) +
+                                        ", lower than " + QString::number(GST_MAX_VOLUME_SECTOR_SIZE) + " and multiple of " +
+                                        QString::number(ENCRYPTION_DATA_UNIT_SIZE) + ".");
     }
 
 #if !(defined (GST_WINDOWS) || defined (GST_LINUX))
@@ -219,7 +230,8 @@ T VolumeHeader::DeserializeEntry(const BufferPtr& header, size_t& offset)
 
     if (offset > header.size())
     {
-        throw InvalidParameterException("offset", "Trying to deserialize header entry after the end of the header");
+        throw InvalidParameterException("offset",
+                                        "Trying to deserialize header entry after the end of the header");
     }
 
     return qToBigEndian(*reinterpret_cast<const T*>(header.get() + offset - sizeof(T)));
@@ -230,7 +242,8 @@ T VolumeHeader::DeserializeEntryAt(const BufferPtr& header, const size_t& offset
 {
     if (offset + sizeof(T) > header.size())
     {
-        throw InvalidParameterException("offset", "Trying to deserialize header entry after the end of the header");
+        throw InvalidParameterException("offset",
+                                        "Trying to deserialize header entry after the end of the header");
     }
 
     return qToBigEndian(*reinterpret_cast<const T*>(header.get() + offset));
@@ -317,7 +330,10 @@ void VolumeHeader::Serialize(BufferPtr& header) const
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
+        throw InvalidParameterException("SectorSize",
+                                        "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) +
+                                        ", lower than " + QString::number(GST_MAX_VOLUME_SECTOR_SIZE) + " and multiple of " +
+                                        QString::number(ENCRYPTION_DATA_UNIT_SIZE) + ".");
     }
 
     SerializeEntry(SectorSize, header, offset);
@@ -334,7 +350,8 @@ void VolumeHeader::SerializeEntry(const T& entry, BufferPtr& header, size_t& off
 
     if (offset > header.size())
     {
-        throw InvalidParameterException("offset", "Trying to serialize header entry after the end of the header");
+        throw InvalidParameterException("offset",
+                                        "Trying to serialize header entry after the end of the header");
     }
 
     *reinterpret_cast<T*>(header.get() + offset - sizeof(T)) = qToBigEndian(entry);

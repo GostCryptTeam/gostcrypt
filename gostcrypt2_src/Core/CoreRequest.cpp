@@ -347,7 +347,7 @@ DismountVolumeRequest::DismountVolumeRequest()
 
 GetMountedVolumesRequest::GetMountedVolumesRequest()
 {
-                         this->all = true;
+    this->all = true;
 }
 
 BackupHeaderRequest::BackupHeaderRequest()
@@ -355,23 +355,25 @@ BackupHeaderRequest::BackupHeaderRequest()
     this->hiddenVolume = false;
 }
 
-CreateVolumeRequest::VolumeParams::VolumeParams() {
-     filesystem = GetFileSystemTypePlatformNative();
-     size = 1.0;
-     volumeHeaderKdf = "Whirlpool";
-     encryptionAlgorithm = "Gost Grasshopper";
+CreateVolumeRequest::VolumeParams::VolumeParams()
+{
+    filesystem = GetFileSystemTypePlatformNative();
+    size = 1.0;
+    volumeHeaderKdf = "Whirlpool";
+    encryptionAlgorithm = "Gost Grasshopper";
 }
 
-QString GetFileSystemTypePlatformNative() {
-    #ifdef GST_LINUX
+QString GetFileSystemTypePlatformNative()
+{
+#ifdef GST_LINUX
     return "ext3";
-    #elif defined (GST_MACOSX)
+#elif defined (GST_MACOSX)
     return "MacOsExt";
-    #elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
+#elif defined (GST_FREEBSD) || defined (GST_SOLARIS)
     return "fs";
-    #else
+#else
     return "fat";
-                         #endif
+#endif
 }
 
 RestoreHeaderRequest::RestoreHeaderRequest()

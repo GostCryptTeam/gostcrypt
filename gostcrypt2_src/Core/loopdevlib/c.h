@@ -29,7 +29,7 @@
 #ifndef __GNUC_PREREQ
 # if defined __GNUC__ && defined __GNUC_MINOR__
 #  define __GNUC_PREREQ(maj, min) \
-	((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+    ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
 # else
 #  define __GNUC_PREREQ(maj, min) 0
 # endif
@@ -39,14 +39,14 @@
 
 /* &a[0] degrades to a pointer: a different type from an array */
 # define __must_be_array(a) \
-	UL_BUILD_BUG_ON_ZERO(__builtin_types_compatible_p(__typeof__(a), __typeof__(&a[0])))
+    UL_BUILD_BUG_ON_ZERO(__builtin_types_compatible_p(__typeof__(a), __typeof__(&a[0])))
 
 # define ignore_result(x) ({ \
-	__typeof__(x) __dummy __attribute__((__unused__)) = (x); (void) __dummy; \
+    __typeof__(x) __dummy __attribute__((__unused__)) = (x); (void) __dummy; \
 })
 
 #else /* !__GNUC__ */
-# define __must_be_array(a)	0
+# define __must_be_array(a) 0
 # define __attribute__(_arg_)
 # define ignore_result(x) ((void) (x))
 #endif /* !__GNUC__ */
@@ -95,19 +95,19 @@
 #endif
 
 #ifndef min
-# define min(x, y) ({				\
-	__typeof__(x) _min1 = (x);		\
-	__typeof__(y) _min2 = (y);		\
-	(void) (&_min1 == &_min2);		\
-	_min1 < _min2 ? _min1 : _min2; })
+# define min(x, y) ({               \
+    __typeof__(x) _min1 = (x);      \
+    __typeof__(y) _min2 = (y);      \
+    (void) (&_min1 == &_min2);      \
+    _min1 < _min2 ? _min1 : _min2; })
 #endif
 
 #ifndef max
-# define max(x, y) ({				\
-	__typeof__(x) _max1 = (x);		\
-	__typeof__(y) _max2 = (y);		\
-	(void) (&_max1 == &_max2);		\
-	_max1 > _max2 ? _max1 : _max2; })
+# define max(x, y) ({               \
+    __typeof__(x) _max1 = (x);      \
+    __typeof__(y) _max2 = (y);      \
+    (void) (&_max1 == &_max2);      \
+    _max1 > _max2 ? _max1 : _max2; })
 #endif
 
 #ifndef offsetof
@@ -116,40 +116,46 @@
 
 #ifndef container_of
 #define container_of(ptr, type, member) ({                       \
-	const __typeof__( ((type *)0)->member ) *__mptr = (ptr); \
-	(type *)( (char *)__mptr - offsetof(type,member) );})
+    const __typeof__( ((type *)0)->member ) *__mptr = (ptr); \
+    (type *)( (char *)__mptr - offsetof(type,member) );})
 #endif
 
 #ifndef HAVE_PROGRAM_INVOCATION_SHORT_NAME
 # ifdef HAVE___PROGNAME
-extern char *__progname;
+extern char* __progname;
 #  define program_invocation_short_name __progname
 # else
 #  ifdef HAVE_GETEXECNAME
 #   define program_invocation_short_name \
-		prog_inv_sh_nm_from_file(getexecname(), 0)
+        prog_inv_sh_nm_from_file(getexecname(), 0)
 #  else
 #   define program_invocation_short_name \
-		prog_inv_sh_nm_from_file(__FILE__, 1)
+        prog_inv_sh_nm_from_file(__FILE__, 1)
 #  endif
 static char prog_inv_sh_nm_buf[256];
-static inline char *
-prog_inv_sh_nm_from_file(char *f, char stripext)
+static inline char*
+prog_inv_sh_nm_from_file(char* f, char stripext)
 {
-	char *t;
+    char* t;
 
-	if ((t = strrchr(f, '/')) != NULL)
-		t++;
-	else
-		t = f;
+    if ((t = strrchr(f, '/')) != NULL)
+    {
+        t++;
+    }
+    else
+    {
+        t = f;
+    }
 
-	strncpy(prog_inv_sh_nm_buf, t, sizeof(prog_inv_sh_nm_buf) - 1);
-	prog_inv_sh_nm_buf[sizeof(prog_inv_sh_nm_buf) - 1] = '\0';
+    strncpy(prog_inv_sh_nm_buf, t, sizeof(prog_inv_sh_nm_buf) - 1);
+    prog_inv_sh_nm_buf[sizeof(prog_inv_sh_nm_buf) - 1] = '\0';
 
-	if (stripext && (t = strrchr(prog_inv_sh_nm_buf, '.')) != NULL)
-		*t = '\0';
+    if (stripext && (t = strrchr(prog_inv_sh_nm_buf, '.')) != NULL)
+    {
+        *t = '\0';
+    }
 
-	return prog_inv_sh_nm_buf;
+    return prog_inv_sh_nm_buf;
 }
 # endif
 #endif
@@ -157,22 +163,29 @@ prog_inv_sh_nm_from_file(char *f, char stripext)
 
 #ifndef HAVE_ERR_H
 static inline void
-errmsg(char doexit, int excode, char adderr, const char *fmt, ...)
+errmsg(char doexit, int excode, char adderr, const char* fmt, ...)
 {
-	fprintf(stderr, "%s: ", program_invocation_short_name);
-	if (fmt != NULL) {
-		va_list argp;
-		va_start(argp, fmt);
-		vfprintf(stderr, fmt, argp);
-		va_end(argp);
-		if (adderr)
-			fprintf(stderr, ": ");
-	}
-	if (adderr)
-		fprintf(stderr, "%m");
-	fprintf(stderr, "\n");
-	if (doexit)
-		exit(excode);
+    fprintf(stderr, "%s: ", program_invocation_short_name);
+    if (fmt != NULL)
+    {
+        va_list argp;
+        va_start(argp, fmt);
+        vfprintf(stderr, fmt, argp);
+        va_end(argp);
+        if (adderr)
+        {
+            fprintf(stderr, ": ");
+        }
+    }
+    if (adderr)
+    {
+        fprintf(stderr, "%m");
+    }
+    fprintf(stderr, "\n");
+    if (doexit)
+    {
+        exit(excode);
+    }
 }
 
 #ifndef HAVE_ERR
@@ -199,9 +212,9 @@ typedef int64_t loff_t;
 #if !defined(HAVE_DIRFD) && (!defined(HAVE_DECL_DIRFD) || HAVE_DECL_DIRFD == 0) && defined(HAVE_DIR_DD_FD)
 #include <sys/types.h>
 #include <dirent.h>
-static inline int dirfd(DIR *d)
+static inline int dirfd(DIR* d)
 {
-	return d->dd_fd;
+    return d->dd_fd;
 }
 #endif
 
@@ -211,9 +224,9 @@ static inline int dirfd(DIR *d)
 #include <fcntl.h>
 
 #ifdef O_CLOEXEC
-#define UL_CLOEXECSTR	"e"
+#define UL_CLOEXECSTR   "e"
 #else
-#define UL_CLOEXECSTR	""
+#define UL_CLOEXECSTR   ""
 #endif
 
 #ifndef O_CLOEXEC
@@ -239,15 +252,16 @@ static inline int dirfd(DIR *d)
 static inline int xusleep(useconds_t usec)
 {
 #ifdef HAVE_NANOSLEEP
-	struct timespec waittime = {
-		.tv_sec   =  usec / 1000000L,
-		.tv_nsec  = (usec % 1000000L) * 1000
-	};
-	return nanosleep(&waittime, NULL);
+    struct timespec waittime =
+    {
+        .tv_sec   =  usec / 1000000L,
+        .tv_nsec  = (usec % 1000000L) * 1000
+    };
+    return nanosleep(&waittime, NULL);
 #elif defined(HAVE_USLEEP)
-	return usleep(usec);
+    return usleep(usec);
 #else
-# error	"System with usleep() or nanosleep() required!"
+# error "System with usleep() or nanosleep() required!"
 #endif
 }
 
@@ -268,19 +282,19 @@ static inline int xusleep(useconds_t usec)
  * scanf modifiers for "strings allocation"
  */
 #ifdef HAVE_SCANF_MS_MODIFIER
-#define UL_SCNsA	"%ms"
+#define UL_SCNsA    "%ms"
 #elif defined(HAVE_SCANF_AS_MODIFIER)
-#define UL_SCNsA	"%as"
+#define UL_SCNsA    "%as"
 #endif
 
 /*
  * seek stuff
  */
 #ifndef SEEK_DATA
-# define SEEK_DATA	3
+# define SEEK_DATA  3
 #endif
 #ifndef SEEK_HOLE
-# define SEEK_HOLE	4
+# define SEEK_HOLE  4
 #endif
 
 #endif /* UTIL_LINUX_C_H */

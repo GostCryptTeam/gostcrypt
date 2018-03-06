@@ -13,24 +13,29 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	EncryptionMode::EncryptionMode () : KeySet (false), SectorOffset (0)
-	{
-	}
+EncryptionMode::EncryptionMode() : KeySet(false), SectorOffset(0)
+{
+}
 
-	EncryptionMode::~EncryptionMode ()
-	{
-	}
+EncryptionMode::~EncryptionMode()
+{
+}
 
-	void EncryptionMode::DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
-	{
-		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::DecryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
-	}
+void EncryptionMode::DecryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+                                    size_t sectorSize) const
+{
+    EncryptionThreadPool::DoWork(EncryptionThreadPool::WorkType::DecryptDataUnits, this, data,
+                                 sectorIndex, sectorCount, sectorSize);
+}
 
-	void EncryptionMode::EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
-	{
-		EncryptionThreadPool::DoWork (EncryptionThreadPool::WorkType::EncryptDataUnits, this, data, sectorIndex, sectorCount, sectorSize);
-	}
+void EncryptionMode::EncryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+                                    size_t sectorSize) const
+{
+    EncryptionThreadPool::DoWork(EncryptionThreadPool::WorkType::EncryptDataUnits, this, data,
+                                 sectorIndex, sectorCount, sectorSize);
+}
 }
 }

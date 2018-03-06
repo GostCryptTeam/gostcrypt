@@ -11,8 +11,10 @@
 #include "Volume/VolumePassword.h"
 #include "Volume/VolumeType.h"
 
-namespace GostCrypt {
-namespace Core {
+namespace GostCrypt
+{
+namespace Core
+{
 /**
  * @brief Initialize the CoreRequest class and subclass to make them serializable across processes
  */
@@ -23,7 +25,7 @@ void initCoreRequest();
  *
  * @return Name of the prefered filesystem on the current platform
  */
-QString GetFileSystemTypePlatformNative ();
+QString GetFileSystemTypePlatformNative();
 
 /**
  * @brief Class storing all information used to report the request processing progress
@@ -49,7 +51,10 @@ struct ProgressTrackingParameters
      * @param subStart Progress achieved within the current method before the sub-function call in percentage
      * @param subEnd Progress achieved within the current method after the sub-function call in percentage
      */
-    explicit ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
+    explicit ProgressTrackingParameters(ProgressTrackingParameters& parent, qreal subStart,
+                                        qreal subEnd) : requestId(parent.requestId),
+        start(parent.end * subStart + parent.start * (1 - subStart)),
+        end(parent.end * subEnd + parent.start * (1 - subEnd)) {}
 
     quint32 requestId; /**< Request Identifier given by the User Interface module */
     qreal start; /**< Progress achieved with the request processing before the current function call in percentage */
@@ -69,7 +74,8 @@ struct CoreRequest
      */
     CoreRequest() : emitResponse(true) {}
     bool emitResponse; /**< boolean true when the signal corresponding to the action must be emited after action has been successfully performed */
-    QVariantMap passThrough; /**< QVariantMap storing data that need to be forwarded to the source code executed after the action has been successfully performed (in the response object) */
+    QVariantMap
+    passThrough; /**< QVariantMap storing data that need to be forwarded to the source code executed after the action has been successfully performed (in the response object) */
     ProgressTrackingParameters id; /**< Object used to report the request processing progress */
     DEC_SERIALIZABLE(CoreRequest);
 };
@@ -78,22 +84,25 @@ struct CoreRequest
  * @brief Class storing all parameters for the volume creation action
  *
  */
-struct CreateVolumeRequest : CoreRequest {
+struct CreateVolumeRequest : CoreRequest
+{
     /**
      * @brief Default constructor with default parameters
      *
      */
-    CreateVolumeRequest() {
+    CreateVolumeRequest()
+    {
         type = Volume::VolumeType::Normal;
         size = 0;
-		innerVolume.reset();
+        innerVolume.reset();
         outerVolume.reset(new GostCrypt::Core::CreateVolumeRequest::VolumeParams());
     }
     /**
      * @brief Class storing all parameters for the creation of a volume instance inside the volume container (There can be currently be two volume instance: outer and inner (hidden) ones)
      *
      */
-    struct VolumeParams {
+    struct VolumeParams
+    {
         /**
          * @brief Default constructor with default parameters
          *
@@ -108,10 +117,12 @@ struct CreateVolumeRequest : CoreRequest {
         DEC_SERIALIZABLE(VolumeParams);
     };
     QFileInfo path; /**< path of the file or device to use for the volume container */
-    Volume::VolumeType::Enum type; /**< Volume container type: Normal(only one outer volume instance) or Hidden (an outer volume instance and an inner hidden volume instance) */
+    Volume::VolumeType::Enum
+    type; /**< Volume container type: Normal(only one outer volume instance) or Hidden (an outer volume instance and an inner hidden volume instance) */
     quint64 size; /**< size of the container in byte */
     QSharedPointer <VolumeParams> outerVolume; /**< VolumeParams object for the outer volume instance */
-    QSharedPointer <VolumeParams> innerVolume; /**< VolumeParams object for the inner hidden volume instance (can be NULL if no hidden volume instance need to be created)*/
+    QSharedPointer <VolumeParams>
+    innerVolume; /**< VolumeParams object for the inner hidden volume instance (can be NULL if no hidden volume instance need to be created)*/
     DEC_SERIALIZABLE(CreateVolumeRequest);
 };
 
@@ -119,7 +130,8 @@ struct CreateVolumeRequest : CoreRequest {
  * @brief Class storing all parameters for the volume instance password changement action
  *
  */
-struct ChangeVolumePasswordRequest : CoreRequest {
+struct ChangeVolumePasswordRequest : CoreRequest
+{
     /**
      * @brief Default constructor with default parameters
      *
@@ -140,7 +152,8 @@ struct ChangeVolumePasswordRequest : CoreRequest {
  * This action will simply create a file of 64 bytes with random bytes
  *
  */
-struct CreateKeyFileRequest : CoreRequest {
+struct CreateKeyFileRequest : CoreRequest
+{
     QFileInfo file; /**< the path of the key file to create */
     DEC_SERIALIZABLE(CreateKeyFileRequest);
 };
@@ -149,7 +162,8 @@ struct CreateKeyFileRequest : CoreRequest {
  * @brief Class storing all parameters for the mount volume action
  *
  */
-struct MountVolumeRequest : CoreRequest {
+struct MountVolumeRequest : CoreRequest
+{
     /**
      * @brief Default Constructor with default parameters
      *
@@ -163,9 +177,12 @@ struct MountVolumeRequest : CoreRequest {
     QSharedPointer <QByteArray> password; /**< password of the volume instance to mount */
     QFileInfo mountPoint; /**< path of the directory where the volume instance should be mounted. If left empty, GostCrypt will determined where the system usually mount devices and create a mount directory there. (example: /media/[username]). This parameter will not be used if doMount is set to false. */
     QFileInfo path; /**< path of the volume container (file or device) to mount */
-    Volume::VolumeProtection::Enum protection; /**< Type of protection to use while mounting the volume */
-    QSharedPointer <QByteArray> protectionPassword; /**< password of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
-    QList<QFileInfo> protectionKeyfiles; /**< keyfiles of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
+    Volume::VolumeProtection::Enum
+    protection; /**< Type of protection to use while mounting the volume */
+    QSharedPointer <QByteArray>
+    protectionPassword; /**< password of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
+    QList<QFileInfo>
+    protectionKeyfiles; /**< keyfiles of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
     bool useBackupHeaders; /**< Boolean true when we want to use the backup header to mount the volume instance. This option can be useful when the main header is corrupted */
     QString mountedForUser; /**< Name of the user who will own the volume block file once mounted. If empty, it will be the current user. */
     QString mountedForGroup; /**< Name of the group who will own the volume block file once mounted. If empty, it will be the current group. */
@@ -179,7 +196,8 @@ struct MountVolumeRequest : CoreRequest {
  * @brief Class storing all parameters for the dismount volume action
  *
  */
-struct DismountVolumeRequest : CoreRequest {
+struct DismountVolumeRequest : CoreRequest
+{
     /**
      * @brief Default Constructor with default parameters
      *
@@ -196,7 +214,8 @@ struct DismountVolumeRequest : CoreRequest {
  * @brief Class storing all parameters for the action to get the current devices on the system.
  *
  */
-struct GetHostDevicesRequest : CoreRequest {
+struct GetHostDevicesRequest : CoreRequest
+{
     DEC_SERIALIZABLE(GetHostDevicesRequest);
 };
 
@@ -204,7 +223,8 @@ struct GetHostDevicesRequest : CoreRequest {
  * @brief Class storing all parameters for the action to get the current mounted GostCrypt volumes on the system and information about them.
  *
  */
-struct GetMountedVolumesRequest : CoreRequest {
+struct GetMountedVolumesRequest : CoreRequest
+{
     /**
      * @brief Default Constructor with default parameters
      *
@@ -219,7 +239,8 @@ struct GetMountedVolumesRequest : CoreRequest {
  * @brief Class storing all parameters for the action to get the list of available encryption algorithms
  *
  */
-struct GetEncryptionAlgorithmsRequest : CoreRequest {
+struct GetEncryptionAlgorithmsRequest : CoreRequest
+{
     DEC_SERIALIZABLE(GetEncryptionAlgorithmsRequest);
 };
 
@@ -227,7 +248,8 @@ struct GetEncryptionAlgorithmsRequest : CoreRequest {
  * @brief Class storing all parameters for the action to get the list of available key derivation functions
  *
  */
-struct GetDerivationFunctionsRequest : CoreRequest {
+struct GetDerivationFunctionsRequest : CoreRequest
+{
     DEC_SERIALIZABLE(GetDerivationFunctionsRequest);
 };
 
@@ -235,7 +257,8 @@ struct GetDerivationFunctionsRequest : CoreRequest {
  * @brief Class storing all parameters for the volume header backup action
  * This action will save the headers of the volume instances contained inside the given volume container
  */
-struct BackupHeaderRequest : CoreRequest {
+struct BackupHeaderRequest : CoreRequest
+{
     /**
      * @brief Default Constructor with default parameters
      *
@@ -246,7 +269,8 @@ struct BackupHeaderRequest : CoreRequest {
     QList<QFileInfo> keyfiles; /**< keyfiles of the outer volume instance */
     QSharedPointer <QByteArray> password; /**< password of the outer volume instance */
     QList<QFileInfo> hiddenVolumeKeyfiles; /**< keyfiles of the inner hidden volume instance */
-    QSharedPointer <QByteArray> hiddenVolumePassword; /**< password of the inner hidden volume instance */
+    QSharedPointer <QByteArray>
+    hiddenVolumePassword; /**< password of the inner hidden volume instance */
     bool hiddenVolume; /**< Boolean true if the volume container contain an inner hidden volume instance and be want to backup its header too. If set to true, this parameters hiddenVolumePassword and hiddenVolumeKeyfiles must be provided */
     DEC_SERIALIZABLE(BackupHeaderRequest);
 };
@@ -258,7 +282,8 @@ struct BackupHeaderRequest : CoreRequest {
  * For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header
  * TODO: Implement a way to restore the header when the password have changed
  */
-struct RestoreHeaderRequest : CoreRequest {
+struct RestoreHeaderRequest : CoreRequest
+{
     /**
      * @brief Default Constructor with default parameters
      *
@@ -267,8 +292,10 @@ struct RestoreHeaderRequest : CoreRequest {
     QFileInfo volumePath; /**< path of the volume container for which to restore the header */
     bool useInternalBackup; /**< Boolean true if the internal backup header should be used. If set to false the parameter backupHeaderFile should be provided. */
     QFileInfo backupHeaderFile; /**< Path of the external backup header file from which to restore the header. Will not be used if useInternalBackup is set to true. */
-    QList<QFileInfo> keyfiles; /**< keyfiles of the volume instance for which to restore the header. These keyfiles will also be used to decrypt the backup header */
-    QSharedPointer <QByteArray> password; /**< password of the volume instance for which to restore the header. This password will also be used to decrypt the backup header */
+    QList<QFileInfo>
+    keyfiles; /**< keyfiles of the volume instance for which to restore the header. These keyfiles will also be used to decrypt the backup header */
+    QSharedPointer <QByteArray>
+    password; /**< password of the volume instance for which to restore the header. This password will also be used to decrypt the backup header */
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
 
@@ -276,8 +303,9 @@ struct RestoreHeaderRequest : CoreRequest {
  * @brief Class storing all parameters for the encryption algorithm benchmark action
  *
  */
-struct BenchmarkAlgorithmsRequest : CoreRequest {
-    quint32 bufferSize; /**< Size of the buffer to encrypt/decrypt for the benchmark in bytes (If the buffer size is too small and the time to encrypt/decrypt is lower than 20ms , the buffer will be encrypted/decrypted serval time to improve benchmark result accuracy) */
+struct BenchmarkAlgorithmsRequest : CoreRequest
+{
+    quint32 bufferSize; /**< Size of the buffer to encrypt/decrypt for the benchmark in bytes (If the buffer size is too small and the time to encrypt/decrypt is lower than 20ms, the buffer will be encrypted/decrypted serval time to improve benchmark result accuracy) */
     DEC_SERIALIZABLE(BenchmarkAlgorithmsRequest);
 };
 

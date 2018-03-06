@@ -14,40 +14,49 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class EncryptionModeXTS : public EncryptionMode
-	{
-	public:
-		EncryptionModeXTS () { }
-		virtual ~EncryptionModeXTS () { }
+class EncryptionModeXTS : public EncryptionMode
+{
+ public:
+    EncryptionModeXTS() { }
+    virtual ~EncryptionModeXTS() { }
 
-		virtual void Decrypt (quint8 *data, quint64 length) const;
-		virtual void DecryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
-		virtual void Encrypt (quint8 *data, quint64 length) const;
-		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
-		virtual size_t GetKeySize () const;
-        virtual QString GetName () const { return QStringLiteral("XTS"); }
-		virtual QSharedPointer <EncryptionMode> GetNew () const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
-        virtual void SetCiphers (const CipherAlgorithmList &ciphers);
-        virtual void SetKey (const BufferPtr &key);
+    virtual void Decrypt(quint8* data, quint64 length) const;
+    virtual void DecryptSectorsCurrentThread(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+            size_t sectorSize) const;
+    virtual void Encrypt(quint8* data, quint64 length) const;
+    virtual void EncryptSectorsCurrentThread(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+            size_t sectorSize) const;
+    virtual size_t GetKeySize() const;
+    virtual QString GetName() const { return QStringLiteral("XTS"); }
+    virtual QSharedPointer <EncryptionMode> GetNew() const { return QSharedPointer <EncryptionMode> (new EncryptionModeXTS); }
+    virtual void SetCiphers(const CipherAlgorithmList& ciphers);
+    virtual void SetKey(const BufferPtr& key);
 
-	protected:
-		void DecryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
-       static void DecryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
-        static void DecryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
-		void EncryptBuffer (quint8 *data, quint64 length, quint64 startDataUnitNo) const;
-       static void EncryptBufferXTS (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
-        static void EncryptBufferXTS8Byte (const CipherAlgorithm &cipher, const CipherAlgorithm &secondaryCipher, quint8 *buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
-		void SetSecondaryCipherKeys ();
+ protected:
+    void DecryptBuffer(quint8* data, quint64 length, quint64 startDataUnitNo) const;
+    static void DecryptBufferXTS(const CipherAlgorithm& cipher, const CipherAlgorithm& secondaryCipher,
+                                 quint8* buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
+    static void DecryptBufferXTS8Byte(const CipherAlgorithm& cipher,
+                                      const CipherAlgorithm& secondaryCipher, quint8* buffer, quint64 length, quint64 startDataUnitNo,
+                                      unsigned int startCipherBlockNo);
+    void EncryptBuffer(quint8* data, quint64 length, quint64 startDataUnitNo) const;
+    static void EncryptBufferXTS(const CipherAlgorithm& cipher, const CipherAlgorithm& secondaryCipher,
+                                 quint8* buffer, quint64 length, quint64 startDataUnitNo, unsigned int startCipherBlockNo);
+    static void EncryptBufferXTS8Byte(const CipherAlgorithm& cipher,
+                                      const CipherAlgorithm& secondaryCipher, quint8* buffer, quint64 length, quint64 startDataUnitNo,
+                                      unsigned int startCipherBlockNo);
+    void SetSecondaryCipherKeys();
 
-		SecureBuffer SecondaryKey;
-        CipherAlgorithmList SecondaryCiphers;
+    SecureBuffer SecondaryKey;
+    CipherAlgorithmList SecondaryCiphers;
 
-	private:
-		EncryptionModeXTS (const EncryptionModeXTS &);
-		EncryptionModeXTS &operator= (const EncryptionModeXTS &);
-	};
+ private:
+    EncryptionModeXTS(const EncryptionModeXTS&);
+    EncryptionModeXTS& operator= (const EncryptionModeXTS&);
+};
 }
 }
 

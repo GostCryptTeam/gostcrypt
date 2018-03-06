@@ -14,29 +14,35 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	VolumeHashList VolumeHash::GetAvailableAlgorithms ()
-	{
-		VolumeHashList l;
+VolumeHashList VolumeHash::GetAvailableAlgorithms()
+{
+    VolumeHashList l;
 
-        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashStribog ()));
-        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashGostHash ()));
-        l.push_back (QSharedPointer <VolumeHash> (new VolumeHashWhirlpool ()));
+    l.push_back(QSharedPointer <VolumeHash> (new VolumeHashStribog()));
+    l.push_back(QSharedPointer <VolumeHash> (new VolumeHashGostHash()));
+    l.push_back(QSharedPointer <VolumeHash> (new VolumeHashWhirlpool()));
 
-		return l;
-	}
+    return l;
+}
 
-    void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount)
+void VolumeHash::ValidateKeyDerivationParameters(const BufferPtr& key,
+        const VolumePassword& password, const BufferPtr& salt, int iterationCount)
+{
+    if (key.size() < 1 || password.Size() < 1 || salt.size() < 1 || iterationCount < 1)
     {
-        if (key.size() < 1 || password.Size() < 1 || salt.size() < 1 || iterationCount < 1)
-            throw InvalidParameterException("key derivation parameters", "Incorrect key derivation parameters");
+        throw InvalidParameterException("key derivation parameters",
+                                        "Incorrect key derivation parameters");
     }
+}
 
-    void VolumeHash::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const
-    {
-        HMAC_DeriveKey (key, password, salt, HMAC_GetIterationCount());
-    }
+void VolumeHash::HMAC_DeriveKey(const BufferPtr& key, const VolumePassword& password,
+                                const BufferPtr& salt) const
+{
+    HMAC_DeriveKey(key, password, salt, HMAC_GetIterationCount());
+}
 
 }
 }

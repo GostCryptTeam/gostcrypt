@@ -14,48 +14,50 @@
 #include "Volume/EncryptionMode.h"
 #include "VolumeHeader.h"
 
-namespace GostCrypt {
-namespace Volume {
+namespace GostCrypt
+{
+namespace Volume
+{
 
-	class VolumeLayout;
-    typedef QList < QSharedPointer <VolumeLayout> > VolumeLayoutList;
+class VolumeLayout;
+typedef QList < QSharedPointer <VolumeLayout> > VolumeLayoutList;
 
-	class VolumeLayout
-	{
-	public:
-		virtual ~VolumeLayout ();
+class VolumeLayout
+{
+ public:
+    virtual ~VolumeLayout();
 
-		static VolumeLayoutList GetAvailableLayouts (VolumeType::Enum type = VolumeType::Unknown);
-		virtual int GetBackupHeaderOffset () const { return BackupHeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
-		virtual quint64 GetDataOffset (quint64 volumeHostSize) const = 0;
-		virtual quint64 GetDataSize (quint64 volumeHostSize) const = 0;
-        virtual QSharedPointer <VolumeHeader> GetHeader ();
-		virtual int GetHeaderOffset () const { return HeaderOffset; } // Positive value: offset from the start of host, negative: offset from the end
-		virtual quint32 GetHeaderSize () const { return HeaderSize; }
-		virtual quint64 GetMaxDataSize (quint64 volumeSize) const = 0;
-		virtual EncryptionAlgorithmList GetSupportedEncryptionAlgorithms () const { return SupportedEncryptionAlgorithms; }
-        virtual VolumeHashList GetSupportedKeyDerivationFunctions () const { return VolumeHash::GetAvailableAlgorithms(); }
-		virtual EncryptionModeList GetSupportedEncryptionModes () const { return SupportedEncryptionModes; }
-		virtual VolumeType::Enum GetType () const { return Type; }
-		virtual bool HasBackupHeader () const = 0;
+    static VolumeLayoutList GetAvailableLayouts(VolumeType::Enum type = VolumeType::Unknown);
+    virtual int GetBackupHeaderOffset() const { return BackupHeaderOffset; }  // Positive value: offset from the start of host, negative: offset from the end
+    virtual quint64 GetDataOffset(quint64 volumeHostSize) const = 0;
+    virtual quint64 GetDataSize(quint64 volumeHostSize) const = 0;
+    virtual QSharedPointer <VolumeHeader> GetHeader();
+    virtual int GetHeaderOffset() const { return HeaderOffset; }  // Positive value: offset from the start of host, negative: offset from the end
+    virtual quint32 GetHeaderSize() const { return HeaderSize; }
+    virtual quint64 GetMaxDataSize(quint64 volumeSize) const = 0;
+    virtual EncryptionAlgorithmList GetSupportedEncryptionAlgorithms() const { return SupportedEncryptionAlgorithms; }
+    virtual VolumeHashList GetSupportedKeyDerivationFunctions() const { return VolumeHash::GetAvailableAlgorithms(); }
+    virtual EncryptionModeList GetSupportedEncryptionModes() const { return SupportedEncryptionModes; }
+    virtual VolumeType::Enum GetType() const { return Type; }
+    virtual bool HasBackupHeader() const = 0;
 
-	protected:
-		VolumeLayout ();
+ protected:
+    VolumeLayout();
 
-		EncryptionAlgorithmList SupportedEncryptionAlgorithms;
-		EncryptionModeList SupportedEncryptionModes;
+    EncryptionAlgorithmList SupportedEncryptionAlgorithms;
+    EncryptionModeList SupportedEncryptionModes;
 
-		int BackupHeaderOffset;
-		int HeaderOffset;
-		quint32 HeaderSize;
-		VolumeType::Enum Type;
+    int BackupHeaderOffset;
+    int HeaderOffset;
+    quint32 HeaderSize;
+    VolumeType::Enum Type;
 
-        QSharedPointer <VolumeHeader> Header;
+    QSharedPointer <VolumeHeader> Header;
 
-	private:
-		VolumeLayout (const VolumeLayout &);
-		VolumeLayout &operator= (const VolumeLayout &);
-	};
+ private:
+    VolumeLayout(const VolumeLayout&);
+    VolumeLayout& operator= (const VolumeLayout&);
+};
 
 }
 }

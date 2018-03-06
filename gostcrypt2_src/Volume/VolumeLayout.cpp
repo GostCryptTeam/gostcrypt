@@ -14,26 +14,28 @@
 #include "VolumeLayoutV2Hidden.h"
 
 
-namespace GostCrypt {
-namespace Volume {
+namespace GostCrypt
+{
+namespace Volume
+{
 
-VolumeLayout::VolumeLayout ()
+VolumeLayout::VolumeLayout()
     : BackupHeaderOffset(0),
       HeaderOffset(0),
       Type(VolumeType::Enum::Unknown)
 {
 }
 
-VolumeLayout::~VolumeLayout ()
+VolumeLayout::~VolumeLayout()
 {
 }
 
-VolumeLayoutList VolumeLayout::GetAvailableLayouts (VolumeType::Enum type)
+VolumeLayoutList VolumeLayout::GetAvailableLayouts(VolumeType::Enum type)
 {
     VolumeLayoutList layouts;
 
-    layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Normal ()));
-    layouts.push_back (QSharedPointer <VolumeLayout> (new VolumeLayoutV2Hidden ()));
+    layouts.push_back(QSharedPointer <VolumeLayout> (new VolumeLayoutV2Normal()));
+    layouts.push_back(QSharedPointer <VolumeLayout> (new VolumeLayoutV2Hidden()));
 
     if (type != VolumeType::Unknown)
     {
@@ -42,7 +44,9 @@ VolumeLayoutList VolumeLayout::GetAvailableLayouts (VolumeType::Enum type)
         for (QSharedPointer <VolumeLayout> vl : layouts)
         {
             if (vl->GetType() == type)
-                l.push_back (vl);
+            {
+                l.push_back(vl);
+            }
         }
 
         layouts = l;
@@ -51,10 +55,12 @@ VolumeLayoutList VolumeLayout::GetAvailableLayouts (VolumeType::Enum type)
     return layouts;
 }
 
-QSharedPointer <VolumeHeader> VolumeLayout::GetHeader ()
+QSharedPointer <VolumeHeader> VolumeLayout::GetHeader()
 {
     if (Header.isNull())
-        Header.reset (new VolumeHeader (GetHeaderSize()));
+    {
+        Header.reset(new VolumeHeader(GetHeaderSize()));
+    }
 
     return Header;
 }

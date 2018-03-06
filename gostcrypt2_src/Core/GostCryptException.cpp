@@ -202,13 +202,15 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::ExternalException& Valeur)
 }
 
 DEF_SERIALIZABLE(GostCrypt::InvalidParameter)
-QDataStream & operator << (QDataStream & out, const GostCrypt::InvalidParameter & Valeur) {
+QDataStream& operator << (QDataStream& out, const GostCrypt::InvalidParameter& Valeur)
+{
     out << static_cast<const GostCryptException&>(Valeur);
     out << Valeur.param;
     out << Valeur.comment;
     return out;
 }
-QDataStream & operator >> (QDataStream & in, GostCrypt::InvalidParameter & Valeur) {
+QDataStream& operator >> (QDataStream& in, GostCrypt::InvalidParameter& Valeur)
+{
     in >> static_cast<GostCryptException&>(Valeur);
     in >> Valeur.param;
     in >> Valeur.comment;

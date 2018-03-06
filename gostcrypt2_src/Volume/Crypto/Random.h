@@ -24,43 +24,43 @@ extern "C" {
 #endif
 
 /* RNG defines & pool pointers */
-#define RNG_POOL_SIZE	320	// Must be divisible by the size of the output of each of the implemented hash functions. (in bytes)
+#define RNG_POOL_SIZE   320 // Must be divisible by the size of the output of each of the implemented hash functions. (in bytes)
 
 #if RNG_POOL_SIZE % WHIRLPOOL_DIGESTSIZE || RNG_POOL_SIZE % STRIBOG_DIGESTSIZE || RNG_POOL_SIZE % GOSTHASH_DIGESTSIZE
 #error RNG_POOL_SIZE must be divisible by the size of the output of each of the implemented hash functions.
 #endif
 
-#define RANDOMPOOL_ALLOCSIZE	RNG_POOL_SIZE
+#define RANDOMPOOL_ALLOCSIZE    RNG_POOL_SIZE
 
 // After every RANDMIX_BYTE_INTERVAL-th byte written to the pool, the pool mixing function is applied to the entire pool
-#define RANDMIX_BYTE_INTERVAL	16
+#define RANDMIX_BYTE_INTERVAL   16
 
 // FastPoll interval (in milliseconds)
-#define FASTPOLL_INTERVAL		500
+#define FASTPOLL_INTERVAL       500
 
-void RandAddInt ( unsigned __int32 x );
-int Randinit ( void );
-void RandStop (BOOL freePool);
-BOOL IsRandomNumberGeneratorStarted ();
-void RandSetHashFunction ( int hash_algo_id );
-int RandGetHashFunction (void);
-void SetRandomPoolEnrichedByUserStatus (BOOL enriched);
-BOOL IsRandomPoolEnrichedByUser ();
-BOOL Randmix ( void );
-void RandaddBuf ( void *buf , int len );
-BOOL FastPoll ( void );
-BOOL SlowPoll ( void );
-BOOL RandpeekBytes ( unsigned char *buf , int len );
-BOOL RandgetBytes ( unsigned char *buf , int len, BOOL forceSlowPoll );
+void RandAddInt(unsigned __int32 x);
+int Randinit(void);
+void RandStop(BOOL freePool);
+BOOL IsRandomNumberGeneratorStarted();
+void RandSetHashFunction(int hash_algo_id);
+int RandGetHashFunction(void);
+void SetRandomPoolEnrichedByUserStatus(BOOL enriched);
+BOOL IsRandomPoolEnrichedByUser();
+BOOL Randmix(void);
+void RandaddBuf(void* buf, int len);
+BOOL FastPoll(void);
+BOOL SlowPoll(void);
+BOOL RandpeekBytes(unsigned char* buf, int len);
+BOOL RandgetBytes(unsigned char* buf, int len, BOOL forceSlowPoll);
 
 #ifdef _WIN32
 
 extern BOOL volatile bFastPollEnabled;
 extern BOOL volatile bRandmixEnabled;
 
-LRESULT CALLBACK MouseProc ( int nCode , WPARAM wParam , LPARAM lParam );
-LRESULT CALLBACK KeyboardProc ( int nCode , WPARAM wParam , LPARAM lParam );
-static unsigned __stdcall PeriodicFastPollThreadProc (void *dummy);
+LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
+static unsigned __stdcall PeriodicFastPollThreadProc(void* dummy);
 
 #endif
 
