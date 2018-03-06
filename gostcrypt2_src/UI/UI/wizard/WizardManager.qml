@@ -229,7 +229,6 @@ Item {
 
     function manageWizard(direction)
     {
-        console.log(currentPage)
         switch(currentPage)
         {
             /* Page1.qml
@@ -410,7 +409,6 @@ Item {
                 volumeInfos.HIDDEN_ALGORITHM_HASH_NAMES = content.item.used
             if(direction === 1)
             {
-                console.log("type ==== " + typeBranch)
                 path.position += 1;
                 if(typeBranch === 0) {
                     changePage(qsTr("Volume Size"), currentPage)
@@ -619,7 +617,6 @@ Item {
     function createVolume()
     {
         var param, i;
-        console.log(volumeInfos.CONTAINER_TYPE)
         if(volumeInfos.CONTAINER_TYPE === 0) //FILE
         {
             if(volumeInfos.VOLUME_TYPE === 0) //FILE - Normal mode
@@ -649,7 +646,6 @@ Item {
                 }else{
 
                     //FILE - Hidden mode - Create inner only
-                    console.log("Algo = " + volumeInfos.HIDDEN_FORMAT_INFOS[0]);
                     param = {
                         "type": 2,
                         "path": volumeInfos.VOLUME_PATH,
