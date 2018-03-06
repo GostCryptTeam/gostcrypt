@@ -5,8 +5,10 @@
 #include "VolumeProtection.h"
 #include "VolumeType.h"
 
-namespace GostCrypt {
-namespace Volume {
+namespace GostCrypt
+{
+namespace Volume
+{
 
 struct VolumeInformation
 {

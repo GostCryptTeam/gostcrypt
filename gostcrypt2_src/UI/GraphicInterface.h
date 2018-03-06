@@ -60,9 +60,10 @@ class GraphicInterface;
  * retrieve events such as exceptions in order to manage
  * them graphically
  */
-class MyGuiApplication : public QApplication {
-Q_OBJECT
-public:
+class MyGuiApplication : public QApplication
+{
+    Q_OBJECT
+ public:
     /**
      * @brief Initializes the QML application and class variables
      *
@@ -84,14 +85,15 @@ public:
      * @param gi Pointer to the currently instantiated QML interface
      */
     void setGI(GraphicInterface* gi) { mGI = gi; }
-signals:
+ signals:
     /**
      * @brief This signal makes it possible to finish the program neatly
      * by allowing the interface to tell the core that it will end
      */
     void askExit();
-private:
-    GraphicInterface* mGI; /**< Pointer that will contain the address of the instantiated QML interface */
+ private:
+    GraphicInterface*
+    mGI; /**< Pointer that will contain the address of the instantiated QML interface */
 };
 
 /**
@@ -99,16 +101,17 @@ private:
  * This class displays a graphical interface using
  * QML for GostCrypt
  */
-class GraphicInterface : public UserInterface {
+class GraphicInterface : public UserInterface
+{
     Q_OBJECT
-public:
+ public:
     /**
      * @brief Graphical user interface constructor, based on the MyGuiApplication class that inherits from QApplication
      *
      * @param aApp Parent object of the GUI: allows you to retrieve signals and start a QApplication
      * @param parent The object from which the class derives, which has useful methods for making certain calculations
      */
-    explicit GraphicInterface(MyGuiApplication* aApp, QObject *parent = nullptr);
+    explicit GraphicInterface(MyGuiApplication* aApp, QObject* parent = nullptr);
     /**
      * @brief Creates the graphical interface and sends all the necessary objects to it in context
      *
@@ -116,7 +119,7 @@ public:
      * @param argv Arguments of the main program
      * @return int Returns what the "exec" method returns at the end of the interface execution
      */
-    int start(int argc, char **argv);
+    int start(int argc, char** argv);
     /**
      * @brief Converts A size in bytes into a formatted character string (or not formatted)
      *
@@ -126,7 +129,7 @@ public:
      */
     static QString formatSize(quint64 sizeInByte, bool withFontColor = true);
 
-private slots:
+ private slots:  // NOLINT
     /*!
      * \brief receiveSignal
      * Binds the signals from QML to the Core side
@@ -149,7 +152,7 @@ private slots:
      */
     virtual void askSudoPassword();
 
-signals:
+ signals:
     /**
      * @brief
      * Control signal sent to the interface to indicate that the signals are well connected
@@ -184,14 +187,16 @@ signals:
      */
     void volumePasswordIncorrect();
 
-private:
+ private:
     /**
      * @brief
      * Method callable from QML to connect signals between the interface and the Core
      */
     Q_INVOKABLE void connectSignals();
-    MyGuiApplication* mApp; /**< Object inheriting the QApplication, the interface works thanks to this object */
-    QQmlApplicationEngine mEngine; /**< QML rendering engine used to render the display, contains the main context */
+    MyGuiApplication*
+    mApp; /**< Object inheriting the QApplication, the interface works thanks to this object */
+    QQmlApplicationEngine
+    mEngine; /**< QML rendering engine used to render the display, contains the main context */
     UserSettings mSettings; /**< User preferences */
     DragWindowProvider mDrag; /**< Class that allows you to move the window (which is borderless) */
     TranslationApp mTranslation; /**< Class to translate the interface into different languages */
@@ -200,7 +205,8 @@ private:
      * @brief
      * Structure that contains all actions that can be done from the interface to parse them with a switch/case in the recovery function
      */
-    struct UI {
+    struct UI
+    {
         /**
          * @brief
          * Generates all possible actions (see top of GraphicInterface.h for details)

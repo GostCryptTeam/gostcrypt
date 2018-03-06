@@ -20,18 +20,18 @@ extern "C"
 
 typedef struct
 {
-	quint8 N[64];
-	quint8 hash[64];
-	quint8 left;
-	quint8 remainder[64];
-	quint8 v512[64];
-	quint8 v0[64];
-	quint8 EPSILON[64];
+    quint8 N[64];
+    quint8 hash[64];
+    quint8 left;
+    quint8 remainder[64];
+    quint8 v512[64];
+    quint8 v0[64];
+    quint8 EPSILON[64];
 } STRIBOG_CTX;
 
-void STRIBOG_init(STRIBOG_CTX *ctx);
-void STRIBOG_add(STRIBOG_CTX *ctx, quint8 *msg, quint32 len);
-void STRIBOG_finalize(STRIBOG_CTX *ctx, quint8 *out);
+void STRIBOG_init(STRIBOG_CTX* ctx);
+void STRIBOG_add(STRIBOG_CTX* ctx, quint8* msg, quint32 len);
+void STRIBOG_finalize(STRIBOG_CTX* ctx, quint8* out);
 
 #if defined(__cplusplus)
 }

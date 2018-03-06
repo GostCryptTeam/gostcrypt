@@ -3,16 +3,18 @@
 
 namespace GostCrypt
 {
-namespace Volume {
-	struct VolumeType
-	{
-		enum Enum
-		{
-			Unknown,
-			Normal,
-			Hidden
-		};
-	};
-}}
+namespace Volume
+{
+struct VolumeType
+{
+    enum Enum
+    {
+        Unknown,
+        Normal,
+        Hidden
+    };
+};
+}
+}
 
 #endif // VOLUMETYPE_H

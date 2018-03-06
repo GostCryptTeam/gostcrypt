@@ -250,13 +250,13 @@ QDataStream& operator >> (QDataStream& in,
 }
 DEF_SERIALIZABLE(GostCrypt::Volume::DataNotMutable)
 QDataStream& operator << (QDataStream& out,
-                        const GostCrypt::Volume::DataNotMutable& Valeur)
+                          const GostCrypt::Volume::DataNotMutable& Valeur)
 {
     out << static_cast<const VolumeException&>(Valeur);
     return out;
 }
 QDataStream& operator >> (QDataStream& in,
-                        GostCrypt::Volume::DataNotMutable& Valeur)
+                          GostCrypt::Volume::DataNotMutable& Valeur)
 {
     in >> static_cast<VolumeException&>(Valeur);
     return in;
@@ -264,13 +264,13 @@ QDataStream& operator >> (QDataStream& in,
 
 DEF_SERIALIZABLE(GostCrypt::Volume::IncorrectCipherDataLength)
 QDataStream& operator << (QDataStream& out,
-                        const GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
+                          const GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
 {
     out << static_cast<const VolumeException&>(Valeur);
     return out;
 }
 QDataStream& operator >> (QDataStream& in,
-                        GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
+                          GostCrypt::Volume::IncorrectCipherDataLength& Valeur)
 {
     in >> static_cast<VolumeException&>(Valeur);
     return in;

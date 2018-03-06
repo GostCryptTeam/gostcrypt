@@ -119,7 +119,8 @@ class FuseService : public GostCrypt::Core::Service
      */
     static gid_t getGroupId() { return FuseService::groupId; }
  private:
-    static QFileInfo fuseMountPoint; /**< Path of the directory where the fuse file system should be mounted */
+    static QFileInfo
+    fuseMountPoint; /**< Path of the directory where the fuse file system should be mounted */
     static uid_t userId; /**< ID of the user for which the volume had been mounted */
     static QSharedPointer<Volume::Volume> mountedVolume; /**< Pointer to the mounted volume object */
     static QSharedPointer<Volume::VolumeInformation>
@@ -147,7 +148,7 @@ class FuseService : public GostCrypt::Core::Service
      *
      */
     void launchFuse();
- private slots:
+ private slots:  // NOLINT
     /**
      * @brief Handle mount request by opening the given volume and launching FUSE in order to create the FUSE mount
      *

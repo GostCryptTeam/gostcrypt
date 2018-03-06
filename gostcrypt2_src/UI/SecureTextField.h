@@ -11,15 +11,15 @@
 class SecureTextField : public QObject
 {
     Q_OBJECT
-public:
+ public:
     /**
      * @brief Class constructor
      *
      * @param parent Parent object
      */
-    explicit SecureTextField(QObject *parent = 0) { (void)parent; }
+    explicit SecureTextField(QObject* parent = 0) { (void)parent; }
 
-private:
+ private:
     QSharedPointer<QByteArray> m_password; /**< password stored in C++ memory */
 };
 

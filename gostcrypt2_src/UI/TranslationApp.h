@@ -19,7 +19,7 @@ class TranslationApp : public QObject
      */
     Q_PROPERTY(QString tr READ tr NOTIFY languageChanged)
 
-public:
+ public:
     /**
      * @brief TranslationApp's constructor
      * The constructor retrieves the system language as well
@@ -51,17 +51,18 @@ public:
     * @return QVariantList A list of all avaible volumes
     */
     Q_INVOKABLE QVariantList getAvaibleLanguages() const;
-signals:
+ signals:
     /**
      * @brief languageChanged
      * A signal which notify qml fromthe language change
      */
     void languageChanged();
 
-private:
+ private:
     QString mTranslationpath; /**< Contains the absolute path of the translation repertory */
-    QList <QPair<QTranslator*, QString>> mListOfTranslationsAvaible; /**< Contains a list of all the translation objects associated with their language code */
-    QTranslator * currentTranslator;  /**< A pointer to the current translator */
+    QList <QPair<QTranslator*, QString>>
+                                      mListOfTranslationsAvaible; /**< Contains a list of all the translation objects associated with their language code */
+    QTranslator* currentTranslator;   /**< A pointer to the current translator */
 };
 
 #endif // TRANSLATIONAPP_H

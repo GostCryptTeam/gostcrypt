@@ -27,13 +27,13 @@ class CoreException : public GostCryptException
     * @brief Default constructor used when deserializing
     */
     CoreException() {}
-     /**
-     * @brief Constructor used when throwing the exception
-     *
-     * @param fonction Name of the function in which the exception is thrown
-     * @param filename Name of the file where the exception is thrown
-     * @param line Line where the exception is thrown
-     */
+    /**
+    * @brief Constructor used when throwing the exception
+    *
+    * @param fonction Name of the function in which the exception is thrown
+    * @param filename Name of the file where the exception is thrown
+    * @param line Line where the exception is thrown
+    */
     CoreException(QString fonction, QString filename, quint32 line) : GostCryptException(fonction,
                 filename, line) {}
     DEF_EXCEPTION_WHAT(CoreException, GostCryptException, "")
@@ -490,7 +490,8 @@ class FormatProcessFailed : public CoreException
      * @param filename Name of the file where the exception is thrown
      * @param line Line where the exception is thrown
      */
-    FormatProcessFailed(QString fonction, QString filename, quint32 line) : CoreException(fonction, filename,
+    FormatProcessFailed(QString fonction, QString filename, quint32 line) : CoreException(fonction,
+                filename,
                 line) {}
     DEF_EXCEPTION_WHAT(FormatProcessFailed, CoreException,
                        "The executed process was shut down or failed unexpectedly.\n")
@@ -603,12 +604,13 @@ class FailedUsingSystemRandomSource : public CoreException
     FailedUsingSystemRandomSource(QString fonction, QString filename, quint32 line,
                                   qint32 errorNumber) : CoreException(fonction, filename, line), errorNumber(errorNumber) {}
     DEF_EXCEPTION_WHAT(FailedUsingSystemRandomSource, CoreException,
-                       "Failed using system random source : " + QString(strerror(errorNumber)) + " (" + QString::number(errorNumber) + ")")
+                       "Failed using system random source : " + QString(strerror(errorNumber)) + " (" + QString::number(
+                           errorNumber) + ")")
  protected:
     qint32 errorNumber;
     DEC_SERIALIZABLE(FailedUsingSystemRandomSource);
 };
- //TODO check that all exceptions in these file should not be in another exception file
+//TODO check that all exceptions in these file should not be in another exception file
 }
 }
 

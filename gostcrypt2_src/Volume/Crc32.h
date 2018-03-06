@@ -15,33 +15,34 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class Crc32
-	{
-	public:
-        Crc32 () : CrcValue (0xffffFFFF) { }
-        virtual ~Crc32 () { }
+class Crc32
+{
+ public:
+    Crc32() : CrcValue(0xffffFFFF) { }
+    virtual ~Crc32() { }
 
-		quint32 Get () const { return CrcValue ^ 0xffffFFFF; }
+    quint32 Get() const { return CrcValue ^ 0xffffFFFF; }
 
-		quint32 Process (quint8 data)
-		{
-			return CrcValue = crc_32_tab[(quint8) (CrcValue ^ data)] ^ (CrcValue >> 8);
-		}
+    quint32 Process(quint8 data)
+    {
+        return CrcValue = crc_32_tab[(quint8)(CrcValue ^ data)] ^ (CrcValue >> 8);
+    }
 
-        static quint32 ProcessBuffer (const BufferPtr &buffer)
-		{
-			return ::GetCrc32 (const_cast<quint8 *> (buffer.get()), static_cast<int> (buffer.size()));
-		}
+    static quint32 ProcessBuffer(const BufferPtr& buffer)
+    {
+        return ::GetCrc32(const_cast<quint8*>(buffer.get()), static_cast<int>(buffer.size()));
+    }
 
-	protected:
-		quint32 CrcValue;
+ protected:
+    quint32 CrcValue;
 
-	private:
-		Crc32 (const Crc32 &);
-		Crc32 &operator= (const Crc32 &);
-	};
+ private:
+    Crc32(const Crc32&);
+    Crc32& operator= (const Crc32&);
+};
 }
 }
 

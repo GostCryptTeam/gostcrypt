@@ -49,7 +49,7 @@ typedef struct grasshopper_kds
     quint64 x90; //K[9][0]
     quint64 x91; //K[9][1]
 
-} grasshopper_kds ;
+} grasshopper_kds;
 
 
 /* The core nonlinear bijective permutation (S-Box) */
@@ -59,24 +59,24 @@ typedef struct grasshopper_kds
 /* Base and conversion functions                    */
 /****************************************************/
 /*
-C99 inline semantics requires that if a function with 
-external linkage is declared with inline function 
-specifier, it also has to be defined in the same 
-translation unit (TU). 
-That's why theses function should not by declared 
+C99 inline semantics requires that if a function with
+external linkage is declared with inline function
+specifier, it also has to be defined in the same
+translation unit (TU).
+That's why theses function should not by declared
 before their declaration.
 */
 /* S conversion function                            */
-/* inline void S(unsigned long long * block);		*/
+/* inline void S(unsigned long long * block);       */
 
 /* Inverse of S conversion function                */
-/* inline void S_inv(unsigned long long * block);	*/
+/* inline void S_inv(unsigned long long * block);   */
 /* Linear transformation                           */
 
- /* inline unsigned char ll(unsigned long long block[2]); */
+/* inline unsigned char ll(unsigned long long block[2]); */
 
 /* R conversion function                            */
-/* inline void R(unsigned long long * block);	*/
+/* inline void R(unsigned long long * block);   */
 
 /* Inverse of R conversion function                 */
 /* inline void R_inv(unsigned long long * block); */
@@ -99,22 +99,25 @@ before their declaration.
 /****************************************************/
 /* Key setup procedure                              */
 /****************************************************/
-void grasshopper_set_key(unsigned long long * master_key, grasshopper_kds *subkeys);
+void grasshopper_set_key(unsigned long long* master_key, grasshopper_kds* subkeys);
 
 /****************************************************/
 /* Encryption procedure                             */
 /****************************************************/
-void grasshopper_encrypt(grasshopper_kds* subkeys, unsigned long long * plaintext, unsigned long long * ciphertext);
+void grasshopper_encrypt(grasshopper_kds* subkeys, unsigned long long* plaintext,
+                         unsigned long long* ciphertext);
 
 /****************************************************/
 /* Decryption procedure                             */
 /****************************************************/
-void grasshopper_decrypt(grasshopper_kds* subkeys, unsigned long long * ciphertext, unsigned long long * plaintext);
+void grasshopper_decrypt(grasshopper_kds* subkeys, unsigned long long* ciphertext,
+                         unsigned long long* plaintext);
 
 
-void grasshopper_xor_ks(grasshopper_kds *ks, grasshopper_kds *out_ks, unsigned long long *in, unsigned int len);
+void grasshopper_xor_ks(grasshopper_kds* ks, grasshopper_kds* out_ks, unsigned long long* in,
+                        unsigned int len);
 
-void changeEndian(unsigned long long *ret);
+void changeEndian(unsigned long long* ret);
 #if defined(__cplusplus)
 }
 #endif //defined __cplusplus

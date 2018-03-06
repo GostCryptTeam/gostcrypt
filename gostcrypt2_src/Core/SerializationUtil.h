@@ -18,28 +18,28 @@ friend QDataStream & operator<< (QDataStream & out, const QSharedPointer<ClassNa
 #define DEF_SERIALIZABLE(ClassName) \
 QDataStream & operator<< (QDataStream & out, const QSharedPointer<ClassName> & Valeur) { \
     if(!Valeur) { \
-		out << false; \
-	} else { \
-		out << true; \
-		out << *Valeur; \
-	} \
-	return out; \
+        out << false; \
+    } else { \
+        out << true; \
+        out << *Valeur; \
+    } \
+    return out; \
 } \
 QDataStream & operator>> (QDataStream & in, QSharedPointer<ClassName> & Valeur) { \
-	bool isPresent; \
-	in >> isPresent; \
-	if(isPresent) { \
-		Valeur.reset(new ClassName); \
-		in >> *Valeur; \
-	} \
-	return in; \
+    bool isPresent; \
+    in >> isPresent; \
+    if(isPresent) { \
+        Valeur.reset(new ClassName); \
+        in >> *Valeur; \
+    } \
+    return in; \
 }
 
 #define INIT_SERIALIZE(ClassName) \
     qRegisterMetaTypeStreamOperators<ClassName>(#ClassName); \
     qRegisterMetaTypeStreamOperators<QSharedPointer<ClassName>>("QSharedPointer<"#ClassName">"); \
-	qMetaTypeId<ClassName>(); \
-	qMetaTypeId<QSharedPointer<ClassName>>()
+    qMetaTypeId<ClassName>(); \
+    qMetaTypeId<QSharedPointer<ClassName>>()
 
 
 /**
@@ -49,7 +49,7 @@ QDataStream & operator>> (QDataStream & in, QSharedPointer<ClassName> & Valeur) 
  * @param Valeur Object to serialize
  * @return out
  */
-QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
+QDataStream& operator<< (QDataStream& out, const QFileInfo& Valeur);
 /**
  * @brief Deserializing operator for the QFileInfo object used for inter-process communication
  *
@@ -57,7 +57,7 @@ QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
  * @param Valeur Object to deserialized
  * @return in
  */
-QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
+QDataStream& operator>> (QDataStream& in, QFileInfo& Valeur);
 /**
  * @brief Serializing operator for the QSharedPointer<QByteArray> object used for inter-process communication
  *
@@ -65,7 +65,7 @@ QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
  * @param Valeur Object to serialize
  * @return out
  */
-QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & Valeur);
+QDataStream& operator<< (QDataStream& out, const QSharedPointer<QByteArray>& Valeur);
 /**
  * @brief Deserializing operator for the QSharedPointer<QByteArray> object used for inter-process communication
  *
@@ -73,7 +73,7 @@ QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & 
  * @param Valeur Object to deserialized
  * @return in
  */
-QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
+QDataStream& operator>> (QDataStream& in, QSharedPointer<QByteArray>& Valeur);
 Q_DECLARE_METATYPE(QSharedPointer<QByteArray>)
 
 

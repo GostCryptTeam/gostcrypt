@@ -13,61 +13,72 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-    CipherAlgorithm::CipherAlgorithm () : Initialized (false)
-	{
-	}
+CipherAlgorithm::CipherAlgorithm() : Initialized(false)
+{
+}
 
-    CipherAlgorithm::~CipherAlgorithm ()
-	{
-	}
+CipherAlgorithm::~CipherAlgorithm()
+{
+}
 
-    void CipherAlgorithm::DecryptBlocks (quint8 *data, size_t blockCount) const
-	{
-		if (!Initialized)
-            throw CipherAlgorithmNotInitializedException();
+void CipherAlgorithm::DecryptBlocks(quint8* data, size_t blockCount) const
+{
+    if (!Initialized)
+    {
+        throw CipherAlgorithmNotInitializedException();
+    }
 
-		while (blockCount-- > 0)
-		{
-			Decrypt (data);
-			data += GetBlockSize();
-		}
-	}
+    while (blockCount-- > 0)
+    {
+        Decrypt(data);
+        data += GetBlockSize();
+    }
+}
 
-    void CipherAlgorithm::EncryptBlock (quint8 *data) const
-	{
-		if (!Initialized)
-            throw CipherAlgorithmNotInitializedException();
+void CipherAlgorithm::EncryptBlock(quint8* data) const
+{
+    if (!Initialized)
+    {
+        throw CipherAlgorithmNotInitializedException();
+    }
 
-		Encrypt (data);
-	}
+    Encrypt(data);
+}
 
-    void CipherAlgorithm::EncryptBlocks (quint8 *data, size_t blockCount) const
-	{
-		if (!Initialized)
-            throw CipherAlgorithmNotInitializedException();
+void CipherAlgorithm::EncryptBlocks(quint8* data, size_t blockCount) const
+{
+    if (!Initialized)
+    {
+        throw CipherAlgorithmNotInitializedException();
+    }
 
-		while (blockCount-- > 0)
-		{
-			Encrypt (data);
-			data += GetBlockSize();
-		}
-	}
+    while (blockCount-- > 0)
+    {
+        Encrypt(data);
+        data += GetBlockSize();
+    }
+}
 
-    void CipherAlgorithm::SetKey (const BufferPtr &key)
-	{
-		if (key.size() != GetKeySize ())
-            throw InvalidParameterException("key", "key.Size() != GetKeySize ()");
+void CipherAlgorithm::SetKey(const BufferPtr& key)
+{
+    if (key.size() != GetKeySize())
+    {
+        throw InvalidParameterException("key", "key.Size() != GetKeySize ()");
+    }
 
-		if (!Initialized)
-			ScheduledKey.allocate (GetScheduledKeySize ());
+    if (!Initialized)
+    {
+        ScheduledKey.allocate(GetScheduledKeySize());
+    }
 
-		SetCipherKey (key);
-		Key.copyFrom (key);
-		Initialized = true;
-	}
+    SetCipherKey(key);
+    Key.copyFrom(key);
+    Initialized = true;
+}
 
-    bool CipherAlgorithm::HwSupportEnabled = false;
+bool CipherAlgorithm::HwSupportEnabled = false;
 }
 }

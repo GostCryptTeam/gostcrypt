@@ -60,8 +60,9 @@ class CipherAlgorithmNotInitialized : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    CipherAlgorithmNotInitialized(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
+    CipherAlgorithmNotInitialized(QString fonction, QString filename,
+                                  quint32 line) : VolumeException(fonction,
+                                              filename, line) {}
     DEF_EXCEPTION_WHAT(CipherAlgorithmNotInitialized, VolumeException, "Cipher key not set")
 
     DEC_SERIALIZABLE(CipherAlgorithmNotInitialized);
@@ -79,8 +80,9 @@ class EncryptionAlgorithmNotInitialized : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    EncryptionAlgorithmNotInitialized(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
+    EncryptionAlgorithmNotInitialized(QString fonction, QString filename,
+                                      quint32 line) : VolumeException(fonction,
+                                                  filename, line) {}
     DEF_EXCEPTION_WHAT(EncryptionAlgorithmNotInitialized, VolumeException, "Ciphers not set")
 
     DEC_SERIALIZABLE(EncryptionAlgorithmNotInitialized);
@@ -98,8 +100,9 @@ class EncryptionModeNotInitialized : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    EncryptionModeNotInitialized(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
+    EncryptionModeNotInitialized(QString fonction, QString filename,
+                                 quint32 line) : VolumeException(fonction,
+                                             filename, line) {}
     DEF_EXCEPTION_WHAT(EncryptionModeNotInitialized, VolumeException, "Ciphers not set")
 
     DEC_SERIALIZABLE(EncryptionModeNotInitialized);
@@ -213,9 +216,12 @@ class PasswordOrKeyfilesIncorrect : public VolumeException
      * @param line Line of the file where the exception was thrown
      * @param volumePath QFileInfo corresponding to the volume to be mounted
      */
-    PasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : VolumeException(fonction,
-                filename, line), volumePath(volumePath) {}
-    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for the volume " + volumePath.canonicalFilePath() + "are incorrect.")
+    PasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line,
+                                QFileInfo volumePath) : VolumeException(fonction,
+                                            filename, line), volumePath(volumePath) {}
+    DEF_EXCEPTION_WHAT(PasswordOrKeyfilesIncorrect, VolumeException,
+                       "The given password or keyfiles for the volume " + volumePath.canonicalFilePath() +
+                       "are incorrect.")
     QFileInfo volumePath; /**< QFileInfo corresponding to the volume to be mounted */
     DEC_SERIALIZABLE(PasswordOrKeyfilesIncorrect);
 };
@@ -233,9 +239,12 @@ class ProtectionPasswordOrKeyfilesIncorrect : public VolumeException
      * @param line Line of the file where the exception was thrown
      * @param volumePath QFileInfo corresponding to the volume to be mounted
      */
-    ProtectionPasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line, QFileInfo volumePath) : VolumeException(fonction,
-                filename, line), volumePath(volumePath) {}
-    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException, "The given password or keyfiles for hidden volume ("+volumePath.canonicalFilePath()+") are incorrect.")
+    ProtectionPasswordOrKeyfilesIncorrect(QString fonction, QString filename, quint32 line,
+                                          QFileInfo volumePath) : VolumeException(fonction,
+                                                      filename, line), volumePath(volumePath) {}
+    DEF_EXCEPTION_WHAT(ProtectionPasswordOrKeyfilesIncorrect, VolumeException,
+                       "The given password or keyfiles for hidden volume (" + volumePath.canonicalFilePath() +
+                       ") are incorrect.")
     QFileInfo volumePath; /**< QFileInfo corresponding to the volume to be mounted */
     DEC_SERIALIZABLE(ProtectionPasswordOrKeyfilesIncorrect);
 };
@@ -252,9 +261,11 @@ class VolumeVersionNotCompatible : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    VolumeVersionNotCompatible(QString fonction, QString filename, quint32 line, QString c) : VolumeException(fonction,
-                filename, line), comment(c) {}
-    DEF_EXCEPTION_WHAT(VolumeVersionNotCompatible, VolumeException, "The volume version is not compatible with this version of GostCrypt ("+comment+")")
+    VolumeVersionNotCompatible(QString fonction, QString filename, quint32 line,
+                               QString c) : VolumeException(fonction,
+                                           filename, line), comment(c) {}
+    DEF_EXCEPTION_WHAT(VolumeVersionNotCompatible, VolumeException,
+                       "The volume version is not compatible with this version of GostCrypt (" + comment + ")")
     QString comment;
     DEC_SERIALIZABLE(VolumeVersionNotCompatible);
 };
@@ -273,7 +284,8 @@ class FailedResetTimestamps : public VolumeException
      */
     FailedResetTimestamps(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(FailedResetTimestamps, VolumeException, "Failed to reset the timestamp of the volume file.")
+    DEF_EXCEPTION_WHAT(FailedResetTimestamps, VolumeException,
+                       "Failed to reset the timestamp of the volume file.")
 
     DEC_SERIALIZABLE(FailedResetTimestamps);
 };
@@ -311,7 +323,8 @@ class FailedGetTimestamps : public VolumeException
      */
     FailedGetTimestamps(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(FailedGetTimestamps, VolumeException, "Failed to get the timestamps of the volume file.")
+    DEF_EXCEPTION_WHAT(FailedGetTimestamps, VolumeException,
+                       "Failed to get the timestamps of the volume file.")
 
     DEC_SERIALIZABLE(FailedGetTimestamps);
 };
@@ -330,7 +343,8 @@ class DataNotMutable : public VolumeException
      */
     DataNotMutable(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
                 filename, line) {}
-    DEF_EXCEPTION_WHAT(DataNotMutable, VolumeException, "The buffer was created with a cont buffer but is not const itself and you're trying to access it.")
+    DEF_EXCEPTION_WHAT(DataNotMutable, VolumeException,
+                       "The buffer was created with a cont buffer but is not const itself and you're trying to access it.")
 
     DEC_SERIALIZABLE(DataNotMutable);
 };
@@ -347,9 +361,11 @@ class IncorrectCipherDataLength : public VolumeException
      * @param filename Path of the file where the exception was thrown
      * @param line Line of the file where the exception was thrown
      */
-    IncorrectCipherDataLength(QString fonction, QString filename, quint32 line) : VolumeException(fonction,
-                filename, line) {}
-    DEF_EXCEPTION_WHAT(IncorrectCipherDataLength, VolumeException, "The size of the buffer to cipher is not multiple of block size")
+    IncorrectCipherDataLength(QString fonction, QString filename,
+                              quint32 line) : VolumeException(fonction,
+                                          filename, line) {}
+    DEF_EXCEPTION_WHAT(IncorrectCipherDataLength, VolumeException,
+                       "The size of the buffer to cipher is not multiple of block size")
 
     DEC_SERIALIZABLE(IncorrectCipherDataLength);
 };
