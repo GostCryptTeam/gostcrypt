@@ -15,136 +15,161 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	EncryptionAlgorithm::EncryptionAlgorithm () : Deprecated (false)
-	{
-	}
+EncryptionAlgorithm::EncryptionAlgorithm() : Deprecated(false)
+{
+}
 
-	EncryptionAlgorithm::~EncryptionAlgorithm ()
-	{
-	}
+EncryptionAlgorithm::~EncryptionAlgorithm()
+{
+}
 
-	void EncryptionAlgorithm::Decrypt (quint8 *data, quint64 length) const
-	{
-		//if_debug (ValidateState ());
-		Mode->Decrypt (data, length);
-	}
+void EncryptionAlgorithm::Decrypt(quint8* data, quint64 length) const
+{
+    //if_debug (ValidateState ());
+    Mode->Decrypt(data, length);
+}
 
-    void EncryptionAlgorithm::Decrypt (BufferPtr &data) const
-	{
-		Decrypt (data, data.size());
-	}
+void EncryptionAlgorithm::Decrypt(BufferPtr& data) const
+{
+    Decrypt(data, data.size());
+}
 
-	void EncryptionAlgorithm::DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
-	{
-		//if_debug (ValidateState());
-		Mode->DecryptSectors (data, sectorIndex, sectorCount, sectorSize);
-	}
+void EncryptionAlgorithm::DecryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+        size_t sectorSize) const
+{
+    //if_debug (ValidateState());
+    Mode->DecryptSectors(data, sectorIndex, sectorCount, sectorSize);
+}
 
-	void EncryptionAlgorithm::Encrypt (quint8 *data, quint64 length) const
-	{
-		//if_debug (ValidateState());
-		Mode->Encrypt (data, length);
-	}
+void EncryptionAlgorithm::Encrypt(quint8* data, quint64 length) const
+{
+    //if_debug (ValidateState());
+    Mode->Encrypt(data, length);
+}
 
-    void EncryptionAlgorithm::Encrypt (BufferPtr &data) const
-	{
-		Encrypt (data, data.size());
-	}
+void EncryptionAlgorithm::Encrypt(BufferPtr& data) const
+{
+    Encrypt(data, data.size());
+}
 
-	void EncryptionAlgorithm::EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const
-	{
-		//if_debug (ValidateState ());
-		Mode->EncryptSectors (data, sectorIndex, sectorCount, sectorSize);
-	}
+void EncryptionAlgorithm::EncryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+        size_t sectorSize) const
+{
+    //if_debug (ValidateState ());
+    Mode->EncryptSectors(data, sectorIndex, sectorCount, sectorSize);
+}
 
-	EncryptionAlgorithmList EncryptionAlgorithm::GetAvailableAlgorithms ()
-	{
-		EncryptionAlgorithmList l;
+EncryptionAlgorithmList EncryptionAlgorithm::GetAvailableAlgorithms()
+{
+    EncryptionAlgorithmList l;
 
-        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST(QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
-        l.push_back (QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper(QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
+    l.push_back(QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGOST(
+                    QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
+    l.push_back(QSharedPointer <EncryptionAlgorithm> (new EncryptionAlgorithmGrasshopper(
+                    QSharedPointer <EncryptionMode>(new EncryptionModeXTS()))));
 
-		return l;
-	}
+    return l;
+}
 
-	size_t EncryptionAlgorithm::GetLargestKeySize (const EncryptionAlgorithmList &algorithms)
-	{
-		size_t largestKeySize = 0;
+size_t EncryptionAlgorithm::GetLargestKeySize(const EncryptionAlgorithmList& algorithms)
+{
+    size_t largestKeySize = 0;
 
-        for (const QSharedPointer<EncryptionAlgorithm> ea : algorithms)
-		{
-            if (ea->GetKeySize() > largestKeySize)
-                largestKeySize = ea->GetKeySize();
-		}
-
-		return largestKeySize;
-	}
-
-	size_t EncryptionAlgorithm::GetKeySize () const
-	{
-        return this->Mode->GetKeySize();
-	}
-
-    QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode () const
-	{
-        if (Mode.isNull())
-            throw EncryptionAlgorithmNotInitializedException();
-
-		return Mode;
-	}
-
-    QString EncryptionAlgorithm::GetName () const
-	{
-        if (this->Mode->GetCiphers().size() < 1)
-            throw EncryptionAlgorithmNotInitializedException();
-
-        QString name;
-
-        for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
-		{
-            if (name.isEmpty())
-                name = c->GetName();
-			else
-                name += "-" + c->GetName();
-		}
-
-		return name;
-	}
-
-        QString EncryptionAlgorithm::GetDescription () const
+    for (const QSharedPointer<EncryptionAlgorithm> ea : algorithms)
+    {
+        if (ea->GetKeySize() > largestKeySize)
         {
-                if (this->Mode->GetCiphers().size() < 1)
-                        throw EncryptionAlgorithmNotInitializedException();
-
-                QString desc;
-
-                for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
-                {
-                        if (desc.isEmpty())
-                                desc = c->GetDescription();
-                        else
-                                desc += "\n\n" + c->GetDescription();
-                }
-
-                return desc;
+            largestKeySize = ea->GetKeySize();
         }
+    }
 
-    void EncryptionAlgorithm::SetKey (const BufferPtr &key)
-	{
-        if (this->Mode->GetCiphers().size() < 1)
-            throw EncryptionAlgorithmNotInitializedException();
+    return largestKeySize;
+}
 
-		if (GetKeySize() != key.size())
-            throw InvalidParameterException("key", "Key size mismatch");
+size_t EncryptionAlgorithm::GetKeySize() const
+{
+    return this->Mode->GetKeySize();
+}
 
-		size_t keyOffset = 0;
-        for (QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
-		{
-            c->SetKey (key.getRange (keyOffset, c->GetKeySize()));
-            keyOffset += c->GetKeySize();
-		}
-	}
+QSharedPointer <EncryptionMode> EncryptionAlgorithm::GetMode() const
+{
+    if (Mode.isNull())
+    {
+        throw EncryptionAlgorithmNotInitializedException();
+    }
+
+    return Mode;
+}
+
+QString EncryptionAlgorithm::GetName() const
+{
+    if (this->Mode->GetCiphers().size() < 1)
+    {
+        throw EncryptionAlgorithmNotInitializedException();
+    }
+
+    QString name;
+
+    for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
+    {
+        if (name.isEmpty())
+        {
+            name = c->GetName();
+        }
+        else
+        {
+            name += "-" + c->GetName();
+        }
+    }
+
+    return name;
+}
+
+QString EncryptionAlgorithm::GetDescription() const
+{
+    if (this->Mode->GetCiphers().size() < 1)
+    {
+        throw EncryptionAlgorithmNotInitializedException();
+    }
+
+    QString desc;
+
+    for (const QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
+    {
+        if (desc.isEmpty())
+        {
+            desc = c->GetDescription();
+        }
+        else
+        {
+            desc += "\n\n" + c->GetDescription();
+        }
+    }
+
+    return desc;
+}
+
+void EncryptionAlgorithm::SetKey(const BufferPtr& key)
+{
+    if (this->Mode->GetCiphers().size() < 1)
+    {
+        throw EncryptionAlgorithmNotInitializedException();
+    }
+
+    if (GetKeySize() != key.size())
+    {
+        throw InvalidParameterException("key", "Key size mismatch");
+    }
+
+    size_t keyOffset = 0;
+    for (QSharedPointer<CipherAlgorithm> c : this->Mode->GetCiphers())
+    {
+        c->SetKey(key.getRange(keyOffset, c->GetKeySize()));
+        keyOffset += c->GetKeySize();
+    }
+}
 }
 }

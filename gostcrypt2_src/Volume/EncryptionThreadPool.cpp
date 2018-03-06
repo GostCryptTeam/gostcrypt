@@ -249,7 +249,8 @@ void EncryptionThread::run()
                 while (!EncryptionThreadPool::StopPending &&
                         workItem->State != EncryptionThreadPool::WorkItem::State::Ready)
                 {
-                    EncryptionThreadPool::WorkItemReadyEvent.wait(&EncryptionThreadPool::WorkItemReadyEventMutex);//, 100);
+                    EncryptionThreadPool::WorkItemReadyEvent.wait(
+                        &EncryptionThreadPool::WorkItemReadyEventMutex);//, 100);
                 }
 
                 workItem->State = EncryptionThreadPool::WorkItem::State::Busy;

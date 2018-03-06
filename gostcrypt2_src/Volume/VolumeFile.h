@@ -18,58 +18,59 @@ namespace GostCrypt
 {
 namespace Volume
 {
-    struct FileType
+struct FileType
+{
+    enum Enum
     {
-        enum Enum
-        {
-            Unknown,
-            File,
-            SymbolickLink,
-            BlockDevice,
-            CharacterDevice
-        };
+        Unknown,
+        File,
+        SymbolickLink,
+        BlockDevice,
+        CharacterDevice
     };
+};
 
 
-    class VolumeFile
-	{
-	public:
+class VolumeFile
+{
+ public:
 
-        VolumeFile () : FileIsOpen (false), preserveTimestamps(false), FileHandle(-1), AccTime(-1), ModTime(-1) { }
-        virtual ~VolumeFile ();
-			
-		void Close ();
-        quint32 GetDeviceSectorSize () const;
-        const QFileInfo GetPath () const;
-        quint64 Length () const;
-        void Open (const QFileInfo path, bool readOnly, bool preserveTimestamps);
-        quint64 Read (BufferPtr &buffer) const;
-        quint64 ReadAt (BufferPtr &buffer, quint64 position) const;
-        void SeekAt (quint64 position) const;
-        void SeekEnd (int offset) const;
-        void Write (const BufferPtr &buffer) const;
-        void Write (const BufferPtr &buffer, size_t length) const { Write (buffer.getRange (0, length)); }
-        void WriteAt (const BufferPtr &buffer, quint64 position) const;
-        void Flush () const;
-        FileType::Enum GetType () const;
-        bool IsTypeFile () const { return GetType() == FileType::File; }
-        bool isTypeDevice () const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }
-        void ResetTimestamps();
-		
-	protected:
+    VolumeFile() : FileIsOpen(false), preserveTimestamps(false), FileHandle(-1), AccTime(-1),
+        ModTime(-1) { }
+    virtual ~VolumeFile();
 
-		bool FileIsOpen;
-        bool preserveTimestamps;
-        QFileInfo Path;
-        int FileHandle;
+    void Close();
+    quint32 GetDeviceSectorSize() const;
+    const QFileInfo GetPath() const;
+    quint64 Length() const;
+    void Open(const QFileInfo path, bool readOnly, bool preserveTimestamps);
+    quint64 Read(BufferPtr& buffer) const;
+    quint64 ReadAt(BufferPtr& buffer, quint64 position) const;
+    void SeekAt(quint64 position) const;
+    void SeekEnd(int offset) const;
+    void Write(const BufferPtr& buffer) const;
+    void Write(const BufferPtr& buffer, size_t length) const { Write(buffer.getRange(0, length)); }
+    void WriteAt(const BufferPtr& buffer, quint64 position) const;
+    void Flush() const;
+    FileType::Enum GetType() const;
+    bool IsTypeFile() const { return GetType() == FileType::File; }
+    bool isTypeDevice() const {return (GetType() == FileType::BlockDevice) || (GetType() == FileType::CharacterDevice); }
+    void ResetTimestamps();
 
-		time_t AccTime;
-		time_t ModTime;
+ protected:
 
-	private:
-        VolumeFile (const VolumeFile &);
-        VolumeFile &operator= (const VolumeFile &);
-	};
+    bool FileIsOpen;
+    bool preserveTimestamps;
+    QFileInfo Path;
+    int FileHandle;
+
+    time_t AccTime;
+    time_t ModTime;
+
+ private:
+    VolumeFile(const VolumeFile&);
+    VolumeFile& operator= (const VolumeFile&);
+};
 }
 }
 

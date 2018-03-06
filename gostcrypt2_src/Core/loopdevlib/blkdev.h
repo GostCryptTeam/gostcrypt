@@ -16,7 +16,7 @@
 #include <unistd.h>
 
 #ifdef HAVE_SYS_MKDEV_H
-# include <sys/mkdev.h>		/* major and minor on Solaris */
+# include <sys/mkdev.h>     /* major and minor on Solaris */
 #endif
 
 #define DEFAULT_SECTOR_SIZE       512
@@ -24,18 +24,18 @@
 #ifdef __linux__
 /* very basic ioclts, should be available everywhere */
 # ifndef BLKROSET
-#  define BLKROSET   _IO(0x12,93)	/* set device read-only (0 = read-write) */
-#  define BLKROGET   _IO(0x12,94)	/* get read-only status (0 = read_write) */
-#  define BLKRRPART  _IO(0x12,95)	/* re-read partition table */
-#  define BLKGETSIZE _IO(0x12,96)	/* return device size /512 (long *arg) */
-#  define BLKFLSBUF  _IO(0x12,97)	/* flush buffer cache */
-#  define BLKRASET   _IO(0x12,98)	/* set read ahead for block device */
-#  define BLKRAGET   _IO(0x12,99)	/* get current read ahead setting */
-#  define BLKFRASET  _IO(0x12,100)	/* set filesystem (mm/filemap.c) read-ahead */
-#  define BLKFRAGET  _IO(0x12,101)	/* get filesystem (mm/filemap.c) read-ahead */
-#  define BLKSECTSET _IO(0x12,102)	/* set max sectors per request (ll_rw_blk.c) */
-#  define BLKSECTGET _IO(0x12,103)	/* get max sectors per request (ll_rw_blk.c) */
-#  define BLKSSZGET  _IO(0x12,104)	/* get block device sector size */
+#  define BLKROSET   _IO(0x12,93)   /* set device read-only (0 = read-write) */
+#  define BLKROGET   _IO(0x12,94)   /* get read-only status (0 = read_write) */
+#  define BLKRRPART  _IO(0x12,95)   /* re-read partition table */
+#  define BLKGETSIZE _IO(0x12,96)   /* return device size /512 (long *arg) */
+#  define BLKFLSBUF  _IO(0x12,97)   /* flush buffer cache */
+#  define BLKRASET   _IO(0x12,98)   /* set read ahead for block device */
+#  define BLKRAGET   _IO(0x12,99)   /* get current read ahead setting */
+#  define BLKFRASET  _IO(0x12,100)  /* set filesystem (mm/filemap.c) read-ahead */
+#  define BLKFRAGET  _IO(0x12,101)  /* get filesystem (mm/filemap.c) read-ahead */
+#  define BLKSECTSET _IO(0x12,102)  /* set max sectors per request (ll_rw_blk.c) */
+#  define BLKSECTGET _IO(0x12,103)  /* get max sectors per request (ll_rw_blk.c) */
+#  define BLKSSZGET  _IO(0x12,104)  /* get block device sector size */
 
 /* ioctls introduced in 2.2.16, removed in 2.5.58 */
 #  define BLKELVGET  _IOR(0x12,106,size_t) /* elevator get */
@@ -89,36 +89,36 @@
 
 
 /* Determine size in bytes */
-off_t blkdev_find_size (int fd);
+off_t blkdev_find_size(int fd);
 
 /* get size in bytes */
-int blkdev_get_size(int fd, unsigned long long *bytes);
+int blkdev_get_size(int fd, unsigned long long* bytes);
 
 /* get 512-byte sector count */
-int blkdev_get_sectors(int fd, unsigned long long *sectors);
+int blkdev_get_sectors(int fd, unsigned long long* sectors);
 
 /* get hardware sector size */
-int blkdev_get_sector_size(int fd, int *sector_size);
+int blkdev_get_sector_size(int fd, int* sector_size);
 /* get physical block device size */
-int blkdev_get_physector_size(int fd, int *sector_size);
+int blkdev_get_physector_size(int fd, int* sector_size);
 
 
 /* SCSI device types.  Copied almost as-is from kernel header.
  * http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/include/scsi/scsi.h */
-#define SCSI_TYPE_DISK			0x00
-#define SCSI_TYPE_TAPE			0x01
-#define SCSI_TYPE_PRINTER		0x02
-#define SCSI_TYPE_PROCESSOR		0x03	/* HP scanners use this */
-#define SCSI_TYPE_WORM			0x04	/* Treated as ROM by our system */
-#define SCSI_TYPE_ROM			0x05
-#define SCSI_TYPE_SCANNER		0x06
-#define SCSI_TYPE_MOD			0x07	/* Magneto-optical disk - treated as SCSI_TYPE_DISK */
-#define SCSI_TYPE_MEDIUM_CHANGER	0x08
-#define SCSI_TYPE_COMM			0x09	/* Communications device */
-#define SCSI_TYPE_RAID			0x0c
-#define SCSI_TYPE_ENCLOSURE		0x0d	/* Enclosure Services Device */
-#define SCSI_TYPE_RBC			0x0e
-#define SCSI_TYPE_OSD			0x11
-#define SCSI_TYPE_NO_LUN		0x7f
+#define SCSI_TYPE_DISK          0x00
+#define SCSI_TYPE_TAPE          0x01
+#define SCSI_TYPE_PRINTER       0x02
+#define SCSI_TYPE_PROCESSOR     0x03    /* HP scanners use this */
+#define SCSI_TYPE_WORM          0x04    /* Treated as ROM by our system */
+#define SCSI_TYPE_ROM           0x05
+#define SCSI_TYPE_SCANNER       0x06
+#define SCSI_TYPE_MOD           0x07    /* Magneto-optical disk - treated as SCSI_TYPE_DISK */
+#define SCSI_TYPE_MEDIUM_CHANGER    0x08
+#define SCSI_TYPE_COMM          0x09    /* Communications device */
+#define SCSI_TYPE_RAID          0x0c
+#define SCSI_TYPE_ENCLOSURE     0x0d    /* Enclosure Services Device */
+#define SCSI_TYPE_RBC           0x0e
+#define SCSI_TYPE_OSD           0x11
+#define SCSI_TYPE_NO_LUN        0x7f
 
 #endif /* BLKDEV_H */

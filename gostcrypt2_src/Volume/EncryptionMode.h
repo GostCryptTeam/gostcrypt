@@ -17,41 +17,46 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class EncryptionMode;
-    typedef QList < QSharedPointer <EncryptionMode> > EncryptionModeList;
+class EncryptionMode;
+typedef QList < QSharedPointer <EncryptionMode> > EncryptionModeList;
 
-	class EncryptionMode
-	{
-	public:
-		virtual ~EncryptionMode ();
+class EncryptionMode
+{
+ public:
+    virtual ~EncryptionMode();
 
-		virtual void Decrypt (quint8 *data, quint64 length) const = 0;
-		virtual void DecryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
-		virtual void DecryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const = 0;
-		virtual void Encrypt (quint8 *data, quint64 length) const = 0;
-		virtual void EncryptSectors (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const;
-		virtual void EncryptSectorsCurrentThread (quint8 *data, quint64 sectorIndex, quint64 sectorCount, size_t sectorSize) const = 0;
-		virtual size_t GetKeySize () const = 0;
-        virtual QString GetName () const = 0;
-		virtual QSharedPointer <EncryptionMode> GetNew () const = 0;
-        virtual void SetKey (const BufferPtr &key) = 0;
-        virtual void SetCiphers (const CipherAlgorithmList &ciphers) { Ciphers = ciphers; }
-        virtual const CipherAlgorithmList GetCiphers () { return Ciphers; }
-	protected:
-		EncryptionMode ();
+    virtual void Decrypt(quint8* data, quint64 length) const = 0;
+    virtual void DecryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+                                size_t sectorSize) const;
+    virtual void DecryptSectorsCurrentThread(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+            size_t sectorSize) const = 0;
+    virtual void Encrypt(quint8* data, quint64 length) const = 0;
+    virtual void EncryptSectors(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+                                size_t sectorSize) const;
+    virtual void EncryptSectorsCurrentThread(quint8* data, quint64 sectorIndex, quint64 sectorCount,
+            size_t sectorSize) const = 0;
+    virtual size_t GetKeySize() const = 0;
+    virtual QString GetName() const = 0;
+    virtual QSharedPointer <EncryptionMode> GetNew() const = 0;
+    virtual void SetKey(const BufferPtr& key) = 0;
+    virtual void SetCiphers(const CipherAlgorithmList& ciphers) { Ciphers = ciphers; }
+    virtual const CipherAlgorithmList GetCiphers() { return Ciphers; }
+ protected:
+    EncryptionMode();
 
-        static const size_t EncryptionDataUnitSize = ENCRYPTION_DATA_UNIT_SIZE;
+    static const size_t EncryptionDataUnitSize = ENCRYPTION_DATA_UNIT_SIZE;
 
-        CipherAlgorithmList Ciphers;
-		bool KeySet;
-		quint64 SectorOffset;
+    CipherAlgorithmList Ciphers;
+    bool KeySet;
+    quint64 SectorOffset;
 
-	private:
-		EncryptionMode (const EncryptionMode &);
-		EncryptionMode &operator= (const EncryptionMode &);
-	};
+ private:
+    EncryptionMode(const EncryptionMode&);
+    EncryptionMode& operator= (const EncryptionMode&);
+};
 }
 }
 

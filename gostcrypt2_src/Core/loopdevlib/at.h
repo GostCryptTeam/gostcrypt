@@ -16,11 +16,11 @@
 
 #include "c.h"
 
-extern int fstat_at(int dir, const char *dirname,
-			const char *filename, struct stat *st, int nofollow);
+extern int fstat_at(int dir, const char* dirname,
+                    const char* filename, struct stat* st, int nofollow);
 
-extern int open_at(int dir, const char *dirname,
-			const char *filename, int flags);
+extern int open_at(int dir, const char* dirname,
+                   const char* filename, int flags);
 
 
 #endif /* UTIL_LINUX_AT_H */

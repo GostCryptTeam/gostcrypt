@@ -16,51 +16,52 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-    class CipherAlgorithm;
-    typedef QList < QSharedPointer <CipherAlgorithm> > CipherAlgorithmList;
+class CipherAlgorithm;
+typedef QList < QSharedPointer <CipherAlgorithm> > CipherAlgorithmList;
 
-    class CipherAlgorithm
-	{
-	public:
-        virtual ~CipherAlgorithm ();
+class CipherAlgorithm
+{
+ public:
+    virtual ~CipherAlgorithm();
 
-		virtual void DecryptBlocks (quint8 *data, size_t blockCount) const;
-		virtual void EncryptBlock (quint8 *data) const;
-		virtual void EncryptBlocks (quint8 *data, size_t blockCount) const;
-		virtual size_t GetBlockSize () const = 0;
-		virtual size_t GetKeySize () const = 0;
-        virtual QString GetName () const = 0;
-        virtual QString GetDescription () const = 0;
-        virtual QSharedPointer <CipherAlgorithm> GetNew () const = 0;
-        virtual void SetKey (const BufferPtr &key);
+    virtual void DecryptBlocks(quint8* data, size_t blockCount) const;
+    virtual void EncryptBlock(quint8* data) const;
+    virtual void EncryptBlocks(quint8* data, size_t blockCount) const;
+    virtual size_t GetBlockSize() const = 0;
+    virtual size_t GetKeySize() const = 0;
+    virtual QString GetName() const = 0;
+    virtual QString GetDescription() const = 0;
+    virtual QSharedPointer <CipherAlgorithm> GetNew() const = 0;
+    virtual void SetKey(const BufferPtr& key);
 
-		virtual void XorCipherKey (quint8 *ks, quint8 *data, int len) const = 0;
-		virtual void EncryptWithKS (quint8 *data, quint8 *ks) const = 0;
-		virtual void DecryptWithKS (quint8 *data, quint8 *ks) const = 0;
-		virtual void CopyCipherKey (quint8 *ks) const = 0;
+    virtual void XorCipherKey(quint8* ks, quint8* data, int len) const = 0;
+    virtual void EncryptWithKS(quint8* data, quint8* ks) const = 0;
+    virtual void DecryptWithKS(quint8* data, quint8* ks) const = 0;
+    virtual void CopyCipherKey(quint8* ks) const = 0;
 
-		static const int MaxBlockSize = 16;
-		virtual size_t GetScheduledKeySize () const = 0;
+    static const int MaxBlockSize = 16;
+    virtual size_t GetScheduledKeySize() const = 0;
 
-	protected:
-        CipherAlgorithm ();
+ protected:
+    CipherAlgorithm();
 
-		virtual void Decrypt (quint8 *data) const = 0;
-		virtual void Encrypt (quint8 *data) const = 0;
-		virtual void SetCipherKey (const quint8 *key) = 0;
+    virtual void Decrypt(quint8* data) const = 0;
+    virtual void Encrypt(quint8* data) const = 0;
+    virtual void SetCipherKey(const quint8* key) = 0;
 
-		static bool HwSupportEnabled;
-		bool Initialized;
-		SecureBuffer Key;
-		SecureBuffer ScheduledKey;
-		SecureBuffer SwapScheduledKey;
+    static bool HwSupportEnabled;
+    bool Initialized;
+    SecureBuffer Key;
+    SecureBuffer ScheduledKey;
+    SecureBuffer SwapScheduledKey;
 
-	private:
-        CipherAlgorithm (const CipherAlgorithm &);
-        CipherAlgorithm &operator= (const CipherAlgorithm &);
-	};
+ private:
+    CipherAlgorithm(const CipherAlgorithm&);
+    CipherAlgorithm& operator= (const CipherAlgorithm&);
+};
 
 }
 }

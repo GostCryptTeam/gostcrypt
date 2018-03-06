@@ -26,17 +26,23 @@ extern "C"
 {
 #endif
 
-void hmac_stribog (char *k, int32 lk, char *d, int32 ld, char *out);
-void derive_u_stribog (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *u, int b);
-void derive_key_stribog (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *dk, int dklen);
+void hmac_stribog(char* k, int32 lk, char* d, int32 ld, char* out);
+void derive_u_stribog(char* pwd, int pwd_len, char* salt, int salt_len, int iterations, char* u,
+                      int b);
+void derive_key_stribog(char* pwd, int pwd_len, char* salt, int salt_len, int iterations, char* dk,
+                        int dklen);
 
-void hmac_gosthash (char *k, int32 lk, char *d, int32 ld, char *out);
-void derive_u_gosthash (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *u, int b);
-void derive_key_gosthash (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *dk, int dklen);
+void hmac_gosthash(char* k, int32 lk, char* d, int32 ld, char* out);
+void derive_u_gosthash(char* pwd, int pwd_len, char* salt, int salt_len, int iterations, char* u,
+                       int b);
+void derive_key_gosthash(char* pwd, int pwd_len, char* salt, int salt_len, int iterations, char* dk,
+                         int dklen);
 
-void hmac_whirlpool (char *k, int lk, char *d, int ld, char *out, int t);
-void derive_u_whirlpool (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *u, int b);
-void derive_key_whirlpool (char *pwd, int pwd_len, char *salt, int salt_len, int iterations, char *dk, int dklen);
+void hmac_whirlpool(char* k, int lk, char* d, int ld, char* out, int t);
+void derive_u_whirlpool(char* pwd, int pwd_len, char* salt, int salt_len, int iterations, char* u,
+                        int b);
+void derive_key_whirlpool(char* pwd, int pwd_len, char* salt, int salt_len, int iterations,
+                          char* dk, int dklen);
 
 #if defined(__cplusplus)
 }

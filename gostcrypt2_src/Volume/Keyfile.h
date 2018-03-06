@@ -21,30 +21,32 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class Keyfile;
-    typedef QList < QSharedPointer <Keyfile> > KeyfileList;
+class Keyfile;
+typedef QList < QSharedPointer <Keyfile> > KeyfileList;
 
-    class Keyfile
-	{
-	public:
-        explicit Keyfile (const QFileInfo &path) : Path(path) {}
-        virtual ~Keyfile () { }
+class Keyfile
+{
+ public:
+    explicit Keyfile(const QFileInfo& path) : Path(path) {}
+    virtual ~Keyfile() { }
 
-        static QSharedPointer <VolumePassword> ApplyListToPassword (QSharedPointer <KeyfileList> keyfiles, QSharedPointer <VolumePassword> password);
+    static QSharedPointer <VolumePassword> ApplyListToPassword(QSharedPointer <KeyfileList> keyfiles,
+            QSharedPointer <VolumePassword> password);
 
-		static const size_t MinProcessedLength = 1;
-		static const size_t MaxProcessedLength = 1024 * 1024;
+    static const size_t MinProcessedLength = 1;
+    static const size_t MaxProcessedLength = 1024 * 1024;
 
-	protected:
-        void Apply (BufferPtr &pool) const;
-        QFileInfo Path;
+ protected:
+    void Apply(BufferPtr& pool) const;
+    QFileInfo Path;
 
-	private:
-		Keyfile (const Keyfile &);
-		Keyfile &operator= (const Keyfile &);
-	};
+ private:
+    Keyfile(const Keyfile&);
+    Keyfile& operator= (const Keyfile&);
+};
 }
 }
 

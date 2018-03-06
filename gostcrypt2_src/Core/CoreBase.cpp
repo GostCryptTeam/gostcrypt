@@ -424,7 +424,8 @@ void CoreBase::randomizeEncryptionAlgorithmKey(QSharedPointer <Volume::Encryptio
     encryptionAlgorithm->GetMode()->SetKey(modeKey);
 }
 
-void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingParameters id, QString algorithm, bool random)
+void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingParameters id,
+                                QString algorithm, bool random)
 {
     std::fstream file;
 
@@ -479,7 +480,8 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
         if (!algorithm.isEmpty())
         {
             ea->EncryptSectors(outputBuffer.get(), offset / ENCRYPTION_DATA_UNIT_SIZE,
-                               dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);    // TODO : check that if dataFragmentLength is set to minimum (RandomGenerator::PoolSize) there no issue
+                               dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE,
+                               ENCRYPTION_DATA_UNIT_SIZE);    // TODO : check that if dataFragmentLength is set to minimum (RandomGenerator::PoolSize) there no issue
         }
         file.write((char*)outputBuffer.get(), (size_t) dataFragmentLength);  // writing it
 
@@ -517,7 +519,9 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
 
         // Conversions :(
         if (params->password.isNull())
+        {
             throw InvalidParameterException("params->password", "Password is null.");
+        }
 
         password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
 
@@ -546,13 +550,16 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
         RandomGenerator::SetHash(newVolumeHeaderKdf);
 
         /* Conversions */
-        QSharedPointer<Volume::VolumePassword> newPassword(new Volume::VolumePassword(params->newPassword->data(), params->newPassword->size()));
+        QSharedPointer<Volume::VolumePassword> newPassword(new Volume::VolumePassword(
+                    params->newPassword->data(), params->newPassword->size()));
         QSharedPointer <Volume::KeyfileList> newKeyfiles;
-        for(QFileInfo keyfile : params->newKeyfiles) {
+        for (QFileInfo keyfile : params->newKeyfiles)
+        {
             newKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
         }
 
-        QSharedPointer <Volume::VolumePassword> newPasswordKey = Volume::Keyfile::ApplyListToPassword(newKeyfiles, newPassword);
+        QSharedPointer <Volume::VolumePassword> newPasswordKey = Volume::Keyfile::ApplyListToPassword(
+                    newKeyfiles, newPassword);
 
         bool backupHeader = false;
         while (true)
@@ -672,7 +679,7 @@ QFileInfo CoreBase::getFreeDefaultMountPoint(uid_t userId)
             {
                 continue;
             }
-            throw FailedCreateFuseMountPointException(e.getMountpoint());
+            throw;//TODO
         }
     }
 }
@@ -719,7 +726,7 @@ bool CoreBase::processNonRootRequest(QVariant r)
 
 void CoreBase::updateProgress(qreal progress, ProgressTrackingParameters id)
 {
-    emit sendProgressUpdate(id.requestId,id.end*progress+id.start*(1-progress));
+    emit sendProgressUpdate(id.requestId, id.end * progress + id.start * (1 - progress));
 }
 
 QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest>
@@ -735,7 +742,8 @@ QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<Cre
         }
         response->passThrough = params->passThrough;
 
-        CoreBase::createRandomFile(params->file, Volume::VolumePassword::MaxSize, params->id, "Gost Grasshopper",
+        CoreBase::createRandomFile(params->file, Volume::VolumePassword::MaxSize, params->id,
+                                   "Gost Grasshopper",
                                    true); // TODO certain values of MaxSize may no work with encryption AND random
     }
     catch (GostCryptException& e)
@@ -769,7 +777,9 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
 
         // Conversions :(
         if (params->password.isNull())
+        {
             throw InvalidParameterException("params->password", "Password is null.");
+        }
 
 
         password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
@@ -796,10 +806,12 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
 
             // Conversion :(
             if (params->hiddenVolumePassword.isNull())
+            {
                 throw InvalidParameterException("params->hiddenVolumePassword", "hiddenVolumePassword is null.");
+            }
 
             hiddenVolumePassord.reset(new Volume::VolumePassword(params->hiddenVolumePassword->constData(),
-                                          params->hiddenVolumePassword->size()));
+                                      params->hiddenVolumePassword->size()));
             for (QFileInfo keyfile : params->hiddenVolumeKeyfiles)
             {
                 hiddenVolumeKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
@@ -876,7 +888,9 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
 
         // Conversions :(
         if (!params->password.isNull())
+        {
             throw InvalidParameterException("params->password", "Password is null.");
+        }
 
         password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
 
@@ -961,7 +975,8 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
     return response;
 }
 
-QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QSharedPointer<BenchmarkAlgorithmsRequest> params)
+QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(
+    QSharedPointer<BenchmarkAlgorithmsRequest> params)
 {
     QSharedPointer<BenchmarkAlgorithmsResponse> response(new BenchmarkAlgorithmsResponse);
 
@@ -970,17 +985,22 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
         GostCrypt::Volume::EncryptionAlgorithmList algorithms =
             GostCrypt::Volume::EncryptionAlgorithm::GetAvailableAlgorithms();
 
-        if(params->bufferSize < ENCRYPTION_DATA_UNIT_SIZE)
-            throw InvalidParameterException("params->bufferSize", "The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes")
+        if (params->bufferSize < ENCRYPTION_DATA_UNIT_SIZE)
+        {
+            throw InvalidParameterException("params->bufferSize",
+                                            "The buffer size need to be at least " + QString::number(ENCRYPTION_DATA_UNIT_SIZE) + " bytes")
+        }
 
-        Buffer dataBuffer(params->bufferSize);
+            Buffer dataBuffer(params->bufferSize);
 
         Volume::EncryptionThreadPool::Start();
 
         for (QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea : algorithms)
         {
             if (ea->IsDeprecated())  // we don't allow deprecated algorithms
+            {
                 continue;
+            }
 
             Buffer key(ea->GetKeySize());
             QElapsedTimer timer;
@@ -992,35 +1012,44 @@ QSharedPointer<BenchmarkAlgorithmsResponse> CoreBase::benchmarkAlgorithms(QShare
 
             // CPU "warm up" (an attempt to prevent skewed results on systems where CPU frequency gradually changes depending on CPU load).
             timer.start();
-            do {
+            do
+            {
                 // no need to cipher the whole buffer
                 ea->EncryptSectors(dataBuffer, 0, 1, ENCRYPTION_DATA_UNIT_SIZE);
-            } while(timer.elapsed() < 20);
+            }
+            while (timer.elapsed() < 20);
 
 
             timer.restart();
             processedDataSize = 0;
-            do {
-                ea->EncryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+            do
+            {
+                ea->EncryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE,
+                                   ENCRYPTION_DATA_UNIT_SIZE);
                 processedDataSize += dataBuffer.size();
-            } while (timer.elapsed() < 100);
+            }
+            while (timer.elapsed() < 100);
 
             //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)
-            response->encryptionSpeed.append((processedDataSize * 1000)/timer.elapsed());
+            response->encryptionSpeed.append((processedDataSize * 1000) / timer.elapsed());
 
             timer.restart();
             processedDataSize = 0;
-            do {
-                ea->DecryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE, ENCRYPTION_DATA_UNIT_SIZE);
+            do
+            {
+                ea->DecryptSectors(dataBuffer, 0, dataBuffer.size() / ENCRYPTION_DATA_UNIT_SIZE,
+                                   ENCRYPTION_DATA_UNIT_SIZE);
                 processedDataSize += dataBuffer.size();
-            } while (timer.elapsed() < 100);
+            }
+            while (timer.elapsed() < 100);
 
             //computer spent time to cipher and store the derived encryption speed in response->encryptionSpeed (byte/s)
-            response->decryptionSpeed.append((processedDataSize * 1000)/timer.elapsed());
+            response->decryptionSpeed.append((processedDataSize * 1000) / timer.elapsed());
 
 
             //compute average time (cipher + uncipher times / 2)
-            response->meanSpeed.append((response->encryptionSpeed.last() + response->decryptionSpeed.last())/2);
+            response->meanSpeed.append((response->encryptionSpeed.last() + response->decryptionSpeed.last()) /
+                                       2);
         }
 
         Volume::EncryptionThreadPool::Stop();

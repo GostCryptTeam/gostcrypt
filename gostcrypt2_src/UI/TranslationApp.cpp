@@ -17,7 +17,8 @@ TranslationApp::TranslationApp() :
     QStringList listOfTranslations = dir.entryList(QStringList("gostcrypt_*.qm"));
 
     //For all translation file, loading the translation file
-    for (int i = 0; i < listOfTranslations.size(); ++i) {
+    for (int i = 0; i < listOfTranslations.size(); ++i)
+    {
         //extracting all the prefixes
         QString langPrefix;
         langPrefix = listOfTranslations[i]; // "gostcrypt_*.qm"
@@ -25,21 +26,25 @@ TranslationApp::TranslationApp() :
         langPrefix.remove(0, langPrefix.indexOf('_') + 1); // "*"
 
         //saving and loading all theses files
-        QTranslator * translator;
+        QTranslator* translator;
         translator = new QTranslator();
-        if(!translator->load(dir.absolutePath()+"/"+listOfTranslations[i], "_"))
+        if (!translator->load(dir.absolutePath() + "/" + listOfTranslations[i], "_"))
         {
 #ifdef QT_DEBUG
-            qDebug() << "Incorrect translation file (or incomplete) : " << dir.absolutePath()+"/"+listOfTranslations[i];
+            qDebug() << "Incorrect translation file (or incomplete) : " << dir.absolutePath() + "/" +
+                     listOfTranslations[i];
 #endif
             delete translator;
-        }else{
+        }
+        else
+        {
             //Saving all the languages currently avaible
             mListOfTranslationsAvaible.append(QPair<QTranslator*, QString>(translator, langPrefix));
             //if the current language is the machine language, changing the language:
-            if(langPrefix == systemLang) {
+            if (langPrefix == systemLang)
+            {
 #ifdef QT_DEBUG
-            qDebug() << "The language of the machine is known: now loading \""+systemLang+"\" translation";
+                qDebug() << "The language of the machine is known: now loading \"" + systemLang + "\" translation";
 #endif
                 setLanguage(systemLang);
             }
@@ -49,8 +54,9 @@ TranslationApp::TranslationApp() :
 
 TranslationApp::~TranslationApp()
 {
-    for(int i = 0; i<mListOfTranslationsAvaible.size(); i++)
-        if(mListOfTranslationsAvaible[i].first != nullptr) {
+    for (int i = 0; i < mListOfTranslationsAvaible.size(); i++)
+        if (mListOfTranslationsAvaible[i].first != nullptr)
+        {
             delete mListOfTranslationsAvaible[i].first;
             mListOfTranslationsAvaible[i].first = nullptr;
         }
@@ -61,11 +67,11 @@ QString TranslationApp::tr()
     return "";
 }
 
-void TranslationApp::setLanguage(const QString &language)
+void TranslationApp::setLanguage(const QString& language)
 {
-    for(int i = 0; i<mListOfTranslationsAvaible.size(); i++)
+    for (int i = 0; i < mListOfTranslationsAvaible.size(); i++)
     {
-        if(mListOfTranslationsAvaible[i].second == language)
+        if (mListOfTranslationsAvaible[i].second == language)
         {
             //remove the old translator and load the new
             qApp->removeTranslator(currentTranslator);
@@ -89,7 +95,8 @@ QVariantList TranslationApp::getAvaibleLanguages() const
     subList.append("en");
     list.append(subList);
     subList.clear();
-    for(auto it : mListOfTranslationsAvaible) {
+    for (auto it : mListOfTranslationsAvaible)
+    {
         subList.append(QLocale(it.second).nativeLanguageName());
         subList.append(it.second);
         list.append(subList);

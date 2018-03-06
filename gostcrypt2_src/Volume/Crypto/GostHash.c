@@ -17,38 +17,39 @@
 
 static quint8 C_3[32] =
 {
-	0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
-	0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00,
-	0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0xFF,
-	0xFF, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF
+    0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
+    0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00,
+    0x00, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0xFF
 };
 
 /* A stripped-down GOST 28147-89 encryption algorithm for the use in this hash function */
-static gosthash_s_box GostR3411_94_CryptoProParamSet = {
-	{0x1,0x3,0xA,0x9,0x5,0xB,0x4,0xF,0x8,0x6,0x7,0xE,0xD,0x0,0x2,0xC},
-	{0xD,0xE,0x4,0x1,0x7,0x0,0x5,0xA,0x3,0xC,0x8,0xF,0x6,0x2,0x9,0xB},
-	{0x7,0x6,0x2,0x4,0xD,0x9,0xF,0x0,0xA,0x1,0x5,0xB,0x8,0xE,0xC,0x3},
-	{0x7,0x6,0x4,0xB,0x9,0xC,0x2,0xA,0x1,0x8,0x0,0xE,0xF,0xD,0x3,0x5},
-	{0x4,0xA,0x7,0xC,0x0,0xF,0x2,0x8,0xE,0x1,0x6,0x5,0xD,0xB,0x9,0x3},
-	{0x7,0xF,0xC,0xE,0x9,0x4,0x1,0x0,0x3,0xB,0x5,0x2,0x6,0xA,0x8,0xD},
-	{0x5,0xF,0x4,0x0,0x2,0xD,0xB,0x9,0x1,0x7,0x6,0x3,0xC,0xE,0xA,0x8},
-	{0xA,0x4,0x5,0x6,0x8,0x1,0x3,0x7,0xD,0xC,0xE,0x0,0x9,0x2,0xB,0xF}
+static gosthash_s_box GostR3411_94_CryptoProParamSet =
+{
+    {0x1, 0x3, 0xA, 0x9, 0x5, 0xB, 0x4, 0xF, 0x8, 0x6, 0x7, 0xE, 0xD, 0x0, 0x2, 0xC},
+    {0xD, 0xE, 0x4, 0x1, 0x7, 0x0, 0x5, 0xA, 0x3, 0xC, 0x8, 0xF, 0x6, 0x2, 0x9, 0xB},
+    {0x7, 0x6, 0x2, 0x4, 0xD, 0x9, 0xF, 0x0, 0xA, 0x1, 0x5, 0xB, 0x8, 0xE, 0xC, 0x3},
+    {0x7, 0x6, 0x4, 0xB, 0x9, 0xC, 0x2, 0xA, 0x1, 0x8, 0x0, 0xE, 0xF, 0xD, 0x3, 0x5},
+    {0x4, 0xA, 0x7, 0xC, 0x0, 0xF, 0x2, 0x8, 0xE, 0x1, 0x6, 0x5, 0xD, 0xB, 0x9, 0x3},
+    {0x7, 0xF, 0xC, 0xE, 0x9, 0x4, 0x1, 0x0, 0x3, 0xB, 0x5, 0x2, 0x6, 0xA, 0x8, 0xD},
+    {0x5, 0xF, 0x4, 0x0, 0x2, 0xD, 0xB, 0x9, 0x1, 0x7, 0x6, 0x3, 0xC, 0xE, 0xA, 0x8},
+    {0xA, 0x4, 0x5, 0x6, 0x8, 0x1, 0x3, 0x7, 0xD, 0xC, 0xE, 0x0, 0x9, 0x2, 0xB, 0xF}
 };
 
 static quint32 r(quint32 n1, quint32 n2, quint32 X)
 {
-	gosthash_s_box *sbox = &GostR3411_94_CryptoProParamSet;
-	n1 += X;
-    n1 =  (quint32)sbox->k8[(n1>>28)&0xF]<<28 | (quint32)sbox->k7[(n1>>24)&0xF]<<24
-                | (quint32)sbox->k6[(n1>>20)&0xF]<<20 | (quint32)sbox->k5[(n1>>16)&0xF]<<16
-                | (quint32)sbox->k4[(n1>>12)&0xF]<<12 | (quint32)sbox->k3[(n1>>8)&0xF]<<8
-                | (quint32)sbox->k2[(n1>>4)&0xF]<<4 | (quint32)sbox->k1[n1&0xF];
-	n1 = gosthash_rotl32(n1, 11);
-	n2 ^= n1;
-	return n2;
+    gosthash_s_box* sbox = &GostR3411_94_CryptoProParamSet;
+    n1 += X;
+    n1 = (quint32)sbox->k8[(n1 >> 28) & 0xF] << 28 | (quint32)sbox->k7[(n1 >> 24) & 0xF] << 24
+         | (quint32)sbox->k6[(n1 >> 20) & 0xF] << 20 | (quint32)sbox->k5[(n1 >> 16) & 0xF] << 16
+         | (quint32)sbox->k4[(n1 >> 12) & 0xF] << 12 | (quint32)sbox->k3[(n1 >> 8) & 0xF] << 8
+         | (quint32)sbox->k2[(n1 >> 4) & 0xF] << 4 | (quint32)sbox->k1[n1 & 0xF];
+    n1 = gosthash_rotl32(n1, 11);
+    n2 ^= n1;
+    return n2;
 }
 
-static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
+static void gost_encrypt_with_key(quint8* in, quint8* out, quint8* key)
 {
     qint32 i;
     quint32 n1, n2;
@@ -57,18 +58,18 @@ static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
     n1 = (quint32)in[3] << 24 | (quint32)in[2] << 16 | (quint32)in[1] << 8 | (quint32)in[0];
     n2 = (quint32)in[7] << 24 | (quint32)in[6] << 16 | (quint32)in[5] << 8 | (quint32)in[4];
 
-	/* Set the 8 round keys */
-	X0 = 0;
-	X1 = 0;
-	X2 = 0;
-	X3 = 0;
-	X4 = 0;
-	X5 = 0;
-	X6 = 0;
-	X7 = 0;
+    /* Set the 8 round keys */
+    X0 = 0;
+    X1 = 0;
+    X2 = 0;
+    X3 = 0;
+    X4 = 0;
+    X5 = 0;
+    X6 = 0;
+    X7 = 0;
 
-	for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
-	{
+    for (i = 0; i < GOSTHASH_GOST_KEYSIZE / 8; i++)
+    {
         X0 |= (quint32)key[i + 0] << (i * 8);
         X1 |= (quint32)key[i + 4] << (i * 8);
         X2 |= (quint32)key[i + 8] << (i * 8);
@@ -77,95 +78,111 @@ static void gost_encrypt_with_key(quint8 *in, quint8 *out, quint8 *key)
         X5 |= (quint32)key[i + 20] << (i * 8);
         X6 |= (quint32)key[i + 24] << (i * 8);
         X7 |= (quint32)key[i + 28] << (i * 8);
-	}
+    }
 
-	/* Encryption rounds 1-24 */
-	n2 = r(n1, n2, X0);
-	n1 = r(n2, n1, X1);
-	n2 = r(n1, n2, X2);
-	n1 = r(n2, n1, X3);
-	n2 = r(n1, n2, X4);
-	n1 = r(n2, n1, X5);
-	n2 = r(n1, n2, X6);
-	n1 = r(n2, n1, X7);
+    /* Encryption rounds 1-24 */
+    n2 = r(n1, n2, X0);
+    n1 = r(n2, n1, X1);
+    n2 = r(n1, n2, X2);
+    n1 = r(n2, n1, X3);
+    n2 = r(n1, n2, X4);
+    n1 = r(n2, n1, X5);
+    n2 = r(n1, n2, X6);
+    n1 = r(n2, n1, X7);
 
-	n2 = r(n1, n2, X0);
-	n1 = r(n2, n1, X1);
-	n2 = r(n1, n2, X2);
-	n1 = r(n2, n1, X3);
-	n2 = r(n1, n2, X4);
-	n1 = r(n2, n1, X5);
-	n2 = r(n1, n2, X6);
-	n1 = r(n2, n1, X7);
+    n2 = r(n1, n2, X0);
+    n1 = r(n2, n1, X1);
+    n2 = r(n1, n2, X2);
+    n1 = r(n2, n1, X3);
+    n2 = r(n1, n2, X4);
+    n1 = r(n2, n1, X5);
+    n2 = r(n1, n2, X6);
+    n1 = r(n2, n1, X7);
 
-	n2 = r(n1, n2, X0);
-	n1 = r(n2, n1, X1);
-	n2 = r(n1, n2, X2);
-	n1 = r(n2, n1, X3);
-	n2 = r(n1, n2, X4);
-	n1 = r(n2, n1, X5);
-	n2 = r(n1, n2, X6);
-	n1 = r(n2, n1, X7);
+    n2 = r(n1, n2, X0);
+    n1 = r(n2, n1, X1);
+    n2 = r(n1, n2, X2);
+    n1 = r(n2, n1, X3);
+    n2 = r(n1, n2, X4);
+    n1 = r(n2, n1, X5);
+    n2 = r(n1, n2, X6);
+    n1 = r(n2, n1, X7);
 
-	/* Encryption rounds 25-32 */
-	n2 = r(n1, n2, X7);
-	n1 = r(n2, n1, X6);
-	n2 = r(n1, n2, X5);
-	n1 = r(n2, n1, X4);
-	n2 = r(n1, n2, X3);
-	n1 = r(n2, n1, X2);
-	n2 = r(n1, n2, X1);
-	n1 = r(n2, n1, X0);
+    /* Encryption rounds 25-32 */
+    n2 = r(n1, n2, X7);
+    n1 = r(n2, n1, X6);
+    n2 = r(n1, n2, X5);
+    n1 = r(n2, n1, X4);
+    n2 = r(n1, n2, X3);
+    n1 = r(n2, n1, X2);
+    n2 = r(n1, n2, X1);
+    n1 = r(n2, n1, X0);
 
-	out[0] = (quint8)(n2 & 0xFF); out[1] = (quint8)((n2 >> 8) & 0xFF); out[2] = (quint8)((n2 >> 16) & 0xFF); out[3] = (quint8)((n2 >> 24) & 0xFF);
-	out[4] = (quint8)(n1 & 0xFF); out[5] = (quint8)((n1 >> 8) & 0xFF); out[6] = (quint8)((n1 >> 16) & 0xFF); out[7] = (quint8)((n1 >> 24) & 0xFF);
+    out[0] = (quint8)(n2 & 0xFF);
+    out[1] = (quint8)((n2 >> 8) & 0xFF);
+    out[2] = (quint8)((n2 >> 16) & 0xFF);
+    out[3] = (quint8)((n2 >> 24) & 0xFF);
+    out[4] = (quint8)(n1 & 0xFF);
+    out[5] = (quint8)((n1 >> 8) & 0xFF);
+    out[6] = (quint8)((n1 >> 16) & 0xFF);
+    out[7] = (quint8)((n1 >> 24) & 0xFF);
 }
 
 
 /* Library-neutral memset, memcpy and memmove */
-static void copy_blocks(quint8 *dst, quint8 *src, qint32 len)
+static void copy_blocks(quint8* dst, quint8* src, qint32 len)
 {
     qint32 i;
-	for (i = 0; i < len; i++)
-		dst[i] = src[i];
+    for (i = 0; i < len; i++)
+    {
+        dst[i] = src[i];
+    }
 }
 
-static void move_blocks (quint8 *to, quint8 *from, qint32 len)
+static void move_blocks(quint8* to, quint8* from, qint32 len)
 {
     qint32 i;
-	if (from < to)
-		for (i = len-1; i >= 0; i--)
-			to[i] = from[i];
-	else
-		for (i = 0; i < len; i++)
-			to[i] = from[i];
+    if (from < to)
+        for (i = len - 1; i >= 0; i--)
+        {
+            to[i] = from[i];
+        }
+    else
+        for (i = 0; i < len; i++)
+        {
+            to[i] = from[i];
+        }
 }
 
-static void set_blocks (quint8 *ptr, quint8 val, qint32 len)
+static void set_blocks(quint8* ptr, quint8 val, qint32 len)
 {
     qint32 i;
-	for (i = 0; i < len; i++)
-		ptr[i] = val;
+    for (i = 0; i < len; i++)
+    {
+        ptr[i] = val;
+    }
 }
 
 /* arbitrary-length add and xor */
-static void add_blocks (quint8 *T, quint8 *F, qint32 len)
+static void add_blocks(quint8* T, quint8* F, qint32 len)
 {
     qint32 i;
     qint16 carry = 0;
-	for (i = 0; i < len; i++)
-	{
+    for (i = 0; i < len; i++)
+    {
         qint16 sum = (qint16)T[i] + (qint16)F[i] + carry;
-		T[i] = (quint8)sum & 0xFF;
-		carry = sum >> 8;
-	}
+        T[i] = (quint8)sum & 0xFF;
+        carry = sum >> 8;
+    }
 }
 
-static void xor_blocks (quint8 *T, quint8 *F, quint8 *S, qint32 len)
+static void xor_blocks(quint8* T, quint8* F, quint8* S, qint32 len)
 {
     qint32 i;
-	for (i = 0; i < len; i++)
-		T[i] = F[i] ^ S[i];
+    for (i = 0; i < len; i++)
+    {
+        T[i] = F[i] ^ S[i];
+    }
 }
 
 /* GOST R 34.11-94 mixing functions */
@@ -174,166 +191,177 @@ static void xor_blocks (quint8 *T, quint8 *F, quint8 *S, qint32 len)
  * T[0+4] = F[0+1]; T[1+4] = F[8+1]; ...;
  * ...; T[2+28] = F[16+7]; T[3+28] = F[24+7];
  */
-static void P_transform (quint8 *F, quint8 *T)
+static void P_transform(quint8* F, quint8* T)
 {
     qint32 i, k;
-	for (i = 0; i < 4; i++)
-		for (k = 0; k < 8; k++)
-			T[i+4*k] = F[8*i+k];
+    for (i = 0; i < 4; i++)
+        for (k = 0; k < 8; k++)
+        {
+            T[i + 4 * k] = F[8 * i + k];
+        }
 }
 
 /* This function maps bytes from F to T in the following way:
  * T[ 0..23] = F[8..31];
  * T[24..31] = F[0..7] XOR F[8..15] */
-static void A(quint8 *F, quint8 *T)
+static void A(quint8* F, quint8* T)
 {
-	quint8 i;
-	for (i = 0; i < 24; i++)
-		T[i] = F[i+8];
-	for (i = 0; i < 8; i++)
-		T[i+24] = F[i] ^ F[i+8];
+    quint8 i;
+    for (i = 0; i < 24; i++)
+    {
+        T[i] = F[i + 8];
+    }
+    for (i = 0; i < 8; i++)
+    {
+        T[i + 24] = F[i] ^ F[i + 8];
+    }
 }
 
-static void PSI (quint8 *X)
+static void PSI(quint8* X)
 {
     qint16 T;
 
-    T = (qint16)(X[0]^X[2]^X[4]^X[6]^X[24]^X[30])|
-        ((qint16)(X[1]^X[3]^X[5]^X[7]^X[25]^X[31])<<8);
-	move_blocks(X, X+2, 30);
-	X[30] = (quint8)(T&0xFF);
-	X[31] = (quint8)(T>>8);
+    T = (qint16)(X[0] ^ X[2] ^ X[4] ^ X[6] ^ X[24] ^ X[30]) |
+        ((qint16)(X[1] ^ X[3] ^ X[5] ^ X[7] ^ X[25] ^ X[31]) << 8);
+    move_blocks(X, X + 2, 30);
+    X[30] = (quint8)(T & 0xFF);
+    X[31] = (quint8)(T >> 8);
 }
 
-void GOSTHASH_init (gost_hash_ctx *ctx)
+void GOSTHASH_init(gost_hash_ctx* ctx)
 {
-	set_blocks((quint8 *)ctx, 0, sizeof(gost_hash_ctx));
+    set_blocks((quint8*)ctx, 0, sizeof(gost_hash_ctx));
 }
 
-static void step (quint8 *H, quint8 *M, gost_hash_ctx *ctx)
+static void step(quint8* H, quint8* M, gost_hash_ctx* ctx)
 {
-	quint8 U[32], W[32], V[32], S[32], K[4][32];
+    quint8 U[32], W[32], V[32], S[32], K[4][32];
     qint32 i;
 
-	(void)ctx;
-	xor_blocks(W, H, M, 32);
-	P_transform(W, K[0]); //First key
+    (void)ctx;
+    xor_blocks(W, H, M, 32);
+    P_transform(W, K[0]); //First key
 
-	gost_encrypt_with_key (H, S, K[0]);
+    gost_encrypt_with_key(H, S, K[0]);
 
-	A (H, U);
-	A (M, V);
-	A (V, V);
-	xor_blocks(W, U, V, 32);
-	P_transform(W, K[1]); //Second key
+    A(H, U);
+    A(M, V);
+    A(V, V);
+    xor_blocks(W, U, V, 32);
+    P_transform(W, K[1]); //Second key
 
-	gost_encrypt_with_key (H + 8, S + 8, K[1]);
+    gost_encrypt_with_key(H + 8, S + 8, K[1]);
 
-	A (U, U);
-	/* As the other C values are all 0's, we only need to XOR
-	 * with C[3] */
-	xor_blocks(U, U, C_3, 32);
-	A (V, V);
-	A (V, V);
-	xor_blocks (W, U, V, 32);
-	P_transform (W, K[2]); //Third key
+    A(U, U);
+    /* As the other C values are all 0's, we only need to XOR
+     * with C[3] */
+    xor_blocks(U, U, C_3, 32);
+    A(V, V);
+    A(V, V);
+    xor_blocks(W, U, V, 32);
+    P_transform(W, K[2]);  //Third key
 
-	gost_encrypt_with_key (H + 16, S + 16, K[2]);
+    gost_encrypt_with_key(H + 16, S + 16, K[2]);
 
-	A (U, U);
-	A (V, V);
-	A (V, V);
-	xor_blocks (W, U, V, 32);
-	P_transform (W, K[3]); //Fourth key
+    A(U, U);
+    A(V, V);
+    A(V, V);
+    xor_blocks(W, U, V, 32);
+    P_transform(W, K[3]);  //Fourth key
 
-	gost_encrypt_with_key (H + 24, S + 24, K[3]);
+    gost_encrypt_with_key(H + 24, S + 24, K[3]);
 
-	for (i = 0; i < 12; i++)
-		PSI (S);
-	xor_blocks (S, S, M, 32);
-	PSI (S);
-	xor_blocks (S, S, H, 32);
-	for (i = 0; i < 61; i++)
-		PSI (S);
-	copy_blocks (H, S, 32);
+    for (i = 0; i < 12; i++)
+    {
+        PSI(S);
+    }
+    xor_blocks(S, S, M, 32);
+    PSI(S);
+    xor_blocks(S, S, H, 32);
+    for (i = 0; i < 61; i++)
+    {
+        PSI(S);
+    }
+    copy_blocks(H, S, 32);
 }
 
-void GOSTHASH_add (quint8 *block, quint32 len, gost_hash_ctx *ctx)
+void GOSTHASH_add(quint8* block, quint32 len, gost_hash_ctx* ctx)
 {
-	quint8 *curptr = block;
-	quint8 *barrier = block + (len - 32); //In order that curptr += 32 won't overshoot len.
+    quint8* curptr = block;
+    quint8* barrier = block + (len - 32); //In order that curptr += 32 won't overshoot len.
 
-	if (ctx->left) //There are unsigned chars left from the last GOSTHASH_add
-	{
+    if (ctx->left) //There are unsigned chars left from the last GOSTHASH_add
+    {
         quint32 add_bytes = (32 - ctx->left) > len ? len : (32 - ctx->left);
         copy_blocks(ctx->remainder + (quint8)ctx->left, block, (qint32)add_bytes);
-		if ((ctx->left + add_bytes) < 32) //This can be finished in the finalize stage if needed
-		{
-			return;
-		}
+        if ((ctx->left + add_bytes) < 32) //This can be finished in the finalize stage if needed
+        {
+            return;
+        }
 
-		curptr += add_bytes;
-		step (ctx->H, ctx->remainder, ctx);
-		add_blocks(ctx->S, ctx->remainder, 32);
-		ctx->len += 32;
-		ctx->left = 0;
-	}
-	else if (ctx->left + len < 32)
-	{
+        curptr += add_bytes;
+        step(ctx->H, ctx->remainder, ctx);
+        add_blocks(ctx->S, ctx->remainder, 32);
+        ctx->len += 32;
+        ctx->left = 0;
+    }
+    else if (ctx->left + len < 32)
+    {
         copy_blocks(ctx->remainder + (quint8)ctx->left, block, (qint32)len);
-		ctx->left += len;
-		return;
-	}
+        ctx->left += len;
+        return;
+    }
 
-	while (curptr <= barrier) //Add the input block to the hash
-	{
-		step(ctx->H, curptr, ctx);
+    while (curptr <= barrier) //Add the input block to the hash
+    {
+        step(ctx->H, curptr, ctx);
 
-		add_blocks(ctx->S, curptr, 32); //Add 32 unsigned chars of the message to the encrypted message
+        add_blocks(ctx->S, curptr, 32); //Add 32 unsigned chars of the message to the encrypted message
 
-		ctx->len += 32; //We've processed 32 unsigned chars
-		curptr += 32; //Advance the block-pointer 32 unsigned chars
-	}
+        ctx->len += 32; //We've processed 32 unsigned chars
+        curptr += 32; //Advance the block-pointer 32 unsigned chars
+    }
 
-	if (curptr != block + len) //If we have unsigned chars remaining, add them for the next GOSTHASH_add of _finalize
-	{
+    if (curptr != block +
+            len) //If we have unsigned chars remaining, add them for the next GOSTHASH_add of _finalize
+    {
         ctx->left = (quint32)(block + len - curptr);
         copy_blocks(ctx->remainder, curptr, (qint32)ctx->left);
-	}
+    }
 }
 
-void GOSTHASH_finalize (gost_hash_ctx *ctx, quint8 *out)
+void GOSTHASH_finalize(gost_hash_ctx* ctx, quint8* out)
 {
-	quint8 buf[32];
-	quint8 H[32];
-	quint8 S[32];
+    quint8 buf[32];
+    quint8 H[32];
+    quint8 S[32];
     qint32 final_len;
     qint32 bptr;
 
-	final_len = ctx->len;
+    final_len = ctx->len;
 
-	copy_blocks(H, ctx->H, 32);
-	copy_blocks(S, ctx->S, 32);
+    copy_blocks(H, ctx->H, 32);
+    copy_blocks(S, ctx->S, 32);
 
-	if (ctx->left) //Handle any remaining bytes
-	{
-		set_blocks(buf, 0, 32);
+    if (ctx->left) //Handle any remaining bytes
+    {
+        set_blocks(buf, 0, 32);
         copy_blocks(buf, ctx->remainder, (qint32)ctx->left);
-		step (H, buf, ctx);
-		add_blocks (S, buf, 32);
-		final_len += ctx->left;
-	}
+        step(H, buf, ctx);
+        add_blocks(S, buf, 32);
+        final_len += ctx->left;
+    }
 
-	set_blocks(buf, 0, 32);
-	bptr = 0;
-	final_len <<= 3;
-	while (final_len > 0)
-	{
-		buf[bptr++] = (quint8)(final_len & 0xFF);
-		final_len >>= 8;
-	}
+    set_blocks(buf, 0, 32);
+    bptr = 0;
+    final_len <<= 3;
+    while (final_len > 0)
+    {
+        buf[bptr++] = (quint8)(final_len & 0xFF);
+        final_len >>= 8;
+    }
 
-	step (H, buf, ctx);
-	step (H, S, ctx);
-	copy_blocks (out, H, 32);
+    step(H, buf, ctx);
+    step(H, S, ctx);
+    copy_blocks(out, H, 32);
 }

@@ -12,12 +12,12 @@
 class DragWindowProvider : public QObject
 {
     Q_OBJECT
-public:
+ public:
     /**
      * @brief Constructor who initiates the class.
      * @param parent Parent object
      */
-    explicit DragWindowProvider(QObject *parent = nullptr) : QObject(parent)
+    explicit DragWindowProvider(QObject* parent = nullptr) : QObject(parent)
     {
     }
     /**

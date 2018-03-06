@@ -36,9 +36,10 @@
  * @brief
  *
  */
-class MyApplication : public QCoreApplication {
-Q_OBJECT
-public:
+class MyApplication : public QCoreApplication
+{
+    Q_OBJECT
+ public:
     /**
      * @brief
      *
@@ -54,7 +55,7 @@ public:
      * @return bool
      */
     bool notify(QObject* receiver, QEvent* event);
-signals:
+ signals:
     /**
      * @brief
      *
@@ -66,21 +67,22 @@ signals:
  * @brief
  *
  */
-class CmdLineInterface : public UserInterface {
-Q_OBJECT
-public:
+class CmdLineInterface : public UserInterface
+{
+    Q_OBJECT
+ public:
     /**
      * @brief
      *
      * @param parent
      */
-    explicit CmdLineInterface(QObject *parent = nullptr);
+    explicit CmdLineInterface(QObject* parent = nullptr);
     /**
      * @brief
      *
      * @return QTextStream
      */
-    static QTextStream &qStdOut();
+    static QTextStream& qStdOut();
     /**
      * @brief
      *
@@ -88,7 +90,7 @@ public:
      * @param argv
      * @return int
      */
-    int start(int argc, char **argv);
+    int start(int argc, char** argv);
     /**
      * @brief
      *
@@ -96,7 +98,7 @@ public:
      * @return QString
      */
     static QString formatSize(quint64 sizeInByte);
-private slots:
+ private slots:  // NOLINT
     DEC_PRINT_SLOT(CreateVolume);
     DEC_PRINT_SLOT(MountVolume);
     DEC_PRINT_SLOT(DismountVolume);
@@ -113,7 +115,7 @@ private slots:
      *
      */
     virtual void askSudoPassword();
-private:
+ private:
     /**
      * @brief
      *
@@ -126,7 +128,8 @@ private:
      * @brief
      *
      */
-    struct FirstCMD {
+    struct FirstCMD
+    {
         /**
          * @brief
          *

@@ -17,41 +17,45 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class VolumeHash;
-    typedef QList < QSharedPointer <VolumeHash> > VolumeHashList;
+class VolumeHash;
+typedef QList < QSharedPointer <VolumeHash> > VolumeHashList;
 
-	class VolumeHash
-    {
-	public:
-		VolumeHash () : Deprecated (false) { }
-		virtual ~VolumeHash () { }
+class VolumeHash
+{
+ public:
+    VolumeHash() : Deprecated(false) { }
+    virtual ~VolumeHash() { }
 
-		static VolumeHashList GetAvailableAlgorithms ();
-        virtual void GetDigest (BufferPtr &buffer) = 0;
-		virtual size_t GetBlockSize () const = 0;
-		virtual size_t GetDigestSize () const = 0;
-        virtual QString GetName () const = 0;
-		virtual QSharedPointer <VolumeHash> GetNew () const = 0;
-		virtual void Init () = 0;
-		bool IsDeprecated () const { return Deprecated; }
-        virtual void ProcessData (const BufferPtr &data) = 0;
+    static VolumeHashList GetAvailableAlgorithms();
+    virtual void GetDigest(BufferPtr& buffer) = 0;
+    virtual size_t GetBlockSize() const = 0;
+    virtual size_t GetDigestSize() const = 0;
+    virtual QString GetName() const = 0;
+    virtual QSharedPointer <VolumeHash> GetNew() const = 0;
+    virtual void Init() = 0;
+    bool IsDeprecated() const { return Deprecated; }
+    virtual void ProcessData(const BufferPtr& data) = 0;
 
-        // derivation functions
-        virtual int HMAC_GetIterationCount () const = 0;
-        virtual void HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const;
-        virtual void HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount) const = 0;
+    // derivation functions
+    virtual int HMAC_GetIterationCount() const = 0;
+    virtual void HMAC_DeriveKey(const BufferPtr& key, const VolumePassword& password,
+                                const BufferPtr& salt) const;
+    virtual void HMAC_DeriveKey(const BufferPtr& key, const VolumePassword& password,
+                                const BufferPtr& salt, int iterationCount) const = 0;
 
-	protected:
-		SecureBuffer Context;
-		bool Deprecated;
-        static void ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount);
+ protected:
+    SecureBuffer Context;
+    bool Deprecated;
+    static void ValidateKeyDerivationParameters(const BufferPtr& key, const VolumePassword& password,
+            const BufferPtr& salt, int iterationCount);
 
-	private:
-		VolumeHash (const VolumeHash &);
-		VolumeHash &operator= (const VolumeHash &);
-	};
+ private:
+    VolumeHash(const VolumeHash&);
+    VolumeHash& operator= (const VolumeHash&);
+};
 
 }
 }

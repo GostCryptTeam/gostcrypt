@@ -14,33 +14,34 @@
 
 namespace GostCrypt
 {
-namespace Volume {
+namespace Volume
+{
 
-	class EncryptionTest
-	{
-    public:
-        static void TestCiphers ();
-        static void TestPkcs5 ();
-        static void TestXts ();
-    protected:
+class EncryptionTest
+{
+ public:
+    static void TestCiphers();
+    static void TestPkcs5();
+    static void TestXts();
+ protected:
     struct XtsTestVector
-	{
-		quint8 key1[32];
-		quint8 key2[32];
-		quint8 dataUnitNo[8];
-		unsigned int blockNo;
-		quint8 plaintext[ENCRYPTION_DATA_UNIT_SIZE];
-		quint8 ciphertext[ENCRYPTION_DATA_UNIT_SIZE];
-	};
+    {
+        quint8 key1[32];
+        quint8 key2[32];
+        quint8 dataUnitNo[8];
+        unsigned int blockNo;
+        quint8 plaintext[ENCRYPTION_DATA_UNIT_SIZE];
+        quint8 ciphertext[ENCRYPTION_DATA_UNIT_SIZE];
+    };
 
-	static const XtsTestVector XtsTestVectors[];
+    static const XtsTestVector XtsTestVectors[];
 
-	private:
-		EncryptionTest ();
-		virtual ~EncryptionTest ();
-		EncryptionTest (const EncryptionTest &);
-		EncryptionTest &operator= (const EncryptionTest &);
-	};
+ private:
+    EncryptionTest();
+    virtual ~EncryptionTest();
+    EncryptionTest(const EncryptionTest&);
+    EncryptionTest& operator= (const EncryptionTest&);
+};
 }
 }
 

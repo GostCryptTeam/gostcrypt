@@ -1,7 +1,9 @@
 #include "VolumeInformation.h"
 
-namespace GostCrypt {
-namespace Volume {
+namespace GostCrypt
+{
+namespace Volume
+{
 
 DEF_SERIALIZABLE(VolumeInformation)
 QDataStream& operator << (QDataStream& out, const VolumeInformation& Valeur)

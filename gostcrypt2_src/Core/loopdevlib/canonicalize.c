@@ -23,65 +23,79 @@
  * Since 2.6.29 (patch 784aae735d9b0bba3f8b9faef4c8b30df3bf0128) kernel sysfs
  * provides the real DM device names in /sys/block/<ptname>/dm/name
  */
-char *canonicalize_dm_name(const char *ptname)
+char* canonicalize_dm_name(const char* ptname)
 {
-	FILE	*f;
-	size_t	sz;
-	char	path[256], name[256], *res = NULL;
+    FILE*    f;
+    size_t  sz;
+    char    path[256], name[256], *res = NULL;
 
-	if (!ptname || !*ptname)
-		return NULL;
+    if (!ptname || !*ptname)
+    {
+        return NULL;
+    }
 
-	snprintf(path, sizeof(path), "/sys/block/%s/dm/name", ptname);
-	if (!(f = fopen(path, "r" UL_CLOEXECSTR)))
-		return NULL;
+    snprintf(path, sizeof(path), "/sys/block/%s/dm/name", ptname);
+    if (!(f = fopen(path, "r" UL_CLOEXECSTR)))
+    {
+        return NULL;
+    }
 
-	/* read "<name>\n" from sysfs */
-	if (fgets(name, sizeof(name), f) && (sz = strlen(name)) > 1) {
-		name[sz - 1] = '\0';
-		snprintf(path, sizeof(path), "/dev/mapper/%s", name);
+    /* read "<name>\n" from sysfs */
+    if (fgets(name, sizeof(name), f) && (sz = strlen(name)) > 1)
+    {
+        name[sz - 1] = '\0';
+        snprintf(path, sizeof(path), "/dev/mapper/%s", name);
 
-		if (access(path, F_OK) == 0)
-			res = strdup(path);
-	}
-	fclose(f);
-	return res;
+        if (access(path, F_OK) == 0)
+        {
+            res = strdup(path);
+        }
+    }
+    fclose(f);
+    return res;
 }
 
-char *canonicalize_path(const char *path)
+char* canonicalize_path(const char* path)
 {
-	char *canonical, *p;
+    char* canonical, *p;
 
-	if (!path || !*path)
-		return NULL;
+    if (!path || !*path)
+    {
+        return NULL;
+    }
 
-	canonical = realpath(path, NULL);
-	if (!canonical)
-		return strdup(path);
+    canonical = realpath(path, NULL);
+    if (!canonical)
+    {
+        return strdup(path);
+    }
 
-	p = strrchr(canonical, '/');
-	if (p && strncmp(p, "/dm-", 4) == 0 && isdigit(*(p + 4))) {
-		char *dm = canonicalize_dm_name(p + 1);
-		if (dm) {
-			free(canonical);
-			return dm;
-		}
-	}
+    p = strrchr(canonical, '/');
+    if (p && strncmp(p, "/dm-", 4) == 0 && isdigit(*(p + 4)))
+    {
+        char* dm = canonicalize_dm_name(p + 1);
+        if (dm)
+        {
+            free(canonical);
+            return dm;
+        }
+    }
 
-	return canonical;
+    return canonical;
 }
 
 #ifdef TEST_PROGRAM_CANONICALIZE
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-	if (argc < 2) {
-		fprintf(stderr, "usage: %s <device>\n", argv[0]);
-		exit(EXIT_FAILURE);
-	}
+    if (argc < 2)
+    {
+        fprintf(stderr, "usage: %s <device>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
-	fprintf(stdout, "orig: %s\n", argv[1]);
-	fprintf(stdout, "real: %s\n", canonicalize_path(argv[1]));
+    fprintf(stdout, "orig: %s\n", argv[1]);
+    fprintf(stdout, "real: %s\n", canonicalize_path(argv[1]));
 
-	exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
 }
 #endif
