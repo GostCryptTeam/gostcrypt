@@ -530,7 +530,7 @@ bool MyGuiApplication::notify(QObject* receiver, QEvent* event)
     {
         response << e.getName() << "An unexpected error occured. \n"
 #ifdef QT_DEBUG
-                 + e.getMessage()
+                 + e.displayedMessage()
 #endif
                  ;
         emit mGI->QML_SIGNAL(printSendError, response)

@@ -240,7 +240,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         UI.ButtonBordered {
-            id: benchmark
+            id: restoreHeader
             height: 40
             text: qsTr("Restore header...") + Translation.tr
             width: 140

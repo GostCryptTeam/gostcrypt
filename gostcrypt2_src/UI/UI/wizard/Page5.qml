@@ -102,7 +102,6 @@ Item {
             return (isChecked === "1") ? true : false;
         }
         onCheckedChanged: {
-            //TODO : action
             if(use_Keyfiles.checked === true) {
                 UserSettings.setSetting("MountV-UseKeyFiles", 1)
             } else {

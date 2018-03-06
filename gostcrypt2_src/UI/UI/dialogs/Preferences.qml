@@ -1,5 +1,7 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.0 as Controls2
+import QtQuick.Controls 1.4
+
 import "../" as UI
 
 Item {
@@ -27,7 +29,7 @@ Item {
         interactive: true
         boundsBehavior: Flickable.StopAtBounds
 
-        ScrollBar.vertical: ScrollBar {
+        Controls2.ScrollBar.vertical: Controls2.ScrollBar {
                 parent: flickable.parent
                 anchors.top: flickable.top
                 anchors.left: flickable.right
@@ -63,11 +65,13 @@ Item {
                     spacing: 15
                     anchors.top: text.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
+                    ExclusiveGroup{ id: mountOptions }
                     UI.CheckBox {
                         id: readOnly
                         text_: qsTr("Mount volumes as read-only")
                         size_: 20
                         sizeText: 10
+                        exclusiveGroup: mountOptions
                         checked: {
                             var isChecked = UserSettings.getSetting("Pref-ReadOnly")
                             return (isChecked === "1") ? true : false;
@@ -84,6 +88,7 @@ Item {
                         text_: qsTr("Mount volumes as removable media")
                         size_: 20
                         sizeText: 10
+                        exclusiveGroup: mountOptions
                         checked: {
                             var isChecked = UserSettings.getSetting("Pref-RemovableMedia")
                             return (isChecked === "1") ? true : false;
@@ -121,11 +126,13 @@ Item {
                     spacing: 15
                     anchors.top: text2.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
+                    ExclusiveGroup { id: exitOptions }
                     UI.CheckBox {
                         id: enabled
                         text_: qsTr("Enabled")
                         size_: 20
                         sizeText: 10
+                        exclusiveGroup: exitOptions
                         checked: {
                             var isChecked = UserSettings.getSetting("Pref-TaskEnabled")
                             return (isChecked === "1") ? true : false;
@@ -142,6 +149,7 @@ Item {
                         text_: qsTr("Exit when there are no mounted volumes")
                         size_: 20
                         sizeText: 10
+                        exclusiveGroup: exitOptions
                         checked: {
                             var isChecked = UserSettings.getSetting("Pref-TaskExitNoVolume")
                             return (isChecked === "1") ? true : false;
