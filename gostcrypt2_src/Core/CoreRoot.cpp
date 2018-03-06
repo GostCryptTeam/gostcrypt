@@ -532,6 +532,10 @@ void CoreRoot::createVolume(QSharedPointer<CreateVolumeRequest> params)
         {
             response->passThrough = params->passThrough;
         }
+        if(params->path.filePath().isEmpty()) {
+            throw InvalidParameterException("params->path", "The path of the volume to create is empty.");
+        }
+
         std::fstream volumefile;
 
         /*  Steps:

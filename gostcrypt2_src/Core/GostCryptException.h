@@ -537,7 +537,7 @@ class InvalidParameter : public GostCryptException
     InvalidParameter(QString fonction, QString filename, quint32 line, QString param,
                      QString comment) : GostCryptException(fonction, filename, line), param(param), comment(comment) {}
     DEF_EXCEPTION_WHAT(InvalidParameter, GostCryptException,
-                       "The parameter " + param + " is invalid.\n")
+                       "The parameter " + param + " is invalid. ("+comment+")\n")
  protected:
     QString param; /**< Name of the incorrect parameter */
     QString comment; /**< Comment giving more information about why the parameter is incorrect */

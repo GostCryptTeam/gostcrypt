@@ -147,7 +147,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             int type = GI_KEY(aContent, "type").toInt(); //UI returns 0 for normal and 1 for Hidden
             if (type == GostCrypt::Volume::VolumeType::Normal)
             {
-                options->path = QFileInfo(GI_KEY(aContent, "path").toString());
+                options->path = QFileInfo(QUrl(GI_KEY(aContent, "path").toString()).path());
                 options->type = GostCrypt::Volume::VolumeType::Normal; //Setting the volume Type
                 options->outerVolume->password.reset(new QByteArray(GI_KEY(aContent,
                                                      "password").toString().toUtf8())); //Setting the outer volume password
@@ -192,7 +192,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
             else if (type == GostCrypt::Volume::VolumeType::Hidden)
             {
-                options->path = QFileInfo(GI_KEY(aContent, "path").toString());
+                options->path = QFileInfo(QUrl(GI_KEY(aContent, "path").toString()).path());
                 options->type = GostCrypt::Volume::VolumeType::Hidden; //Setting the volume Type
                 options->size = QFile(options->path.canonicalFilePath()).size();
 
@@ -248,6 +248,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 }
                 qDebug() << GI_KEY(aContent, "hpassword").toString().toUtf8();
             }
+
             emit request(QVariant::fromValue(options));
         }
         break;
