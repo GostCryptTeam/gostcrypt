@@ -238,7 +238,7 @@ Item {
             height: 40
             text: qsTr("Generate Random Keyfiles...") + Translation.tr
             width: 200
-            onClicked: top.update()
+            onClicked: openSubWindow("dialogs/KeyfileGenerator.qml", qsTr("Keyfile generator"), qsTr("Keyfile generator"), 200, {"name" : "", "value" : ""})
             color_: palette.green
             anchors.bottomMargin: 10
         }
