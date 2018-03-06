@@ -14,7 +14,7 @@
         return QString() + message; \
     } \
     virtual QString qwhat() const { \
-        return parent::qwhat() + message; \
+        return parent::qwhat() + message + QStringLiteral("\n"); \
     } \
     virtual QVariant toQVariant() const { \
         return QVariant::fromValue(*this); \

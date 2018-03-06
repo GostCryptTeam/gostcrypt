@@ -30,7 +30,7 @@ QSharedPointer<CoreBase> getCore()
     initCoreResponse();
     initGostCryptException();
 
-    INIT_SERIALIZE(ProgressUpdateResponse);
+    INIT_SERIALIZE(ProgressUpdateResponse); //should not be there but in ServiceHandler contructor
 
 
     if (getuid())
@@ -428,7 +428,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
 {
     std::fstream file;
 
-    UPDATE_PROGRESS_S(0.0, id);
+    updateProgress(0.0, id);
     file.open(path.absoluteFilePath().toStdString(), std::ios::out | std::ios::binary);
     if (!file.is_open())
     {
@@ -486,7 +486,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
         offset += dataFragmentLength;
         sizetodo -= dataFragmentLength;
 
-        UPDATE_PROGRESS_S(((float)offset / (float)size), id);
+        updateProgress(((float)offset / (float)size), id);
     }
 
 }
@@ -516,21 +516,15 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
 
 
         // Conversions :(
-        if (!params->password.isNull())
-        {
-            password.reset(new Volume::VolumePassword(params->password->constData(),
-                           params->password->size()));
-        }
-        else
-        {
+        if (params->password.isNull())
             throw InvalidParameterException("params->password", "Password is null.");
-        }
-        if (!params->keyfiles.isNull())
+
+        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+
+
+        for (QFileInfo keyfile : params->keyfiles)
         {
-            for (QSharedPointer<QFileInfo> keyfile : *params->keyfiles)
-            {
-                keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-            }
+            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
         }
 
         volume->Open(
@@ -551,8 +545,14 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
 
         RandomGenerator::SetHash(newVolumeHeaderKdf);
 
-        // Conversions :(
-        Volume::VolumePassword newPassword(params->newPassword->data(), params->newPassword->size());
+        /* Conversions */
+        QSharedPointer<Volume::VolumePassword> newPassword(new Volume::VolumePassword(params->newPassword->data(), params->newPassword->size()));
+        QSharedPointer <Volume::KeyfileList> newKeyfiles;
+        for(QFileInfo keyfile : params->newKeyfiles) {
+            newKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
+        }
+
+        QSharedPointer <Volume::VolumePassword> newPasswordKey = Volume::Keyfile::ApplyListToPassword(newKeyfiles, newPassword);
 
         bool backupHeader = false;
         while (true)
@@ -569,7 +569,7 @@ QSharedPointer<ChangeVolumePasswordResponse> CoreBase::changeVolumePassword(
                     RandomGenerator::GetDataFast(newSalt);
                 }
 
-                newVolumeHeaderKdf->HMAC_DeriveKey(newHeaderKey, newPassword, newSalt);
+                newVolumeHeaderKdf->HMAC_DeriveKey(newHeaderKey, *newPasswordKey, newSalt);
                 volume->ReEncryptHeader(backupHeader, newSalt, newHeaderKey, newVolumeHeaderKdf);
 
                 volume->GetFile()->Flush();
@@ -717,6 +717,11 @@ bool CoreBase::processNonRootRequest(QVariant r)
     return true;
 }
 
+void CoreBase::updateProgress(qreal progress, ProgressTrackingParameters id)
+{
+    emit sendProgressUpdate(id.requestId,id.end*progress+id.start*(1-progress));
+}
+
 QSharedPointer<CreateKeyFileResponse> CoreBase::createKeyFile(QSharedPointer<CreateKeyFileRequest>
         params)
 {
@@ -763,21 +768,15 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
 
 
         // Conversions :(
-        if (!params->password.isNull())
-        {
-            password.reset(new Volume::VolumePassword(params->password->constData(),
-                           params->password->size()));
-        }
-        else
-        {
+        if (params->password.isNull())
             throw InvalidParameterException("params->password", "Password is null.");
-        }
-        if (!params->keyfiles.isNull())
+
+
+        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+
+        for (QFileInfo keyfile : params->keyfiles)
         {
-            for (QSharedPointer<QFileInfo> keyfile : *params->keyfiles)
-            {
-                keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-            }
+            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
         }
 
         try
@@ -796,21 +795,14 @@ QSharedPointer<BackupHeaderResponse> CoreBase::backupHeader(QSharedPointer<Backu
 
 
             // Conversion :(
-            if (!params->hiddenVolumePassword.isNull())
-            {
-                hiddenVolumePassord.reset(new Volume::VolumePassword(params->hiddenVolumePassword->constData(),
-                                          params->hiddenVolumePassword->size()));
-            }
-            else
-            {
+            if (params->hiddenVolumePassword.isNull())
                 throw InvalidParameterException("params->hiddenVolumePassword", "hiddenVolumePassword is null.");
-            }
-            if (!params->hiddenVolumeKeyfiles.isNull())
+
+            hiddenVolumePassord.reset(new Volume::VolumePassword(params->hiddenVolumePassword->constData(),
+                                          params->hiddenVolumePassword->size()));
+            for (QFileInfo keyfile : params->hiddenVolumeKeyfiles)
             {
-                for (QSharedPointer<QFileInfo> keyfile : *params->hiddenVolumeKeyfiles)
-                {
-                    hiddenVolumeKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-                }
+                hiddenVolumeKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
             }
 
             try
@@ -884,20 +876,13 @@ QSharedPointer<RestoreHeaderResponse> CoreBase::restoreHeader(QSharedPointer<Res
 
         // Conversions :(
         if (!params->password.isNull())
-        {
-            password.reset(new Volume::VolumePassword(params->password->constData(),
-                           params->password->size()));
-        }
-        else
-        {
             throw InvalidParameterException("params->password", "Password is null.");
-        }
-        if (!params->keyfiles.isNull())
+
+        password.reset(new Volume::VolumePassword(params->password->constData(), params->password->size()));
+
+        for (QFileInfo keyfile : params->keyfiles)
         {
-            for (QSharedPointer<QFileInfo> keyfile : *params->keyfiles)
-            {
-                keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(*keyfile)));
-            }
+            keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
         }
 
         // Open Volume

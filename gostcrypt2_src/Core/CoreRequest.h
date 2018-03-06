@@ -51,9 +51,6 @@ struct ProgressTrackingParameters
      */
     explicit ProgressTrackingParameters(ProgressTrackingParameters &parent, qreal subStart, qreal subEnd) : requestId(parent.requestId), start(parent.end*subStart+parent.start*(1-subStart)), end(parent.end*subEnd+parent.start*(1-subEnd)) {}
 
-
-    //TODO implement here all ProgressTracking methods (currently MACROs)
-
     quint32 requestId; /**< Request Identifier given by the User Interface module */
     qreal start; /**< Progress achieved with the request processing before the current function call in percentage */
     qreal end; /**< Progress achieved with the request processing after the current function call in percentage */
@@ -103,7 +100,7 @@ struct CreateVolumeRequest : CoreRequest {
          */
         VolumeParams();
         QSharedPointer <QByteArray> password; /**< password of the volume instance */
-        QSharedPointer<QList<QSharedPointer<QFileInfo>>> keyfiles; /**< keyfiles of the volume instance */
+        QList<QFileInfo> keyfiles; /**< keyfiles of the volume instance */
         qreal size; /**< size used within the volume container for this volume instance in percentage of available space */
         QString volumeHeaderKdf; /**< name of the key derivation function to use */
         QString encryptionAlgorithm; /**< name of the encryption algorithm to use */
@@ -130,10 +127,10 @@ struct ChangeVolumePasswordRequest : CoreRequest {
     ChangeVolumePasswordRequest() : newVolumeHeaderKdf("HMAC-Whirlpool"), changeMasterKey(false) {}
     QFileInfo path; /**< path of the volume container hosting the volume instance */
     QSharedPointer <QByteArray> password; /**< old password of the volume instance*/
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; /**< old keyfiles of the volume instance */
+    QList<QFileInfo> keyfiles; /**< old keyfiles of the volume instance */
     QString newVolumeHeaderKdf; /**< name of the new key derivation function to use */
     QSharedPointer <QByteArray> newPassword; /**< new password */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> newKeyfiles; /**< new keyfiles */
+    QList<QFileInfo> newKeyfiles; /**< new keyfiles */
     bool changeMasterKey; /**< Boolean true if we want to change the master key at the same time. This will required to reencrypt the whole volume instance. It can be usefull when we want to remove access from someone who had the previous password */
     DEC_SERIALIZABLE(ChangeVolumePasswordRequest);
 };
@@ -162,13 +159,13 @@ struct MountVolumeRequest : CoreRequest {
     QString fileSystemType; /**< File system type to use for the filesystem mount syscall. If empty GostCrypt will try to automatically detect the filesystem type of the volume instance */
     bool doMount; /**< Boolean true if we want GostCrypt to mount the volume instance filesystem at the end of the mount action. If False, GostCrypt will only provide the block device */
     bool preserveTimestamps; /**< Boolean true if GostCrypt should not modify the Access and modification time of the file container */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; /**< keyfiles of the volume instance to mount */
+    QList<QFileInfo> keyfiles; /**< keyfiles of the volume instance to mount */
     QSharedPointer <QByteArray> password; /**< password of the volume instance to mount */
     QFileInfo mountPoint; /**< path of the directory where the volume instance should be mounted. If left empty, GostCrypt will determined where the system usually mount devices and create a mount directory there. (example: /media/[username]). This parameter will not be used if doMount is set to false. */
     QFileInfo path; /**< path of the volume container (file or device) to mount */
     Volume::VolumeProtection::Enum protection; /**< Type of protection to use while mounting the volume */
     QSharedPointer <QByteArray> protectionPassword; /**< password of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> protectionKeyfiles; /**< keyfiles of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
+    QList<QFileInfo> protectionKeyfiles; /**< keyfiles of the hidden inner volume instance used when mounting outer volume instance in protected mode (HiddenVolumeReadOnly) */
     bool useBackupHeaders; /**< Boolean true when we want to use the backup header to mount the volume instance. This option can be useful when the main header is corrupted */
     QString mountedForUser; /**< Name of the user who will own the volume block file once mounted. If empty, it will be the current user. */
     QString mountedForGroup; /**< Name of the group who will own the volume block file once mounted. If empty, it will be the current group. */
@@ -246,9 +243,9 @@ struct BackupHeaderRequest : CoreRequest {
     BackupHeaderRequest();
     QFileInfo volumePath; /**< path of the volume container for which we want to backup the header(s) */
     QFileInfo backupHeaderFile; /**< path of the file where to store the backup header */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; /**< keyfiles of the outer volume instance */
+    QList<QFileInfo> keyfiles; /**< keyfiles of the outer volume instance */
     QSharedPointer <QByteArray> password; /**< password of the outer volume instance */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> hiddenVolumeKeyfiles; /**< keyfiles of the inner hidden volume instance */
+    QList<QFileInfo> hiddenVolumeKeyfiles; /**< keyfiles of the inner hidden volume instance */
     QSharedPointer <QByteArray> hiddenVolumePassword; /**< password of the inner hidden volume instance */
     bool hiddenVolume; /**< Boolean true if the volume container contain an inner hidden volume instance and be want to backup its header too. If set to true, this parameters hiddenVolumePassword and hiddenVolumeKeyfiles must be provided */
     DEC_SERIALIZABLE(BackupHeaderRequest);
@@ -270,7 +267,7 @@ struct RestoreHeaderRequest : CoreRequest {
     QFileInfo volumePath; /**< path of the volume container for which to restore the header */
     bool useInternalBackup; /**< Boolean true if the internal backup header should be used. If set to false the parameter backupHeaderFile should be provided. */
     QFileInfo backupHeaderFile; /**< Path of the external backup header file from which to restore the header. Will not be used if useInternalBackup is set to true. */
-    QSharedPointer <QList<QSharedPointer<QFileInfo>>> keyfiles; /**< keyfiles of the volume instance for which to restore the header. These keyfiles will also be used to decrypt the backup header */
+    QList<QFileInfo> keyfiles; /**< keyfiles of the volume instance for which to restore the header. These keyfiles will also be used to decrypt the backup header */
     QSharedPointer <QByteArray> password; /**< password of the volume instance for which to restore the header. This password will also be used to decrypt the backup header */
     DEC_SERIALIZABLE(RestoreHeaderRequest);
 };
