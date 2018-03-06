@@ -67,7 +67,7 @@ Item {
             }
         }
 
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: readOnly
             text_: qsTr("Mount selected volume as read-only")
             height: 40
@@ -75,7 +75,7 @@ Item {
                 return volumeInfos.sReadOnly
             }
         }
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: uponLogon
             text_: qsTr("Mount selected volume upon logon")
             height: 40
@@ -83,7 +83,7 @@ Item {
                 return volumeInfos.sUponLogon
             }
         }
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: removableMedium
             text_: qsTr("Mount selected volume as removable medium")
             height: 40
@@ -91,7 +91,7 @@ Item {
                 return volumeInfos.sRemovableMedium
             }
         }
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: mountWhenDeviceConnected
             text_: qsTr("Mount selected volume when its host device gets connected")
             height: 40
@@ -99,7 +99,7 @@ Item {
                 return volumeInfos.sMountWhenDeviceConnected
             }
         }
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: openExplorerWhenMounted
             text_: qsTr("Do not mount selected volume when 'Mount Favorite Volumes' hot key is pressed")
             height: 40
@@ -109,7 +109,7 @@ Item {
         }
     }
 
-    UI.GSButtonBordered {
+    UI.ButtonBordered {
         id: saveButton
         height: 40
         text: qsTr("Save changes") + Translation.tr

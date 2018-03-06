@@ -19,7 +19,7 @@ Item {
         wrapMode: Text.WordWrap
     }
 
-    UI.GSButtonBordered {
+    UI.ButtonBordered {
         id: buttonOpen
         anchors.top: titre.bottom
         anchors.topMargin: 20
@@ -31,7 +31,7 @@ Item {
         color_: palette.green
     }
 
-    UI.GSHelpButton {
+    UI.HelpButton {
         size: combo.height
         anchors.left: buttonOpen.right
         anchors.leftMargin: 10
@@ -42,7 +42,7 @@ Item {
     }
 
 
-    UI.GSCustomComboBox {
+    UI.CustomComboBox {
         id: combo
         width: parent.width - 250
         anchors.top: buttonOpen.bottom
@@ -57,7 +57,7 @@ Item {
         }
     }
 
-    UI.GSCheckBox {
+    UI.CheckBox {
         id: historique
         text_: qsTr("Never save history")
         anchors.horizontalCenter: parent.horizontalCenter

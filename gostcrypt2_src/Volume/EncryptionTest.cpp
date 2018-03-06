@@ -51,10 +51,10 @@ static void TestCipher(CipherAlgorithm& cipher, const CipherTestVector* testVect
     for (size_t i = 0; i < testVectorCount; ++i)
     {
         cipher.SetKey(BufferPtr(testVector[i].Key, sizeof(testVector[i].Key)));
-        buffer.CopyFrom(BufferPtr(testVector[i].Plaintext, buffer.Size()));
+        buffer.copyFrom(BufferPtr(testVector[i].Plaintext, buffer.size()));
         cipher.EncryptBlock(buffer);
 
-        if (memcmp(buffer, testVector[i].Ciphertext, buffer.Size()) != 0)
+        if (memcmp(buffer, testVector[i].Ciphertext, buffer.size()) != 0)
         {
             throw EncryptionTestFailedException();
         }
@@ -67,7 +67,7 @@ void EncryptionTest::TestCiphers()
     TestCipher(gost, GOSTTestVectors, sizeof(GOSTTestVectors) / sizeof(GOSTTestVectors[0]));
 
     Buffer testData(1024);
-    for (size_t i = 0; i < testData.Size(); ++i)
+    for (size_t i = 0; i < testData.size(); ++i)
     {
         testData[i] = (quint8) i;
     }
@@ -75,14 +75,14 @@ void EncryptionTest::TestCiphers()
     quint32 origCrc = Crc32::ProcessBuffer(testData);
 
     gost.SetKey(BufferPtr(testData, gost.GetKeySize()));
-    gost.EncryptBlocks(testData, testData.Size() / gost.GetBlockSize());
+    gost.EncryptBlocks(testData, testData.size() / gost.GetBlockSize());
 
     if (Crc32::ProcessBuffer(testData) != 0xc06e0704)
     {
         throw EncryptionTestFailedException();
     }
 
-    gost.DecryptBlocks(testData, testData.Size() / gost.GetBlockSize());
+    gost.DecryptBlocks(testData, testData.size() / gost.GetBlockSize());
 
     if (origCrc != Crc32::ProcessBuffer(testData))
     {
@@ -353,12 +353,12 @@ void EncryptionTest::TestXts()
             ea->SetKey(BufferPtr(testKey, ea->GetKeySize()));
 
             Buffer modeKey(ea->GetKeySize());
-            for (size_t mi = 0; mi < modeKey.Size(); mi++)
+            for (size_t mi = 0; mi < modeKey.size(); mi++)
             {
                 modeKey[mi] = (quint8) mi;
             }
             quint8 XtsTestVectorsLength = sizeof(XtsTestVectors) / sizeof(XtsTestVectors[0]);
-            modeKey.CopyFrom(BufferPtr(XtsTestVectors[XtsTestVectorsLength - 1].key2,
+            modeKey.copyFrom(BufferPtr(XtsTestVectors[XtsTestVectorsLength - 1].key2,
                                        sizeof(XtsTestVectors[XtsTestVectorsLength - 1].key2)));
 
             ea->GetMode()->SetKey(modeKey);
@@ -474,11 +474,11 @@ void EncryptionTest::TestXts()
         ea->SetKey(BufferPtr(testKey, ea->GetKeySize()));
 
         Buffer modeKey(ea->GetKeySize());
-        for (size_t mi = 0; mi < modeKey.Size(); mi++)
+        for (size_t mi = 0; mi < modeKey.size(); mi++)
         {
             modeKey[mi] = (quint8) mi;
         }
-        modeKey.CopyFrom(BufferPtr(XtsTestVectors[(sizeof(XtsTestVectors) / sizeof(
+        modeKey.copyFrom(BufferPtr(XtsTestVectors[(sizeof(XtsTestVectors) / sizeof(
                                        XtsTestVectors[0])) - 1].key2,
                                    sizeof(XtsTestVectors[(sizeof(XtsTestVectors) / sizeof(XtsTestVectors[0])) - 1].key2)));
 
@@ -543,21 +543,21 @@ void EncryptionTest::TestPkcs5()
 
     VolumeHashWhirlpool pkcs5HmacWhirlpool;
     pkcs5HmacWhirlpool.HMAC_DeriveKey(derivedKey, password, salt, 5);
-    if (memcmp(derivedKey.Get(), "\x50\x7c\x36\x6f", 4) != 0)
+    if (memcmp(derivedKey.get(), "\x50\x7c\x36\x6f", 4) != 0)
     {
         throw EncryptionTestFailedException();
     }
 
     VolumeHashStribog pkcs5HmacStribog;
     pkcs5HmacStribog.HMAC_DeriveKey(derivedKey, password, salt, 5);
-    if (memcmp(derivedKey.Get(), "\xc7\x13\x56\xb6", 4) != 0)
+    if (memcmp(derivedKey.get(), "\xc7\x13\x56\xb6", 4) != 0)
     {
         throw EncryptionTestFailedException();
     }
 
     VolumeHashGostHash pkcs5HmacGostHash;
     pkcs5HmacGostHash.HMAC_DeriveKey(derivedKey, password, salt, 5);
-    if (memcmp(derivedKey.Get(), "\x7d\x53\xe0\x7e", 4) != 0)
+    if (memcmp(derivedKey.get(), "\x7d\x53\xe0\x7e", 4) != 0)
     {
         throw EncryptionTestFailedException();
     }

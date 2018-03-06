@@ -9,7 +9,7 @@ Item {
 
     function printNotification() {
        if(notifications.length > 0)
-          notif_title.text = notifications.length + " " + qsTr("NOTIFICATIONS") + Translation.tr;
+          notif_title.text = notifications.length + " " + qsTr("NOTIFICATION(S)") + Translation.tr;
        else
           notif_title.text = qsTr("NO NOTIFICATION") + Translation.tr;
     }
@@ -27,7 +27,8 @@ Item {
                             Notif_id: Number(app.notifications[notif][2]),
                             Notif_name: String(app.notifications[notif][0]),
                             Notif_percent: String(app.notifications[notif][3]),
-                            Notif_desc: String(app.notifications[notif][1])
+                            Notif_desc: String(app.notifications[notif][1]),
+                            Notif_displayed: 0
                         });
         }
 
@@ -39,8 +40,11 @@ Item {
         for(var i = 0; i < app.notifications.length; ++i)
             if(app.notifications[i][2] === id) {
                 app.notifications[i][3] = percent;
-                drawNotification();
-                listOfNotifications.setProperty(i, "Notif_percent", percent)
+                listOfNotifications.setProperty(app.notifications.length-i-1, "Notif_percent", percent)
+                if(app.notifications[i][4] === 0) {
+                    timerNotifPreview.start();
+                    app.notifications[i][4] = 1;
+                }
                 return;
             }
     }
@@ -100,14 +104,15 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.fill: parent
                         color: palette.darkSecond
-                        height: 150
+                        height: 80
                         Text {
                             id: delegateText
-                            text: "<b>"+ Notif_name +"</b><br>" + Notif_desc
+                            text: (Number(Notif_percent) === -1) ? qsTr("<b>Double-click</b> to display the error that occurred.") : "<b>"+ Notif_name +"</b><br>" + Notif_desc
                             wrapMode: Text.WordWrap
                             width: parent.width - 50
                             leftPadding: 20
                             rightPadding: 20
+                            clip: true
                             x: (Number(Notif_percent) !== -1) ? 60 : 0
                             anchors.verticalCenter: parent.verticalCenter
                             color: palette.text
@@ -120,6 +125,14 @@ Item {
                             size: 50
                             visible: (Number(Notif_percent) !== -1) ? true : false
                             percent: Number(Notif_percent)
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onDoubleClicked: {
+                                openErrorMessage("Information", Notif_desc)
+                                title.changeNotif(false)
+                            }
                         }
                     }
 

@@ -42,17 +42,39 @@ QDataStream & operator>> (QDataStream & in, QSharedPointer<ClassName> & Valeur) 
 	qMetaTypeId<QSharedPointer<ClassName>>()
 
 
+/**
+ * @brief Serializing operator for the QFileInfo object used for inter-process communication
+ *
+ * @param out QDataStream in which the object is serialized
+ * @param Valeur Object to serialize
+ * @return out
+ */
 QDataStream & operator<< (QDataStream & out, const QFileInfo & Valeur);
+/**
+ * @brief Deserializing operator for the QFileInfo object used for inter-process communication
+ *
+ * @param in QDataStream from which the object is serialized
+ * @param Valeur Object to deserialized
+ * @return in
+ */
 QDataStream & operator>> (QDataStream & in, QFileInfo & Valeur);
-QDataStream & operator>> (QDataStream & in, QSharedPointer<QFileInfo> & Valeur);
-QDataStream & operator<< (QDataStream & out, const QSharedPointer<QFileInfo> & Valeur);
-QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
+/**
+ * @brief Serializing operator for the QSharedPointer<QByteArray> object used for inter-process communication
+ *
+ * @param out QDataStream in which the object is serialized
+ * @param Valeur Object to serialize
+ * @return out
+ */
 QDataStream & operator<< (QDataStream & out, const QSharedPointer<QByteArray> & Valeur);
-QDataStream & operator>> (QDataStream & in, QSharedPointer <QList<QSharedPointer<QFileInfo>>> & Valeur);
-QDataStream & operator<< (QDataStream & out, const QSharedPointer <QList<QSharedPointer<QFileInfo>>> & Valeur);
-Q_DECLARE_METATYPE(QSharedPointer<QFileInfo>)
+/**
+ * @brief Deserializing operator for the QSharedPointer<QByteArray> object used for inter-process communication
+ *
+ * @param in QDataStream from which the object is serialized
+ * @param Valeur Object to deserialized
+ * @return in
+ */
+QDataStream & operator>> (QDataStream & in, QSharedPointer<QByteArray> & Valeur);
 Q_DECLARE_METATYPE(QSharedPointer<QByteArray>)
-Q_DECLARE_METATYPE(QSharedPointer <QList<QSharedPointer<QFileInfo>>>)
 
 
 #endif // SERIALIZEUTIL_H

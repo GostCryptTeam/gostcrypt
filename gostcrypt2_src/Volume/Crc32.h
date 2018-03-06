@@ -32,7 +32,7 @@ namespace Volume {
 
         static quint32 ProcessBuffer (const BufferPtr &buffer)
 		{
-			return ::GetCrc32 (const_cast<quint8 *> (buffer.Get()), static_cast<int> (buffer.Size()));
+			return ::GetCrc32 (const_cast<quint8 *> (buffer.get()), static_cast<int> (buffer.size()));
 		}
 
 	protected:

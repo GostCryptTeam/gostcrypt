@@ -86,14 +86,14 @@ namespace Volume {
                     VolumeType::Hidden,
                     useBackupHeaders);
                 if (protectedVolume.GetType() != VolumeType::Hidden)
-                    throw IncorrectParameterException("protection is set to HiddenVolumeReadOnly, but the volume type is not hidden.")
+                    throw InvalidParameterException("password/keyfiles", "The given password/keyfiles to open the inner hidden volume instance are the ones of the outer volume instance")
 
                 ProtectedRangeStart = protectedVolume.VolumeDataOffset;
                 ProtectedRangeEnd = protectedVolume.VolumeDataOffset + protectedVolume.VolumeDataSize;
             }
             catch (PasswordOrKeyfilesIncorrect&)
             {
-                throw ProtectionPasswordOrKeyfilesIncorrectException();
+                throw ProtectionPasswordOrKeyfilesIncorrectException(volumePath);
             }
         }
 
@@ -148,13 +148,13 @@ namespace Volume {
 					if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 					{
 						if (Type == VolumeType::Hidden)
-                            throw PasswordOrKeyfilesIncorrectException(); // the password of the inner volume was put instead of the one of the outer volume.
+                            throw PasswordOrKeyfilesIncorrectException(volumePath); // the password of the inner volume was put instead of the one of the outer volume.
                         // protectedrangestart and protectedrangeend were set before
 					}
 					return;
 				}
 			}
-            throw PasswordOrKeyfilesIncorrectException();
+            throw PasswordOrKeyfilesIncorrectException(volumePath);
 		}
 		catch (...)
 		{
@@ -167,11 +167,11 @@ namespace Volume {
 	{
         //if_debug (ValidateState ());
 
-        quint64 length = buffer.Size();
+        quint64 length = buffer.size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0 || byteOffset % SectorSize != 0)
-            throw IncorrectParameterException("length or offset not aligned with sector");
+            throw InvalidParameterException("length or offset", "length or offset not aligned with sector");
 
         if (this->volumeFile->ReadAt (buffer, hostOffset) != length)
             throw VolumeCorruptedException();
@@ -204,15 +204,15 @@ namespace Volume {
 
     void Volume::WriteSectors (const BufferPtr &buffer, quint64 byteOffset)
 	{
-        quint64 length = buffer.Size();
+        quint64 length = buffer.size();
         quint64 hostOffset = VolumeDataOffset + byteOffset;
 
 		if (length % SectorSize != 0
             || byteOffset % SectorSize != 0)
-            throw IncorrectParameterException("length or offset not aligned with sector");
+            throw InvalidParameterException("length or offset", "length or offset not aligned with sector");
 
-        if (byteOffset + length > VolumeDataSize)
-            throw IncorrectParameterException("Trying to read after the end of the volume file");
+        if (byteOffset > VolumeDataSize)
+            throw InvalidParameterException("byteOffset", "Trying to read after the end of the volume file");
 
 		if (Protection == VolumeProtection::ReadOnly)
             throw VolumeReadOnlyException();
@@ -222,15 +222,15 @@ namespace Volume {
 		if (Protection == VolumeProtection::HiddenVolumeReadOnly)
 			CheckProtectedRange (hostOffset, length);
 
-		SecureBuffer encBuf (buffer.Size());
-		encBuf.CopyFrom (buffer);
+		SecureBuffer encBuf (buffer.size());
+		encBuf.copyFrom (buffer);
 
 		EA->EncryptSectors (encBuf, hostOffset / SectorSize, length / SectorSize, SectorSize);
         this->volumeFile->WriteAt (encBuf, hostOffset);
 
 		TotalDataWritten += length;
 
-        quint64 writeEndOffset = byteOffset + buffer.Size();
+        quint64 writeEndOffset = byteOffset + buffer.size();
 		if (writeEndOffset > TopWriteOffset)
 			TopWriteOffset = writeEndOffset;
 	}

@@ -7,6 +7,7 @@ SUBDIRS = \
     FuseService
 
 QMAKE_CXX = ccache g++
+QMAKE_CXXFLAGS += -O3
 
 UI.depends = \
     Core \

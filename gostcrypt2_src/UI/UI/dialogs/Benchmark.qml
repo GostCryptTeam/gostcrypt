@@ -34,23 +34,23 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 height: 40
             }
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: combo
                 width: 250
                 height: 40
                 model: {
-                    var paths = ["100 KB", "500 KB", "1 MB", "5 MB", "100 MB", "200 MB", "500 MB", "1 GB"];
+                    var paths = ["100KB", "500KB", "1MB", "5MB", "100MB", "200MB", "500MB", "1GB"];
                     return paths;
                 }
             }
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: selectPKCS
             height: combo.height
             text: qsTr("Benchmark") + Translation.tr
             width: 120
-            onClicked: qmlRequest("benchmark", "")
+            onClicked: qmlRequest("benchmark", {size: combo.currentText })
             color_: palette.green
         }
 
@@ -86,7 +86,7 @@ Item {
             }
             OLDControl.TableViewColumn {
                 role: "mean"
-                title: "mean"
+                title: "Mean Speed"
                 width: 125
             }
             style: TableViewStyle {
@@ -167,7 +167,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: save
             height: 40
             text: qsTr("Close") + Translation.tr
@@ -181,9 +181,11 @@ Item {
     function updateTableview(object) {
         table.model.clear();
         //var keyfiles = UserSettings.getFavoriteKeyFiles();
-        //for(var i = 0; i < keyfiles.length; ++i) table.model.append({ path: keyfiles[i] })
-        //TODO : MAJ table with returned valued
-        table.model.append({ algo: "AAAAAAAAA", enc: "352MB/s", dec: "248Mb/s", mean: "245Mb/s" })
+        for(var a in object)
+            table.model.append({   algo: object[a]['name'],
+                                   enc: object[a]['encSpeed'],
+                                   dec: object[a]['decSpeed'],
+                                   mean: object[a]['meanSpeed'] })
     }
 
     function numberOfCores() {

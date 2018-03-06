@@ -57,14 +57,14 @@ namespace Volume {
 
     void CipherAlgorithm::SetKey (const BufferPtr &key)
 	{
-		if (key.Size() != GetKeySize ())
-            throw IncorrectParameterException("key.Size() != GetKeySize ()");
+		if (key.size() != GetKeySize ())
+            throw InvalidParameterException("key", "key.Size() != GetKeySize ()");
 
 		if (!Initialized)
-			ScheduledKey.Allocate (GetScheduledKeySize ());
+			ScheduledKey.allocate (GetScheduledKeySize ());
 
 		SetCipherKey (key);
-		Key.CopyFrom (key);
+		Key.copyFrom (key);
 		Initialized = true;
 	}
 

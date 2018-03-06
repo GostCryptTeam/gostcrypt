@@ -238,12 +238,14 @@ QDataStream& operator << (QDataStream& out,
                           const GostCrypt::Volume::PasswordOrKeyfilesIncorrect& Valeur)
 {
     out << static_cast<const VolumeException&>(Valeur);
+    out << Valeur.volumePath;
     return out;
 }
 QDataStream& operator >> (QDataStream& in,
                           GostCrypt::Volume::PasswordOrKeyfilesIncorrect& Valeur)
 {
     in >> static_cast<VolumeException&>(Valeur);
+    in >> Valeur.volumePath;
     return in;
 }
 DEF_SERIALIZABLE(GostCrypt::Volume::DataNotMutable)

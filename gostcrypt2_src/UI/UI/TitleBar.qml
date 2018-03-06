@@ -1,27 +1,26 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
-Rectangle{
-
+Rectangle {
     property int height_
     id:titlebar
     width: parent.width
     color: palette.border
     anchors.bottomMargin: 1
 
-
     Rectangle {
-            anchors.top: titlebar.bottom
-            height: 1
-            width: parent.width
-            color: palette.border
+        anchors.top: titlebar.bottom
+        height: 1
+        width: parent.width
+        color: palette.border
     }
 
     Rectangle {
         id: logoTop
         x:10
         y:10
-        //width:120
         height: 20
         Image {
             fillMode: Image.PreserveAspectFit
@@ -57,7 +56,6 @@ Rectangle{
     Rectangle{
         id:appclose
         height: height_
-        y:0
         width: height_
         anchors.right: parent.right
         color: palette.border
@@ -73,7 +71,12 @@ Rectangle{
             hoverEnabled: true
             onEntered: appclose.color=palette.darkThird
             onExited: appclose.color=palette.border
-            onClicked: app.appQuit();
+            onClicked: {
+                exitRequested = true
+               // openErrorMessage("Information", "WARNING: Close GostCrypt dismounts all volumes currently mounted on the system. Continue anyway?")
+              //  qmlRequest("dismountall", "");
+                app.appQuit();
+            }
         }
     }
 
@@ -81,7 +84,6 @@ Rectangle{
         id:appminimize
         height: height_
         width: height_
-        y:0
         anchors.right: appclose.left
         color: palette.border
         Text{
@@ -100,15 +102,25 @@ Rectangle{
         }
     }
 
-    Rectangle {
-        property bool checked: false
+    Button {
+        property color backgroundColor: notifications.checked ? palette.green : notifications.hovered ? palette.green : "transparent"
         id: notifications
         y:0
         height: height_
         width: height_
         anchors.right: appminimize.left
         x: 20
-        color: palette.border
+        checkable: true
+        checked: false
+        onClicked: title.changeNotif(notifications.checked);
+        style: ButtonStyle {
+            id: notificationsStyle
+                background: Rectangle {
+                    implicitWidth: parent.width
+                    implicitHeight: parent.height
+                    color: notifications.backgroundColor
+                }
+            }
 
         Image {
             id: notifications_image
@@ -132,49 +144,6 @@ Rectangle{
             border.color: "#1a1a1a"
         }
 
-        MouseArea {
-            id: area
-            width: parent.width
-            height: parent.height
-            hoverEnabled: true
-        }
-
-        states: [
-            State {
-                name: "hover"
-                when: area.containsMouse && !area.pressed
-                PropertyChanges {
-                    target: notifications
-                    color : {
-                        notifications.color=palette.green
-                    }
-                }
-            },
-            State {
-                name: "pressed"
-                when: area.pressed
-                PropertyChanges {
-                    target: notifications
-                    color : {
-                        title.changeNotif(!notifications.checked)
-                    }
-                }
-            },
-            State {
-                name: "exit"
-                when: !area.containsMouse
-                PropertyChanges {
-                    target: notifications
-                    color : {
-                        if(notifications.checked)
-                            notifications.color=palette.green
-                        else
-                            notifications.color=palette.border
-                    }
-                }
-            }
-        ]
-
         transitions: Transition {
             ColorAnimation { duration:app.duration/2 }
         }
@@ -189,9 +158,7 @@ Rectangle{
 
     function changeNotif(bool) {
         if(bool) {
-            notifications.color=palette.green;
             notifs.opacity = 1.0;
-            notifications.checked = true;
             bk_notifs.enabled = true;
             notifs.printNotification();
             notifs.drawNotification();
@@ -199,10 +166,9 @@ Rectangle{
         }
         else
         {
-           notifications.color=palette.border;
-           notifs.opacity = 0.0;
-           bk_notifs.enabled = false;
-           notifications.checked = false;
+            notifications.checked = false;
+            notifs.opacity = 0.0;
+            bk_notifs.enabled = false;
         }       
     }
 }

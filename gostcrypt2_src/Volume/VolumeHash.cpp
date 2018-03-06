@@ -29,8 +29,8 @@ namespace Volume {
 
     void VolumeHash::ValidateKeyDerivationParameters (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt, int iterationCount)
     {
-        if (key.Size() < 1 || password.Size() < 1 || salt.Size() < 1 || iterationCount < 1)
-            throw IncorrectParameterException("Incorrect key derivation parameters");
+        if (key.size() < 1 || password.Size() < 1 || salt.size() < 1 || iterationCount < 1)
+            throw InvalidParameterException("key derivation parameters", "Incorrect key derivation parameters");
     }
 
     void VolumeHash::HMAC_DeriveKey (const BufferPtr &key, const VolumePassword &password, const BufferPtr &salt) const

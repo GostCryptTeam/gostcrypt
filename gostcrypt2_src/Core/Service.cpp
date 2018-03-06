@@ -12,7 +12,8 @@ namespace GostCrypt {
 
 	int Service::start(int argc, char **argv)
 		{
-			ServiceApplication app(argc, argv);
+            QString inputFilePath;
+            ServiceApplication app(argc, argv);
 
 			INIT_SERIALIZE(InitResponse);
             INIT_SERIALIZE(ExceptionResponse);
@@ -25,13 +26,13 @@ namespace GostCrypt {
 			initSerializables();
 
             if(argc > 2) {
-                this->inputFilePath = QString(argv[2]);
+                inputFilePath = QString(argv[2]);
             }
 
             // Creation of input and output streams for communication with parent process
 			inputStream.setDevice(&inputFile);
 			outputStream.setDevice(&outputFile);
-            if(this->inputFilePath.isEmpty()) {
+            if(inputFilePath.isEmpty()) {
                 inputFile.open(stdin, QFile::ReadOnly);
             } else {
                 inputFile.setFileName(inputFilePath);
@@ -40,7 +41,7 @@ namespace GostCrypt {
             outputFile.open(stdout, QFile::WriteOnly);
 
 			// connecting signals
-			connect(&app, SIGNAL(sendException(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));
+            connect(&app, SIGNAL(exceptionCaught(GostCryptException&)), this, SLOT(sendException(GostCryptException&)));
 			connect(this, SIGNAL(exit()), &app, SLOT(quit()));
 
 			connectRequestHandlingSignals();
@@ -123,9 +124,10 @@ namespace GostCrypt {
 			sendResponse(QVariant::fromValue(r));
 		}
 
-		void Service::sendProgressUpdate(QSharedPointer<ProgressUpdateResponse> response)
+        void Service::sendProgressUpdate(quint32 requestId, qreal progress)
 		{
-			sendResponse(QVariant::fromValue(response));
+            QSharedPointer<ProgressUpdateResponse> response(new ProgressUpdateResponse(requestId, progress));
+            sendResponse(QVariant::fromValue(response));
 		}
 
 		bool ServiceApplication::notify(QObject *receiver, QEvent *event)
@@ -137,7 +139,7 @@ namespace GostCrypt {
 				#ifdef DEBUG_SERVICE_HANDLER
 				qDebug() << "Exception catched, forwarding to parent process";
 				#endif
-				emit sendException(e);
+                emit exceptionCaught(e);
 			} catch (QException &e) {
 				qDebug() << e.what();
 			}

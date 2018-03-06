@@ -1,19 +1,15 @@
 <RCC>
     <qresource prefix="/">
-        <file>UI/GSButton.qml</file>
-        <file>UI/GSButtonBlue_icon.qml</file>
-        <file>UI/GSButtonGreen_icon.qml</file>
-        <file>UI/GSMenu.qml</file>
-        <file>UI/GSMenuButton.qml</file>
+        <file>UI/ButtonBlue_icon.qml</file>
+        <file>UI/ButtonGreen_icon.qml</file>
         <file>UI/SubWindow.qml</file>
         <file>UI/main.qml</file>
-        <file>UI/GSCustomComboBox.qml</file>
-        <file>UI/GSVolumeItem.qml</file>
+        <file>UI/CustomComboBox.qml</file>
+        <file>UI/VolumeItem.qml</file>
         <file>UI/TooltipArea.qml</file>
-        <file>UI/GSMenuButtonItem.qml</file>
         <file>UI/SignalManager.qml</file>
-        <file>UI/GSSudo.qml</file>
-        <file>UI/GSErrorMessage.qml</file>
+        <file>UI/Sudo.qml</file>
+        <file>UI/ErrorMessage.qml</file>
         <file>UI/TitleBar.qml</file>
         <file>UI/dialogs/textFieldRed.qml</file>
         <file>UI/ressource/buttonBlueRight.png</file>
@@ -24,7 +20,7 @@
         <file>UI/ressource/lock.gif</file>
         <file>UI/ressource/logo_gostcrypt.png</file>
         <file>UI/ressource/logoMenu.png</file>
-        <file>UI/GSButtonBordered.qml</file>
+        <file>UI/ButtonBordered.qml</file>
         <file>UI/ressource/menu_favorite.png</file>
         <file>UI/ressource/menu_help.png</file>
         <file>UI/ressource/menu_settings.png</file>
@@ -53,11 +49,11 @@
         <file>UI/wizard/Page5.qml</file>
         <file>UI/wizard/Page6.qml</file>
         <file>UI/wizard/Page7.qml</file>
-        <file>UI/GSCheckBox.qml</file>
+        <file>UI/CheckBox.qml</file>
         <file>UI/wizard/Page9.qml</file>
         <file>UI/wizard/Page10.qml</file>
         <file>UI/wizard/Page11.qml</file>
-        <file>UI/GSHelpButton.qml</file>
+        <file>UI/HelpButton.qml</file>
         <file>UI/wizard/PageEnd.qml</file>
         <file>UI/ressource/separator.png</file>
         <file>UI/ressource/volumeFavorite.png</file>
@@ -97,8 +93,6 @@
         <file>translations/gostcrypt_ru.qm</file>
         <file>translations/gostcrypt_ru.ts</file>
         <file>UI/dialogs/Performance.qml</file>
-        <file>UI/GSButtonGreen.qml</file>
-        <file>UI/GSMenuBar.qml</file>
         <file>CmdLineInterface.cpp</file>
         <file>CmdLineInterface.h</file>
         <file>DragWindowProvider.h</file>
@@ -131,5 +125,11 @@
         <file>UI/dialogs/RestoreHeaderVolume.qml</file>
         <file>UI/dialogs/BackupHeaderVolume.qml</file>
         <file>UI/ressource/caps.png</file>
+        <file>UserInterface.cpp</file>
+        <file>UserInterface.h</file>
+        <file>UI/AbstractTheme.qml</file>
+        <file>UI/MenuButton.qml</file>
+        <file>UI/MenuButtonItem.qml</file>
+        <file>UI/MainMenu.qml</file>
     </qresource>
 </RCC>

@@ -7,10 +7,8 @@ namespace GostCrypt {
             INIT_SERIALIZE(CoreException);
             INIT_SERIALIZE(FailedOpenFile);
             INIT_SERIALIZE(DeviceNotMounted);
-            INIT_SERIALIZE(MissingParam);
             INIT_SERIALIZE(VolumeAlreadyMounted);
             INIT_SERIALIZE(FailedOpenVolume);
-            INIT_SERIALIZE(IncorrectSectorSize);
             INIT_SERIALIZE(MountPointUsed);
             INIT_SERIALIZE(MountFilesystemManagerException);
             INIT_SERIALIZE(FailMountFilesystem);
@@ -19,19 +17,14 @@ namespace GostCrypt {
             INIT_SERIALIZE(FailedCreateDirectory);
             INIT_SERIALIZE(FailedDetachLoopDevice);
             INIT_SERIALIZE(VolumeNotMounted);
-            INIT_SERIALIZE(ContentSizeInvalid);
-            INIT_SERIALIZE(InvalidHeaderOffset);
             INIT_SERIALIZE(FormattingSubException);
-            INIT_SERIALIZE(ProcessFailed);
+            INIT_SERIALIZE(FormatProcessFailed);
             INIT_SERIALIZE(FilesystemNotSupported);
             INIT_SERIALIZE(AlgorithmNotFound);
             INIT_SERIALIZE(IncorrectSudoPassword);
-            INIT_SERIALIZE(WorkerProcessCrashed);
+            INIT_SERIALIZE(ServiceProcessCrashed);
             INIT_SERIALIZE(FailFindFilesystemType);
-            INIT_SERIALIZE(InvalidParam);
-            INIT_SERIALIZE(IncorrectVolumePassword);
             INIT_SERIALIZE(FailedUsingSystemRandomSource);
-            INIT_SERIALIZE(TestFailed);
         }
 
         DEF_SERIALIZABLE(GostCrypt::Core::CoreException)
@@ -47,38 +40,12 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GostCrypt::Core::DeviceNotMounted)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::DeviceNotMounted & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.device->canonicalFilePath();
+            out << Valeur.device;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::DeviceNotMounted & Valeur) {
-            QString path;
             in >> static_cast<CoreException&>(Valeur);
-            in >> path;
-            Valeur.device.reset(new QFileInfo(path));
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::Core::MissingParam)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::MissingParam & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.param;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::MissingParam & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.param;
-            return in;
-        }
-
-		DEF_SERIALIZABLE(GostCrypt::Core::InvalidParam)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::InvalidParam & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.param;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::InvalidParam & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.param;
+            in >> Valeur.device;
             return in;
         }
 
@@ -93,20 +60,6 @@ namespace GostCrypt {
             in >> static_cast<CoreException&>(Valeur);
             in >> path;
             Valeur.volumePath.setFile(path);
-            return in;
-        }
-
-		DEF_SERIALIZABLE(GostCrypt::Core::IncorrectVolumePassword)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::IncorrectVolumePassword & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.volumePath->absoluteFilePath();
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::IncorrectVolumePassword & Valeur) {
-            QString path;
-            in >> static_cast<CoreException&>(Valeur);
-            in >> path;
-            Valeur.volumePath.reset(new QFileInfo(path));
             return in;
         }
 
@@ -138,57 +91,41 @@ namespace GostCrypt {
           return in;
         }
 
-        DEF_SERIALIZABLE(GostCrypt::Core::IncorrectSectorSize)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::IncorrectSectorSize & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::IncorrectSectorSize & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            return in;
-        }
-
         DEF_SERIALIZABLE(GostCrypt::Core::MountPointUsed)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::MountPointUsed & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.mountpoint->absoluteFilePath();
+            out << Valeur.mountpoint;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::MountPointUsed & Valeur) {
-          QString path;
           in >> static_cast<CoreException&>(Valeur);
-          in >> path;
-          Valeur.mountpoint.reset(new QFileInfo(path));
+          in >> Valeur.mountpoint;
           return in;
         }
 
         DEF_SERIALIZABLE(GostCrypt::Core::MountFilesystemManagerException)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::MountFilesystemManagerException & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.mountpoint->absoluteFilePath();
-            out << Valeur.error_number;
+            out << Valeur.mountpoint;
+            out << Valeur.errorNumber;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::MountFilesystemManagerException & Valeur) {
-          QString path;
           in >> static_cast<CoreException&>(Valeur);
-          in >> path;
-          in >> Valeur.error_number;
-          Valeur.mountpoint.reset(new QFileInfo(path));
+          in >> Valeur.mountpoint;
+          in >> Valeur.errorNumber;
           return in;
         }
 
         DEF_SERIALIZABLE(GostCrypt::Core::FailMountFilesystem)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::FailMountFilesystem & Valeur) {
             out << static_cast<const MountFilesystemManagerException&>(Valeur);
-            out << Valeur.devicePath->absoluteFilePath();
+            out << Valeur.devicePath;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailMountFilesystem & Valeur) {
-          QString path;
           in >> static_cast<MountFilesystemManagerException&>(Valeur);
-          in >> path;
-          Valeur.devicePath.reset(new QFileInfo(path));
+          in >> Valeur.devicePath;
           return in;
         }
 
@@ -198,7 +135,6 @@ namespace GostCrypt {
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailUnmountFilesystem & Valeur) {
-          QString path;
           in >> static_cast<MountFilesystemManagerException&>(Valeur);
           return in;
         }
@@ -206,53 +142,23 @@ namespace GostCrypt {
         DEF_SERIALIZABLE(GostCrypt::Core::FailedAttachLoopDevice)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::FailedAttachLoopDevice & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.imageFile->absoluteFilePath();
+            out << Valeur.imageFile;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailedAttachLoopDevice & Valeur) {
-          QString path;
           in >> static_cast<CoreException&>(Valeur);
-          in >> path;
-          Valeur.imageFile.reset(new QFileInfo(path));
+          in >> Valeur.imageFile;
           return in;
         }
         DEF_SERIALIZABLE(GostCrypt::Core::FailedDetachLoopDevice)
         QDataStream & operator << (QDataStream & out, const GostCrypt::Core::FailedDetachLoopDevice & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.loopDevice->absoluteFilePath();
+            out << Valeur.loopDevice;
             return out;
         }
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailedDetachLoopDevice & Valeur) {
-            QString path;
             in >> static_cast<CoreException&>(Valeur);
-            in >> path;
-            Valeur.loopDevice.reset(new QFileInfo(path));
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::Core::ContentSizeInvalid)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::ContentSizeInvalid & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.size;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::ContentSizeInvalid & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.size;
-            return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::Core::InvalidHeaderOffset)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::InvalidHeaderOffset & Valeur) {
-            out << static_cast<const CoreException&>(Valeur);
-            out << Valeur.headeroffset;
-            out << Valeur.headersize;
-            return out;
-        }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::InvalidHeaderOffset & Valeur) {
-            in >> static_cast<CoreException&>(Valeur);
-            in >> Valeur.headeroffset;
-            in >> Valeur.headersize;
+            in >> Valeur.loopDevice;
             return in;
         }
 
@@ -268,12 +174,12 @@ namespace GostCrypt {
             return in;
         }
 
-        DEF_SERIALIZABLE(GostCrypt::Core::ProcessFailed)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::ProcessFailed & Valeur) {
+        DEF_SERIALIZABLE(GostCrypt::Core::FormatProcessFailed)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::FormatProcessFailed & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
             return out;
         }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::ProcessFailed & Valeur) {
+        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FormatProcessFailed & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             return in;
         }
@@ -312,12 +218,12 @@ namespace GostCrypt {
             return in;
         }
 
-        DEF_SERIALIZABLE(GostCrypt::Core::WorkerProcessCrashed)
-        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::WorkerProcessCrashed & Valeur) {
+        DEF_SERIALIZABLE(GostCrypt::Core::ServiceProcessCrashed)
+        QDataStream & operator << (QDataStream & out, const GostCrypt::Core::ServiceProcessCrashed & Valeur) {
             out << static_cast<const CoreException&>(Valeur);
             return out;
         }
-        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::WorkerProcessCrashed & Valeur) {
+        QDataStream & operator >> (QDataStream & in, GostCrypt::Core::ServiceProcessCrashed & Valeur) {
             in >> static_cast<CoreException&>(Valeur);
             return in;
         }
@@ -352,22 +258,6 @@ namespace GostCrypt {
         QDataStream & operator >> (QDataStream & in, GostCrypt::Core::FailedUsingSystemRandomSource & Valeur) {
           in >> static_cast<CoreException&>(Valeur);
           return in;
-        }
-
-        DEF_SERIALIZABLE(GostCrypt::Core::TestFailed)
-        QDataStream& operator << (QDataStream& out,
-                                  const GostCrypt::Core::TestFailed& Valeur)
-        {
-            out << static_cast<const GostCryptException&>(Valeur);
-            out << Valeur.testName;
-            return out;
-        }
-        QDataStream& operator >> (QDataStream& in,
-                                  GostCrypt::Core::TestFailed& Valeur)
-        {
-            in >> static_cast<GostCryptException&>(Valeur);
-            in >> Valeur.testName;
-            return in;
         }
     }
 }

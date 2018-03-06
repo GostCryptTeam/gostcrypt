@@ -43,7 +43,7 @@ Item {
             text: qsTr("Filesystem") + Translation.tr
         }
 
-        UI.GSCustomComboBox {
+        UI.CustomComboBox {
             id: typeFilesystem
             model: app.filesystems
             x: fileSystem.x + fileSystem.width + 10
@@ -63,7 +63,7 @@ Item {
             text: qsTr("Cluster") + Translation.tr
         }
 
-        UI.GSCustomComboBox {
+        UI.CustomComboBox {
             id: clusterType
             model: [qsTr("Default"),
                 "0.5KB",
@@ -95,7 +95,7 @@ Item {
         height: 80
         anchors.horizontalCenter: top.horizontalCenter
 
-        UI.GSHelpButton {
+        UI.HelpButton {
             size: 30
             x: -10
             y: -10

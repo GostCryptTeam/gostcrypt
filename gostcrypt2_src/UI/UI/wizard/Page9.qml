@@ -90,7 +90,7 @@ Item {
             width: 260
             height: 150
             visible: (isFile === 1) ? true : false
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: buttonKeyfiles
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 40
@@ -99,7 +99,7 @@ Item {
                 color_: palette.green
                 onClicked: addKeyfiles.open()
             }
-            UI.GSCustomComboBox {
+            UI.CustomComboBox {
                 id: combo
                 width: 250
                 anchors.top: buttonKeyfiles.bottom
@@ -111,7 +111,7 @@ Item {
         }
     }
 
-    UI.GSCheckBox {
+    UI.CheckBox {
         id: display
         text_: qsTr("Display password")
         y: 150
@@ -136,7 +136,7 @@ Item {
 
     }
 
-    UI.GSCheckBox {
+    UI.CheckBox {
         id: use_Keyfiles
         text_: qsTr("Use a File Key...") + Translation.tr
         anchors.top: display.bottom
@@ -157,7 +157,7 @@ Item {
         }
     }
 
-    UI.GSHelpButton {
+    UI.HelpButton {
         id:description
         size: 30
         anchors.left: titre.right

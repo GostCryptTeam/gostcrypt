@@ -47,22 +47,22 @@ void VolumeHeader::Init()
 
 void VolumeHeader::Create(BufferPtr& headerBuffer, VolumeHeaderCreationOptions& options)
 {
-    if (options.DataKey.Size() != options.EA->GetKeySize() * 2)
+    if (options.DataKey.size() != options.EA->GetKeySize() * 2)
     {
-        throw IncorrectParameterException("Given Key size different from the encryption algorithm key size");
+        throw InvalidParameterException("options.DataKey.size()", "Given Key size different from the encryption algorithm key size");
     }
-    if (options.Salt.Size() != GetSaltSize())
+    if (options.Salt.size() != GetSaltSize())
     {
-        throw IncorrectParameterException("Given salt size incorrect");
+        throw InvalidParameterException("options.Salt.size()", "Given salt size incorrect");
     }
 
-    headerBuffer.Erase();
+    headerBuffer.erase();
 
     HeaderVersion = CurrentHeaderVersion;
     RequiredMinProgramVersion = CurrentRequiredMinProgramVersion;
 
-    DataAreaKey.Erase();
-    DataAreaKey.CopyFrom(options.DataKey);
+    DataAreaKey.erase();
+    DataAreaKey.copyFrom(options.DataKey);
 
     VolumeCreationTime = 0;
     HiddenVolumeDataSize = (options.Type == VolumeType::Hidden ? options.VolumeDataSize :
@@ -78,7 +78,7 @@ void VolumeHeader::Create(BufferPtr& headerBuffer, VolumeHeaderCreationOptions& 
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw IncorrectParameterException("sector size");
+        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
     }
 
     EA = options.EA;
@@ -91,10 +91,10 @@ bool VolumeHeader::Decrypt(const BufferPtr& encryptedData, const VolumePassword&
 {
     if (password.Size() < 1)
     {
-        throw IncorrectParameterException("Empty password");
+        throw InvalidParameterException("Password", "Empty password");
     }
 
-    const BufferPtr salt(encryptedData.GetRange(SaltOffset, SaltSize));
+    const BufferPtr salt(encryptedData.getRange(SaltOffset, SaltSize));
     SecureBuffer header(EncryptedHeaderDataSize);
     SecureBuffer headerKey(GetLargestSerializedKeySize());
 
@@ -104,10 +104,10 @@ bool VolumeHeader::Decrypt(const BufferPtr& encryptedData, const VolumePassword&
 
         for (QSharedPointer <EncryptionAlgorithm> ea : encryptionAlgorithms)
         {
-            ea->SetKey(headerKey.GetRange(0, ea->GetKeySize()));
-            ea->GetMode()->SetKey(headerKey.GetRange(ea->GetKeySize(), ea->GetKeySize()));
+            ea->SetKey(headerKey.getRange(0, ea->GetKeySize()));
+            ea->GetMode()->SetKey(headerKey.getRange(ea->GetKeySize(), ea->GetKeySize()));
 
-            header.CopyFrom(encryptedData.GetRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize));
+            header.copyFrom(encryptedData.getRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize));
             ea->Decrypt(header);
 
             if (Deserialize(header, ea))
@@ -126,16 +126,13 @@ bool VolumeHeader::Decrypt(const BufferPtr& encryptedData, const VolumePassword&
 bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <EncryptionAlgorithm>& ea)
 {
 
-    if (header.Size() != EncryptedHeaderDataSize)
+    if (header.size() != EncryptedHeaderDataSize)
     {
-        throw IncorrectParameterException("header buffer size");
+        throw InvalidParameterException("header.size()", "");
     }
 
-    if (header[0] != 'T' ||
-            header[1] != 'R' ||
-            header[2] != 'U' ||
-            header[3] != 'E')
-    {
+    BufferPtr magicNumber((const quint8*)"TRUE", 4);
+    if(!magicNumber.isDataEqual(header.getRange(0, 4))) {
         return false;
     }
 
@@ -145,16 +142,16 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
 
     if (HeaderVersion < MinAllowedHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version too old");
+        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(MinAllowedHeaderVersion, 16) + " and is no longer supported");
     }
 
     if (HeaderVersion > CurrentHeaderVersion)
     {
-        throw VolumeVersionNotCompatibleException("Volume version too young");
+        throw VolumeVersionNotCompatibleException("Volume version is "+QString::number(HeaderVersion, 16) + " but this GostCrypt version support only the version " + QString::number(CurrentHeaderVersion, 16) + " and below.");
     }
 
     if (HeaderVersion >= 4
-            && Crc32::ProcessBuffer(header.GetRange(0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
+            && Crc32::ProcessBuffer(header.getRange(0, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
             != DeserializeEntryAt <quint32> (header, GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC))
     {
         return false;
@@ -188,7 +185,7 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw IncorrectParameterException("sector size");
+        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
     }
 
 #if !(defined (GST_WINDOWS) || defined (GST_LINUX))
@@ -200,16 +197,16 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
 
     offset = DataAreaKeyOffset;
 
-    if (VolumeKeyAreaCrc32 != Crc32::ProcessBuffer(header.GetRange(offset, DataKeyAreaMaxSize)))
+    if (VolumeKeyAreaCrc32 != Crc32::ProcessBuffer(header.getRange(offset, DataKeyAreaMaxSize)))
     {
         return false;
     }
 
-    DataAreaKey.CopyFrom(header.GetRange(offset, DataKeyAreaMaxSize));
+    DataAreaKey.copyFrom(header.getRange(offset, DataKeyAreaMaxSize));
 
     //Reset keys for use on the whole volume
-    ea->SetKey(header.GetRange(offset, ea->GetKeySize()));
-    ea->GetMode()->SetKey(header.GetRange(offset + ea->GetKeySize(), ea->GetKeySize()));
+    ea->SetKey(header.getRange(offset, ea->GetKeySize()));
+    ea->GetMode()->SetKey(header.getRange(offset + ea->GetKeySize(), ea->GetKeySize()));
 
     return true;
 }
@@ -220,45 +217,45 @@ T VolumeHeader::DeserializeEntry(const BufferPtr& header, size_t& offset)
 {
     offset += sizeof(T);
 
-    if (offset > header.Size())
+    if (offset > header.size())
     {
-        throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
+        throw InvalidParameterException("offset", "Trying to deserialize header entry after the end of the header");
     }
 
-    return qToBigEndian(*reinterpret_cast<const T*>(header.Get() + offset - sizeof(T)));
+    return qToBigEndian(*reinterpret_cast<const T*>(header.get() + offset - sizeof(T)));
 }
 
 template <typename T>
 T VolumeHeader::DeserializeEntryAt(const BufferPtr& header, const size_t& offset)
 {
-    if (offset + sizeof(T) > header.Size())
+    if (offset + sizeof(T) > header.size())
     {
-        throw IncorrectParameterException("Trying to deserialize header entry after the end of the header");
+        throw InvalidParameterException("offset", "Trying to deserialize header entry after the end of the header");
     }
 
-    return qToBigEndian(*reinterpret_cast<const T*>(header.Get() + offset));
+    return qToBigEndian(*reinterpret_cast<const T*>(header.get() + offset));
 }
 
 void VolumeHeader::EncryptNew(BufferPtr& newHeaderBuffer, const BufferPtr& newSalt,
                               const BufferPtr& newHeaderKey, QSharedPointer <VolumeHash> newVolumeHash)
 {
-    if (newHeaderBuffer.Size() != HeaderSize)
+    if (newHeaderBuffer.size() != HeaderSize)
     {
-        throw IncorrectParameterException("Incorrect new header buffer size");
+        throw InvalidParameterException("ewHeaderBuffer.size()", "Incorrect new header buffer size");
     }
-    if (newSalt.Size() != SaltSize)
+    if (newSalt.size() != SaltSize)
     {
-        throw IncorrectParameterException("Incorrect new salt size");
+        throw InvalidParameterException("newSalt.size()", "Incorrect new salt size");
     }
 
     QSharedPointer <EncryptionAlgorithm> ea = EA->GetNew();
 
-    ea->GetMode()->SetKey(newHeaderKey.GetRange(ea->GetKeySize(), ea->GetKeySize()));
-    ea->SetKey(newHeaderKey.GetRange(0, ea->GetKeySize()));
+    ea->GetMode()->SetKey(newHeaderKey.getRange(ea->GetKeySize(), ea->GetKeySize()));
+    ea->SetKey(newHeaderKey.getRange(0, ea->GetKeySize()));
 
-    newHeaderBuffer.CopyFrom(newSalt);
+    newHeaderBuffer.copyFrom(newSalt);
 
-    BufferPtr headerData = newHeaderBuffer.GetRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize);
+    BufferPtr headerData = newHeaderBuffer.getRange(EncryptedHeaderDataOffset, EncryptedHeaderDataSize);
     Serialize(headerData);
     ea->Encrypt(headerData);
 
@@ -285,12 +282,12 @@ size_t VolumeHeader::GetLargestSerializedKeySize()
 
 void VolumeHeader::Serialize(BufferPtr& header) const
 {
-    if (header.Size() != EncryptedHeaderDataSize)
+    if (header.size() != EncryptedHeaderDataSize)
     {
-        throw IncorrectParameterException("Incorrect header buffer size");
+        throw InvalidParameterException("header.size()", "Incorrect header buffer size");
     }
 
-    header.Erase();
+    header.erase();
 
     header[0] = 'T';
     header[1] = 'R';
@@ -298,12 +295,12 @@ void VolumeHeader::Serialize(BufferPtr& header) const
     header[3] = 'E';
     size_t offset = 4;
 
-    header.GetRange(DataAreaKeyOffset, DataAreaKey.Size()).CopyFrom(DataAreaKey);
+    header.getRange(DataAreaKeyOffset, DataAreaKey.size()).copyFrom(DataAreaKey);
 
     quint16 headerVersion = CurrentHeaderVersion;
     SerializeEntry(headerVersion, header, offset);
     SerializeEntry(RequiredMinProgramVersion, header, offset);
-    SerializeEntry(Crc32::ProcessBuffer(header.GetRange(DataAreaKeyOffset, DataKeyAreaMaxSize)), header,
+    SerializeEntry(Crc32::ProcessBuffer(header.getRange(DataAreaKeyOffset, DataKeyAreaMaxSize)), header,
                    offset);
 
     quint64 reserved64 = 0;
@@ -320,13 +317,13 @@ void VolumeHeader::Serialize(BufferPtr& header) const
             || SectorSize > GST_MAX_VOLUME_SECTOR_SIZE
             || SectorSize % ENCRYPTION_DATA_UNIT_SIZE != 0)
     {
-        throw IncorrectParameterException("incorrect sector size");
+        throw InvalidParameterException("SectorSize", "The sector size should be greater than " + QString::number(GST_MIN_VOLUME_SECTOR_SIZE) + ", lower than "+QString::number(GST_MAX_VOLUME_SECTOR_SIZE)+" and multiple of "+QString::number(ENCRYPTION_DATA_UNIT_SIZE)+".");
     }
 
     SerializeEntry(SectorSize, header, offset);
 
     offset = GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC;
-    SerializeEntry(Crc32::ProcessBuffer(header.GetRange(0,
+    SerializeEntry(Crc32::ProcessBuffer(header.getRange(0,
                                         GST_HEADER_OFFSET_HEADER_CRC - GST_HEADER_OFFSET_MAGIC)), header, offset);
 }
 
@@ -335,12 +332,12 @@ void VolumeHeader::SerializeEntry(const T& entry, BufferPtr& header, size_t& off
 {
     offset += sizeof(T);
 
-    if (offset > header.Size())
+    if (offset > header.size())
     {
-        throw IncorrectParameterException("Trying to serialize header entry after the end of the header");
+        throw InvalidParameterException("offset", "Trying to serialize header entry after the end of the header");
     }
 
-    *reinterpret_cast<T*>(header.Get() + offset - sizeof(T)) = qToBigEndian(entry);
+    *reinterpret_cast<T*>(header.get() + offset - sizeof(T)) = qToBigEndian(entry);
 }
 }
 }

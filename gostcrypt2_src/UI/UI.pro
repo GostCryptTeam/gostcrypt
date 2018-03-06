@@ -49,7 +49,8 @@ HEADERS += \
     Parser.h \
     CmdLineInterface.h \
     GraphicInterface.h \
-    SecureTextField.h
+    SecureTextField.h \
+    UserInterface.h
 
 SOURCES += \
     main.cpp \
@@ -58,7 +59,8 @@ SOURCES += \
     Parser.cpp \
     CmdLineInterface.cpp \
     GraphicInterface.cpp \
-    SecureTextField.cpp
+    SecureTextField.cpp \
+    UserInterface.cpp
 
 LIBS += \
         ../Core/libCore.a \
@@ -73,7 +75,6 @@ TARGET = ../GostCrypt
 
 PRE_TARGETDEPS += ../Core/libCore.a \
     ../Volume/libVolume.a \
-    ../Platform/libPlatform.a \
     ../FuseService/libFuseService.a
 
 lupdate_hack{
@@ -115,4 +116,5 @@ DISTFILES += \
     UI/dialogs/TestVectors.qml \
     translations/gostcrypt_ar.ts \
     UI/dialogs/RestoreHeaderVolume.qml \
-    UI/dialogs/BackupHeaderVolume.qml
+    UI/dialogs/BackupHeaderVolume.qml \
+    UI/AbstractTheme.qml

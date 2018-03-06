@@ -21,9 +21,6 @@ namespace Volume
 void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* encryptionMode,
                                   quint8* data, quint64 startUnitNo, quint64 unitCount, size_t sectorSize)
 {
-    //int c = 1;
-    //while(c);
-
     size_t fragmentCount;
     size_t unitsPerFragment;
     size_t remainder;
@@ -51,7 +48,7 @@ void EncryptionThreadPool::DoWork(WorkType::Enum type, const EncryptionMode* enc
                 break;
 
             default:
-                throw IncorrectParameterException("Unknown WorkType");
+                throw InvalidParameterException("WorkType", "Unknown WorkType");
         }
 
         return;
@@ -278,7 +275,7 @@ void EncryptionThread::run()
                         break;
 
                     default:
-                        throw IncorrectParameterException("Unknown WorkType");
+                        throw InvalidParameterException("WorkType", "Unknown WorkType");
                 }
             }
             catch (GostCryptException& e)

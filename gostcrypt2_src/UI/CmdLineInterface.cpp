@@ -5,7 +5,7 @@
 
 const QStringList CmdLineInterface::FirstCMD::Str = MK_ALL_COMMANDS(MK_STRTAB);
 
-CmdLineInterface::CmdLineInterface(QObject *parent) : QObject(parent)
+CmdLineInterface::CmdLineInterface(QObject *parent) : UserInterface(parent)
 {
 
 }
@@ -240,6 +240,11 @@ bool MyApplication::notify(QObject *receiver, QEvent *event)
     return done;
 }
 
+QString CmdLineInterface::formatSize(quint64 sizeInByte)
+{
+    return  UserInterface::formatSize(sizeInByte, false);
+}
+
 void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> r) {
     qStdOut() << "\r" << r->progress*100 << "%";
     qStdOut().flush();
@@ -268,12 +273,10 @@ void CmdLineInterface::printDismountVolume(QSharedPointer<GostCrypt::Core::Dismo
 
 void CmdLineInterface::printGetMountedVolumes(QSharedPointer<GostCrypt::Core::GetMountedVolumesResponse> r)
 {
-    if(!r)
-        throw MissingParamException("response");
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Volume::VolumeInformation> v : r->volumeInfoList){
         qStdOut() << v->volumePath.absoluteFilePath() << "\t";
-        qStdOut() << ((v->mountPoint.isNull()) ? QString("-") : v->mountPoint->absoluteFilePath()) << "\t";
+        qStdOut() << ((v->mountPoint.absoluteFilePath().isEmpty()) ? QString("-") : v->mountPoint.absoluteFilePath()) << "\t";
         qStdOut() << v->size << "\t";
         qStdOut() << v->encryptionAlgorithmName << endl;
     }
@@ -302,16 +305,16 @@ void CmdLineInterface::printGetHostDevices(QSharedPointer<GostCrypt::Core::GetHo
 {
     qStdOut() << "\r";
     for(QSharedPointer<GostCrypt::Core::HostDevice> d : r->hostDevices) {
-        qStdOut() << d->devicePath->absoluteFilePath() << "\t";
-        if(d->mountPoint)
-            qStdOut() << d->mountPoint->absoluteFilePath() << "\t";
+        qStdOut() << d->devicePath.absoluteFilePath() << "\t";
+        if(!d->mountPoint.absoluteFilePath().isEmpty())
+            qStdOut() << d->mountPoint.absoluteFilePath() << "\t";
         else
             qStdOut() << "no mountpoint\t";
         qStdOut() << d->size << endl;
         for(QSharedPointer<GostCrypt::Core::HostDevice> p : d->partitions) {
-            qStdOut() << "\t" << p->devicePath->absoluteFilePath() << "\t";
-            if(p->mountPoint)
-                qStdOut() << p->mountPoint->absoluteFilePath() << "\t";
+            qStdOut() << "\t" << p->devicePath.absoluteFilePath() << "\t";
+            if(!p->mountPoint.absoluteFilePath().isEmpty())
+                qStdOut() << p->mountPoint.absoluteFilePath() << "\t";
             else
                 qStdOut() << "no mountpoint\t";
             qStdOut() << p->size << endl;
@@ -336,11 +339,67 @@ void CmdLineInterface::printChangeVolumePassword(QSharedPointer<GostCrypt::Core:
 
 void CmdLineInterface::printBenchmarkAlgorithms(QSharedPointer<GostCrypt::Core::BenchmarkAlgorithmsResponse> r)
 {
-    qStdOut() << "\rAglorithm\t Encryption Speed\t Decryption Speed\t Mean Speed" << endl;
+    QStringList categories = { " Algorithm         ", " Encryption Speed ", " Decryption Speed ", " Mean Speed "};
+    qStdOut() << "+";
+    for ( const auto& i : categories  )
+    {
+        for(int j=0; j<i.length(); ++j)
+            qStdOut() << "-";
+        qStdOut() << "+";
+    }
+    qStdOut() << "\n";
+    qStdOut() << "|";
+    for ( const auto& i : categories  )
+    {
+        qStdOut() << i << "|";
+    }
+    qStdOut() << "\n+";
+    for ( const auto& i : categories  )
+    {
+        for(int j=0; j<i.length(); ++j)
+            qStdOut() << "-";
+        qStdOut() << "+";
+    }
+    qStdOut() << "\n";
+    //Print each algorithm result
     for (int i = 0; i < r->algorithmsNames.size(); ++i)
     {
-        qStdOut() << r->algorithmsNames.at(i) << "\t" << r->encryptionSpeed.at(i) << "\t" << r->decryptionSpeed.at(i) << "\t" << r->meanSpeed.at(i) << endl;
+        //Align center
+        qStdOut() << "| ";
+        qStdOut() << r->algorithmsNames.at(i);
+        int offset = categories.at(0).length() - r->algorithmsNames.at(i).length();
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString encSize = formatSize(r->encryptionSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << encSize << "/s";
+        offset = categories.at(1).length() - encSize.length() - 2;
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString decSize = formatSize(r->decryptionSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << decSize << "/s";
+        offset = categories.at(2).length() - decSize.length() - 2;
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|";
+
+        QString meanSize = formatSize(r->meanSpeed.at(i));
+        qStdOut() << " ";
+        qStdOut() << meanSize << "/s";
+        offset = categories.at(3).length() - meanSize.length() - 2;
+        for(int j=0; j<offset-1; ++j) qStdOut() << " ";
+        qStdOut() << "|\n+";
+
+        for ( const auto& i : categories  )
+        {
+            for(int j=0; j<i.length(); ++j)
+                qStdOut() << "-";
+            qStdOut() << "+";
+        }
+        qStdOut() << "\n";
     }
-    (void)r;
+
     emit exit();
 }

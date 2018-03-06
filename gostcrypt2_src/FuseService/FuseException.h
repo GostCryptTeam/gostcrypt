@@ -78,10 +78,10 @@ namespace GostCrypt
 				 * @param line Line of the file where the exception was thrown
                  * @param fuseMountPoint
                  */
-                FuseControlFileAccessFailed(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> fuseMountPoint) : FuseException(fonction, filename, line), fuseMountPoint(fuseMountPoint) {}
-                DEF_EXCEPTION_WHAT(FuseControlFileAccessFailed, FuseException, "Fail to open control file to write in : " + fuseMountPoint->absoluteFilePath() + "\n")
+                FuseControlFileAccessFailed(QString fonction, QString filename, quint32 line, QFileInfo fuseMountPoint) : FuseException(fonction, filename, line), fuseMountPoint(fuseMountPoint) {}
+                DEF_EXCEPTION_WHAT(FuseControlFileAccessFailed, FuseException, "Fail to open control file to write in : " + fuseMountPoint.absoluteFilePath() + "\n")
             protected:
-				QSharedPointer<QFileInfo> fuseMountPoint; /**< TODO: describe */
+                QFileInfo fuseMountPoint; /**< TODO: describe */
 			DEC_SERIALIZABLE(FuseControlFileAccessFailed);
 		};
 
@@ -150,10 +150,10 @@ namespace GostCrypt
                  * @param line
                  * @param mountpoint
                  */
-                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QSharedPointer<QFileInfo> mountpoint) : FuseException(fonction, filename, line), mountpoint(mountpoint) {}
-                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, FuseException, "Creation of fuse mount point " + mountpoint->absoluteFilePath() + " failed\n")
+                FailedCreateFuseMountPoint(QString fonction, QString filename, quint32 line, QFileInfo mountpoint) : FuseException(fonction, filename, line), mountpoint(mountpoint) {}
+                DEF_EXCEPTION_WHAT(FailedCreateFuseMountPoint, FuseException, "Creation of fuse mount point " + mountpoint.absoluteFilePath() + " failed\n")
             protected:
-                QSharedPointer<QFileInfo> mountpoint; /**< TODO: describe */
+                QFileInfo mountpoint; /**< TODO: describe */
             DEC_SERIALIZABLE(FailedCreateFuseMountPoint);
         };
     }

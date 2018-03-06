@@ -63,7 +63,7 @@ Item {
                     spacing: 15
                     anchors.top: text.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: readOnly
                         text_: qsTr("Mount volumes as read-only")
                         size_: 20
@@ -79,7 +79,7 @@ Item {
                                 UserSettings.setSetting("Pref-ReadOnly", 0)
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: removable
                         text_: qsTr("Mount volumes as removable media")
                         size_: 20
@@ -121,7 +121,7 @@ Item {
                     spacing: 15
                     anchors.top: text2.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: enabled
                         text_: qsTr("Enabled")
                         size_: 20
@@ -137,7 +137,7 @@ Item {
                                 UserSettings.setSetting("Pref-TaskEnabled", 0)
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: exit
                         text_: qsTr("Exit when there are no mounted volumes")
                         size_: 20
@@ -179,7 +179,7 @@ Item {
                     spacing: 5
                     anchors.top: text3.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: autoOpen
                         text_: qsTr("Open Explorer window for successfully mounted volume")
                         size_: 20
@@ -195,7 +195,7 @@ Item {
                                 UserSettings.setSetting("Pref-OpenOnMounted", 0)
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: timestamp
                         text_: qsTr("Preserve modification timestamp of file containers")
                         size_: 20
@@ -237,7 +237,7 @@ Item {
                     spacing: 5
                     anchors.top: text4.bottom
                     anchors.horizontalCenter: parent.horizontalCenter
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: cacheInDriver
                         text_: qsTr("Cache passwords in driver memory")
                         size_: 20
@@ -253,7 +253,7 @@ Item {
                                 UserSettings.setSetting("Pref-CacheInDriver", 0)
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: wipe
                         text_: qsTr("Wipe cached passwords on exit")
                         size_: 20
@@ -269,7 +269,7 @@ Item {
                                 UserSettings.setSetting("Pref-WipeOnExit", 0)
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: wipeOnAD
                         text_: qsTr("Wipe cached passwords on auto-dismount")
                         size_: 20
@@ -323,7 +323,7 @@ Item {
                         }
                         Column {
                             spacing: 5
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: userLogOff
                                 text_: qsTr("User logs off")
                                 size_: 20
@@ -339,7 +339,7 @@ Item {
                                         UserSettings.setSetting("Pref-AutoDismountWhenUserLogOff", 0)
                                 }
                             }
-                            UI.GSCheckBox {
+                            UI.CheckBox {
                                 id: screenSaver
                                 text_: qsTr("Screen saver is launched")
                                 size_: 20
@@ -356,7 +356,7 @@ Item {
                                 }
                             }
                         }
-                        UI.GSCheckBox {
+                        UI.CheckBox {
                             id: enteringPower
                             text_: qsTr("Entering power saving mode")
                             size_: 20
@@ -377,7 +377,7 @@ Item {
                     Row {
                         y: 10
                         spacing: 10
-                        UI.GSCheckBox {
+                        UI.CheckBox {
                             id: autoDismountAfter
                             text_: qsTr("Auto-dismount volume after no data has been read/written to it for")
                             size_: 20
@@ -411,7 +411,7 @@ Item {
                             font.pointSize: 10
                         }
                     }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: forceAutoDismount
                         text_: qsTr("Force auto-dismount even if volume contains open files or directories")
                         size_: 20
@@ -438,7 +438,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: benchmark
             height: 40
             text: qsTr("Save changes") + Translation.tr

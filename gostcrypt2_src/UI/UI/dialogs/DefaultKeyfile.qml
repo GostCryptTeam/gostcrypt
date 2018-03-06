@@ -148,7 +148,7 @@ Item {
         Row {
             spacing: 10
             width: parent.width - 150
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: addFiles
                 height: 40
                 text: qsTr("Add Files...") + Translation.tr
@@ -157,7 +157,7 @@ Item {
                 color_: palette.green
                 anchors.bottomMargin: 10
             }
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: aAddPath
                 height: 40
                 text: qsTr("Add Path...") + Translation.tr
@@ -166,7 +166,7 @@ Item {
                 color_: palette.green
                 anchors.bottomMargin: 10
             }
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: addTokenFiles
                 height: 40
                 text: qsTr("Add Token Files...") + Translation.tr
@@ -175,7 +175,7 @@ Item {
                 color_: palette.green
                 anchors.bottomMargin: 10
             }
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: remove
                 height: 40
                 text: qsTr("Remove") + Translation.tr
@@ -184,7 +184,7 @@ Item {
                 color_: palette.blue
                 anchors.bottomMargin: 10
             }
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: removeAll
                 height: 40
                 text: qsTr("Remove All") + Translation.tr
@@ -215,7 +215,7 @@ Item {
         spacing: 15
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: closeTokenSessionAfterMount
             text_: qsTr("Use keyfile") + Translation.tr
             y: 5
@@ -233,7 +233,7 @@ Item {
                     UserSettings.setSetting("MountV-UseKeyFile", 0)
             }
         }
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: generate
             height: 40
             text: qsTr("Generate Random Keyfiles...") + Translation.tr
@@ -243,7 +243,7 @@ Item {
             anchors.bottomMargin: 10
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: save
             height: 40
             text: qsTr("Save changes") + Translation.tr

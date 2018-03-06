@@ -12,7 +12,7 @@ Item {
     Row {
         id: containerSize
         spacing: 20
-        width: parent.width
+        anchors.horizontalCenter: parent.horizontalCenter
         Column {
             visible: (type === 2 || type === 3) ? false : true
             spacing: 10
@@ -22,7 +22,7 @@ Item {
                 font.pointSize: 13
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: "Helvetica"
-                text: qsTr("Set a size for your volume:") + Translation.tr
+                text: qsTr("Set a size for your volume (10MB minimum):") + Translation.tr
                 color: palette.text
                 wrapMode: Text.WordWrap
             }
@@ -59,7 +59,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 10
                 ExclusiveGroup { id: groupRadio }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: kB_
                     text_: qsTr("KB")
                     checked: false
@@ -69,7 +69,7 @@ Item {
                         if(kB_.checked) sizeType[1] = "KB";
                     }
                 }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: mB_
                     text_: qsTr("MB")
                     checked: true
@@ -79,7 +79,7 @@ Item {
                         if(mB_.checked) sizeType[1] = "MB";
                     }
                 }
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: gB_
                     text_: qsTr("GB")
                     checked: false
@@ -93,13 +93,14 @@ Item {
         }
 
         Column {
+            visible: (type === 2 || type === 3) ? true : false
             spacing: 10
-            width: (type === 2 || type === 3) ? parent.width : parent.width/2 - 5
+            width: parent.width
             Text {
                 id:titre2
                 font.pointSize: 13
                 font.family: "Helvetica"
-                text: ((type === 2 || type === 3) ? qsTr("Inner volume's relative size: <br>(") : qsTr("Outer volume's relative size: <br>(")) + Translation.tr + Math.floor(slider.value*100) + "%)"
+                text: qsTr("Inner volume's relative size: <br>(") + Translation.tr + Math.floor(slider.value*100) + "%)"
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
                 color: palette.text

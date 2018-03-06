@@ -113,7 +113,7 @@ Item {
             Behavior on opacity { NumberAnimation { id: animTextTop; duration: app.duration; easing.type: Easing.OutQuad; } }
         }
 
-        UI.GSCustomComboBox {
+        UI.CustomComboBox {
             id: combo
             anchors.horizontalCenter: parent.horizontalCenter
             width: openVolume_Form.width - 250
@@ -129,7 +129,7 @@ Item {
             }
         }
 
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: historique
             text_: qsTr("Never save history")
             y: combo.y + combo.height + 5
@@ -158,7 +158,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: historique.y + historique.height + 5
 
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: buttonOpen
                 height: combo.height
                 text: qsTr("Open...") + Translation.tr
@@ -167,7 +167,7 @@ Item {
                 color_: palette.green
             }
 
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: buttonDevide
                 height: combo.height
                 text: qsTr("Select Device")
@@ -281,7 +281,7 @@ Item {
             }
         }
 
-        UI.GSCustomComboBox {
+        UI.CustomComboBox {
             id: keyfiles_paths
             model: []
             x: password_value.width - combo.width/2
@@ -342,7 +342,7 @@ Item {
             }
         }
 
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: display
             text_: qsTr("Display password")  + Translation.tr
             x: combo.x
@@ -367,7 +367,7 @@ Item {
 
         }
 
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: use_Keyfiles
             text_: qsTr("Use keyfiles") + Translation.tr
             x: combo.x
@@ -392,7 +392,7 @@ Item {
             }
         }
 
-        UI.GSCheckBox {
+        UI.CheckBox {
             id: useMountOptions
             text_: qsTr("Use current \"Mount Options\" configuration")  + Translation.tr
             x: combo.x
@@ -410,7 +410,7 @@ Item {
             }
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: buttonKeyfiles
             x: combo.x + combo.width - 150
             y: display.y
@@ -423,7 +423,7 @@ Item {
             }
         }
 
-        UI.GSButtonBordered {
+        UI.ButtonBordered {
             id: buttonMountOption
             x: combo.x + combo.width - 150
             y: buttonKeyfiles.y + buttonKeyfiles.height + 5
@@ -449,7 +449,7 @@ Item {
         }
     }
 
-    UI.GSButtonBordered {
+    UI.ButtonBordered {
         id: validation
         anchors.horizontalCenter: openVolume_Form.horizontalCenter
         anchors.bottom: openVolume_Form.bottom
@@ -643,7 +643,7 @@ Item {
                     font.pointSize: 11
                 }
 
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: timestamp
                     text_: qsTr("Preserve Timestamp of file")
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -672,7 +672,7 @@ Item {
                         font.pointSize: 10
                     }
                     ExclusiveGroup { id: group }
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: readOnly1
                         text_: qsTr("None")
                         size_: 20
@@ -688,7 +688,7 @@ Item {
                         }
                     }
 
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: readOnly2
                         text_: qsTr("Normal volume Read Only")
                         size_: 20
@@ -704,7 +704,7 @@ Item {
                         }
                     }
 
-                    UI.GSCheckBox {
+                    UI.CheckBox {
                         id: readOnly3
                         text_: qsTr("Hidden volume Read Only")
                         size_: 20
@@ -721,7 +721,7 @@ Item {
                     }
                 }
 
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: useBackup
                     text_: qsTr("Open volume with its backup header")
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -739,7 +739,7 @@ Item {
                     }
                 }
 
-                UI.GSCheckBox {
+                UI.CheckBox {
                     id: shared
                     text_: qsTr("Allow shared access to the volume")
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -795,7 +795,7 @@ Item {
                 }
             }
 
-            UI.GSButtonBordered {
+            UI.ButtonBordered {
                 id: saveChanges
                 height: 40
                 text: qsTr("Save changes") + Translation.tr

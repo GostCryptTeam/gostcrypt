@@ -44,13 +44,13 @@ Component {
             y:0
             height:80
             width: 240-85
-            color: "transparent"
+            color: palette.dark
             Item {
                 id:rightPartTexts
                 anchors.fill: parent
                 Text {
                     text: { return mountPoint_ + Translation.tr }
-                    color: "#bdbdbd"
+                    color: palette.textLight
                     font.pixelSize: 14
                     y: 7
                     width: 140
@@ -62,7 +62,7 @@ Component {
                 Text {
                     text: EncryptionAlgorithmName_ + Translation.tr
                     horizontalAlignment: Text.AlignHCenter
-                    color: "#e1e1e1"
+                    color: palette.textLight
                     font.pixelSize: 10
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
                     y: 26
@@ -73,7 +73,7 @@ Component {
                 Text {
                     id: pathText
                     text: Path_ + Translation.tr
-                    color: "#bdbdbd"
+                    color: palette.textLight
                     font.pixelSize: 10
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
                     y: 41
@@ -86,7 +86,7 @@ Component {
                 Text {
                     text: "Size : " + Size_ + Translation.tr
                     horizontalAlignment: Text.AlignHCenter
-                    color: "#97c966"
+                    color: palette.textLight
                     font.pixelSize: 11
                     anchors.horizontalCenter: rightPartTexts.horizontalCenter
                     y: 56

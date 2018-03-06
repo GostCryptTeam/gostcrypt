@@ -79,7 +79,7 @@ Item {
         anchors.top: contentText.bottom
         anchors.horizontalCenter: errorLayer.horizontalCenter
 
-        GSButtonBordered {
+        ButtonBordered {
             id: exitButton
             visible: (type) ? false : true
             text: qsTr("OK") + Translation.tr
@@ -89,19 +89,17 @@ Item {
             }
         }
 
-        GSButtonBordered {
+        ButtonBordered {
             id: button1
             visible: (type) ? true : false
             text: button1Name
             color_: palette.blue
             onClicked: {
-                if(callback !== "")
-                    qmlRequest(callback, callback_params)
                 closeErrorMessage();
             }
         }
 
-        GSButtonBordered {
+        ButtonBordered {
             id: button2
             visible: (type) ? true : false
             text: button2Name + Translation.tr
