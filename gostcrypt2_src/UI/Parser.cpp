@@ -134,7 +134,7 @@ void Parser::parseDismount(QCommandLineParser &parser, QSharedPointer <GostCrypt
 void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 {
     parser.addPositionalArgument("list", "Lists an item. For example you can lists the different algorithms that can be used in the program.", "list");
-	parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
+    parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|devices|filesystems}");
     parser.parse(QCoreApplication::arguments());
 
 	// Parsing all options
@@ -160,7 +160,10 @@ void Parser::parseList(QCommandLineParser &parser, Parser::WhatToList *item)
 		*item = Hashs;
     else if (volume == "devices" || volume == "device")
 		*item = Devices;
-	else
+   /* TODO : list Filesystems
+    * else if (volume == "filesystems" || volume == "filesystem")
+        *item = Filesystems;*/
+    else
         throw Parser::ParseException(QString("Unknown item to list."));
 }
 
@@ -228,7 +231,7 @@ void Parser::parseCreate(QCommandLineParser &parser, QSharedPointer <GostCrypt::
     }
 
     if(options->type != GostCrypt::Volume::VolumeType::Hidden){
-        if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hash") || parser.isSet("halgorithm") || parser.isSet("hfile-system"))
+        if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hhash") || parser.isSet("halgorithm") || parser.isSet("hfile-system"))
             throw Parser::ParseException(QString("Options for hidden volumes should only be used with --type=Hidden"));
     } else {
         if (parser.isSet("hpassword")) {

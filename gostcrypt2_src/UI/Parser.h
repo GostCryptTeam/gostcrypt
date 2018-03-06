@@ -34,7 +34,7 @@ namespace Parser {
         Volumes,
         Algorithms,
         Hashs,
-        Devices
+        Devices,
     } WhatToList;
 
     void parseMount(QCommandLineParser &parser, QSharedPointer <GostCrypt::Core::MountVolumeRequest> options);
