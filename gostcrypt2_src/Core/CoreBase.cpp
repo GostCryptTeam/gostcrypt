@@ -672,7 +672,7 @@ QFileInfo CoreBase::getFreeDefaultMountPoint(uid_t userId)
             {
                 continue;
             }
-            throw FailedCreateFuseMountPointException(e.getMountpoint());
+            throw;//TODO
         }
     }
 }
