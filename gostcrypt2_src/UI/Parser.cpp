@@ -177,8 +177,7 @@ void Parser::parseList(QCommandLineParser& parser, Parser::WhatToList* item)
     parser.addPositionalArgument("list",
                                  "Lists an item. For example you can lists the different algorithms that can be used in the program.",
                                  "list");
-    parser.addPositionalArgument("item", "Item to list",
-                                 "{volumes|algorithms|hashs|devices|filesystems}");
+    parser.addPositionalArgument("item", "Item to list","{volumes|algorithms|hashs|devices}");
     parser.parse(QCoreApplication::arguments());
 
     // Parsing all options
@@ -335,7 +334,13 @@ void Parser::parseCreate(QCommandLineParser& parser,
 
         if (parser.isSet("hfile"))   // TODO
         {
-            throw Parser::ParseException(QString("keyfiles not implemented yet"));
+            const QStringList hkeyFiles = parser.values("hfile");
+            for (const QString &hkeyFile : hkeyFiles)
+            {
+                options->innerVolume->keyfiles.append(QFileInfo(hkeyFile));
+
+            }
+
         }
 
         if (parser.isSet("hhash"))
@@ -384,7 +389,12 @@ void Parser::parseCreate(QCommandLineParser& parser,
 
     if (parser.isSet("file"))   // TODO
     {
-        throw Parser::ParseException(QString("keyfiles not implemented yet"));
+        const QStringList keyFiles = parser.values("file");
+        for (const QString &keyFile : keyFiles)
+        {
+            options->outerVolume->keyfiles.append(QFileInfo(keyFile));
+
+        }
     }
 
     if (parser.isSet("hash"))

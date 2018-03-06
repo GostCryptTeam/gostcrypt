@@ -58,7 +58,7 @@ Item {
             description_: qsTr("???")
         }
         ItemMenu {
-            text_: qsTr("Default Keyfiles...")
+            text_: qsTr("Saved Keyfiles...")
             description_: qsTr("???")
         }
         ItemMenu {

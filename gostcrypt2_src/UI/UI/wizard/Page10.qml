@@ -4,6 +4,11 @@ import QtQuick.Controls.Styles 1.4
 import "../" as UI
 
 Item {
+
+}
+
+/*
+Item {
     id: top
     property variant format: [app.filesystems[0]] //file system, cluster & dynamic(bool) (standard volumes)
     property int type: 0
@@ -13,7 +18,7 @@ Item {
         hoverEnabled : true
         onPositionChanged: {
             //Wizard.sendRandomPosition(mouse.x, mouse.y)
-            //TODO? : send mouse position to randomly change the pool & header/master keys
+
         }
     }
 
@@ -178,3 +183,4 @@ Item {
             masterKeyValue_.text = MK.replace(/./g, '*')
     }
 }
+*/

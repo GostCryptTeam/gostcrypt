@@ -61,7 +61,7 @@ Item {
                     width: 90
                     height: 40
                     onClicked: {
-                        //TODO
+                        openSubWindow("dialogs/Benchmark.qml", qsTr("Benchmark"), qsTr("Benchmark"), 429, {"name" : "", "value" : ""})
                     }
                 }
             }

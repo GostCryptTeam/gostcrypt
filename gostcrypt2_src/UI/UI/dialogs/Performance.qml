@@ -84,12 +84,12 @@ Item {
             height: 40
             text: qsTr("Benchmark") + Translation.tr
             width: 120
-            //onClicked: TODO
+            onClicked: openSubWindow("dialogs/Benchmark.qml", qsTr("Benchmark"), qsTr("Benchmark"), 429, {"name" : "", "value" : ""})
             color_: palette.green
             anchors.bottomMargin: 10
         }
         UI.ButtonBordered {
-            id: benchmark
+            id: saveChanges
             height: 40
             text: qsTr("Save changes") + Translation.tr
             width: 120

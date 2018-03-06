@@ -587,7 +587,7 @@ Item {
             listSubMenuModel.append({message: qsTr("Language..."), size: "small", type: qsTr("user settings"), finale:"true", fileName: "GSLanguage", titleDialog: qsTr("GostCrypt")+ Translation.tr, description: qsTr("Change GostCrypt Language"), size_: 429})
             listSubMenuModel.append({message: qsTr("Performance..."), size: "medium", type: qsTr("performance"), finale:"true", fileName: "Performance", titleDialog: qsTr("GostCrypt Performances"), description: qsTr("Performance Options"), size_: 429})
 
-            listSubMenuModel.append({message: qsTr("Default Keyfiles..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "DefaultKeyfile", titleDialog: qsTr("Default Keyfiles"), description: qsTr("Default Keyfiles"), size_: 429})
+            listSubMenuModel.append({message: qsTr("Saved Keyfiles..."), size: "medium", type: qsTr("keyfiles"), finale:"true", fileName: "DefaultKeyfile", titleDialog: qsTr("Saved Keyfiles"), description: qsTr("Saved Keyfiles"), size_: 429})
 
             listSubMenuModel.append({message: qsTr("Preferences..."), size: "small", type: qsTr(" "), finale:"true", fileName: "Preferences", titleDialog: qsTr("GostCrypt Preferences"), description: qsTr("Preferences"), size_: 429})
             break;

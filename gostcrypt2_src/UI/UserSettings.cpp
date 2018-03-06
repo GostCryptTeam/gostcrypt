@@ -33,11 +33,11 @@ UserSettings::UserSettings() : mSettings(ORGANISATION, APPLICATION)
         }
         //Preferences
         mSettings.setValue("Pref-ReadOnly", 0);
-        mSettings.setValue("Pref-RemovableMedia", 0);
+        mSettings.setValue("Pref-RemovableMedia", 1);
         mSettings.setValue("Pref-TaskEnabled", 0);
-        mSettings.setValue("Pref-TaskExitNoVolume", 0);
-        mSettings.setValue("Pref-OpenOnMounted", 0);
-        mSettings.setValue("Pref-TimeStamp", 0);
+        mSettings.setValue("Pref-TaskExitNoVolume", 1);
+        mSettings.setValue("Pref-OpenOnMounted", 1);
+        mSettings.setValue("Pref-TimeStamp", 1);
         mSettings.setValue("Pref-AutoDismountWhenUserLogOff", 0);
         mSettings.setValue("Pref-AutoDismountWhenScreenSaver", 0);
         mSettings.setValue("Pref-AutoDismountWhenPowerSaving", 0);
