@@ -2,7 +2,11 @@
 
 QDataStream& operator<< (QDataStream& out, const QFileInfo& Valeur)
 {
-    out << Valeur.absoluteFilePath();
+    if(Valeur.filePath().isEmpty())
+        out << QString();
+    else
+        out << Valeur.absoluteFilePath();
+
     return out;
 }
 
