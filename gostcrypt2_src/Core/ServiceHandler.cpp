@@ -21,9 +21,10 @@ ServiceHandler::ServiceHandler(QString programName, QStringList args) : programP
     INIT_SERIALIZE(ExitRequest);
     INIT_SERIALIZE(UnknowRequest);
     INIT_SERIALIZE(UnknowResponse);
+    INIT_SERIALIZE(ProgressUpdateResponse);
 
     connect(&process, SIGNAL(readyReadStandardOutput()), this, SLOT(receive()));
-    connect(this, SIGNAL(sendResponse(QVariant&)), this, SLOT(receive()));
+    connect(this, SIGNAL(responseRead()), this, SLOT(receive()));
     connect(&process, SIGNAL(started()), this, SLOT(processStarted()));
     connect(&process, SIGNAL(started()), this, SIGNAL(started()));
     connect(&process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processExited(int)));
@@ -99,7 +100,16 @@ void ServiceHandler::receive()
         qDebug() << "Exception occured in child service:";
         qDebug().noquote() << exceptionPtr->displayedMessage();
 #endif
+        emit responseRead();
         exceptionPtr->raise();
+        return;
+    }
+
+    if (v.canConvert<ProgressUpdateResponse>())
+    {
+        ProgressUpdateResponse response = v.value<ProgressUpdateResponse>();
+        emit sendProgressUpdate(response.requestId, response.progress);
+        emit responseRead();
         return;
     }
 
@@ -107,6 +117,7 @@ void ServiceHandler::receive()
     qDebug() << "Receiving response: " << v.typeName();
 #endif
     emit sendResponse(v);
+    emit responseRead();
 }
 
 void ServiceHandler::sendRequests()

@@ -123,7 +123,7 @@ bool Service::receiveRequest()
     return true;
 }
 
-void Service::sendResponse(QVariant r)
+void Service::sendResponse(QVariant r) //TODO use ref
 {
 #ifdef DEBUG_SERVICE_HANDLER
     qDebug() << "Sending:" << r.typeName();
@@ -141,7 +141,7 @@ void Service::sendException(GostCryptException& e)
 
 void Service::sendProgressUpdate(quint32 requestId, qreal progress)
 {
-    QSharedPointer<ProgressUpdateResponse> response(new ProgressUpdateResponse(requestId, progress));
+    ProgressUpdateResponse response(requestId, progress);
     sendResponse(QVariant::fromValue(response));
 }
 
@@ -233,14 +233,12 @@ QDataStream& operator >> (QDataStream& in, GostCrypt::Core::UnknowResponse& Vale
 DEF_SERIALIZABLE(ProgressUpdateResponse)
 QDataStream& operator << (QDataStream& out, const ProgressUpdateResponse& Valeur)
 {
-    out << static_cast<const CoreResponse&>(Valeur);
     out << Valeur.progress;
     out << Valeur.requestId;
     return out;
 }
 QDataStream& operator >> (QDataStream& in, ProgressUpdateResponse& Valeur)
 {
-    in >> static_cast<CoreResponse&>(Valeur);
     in >> Valeur.progress;
     in >> Valeur.requestId;
     return in;

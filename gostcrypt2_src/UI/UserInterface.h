@@ -71,8 +71,13 @@ class UserInterface : public QObject
     DEC_PRINT_SLOT(GetHostDevices) = 0;
     DEC_PRINT_SLOT(CreateKeyFile) = 0;
     DEC_PRINT_SLOT(ChangeVolumePassword) = 0;
-    DEC_PRINT_SLOT(ProgressUpdate) = 0;
     DEC_PRINT_SLOT(BenchmarkAlgorithms) = 0;
+
+    /**
+     * @brief Update the progress for the corresponding request in the user interface
+     */
+    virtual void printProgressUpdate(quint32 requestId, qreal progress) = 0;
+
     /**
      * @brief
      * slot called when the core requests

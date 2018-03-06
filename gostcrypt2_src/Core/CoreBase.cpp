@@ -30,9 +30,6 @@ QSharedPointer<CoreBase> getCore()
     initCoreResponse();
     initGostCryptException();
 
-    INIT_SERIALIZE(ProgressUpdateResponse); //should not be there but in ServiceHandler contructor
-
-
     if (getuid())
     {
         return QSharedPointer<CoreBase>(new CoreUser());

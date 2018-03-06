@@ -313,12 +313,8 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         break;
         case UI::clearvolumehistory: //"clearvolumehistory"
         {
-            QSharedPointer<GostCrypt::Core::ProgressUpdateResponse> response;
-            response.reset(new GostCrypt::Core::ProgressUpdateResponse((qint32)GI_KEY(aContent, "id").toInt(),
-                           (qreal)0.0));
             mSettings.erasePaths();
-            response->progress = 1.0;
-            printProgressUpdate(response);
+            printProgressUpdate(GI_KEY(aContent, "id").toInt(), 1.0);
         }
         break;
         case UI::changepassword: //"changepassword"
@@ -391,14 +387,13 @@ void GraphicInterface::printGetDerivationFunctions(
     emit QML_SIGNAL(printGetDerivationFunctions, list)
 }
 
-void GraphicInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse>
-        r)
+void GraphicInterface::printProgressUpdate(quint32 requestId, qreal progress)
 {
     QVariantList list;
-    QVariantMap progress;
-    progress.insert("id", r->requestId);
-    progress.insert("progress", r->progress);
-    list.append(progress);
+    QVariantMap progressData;
+    progressData.insert("id", requestId);
+    progressData.insert("progress", progress);
+    list.append(progressData);
     emit QML_SIGNAL(printProgressUpdate, list)
 }
 
@@ -495,8 +490,9 @@ void GraphicInterface::connectSignals()
     CONNECT_QML_SIGNAL(GetHostDevices);
     CONNECT_QML_SIGNAL(CreateKeyFile);
     CONNECT_QML_SIGNAL(ChangeVolumePassword);
-    CONNECT_QML_SIGNAL(ProgressUpdate);
     CONNECT_QML_SIGNAL(BenchmarkAlgorithms);
+
+    mApp->connect(core.data(), SIGNAL(sendProgressUpdate(quint32,qreal)), this, SLOT(printProgressUpdate(quint32,qreal)));
 
     /* Connecting the signals to get the sudo request from Core and send it to Core */
     mApp->connect(core.data(), SIGNAL(askSudoPassword()), this, SLOT(askSudoPassword()));

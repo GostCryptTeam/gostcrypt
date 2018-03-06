@@ -113,11 +113,24 @@ class ServiceHandler : public QObject
     void processStarted();
  signals:
     /**
-     * @brief Signal emitted when a reponse from the service process has been deserialized successfully
+     * @brief Signal emitted when a reponse from the service process has been deserialized successfully and need to be forwarded to the UI
      *
      * @param response QVariant containing the response
      */
     void sendResponse(QVariant& response);
+    /**
+     * @brief Signal emitted when a reponse from the service process has been deserialized successfully. Used to try again to read data on the standard output in case several responses arrived at the same time
+     *
+     * @param response QVariant containing the response
+     */
+    void responseRead();
+    /**
+    * @brief Signal emitted when the service process is updating its progress in the processing of a request
+    *
+    * @param requestId Request Identifier given by the User Interface module
+    * @param progress Progress of the request processing time between 0 and 1
+    */
+    void sendProgressUpdate(quint32 requestId, qreal progress);
     /**
      * @brief Signal emitted when the service process exited successfully (after beeing asked to)
      *

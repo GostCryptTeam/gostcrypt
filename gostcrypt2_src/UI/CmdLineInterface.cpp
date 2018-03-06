@@ -35,8 +35,9 @@ int CmdLineInterface::start(int argc, char** argv)
     CONNECT_SIGNAL(GetHostDevices);
     CONNECT_SIGNAL(CreateKeyFile);
     CONNECT_SIGNAL(ChangeVolumePassword);
-    CONNECT_SIGNAL(ProgressUpdate);
     CONNECT_SIGNAL(BenchmarkAlgorithms);
+
+    app.connect(core.data(), SIGNAL(sendProgressUpdate(quint32,qreal)), this, SLOT(printProgressUpdate(quint32,qreal)));
 
     /*app.connect(core.data(), SIGNAL(sendCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)), this, SLOT(printCreateVolume(QSharedPointer<GostCrypt::Core::CreateVolumeResponse>)));*/
 
@@ -276,10 +277,10 @@ QString CmdLineInterface::formatSize(quint64 sizeInByte)
     return  UserInterface::formatSize(sizeInByte, false);
 }
 
-void CmdLineInterface::printProgressUpdate(QSharedPointer<GostCrypt::Core::ProgressUpdateResponse>
-        r)
+void CmdLineInterface::printProgressUpdate(quint32 requestId, qreal progress)
 {
-    qStdOut() << "\r" << r->progress * 100 << "%";
+    Q_UNUSED(requestId);
+    qStdOut() << "\r" << progress * 100 << "%";
     qStdOut().flush();
 }
 

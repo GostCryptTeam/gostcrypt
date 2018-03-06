@@ -144,8 +144,13 @@ class GraphicInterface : public UserInterface
     DEC_PRINT_SLOT(GetHostDevices);
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
-    DEC_PRINT_SLOT(ProgressUpdate);
     DEC_PRINT_SLOT(BenchmarkAlgorithms);
+
+    /**
+     * @brief Display the new progress for the corresponding request in the UI
+     */
+    virtual void printProgressUpdate(quint32 requestId, qreal progress);
+
     /**
      * @brief
      * Slot called when the core needs the user to enter the sudo password.

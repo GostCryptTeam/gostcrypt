@@ -108,8 +108,14 @@ class CmdLineInterface : public UserInterface
     DEC_PRINT_SLOT(GetHostDevices);
     DEC_PRINT_SLOT(CreateKeyFile);
     DEC_PRINT_SLOT(ChangeVolumePassword);
-    DEC_PRINT_SLOT(ProgressUpdate);
     DEC_PRINT_SLOT(BenchmarkAlgorithms);
+
+    /**
+     * @brief
+     *
+     */
+    virtual void printProgressUpdate(quint32 requestId, qreal progress);
+
     /**
      * @brief
      *

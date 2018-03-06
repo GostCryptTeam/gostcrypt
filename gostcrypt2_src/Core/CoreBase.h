@@ -266,7 +266,6 @@ class CoreBase : public QObject
     DEC_REQUEST_SIGNAL(GetHostDevices);
     DEC_REQUEST_SIGNAL(GetMountedVolumes);
     DEC_REQUEST_SIGNAL(CreateKeyFile);
-    DEC_REQUEST_SIGNAL(ProgressUpdate);
     DEC_REQUEST_SIGNAL(BackupHeader);
     DEC_REQUEST_SIGNAL(RestoreHeader);
     DEC_REQUEST_SIGNAL(BenchmarkAlgorithms);

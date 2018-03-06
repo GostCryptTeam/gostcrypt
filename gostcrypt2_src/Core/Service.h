@@ -224,7 +224,7 @@ class UnknowResponse : public GostCryptException
  * @brief Response sent to the parent process to inform it about the progress of a request processing
  *
  */
-struct ProgressUpdateResponse : CoreResponse
+struct ProgressUpdateResponse
 {
     /**
      * @brief Default constructor used when deserializing

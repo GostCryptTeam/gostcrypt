@@ -35,8 +35,6 @@ void CoreService::initSerializables()
     initCoreRequest();
     initCoreResponse();
     initGostCryptException();
-    INIT_SERIALIZE(ProgressUpdateResponse); // should not be there but in Service::start
-
 }
 
 }

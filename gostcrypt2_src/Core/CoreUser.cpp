@@ -10,6 +10,7 @@ namespace Core
 CoreUser::CoreUser(QObject* parent) : CoreBase(parent)
 {
     connect(&csh, SIGNAL(sendResponse(QVariant&)), this, SLOT(receiveResponse(QVariant&)));
+    connect(&csh, SIGNAL(sendProgressUpdate(quint32,qreal)), this, SIGNAL(sendProgressUpdate(quint32,qreal)));
     connect(&csh, SIGNAL(askSudoPassword()), this, SIGNAL(askSudoPassword()));
     connect(this, SIGNAL(sendSudoPassword(QSharedPointer<QByteArray>)), &csh,
             SLOT(receiveSudoPassword(QSharedPointer<QByteArray>)));
@@ -51,7 +52,6 @@ void CoreUser::receiveResponse(QVariant& r)
     else HANDLE_RESPONSE(DismountVolume)
         else HANDLE_RESPONSE(CreateVolume)
             else HANDLE_RESPONSE(ChangeVolumePassword)
-                else HANDLE_RESPONSE(ProgressUpdate)
                     else { throw UnknowResponseException(r.typeName()); }
 }
 }
