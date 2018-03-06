@@ -177,7 +177,8 @@ void Parser::parseList(QCommandLineParser& parser, Parser::WhatToList* item)
     parser.addPositionalArgument("list",
                                  "Lists an item. For example you can lists the different algorithms that can be used in the program.",
                                  "list");
-    parser.addPositionalArgument("item", "Item to list", "{volumes|algorithms|hashs|filesystems}");
+    parser.addPositionalArgument("item", "Item to list",
+                                 "{volumes|algorithms|hashs|devices|filesystems}");
     parser.parse(QCoreApplication::arguments());
 
     // Parsing all options
@@ -238,8 +239,8 @@ void Parser::parseCreate(QCommandLineParser& parser,
         {{"hhash", "hidden-hash"}, "Chooses the hash function for the hidden volume. Type 'gostcrypt list hashs' to see the possibilities.", "hashfunction"},
         {{"a", "algorithm"}, "Chooses the encryption algorithm. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
         {{"halgorithm", "hidden-algorithm"}, "Chooses the encryption algorithm for the hidden volume. Type 'gostcrypt list algorithms' to see the possibilities.", "algorithm"},
-        {"filesystem", "Specify a filesystem. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
-        {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume. Type 'gostcrypt list filesystems' to see the possibilities.", "filesystem"},
+        {"filesystem", "Specify a filesystem. ", "filesystem"},
+        {{"hfile-system", "hidden-file-system"}, "Specify a filesystem for the hidden volume.", "filesystem"},
         //{"cluster-size", "Specify a cluster size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
         //{"sector-size", "Specify a sector size different from the default one.", "sizeinbytes"}, // very unsafe, not allowed for now
         {{"s", "size", "volume-size"}, "Sets the wanted size of the created volume. For hidden volumes, the size will be asked later.", "size{B|KB|MB|GB}"},
@@ -307,10 +308,9 @@ void Parser::parseCreate(QCommandLineParser& parser,
             }
         }
     }
-
     if (options->type != GostCrypt::Volume::VolumeType::Hidden)
     {
-        if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hash") ||
+        if (parser.isSet("hpassword") || parser.isSet("hfile") || parser.isSet("hhash") ||
                 parser.isSet("halgorithm") || parser.isSet("hfile-system"))
         {
             throw Parser::ParseException(

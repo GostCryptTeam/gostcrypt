@@ -244,7 +244,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(
             /* Unmount filesystem */
             try
             {
-                if (mountedVolume->mountPoint.absoluteFilePath().isEmpty())
+                if (!mountedVolume->mountPoint.filePath().isEmpty())
                 {
                     MountFilesystemManager::dismountFilesystem(mountedVolume->mountPoint,
                             (params) ? params->force : false);
@@ -260,7 +260,7 @@ QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(
             /* Detach loop device */
             try
             {
-                if (mountedVolume->virtualDevice.absoluteFilePath().isEmpty())
+                if (!mountedVolume->virtualDevice.filePath().isEmpty())
                 {
                     LoopDeviceManager::detachLoopDevice(mountedVolume->virtualDevice);
                 }

@@ -268,7 +268,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
             /* Add final mount point information if possible */
             try
             {
-                if (!mountedVol->virtualDevice.absoluteFilePath().isEmpty())
+                if (!mountedVol->virtualDevice.filePath().isEmpty())
                 {
                     mountedVol->mountPoint = getDeviceMountPoint(mountedVol->virtualDevice);
                 }
@@ -278,7 +278,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
             response->volumeInfoList.append(mountedVol);
 
             /* If volume path specified no need to stay in the loop */
-            if (params && !params->volumePath.absoluteFilePath().isEmpty())
+            if (params && !params->volumePath.filePath().isEmpty())
             {
                 break;
             }
@@ -338,8 +338,8 @@ QList<QSharedPointer<MountedFilesystem>> CoreBase::getMountedFilesystems(
             mf->Type = QString(entry->mnt_type);
         }
 
-        if ((devicePath.absoluteFilePath().isEmpty() || devicePath == mf->Device) && \
-                (mountPoint.absoluteFilePath().isEmpty() || mountPoint == mf->MountPoint))
+        if ((devicePath.filePath().isEmpty() || devicePath == mf->Device) && \
+                (mountPoint.filePath().isEmpty() || mountPoint == mf->MountPoint))
         {
             mountedFilesystems.append(mf);
         }
