@@ -283,13 +283,77 @@ Item {
 
         UI.CustomComboBox {
             id: keyfiles_paths
-            model: []
+            model: {
+                var keyfiles = UserSettings.getFavoriteKeyFiles();
+                for(var i = 0; i < keyfiles.length; ++i) listKeyfiles.push({ path: keyfiles[i] })
+                return listKeyfiles
+            }
+
             x: password_value.width - combo.width/2
             y: password_txt.y + password_txt.height + 10
             width: combo.width/2
             height: combo.height
             borderWidth: 0
             visible: use_Keyfiles.checked ? true : false
+            delegate:
+                ItemDelegate {
+                    id: itemDelegate
+                    width: keyfiles_paths.width
+                    background: Rectangle {
+                        color: itemDelegate.down ? palette.border : "transparent"
+                        height: 40
+                        width: keyfiles_paths.width
+                        Text {
+                            id: close
+                            x: 10
+                            color: palette.text
+                            text: "×"
+                            width: 30
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pointSize: 15
+                        }
+                        Text {
+                            x: 30
+                            width: parent.width - 50
+                            text: modelData.path
+                            elide: Text.ElideRight
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pointSize: 9
+                            color: palette.green
+                        }
+                        MouseArea {
+                            id: delegateItem
+                            hoverEnabled: true
+                            anchors.fill: parent
+                        }
+                        MouseArea {
+                            id: closeItem
+                            hoverEnabled: true
+                            anchors.fill: close
+                            onClicked: {
+                                if (index > -1) {
+                                    listKeyfiles.splice(index, 1)
+                                    keyfiles_paths.model = listKeyfiles
+                                }
+                            }
+                        }
+                        ToolTip {
+                            parent: parent
+                            text: modelData.path
+                            visible: delegateItem.containsMouse
+                            delay: 500
+                            timeout: 5000
+                        }
+                        ToolTip {
+                            parent: parent
+                            text: qsTr("Remove this keyfile from the list")
+                            visible: closeItem.containsMouse
+                            delay: 500
+                            timeout: 5000
+                        }
+                    }
+                    highlighted: keyfiles_paths.highlightedIndex === index
+            }
         }
 
         Rectangle {
@@ -331,7 +395,7 @@ Item {
                     UserSettings.setSetting("MountV-UseKeyFiles", 1)
                 }
                 for(var path in addKeyfiles.fileUrls) {
-                    listKeyfiles.push(addKeyfiles.fileUrls[path]);
+                    listKeyfiles.push({path: addKeyfiles.fileUrls[path]});
                 }
                 for(var i in listKeyfiles) {
                     text = text + listKeyfiles[i] + "; ";
