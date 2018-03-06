@@ -92,7 +92,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
         }
         updateProgress(0.78, params->id);
         if(params->doMount) {
-            if(params->mountPoint.absoluteFilePath().isEmpty() || params->mountPoint.absoluteFilePath().isEmpty()) {
+            if(params->mountPoint.filePath().isEmpty()) {
                 params->mountPoint = getFreeDefaultMountPoint(mountedForUserId);
             }
 
@@ -108,7 +108,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params, QS
 		QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
 		QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
 		getMountedVolumesParams->volumePath = params->path;
-                getMountedVolumesParams->all = false;
+        getMountedVolumesParams->all = false;
 		getMountedVolumesParams->emitResponse = false;
 		getMountedVolumesResponse = getMountedVolumes(getMountedVolumesParams);
 		QList<QSharedPointer<Volume::VolumeInformation>> volumeInfoList = getMountedVolumesResponse->volumeInfoList;
