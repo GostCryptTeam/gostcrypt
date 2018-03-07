@@ -150,12 +150,18 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
             QSharedPointer<DismountVolumeRequest> dismountParams(new DismountVolumeRequest);
             dismountParams->volumePath = params->path;
             dismountParams->emitResponse = false;
-            // Try to dismount
-            try
+            // Try to dismount if it fail try again (it may be too early to dismount)
+            while(true)
             {
-                dismountVolume(dismountParams);
+                try
+                {
+                    dismountVolume(dismountParams);
+                    break;
+                }
+                catch (...) {}
+                QThread::msleep(5);
             }
-            catch (...) {}
+
             if (mountDirCreated)
             {
                 QDir(params->mountPoint.absoluteFilePath()).rmdir(params->mountPoint.absoluteFilePath());

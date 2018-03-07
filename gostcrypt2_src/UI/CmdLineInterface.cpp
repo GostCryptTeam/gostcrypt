@@ -62,18 +62,18 @@ int CmdLineInterface::start(int argc, char** argv)
     }
     catch (Parser::ParseException& e)
     {
-        qDebug().noquote() << e.getMessage();
+        qWarning().noquote()  << e.getMessage();
         parser.showHelp();
         return -1;
     }
     catch (GostCrypt::GostCryptException& e)
     {
-        qDebug().noquote() << e.displayedMessage();
+        qWarning().noquote() << e.displayedMessage();
         return -1;
     }
     catch (QException& e)     // TODO : handle exceptions here
     {
-        qDebug() << e.what();
+        qWarning().noquote() << e.what();
         return -1;
     }
 
@@ -261,12 +261,12 @@ bool MyApplication::notify(QObject* receiver, QEvent* event)
     }
     catch (GostCrypt::GostCryptException& e)
     {
-        CmdLineInterface::qStdOut() << e.displayedMessage();
+        qWarning().noquote() << e.displayedMessage();
         emit askExit();
     }
     catch (QException& e)     // TODO : handle exceptions here
     {
-        CmdLineInterface::qStdOut() << e.what();
+        qWarning().noquote() << e.what();
         emit askExit();
     }
     return done;

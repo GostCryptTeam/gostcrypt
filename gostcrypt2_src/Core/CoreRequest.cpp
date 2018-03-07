@@ -330,7 +330,6 @@ DEF_SERIALIZABLE(BenchmarkAlgorithmsRequest)
 MountVolumeRequest::MountVolumeRequest()
 {
     this->doMount = true;
-    this->fileSystemType = "vfat";
     this->preserveTimestamps = false;
     this->protection = Volume::VolumeProtection::Enum::None;
     this->useBackupHeaders = false;

@@ -21,17 +21,23 @@ void MountFilesystemManager::mountFilesystem(const QFileInfo devicePath, const Q
     }
 
     QString mountOptions;
-    mountOptions += "uid=" + QString::number(ownerUID) + ",gid=" + QString::number(
-                        ownerGID) + ",umask=077";
-    if (!additionalMountOptions.isEmpty())
-    {
-        mountOptions += "," + additionalMountOptions;
-    }
 
     if (filesystemType.isEmpty())
     {
         filesystemType = getFileSystemType(devicePath);
     }
+
+    if(filesystemType == "vfat") {
+        mountOptions += "umask=077,uid=" + QString::number(ownerUID) + ",gid=" + QString::number(
+                            ownerGID);
+    }
+    if (!additionalMountOptions.isEmpty())
+    {
+        if(!mountOptions.isEmpty())
+            mountOptions += ",";
+        mountOptions += additionalMountOptions;
+    }
+
     if (mount(devicePath.absoluteFilePath().toLocal8Bit().data(),
               mountPoint.absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags,
               mountOptions.toLocal8Bit().data()))
