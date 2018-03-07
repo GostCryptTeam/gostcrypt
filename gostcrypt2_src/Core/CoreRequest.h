@@ -21,13 +21,6 @@ namespace Core
 void initCoreRequest();
 
 /**
- * @brief Return the name of the prefered filesystem on the current platform
- *
- * @return Name of the prefered filesystem on the current platform
- */
-QString GetFileSystemTypePlatformNative();
-
-/**
  * @brief Class storing all information used to report the request processing progress
  *
  */
