@@ -365,11 +365,6 @@ void Parser::parseCreate(QCommandLineParser& parser,
         {
             options->innerVolume->filesystem = parser.value("hfile-system");
         }
-        else
-        {
-            options->innerVolume->filesystem =
-                GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
-        }
 
         if (parser.isSet("inner-size"))
         {
@@ -418,11 +413,6 @@ void Parser::parseCreate(QCommandLineParser& parser,
     if (parser.isSet("filesystem"))
     {
         options->outerVolume->filesystem = parser.value("filesystem");
-    }
-    else
-    {
-        options->outerVolume->filesystem =
-            GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
     }
 
     if (parser.isSet("outer-size"))

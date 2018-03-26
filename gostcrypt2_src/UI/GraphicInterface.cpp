@@ -181,8 +181,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 {
                     options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM;
                 }
-                options->outerVolume->filesystem =
-                    GostCrypt::Core::GetFileSystemTypePlatformNative(); //Outer volume file system
                 options->outerVolume->size = 1.0;
                 bool ok = false;
                 QString s = GI_KEY(aContent, "size").toString();
@@ -230,8 +228,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                     options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM;
                 }
 
-                options->innerVolume->filesystem =
-                    GostCrypt::Core::GetFileSystemTypePlatformNative(); //Inner volume file system
                 options->innerVolume->size = GI_KEY(aContent,
                                                     "inner-size").toReal(); //Relative size of the inner volume
                 options->innerVolume->password.reset(new QByteArray(GI_KEY(aContent,
@@ -308,7 +304,7 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
         case UI::filesystems: //"filesystems"
         {
             QVariantList filesystem;
-            filesystem << GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
+            filesystem << "fat";//TODO
             emit QML_SIGNAL(printGetFileSystem, filesystem)
         }
         break;
