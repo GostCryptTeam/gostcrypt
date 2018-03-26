@@ -1,0 +1,45 @@
+\hypertarget{_gost_hash_8c}{}\section{Volume/\+Crypto/\+Gost\+Hash.c File Reference}
+\label{_gost_hash_8c}\index{Volume/\+Crypto/\+Gost\+Hash.\+c@{Volume/\+Crypto/\+Gost\+Hash.\+c}}
+{\ttfamily \#include \char`\"{}Gost\+Hash.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init} (\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx)
+\item 
+void \hyperlink{_gost_hash_8c_a6480f86251ad6190a3a1698d85a021f2}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add} (quint8 $\ast$block, quint32 len, \hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx)
+\item 
+void \hyperlink{_gost_hash_8c_ab3804303c5bd9a9a5dd90427fb1313ef}{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize} (\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$ctx, quint8 $\ast$out)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_gost_hash_8c_a6480f86251ad6190a3a1698d85a021f2}\label{_gost_hash_8c_a6480f86251ad6190a3a1698d85a021f2}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+add@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+add()}{GOSTHASH\_add()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+add (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{block,  }\item[{quint32}]{len,  }\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 288 of file Gost\+Hash.\+c.
+
+\mbox{\Hypertarget{_gost_hash_8c_ab3804303c5bd9a9a5dd90427fb1313ef}\label{_gost_hash_8c_ab3804303c5bd9a9a5dd90427fb1313ef}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize()}{GOSTHASH\_finalize()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+finalize (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx,  }\item[{quint8 $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Definition at line 333 of file Gost\+Hash.\+c.
+
+\mbox{\Hypertarget{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}\label{_gost_hash_8c_a2522137f128b93d83f8e60e98649fbb7}} 
+\index{Gost\+Hash.\+c@{Gost\+Hash.\+c}!G\+O\+S\+T\+H\+A\+S\+H\+\_\+init@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init}}
+\index{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init@{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init}!Gost\+Hash.\+c@{Gost\+Hash.\+c}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+H\+A\+S\+H\+\_\+init()}{GOSTHASH\_init()}}
+{\footnotesize\ttfamily void G\+O\+S\+T\+H\+A\+S\+H\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__hash__ctx}{gost\+\_\+hash\+\_\+ctx} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 231 of file Gost\+Hash.\+c.
+

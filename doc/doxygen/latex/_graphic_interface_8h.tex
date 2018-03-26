@@ -1,0 +1,145 @@
+\hypertarget{_graphic_interface_8h}{}\section{U\+I/\+Graphic\+Interface.h File Reference}
+\label{_graphic_interface_8h}\index{U\+I/\+Graphic\+Interface.\+h@{U\+I/\+Graphic\+Interface.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+Icon$>$}\newline
+{\ttfamily \#include $<$Q\+Qml\+Application\+Engine$>$}\newline
+{\ttfamily \#include $<$Q\+Qml\+Context$>$}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}User\+Interface.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Drag\+Window\+Provider.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}User\+Settings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Translation\+App.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Secure\+Text\+Field.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Q\+Url$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include \char`\"{}Parser.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_my_gui_application}{My\+Gui\+Application}
+\begin{DoxyCompactList}\small\item\em This class inherits Q\+Application and allows you to retrieve events such as exceptions in order to manage them graphically. \end{DoxyCompactList}\item 
+class \hyperlink{class_graphic_interface}{Graphic\+Interface}
+\begin{DoxyCompactList}\small\item\em This class displays a graphical interface using Q\+ML for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_graphic_interface_8h_ae4f79b448b645b9e508580f037bbce3f}{G\+I\+\_\+\+E\+N\+UM}(name)~name
+\item 
+\#define \hyperlink{_graphic_interface_8h_a59c35e891f9c1ecafa56ecdb5f2f2920}{G\+I\+\_\+\+S\+T\+R\+T\+AB}(name)~\#name
+\item 
+\#define \hyperlink{_graphic_interface_8h_a3e948ecb7a29ad934117d6c135dfb7c8}{G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}(func)
+\item 
+\#define \hyperlink{_graphic_interface_8h_a23f22fb7e6603e9488528001fdec480b}{G\+I\+\_\+\+K\+EY}(variant,  key)~variant.\+to\+Map().value(key)
+\item 
+\#define \hyperlink{_graphic_interface_8h_ab2b54e551fcf1ec624e92e1c4f82982c}{D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL}(request\+Name)~void sprint \#\# request\+Name (Q\+Variant\+List l);
+\item 
+\#define \hyperlink{_graphic_interface_8h_ad16322c97ffc4e43e8476f9d050425b8}{C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}(request\+Name)~m\+App-\/$>$connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)), this, S\+L\+OT(print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)))
+\item 
+\#define \hyperlink{_graphic_interface_8h_aa4919a5b3dca6ded73424751d2912bfe}{Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}(request\+Name,  params)~s \#\# request\+Name (params);
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_graphic_interface_8h_ad16322c97ffc4e43e8476f9d050425b8}\label{_graphic_interface_8h_ad16322c97ffc4e43e8476f9d050425b8}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL@{C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}}
+\index{C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL@{C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}{CONNECT\_QML\_SIGNAL}}
+{\footnotesize\ttfamily \#define C\+O\+N\+N\+E\+C\+T\+\_\+\+Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})~m\+App-\/$>$connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)), this, S\+L\+OT(print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)))}
+
+
+
+Definition at line 52 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_ab2b54e551fcf1ec624e92e1c4f82982c}\label{_graphic_interface_8h_ab2b54e551fcf1ec624e92e1c4f82982c}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_QML\_PRINT\_SIGNAL}}
+{\footnotesize\ttfamily \#define D\+E\+C\+\_\+\+Q\+M\+L\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+I\+G\+N\+AL(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})~void sprint \#\# request\+Name (Q\+Variant\+List l);}
+
+
+
+Definition at line 51 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_a3e948ecb7a29ad934117d6c135dfb7c8}\label{_graphic_interface_8h_a3e948ecb7a29ad934117d6c135dfb7c8}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}}
+\index{G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}{GI\_ALL\_COMMANDS}}
+{\footnotesize\ttfamily \#define G\+I\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS(\begin{DoxyParamCaption}\item[{}]{func }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+    func(mount), \(\backslash\)
+    func(createvolume), \(\backslash\)
+    func(dismount), \(\backslash\)
+    func(dismountall), \(\backslash\)
+    func(automount), \(\backslash\)
+    func(backupheaders), \(\backslash\)
+    func(createkeyfiles), \(\backslash\)
+    func(mountedvolumes), \(\backslash\)
+    func(algorithms), \(\backslash\)
+    func(filesystems), \(\backslash\)
+    func(hashs), \(\backslash\)
+    func(devices), \(\backslash\)
+    func(openmountpoint), \(\backslash\)
+    func(closeallsts), \(\backslash\)
+    func(changepassword), \(\backslash\)
+    func(clearvolumehistory), \(\backslash\)
+    func(openguide), \(\backslash\)
+    func(onlinehelp), \(\backslash\)
+    func(beginnertuto), \(\backslash\)
+    func(faq), \(\backslash\)
+    func(website), \(\backslash\)
+    func(download), \(\backslash\)
+    func(news), \(\backslash\)
+    func(benchmark), \(\backslash\)
+    func(versionhistory), \(\backslash\)
+    func(contact) \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 22 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_ae4f79b448b645b9e508580f037bbce3f}\label{_graphic_interface_8h_ae4f79b448b645b9e508580f037bbce3f}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!G\+I\+\_\+\+E\+N\+UM@{G\+I\+\_\+\+E\+N\+UM}}
+\index{G\+I\+\_\+\+E\+N\+UM@{G\+I\+\_\+\+E\+N\+UM}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+\_\+\+E\+N\+UM}{GI\_ENUM}}
+{\footnotesize\ttfamily \#define G\+I\+\_\+\+E\+N\+UM(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~name}
+
+
+
+Definition at line 20 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_a23f22fb7e6603e9488528001fdec480b}\label{_graphic_interface_8h_a23f22fb7e6603e9488528001fdec480b}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!G\+I\+\_\+\+K\+EY@{G\+I\+\_\+\+K\+EY}}
+\index{G\+I\+\_\+\+K\+EY@{G\+I\+\_\+\+K\+EY}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+\_\+\+K\+EY}{GI\_KEY}}
+{\footnotesize\ttfamily \#define G\+I\+\_\+\+K\+EY(\begin{DoxyParamCaption}\item[{}]{variant,  }\item[{}]{key }\end{DoxyParamCaption})~variant.\+to\+Map().value(key)}
+
+
+
+Definition at line 50 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_a59c35e891f9c1ecafa56ecdb5f2f2920}\label{_graphic_interface_8h_a59c35e891f9c1ecafa56ecdb5f2f2920}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!G\+I\+\_\+\+S\+T\+R\+T\+AB@{G\+I\+\_\+\+S\+T\+R\+T\+AB}}
+\index{G\+I\+\_\+\+S\+T\+R\+T\+AB@{G\+I\+\_\+\+S\+T\+R\+T\+AB}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+\_\+\+S\+T\+R\+T\+AB}{GI\_STRTAB}}
+{\footnotesize\ttfamily \#define G\+I\+\_\+\+S\+T\+R\+T\+AB(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~\#name}
+
+
+
+Definition at line 21 of file Graphic\+Interface.\+h.
+
+\mbox{\Hypertarget{_graphic_interface_8h_aa4919a5b3dca6ded73424751d2912bfe}\label{_graphic_interface_8h_aa4919a5b3dca6ded73424751d2912bfe}} 
+\index{Graphic\+Interface.\+h@{Graphic\+Interface.\+h}!Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL@{Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}}
+\index{Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL@{Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}!Graphic\+Interface.\+h@{Graphic\+Interface.\+h}}
+\subsubsection{\texorpdfstring{Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL}{QML\_SIGNAL}}
+{\footnotesize\ttfamily \#define Q\+M\+L\+\_\+\+S\+I\+G\+N\+AL(\begin{DoxyParamCaption}\item[{}]{request\+Name,  }\item[{}]{params }\end{DoxyParamCaption})~s \#\# request\+Name (params);}
+
+
+
+Definition at line 53 of file Graphic\+Interface.\+h.
+

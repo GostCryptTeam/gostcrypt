@@ -1,0 +1,87 @@
+\hypertarget{_user_interface_8h}{}\section{U\+I/\+User\+Interface.h File Reference}
+\label{_user_interface_8h}\index{U\+I/\+User\+Interface.\+h@{U\+I/\+User\+Interface.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Core/\+Core\+Base.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_user_interface}{User\+Interface}
+\begin{DoxyCompactList}\small\item\em Abstract class inherited by \hyperlink{class_cmd_line_interface}{Cmd\+Line\+Interface} and \hyperlink{class_graphic_interface}{Graphic\+Interface} Centralizes common functionality. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_user_interface_8h_a41e844b53fde72c93230e3bc434406ff}{D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT}(request\+Name)~virtual void print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$ r)
+\item 
+\#define \hyperlink{_user_interface_8h_ab7d21308fe976ac85cae6c798bf719fb}{D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM}~\char`\"{}Gost Grasshopper\char`\"{}
+\item 
+\#define \hyperlink{_user_interface_8h_a31d8cf093324ad1d446d586a367c5cc5}{D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF}~\char`\"{}Whirlpool\char`\"{}
+\item 
+\#define \hyperlink{_user_interface_8h_a9771cabfd673a8e350f1f8ce0b8f458f}{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}~10485760
+\item 
+\#define \hyperlink{_user_interface_8h_abf73e8c3d98a3c38eeeb30822a03a598}{D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE}~1.\+0
+\item 
+\#define \hyperlink{_user_interface_8h_a212f2cad7da1b2bcd304ac9a9c5a42ef}{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE}~0.\+7
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_user_interface_8h_a41e844b53fde72c93230e3bc434406ff}\label{_user_interface_8h_a41e844b53fde72c93230e3bc434406ff}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT@{D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT}}
+\index{D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT@{D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT}{DEC\_PRINT\_SLOT}}
+{\footnotesize\ttfamily \#define D\+E\+C\+\_\+\+P\+R\+I\+N\+T\+\_\+\+S\+L\+OT(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})~virtual void print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$ r)}
+
+
+
+Definition at line 6 of file User\+Interface.\+h.
+
+\mbox{\Hypertarget{_user_interface_8h_ab7d21308fe976ac85cae6c798bf719fb}\label{_user_interface_8h_ab7d21308fe976ac85cae6c798bf719fb}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM@{D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM@{D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM}{DEFAULT\_ALGORITHM}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+A\+L\+G\+O\+R\+I\+T\+HM~\char`\"{}Gost Grasshopper\char`\"{}}
+
+
+
+Definition at line 9 of file User\+Interface.\+h.
+
+\mbox{\Hypertarget{_user_interface_8h_a212f2cad7da1b2bcd304ac9a9c5a42ef}\label{_user_interface_8h_a212f2cad7da1b2bcd304ac9a9c5a42ef}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE}{DEFAULT\_INNER\_SIZE}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+N\+E\+R\+\_\+\+S\+I\+ZE~0.\+7}
+
+
+
+Definition at line 13 of file User\+Interface.\+h.
+
+\mbox{\Hypertarget{_user_interface_8h_a31d8cf093324ad1d446d586a367c5cc5}\label{_user_interface_8h_a31d8cf093324ad1d446d586a367c5cc5}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF@{D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF@{D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF}{DEFAULT\_KDF}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+K\+DF~\char`\"{}Whirlpool\char`\"{}}
+
+
+
+Definition at line 10 of file User\+Interface.\+h.
+
+\mbox{\Hypertarget{_user_interface_8h_abf73e8c3d98a3c38eeeb30822a03a598}\label{_user_interface_8h_abf73e8c3d98a3c38eeeb30822a03a598}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE}{DEFAULT\_OUTER\_SIZE}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+O\+U\+T\+E\+R\+\_\+\+S\+I\+ZE~1.\+0}
+
+
+
+Definition at line 12 of file User\+Interface.\+h.
+
+\mbox{\Hypertarget{_user_interface_8h_a9771cabfd673a8e350f1f8ce0b8f458f}\label{_user_interface_8h_a9771cabfd673a8e350f1f8ce0b8f458f}} 
+\index{User\+Interface.\+h@{User\+Interface.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}!User\+Interface.\+h@{User\+Interface.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}{DEFAULT\_SIZE}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE~10485760}
+
+
+
+Definition at line 11 of file User\+Interface.\+h.
+

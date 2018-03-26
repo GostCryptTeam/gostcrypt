@@ -1,0 +1,270 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Cipher\+Algorithm\+Grasshopper Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper}\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+
+
+{\ttfamily \#include $<$Cipher\+Algorithm\+Grasshopper.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Volume\+:\+:Cipher\+Algorithm\+Grasshopper\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a61607bd99abc6ad00cb4a92f73301aee}{Cipher\+Algorithm\+Grasshopper} ()
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a193c17e7764767788d52b4c4473f0e6a}{$\sim$\+Cipher\+Algorithm\+Grasshopper} ()
+\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a31f8600b20a03dbb9b0b6715b38cd570}{Get\+Block\+Size} () const
+\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a8dc485167b00f29037cd9b68e3770e0e}{Get\+Key\+Size} () const
+\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a9632d2781e6943683b02ff69766bef0e}{Get\+Name} () const
+\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aa9f30f9dea6a68e76b8dbe6c961f2bbe}{Get\+Description} () const
+\item 
+virtual Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a6760e0603b5af70b2ff697831b1813d0}{Get\+New} () const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a282165ace19ed71c00dc92e33f0b3738}{Xor\+Cipher\+Key} (quint8 $\ast$ks, quint8 $\ast$data, int len) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_addae3b81a7a30d4379f1874ca694b0a8}{Encrypt\+With\+KS} (quint8 $\ast$data, quint8 $\ast$ks) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a4a5845fc432ef4c16bf94b0c6d5973e2}{Decrypt\+With\+KS} (quint8 $\ast$data, quint8 $\ast$ks) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_afb28e10054150eec630294cd4eb5850c}{Copy\+Cipher\+Key} (quint8 $\ast$ks) const
+\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_adcc6948022fd1274d9e16d99e5ee442d}{Get\+Scheduled\+Key\+Size} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aac197107282f4d3382961adb7130548e}{Decrypt} (quint8 $\ast$data) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a51c5a99186cd497ccc3ac318018ffc89}{Encrypt} (quint8 $\ast$data) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a32304b5f41ae22a3c461cd03a5b42041}{Set\+Cipher\+Key} (const quint8 $\ast$key)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 11 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a61607bd99abc6ad00cb4a92f73301aee}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a61607bd99abc6ad00cb4a92f73301aee}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Cipher\+Algorithm\+Grasshopper@{Cipher\+Algorithm\+Grasshopper}}
+\index{Cipher\+Algorithm\+Grasshopper@{Cipher\+Algorithm\+Grasshopper}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Cipher\+Algorithm\+Grasshopper()}{CipherAlgorithmGrasshopper()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Cipher\+Algorithm\+Grasshopper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 14 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a193c17e7764767788d52b4c4473f0e6a}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a193c17e7764767788d52b4c4473f0e6a}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!````~Cipher\+Algorithm\+Grasshopper@{$\sim$\+Cipher\+Algorithm\+Grasshopper}}
+\index{````~Cipher\+Algorithm\+Grasshopper@{$\sim$\+Cipher\+Algorithm\+Grasshopper}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{$\sim$\+Cipher\+Algorithm\+Grasshopper()}{~CipherAlgorithmGrasshopper()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::$\sim$\+Cipher\+Algorithm\+Grasshopper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 15 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_afb28e10054150eec630294cd4eb5850c}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_afb28e10054150eec630294cd4eb5850c}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Copy\+Cipher\+Key@{Copy\+Cipher\+Key}}
+\index{Copy\+Cipher\+Key@{Copy\+Cipher\+Key}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Copy\+Cipher\+Key()}{CopyCipherKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Copy\+Cipher\+Key (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{ks }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a53e0b1102294d29252b6438f5bf999aa}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 45 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aac197107282f4d3382961adb7130548e}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aac197107282f4d3382961adb7130548e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Decrypt@{Decrypt}}
+\index{Decrypt@{Decrypt}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Decrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a014d9a3b3db18ec963c0e524b4f0d445}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 9 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a4a5845fc432ef4c16bf94b0c6d5973e2}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a4a5845fc432ef4c16bf94b0c6d5973e2}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Decrypt\+With\+KS@{Decrypt\+With\+KS}}
+\index{Decrypt\+With\+KS@{Decrypt\+With\+KS}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Decrypt\+With\+K\+S()}{DecryptWithKS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Decrypt\+With\+KS (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint8 $\ast$}]{ks }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_aa08e6b739411e759a0489668e818e08b}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 19 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a51c5a99186cd497ccc3ac318018ffc89}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a51c5a99186cd497ccc3ac318018ffc89}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Encrypt@{Encrypt}}
+\index{Encrypt@{Encrypt}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Encrypt()}{Encrypt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Encrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a4e8eda4efa7393fa17be1f5dae6cc0e2}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 14 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_addae3b81a7a30d4379f1874ca694b0a8}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_addae3b81a7a30d4379f1874ca694b0a8}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Encrypt\+With\+KS@{Encrypt\+With\+KS}}
+\index{Encrypt\+With\+KS@{Encrypt\+With\+KS}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Encrypt\+With\+K\+S()}{EncryptWithKS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Encrypt\+With\+KS (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint8 $\ast$}]{ks }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a6e7b19a0078b49c10536ad2f73b3b1ae}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 24 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a31f8600b20a03dbb9b0b6715b38cd570}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a31f8600b20a03dbb9b0b6715b38cd570}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+Block\+Size@{Get\+Block\+Size}}
+\index{Get\+Block\+Size@{Get\+Block\+Size}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+Block\+Size()}{GetBlockSize()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+Block\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_acea94097c86d12a5e5c7bbee613526a2}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 17 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aa9f30f9dea6a68e76b8dbe6c961f2bbe}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_aa9f30f9dea6a68e76b8dbe6c961f2bbe}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+Description@{Get\+Description}}
+\index{Get\+Description@{Get\+Description}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+Description()}{GetDescription()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a01b18f6950161fa518115bf08db3a997}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 20 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a8dc485167b00f29037cd9b68e3770e0e}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a8dc485167b00f29037cd9b68e3770e0e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+Key\+Size@{Get\+Key\+Size}}
+\index{Get\+Key\+Size@{Get\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+Key\+Size()}{GetKeySize()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+Key\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_aaf60dff95401e6f017ce0c2584f0e593}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 18 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a9632d2781e6943683b02ff69766bef0e}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a9632d2781e6943683b02ff69766bef0e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+Name@{Get\+Name}}
+\index{Get\+Name@{Get\+Name}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+Name()}{GetName()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a6074cb14cf571b9879eb9f6ac85c1487}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 19 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a6760e0603b5af70b2ff697831b1813d0}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a6760e0603b5af70b2ff697831b1813d0}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+New@{Get\+New}}
+\index{Get\+New@{Get\+New}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+New()}{GetNew()}}
+{\footnotesize\ttfamily virtual Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm}$>$ Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+New (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a623a1b2ec1b28d583e432f3915eccfc4}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 21 of file Cipher\+Algorithm\+Grasshopper.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_adcc6948022fd1274d9e16d99e5ee442d}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_adcc6948022fd1274d9e16d99e5ee442d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Get\+Scheduled\+Key\+Size@{Get\+Scheduled\+Key\+Size}}
+\index{Get\+Scheduled\+Key\+Size@{Get\+Scheduled\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Get\+Scheduled\+Key\+Size()}{GetScheduledKeySize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Get\+Scheduled\+Key\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a8d39c267bba1bea5b7e51b803d426b9c}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 29 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a32304b5f41ae22a3c461cd03a5b42041}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a32304b5f41ae22a3c461cd03a5b42041}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Set\+Cipher\+Key@{Set\+Cipher\+Key}}
+\index{Set\+Cipher\+Key@{Set\+Cipher\+Key}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Set\+Cipher\+Key()}{SetCipherKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Set\+Cipher\+Key (\begin{DoxyParamCaption}\item[{const quint8 $\ast$}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a98760f7a389f6fb5fd1d2078d0c1580f}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 34 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a282165ace19ed71c00dc92e33f0b3738}\label{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_grasshopper_a282165ace19ed71c00dc92e33f0b3738}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}!Xor\+Cipher\+Key@{Xor\+Cipher\+Key}}
+\index{Xor\+Cipher\+Key@{Xor\+Cipher\+Key}!Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper@{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper}}
+\subsubsection{\texorpdfstring{Xor\+Cipher\+Key()}{XorCipherKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm\+Grasshopper\+::\+Xor\+Cipher\+Key (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{ks,  }\item[{quint8 $\ast$}]{data,  }\item[{int}]{len }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm_a1be05f68ce3c18e7cd76708739f3f85a}{Gost\+Crypt\+::\+Volume\+::\+Cipher\+Algorithm}.
+
+
+
+Definition at line 39 of file Cipher\+Algorithm\+Grasshopper.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_cipher_algorithm_grasshopper_8h}{Cipher\+Algorithm\+Grasshopper.\+h}\item 
+Volume/\hyperlink{_cipher_algorithm_grasshopper_8cpp}{Cipher\+Algorithm\+Grasshopper.\+cpp}\end{DoxyCompactItemize}

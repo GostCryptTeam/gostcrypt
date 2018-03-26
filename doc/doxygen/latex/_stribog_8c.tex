@@ -1,0 +1,105 @@
+\hypertarget{_stribog_8c}{}\section{Volume/\+Crypto/\+Stribog.c File Reference}
+\label{_stribog_8c}\index{Volume/\+Crypto/\+Stribog.\+c@{Volume/\+Crypto/\+Stribog.\+c}}
+{\ttfamily \#include \char`\"{}Stribog.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_stribog_8c_a9c6214e9a5c571df33618da339b6c8f7}{L\+A\+S\+T\+\_\+\+B\+L\+O\+CK}(ptr,  len)~(ptr + len -\/ 64)
+\item 
+\#define \hyperlink{_stribog_8c_a5139a96d1ac509c2b230b7e9363ba769}{S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK}(len)~(len -\/= 64)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_stribog_8c_ab3bfde31a89c7208bd4d0fe35daccdcf}{g\+\_\+N} (quint8 $\ast$N, quint8 $\ast$h, quint8 $\ast$m)
+\item 
+void \hyperlink{_stribog_8c_a35dd8d9b4aa0af02ddb28c60bb3c3877}{S\+T\+R\+I\+B\+O\+G\+\_\+init} (\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$ctx)
+\item 
+void \hyperlink{_stribog_8c_ac44ec531913ecb2d503b382be49cd5e9}{S\+T\+R\+I\+B\+O\+G\+\_\+add} (\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$ctx, quint8 $\ast$msg, quint32 len)
+\item 
+void \hyperlink{_stribog_8c_aac1622012f538b19d97421325581b7d4}{S\+T\+R\+I\+B\+O\+G\+\_\+finalize} (\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$ctx, quint8 $\ast$out)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const unsigned long long \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} \mbox{[}8\mbox{]}\mbox{[}256\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_stribog_8c_a9c6214e9a5c571df33618da339b6c8f7}\label{_stribog_8c_a9c6214e9a5c571df33618da339b6c8f7}} 
+\index{Stribog.\+c@{Stribog.\+c}!L\+A\+S\+T\+\_\+\+B\+L\+O\+CK@{L\+A\+S\+T\+\_\+\+B\+L\+O\+CK}}
+\index{L\+A\+S\+T\+\_\+\+B\+L\+O\+CK@{L\+A\+S\+T\+\_\+\+B\+L\+O\+CK}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+S\+T\+\_\+\+B\+L\+O\+CK}{LAST\_BLOCK}}
+{\footnotesize\ttfamily \#define L\+A\+S\+T\+\_\+\+B\+L\+O\+CK(\begin{DoxyParamCaption}\item[{}]{ptr,  }\item[{}]{len }\end{DoxyParamCaption})~(ptr + len -\/ 64)}
+
+
+
+Definition at line 715 of file Stribog.\+c.
+
+\mbox{\Hypertarget{_stribog_8c_a5139a96d1ac509c2b230b7e9363ba769}\label{_stribog_8c_a5139a96d1ac509c2b230b7e9363ba769}} 
+\index{Stribog.\+c@{Stribog.\+c}!S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK@{S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK}}
+\index{S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK@{S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK}{SUBTRACT\_BLOCK}}
+{\footnotesize\ttfamily \#define S\+U\+B\+T\+R\+A\+C\+T\+\_\+\+B\+L\+O\+CK(\begin{DoxyParamCaption}\item[{}]{len }\end{DoxyParamCaption})~(len -\/= 64)}
+
+
+
+Definition at line 716 of file Stribog.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_stribog_8c_ab3bfde31a89c7208bd4d0fe35daccdcf}\label{_stribog_8c_ab3bfde31a89c7208bd4d0fe35daccdcf}} 
+\index{Stribog.\+c@{Stribog.\+c}!g\+\_\+N@{g\+\_\+N}}
+\index{g\+\_\+N@{g\+\_\+N}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{g\+\_\+\+N()}{g\_N()}}
+{\footnotesize\ttfamily void g\+\_\+N (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{N,  }\item[{quint8 $\ast$}]{h,  }\item[{quint8 $\ast$}]{m }\end{DoxyParamCaption})}
+
+
+
+Definition at line 695 of file Stribog.\+c.
+
+\mbox{\Hypertarget{_stribog_8c_ac44ec531913ecb2d503b382be49cd5e9}\label{_stribog_8c_ac44ec531913ecb2d503b382be49cd5e9}} 
+\index{Stribog.\+c@{Stribog.\+c}!S\+T\+R\+I\+B\+O\+G\+\_\+add@{S\+T\+R\+I\+B\+O\+G\+\_\+add}}
+\index{S\+T\+R\+I\+B\+O\+G\+\_\+add@{S\+T\+R\+I\+B\+O\+G\+\_\+add}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{S\+T\+R\+I\+B\+O\+G\+\_\+add()}{STRIBOG\_add()}}
+{\footnotesize\ttfamily void S\+T\+R\+I\+B\+O\+G\+\_\+add (\begin{DoxyParamCaption}\item[{\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$}]{ctx,  }\item[{quint8 $\ast$}]{msg,  }\item[{quint32}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 718 of file Stribog.\+c.
+
+\mbox{\Hypertarget{_stribog_8c_aac1622012f538b19d97421325581b7d4}\label{_stribog_8c_aac1622012f538b19d97421325581b7d4}} 
+\index{Stribog.\+c@{Stribog.\+c}!S\+T\+R\+I\+B\+O\+G\+\_\+finalize@{S\+T\+R\+I\+B\+O\+G\+\_\+finalize}}
+\index{S\+T\+R\+I\+B\+O\+G\+\_\+finalize@{S\+T\+R\+I\+B\+O\+G\+\_\+finalize}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{S\+T\+R\+I\+B\+O\+G\+\_\+finalize()}{STRIBOG\_finalize()}}
+{\footnotesize\ttfamily void S\+T\+R\+I\+B\+O\+G\+\_\+finalize (\begin{DoxyParamCaption}\item[{\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$}]{ctx,  }\item[{quint8 $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Definition at line 769 of file Stribog.\+c.
+
+\mbox{\Hypertarget{_stribog_8c_a35dd8d9b4aa0af02ddb28c60bb3c3877}\label{_stribog_8c_a35dd8d9b4aa0af02ddb28c60bb3c3877}} 
+\index{Stribog.\+c@{Stribog.\+c}!S\+T\+R\+I\+B\+O\+G\+\_\+init@{S\+T\+R\+I\+B\+O\+G\+\_\+init}}
+\index{S\+T\+R\+I\+B\+O\+G\+\_\+init@{S\+T\+R\+I\+B\+O\+G\+\_\+init}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{S\+T\+R\+I\+B\+O\+G\+\_\+init()}{STRIBOG\_init()}}
+{\footnotesize\ttfamily void S\+T\+R\+I\+B\+O\+G\+\_\+init (\begin{DoxyParamCaption}\item[{\hyperlink{struct_s_t_r_i_b_o_g___c_t_x}{S\+T\+R\+I\+B\+O\+G\+\_\+\+C\+TX} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 709 of file Stribog.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}\label{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}} 
+\index{Stribog.\+c@{Stribog.\+c}!T@{T}}
+\index{T@{T}!Stribog.\+c@{Stribog.\+c}}
+\subsubsection{\texorpdfstring{T}{T}}
+{\footnotesize\ttfamily const unsigned long long T\mbox{[}8\mbox{]}\mbox{[}256\mbox{]}}
+
+
+
+Definition at line 14 of file Stribog.\+c.
+

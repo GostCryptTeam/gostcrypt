@@ -1,0 +1,380 @@
+\hypertarget{namespace_gost_crypt}{}\section{Gost\+Crypt Namespace Reference}
+\label{namespace_gost_crypt}\index{Gost\+Crypt@{Gost\+Crypt}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Core}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_fuse_driver}{Fuse\+Driver}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_volume}{Volume}
+\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}
+\begin{DoxyCompactList}\small\item\em Class handling buffer data. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}
+\begin{DoxyCompactList}\small\item\em Class handling pointer to \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} data. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_external_exception}{External\+Exception}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a non-\/\+Gost\+Crypt exception has been thrown. This allow for the information about this original exception to be transmitted across processes. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_create_directory}{Failed\+Create\+Directory}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the directory creation fails. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_flush_file}{Failed\+Flush\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when flushing a file failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_lseek_file}{Failed\+Lseek\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when lseeking in a file failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_memory_allocation}{Failed\+Memory\+Allocation}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a memory allocation failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_open_file}{Failed\+Open\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the opening of a file failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_read_file}{Failed\+Read\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when reading to a file failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_stat_file}{Failed\+Stat\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when trying to get file information (stat system call) \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_failed_write_file}{Failed\+Write\+File}
+\begin{DoxyCompactList}\small\item\em Exception thrown when writing to a file failed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception}
+\begin{DoxyCompactList}\small\item\em Parent class of all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} Exceptions. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_invalid_parameter}{Invalid\+Parameter}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a given parameter is invalid and prevent the action from beeing executed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer}
+\begin{DoxyCompactList}\small\item\em Class handling buffer data when data is sensitive. The data will be locked into R\+AM using mlock and erased before beeing freed. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_system_exception}{System\+Exception}
+\begin{DoxyCompactList}\small\item\em Parent of the exceptions thrown after a system error, usually a failed system call. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_unknow_exception}{Unknow\+Exception}
+\begin{DoxyCompactList}\small\item\em Exception thrown when an unknown exception has been thrown. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_gost_crypt_ab650c0c6902fcf859bb05a79fe90b89e}{init\+Gost\+Crypt\+Exception} ()
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} class and subclasses to make them serializable across processes. \end{DoxyCompactList}\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a047bc2c476276b6fda87390679fe51d8}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+::\+Gost\+Crypt\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ab6b04c752149af5db0d728d0c6582f58}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+::\+Gost\+Crypt\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a9fc12a1e84452ffc1afabd85386fae1f}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_system_exception}{Gost\+Crypt\+::\+System\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a7d483519a72417af318b33cdcd0b2ac0}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_system_exception}{Gost\+Crypt\+::\+System\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a7f9cbebff0031b2118e621e71c775a2b}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_open_file}{Gost\+Crypt\+::\+Failed\+Open\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a76f61997a08a429222c520f5eefd2623}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_open_file}{Gost\+Crypt\+::\+Failed\+Open\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a8961bd330175b243df8f40b99a6b0964}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_write_file}{Gost\+Crypt\+::\+Failed\+Write\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ac5980fee2234e40fa268491b18e9e155}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_write_file}{Gost\+Crypt\+::\+Failed\+Write\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a7fe325fa6a2d8024c438723c68f28250}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_flush_file}{Gost\+Crypt\+::\+Failed\+Flush\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_aba02906a3e43411fed2623eb87901ca6}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_flush_file}{Gost\+Crypt\+::\+Failed\+Flush\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a3bf39c44968d5f8e6020dca9f7f8b1bd}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_lseek_file}{Gost\+Crypt\+::\+Failed\+Lseek\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ade3d0ececb14827148355792f1b1b45c}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_lseek_file}{Gost\+Crypt\+::\+Failed\+Lseek\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a2a84fea66f94caa3fcd7ae107bdda4f0}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_stat_file}{Gost\+Crypt\+::\+Failed\+Stat\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_adaf523e4f87259058da16649dfd6df12}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_stat_file}{Gost\+Crypt\+::\+Failed\+Stat\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a752b69aa35f9eb0bdc04c6cd3f8442d1}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_read_file}{Gost\+Crypt\+::\+Failed\+Read\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a4567bb753648732718d0ae4a6a87b305}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_read_file}{Gost\+Crypt\+::\+Failed\+Read\+File} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_aa79dec7c3603a9ca936bd927e7b7d908}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_create_directory}{Gost\+Crypt\+::\+Failed\+Create\+Directory} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a7eb09b5ed6b7bd62952382a0717a4dd0}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_create_directory}{Gost\+Crypt\+::\+Failed\+Create\+Directory} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a2f0aae264a4c81f5e7455d8fc2a8da1e}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_failed_memory_allocation}{Gost\+Crypt\+::\+Failed\+Memory\+Allocation} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ab1418c707af012e32eda56005e2d8d35}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_failed_memory_allocation}{Gost\+Crypt\+::\+Failed\+Memory\+Allocation} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_af125544afc2a9e2975524962f21c13d3}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_unknow_exception}{Gost\+Crypt\+::\+Unknow\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a9b8913a36f6eb5c828e321facd702cba}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_unknow_exception}{Gost\+Crypt\+::\+Unknow\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a0c3976f48a6db48a2bb3173b0482eea7}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_external_exception}{Gost\+Crypt\+::\+External\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_a38f38fdf8080ca24432ed4dec70ac603}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_external_exception}{Gost\+Crypt\+::\+External\+Exception} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ae710832b03f99b679035bfeee67a2fb0}{operator$<$$<$} (Q\+Data\+Stream \&out, const \hyperlink{class_gost_crypt_1_1_invalid_parameter}{Gost\+Crypt\+::\+Invalid\+Parameter} \&Valeur)
+\item 
+Q\+Data\+Stream \& \hyperlink{namespace_gost_crypt_ae971f90c2d4d1980125c87f71e1fb45b}{operator$>$$>$} (Q\+Data\+Stream \&in, \hyperlink{class_gost_crypt_1_1_invalid_parameter}{Gost\+Crypt\+::\+Invalid\+Parameter} \&Valeur)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespace_gost_crypt_ab650c0c6902fcf859bb05a79fe90b89e}\label{namespace_gost_crypt_ab650c0c6902fcf859bb05a79fe90b89e}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!init\+Gost\+Crypt\+Exception@{init\+Gost\+Crypt\+Exception}}
+\index{init\+Gost\+Crypt\+Exception@{init\+Gost\+Crypt\+Exception}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{init\+Gost\+Crypt\+Exception()}{initGostCryptException()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::init\+Gost\+Crypt\+Exception (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialize the \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} class and subclasses to make them serializable across processes. 
+
+
+
+Definition at line 8 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a047bc2c476276b6fda87390679fe51d8}\label{namespace_gost_crypt_a047bc2c476276b6fda87390679fe51d8}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [1/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+::\+Gost\+Crypt\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 29 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a9fc12a1e84452ffc1afabd85386fae1f}\label{namespace_gost_crypt_a9fc12a1e84452ffc1afabd85386fae1f}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [2/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_system_exception}{Gost\+Crypt\+::\+System\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 45 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a7f9cbebff0031b2118e621e71c775a2b}\label{namespace_gost_crypt_a7f9cbebff0031b2118e621e71c775a2b}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_open_file}{Gost\+Crypt\+::\+Failed\+Open\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a8961bd330175b243df8f40b99a6b0964}\label{namespace_gost_crypt_a8961bd330175b243df8f40b99a6b0964}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [4/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_write_file}{Gost\+Crypt\+::\+Failed\+Write\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 73 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a7fe325fa6a2d8024c438723c68f28250}\label{namespace_gost_crypt_a7fe325fa6a2d8024c438723c68f28250}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [5/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_flush_file}{Gost\+Crypt\+::\+Failed\+Flush\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a3bf39c44968d5f8e6020dca9f7f8b1bd}\label{namespace_gost_crypt_a3bf39c44968d5f8e6020dca9f7f8b1bd}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [6/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_lseek_file}{Gost\+Crypt\+::\+Failed\+Lseek\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 105 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a2a84fea66f94caa3fcd7ae107bdda4f0}\label{namespace_gost_crypt_a2a84fea66f94caa3fcd7ae107bdda4f0}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [7/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_stat_file}{Gost\+Crypt\+::\+Failed\+Stat\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 121 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a752b69aa35f9eb0bdc04c6cd3f8442d1}\label{namespace_gost_crypt_a752b69aa35f9eb0bdc04c6cd3f8442d1}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [8/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_read_file}{Gost\+Crypt\+::\+Failed\+Read\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 137 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_aa79dec7c3603a9ca936bd927e7b7d908}\label{namespace_gost_crypt_aa79dec7c3603a9ca936bd927e7b7d908}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [9/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_create_directory}{Gost\+Crypt\+::\+Failed\+Create\+Directory} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a2f0aae264a4c81f5e7455d8fc2a8da1e}\label{namespace_gost_crypt_a2f0aae264a4c81f5e7455d8fc2a8da1e}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [10/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_failed_memory_allocation}{Gost\+Crypt\+::\+Failed\+Memory\+Allocation} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 167 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_af125544afc2a9e2975524962f21c13d3}\label{namespace_gost_crypt_af125544afc2a9e2975524962f21c13d3}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [11/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_unknow_exception}{Gost\+Crypt\+::\+Unknow\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a0c3976f48a6db48a2bb3173b0482eea7}\label{namespace_gost_crypt_a0c3976f48a6db48a2bb3173b0482eea7}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [12/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_external_exception}{Gost\+Crypt\+::\+External\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 191 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ae710832b03f99b679035bfeee67a2fb0}\label{namespace_gost_crypt_ae710832b03f99b679035bfeee67a2fb0}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [13/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const \hyperlink{class_gost_crypt_1_1_invalid_parameter}{Gost\+Crypt\+::\+Invalid\+Parameter} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 205 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ab6b04c752149af5db0d728d0c6582f58}\label{namespace_gost_crypt_ab6b04c752149af5db0d728d0c6582f58}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [1/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+::\+Gost\+Crypt\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 36 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a7d483519a72417af318b33cdcd0b2ac0}\label{namespace_gost_crypt_a7d483519a72417af318b33cdcd0b2ac0}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [2/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_system_exception}{Gost\+Crypt\+::\+System\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 50 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a76f61997a08a429222c520f5eefd2623}\label{namespace_gost_crypt_a76f61997a08a429222c520f5eefd2623}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [3/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_open_file}{Gost\+Crypt\+::\+Failed\+Open\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 63 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ac5980fee2234e40fa268491b18e9e155}\label{namespace_gost_crypt_ac5980fee2234e40fa268491b18e9e155}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [4/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_write_file}{Gost\+Crypt\+::\+Failed\+Write\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 79 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_aba02906a3e43411fed2623eb87901ca6}\label{namespace_gost_crypt_aba02906a3e43411fed2623eb87901ca6}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [5/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_flush_file}{Gost\+Crypt\+::\+Failed\+Flush\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ade3d0ececb14827148355792f1b1b45c}\label{namespace_gost_crypt_ade3d0ececb14827148355792f1b1b45c}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [6/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_lseek_file}{Gost\+Crypt\+::\+Failed\+Lseek\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 111 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_adaf523e4f87259058da16649dfd6df12}\label{namespace_gost_crypt_adaf523e4f87259058da16649dfd6df12}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [7/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_stat_file}{Gost\+Crypt\+::\+Failed\+Stat\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 127 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a4567bb753648732718d0ae4a6a87b305}\label{namespace_gost_crypt_a4567bb753648732718d0ae4a6a87b305}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [8/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_read_file}{Gost\+Crypt\+::\+Failed\+Read\+File} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 143 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a7eb09b5ed6b7bd62952382a0717a4dd0}\label{namespace_gost_crypt_a7eb09b5ed6b7bd62952382a0717a4dd0}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [9/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_create_directory}{Gost\+Crypt\+::\+Failed\+Create\+Directory} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 159 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ab1418c707af012e32eda56005e2d8d35}\label{namespace_gost_crypt_ab1418c707af012e32eda56005e2d8d35}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [10/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_failed_memory_allocation}{Gost\+Crypt\+::\+Failed\+Memory\+Allocation} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 172 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a9b8913a36f6eb5c828e321facd702cba}\label{namespace_gost_crypt_a9b8913a36f6eb5c828e321facd702cba}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [11/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_unknow_exception}{Gost\+Crypt\+::\+Unknow\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 184 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_a38f38fdf8080ca24432ed4dec70ac603}\label{namespace_gost_crypt_a38f38fdf8080ca24432ed4dec70ac603}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [12/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_external_exception}{Gost\+Crypt\+::\+External\+Exception} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 197 of file Gost\+Crypt\+Exception.\+cpp.
+
+\mbox{\Hypertarget{namespace_gost_crypt_ae971f90c2d4d1980125c87f71e1fb45b}\label{namespace_gost_crypt_ae971f90c2d4d1980125c87f71e1fb45b}} 
+\index{Gost\+Crypt@{Gost\+Crypt}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Gost\+Crypt@{Gost\+Crypt}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}\hspace{0.1cm}{\footnotesize\ttfamily [13/13]}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& Gost\+Crypt\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{\hyperlink{class_gost_crypt_1_1_invalid_parameter}{Gost\+Crypt\+::\+Invalid\+Parameter} \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Definition at line 212 of file Gost\+Crypt\+Exception.\+cpp.
+

@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['data',['Data',['../class_gost_crypt_1_1_buffer.html#a3754fa74b60e14928bb353c188a2cbbe',1,'GostCrypt::Buffer::Data()'],['../struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item.html#a8fb46494d66772ac1e51eb4600001348',1,'GostCrypt::Volume::EncryptionThreadPool::WorkItem::Data()']]],
+  ['dataareakey',['DataAreaKey',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a285ca82990065a25e422137c7071d3cb',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['dataareakeyoffset',['DataAreaKeyOffset',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a7ac2bb5f9c033a9400ed6f1cdb8101ff',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['datakey',['DataKey',['../struct_gost_crypt_1_1_volume_1_1_volume_header_creation_options.html#a21b2d1f5c67cef0716acbfd7da3faffd',1,'GostCrypt::Volume::VolumeHeaderCreationOptions']]],
+  ['datakeyareamaxsize',['DataKeyAreaMaxSize',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#af27e0bcfd6be57f61941a209a5f1e73f',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['dataptrmutable',['dataPtrMutable',['../class_gost_crypt_1_1_buffer_ptr.html#a705d4df0cd4a71f2bd1e7cb8c9199f4b',1,'GostCrypt::BufferPtr']]],
+  ['dataptrreadonly',['dataPtrReadonly',['../class_gost_crypt_1_1_buffer_ptr.html#a30b605a84eb010568c14aa42bdafe2d3',1,'GostCrypt::BufferPtr']]],
+  ['datasize',['dataSize',['../class_gost_crypt_1_1_buffer_ptr.html#a63b4cbfd64f00015154f82a9376f5ca1',1,'GostCrypt::BufferPtr']]],
+  ['dataunitno',['dataUnitNo',['../struct_gost_crypt_1_1_volume_1_1_encryption_test_1_1_xts_test_vector.html#a3b0f1dba91c483bffc817a7687734c11',1,'GostCrypt::Volume::EncryptionTest::XtsTestVector']]],
+  ['day',['day',['../struct_c_k___d_a_t_e.html#ae753815abaa535dbca99dfe3a079cb8a',1,'CK_DATE']]],
+  ['debug',['debug',['../structloopdev__cxt.html#a21c01f73a14af97b3d0de37d98207273',1,'loopdev_cxt']]],
+  ['decryptionspeed',['decryptionSpeed',['../struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_response.html#a2bed026f2c08b26b2bc4097604d94da7',1,'GostCrypt::Core::BenchmarkAlgorithmsResponse']]],
+  ['default_5fcheck',['default_check',['../structloopdev__iter.html#a2c9c706807febcc561da3ba918cb3c49',1,'loopdev_iter']]],
+  ['deprecated',['Deprecated',['../class_gost_crypt_1_1_volume_1_1_encryption_algorithm.html#aa6a4d985e35af681d88f813f082a0657',1,'GostCrypt::Volume::EncryptionAlgorithm::Deprecated()'],['../class_gost_crypt_1_1_volume_1_1_volume_hash.html#aacecbfb38eed1790e8d25a594a4b194e',1,'GostCrypt::Volume::VolumeHash::Deprecated()']]],
+  ['dequeuemutex',['DequeueMutex',['../class_gost_crypt_1_1_volume_1_1_encryption_thread_pool.html#ac906666effd89b9938eb557878cb24c4',1,'GostCrypt::Volume::EncryptionThreadPool']]],
+  ['dequeueposition',['DequeuePosition',['../class_gost_crypt_1_1_volume_1_1_encryption_thread_pool.html#abd7c1a52412083f8ee43610bc63e6f38',1,'GostCrypt::Volume::EncryptionThreadPool']]],
+  ['destroymutex',['DestroyMutex',['../struct_c_k___c___i_n_i_t_i_a_l_i_z_e___a_r_g_s.html#a9b5ebf676f4a6c9306b68567f89a4efd',1,'CK_C_INITIALIZE_ARGS']]],
+  ['device',['device',['../structloopdev__cxt.html#a25b65fcc29dace037a522bf7ffc76071',1,'loopdev_cxt::device()'],['../struct_gost_crypt_1_1_core_1_1_mounted_filesystem.html#a3284108b3f0deb35fb27848f5c5ed3ee',1,'GostCrypt::Core::MountedFilesystem::Device()']]],
+  ['devicepath',['devicePath',['../struct_gost_crypt_1_1_core_1_1_host_device.html#ad1e20d2be3b61cfff3767a3065e5820c',1,'GostCrypt::Core::HostDevice']]],
+  ['devno',['devno',['../structsysfs__cxt.html#ad401b387836fd6aa765984a978886b1b',1,'sysfs_cxt']]],
+  ['digestmechanism',['DigestMechanism',['../struct_c_k___w_t_l_s___m_a_s_t_e_r___k_e_y___d_e_r_i_v_e___p_a_r_a_m_s.html#ad9f74c384a9226b0c2adea1b32fb10b2',1,'CK_WTLS_MASTER_KEY_DERIVE_PARAMS::DigestMechanism()'],['../struct_c_k___w_t_l_s___p_r_f___p_a_r_a_m_s.html#ac6436a02ffb4456ded679269d39d1ff5',1,'CK_WTLS_PRF_PARAMS::DigestMechanism()'],['../struct_c_k___w_t_l_s___k_e_y___m_a_t___p_a_r_a_m_s.html#aea2b231b8552ac86c6dc0434b0502e2b',1,'CK_WTLS_KEY_MAT_PARAMS::DigestMechanism()']]],
+  ['dir_5ffd',['dir_fd',['../structsysfs__cxt.html#a9aba9f43a1810685449b830b600d01fc',1,'sysfs_cxt']]],
+  ['dir_5fpath',['dir_path',['../structsysfs__cxt.html#a79631d9695127c07b6ce1db7b28d9352',1,'sysfs_cxt']]],
+  ['domount',['doMount',['../struct_gost_crypt_1_1_core_1_1_mount_volume_request.html#a9e33a3e0ce0c4c9df8b4f6feeb63f576',1,'GostCrypt::Core::MountVolumeRequest']]],
+  ['done',['done',['../structloopdev__iter.html#aa25ce39afbcf425be7d101066da48eff',1,'loopdev_iter']]]
+];

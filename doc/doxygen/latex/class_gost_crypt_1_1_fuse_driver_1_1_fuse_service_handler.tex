@@ -1,0 +1,95 @@
+\hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler}{}\section{Gost\+Crypt\+:\+:Fuse\+Driver\+:\+:Fuse\+Service\+Handler Class Reference}
+\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler}\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}}
+
+
+Class used to create and communicate with the F\+U\+SE service in charge of creating the F\+U\+SE mount using the F\+U\+SE library.  
+
+
+
+
+{\ttfamily \#include $<$Fuse\+Service\+Handler.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Fuse\+Driver\+:\+:Fuse\+Service\+Handler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a8d56ee0d6dfa8b61b0a554ab4d1dd60b}{continue\+Mount\+Volume} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Core\+::\+Mount\+Volume\+Request} $>$ params, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_response}{Core\+::\+Mount\+Volume\+Response} $>$ response)
+\begin{DoxyCompactList}\small\item\em Signal emitted when \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler}{Fuse\+Service\+Handler} finished to create the F\+U\+SE mount. It is used to launch next steps in the mount volume action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_aba67709c5a66b3e530743d111c277ca0}{Fuse\+Service\+Handler} ()
+\item 
+void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a6a96ca8fdbbcd35dab5572dde85a764c}{mount} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Core\+::\+Mount\+Volume\+Request} $>$ request)
+\begin{DoxyCompactList}\small\item\em Create the F\+U\+SE mount to start mounting the volume. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class used to create and communicate with the F\+U\+SE service in charge of creating the F\+U\+SE mount using the F\+U\+SE library. 
+
+Definition at line 18 of file Fuse\+Service\+Handler.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_aba67709c5a66b3e530743d111c277ca0}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_aba67709c5a66b3e530743d111c277ca0}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}!Fuse\+Service\+Handler@{Fuse\+Service\+Handler}}
+\index{Fuse\+Service\+Handler@{Fuse\+Service\+Handler}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}}
+\subsubsection{\texorpdfstring{Fuse\+Service\+Handler()}{FuseServiceHandler()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler\+::\+Fuse\+Service\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 11 of file Fuse\+Service\+Handler.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a8d56ee0d6dfa8b61b0a554ab4d1dd60b}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a8d56ee0d6dfa8b61b0a554ab4d1dd60b}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}!continue\+Mount\+Volume@{continue\+Mount\+Volume}}
+\index{continue\+Mount\+Volume@{continue\+Mount\+Volume}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}}
+\subsubsection{\texorpdfstring{continue\+Mount\+Volume}{continueMountVolume}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler\+::continue\+Mount\+Volume (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Core\+::\+Mount\+Volume\+Request} $>$}]{params,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_response}{Core\+::\+Mount\+Volume\+Response} $>$}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler}{Fuse\+Service\+Handler} finished to create the F\+U\+SE mount. It is used to launch next steps in the mount volume action. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Mount request containing all necessary information to mount the volume \\
+\hline
+{\em response} & Response from the F\+U\+SE service containing some information about the F\+U\+SE mount \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a6a96ca8fdbbcd35dab5572dde85a764c}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_handler_a6a96ca8fdbbcd35dab5572dde85a764c}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}!mount@{mount}}
+\index{mount@{mount}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler}}
+\subsubsection{\texorpdfstring{mount()}{mount()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+Handler\+::mount (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Core\+::\+Mount\+Volume\+Request} $>$}]{request }\end{DoxyParamCaption})}
+
+
+
+Create the F\+U\+SE mount to start mounting the volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Mount request containing all necessary information to mount the volume \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 19 of file Fuse\+Service\+Handler.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fuse\+Service/\hyperlink{_fuse_service_handler_8h}{Fuse\+Service\+Handler.\+h}\item 
+Fuse\+Service/\hyperlink{_fuse_service_handler_8cpp}{Fuse\+Service\+Handler.\+cpp}\end{DoxyCompactItemize}

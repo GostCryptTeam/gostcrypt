@@ -1,0 +1,26 @@
+var loopdev_8c =
+[
+    [ "CONFIG_LOOPDEV_DEBUG", "loopdev_8c.html#aa3e83289bf6c39396fdd1a7beaadabb9", null ],
+    [ "DBG", "loopdev_8c.html#a71bd0787a08f1d504f19daa4d8258e3f", null ],
+    [ "loopcxt_ioctl_enabled", "loopdev_8c.html#a43c1e34b1c19afb59ba9955d415240b1", null ],
+    [ "loopcxt_sysfs_available", "loopdev_8c.html#aa557ea6635fea485ff74087085a4a10c", null ],
+    [ "is_loopdev", "loopdev_8c.html#ad28b6e17a4a1e0627f0fa2e83824d0d7", null ],
+    [ "loopcxt_deinit", "loopdev_8c.html#a48c019b1508ccaeb4a976d144b438362", null ],
+    [ "loopcxt_deinit_iterator", "loopdev_8c.html#ac3d7f40a60e8af9c6ae5c2b7760fe17e", null ],
+    [ "loopcxt_delete_device", "loopdev_8c.html#aae76f677a67cd9f9b40210145e796d8c", null ],
+    [ "loopcxt_enable_debug", "loopdev_8c.html#a76cc6935a697d2416ab45458d965e34b", null ],
+    [ "loopcxt_find_unused", "loopdev_8c.html#a7249ece150db22271aaa1a024fad36f9", null ],
+    [ "loopcxt_get_device", "loopdev_8c.html#a44fbf2f190aa0ff811c9c5f96d5e287b", null ],
+    [ "loopcxt_get_fd", "loopdev_8c.html#a806089ab9d3d48caf2964a698f5d79de", null ],
+    [ "loopcxt_get_info", "loopdev_8c.html#ae50e3c89dccf373613b154d8fafd474e", null ],
+    [ "loopcxt_get_offset", "loopdev_8c.html#a9a16ba5cca97504eabe020b8e6b33cda", null ],
+    [ "loopcxt_get_sysfs", "loopdev_8c.html#ad013327f8c242882d195d5ab059d06c6", null ],
+    [ "loopcxt_init", "loopdev_8c.html#a979736d102a708268bdb0d1f546f357c", null ],
+    [ "loopcxt_init_iterator", "loopdev_8c.html#a8c623301f95fdc37547e7e58fcaf7c93", null ],
+    [ "loopcxt_next", "loopdev_8c.html#aff1353f180defe2c22327a6a590da4c6", null ],
+    [ "loopcxt_set_backing_file", "loopdev_8c.html#a3aa4554e7bbaa5aefa2dbdc33f9ac034", null ],
+    [ "loopcxt_set_capacity", "loopdev_8c.html#aaaf13c4e472f14658ee3d70d10fc7cb9", null ],
+    [ "loopcxt_set_device", "loopdev_8c.html#a89a1fb00e57aa288d85f18d60dac758c", null ],
+    [ "loopcxt_set_flags", "loopdev_8c.html#a81cbcb7d3bea6112d9c165fb6a17b788", null ],
+    [ "loopcxt_setup_device", "loopdev_8c.html#a3f85639f584a67fb7dde10a08c3d091a", null ]
+];

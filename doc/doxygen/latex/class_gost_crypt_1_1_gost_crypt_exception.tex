@@ -1,0 +1,435 @@
+\hypertarget{class_gost_crypt_1_1_gost_crypt_exception}{}\section{Gost\+Crypt\+:\+:Gost\+Crypt\+Exception Class Reference}
+\label{class_gost_crypt_1_1_gost_crypt_exception}\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+
+
+Parent class of all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} Exceptions.  
+
+
+
+
+{\ttfamily \#include $<$Gost\+Crypt\+Exception.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Gost\+Crypt\+Exception\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=11.000000cm]{class_gost_crypt_1_1_gost_crypt_exception}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_gost_crypt_exception_aaa8c5c0708b30d7ba1a7ab91a1276440}{Gost\+Crypt\+Exception} ()
+\begin{DoxyCompactList}\small\item\em Default constructor used when deserializing. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a8b135fb59e58e9f9aa75dc7fecc5cc82}{Gost\+Crypt\+Exception} (Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a29b8c93d5efbb1ff369107385725a939}{fonction}, Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a749a12375f4ba9d502623b99d8252f38}{filename}, quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_abf506d911f12a4e969eea500f90bd32c}{line})
+\begin{DoxyCompactList}\small\item\em Constructor used when throwing the exception. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a43867c96f43a1b243c772b448d1f8987}{Gost\+Crypt\+Exception} (const \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} \&copy, quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a7b4217ceb60c944a1ea2d38cd1ecacd0}{request\+Id})
+\begin{DoxyCompactList}\small\item\em Constructor used to copy an exception and add the ID of the request being processed when the exception was thrown. \end{DoxyCompactList}\item 
+quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a95bde6d8320f0337b1696309502ec40d}{get\+Line} () const
+\begin{DoxyCompactList}\small\item\em Return the line number where the exception was thrown. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a3f390fae2e7330b75dd1297f749a2439}{get\+Filename} () const
+\begin{DoxyCompactList}\small\item\em Return the name of the file where the exception is thrown. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_adbb5f1323bb55fc9475a5b7da7ccf2d7}{get\+Fonction} () const
+\begin{DoxyCompactList}\small\item\em Return the name of the function in which the exception was thrown. \end{DoxyCompactList}\item 
+quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a11db61bc33270cb1f19b0d686fadb055}{get\+Request\+Id} () const
+\begin{DoxyCompactList}\small\item\em Return the ID of the request being processed when the exception was thrown. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} $\ast$ \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_aba2219d4a03ed5447540ba75e6deda88}{clone} () const
+\begin{DoxyCompactList}\small\item\em Return a pointer to a deep copy of this exception. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} $\ast$ \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_aa1b8a52f47d58a06d931f2a30618a380}{clone} (quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a7b4217ceb60c944a1ea2d38cd1ecacd0}{request\+Id}) const
+\begin{DoxyCompactList}\small\item\em Return a pointer to a deep copy of this exception with a different request\+Id. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_aa7004879bd9bf6f241d5c9484195b9c9}{what} () const  throw ()
+\begin{DoxyCompactList}\small\item\em Return the description of the exception as a const char pointer. \end{DoxyCompactList}\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a99e923110f90c9b7af990d3bfe97f164}{qwhat} () const
+\begin{DoxyCompactList}\small\item\em Return the description of the exception as Q\+String. \end{DoxyCompactList}\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a7f4c5d03898b8bb8337474c9f537ddee}{get\+Name} () const
+\begin{DoxyCompactList}\small\item\em f\+Return the name of an exception. The name of the exception begin with the names of the parent exceptions separated by a slash \end{DoxyCompactList}\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a5b4b89768abab6d495bb8e8ebb08fd29}{get\+Message} () const
+\begin{DoxyCompactList}\small\item\em Return the message corresponding to this exception. \end{DoxyCompactList}\item 
+virtual Q\+Variant \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a657b09e56315556e82ad56b4a38673d2}{to\+Q\+Variant} () const
+\begin{DoxyCompactList}\small\item\em Return a Q\+Variant storing this exception. Used to serialize exceptions across processes. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_ae3aef8384d1d66dacb66ac5684bb4694}{raise} () const
+\begin{DoxyCompactList}\small\item\em Throw this exception. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a69ae9972b73e6f7e9bc72b2ec4d4901b}{displayed\+Message} () const
+\begin{DoxyCompactList}\small\item\em Return to the message that should be displayed when explaining the exception depending on whether or not \hyperlink{namespace_gost_crypt}{Gost\+Crypt} has been compiled in debug or release mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a31b4dfdc5d4ad624887bd8fa3aa442b0}{get\+Position} () const
+\begin{DoxyCompactList}\small\item\em Return the position at which the exception was thrown as a Q\+String with the format \mbox{[}file\+\_\+name\mbox{]}\+:\mbox{[}line\+\_\+number\mbox{]}. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a65d2a9d456facdbd25d990d2e0b46633}{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE} (\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception})
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a29b8c93d5efbb1ff369107385725a939}{fonction}
+\item 
+Q\+String \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a749a12375f4ba9d502623b99d8252f38}{filename}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_abf506d911f12a4e969eea500f90bd32c}{line}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_gost_crypt_exception_a7b4217ceb60c944a1ea2d38cd1ecacd0}{request\+Id}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Parent class of all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} Exceptions. 
+
+Definition at line 47 of file Gost\+Crypt\+Exception.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_aaa8c5c0708b30d7ba1a7ab91a1276440}\label{class_gost_crypt_1_1_gost_crypt_exception_aaa8c5c0708b30d7ba1a7ab91a1276440}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}}
+\index{Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{Gost\+Crypt\+Exception()}{GostCryptException()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::\+Gost\+Crypt\+Exception (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor used when deserializing. 
+
+
+
+Definition at line 54 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a8b135fb59e58e9f9aa75dc7fecc5cc82}\label{class_gost_crypt_1_1_gost_crypt_exception_a8b135fb59e58e9f9aa75dc7fecc5cc82}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}}
+\index{Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{Gost\+Crypt\+Exception()}{GostCryptException()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::\+Gost\+Crypt\+Exception (\begin{DoxyParamCaption}\item[{Q\+String}]{fonction,  }\item[{Q\+String}]{filename,  }\item[{quint32}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor used when throwing the exception. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fonction} & Name of the function in which the exception is thrown \\
+\hline
+{\em filename} & Name of the file where the exception is thrown \\
+\hline
+{\em line} & Line where the exception is thrown \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 62 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a43867c96f43a1b243c772b448d1f8987}\label{class_gost_crypt_1_1_gost_crypt_exception_a43867c96f43a1b243c772b448d1f8987}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}}
+\index{Gost\+Crypt\+Exception@{Gost\+Crypt\+Exception}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{Gost\+Crypt\+Exception()}{GostCryptException()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::\+Gost\+Crypt\+Exception (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} \&}]{copy,  }\item[{quint32}]{request\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor used to copy an exception and add the ID of the request being processed when the exception was thrown. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em copy} & \hyperlink{namespace_gost_crypt}{Gost\+Crypt} Exception to copy \\
+\hline
+{\em request\+Id} & ID of the request being processed when the exception was thrown \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 70 of file Gost\+Crypt\+Exception.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_aba2219d4a03ed5447540ba75e6deda88}\label{class_gost_crypt_1_1_gost_crypt_exception_aba2219d4a03ed5447540ba75e6deda88}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!clone@{clone}}
+\index{clone@{clone}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{clone()}{clone()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception}$\ast$ Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return a pointer to a deep copy of this exception. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to a deep copy of this exception 
+\end{DoxyReturn}
+
+
+Definition at line 101 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_aa1b8a52f47d58a06d931f2a30618a380}\label{class_gost_crypt_1_1_gost_crypt_exception_aa1b8a52f47d58a06d931f2a30618a380}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!clone@{clone}}
+\index{clone@{clone}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{clone()}{clone()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception}$\ast$ Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::clone (\begin{DoxyParamCaption}\item[{quint32}]{request\+Id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return a pointer to a deep copy of this exception with a different request\+Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request\+Id} & New request ID for the exception copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to a deep copy of this exception with a different request\+Id 
+\end{DoxyReturn}
+
+
+Definition at line 108 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a65d2a9d456facdbd25d990d2e0b46633}\label{class_gost_crypt_1_1_gost_crypt_exception_a65d2a9d456facdbd25d990d2e0b46633}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}}
+\index{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+L\+E()}{DEC\_SERIALIZABLE()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::\+D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a69ae9972b73e6f7e9bc72b2ec4d4901b}\label{class_gost_crypt_1_1_gost_crypt_exception_a69ae9972b73e6f7e9bc72b2ec4d4901b}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!displayed\+Message@{displayed\+Message}}
+\index{displayed\+Message@{displayed\+Message}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{displayed\+Message()}{displayedMessage()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::displayed\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return to the message that should be displayed when explaining the exception depending on whether or not \hyperlink{namespace_gost_crypt}{Gost\+Crypt} has been compiled in debug or release mode. 
+
+\begin{DoxyReturn}{Returns}
+Q\+String return the exception name 
+\end{DoxyReturn}
+
+
+Definition at line 169 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a3f390fae2e7330b75dd1297f749a2439}\label{class_gost_crypt_1_1_gost_crypt_exception_a3f390fae2e7330b75dd1297f749a2439}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Filename@{get\+Filename}}
+\index{get\+Filename@{get\+Filename}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Filename()}{getFilename()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Filename (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the name of the file where the exception is thrown. 
+
+\begin{DoxyReturn}{Returns}
+Q\+String Name of the file where the exception is thrown 
+\end{DoxyReturn}
+
+
+Definition at line 82 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_adbb5f1323bb55fc9475a5b7da7ccf2d7}\label{class_gost_crypt_1_1_gost_crypt_exception_adbb5f1323bb55fc9475a5b7da7ccf2d7}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Fonction@{get\+Fonction}}
+\index{get\+Fonction@{get\+Fonction}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Fonction()}{getFonction()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Fonction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the name of the function in which the exception was thrown. 
+
+\begin{DoxyReturn}{Returns}
+Q\+String Name of the function in which the exception was thrown 
+\end{DoxyReturn}
+
+
+Definition at line 88 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a95bde6d8320f0337b1696309502ec40d}\label{class_gost_crypt_1_1_gost_crypt_exception_a95bde6d8320f0337b1696309502ec40d}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Line@{get\+Line}}
+\index{get\+Line@{get\+Line}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Line()}{getLine()}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the line number where the exception was thrown. 
+
+\begin{DoxyReturn}{Returns}
+quint32 line number where the exception was thrown 
+\end{DoxyReturn}
+
+
+Definition at line 76 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a5b4b89768abab6d495bb8e8ebb08fd29}\label{class_gost_crypt_1_1_gost_crypt_exception_a5b4b89768abab6d495bb8e8ebb08fd29}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Message@{get\+Message}}
+\index{get\+Message@{get\+Message}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Message()}{getMessage()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return the message corresponding to this exception. 
+
+\begin{DoxyReturn}{Returns}
+Message corresponding to this exception 
+\end{DoxyReturn}
+
+
+Definition at line 143 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a7f4c5d03898b8bb8337474c9f537ddee}\label{class_gost_crypt_1_1_gost_crypt_exception_a7f4c5d03898b8bb8337474c9f537ddee}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Name()}{getName()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+f\+Return the name of an exception. The name of the exception begin with the names of the parent exceptions separated by a slash 
+
+\begin{DoxyReturn}{Returns}
+Name of the exception 
+\end{DoxyReturn}
+
+
+Definition at line 134 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a31b4dfdc5d4ad624887bd8fa3aa442b0}\label{class_gost_crypt_1_1_gost_crypt_exception_a31b4dfdc5d4ad624887bd8fa3aa442b0}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Position@{get\+Position}}
+\index{get\+Position@{get\+Position}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Position()}{getPosition()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Return the position at which the exception was thrown as a Q\+String with the format \mbox{[}file\+\_\+name\mbox{]}\+:\mbox{[}line\+\_\+number\mbox{]}. 
+
+\begin{DoxyReturn}{Returns}
+Position at which the exception was thrown 
+\end{DoxyReturn}
+
+
+Definition at line 184 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a11db61bc33270cb1f19b0d686fadb055}\label{class_gost_crypt_1_1_gost_crypt_exception_a11db61bc33270cb1f19b0d686fadb055}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!get\+Request\+Id@{get\+Request\+Id}}
+\index{get\+Request\+Id@{get\+Request\+Id}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{get\+Request\+Id()}{getRequestId()}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::get\+Request\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the ID of the request being processed when the exception was thrown. 
+
+\begin{DoxyReturn}{Returns}
+quint32 ID of the request being processed when the exception was thrown 
+\end{DoxyReturn}
+
+
+Definition at line 94 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a99e923110f90c9b7af990d3bfe97f164}\label{class_gost_crypt_1_1_gost_crypt_exception_a99e923110f90c9b7af990d3bfe97f164}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!qwhat@{qwhat}}
+\index{qwhat@{qwhat}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{qwhat()}{qwhat()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::qwhat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return the description of the exception as Q\+String. 
+
+\begin{DoxyReturn}{Returns}
+Description of the exception as Q\+String 
+\end{DoxyReturn}
+
+
+Definition at line 124 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_ae3aef8384d1d66dacb66ac5684bb4694}\label{class_gost_crypt_1_1_gost_crypt_exception_ae3aef8384d1d66dacb66ac5684bb4694}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!raise@{raise}}
+\index{raise@{raise}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{raise()}{raise()}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::raise (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Throw this exception. 
+
+
+
+Definition at line 160 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a657b09e56315556e82ad56b4a38673d2}\label{class_gost_crypt_1_1_gost_crypt_exception_a657b09e56315556e82ad56b4a38673d2}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!to\+Q\+Variant@{to\+Q\+Variant}}
+\index{to\+Q\+Variant@{to\+Q\+Variant}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{to\+Q\+Variant()}{toQVariant()}}
+{\footnotesize\ttfamily virtual Q\+Variant Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::to\+Q\+Variant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return a Q\+Variant storing this exception. Used to serialize exceptions across processes. 
+
+\begin{DoxyReturn}{Returns}
+Q\+Variant storing this exception 
+\end{DoxyReturn}
+
+
+Definition at line 152 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_aa7004879bd9bf6f241d5c9484195b9c9}\label{class_gost_crypt_1_1_gost_crypt_exception_aa7004879bd9bf6f241d5c9484195b9c9}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!what@{what}}
+\index{what@{what}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{what()}{what()}}
+{\footnotesize\ttfamily const char$\ast$ Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::what (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const throw  ) \hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the description of the exception as a const char pointer. 
+
+\begin{DoxyReturn}{Returns}
+Description of the exception as a const char pointer 
+\end{DoxyReturn}
+
+
+Definition at line 115 of file Gost\+Crypt\+Exception.\+h.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a749a12375f4ba9d502623b99d8252f38}\label{class_gost_crypt_1_1_gost_crypt_exception_a749a12375f4ba9d502623b99d8252f38}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!filename@{filename}}
+\index{filename@{filename}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{filename}{filename}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::filename\hspace{0.3cm}{\ttfamily [protected]}}
+
+Name of the file where the exception is thrown 
+
+Definition at line 189 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a29b8c93d5efbb1ff369107385725a939}\label{class_gost_crypt_1_1_gost_crypt_exception_a29b8c93d5efbb1ff369107385725a939}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!fonction@{fonction}}
+\index{fonction@{fonction}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{fonction}{fonction}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::fonction\hspace{0.3cm}{\ttfamily [protected]}}
+
+Name of the function in which the exception is thrown 
+
+Definition at line 188 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_abf506d911f12a4e969eea500f90bd32c}\label{class_gost_crypt_1_1_gost_crypt_exception_abf506d911f12a4e969eea500f90bd32c}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!line@{line}}
+\index{line@{line}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{line}{line}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::line\hspace{0.3cm}{\ttfamily [protected]}}
+
+Line where the exception is thrown 
+
+Definition at line 190 of file Gost\+Crypt\+Exception.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_gost_crypt_exception_a7b4217ceb60c944a1ea2d38cd1ecacd0}\label{class_gost_crypt_1_1_gost_crypt_exception_a7b4217ceb60c944a1ea2d38cd1ecacd0}} 
+\index{Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}!request\+Id@{request\+Id}}
+\index{request\+Id@{request\+Id}!Gost\+Crypt\+::\+Gost\+Crypt\+Exception@{Gost\+Crypt\+::\+Gost\+Crypt\+Exception}}
+\subsubsection{\texorpdfstring{request\+Id}{requestId}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Gost\+Crypt\+Exception\+::request\+Id\hspace{0.3cm}{\ttfamily [protected]}}
+
+ID of the request being processed when the exception was thrown. Is set to 0 if the request ID is unknown or not relevant. 
+
+Definition at line 191 of file Gost\+Crypt\+Exception.\+h.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_gost_crypt_exception_8h}{Gost\+Crypt\+Exception.\+h}\end{DoxyCompactItemize}

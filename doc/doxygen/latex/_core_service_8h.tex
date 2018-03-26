@@ -1,0 +1,58 @@
+\hypertarget{_core_service_8h}{}\section{Core/\+Core\+Service.h File Reference}
+\label{_core_service_8h}\index{Core/\+Core\+Service.\+h@{Core/\+Core\+Service.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Core\+Application$>$}\newline
+{\ttfamily \#include $<$Q\+Data\+Stream$>$}\newline
+{\ttfamily \#include $<$Q\+File$>$}\newline
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Root.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Gost\+Crypt\+::\+Core\+::\+Core\+Service}
+\begin{DoxyCompactList}\small\item\em Class corresponding to \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process, executing request which require root privileges. It is in charge of parsing request coming from its standard input, execute the action and forward back its results to the standard output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_core_service_8h_a9be1702922d1bc850c1868cb4ed7a8e8}{D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}(request)
+\item 
+\#define \hyperlink{_core_service_8h_a1c8ff5c76097456ac411e94c0d8ccc17}{C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}(request)~connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request (Q\+Shared\+Pointer$<$ request \#\# Response$>$)), this, S\+L\+OT(send \#\# request (Q\+Shared\+Pointer$<$ request \#\# Response$>$)))
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_core_service_8h_a1c8ff5c76097456ac411e94c0d8ccc17}\label{_core_service_8h_a1c8ff5c76097456ac411e94c0d8ccc17}} 
+\index{Core\+Service.\+h@{Core\+Service.\+h}!C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT@{C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}}
+\index{C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT@{C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}!Core\+Service.\+h@{Core\+Service.\+h}}
+\subsubsection{\texorpdfstring{C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}{CONNECT\_RESPONSE\_SLOT}}
+{\footnotesize\ttfamily \#define C\+O\+N\+N\+E\+C\+T\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT(\begin{DoxyParamCaption}\item[{}]{request }\end{DoxyParamCaption})~connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request (Q\+Shared\+Pointer$<$ request \#\# Response$>$)), this, S\+L\+OT(send \#\# request (Q\+Shared\+Pointer$<$ request \#\# Response$>$)))}
+
+
+
+Definition at line 17 of file Core\+Service.\+h.
+
+\mbox{\Hypertarget{_core_service_8h_a9be1702922d1bc850c1868cb4ed7a8e8}\label{_core_service_8h_a9be1702922d1bc850c1868cb4ed7a8e8}} 
+\index{Core\+Service.\+h@{Core\+Service.\+h}!D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT@{D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}}
+\index{D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT@{D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}!Core\+Service.\+h@{Core\+Service.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT}{DEF\_RESPONSE\_SLOT}}
+{\footnotesize\ttfamily \#define D\+E\+F\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+S\+L\+OT(\begin{DoxyParamCaption}\item[{}]{request }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} send ## request (QSharedPointer< request ## Response> response) \{ \(\backslash\)
+        sendResponse(QVariant::fromValue(response)); \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 13 of file Core\+Service.\+h.
+

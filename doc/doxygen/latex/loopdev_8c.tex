@@ -1,0 +1,327 @@
+\hypertarget{loopdev_8c}{}\section{Core/loopdevlib/loopdev.c File Reference}
+\label{loopdev_8c}\index{Core/loopdevlib/loopdev.\+c@{Core/loopdevlib/loopdev.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$sys/sysmacros.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$linux/posix\+\_\+types.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}linux\+\_\+version.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}c.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sysfs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}pathnames.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}loopdev.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}canonicalize.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}at.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}blkdev.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{loopdev_8c_aa3e83289bf6c39396fdd1a7beaadabb9}{C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG}
+\item 
+\#define \hyperlink{loopdev_8c_a71bd0787a08f1d504f19daa4d8258e3f}{D\+BG}(l,  x)
+\item 
+\#define \hyperlink{loopdev_8c_a43c1e34b1c19afb59ba9955d415240b1}{loopcxt\+\_\+ioctl\+\_\+enabled}(\+\_\+lc)~(!((\+\_\+lc)-\/$>$flags \& \hyperlink{loopdev_8h_a99fb83031ce9923c84392b4e92f956b5a82d305eb53e7a3c4fec847512f8a85cc}{L\+O\+O\+P\+D\+E\+V\+\_\+\+F\+L\+\_\+\+N\+O\+I\+O\+C\+TL}))
+\item 
+\#define \hyperlink{loopdev_8c_aa557ea6635fea485ff74087085a4a10c}{loopcxt\+\_\+sysfs\+\_\+available}(\+\_\+lc)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{loopdev_8c_a89a1fb00e57aa288d85f18d60dac758c}{loopcxt\+\_\+set\+\_\+device} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, const char $\ast$device)
+\item 
+int \hyperlink{loopdev_8c_a979736d102a708268bdb0d1f546f357c}{loopcxt\+\_\+init} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, int flags)
+\item 
+void \hyperlink{loopdev_8c_a48c019b1508ccaeb4a976d144b438362}{loopcxt\+\_\+deinit} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+void \hyperlink{loopdev_8c_a76cc6935a697d2416ab45458d965e34b}{loopcxt\+\_\+enable\+\_\+debug} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, int enable)
+\item 
+const char $\ast$ \hyperlink{loopdev_8c_a44fbf2f190aa0ff811c9c5f96d5e287b}{loopcxt\+\_\+get\+\_\+device} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$ \hyperlink{loopdev_8c_ad013327f8c242882d195d5ab059d06c6}{loopcxt\+\_\+get\+\_\+sysfs} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_a806089ab9d3d48caf2964a698f5d79de}{loopcxt\+\_\+get\+\_\+fd} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_a8c623301f95fdc37547e7e58fcaf7c93}{loopcxt\+\_\+init\+\_\+iterator} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, int flags)
+\item 
+int \hyperlink{loopdev_8c_ac3d7f40a60e8af9c6ae5c2b7760fe17e}{loopcxt\+\_\+deinit\+\_\+iterator} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_aff1353f180defe2c22327a6a590da4c6}{loopcxt\+\_\+next} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_ad28b6e17a4a1e0627f0fa2e83824d0d7}{is\+\_\+loopdev} (const char $\ast$device)
+\item 
+struct \hyperlink{structloop__info64}{loop\+\_\+info64} $\ast$ \hyperlink{loopdev_8c_ae50e3c89dccf373613b154d8fafd474e}{loopcxt\+\_\+get\+\_\+info} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_a9a16ba5cca97504eabe020b8e6b33cda}{loopcxt\+\_\+get\+\_\+offset} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, uint64\+\_\+t $\ast$offset)
+\item 
+int \hyperlink{loopdev_8c_a81cbcb7d3bea6112d9c165fb6a17b788}{loopcxt\+\_\+set\+\_\+flags} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, uint32\+\_\+t flags)
+\item 
+int \hyperlink{loopdev_8c_a3aa4554e7bbaa5aefa2dbdc33f9ac034}{loopcxt\+\_\+set\+\_\+backing\+\_\+file} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc, const char $\ast$filename)
+\item 
+int \hyperlink{loopdev_8c_a3f85639f584a67fb7dde10a08c3d091a}{loopcxt\+\_\+setup\+\_\+device} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_aaaf13c4e472f14658ee3d70d10fc7cb9}{loopcxt\+\_\+set\+\_\+capacity} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_aae76f677a67cd9f9b40210145e796d8c}{loopcxt\+\_\+delete\+\_\+device} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\item 
+int \hyperlink{loopdev_8c_a7249ece150db22271aaa1a024fad36f9}{loopcxt\+\_\+find\+\_\+unused} (struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$lc)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{loopdev_8c_aa3e83289bf6c39396fdd1a7beaadabb9}\label{loopdev_8c_aa3e83289bf6c39396fdd1a7beaadabb9}} 
+\index{loopdev.\+c@{loopdev.\+c}!C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG@{C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG}}
+\index{C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG@{C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG}{CONFIG\_LOOPDEV\_DEBUG}}
+{\footnotesize\ttfamily \#define C\+O\+N\+F\+I\+G\+\_\+\+L\+O\+O\+P\+D\+E\+V\+\_\+\+D\+E\+B\+UG}
+
+
+
+Definition at line 46 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a71bd0787a08f1d504f19daa4d8258e3f}\label{loopdev_8c_a71bd0787a08f1d504f19daa4d8258e3f}} 
+\index{loopdev.\+c@{loopdev.\+c}!D\+BG@{D\+BG}}
+\index{D\+BG@{D\+BG}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{D\+BG}{DBG}}
+{\footnotesize\ttfamily \#define D\+BG(\begin{DoxyParamCaption}\item[{}]{l,  }\item[{}]{x }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+                if ((l)->debug) \{\(\backslash\)
+                    fprintf(stderr, \textcolor{stringliteral}{"loopdev:  [%p]: "}, (l)); \(\backslash\)
+                    x; \(\backslash\)
+                \} \(\backslash\)
+            \} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 51 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a43c1e34b1c19afb59ba9955d415240b1}\label{loopdev_8c_a43c1e34b1c19afb59ba9955d415240b1}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+ioctl\+\_\+enabled@{loopcxt\+\_\+ioctl\+\_\+enabled}}
+\index{loopcxt\+\_\+ioctl\+\_\+enabled@{loopcxt\+\_\+ioctl\+\_\+enabled}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+ioctl\+\_\+enabled}{loopcxt\_ioctl\_enabled}}
+{\footnotesize\ttfamily \#define loopcxt\+\_\+ioctl\+\_\+enabled(\begin{DoxyParamCaption}\item[{}]{\+\_\+lc }\end{DoxyParamCaption})~(!((\+\_\+lc)-\/$>$flags \& \hyperlink{loopdev_8h_a99fb83031ce9923c84392b4e92f956b5a82d305eb53e7a3c4fec847512f8a85cc}{L\+O\+O\+P\+D\+E\+V\+\_\+\+F\+L\+\_\+\+N\+O\+I\+O\+C\+TL}))}
+
+
+
+Definition at line 75 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_aa557ea6635fea485ff74087085a4a10c}\label{loopdev_8c_aa557ea6635fea485ff74087085a4a10c}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+sysfs\+\_\+available@{loopcxt\+\_\+sysfs\+\_\+available}}
+\index{loopcxt\+\_\+sysfs\+\_\+available@{loopcxt\+\_\+sysfs\+\_\+available}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+sysfs\+\_\+available}{loopcxt\_sysfs\_available}}
+{\footnotesize\ttfamily \#define loopcxt\+\_\+sysfs\+\_\+available(\begin{DoxyParamCaption}\item[{}]{\+\_\+lc }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(!((\_lc)->flags & \hyperlink{loopdev_8h_a99fb83031ce9923c84392b4e92f956b5a0336920b5d0dfec7231300b03a5c0f83}{LOOPDEV\_FL\_NOSYSFS})) \(\backslash\)
+                     && !\hyperlink{loopdev_8c_a43c1e34b1c19afb59ba9955d415240b1}{loopcxt\_ioctl\_enabled}(\_lc)
+\end{DoxyCode}
+
+
+Definition at line 76 of file loopdev.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{loopdev_8c_ad28b6e17a4a1e0627f0fa2e83824d0d7}\label{loopdev_8c_ad28b6e17a4a1e0627f0fa2e83824d0d7}} 
+\index{loopdev.\+c@{loopdev.\+c}!is\+\_\+loopdev@{is\+\_\+loopdev}}
+\index{is\+\_\+loopdev@{is\+\_\+loopdev}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{is\+\_\+loopdev()}{is\_loopdev()}}
+{\footnotesize\ttfamily int is\+\_\+loopdev (\begin{DoxyParamCaption}\item[{const char $\ast$}]{device }\end{DoxyParamCaption})}
+
+
+
+Definition at line 721 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a48c019b1508ccaeb4a976d144b438362}\label{loopdev_8c_a48c019b1508ccaeb4a976d144b438362}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+deinit@{loopcxt\+\_\+deinit}}
+\index{loopcxt\+\_\+deinit@{loopcxt\+\_\+deinit}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+deinit()}{loopcxt\_deinit()}}
+{\footnotesize\ttfamily void loopcxt\+\_\+deinit (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_ac3d7f40a60e8af9c6ae5c2b7760fe17e}\label{loopdev_8c_ac3d7f40a60e8af9c6ae5c2b7760fe17e}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+deinit\+\_\+iterator@{loopcxt\+\_\+deinit\+\_\+iterator}}
+\index{loopcxt\+\_\+deinit\+\_\+iterator@{loopcxt\+\_\+deinit\+\_\+iterator}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+deinit\+\_\+iterator()}{loopcxt\_deinit\_iterator()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+deinit\+\_\+iterator (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 364 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_aae76f677a67cd9f9b40210145e796d8c}\label{loopdev_8c_aae76f677a67cd9f9b40210145e796d8c}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+delete\+\_\+device@{loopcxt\+\_\+delete\+\_\+device}}
+\index{loopcxt\+\_\+delete\+\_\+device@{loopcxt\+\_\+delete\+\_\+device}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+delete\+\_\+device()}{loopcxt\_delete\_device()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+delete\+\_\+device (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1136 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a76cc6935a697d2416ab45458d965e34b}\label{loopdev_8c_a76cc6935a697d2416ab45458d965e34b}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+enable\+\_\+debug@{loopcxt\+\_\+enable\+\_\+debug}}
+\index{loopcxt\+\_\+enable\+\_\+debug@{loopcxt\+\_\+enable\+\_\+debug}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+enable\+\_\+debug()}{loopcxt\_enable\_debug()}}
+{\footnotesize\ttfamily void loopcxt\+\_\+enable\+\_\+debug (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{int}]{enable }\end{DoxyParamCaption})}
+
+
+
+Definition at line 242 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a7249ece150db22271aaa1a024fad36f9}\label{loopdev_8c_a7249ece150db22271aaa1a024fad36f9}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+find\+\_\+unused@{loopcxt\+\_\+find\+\_\+unused}}
+\index{loopcxt\+\_\+find\+\_\+unused@{loopcxt\+\_\+find\+\_\+unused}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+find\+\_\+unused()}{loopcxt\_find\_unused()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+find\+\_\+unused (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1160 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a44fbf2f190aa0ff811c9c5f96d5e287b}\label{loopdev_8c_a44fbf2f190aa0ff811c9c5f96d5e287b}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+get\+\_\+device@{loopcxt\+\_\+get\+\_\+device}}
+\index{loopcxt\+\_\+get\+\_\+device@{loopcxt\+\_\+get\+\_\+device}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+get\+\_\+device()}{loopcxt\_get\_device()}}
+{\footnotesize\ttfamily const char$\ast$ loopcxt\+\_\+get\+\_\+device (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 254 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a806089ab9d3d48caf2964a698f5d79de}\label{loopdev_8c_a806089ab9d3d48caf2964a698f5d79de}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+get\+\_\+fd@{loopcxt\+\_\+get\+\_\+fd}}
+\index{loopcxt\+\_\+get\+\_\+fd@{loopcxt\+\_\+get\+\_\+fd}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+get\+\_\+fd()}{loopcxt\_get\_fd()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+get\+\_\+fd (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 296 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_ae50e3c89dccf373613b154d8fafd474e}\label{loopdev_8c_ae50e3c89dccf373613b154d8fafd474e}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+get\+\_\+info@{loopcxt\+\_\+get\+\_\+info}}
+\index{loopcxt\+\_\+get\+\_\+info@{loopcxt\+\_\+get\+\_\+info}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+get\+\_\+info()}{loopcxt\_get\_info()}}
+{\footnotesize\ttfamily struct \hyperlink{structloop__info64}{loop\+\_\+info64}$\ast$ loopcxt\+\_\+get\+\_\+info (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 740 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a9a16ba5cca97504eabe020b8e6b33cda}\label{loopdev_8c_a9a16ba5cca97504eabe020b8e6b33cda}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+get\+\_\+offset@{loopcxt\+\_\+get\+\_\+offset}}
+\index{loopcxt\+\_\+get\+\_\+offset@{loopcxt\+\_\+get\+\_\+offset}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+get\+\_\+offset()}{loopcxt\_get\_offset()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+get\+\_\+offset (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{uint64\+\_\+t $\ast$}]{offset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 781 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_ad013327f8c242882d195d5ab059d06c6}\label{loopdev_8c_ad013327f8c242882d195d5ab059d06c6}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+get\+\_\+sysfs@{loopcxt\+\_\+get\+\_\+sysfs}}
+\index{loopcxt\+\_\+get\+\_\+sysfs@{loopcxt\+\_\+get\+\_\+sysfs}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+get\+\_\+sysfs()}{loopcxt\_get\_sysfs()}}
+{\footnotesize\ttfamily struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt}$\ast$ loopcxt\+\_\+get\+\_\+sysfs (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 264 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a979736d102a708268bdb0d1f546f357c}\label{loopdev_8c_a979736d102a708268bdb0d1f546f357c}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+init@{loopcxt\+\_\+init}}
+\index{loopcxt\+\_\+init@{loopcxt\+\_\+init}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+init()}{loopcxt\_init()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+init (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a8c623301f95fdc37547e7e58fcaf7c93}\label{loopdev_8c_a8c623301f95fdc37547e7e58fcaf7c93}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+init\+\_\+iterator@{loopcxt\+\_\+init\+\_\+iterator}}
+\index{loopcxt\+\_\+init\+\_\+iterator@{loopcxt\+\_\+init\+\_\+iterator}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+init\+\_\+iterator()}{loopcxt\_init\_iterator()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+init\+\_\+iterator (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 322 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_aff1353f180defe2c22327a6a590da4c6}\label{loopdev_8c_aff1353f180defe2c22327a6a590da4c6}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+next@{loopcxt\+\_\+next}}
+\index{loopcxt\+\_\+next@{loopcxt\+\_\+next}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+next()}{loopcxt\_next()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+next (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 635 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a3aa4554e7bbaa5aefa2dbdc33f9ac034}\label{loopdev_8c_a3aa4554e7bbaa5aefa2dbdc33f9ac034}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+set\+\_\+backing\+\_\+file@{loopcxt\+\_\+set\+\_\+backing\+\_\+file}}
+\index{loopcxt\+\_\+set\+\_\+backing\+\_\+file@{loopcxt\+\_\+set\+\_\+backing\+\_\+file}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+set\+\_\+backing\+\_\+file()}{loopcxt\_set\_backing\_file()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+set\+\_\+backing\+\_\+file (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 836 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_aaaf13c4e472f14658ee3d70d10fc7cb9}\label{loopdev_8c_aaaf13c4e472f14658ee3d70d10fc7cb9}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+set\+\_\+capacity@{loopcxt\+\_\+set\+\_\+capacity}}
+\index{loopcxt\+\_\+set\+\_\+capacity@{loopcxt\+\_\+set\+\_\+capacity}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+set\+\_\+capacity()}{loopcxt\_set\_capacity()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+set\+\_\+capacity (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1115 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a89a1fb00e57aa288d85f18d60dac758c}\label{loopdev_8c_a89a1fb00e57aa288d85f18d60dac758c}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+set\+\_\+device@{loopcxt\+\_\+set\+\_\+device}}
+\index{loopcxt\+\_\+set\+\_\+device@{loopcxt\+\_\+set\+\_\+device}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+set\+\_\+device()}{loopcxt\_set\_device()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+set\+\_\+device (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{const char $\ast$}]{device }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a81cbcb7d3bea6112d9c165fb6a17b788}\label{loopdev_8c_a81cbcb7d3bea6112d9c165fb6a17b788}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+set\+\_\+flags@{loopcxt\+\_\+set\+\_\+flags}}
+\index{loopcxt\+\_\+set\+\_\+flags@{loopcxt\+\_\+set\+\_\+flags}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+set\+\_\+flags()}{loopcxt\_set\_flags()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+set\+\_\+flags (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc,  }\item[{uint32\+\_\+t}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 816 of file loopdev.\+c.
+
+\mbox{\Hypertarget{loopdev_8c_a3f85639f584a67fb7dde10a08c3d091a}\label{loopdev_8c_a3f85639f584a67fb7dde10a08c3d091a}} 
+\index{loopdev.\+c@{loopdev.\+c}!loopcxt\+\_\+setup\+\_\+device@{loopcxt\+\_\+setup\+\_\+device}}
+\index{loopcxt\+\_\+setup\+\_\+device@{loopcxt\+\_\+setup\+\_\+device}!loopdev.\+c@{loopdev.\+c}}
+\subsubsection{\texorpdfstring{loopcxt\+\_\+setup\+\_\+device()}{loopcxt\_setup\_device()}}
+{\footnotesize\ttfamily int loopcxt\+\_\+setup\+\_\+device (\begin{DoxyParamCaption}\item[{struct \hyperlink{structloopdev__cxt}{loopdev\+\_\+cxt} $\ast$}]{lc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 987 of file loopdev.\+c.
+

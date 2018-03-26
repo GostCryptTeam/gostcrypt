@@ -1,0 +1,203 @@
+\hypertarget{namespace_parser}{}\section{Parser Namespace Reference}
+\label{namespace_parser}\index{Parser@{Parser}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_parser_1_1_parse_exception}{Parse\+Exception}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{Parser\+::\+\_\+\+What\+To\+List} \hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{What\+To\+List}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{\+\_\+\+What\+To\+List} \{ \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035af556faea7b038e9e6b527d5b62881e47}{Volumes}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a63aaef8b1b40edc5ad483ae0460244e4}{Algorithms}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a273fa94994418bb70148e0f40b36bde1}{Hashs}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035ad4d47d038e677f5cf0551ded706497a6}{Devices}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_parser_ad8395bb69888f527eefafe64ee3db50e}{parse\+Mount} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request} $>$ options)
+\item 
+void \hyperlink{namespace_parser_aef069760011ee9f2066a254ab84f9b7c}{parse\+Create} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request} $>$ options)
+\item 
+void \hyperlink{namespace_parser_ae09396fa6fb2bb95523073e4bdfc4969}{parse\+Dismount} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_dismount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Dismount\+Volume\+Request} $>$ volume)
+\item 
+void \hyperlink{namespace_parser_aa78b1b9475d7b6183c16d4abd6a2ab0f}{parse\+List} (Q\+Command\+Line\+Parser \&parser, \hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{Parser\+::\+What\+To\+List} $\ast$item)
+\item 
+void \hyperlink{namespace_parser_a1d19ba15381c47283b17a5ceddf41da5}{parse\+Create\+Key\+Files} (Q\+Command\+Line\+Parser \&parser, Q\+String\+List \&files)
+\item 
+void \hyperlink{namespace_parser_a8aeeeb21b1d6f07cfe0c69c5b3a9e4a1}{parse\+Benchmark} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Gost\+Crypt\+::\+Core\+::\+Benchmark\+Algorithms\+Request} $>$ options)
+\item 
+bool \hyperlink{namespace_parser_adf13e015ae2b7536868c427360401238}{ask\+Password} (std\+::string volume, Q\+String \&p)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}\label{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}} 
+\index{Parser@{Parser}!What\+To\+List@{What\+To\+List}}
+\index{What\+To\+List@{What\+To\+List}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{What\+To\+List}{WhatToList}}
+{\footnotesize\ttfamily typedef enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{Parser\+::\+\_\+\+What\+To\+List}  \hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{Parser\+::\+What\+To\+List}}
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}\label{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}} 
+\index{Parser@{Parser}!\+\_\+\+What\+To\+List@{\+\_\+\+What\+To\+List}}
+\index{\+\_\+\+What\+To\+List@{\+\_\+\+What\+To\+List}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{\+\_\+\+What\+To\+List}{\_WhatToList}}
+{\footnotesize\ttfamily enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{Parser\+::\+\_\+\+What\+To\+List}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Volumes@{Volumes}!Parser@{Parser}}\index{Parser@{Parser}!Volumes@{Volumes}}}\mbox{\Hypertarget{namespace_parser_a14d933590cba0d907aaff7ff9ab01035af556faea7b038e9e6b527d5b62881e47}\label{namespace_parser_a14d933590cba0d907aaff7ff9ab01035af556faea7b038e9e6b527d5b62881e47}} 
+Volumes&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Algorithms@{Algorithms}!Parser@{Parser}}\index{Parser@{Parser}!Algorithms@{Algorithms}}}\mbox{\Hypertarget{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a63aaef8b1b40edc5ad483ae0460244e4}\label{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a63aaef8b1b40edc5ad483ae0460244e4}} 
+Algorithms&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Hashs@{Hashs}!Parser@{Parser}}\index{Parser@{Parser}!Hashs@{Hashs}}}\mbox{\Hypertarget{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a273fa94994418bb70148e0f40b36bde1}\label{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a273fa94994418bb70148e0f40b36bde1}} 
+Hashs&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Devices@{Devices}!Parser@{Parser}}\index{Parser@{Parser}!Devices@{Devices}}}\mbox{\Hypertarget{namespace_parser_a14d933590cba0d907aaff7ff9ab01035ad4d47d038e677f5cf0551ded706497a6}\label{namespace_parser_a14d933590cba0d907aaff7ff9ab01035ad4d47d038e677f5cf0551ded706497a6}} 
+Devices&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 63 of file Parser.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespace_parser_adf13e015ae2b7536868c427360401238}\label{namespace_parser_adf13e015ae2b7536868c427360401238}} 
+\index{Parser@{Parser}!ask\+Password@{ask\+Password}}
+\index{ask\+Password@{ask\+Password}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{ask\+Password()}{askPassword()}}
+{\footnotesize\ttfamily bool Parser\+::ask\+Password (\begin{DoxyParamCaption}\item[{std\+::string}]{volume,  }\item[{Q\+String \&}]{p }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em volume} & \\
+\hline
+{\em p} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 512 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_a8aeeeb21b1d6f07cfe0c69c5b3a9e4a1}\label{namespace_parser_a8aeeeb21b1d6f07cfe0c69c5b3a9e4a1}} 
+\index{Parser@{Parser}!parse\+Benchmark@{parse\+Benchmark}}
+\index{parse\+Benchmark@{parse\+Benchmark}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+Benchmark()}{parseBenchmark()}}
+{\footnotesize\ttfamily void Parser\+::parse\+Benchmark (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Gost\+Crypt\+::\+Core\+::\+Benchmark\+Algorithms\+Request} $>$}]{options }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em options} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 477 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_aef069760011ee9f2066a254ab84f9b7c}\label{namespace_parser_aef069760011ee9f2066a254ab84f9b7c}} 
+\index{Parser@{Parser}!parse\+Create@{parse\+Create}}
+\index{parse\+Create@{parse\+Create}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+Create()}{parseCreate()}}
+{\footnotesize\ttfamily void Parser\+::parse\+Create (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request} $>$}]{options }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em options} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 225 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_a1d19ba15381c47283b17a5ceddf41da5}\label{namespace_parser_a1d19ba15381c47283b17a5ceddf41da5}} 
+\index{Parser@{Parser}!parse\+Create\+Key\+Files@{parse\+Create\+Key\+Files}}
+\index{parse\+Create\+Key\+Files@{parse\+Create\+Key\+Files}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+Create\+Key\+Files()}{parseCreateKeyFiles()}}
+{\footnotesize\ttfamily void Parser\+::parse\+Create\+Key\+Files (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{Q\+String\+List \&}]{files }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em files} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 449 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_ae09396fa6fb2bb95523073e4bdfc4969}\label{namespace_parser_ae09396fa6fb2bb95523073e4bdfc4969}} 
+\index{Parser@{Parser}!parse\+Dismount@{parse\+Dismount}}
+\index{parse\+Dismount@{parse\+Dismount}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+Dismount()}{parseDismount()}}
+{\footnotesize\ttfamily void Parser\+::parse\+Dismount (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_dismount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Dismount\+Volume\+Request} $>$}]{volume }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em volume} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 144 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_aa78b1b9475d7b6183c16d4abd6a2ab0f}\label{namespace_parser_aa78b1b9475d7b6183c16d4abd6a2ab0f}} 
+\index{Parser@{Parser}!parse\+List@{parse\+List}}
+\index{parse\+List@{parse\+List}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+List()}{parseList()}}
+{\footnotesize\ttfamily void Parser\+::parse\+List (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{\hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{Parser\+::\+What\+To\+List} $\ast$}]{item }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em item} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 175 of file Parser.\+cpp.
+
+\mbox{\Hypertarget{namespace_parser_ad8395bb69888f527eefafe64ee3db50e}\label{namespace_parser_ad8395bb69888f527eefafe64ee3db50e}} 
+\index{Parser@{Parser}!parse\+Mount@{parse\+Mount}}
+\index{parse\+Mount@{parse\+Mount}!Parser@{Parser}}
+\subsubsection{\texorpdfstring{parse\+Mount()}{parseMount()}}
+{\footnotesize\ttfamily void Parser\+::parse\+Mount (\begin{DoxyParamCaption}\item[{Q\+Command\+Line\+Parser \&}]{parser,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request} $>$}]{options }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser} & \\
+\hline
+{\em options} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 5 of file Parser.\+cpp.
+

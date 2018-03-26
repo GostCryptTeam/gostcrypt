@@ -1,0 +1,646 @@
+\hypertarget{_gstdefs_8h}{}\section{Volume/\+Crypto/\+Gstdefs.h File Reference}
+\label{_gstdefs_8h}\index{Volume/\+Crypto/\+Gstdefs.\+h@{Volume/\+Crypto/\+Gstdefs.\+h}}
+{\ttfamily \#include $<$Qt\+Global$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_gstdefs_8h_aa5d79a0bf75791b4aa196fd64079acfe}{G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME}~\char`\"{}Gost\+Crypt\char`\"{}
+\item 
+\#define \hyperlink{_gstdefs_8h_a698acb89e1bf5837b33c30ef35c30044}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG}~\char`\"{}1.\+3\char`\"{}
+\item 
+\#define \hyperlink{_gstdefs_8h_ae7b966cb5389e18dfdac527664fcd9e6}{V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM}~0x1300
+\item 
+\#define \hyperlink{_gstdefs_8h_a4edb018fcdbbbbc634bdb6134eab21a2}{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE}~\char`\"{}September 1, 2015\char`\"{}
+\item 
+\#define \hyperlink{_gstdefs_8h_a4e5bc19e299a568f0dfa097da391147b}{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR}~2015
+\item 
+\#define \hyperlink{_gstdefs_8h_a01a0368e801afa96e05a84564cec28fe}{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}~9
+\item 
+\#define \hyperlink{_gstdefs_8h_ab5fde4a4261bca6820d8cd5b0d3a1b8d}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB}~1024\+LL
+\item 
+\#define \hyperlink{_gstdefs_8h_abd4a91989811019d99d6e3fe39fe02c5}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB}~1048576\+LL
+\item 
+\#define \hyperlink{_gstdefs_8h_a140b41d4b4b8dc5881438bd3212ef760}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB}~1073741824\+LL
+\item 
+\#define \hyperlink{_gstdefs_8h_a2861cdd4adee262df0712bb23bfa02ba}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB}~1099511627776\+LL
+\item 
+\#define \hyperlink{_gstdefs_8h_a67452f73638e2494f4f205666ed715cb}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}~1125899906842624\+LL
+\item 
+\#define \hyperlink{_gstdefs_8h_acdf25f5b85840e07ba06b791cc04296d}{W\+I\+DE}(x)~(L\+P\+W\+S\+TR)\hyperlink{_grasshopper_cipher_8c_a826ad0c46a4f26241de2a0ce3fcc2985}{L}\#\#x
+\item 
+\#define \hyperlink{_gstdefs_8h_a040b30765a23a94d40af4f00f956c3a5}{\+\_\+\+\_\+int8}~char
+\item 
+\#define \hyperlink{_gstdefs_8h_a6d658629cbd06fe6109fcf9d0729cc78}{\+\_\+\+\_\+int16}~short
+\item 
+\#define \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32}~int
+\item 
+\#define \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}~int
+\item 
+\#define \hyperlink{_gstdefs_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}~0
+\item 
+\#define \hyperlink{_gstdefs_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+UE}~1
+\item 
+\#define \hyperlink{_gstdefs_8h_a1ae385e9eefdbff7871c4b4f106e43e1}{G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED}
+\item 
+\#define \hyperlink{_gstdefs_8h_ab36a956ef1394c163d673ac3171b0aa6}{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}(n)~\#n
+\item 
+\#define \hyperlink{_gstdefs_8h_aebe7f99ed1f564a78a8d0c1d94d7c36b}{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG}(n)~\hyperlink{_gstdefs_8h_ab36a956ef1394c163d673ac3171b0aa6}{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}(n)
+\item 
+\#define \hyperlink{_gstdefs_8h_a108b6cedeb72394d0f9261dc2cfaf8d7}{burn}(mem,  size)~do \{ volatile char $\ast$burnm = (volatile char $\ast$)(mem); int burnc = size; while (burnc-\/-\/) $\ast$burnm++ = 0; \} while (0)
+\item 
+\#define \hyperlink{_gstdefs_8h_a150356bf141c9e9483cf86eb8d387e1a}{F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64}(mem,  size)~do \{ volatile quint64 $\ast$burnm = (volatile quint64 $\ast$)(mem); int burnc = size $>$$>$ 3; while (burnc-\/-\/) $\ast$burnm++ = 0; \} while (0)
+\item 
+\#define \hyperlink{_gstdefs_8h_adfaac054c01f4d0423ebca6ede405653}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH}~260 /$\ast$ Includes the null terminator $\ast$/
+\item 
+\#define \hyperlink{_gstdefs_8h_ac91fa7d10e59cfaf292c04f1eb96829d}{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY}~\char`\"{}Released by Gost\+Crypt Foundation on \char`\"{} G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE
+\item 
+\#define \hyperlink{_gstdefs_8h_a3a0a3a9d3952e2b57333ed6daceb163e}{M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH}~2084 /$\ast$ Internet Explorer limit. Includes the terminating null character. $\ast$/
+\item 
+\#define \hyperlink{_gstdefs_8h_addaa51a58d196ffb8527a7354b26ccbc}{G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE}~\char`\"{}http\+://www.\+gostcrypt.\+org/\char`\"{}
+\item 
+\#define \hyperlink{_gstdefs_8h_af469f26b93334c15d460fb5d46bb7db8}{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK}~\char`\"{}http\+://www.\+gostcrypt.\+org/\char`\"{}
+\item 
+\#define \hyperlink{_gstdefs_8h_a726e8b8d05180503bda587c9973dbc03}{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE}~\char`\"{}https\+://www.\+gostcrypt.\+org/\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int8\+\_\+t \hyperlink{_gstdefs_8h_aa79c2d3de4fcd200458c406f40b2ae64}{int8}
+\item 
+typedef int16\+\_\+t \hyperlink{_gstdefs_8h_aa0d0fdc87fd135ef2bedb030901cdb9c}{int16}
+\item 
+typedef int32\+\_\+t \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}
+\item 
+typedef int64\+\_\+t \hyperlink{_gstdefs_8h_a7cde0074dfd288f2d70c0e035dacb28a}{int64}
+\item 
+typedef unsigned \hyperlink{_gstdefs_8h_a040b30765a23a94d40af4f00f956c3a5}{\+\_\+\+\_\+int8} \hyperlink{_gstdefs_8h_a3c067a21501702c05afd3bdc0257c733}{uint\+\_\+8t}
+\item 
+typedef unsigned \hyperlink{_gstdefs_8h_a6d658629cbd06fe6109fcf9d0729cc78}{\+\_\+\+\_\+int16} \hyperlink{_gstdefs_8h_a12e6ebd51ffd3ffeb47bdfbdacd07aa0}{uint\+\_\+16t}
+\item 
+typedef unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} \hyperlink{_gstdefs_8h_a0e8b94c58dffe6677ce29e9989d5d2f8}{uint\+\_\+32t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6d4f18a9728f434ff2d1a64043ebe6e8}{E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS} = 0, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ac675844c7403a009ec41777cafebb39c}{E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR} = 1, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc918700fc638d3d88d460d7e83b0911}{E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY} = 2, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635acc8a171002a2e00d76dc636409b11019}{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG} = 3, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a378b432ee217f26fc90afeca96f3f471}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD} = 4, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ae88a82306d4fbabb3dcc0aedfa0cd2c1}{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND} = 5, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc5746d662087055b236114dba32f5b6}{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN} = 6, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7b39b8f9e8a04920e87dd41fad128ee6}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG} = 7, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ad3dddf7243c7cd31450aaa1d663ef47c}{E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED} = 8, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3840da755943d0afcb2f69d43721447b}{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE} = 9, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a07d430b6a491ce62a1fb41231f49e538}{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON} = 10, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aac219fb22829060ae5bcb8173121ed1d}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG} = 11, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4d44888e1f212ff0ad3e80e1dc8aa6f0}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG} = 12, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a05a733d252201629592e51cf793c787b}{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK} = 13, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a21d1faf6272c3fe3a2ad1708184002d8}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG} = 14, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5a990664075e599336be8e995e91667}{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON} = 15, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a25b275588070e5e9a749682f98d7dfdd}{E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED} = 16, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa5fa1405ab4180a7c556c852bf0cc004}{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE} = 17, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635af046d9a55efdf6722cb149de41d03fc1}{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY} = 18, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a08b9f8a6428980ac18ca363828c97494}{E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED} = 19, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa35c3b391303981c08fc84ac6f3582e5}{E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE} = 20, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab77fb9325be0e9f223ad9a31e26173ee}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED} = 21, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3982fb1a0f648fde3f3992da71765e67}{E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES} = 22, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a9c4d51205a3304c0cd50d921137bf0ff}{E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED} = 23, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a324bcd431dfe0d27b8000417b716d564}{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED} = 24, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a081f3014d79cf5b7a5e74e1132cdeecf}{D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE} = 25, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a16e7157079ceea3394a7a000af25c013}{E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED} = 26, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7abed01eb1c45814ada1e64cc0315e44}{E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED} = 27, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5796da683bd162ed65aa4e428d5cde5}{E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT} = 28, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a8b4fc2778606b2f45a7486072b958b5d}{E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED} = 29, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4aea9c11636f0b658d3765368f620dd0}{E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT} = 30, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6f6e4003ec7e91fa758a6239cfa8c35d}{E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG} = 31, 
+\newline
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a53bbf05d55119b06da77c07c823bf4c9}{E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE} = 32, 
+\hyperlink{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a64885fc7aef9ee4080d4abae97882242}{E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT} = 33
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_gstdefs_8h_a6d658629cbd06fe6109fcf9d0729cc78}\label{_gstdefs_8h_a6d658629cbd06fe6109fcf9d0729cc78}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!\+\_\+\+\_\+int16@{\+\_\+\+\_\+int16}}
+\index{\+\_\+\+\_\+int16@{\+\_\+\+\_\+int16}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+int16}{\_\_int16}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+int16~short}
+
+
+
+Definition at line 60 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}\label{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!\+\_\+\+\_\+int32@{\+\_\+\+\_\+int32}}
+\index{\+\_\+\+\_\+int32@{\+\_\+\+\_\+int32}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+int32}{\_\_int32}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+int32~int}
+
+
+
+Definition at line 65 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a040b30765a23a94d40af4f00f956c3a5}\label{_gstdefs_8h_a040b30765a23a94d40af4f00f956c3a5}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!\+\_\+\+\_\+int8@{\+\_\+\+\_\+int8}}
+\index{\+\_\+\+\_\+int8@{\+\_\+\+\_\+int8}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+int8}{\_\_int8}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+int8~char}
+
+
+
+Definition at line 55 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}\label{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+O\+OL@{B\+O\+OL}}
+\index{B\+O\+OL@{B\+O\+OL}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+O\+OL}{BOOL}}
+{\footnotesize\ttfamily \#define B\+O\+OL~int}
+
+
+
+Definition at line 68 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a108b6cedeb72394d0f9261dc2cfaf8d7}\label{_gstdefs_8h_a108b6cedeb72394d0f9261dc2cfaf8d7}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!burn@{burn}}
+\index{burn@{burn}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{burn}{burn}}
+{\footnotesize\ttfamily \#define burn(\begin{DoxyParamCaption}\item[{}]{mem,  }\item[{}]{size }\end{DoxyParamCaption})~do \{ volatile char $\ast$burnm = (volatile char $\ast$)(mem); int burnc = size; while (burnc-\/-\/) $\ast$burnm++ = 0; \} while (0)}
+
+
+
+Definition at line 88 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a140b41d4b4b8dc5881438bd3212ef760}\label{_gstdefs_8h_a140b41d4b4b8dc5881438bd3212ef760}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB}}
+\index{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB}{BYTES\_PER\_GB}}
+{\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+GB~1073741824\+LL}
+
+
+
+Definition at line 36 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ab5fde4a4261bca6820d8cd5b0d3a1b8d}\label{_gstdefs_8h_ab5fde4a4261bca6820d8cd5b0d3a1b8d}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB}}
+\index{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB}{BYTES\_PER\_KB}}
+{\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB~1024\+LL}
+
+
+
+Definition at line 34 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_abd4a91989811019d99d6e3fe39fe02c5}\label{_gstdefs_8h_abd4a91989811019d99d6e3fe39fe02c5}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB}}
+\index{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB}{BYTES\_PER\_MB}}
+{\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB~1048576\+LL}
+
+
+
+Definition at line 35 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a67452f73638e2494f4f205666ed715cb}\label{_gstdefs_8h_a67452f73638e2494f4f205666ed715cb}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}}
+\index{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}{BYTES\_PER\_PB}}
+{\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB~1125899906842624\+LL}
+
+
+
+Definition at line 38 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a2861cdd4adee262df0712bb23bfa02ba}\label{_gstdefs_8h_a2861cdd4adee262df0712bb23bfa02ba}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB}}
+\index{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB@{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB}{BYTES\_PER\_TB}}
+{\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+TB~1099511627776\+LL}
+
+
+
+Definition at line 37 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_aa93f0eb578d23995850d61f7d61c55c1}\label{_gstdefs_8h_aa93f0eb578d23995850d61f7d61c55c1}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!F\+A\+L\+SE@{F\+A\+L\+SE}}
+\index{F\+A\+L\+SE@{F\+A\+L\+SE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{F\+A\+L\+SE}{FALSE}}
+{\footnotesize\ttfamily \#define F\+A\+L\+SE~0}
+
+
+
+Definition at line 70 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a150356bf141c9e9483cf86eb8d387e1a}\label{_gstdefs_8h_a150356bf141c9e9483cf86eb8d387e1a}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64@{F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64}}
+\index{F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64@{F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64}{FAST\_ERASE64}}
+{\footnotesize\ttfamily \#define F\+A\+S\+T\+\_\+\+E\+R\+A\+S\+E64(\begin{DoxyParamCaption}\item[{}]{mem,  }\item[{}]{size }\end{DoxyParamCaption})~do \{ volatile quint64 $\ast$burnm = (volatile quint64 $\ast$)(mem); int burnc = size $>$$>$ 3; while (burnc-\/-\/) $\ast$burnm++ = 0; \} while (0)}
+
+
+
+Definition at line 92 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_aa5d79a0bf75791b4aa196fd64079acfe}\label{_gstdefs_8h_aa5d79a0bf75791b4aa196fd64079acfe}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME@{G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME}}
+\index{G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME@{G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME}{GST\_APP\_NAME}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+A\+P\+P\+\_\+\+N\+A\+ME~\char`\"{}Gost\+Crypt\char`\"{}}
+
+
+
+Definition at line 21 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_af469f26b93334c15d460fb5d46bb7db8}\label{_gstdefs_8h_af469f26b93334c15d460fb5d46bb7db8}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK@{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK}}
+\index{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK@{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK}{GST\_APPLINK}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+NK~\char`\"{}http\+://www.\+gostcrypt.\+org/\char`\"{}}
+
+
+
+Definition at line 108 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a726e8b8d05180503bda587c9973dbc03}\label{_gstdefs_8h_a726e8b8d05180503bda587c9973dbc03}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE@{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE}}
+\index{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE@{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE}{GST\_APPLINK\_SECURE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+A\+P\+P\+L\+I\+N\+K\+\_\+\+S\+E\+C\+U\+RE~\char`\"{}https\+://www.\+gostcrypt.\+org/\char`\"{}}
+
+
+
+Definition at line 109 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_addaa51a58d196ffb8527a7354b26ccbc}\label{_gstdefs_8h_addaa51a58d196ffb8527a7354b26ccbc}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE@{G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE}}
+\index{G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE@{G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE}{GST\_HOMEPAGE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+O\+M\+E\+P\+A\+GE~\char`\"{}http\+://www.\+gostcrypt.\+org/\char`\"{}}
+
+
+
+Definition at line 107 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a1ae385e9eefdbff7871c4b4f106e43e1}\label{_gstdefs_8h_a1ae385e9eefdbff7871c4b4f106e43e1}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED@{G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED}}
+\index{G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED@{G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED}{GST\_INT\_TYPES\_DEFINED}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+I\+N\+T\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+D\+E\+F\+I\+N\+ED}
+
+
+
+Definition at line 75 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_adfaac054c01f4d0423ebca6ede405653}\label{_gstdefs_8h_adfaac054c01f4d0423ebca6ede405653}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH}{GST\_MAX\_PATH}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+P\+A\+TH~260 /$\ast$ Includes the null terminator $\ast$/}
+
+
+
+Definition at line 100 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a01a0368e801afa96e05a84564cec28fe}\label{_gstdefs_8h_a01a0368e801afa96e05a84564cec28fe}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH@{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}}
+\index{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH@{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH}{GST\_RELEASE\_DATE\_MONTH}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+M\+O\+N\+TH~9}
+
+
+
+Definition at line 32 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a4e5bc19e299a568f0dfa097da391147b}\label{_gstdefs_8h_a4e5bc19e299a568f0dfa097da391147b}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR@{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR}}
+\index{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR@{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR}{GST\_RELEASE\_DATE\_YEAR}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+T\+E\+\_\+\+Y\+E\+AR~2015}
+
+
+
+Definition at line 31 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a4edb018fcdbbbbc634bdb6134eab21a2}\label{_gstdefs_8h_a4edb018fcdbbbbc634bdb6134eab21a2}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE@{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE}}
+\index{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE@{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE}{GST\_STR\_RELEASE\_DATE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE~\char`\"{}September 1, 2015\char`\"{}}
+
+
+
+Definition at line 30 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ac91fa7d10e59cfaf292c04f1eb96829d}\label{_gstdefs_8h_ac91fa7d10e59cfaf292c04f1eb96829d}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY@{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY}}
+\index{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY@{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY}{GST\_STR\_RELEASED\_BY}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+D\+\_\+\+BY~\char`\"{}Released by Gost\+Crypt Foundation on \char`\"{} G\+S\+T\+\_\+\+S\+T\+R\+\_\+\+R\+E\+L\+E\+A\+S\+E\+\_\+\+D\+A\+TE}
+
+
+
+Definition at line 103 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_aebe7f99ed1f564a78a8d0c1d94d7c36b}\label{_gstdefs_8h_aebe7f99ed1f564a78a8d0c1d94d7c36b}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG@{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG}}
+\index{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG@{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG}{GST\_TO\_STRING}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+NG(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~\hyperlink{_gstdefs_8h_ab36a956ef1394c163d673ac3171b0aa6}{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}(n)}
+
+
+
+Definition at line 85 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ab36a956ef1394c163d673ac3171b0aa6}\label{_gstdefs_8h_ab36a956ef1394c163d673ac3171b0aa6}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2@{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}}
+\index{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2@{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2}{GST\_TO\_STRING2}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+T\+O\+\_\+\+S\+T\+R\+I\+N\+G2(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~\#n}
+
+
+
+Definition at line 84 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a3a0a3a9d3952e2b57333ed6daceb163e}\label{_gstdefs_8h_a3a0a3a9d3952e2b57333ed6daceb163e}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH@{M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH}}
+\index{M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH@{M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH}{MAX\_URL\_LENGTH}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+U\+R\+L\+\_\+\+L\+E\+N\+G\+TH~2084 /$\ast$ Internet Explorer limit. Includes the terminating null character. $\ast$/}
+
+
+
+Definition at line 105 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_aa8cecfc5c5c054d2875c03e77b7be15d}\label{_gstdefs_8h_aa8cecfc5c5c054d2875c03e77b7be15d}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!T\+R\+UE@{T\+R\+UE}}
+\index{T\+R\+UE@{T\+R\+UE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{T\+R\+UE}{TRUE}}
+{\footnotesize\ttfamily \#define T\+R\+UE~1}
+
+
+
+Definition at line 71 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ae7b966cb5389e18dfdac527664fcd9e6}\label{_gstdefs_8h_ae7b966cb5389e18dfdac527664fcd9e6}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM@{V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM@{V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM}{VERSION\_NUM}}
+{\footnotesize\ttfamily \#define V\+E\+R\+S\+I\+O\+N\+\_\+\+N\+UM~0x1300}
+
+
+
+Definition at line 27 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a698acb89e1bf5837b33c30ef35c30044}\label{_gstdefs_8h_a698acb89e1bf5837b33c30ef35c30044}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG}{VERSION\_STRING}}
+{\footnotesize\ttfamily \#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+T\+R\+I\+NG~\char`\"{}1.\+3\char`\"{}}
+
+
+
+Definition at line 24 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_acdf25f5b85840e07ba06b791cc04296d}\label{_gstdefs_8h_acdf25f5b85840e07ba06b791cc04296d}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!W\+I\+DE@{W\+I\+DE}}
+\index{W\+I\+DE@{W\+I\+DE}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{W\+I\+DE}{WIDE}}
+{\footnotesize\ttfamily \#define W\+I\+DE(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(L\+P\+W\+S\+TR)\hyperlink{_grasshopper_cipher_8c_a826ad0c46a4f26241de2a0ce3fcc2985}{L}\#\#x}
+
+
+
+Definition at line 42 of file Gstdefs.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{_gstdefs_8h_aa0d0fdc87fd135ef2bedb030901cdb9c}\label{_gstdefs_8h_aa0d0fdc87fd135ef2bedb030901cdb9c}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!int16@{int16}}
+\index{int16@{int16}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{int16}{int16}}
+{\footnotesize\ttfamily typedef int16\+\_\+t \hyperlink{_gstdefs_8h_aa0d0fdc87fd135ef2bedb030901cdb9c}{int16}}
+
+
+
+Definition at line 48 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}\label{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!int32@{int32}}
+\index{int32@{int32}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{int32}{int32}}
+{\footnotesize\ttfamily typedef int32\+\_\+t \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}}
+
+
+
+Definition at line 49 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a7cde0074dfd288f2d70c0e035dacb28a}\label{_gstdefs_8h_a7cde0074dfd288f2d70c0e035dacb28a}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!int64@{int64}}
+\index{int64@{int64}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{int64}{int64}}
+{\footnotesize\ttfamily typedef int64\+\_\+t \hyperlink{_gstdefs_8h_a7cde0074dfd288f2d70c0e035dacb28a}{int64}}
+
+
+
+Definition at line 50 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_aa79c2d3de4fcd200458c406f40b2ae64}\label{_gstdefs_8h_aa79c2d3de4fcd200458c406f40b2ae64}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!int8@{int8}}
+\index{int8@{int8}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{int8}{int8}}
+{\footnotesize\ttfamily typedef int8\+\_\+t \hyperlink{_gstdefs_8h_aa79c2d3de4fcd200458c406f40b2ae64}{int8}}
+
+
+
+Definition at line 47 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a12e6ebd51ffd3ffeb47bdfbdacd07aa0}\label{_gstdefs_8h_a12e6ebd51ffd3ffeb47bdfbdacd07aa0}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!uint\+\_\+16t@{uint\+\_\+16t}}
+\index{uint\+\_\+16t@{uint\+\_\+16t}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{uint\+\_\+16t}{uint\_16t}}
+{\footnotesize\ttfamily typedef unsigned \hyperlink{_gstdefs_8h_a6d658629cbd06fe6109fcf9d0729cc78}{\+\_\+\+\_\+int16} \hyperlink{_gstdefs_8h_a12e6ebd51ffd3ffeb47bdfbdacd07aa0}{uint\+\_\+16t}}
+
+
+
+Definition at line 79 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a0e8b94c58dffe6677ce29e9989d5d2f8}\label{_gstdefs_8h_a0e8b94c58dffe6677ce29e9989d5d2f8}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!uint\+\_\+32t@{uint\+\_\+32t}}
+\index{uint\+\_\+32t@{uint\+\_\+32t}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{uint\+\_\+32t}{uint\_32t}}
+{\footnotesize\ttfamily typedef unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} \hyperlink{_gstdefs_8h_a0e8b94c58dffe6677ce29e9989d5d2f8}{uint\+\_\+32t}}
+
+
+
+Definition at line 80 of file Gstdefs.\+h.
+
+\mbox{\Hypertarget{_gstdefs_8h_a3c067a21501702c05afd3bdc0257c733}\label{_gstdefs_8h_a3c067a21501702c05afd3bdc0257c733}} 
+\index{Gstdefs.\+h@{Gstdefs.\+h}!uint\+\_\+8t@{uint\+\_\+8t}}
+\index{uint\+\_\+8t@{uint\+\_\+8t}!Gstdefs.\+h@{Gstdefs.\+h}}
+\subsubsection{\texorpdfstring{uint\+\_\+8t}{uint\_8t}}
+{\footnotesize\ttfamily typedef unsigned \hyperlink{_gstdefs_8h_a040b30765a23a94d40af4f00f956c3a5}{\+\_\+\+\_\+int8} \hyperlink{_gstdefs_8h_a3c067a21501702c05afd3bdc0257c733}{uint\+\_\+8t}}
+
+
+
+Definition at line 78 of file Gstdefs.\+h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635}} 
+\subsubsection{\texorpdfstring{anonymous enum}{anonymous enum}}
+{\footnotesize\ttfamily anonymous enum}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS@{E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS@{E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6d4f18a9728f434ff2d1a64043ebe6e8}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6d4f18a9728f434ff2d1a64043ebe6e8}} 
+E\+R\+R\+\_\+\+S\+U\+C\+C\+E\+SS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR@{E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR@{E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ac675844c7403a009ec41777cafebb39c}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ac675844c7403a009ec41777cafebb39c}} 
+E\+R\+R\+\_\+\+O\+S\+\_\+\+E\+R\+R\+OR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY@{E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY@{E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc918700fc638d3d88d460d7e83b0911}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc918700fc638d3d88d460d7e83b0911}} 
+E\+R\+R\+\_\+\+O\+U\+T\+O\+F\+M\+E\+M\+O\+RY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635acc8a171002a2e00d76dc636409b11019}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635acc8a171002a2e00d76dc636409b11019}} 
+E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+W\+R\+O\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a378b432ee217f26fc90afeca96f3f471}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a378b432ee217f26fc90afeca96f3f471}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+B\+AD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND@{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND@{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ae88a82306d4fbabb3dcc0aedfa0cd2c1}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ae88a82306d4fbabb3dcc0aedfa0cd2c1}} 
+E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+\_\+\+N\+O\+T\+\_\+\+F\+O\+U\+ND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN@{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN@{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc5746d662087055b236114dba32f5b6}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635afc5746d662087055b236114dba32f5b6}} 
+E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+EN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7b39b8f9e8a04920e87dd41fad128ee6}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7b39b8f9e8a04920e87dd41fad128ee6}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+W\+R\+O\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED@{E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED@{E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ad3dddf7243c7cd31450aaa1d663ef47c}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ad3dddf7243c7cd31450aaa1d663ef47c}} 
+E\+R\+R\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3840da755943d0afcb2f69d43721447b}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3840da755943d0afcb2f69d43721447b}} 
+E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+T\+Y\+PE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON@{E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a07d430b6a491ce62a1fb41231f49e538}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a07d430b6a491ce62a1fb41231f49e538}} 
+E\+R\+R\+\_\+\+P\+A\+S\+S\+W\+O\+R\+D\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+V\+O\+L\+\_\+\+V\+E\+R\+S\+I\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aac219fb22829060ae5bcb8173121ed1d}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aac219fb22829060ae5bcb8173121ed1d}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+S\+E\+E\+K\+I\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4d44888e1f212ff0ad3e80e1dc8aa6f0}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4d44888e1f212ff0ad3e80e1dc8aa6f0}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+W\+R\+I\+T\+I\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK@{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK@{E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a05a733d252201629592e51cf793c787b}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a05a733d252201629592e51cf793c787b}} 
+E\+R\+R\+\_\+\+F\+I\+L\+E\+S\+\_\+\+O\+P\+E\+N\+\_\+\+L\+O\+CK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a21d1faf6272c3fe3a2ad1708184002d8}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a21d1faf6272c3fe3a2ad1708184002d8}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+R\+E\+A\+D\+I\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON@{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON@{E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5a990664075e599336be8e995e91667}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5a990664075e599336be8e995e91667}} 
+E\+R\+R\+\_\+\+D\+R\+I\+V\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED@{E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED@{E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a25b275588070e5e9a749682f98d7dfdd}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a25b275588070e5e9a749682f98d7dfdd}} 
+E\+R\+R\+\_\+\+N\+E\+W\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE@{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE@{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa5fa1405ab4180a7c556c852bf0cc004}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa5fa1405ab4180a7c556c852bf0cc004}} 
+E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+U\+RE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY@{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY@{E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635af046d9a55efdf6722cb149de41d03fc1}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635af046d9a55efdf6722cb149de41d03fc1}} 
+E\+R\+R\+\_\+\+C\+I\+P\+H\+E\+R\+\_\+\+I\+N\+I\+T\+\_\+\+W\+E\+A\+K\+\_\+\+K\+EY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a08b9f8a6428980ac18ca363828c97494}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a08b9f8a6428980ac18ca363828c97494}} 
+E\+R\+R\+\_\+\+S\+E\+L\+F\+\_\+\+T\+E\+S\+T\+S\+\_\+\+F\+A\+I\+L\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE@{E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE@{E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa35c3b391303981c08fc84ac6f3582e5}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635aa35c3b391303981c08fc84ac6f3582e5}} 
+E\+R\+R\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+I\+N\+C\+O\+M\+P\+A\+T\+I\+B\+LE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab77fb9325be0e9f223ad9a31e26173ee}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab77fb9325be0e9f223ad9a31e26173ee}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+A\+L\+R\+E\+A\+D\+Y\+\_\+\+M\+O\+U\+N\+T\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES@{E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES@{E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3982fb1a0f648fde3f3992da71765e67}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a3982fb1a0f648fde3f3992da71765e67}} 
+E\+R\+R\+\_\+\+N\+O\+\_\+\+F\+R\+E\+E\+\_\+\+D\+R\+I\+V\+ES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a9c4d51205a3304c0cd50d921137bf0ff}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a9c4d51205a3304c0cd50d921137bf0ff}} 
+E\+R\+R\+\_\+\+F\+I\+L\+E\+\_\+\+O\+P\+E\+N\+\_\+\+F\+A\+I\+L\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a324bcd431dfe0d27b8000417b716d564}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a324bcd431dfe0d27b8000417b716d564}} 
+E\+R\+R\+\_\+\+V\+O\+L\+\_\+\+M\+O\+U\+N\+T\+\_\+\+F\+A\+I\+L\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE@{D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE@{D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a081f3014d79cf5b7a5e74e1132cdeecf}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a081f3014d79cf5b7a5e74e1132cdeecf}} 
+D\+E\+P\+R\+E\+C\+A\+T\+E\+D\+\_\+\+E\+R\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+D\+E\+V\+I\+CE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED@{E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED@{E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a16e7157079ceea3394a7a000af25c013}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a16e7157079ceea3394a7a000af25c013}} 
+E\+R\+R\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+D\+E\+N\+I\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED@{E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7abed01eb1c45814ada1e64cc0315e44}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a7abed01eb1c45814ada1e64cc0315e44}} 
+E\+R\+R\+\_\+\+M\+O\+D\+E\+\_\+\+I\+N\+I\+T\+\_\+\+F\+A\+I\+L\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT@{E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT@{E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5796da683bd162ed65aa4e428d5cde5}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635ab5796da683bd162ed65aa4e428d5cde5}} 
+E\+R\+R\+\_\+\+D\+O\+N\+T\+\_\+\+R\+E\+P\+O\+RT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED@{E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED@{E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a8b4fc2778606b2f45a7486072b958b5d}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a8b4fc2778606b2f45a7486072b958b5d}} 
+E\+R\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+N\+O\+T\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT@{E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT@{E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4aea9c11636f0b658d3765368f620dd0}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a4aea9c11636f0b658d3765368f620dd0}} 
+E\+R\+R\+\_\+\+P\+A\+R\+A\+M\+E\+T\+E\+R\+\_\+\+I\+N\+C\+O\+R\+R\+E\+CT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG@{E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6f6e4003ec7e91fa758a6239cfa8c35d}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a6f6e4003ec7e91fa758a6239cfa8c35d}} 
+E\+R\+R\+\_\+\+S\+Y\+S\+\_\+\+H\+I\+D\+V\+O\+L\+\_\+\+H\+E\+A\+D\+\_\+\+R\+E\+E\+N\+C\+\_\+\+M\+O\+D\+E\+\_\+\+W\+R\+O\+NG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE@{E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE@{E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a53bbf05d55119b06da77c07c823bf4c9}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a53bbf05d55119b06da77c07c823bf4c9}} 
+E\+R\+R\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+N\+C\+\_\+\+I\+N\+C\+O\+M\+P\+L\+E\+TE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT@{E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT}!Gstdefs.\+h@{Gstdefs.\+h}}\index{Gstdefs.\+h@{Gstdefs.\+h}!E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT@{E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT}}}\mbox{\Hypertarget{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a64885fc7aef9ee4080d4abae97882242}\label{_gstdefs_8h_a726ca809ffd3d67ab4b8476646f26635a64885fc7aef9ee4080d4abae97882242}} 
+E\+R\+R\+\_\+\+U\+S\+E\+R\+\_\+\+A\+B\+O\+RT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 111 of file Gstdefs.\+h.
+

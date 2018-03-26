@@ -1,0 +1,45 @@
+\hypertarget{_core_user_8h}{}\section{Core/\+Core\+User.h File Reference}
+\label{_core_user_8h}\index{Core/\+Core\+User.\+h@{Core/\+Core\+User.\+h}}
+{\ttfamily \#include $<$Q\+Shared\+Pointer$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Service\+Handler.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_core_user}{Gost\+Crypt\+::\+Core\+::\+Core\+User}
+\begin{DoxyCompactList}\small\item\em Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it does not have root privileges. Therefore this class does not directly implement all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are forwarded to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process (executed with root privileges) thanks to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service_handler}{Core\+Service\+Handler}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_core_user_8h_ade289256e00fb13c825570d90433f2a7}{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}(request\+Name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_core_user_8h_ade289256e00fb13c825570d90433f2a7}\label{_core_user_8h_ade289256e00fb13c825570d90433f2a7}} 
+\index{Core\+User.\+h@{Core\+User.\+h}!H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}}
+\index{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}!Core\+User.\+h@{Core\+User.\+h}}
+\subsubsection{\texorpdfstring{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}{HANDLE\_RESPONSE}}
+{\footnotesize\ttfamily \#define H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if}(r.canConvert<QSharedPointer<requestName ## Response>>()) \{ \(\backslash\)
+        QSharedPointer<requestName ## Response> response; \(\backslash\)
+        response = r.value<QSharedPointer<requestName ## Response>>(); \(\backslash\)
+        emit send ## requestName (response); \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 10 of file Core\+User.\+h.
+

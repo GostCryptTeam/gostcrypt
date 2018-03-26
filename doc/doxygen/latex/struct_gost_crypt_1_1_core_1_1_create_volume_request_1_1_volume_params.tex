@@ -1,0 +1,135 @@
+\hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Create\+Volume\+Request\+:\+:Volume\+Params Struct Reference}
+\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params}\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+
+
+Class storing all parameters for the creation of a volume instance inside the volume container (There can be currently be two volume instance\+: outer and inner (hidden) ones)  
+
+
+
+
+{\ttfamily \#include $<$Core\+Request.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a83f6db640ad58de631f17d25f07228a3}{Volume\+Params} ()
+\begin{DoxyCompactList}\small\item\em Default constructor with default parameters. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a19fd49b4e4660c2bce8f068f4d504db6}{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE} (\hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params}{Volume\+Params})
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a64d08dffe9a5c402eac572fa743ea20b}{password}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a0db0886fa69cbd803e96f0644b51416a}{keyfiles}
+\item 
+qreal \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a806801db6b7adc9a04579ec6f0b57812}{size}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_ac1333e405430c8c6f73550975b9530ab}{volume\+Header\+Kdf}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a444833f5dd741eeb2a81ae6014f4c98b}{encryption\+Algorithm}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a115fb5eabbbadfeecce444182b49c8d8}{filesystem}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class storing all parameters for the creation of a volume instance inside the volume container (There can be currently be two volume instance\+: outer and inner (hidden) ones) 
+
+Definition at line 97 of file Core\+Request.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a83f6db640ad58de631f17d25f07228a3}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a83f6db640ad58de631f17d25f07228a3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!Volume\+Params@{Volume\+Params}}
+\index{Volume\+Params@{Volume\+Params}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{Volume\+Params()}{VolumeParams()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::\+Volume\+Params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor with default parameters. 
+
+
+
+Definition at line 357 of file Core\+Request.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a19fd49b4e4660c2bce8f068f4d504db6}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a19fd49b4e4660c2bce8f068f4d504db6}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}}
+\index{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+L\+E()}{DEC\_SERIALIZABLE()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::\+D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE (\begin{DoxyParamCaption}\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params}{Volume\+Params}}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a444833f5dd741eeb2a81ae6014f4c98b}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a444833f5dd741eeb2a81ae6014f4c98b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!encryption\+Algorithm@{encryption\+Algorithm}}
+\index{encryption\+Algorithm@{encryption\+Algorithm}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{encryption\+Algorithm}{encryptionAlgorithm}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::encryption\+Algorithm}
+
+name of the encryption algorithm to use 
+
+Definition at line 108 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a115fb5eabbbadfeecce444182b49c8d8}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a115fb5eabbbadfeecce444182b49c8d8}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!filesystem@{filesystem}}
+\index{filesystem@{filesystem}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{filesystem}{filesystem}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::filesystem}
+
+the name of the filesystem type to use 
+
+Definition at line 109 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a0db0886fa69cbd803e96f0644b51416a}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a0db0886fa69cbd803e96f0644b51416a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!keyfiles@{keyfiles}}
+\index{keyfiles@{keyfiles}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{keyfiles}{keyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::keyfiles}
+
+keyfiles of the volume instance 
+
+Definition at line 105 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a64d08dffe9a5c402eac572fa743ea20b}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a64d08dffe9a5c402eac572fa743ea20b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!password@{password}}
+\index{password@{password}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::password}
+
+password of the volume instance 
+
+Definition at line 104 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a806801db6b7adc9a04579ec6f0b57812}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_a806801db6b7adc9a04579ec6f0b57812}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!size@{size}}
+\index{size@{size}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily qreal Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::size}
+
+size used within the volume container for this volume instance in percentage of available space 
+
+Definition at line 106 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_ac1333e405430c8c6f73550975b9530ab}\label{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params_ac1333e405430c8c6f73550975b9530ab}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}!volume\+Header\+Kdf@{volume\+Header\+Kdf}}
+\index{volume\+Header\+Kdf@{volume\+Header\+Kdf}!Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params@{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}}
+\subsubsection{\texorpdfstring{volume\+Header\+Kdf}{volumeHeaderKdf}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params\+::volume\+Header\+Kdf}
+
+name of the key derivation function to use 
+
+Definition at line 107 of file Core\+Request.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_request_8h}{Core\+Request.\+h}\item 
+Core/\hyperlink{_core_request_8cpp}{Core\+Request.\+cpp}\end{DoxyCompactItemize}

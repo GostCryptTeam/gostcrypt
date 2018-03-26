@@ -1,0 +1,86 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Mount\+Filesystem\+Manager Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager}\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager@{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager}}
+
+
+Class containing the methods managing the mounting of file system.  
+
+
+
+
+{\ttfamily \#include $<$Mount\+Filesystem\+Manager.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_a1f286d145af83b982efc939f85530c27}{mount\+Filesystem} (const Q\+File\+Info device\+Path, const Q\+File\+Info mount\+Point, Q\+String filesystem\+Type, bool read\+Only, const uid\+\_\+t owner\+U\+ID, const gid\+\_\+t owner\+G\+ID, const Q\+String \&additional\+Mount\+Options)
+\begin{DoxyCompactList}\small\item\em Mount the given block file in the given target mount point using the mount system call. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_ae545bc95f5aedaf13886b57c00bd8c3e}{dismount\+Filesystem} (const Q\+File\+Info mount\+Point, bool force)
+\begin{DoxyCompactList}\small\item\em Dismount a filesystem using the umount2 system call. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing the methods managing the mounting of file system. 
+
+Definition at line 14 of file Mount\+Filesystem\+Manager.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_ae545bc95f5aedaf13886b57c00bd8c3e}\label{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_ae545bc95f5aedaf13886b57c00bd8c3e}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager@{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager}!dismount\+Filesystem@{dismount\+Filesystem}}
+\index{dismount\+Filesystem@{dismount\+Filesystem}!Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager@{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager}}
+\subsubsection{\texorpdfstring{dismount\+Filesystem()}{dismountFilesystem()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager\+::dismount\+Filesystem (\begin{DoxyParamCaption}\item[{const Q\+File\+Info}]{mount\+Point,  }\item[{bool}]{force }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Dismount a filesystem using the umount2 system call. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mount\+Point} & Path of the directory where the device is mounted \\
+\hline
+{\em force} & Boolean true to force the dismounting of the volume even if busy. This can cause data loss. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 49 of file Mount\+Filesystem\+Manager.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_a1f286d145af83b982efc939f85530c27}\label{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_a1f286d145af83b982efc939f85530c27}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager@{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager}!mount\+Filesystem@{mount\+Filesystem}}
+\index{mount\+Filesystem@{mount\+Filesystem}!Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager@{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager}}
+\subsubsection{\texorpdfstring{mount\+Filesystem()}{mountFilesystem()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager\+::mount\+Filesystem (\begin{DoxyParamCaption}\item[{const Q\+File\+Info}]{device\+Path,  }\item[{const Q\+File\+Info}]{mount\+Point,  }\item[{Q\+String}]{filesystem\+Type,  }\item[{bool}]{read\+Only,  }\item[{const uid\+\_\+t}]{owner\+U\+ID,  }\item[{const gid\+\_\+t}]{owner\+G\+ID,  }\item[{const Q\+String \&}]{additional\+Mount\+Options }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Mount the given block file in the given target mount point using the mount system call. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Path} & Path of the block file \\
+\hline
+{\em mount\+Point} & Path of the target directory where to mount the device \\
+\hline
+{\em filesystem\+Type} & Type of the file system contained in the device. If empty it will try to guess the type of the file system. \\
+\hline
+{\em read\+Only} & Boolean true if the device should be mounted in read-\/only mode. \\
+\hline
+{\em owner\+U\+ID} & User ID of the owner of the mounted files \\
+\hline
+{\em owner\+G\+ID} & Group ID of the owner of the mounted files \\
+\hline
+{\em additional\+Mount\+Options} & Additional options to pass to the file system \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 12 of file Mount\+Filesystem\+Manager.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_mount_filesystem_manager_8h}{Mount\+Filesystem\+Manager.\+h}\item 
+Core/\hyperlink{_mount_filesystem_manager_8cpp}{Mount\+Filesystem\+Manager.\+cpp}\end{DoxyCompactItemize}

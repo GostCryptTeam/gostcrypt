@@ -1,0 +1,601 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Volume\+Header Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_volume_header}\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+
+
+{\ttfamily \#include $<$Volume\+Header.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a90ef0291205dcc6f555f68d81d4da8c4}{Volume\+Header} (quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab4dbd75d926241b0b0430a5f57e67a97}{Header\+Size})
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a1fcd2d0e4c76a06a68608f0353aedf31}{$\sim$\+Volume\+Header} ()
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_aae6649483930b381ba33251d1fa3eac8}{Create} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header\+Buffer, \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_header_creation_options}{Volume\+Header\+Creation\+Options} \&options)
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a498878278e9415c2475e0fe53da56978}{Decrypt} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&encrypted\+Data, const \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} \&password, const \hyperlink{namespace_gost_crypt_1_1_volume_a513257938e5ea0554ad83d0eb08f8f67}{Volume\+Hash\+List} \&key\+Derivation\+Functions, const \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \&encryption\+Algorithms)
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a1c2ed40301cf445862f0f53f46d2cf4e}{Encrypt\+New} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&new\+Header\+Buffer, const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&new\+Salt, const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&new\+Header\+Key, Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash} $>$ new\+Volume\+Hash)
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_aa84d7ba1968057eead5ecb0a0f691023}{Get\+Encrypted\+Area\+Start} () const
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ac25aa68af3a7b66c139ca4eec42ec44a}{Get\+Encryption\+Algorithm} () const
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a0ca388f488857dbe7a7ccd37162c507d}{Get\+Header\+Creation\+Time} () const
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a1fb49b0a5cd673cbd0da51c4d5c9f4ff}{Get\+Volume\+Hash} () const
+\item 
+size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a9b9ebf3b6b0793975b7d77a2f32abf2d}{Get\+Sector\+Size} () const
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_afe9b400a865f65e6067a23927842ae7d}{Get\+Volume\+Data\+Size} () const
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_aececfd078b4fb36e176eed40d6224c19}{Get\+Volume\+Creation\+Time} () const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a1b249cf7187ef90304c1553ca4809160}{Get\+Largest\+Serialized\+Key\+Size} ()
+\item 
+static quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a56fa388c0bcbca1fa9216f6fc2592a12}{Get\+Salt\+Size} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a9352d16b503f35338e5f6d6deb12f455}{Deserialize} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header, Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm} $>$ \&ea)
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a05396de0817aef69d254c1df033c43fa}{Init} ()
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a4facba2c383fad43d9e7cb1a7930b195}{Serialize} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header) const
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\static \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a20f60406a12c3e996005a4093c19e438}{Deserialize\+Entry} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header, size\+\_\+t \&offset)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a7698d95b13fc25bb977069309742844a}{Deserialize\+Entry\+At} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header, const size\+\_\+t \&offset)
+\item 
+{\footnotesize template$<$typename T $>$ }\\static void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab08ed660900880c76f5b0aa5ed627a94}{Serialize\+Entry} (const \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} \&entry, \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&header, size\+\_\+t \&offset)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab4dbd75d926241b0b0430a5f57e67a97}{Header\+Size}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a25a781bf704835adc7735afe28409f4c}{Encrypted\+Header\+Data\+Size}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_af502a8b072d04c9cdc59a6aaed1a5915}{EA}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a2c7ee26744636f1f262d28dc0f2e13a7}{volume\+Hash}
+\item 
+quint16 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a4f111f8e818af8aa7d0d03687636fb7d}{Header\+Version}
+\item 
+quint16 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_af0598e2c23b55eec39e4b80ae0e8178d}{Required\+Min\+Program\+Version}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a32c984961780c9bb1a4bbfa695e46b19}{Volume\+Key\+Area\+Crc32}
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a9edc6a3abf2f3b84ab44867af30be89c}{Volume\+Creation\+Time}
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab1295ff885fe8216a48b16db486175e4}{Header\+Creation\+Time}
+\item 
+\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a645d74bbfd6eedba63eb02ceec721466}{m\+Volume\+Type}
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a5cb7e7036ba6dc889f16d6229a5c9a1d}{Hidden\+Volume\+Data\+Size}
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ae962ed704b59ddf43bfb3f21a9dcb12f}{Volume\+Data\+Size}
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a2403873d54a244f67cfa1f5bc6c3a010}{Encrypted\+Area\+Start}
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a83fa43c6595b91538dce920f0a24865d}{Encrypted\+Area\+Length}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a9e636980144674f2123169cd6575cc22}{Flags}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a9d8c166c1362824b6a43f27e6d8b48cf}{Sector\+Size}
+\item 
+\hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a285ca82990065a25e422137c7071d3cb}{Data\+Area\+Key}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const quint16 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a89260a77af653fb9b99e0fc31a12da62}{Current\+Header\+Version} = \hyperlink{_volumes_8h_afc0155db6ffb15c5f34f923bf75ab0e8}{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}
+\item 
+static const quint16 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab94df3903320257c70fb8e3248bdcd2b}{Current\+Required\+Min\+Program\+Version} = \hyperlink{_volumes_8h_a23d7abc66b3f5e8bb8e8ac092505f8a5}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}
+\item 
+static const quint16 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a88bdc4e8ed22c6cbfca4d8008bc85b11}{Min\+Allowed\+Header\+Version} = 1
+\item 
+static const int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab1d2f5c41d0b24c592fd2048d73c2171}{Salt\+Offset} = 0
+\item 
+static const quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a37981e31384a8214ede95ed3d7e2e421}{Salt\+Size} = 64
+\item 
+static const int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_acd2e52603a1ef15adaa66bdc5e1ea794}{Encrypted\+Header\+Data\+Offset} = \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab1d2f5c41d0b24c592fd2048d73c2171}{Salt\+Offset} + \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a37981e31384a8214ede95ed3d7e2e421}{Salt\+Size}
+\item 
+static const quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a7e4b73909a8b269c52d34de275166b8b}{Legacy\+Encryption\+Mode\+Key\+Area\+Size} = 32
+\item 
+static const int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_af27e0bcfd6be57f61941a209a5f1e73f}{Data\+Key\+Area\+Max\+Size} = 256
+\item 
+static const quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a7ac2bb5f9c033a9400ed6f1cdb8101ff}{Data\+Area\+Key\+Offset} = \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_af27e0bcfd6be57f61941a209a5f1e73f}{Data\+Key\+Area\+Max\+Size} -\/ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_acd2e52603a1ef15adaa66bdc5e1ea794}{Encrypted\+Header\+Data\+Offset}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 45 of file Volume\+Header.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a90ef0291205dcc6f555f68d81d4da8c4}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a90ef0291205dcc6f555f68d81d4da8c4}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Volume\+Header@{Volume\+Header}}
+\index{Volume\+Header@{Volume\+Header}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Volume\+Header()}{VolumeHeader()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Volume\+Header (\begin{DoxyParamCaption}\item[{quint32}]{Header\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Definition at line 22 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a1fcd2d0e4c76a06a68608f0353aedf31}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a1fcd2d0e4c76a06a68608f0353aedf31}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!````~Volume\+Header@{$\sim$\+Volume\+Header}}
+\index{````~Volume\+Header@{$\sim$\+Volume\+Header}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{$\sim$\+Volume\+Header()}{~VolumeHeader()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::$\sim$\+Volume\+Header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 29 of file Volume\+Header.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_aae6649483930b381ba33251d1fa3eac8}\label{class_gost_crypt_1_1_volume_1_1_volume_header_aae6649483930b381ba33251d1fa3eac8}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Create@{Create}}
+\index{Create@{Create}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Create (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header\+Buffer,  }\item[{\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_header_creation_options}{Volume\+Header\+Creation\+Options} \&}]{options }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a498878278e9415c2475e0fe53da56978}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a498878278e9415c2475e0fe53da56978}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Decrypt@{Decrypt}}
+\index{Decrypt@{Decrypt}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Decrypt (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{encrypted\+Data,  }\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} \&}]{password,  }\item[{const \hyperlink{namespace_gost_crypt_1_1_volume_a513257938e5ea0554ad83d0eb08f8f67}{Volume\+Hash\+List} \&}]{key\+Derivation\+Functions,  }\item[{const \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \&}]{encryption\+Algorithms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 93 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a9352d16b503f35338e5f6d6deb12f455}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a9352d16b503f35338e5f6d6deb12f455}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Deserialize@{Deserialize}}
+\index{Deserialize@{Deserialize}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Deserialize()}{Deserialize()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Deserialize (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm} $>$ \&}]{ea }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 130 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a20f60406a12c3e996005a4093c19e438}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a20f60406a12c3e996005a4093c19e438}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Deserialize\+Entry@{Deserialize\+Entry}}
+\index{Deserialize\+Entry@{Deserialize\+Entry}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Deserialize\+Entry()}{DeserializeEntry()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Deserialize\+Entry (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header,  }\item[{size\+\_\+t \&}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 227 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a7698d95b13fc25bb977069309742844a}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a7698d95b13fc25bb977069309742844a}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Deserialize\+Entry\+At@{Deserialize\+Entry\+At}}
+\index{Deserialize\+Entry\+At@{Deserialize\+Entry\+At}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Deserialize\+Entry\+At()}{DeserializeEntryAt()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Deserialize\+Entry\+At (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header,  }\item[{const size\+\_\+t \&}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 241 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a1c2ed40301cf445862f0f53f46d2cf4e}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a1c2ed40301cf445862f0f53f46d2cf4e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Encrypt\+New@{Encrypt\+New}}
+\index{Encrypt\+New@{Encrypt\+New}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Encrypt\+New()}{EncryptNew()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Encrypt\+New (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{new\+Header\+Buffer,  }\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{new\+Salt,  }\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{new\+Header\+Key,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash} $>$}]{new\+Volume\+Hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 252 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_aa84d7ba1968057eead5ecb0a0f691023}\label{class_gost_crypt_1_1_volume_1_1_volume_header_aa84d7ba1968057eead5ecb0a0f691023}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Encrypted\+Area\+Start@{Get\+Encrypted\+Area\+Start}}
+\index{Get\+Encrypted\+Area\+Start@{Get\+Encrypted\+Area\+Start}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Encrypted\+Area\+Start()}{GetEncryptedAreaStart()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Encrypted\+Area\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 56 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ac25aa68af3a7b66c139ca4eec42ec44a}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ac25aa68af3a7b66c139ca4eec42ec44a}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Encryption\+Algorithm@{Get\+Encryption\+Algorithm}}
+\index{Get\+Encryption\+Algorithm@{Get\+Encryption\+Algorithm}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Encryption\+Algorithm()}{GetEncryptionAlgorithm()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm}$>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Encryption\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 57 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a0ca388f488857dbe7a7ccd37162c507d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a0ca388f488857dbe7a7ccd37162c507d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Header\+Creation\+Time@{Get\+Header\+Creation\+Time}}
+\index{Get\+Header\+Creation\+Time@{Get\+Header\+Creation\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Header\+Creation\+Time()}{GetHeaderCreationTime()}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Header\+Creation\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 58 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a1b249cf7187ef90304c1553ca4809160}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a1b249cf7187ef90304c1553ca4809160}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Largest\+Serialized\+Key\+Size@{Get\+Largest\+Serialized\+Key\+Size}}
+\index{Get\+Largest\+Serialized\+Key\+Size@{Get\+Largest\+Serialized\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Largest\+Serialized\+Key\+Size()}{GetLargestSerializedKeySize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Largest\+Serialized\+Key\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 281 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a56fa388c0bcbca1fa9216f6fc2592a12}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a56fa388c0bcbca1fa9216f6fc2592a12}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Salt\+Size@{Get\+Salt\+Size}}
+\index{Get\+Salt\+Size@{Get\+Salt\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Salt\+Size()}{GetSaltSize()}}
+{\footnotesize\ttfamily static quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Salt\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 62 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a9b9ebf3b6b0793975b7d77a2f32abf2d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a9b9ebf3b6b0793975b7d77a2f32abf2d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Sector\+Size@{Get\+Sector\+Size}}
+\index{Get\+Sector\+Size@{Get\+Sector\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Sector\+Size()}{GetSectorSize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Sector\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 61 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_aececfd078b4fb36e176eed40d6224c19}\label{class_gost_crypt_1_1_volume_1_1_volume_header_aececfd078b4fb36e176eed40d6224c19}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Volume\+Creation\+Time@{Get\+Volume\+Creation\+Time}}
+\index{Get\+Volume\+Creation\+Time@{Get\+Volume\+Creation\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Volume\+Creation\+Time()}{GetVolumeCreationTime()}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Volume\+Creation\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 64 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_afe9b400a865f65e6067a23927842ae7d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_afe9b400a865f65e6067a23927842ae7d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Volume\+Data\+Size@{Get\+Volume\+Data\+Size}}
+\index{Get\+Volume\+Data\+Size@{Get\+Volume\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Volume\+Data\+Size()}{GetVolumeDataSize()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Volume\+Data\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 63 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a1fb49b0a5cd673cbd0da51c4d5c9f4ff}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a1fb49b0a5cd673cbd0da51c4d5c9f4ff}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Get\+Volume\+Hash@{Get\+Volume\+Hash}}
+\index{Get\+Volume\+Hash@{Get\+Volume\+Hash}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Get\+Volume\+Hash()}{GetVolumeHash()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash}$>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Get\+Volume\+Hash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 60 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a05396de0817aef69d254c1df033c43fa}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a05396de0817aef69d254c1df033c43fa}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Init@{Init}}
+\index{Init@{Init}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 34 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a4facba2c383fad43d9e7cb1a7930b195}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a4facba2c383fad43d9e7cb1a7930b195}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Serialize@{Serialize}}
+\index{Serialize@{Serialize}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Serialize()}{Serialize()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Serialize (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 296 of file Volume\+Header.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ab08ed660900880c76f5b0aa5ed627a94}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ab08ed660900880c76f5b0aa5ed627a94}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Serialize\+Entry@{Serialize\+Entry}}
+\index{Serialize\+Entry@{Serialize\+Entry}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Serialize\+Entry()}{SerializeEntry()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Serialize\+Entry (\begin{DoxyParamCaption}\item[{const \hyperlink{_stribog_8c_aba2f4c400d7a4c0bf0296be622087314}{T} \&}]{entry,  }\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{header,  }\item[{size\+\_\+t \&}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 347 of file Volume\+Header.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a89260a77af653fb9b99e0fc31a12da62}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a89260a77af653fb9b99e0fc31a12da62}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Current\+Header\+Version@{Current\+Header\+Version}}
+\index{Current\+Header\+Version@{Current\+Header\+Version}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Current\+Header\+Version}{CurrentHeaderVersion}}
+{\footnotesize\ttfamily const quint16 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Current\+Header\+Version = \hyperlink{_volumes_8h_afc0155db6ffb15c5f34f923bf75ab0e8}{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 76 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ab94df3903320257c70fb8e3248bdcd2b}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ab94df3903320257c70fb8e3248bdcd2b}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Current\+Required\+Min\+Program\+Version@{Current\+Required\+Min\+Program\+Version}}
+\index{Current\+Required\+Min\+Program\+Version@{Current\+Required\+Min\+Program\+Version}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Current\+Required\+Min\+Program\+Version}{CurrentRequiredMinProgramVersion}}
+{\footnotesize\ttfamily const quint16 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Current\+Required\+Min\+Program\+Version = \hyperlink{_volumes_8h_a23d7abc66b3f5e8bb8e8ac092505f8a5}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 77 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a285ca82990065a25e422137c7071d3cb}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a285ca82990065a25e422137c7071d3cb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Data\+Area\+Key@{Data\+Area\+Key}}
+\index{Data\+Area\+Key@{Data\+Area\+Key}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Data\+Area\+Key}{DataAreaKey}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Data\+Area\+Key\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 108 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a7ac2bb5f9c033a9400ed6f1cdb8101ff}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a7ac2bb5f9c033a9400ed6f1cdb8101ff}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Data\+Area\+Key\+Offset@{Data\+Area\+Key\+Offset}}
+\index{Data\+Area\+Key\+Offset@{Data\+Area\+Key\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Data\+Area\+Key\+Offset}{DataAreaKeyOffset}}
+{\footnotesize\ttfamily const quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Data\+Area\+Key\+Offset = \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_af27e0bcfd6be57f61941a209a5f1e73f}{Data\+Key\+Area\+Max\+Size} -\/ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_acd2e52603a1ef15adaa66bdc5e1ea794}{Encrypted\+Header\+Data\+Offset}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 88 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_af27e0bcfd6be57f61941a209a5f1e73f}\label{class_gost_crypt_1_1_volume_1_1_volume_header_af27e0bcfd6be57f61941a209a5f1e73f}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Data\+Key\+Area\+Max\+Size@{Data\+Key\+Area\+Max\+Size}}
+\index{Data\+Key\+Area\+Max\+Size@{Data\+Key\+Area\+Max\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Data\+Key\+Area\+Max\+Size}{DataKeyAreaMaxSize}}
+{\footnotesize\ttfamily const int Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Data\+Key\+Area\+Max\+Size = 256\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 87 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_af502a8b072d04c9cdc59a6aaed1a5915}\label{class_gost_crypt_1_1_volume_1_1_volume_header_af502a8b072d04c9cdc59a6aaed1a5915}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!EA@{EA}}
+\index{EA@{EA}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{EA}{EA}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm}$>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+EA\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 90 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a83fa43c6595b91538dce920f0a24865d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a83fa43c6595b91538dce920f0a24865d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Encrypted\+Area\+Length@{Encrypted\+Area\+Length}}
+\index{Encrypted\+Area\+Length@{Encrypted\+Area\+Length}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Encrypted\+Area\+Length}{EncryptedAreaLength}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Encrypted\+Area\+Length\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 104 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a2403873d54a244f67cfa1f5bc6c3a010}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a2403873d54a244f67cfa1f5bc6c3a010}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Encrypted\+Area\+Start@{Encrypted\+Area\+Start}}
+\index{Encrypted\+Area\+Start@{Encrypted\+Area\+Start}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Encrypted\+Area\+Start}{EncryptedAreaStart}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Encrypted\+Area\+Start\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 103 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_acd2e52603a1ef15adaa66bdc5e1ea794}\label{class_gost_crypt_1_1_volume_1_1_volume_header_acd2e52603a1ef15adaa66bdc5e1ea794}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Encrypted\+Header\+Data\+Offset@{Encrypted\+Header\+Data\+Offset}}
+\index{Encrypted\+Header\+Data\+Offset@{Encrypted\+Header\+Data\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Encrypted\+Header\+Data\+Offset}{EncryptedHeaderDataOffset}}
+{\footnotesize\ttfamily const int Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Encrypted\+Header\+Data\+Offset = \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_ab1d2f5c41d0b24c592fd2048d73c2171}{Salt\+Offset} + \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header_a37981e31384a8214ede95ed3d7e2e421}{Salt\+Size}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 83 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a25a781bf704835adc7735afe28409f4c}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a25a781bf704835adc7735afe28409f4c}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Encrypted\+Header\+Data\+Size@{Encrypted\+Header\+Data\+Size}}
+\index{Encrypted\+Header\+Data\+Size@{Encrypted\+Header\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Encrypted\+Header\+Data\+Size}{EncryptedHeaderDataSize}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Encrypted\+Header\+Data\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 84 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a9e636980144674f2123169cd6575cc22}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a9e636980144674f2123169cd6575cc22}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Flags@{Flags}}
+\index{Flags@{Flags}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Flags}{Flags}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Flags\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 105 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ab1295ff885fe8216a48b16db486175e4}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ab1295ff885fe8216a48b16db486175e4}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Header\+Creation\+Time@{Header\+Creation\+Time}}
+\index{Header\+Creation\+Time@{Header\+Creation\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Header\+Creation\+Time}{HeaderCreationTime}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Header\+Creation\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 98 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ab4dbd75d926241b0b0430a5f57e67a97}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ab4dbd75d926241b0b0430a5f57e67a97}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Header\+Size@{Header\+Size}}
+\index{Header\+Size@{Header\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Header\+Size}{HeaderSize}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Header\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 74 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a4f111f8e818af8aa7d0d03687636fb7d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a4f111f8e818af8aa7d0d03687636fb7d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Header\+Version@{Header\+Version}}
+\index{Header\+Version@{Header\+Version}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Header\+Version}{HeaderVersion}}
+{\footnotesize\ttfamily quint16 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Header\+Version\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 93 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a5cb7e7036ba6dc889f16d6229a5c9a1d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a5cb7e7036ba6dc889f16d6229a5c9a1d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Hidden\+Volume\+Data\+Size@{Hidden\+Volume\+Data\+Size}}
+\index{Hidden\+Volume\+Data\+Size@{Hidden\+Volume\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Hidden\+Volume\+Data\+Size}{HiddenVolumeDataSize}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Hidden\+Volume\+Data\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 101 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a7e4b73909a8b269c52d34de275166b8b}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a7e4b73909a8b269c52d34de275166b8b}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Legacy\+Encryption\+Mode\+Key\+Area\+Size@{Legacy\+Encryption\+Mode\+Key\+Area\+Size}}
+\index{Legacy\+Encryption\+Mode\+Key\+Area\+Size@{Legacy\+Encryption\+Mode\+Key\+Area\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Legacy\+Encryption\+Mode\+Key\+Area\+Size}{LegacyEncryptionModeKeyAreaSize}}
+{\footnotesize\ttfamily const quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Legacy\+Encryption\+Mode\+Key\+Area\+Size = 32\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 86 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a88bdc4e8ed22c6cbfca4d8008bc85b11}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a88bdc4e8ed22c6cbfca4d8008bc85b11}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Min\+Allowed\+Header\+Version@{Min\+Allowed\+Header\+Version}}
+\index{Min\+Allowed\+Header\+Version@{Min\+Allowed\+Header\+Version}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Min\+Allowed\+Header\+Version}{MinAllowedHeaderVersion}}
+{\footnotesize\ttfamily const quint16 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Min\+Allowed\+Header\+Version = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 78 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a645d74bbfd6eedba63eb02ceec721466}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a645d74bbfd6eedba63eb02ceec721466}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!m\+Volume\+Type@{m\+Volume\+Type}}
+\index{m\+Volume\+Type@{m\+Volume\+Type}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{m\+Volume\+Type}{mVolumeType}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::m\+Volume\+Type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 100 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_af0598e2c23b55eec39e4b80ae0e8178d}\label{class_gost_crypt_1_1_volume_1_1_volume_header_af0598e2c23b55eec39e4b80ae0e8178d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Required\+Min\+Program\+Version@{Required\+Min\+Program\+Version}}
+\index{Required\+Min\+Program\+Version@{Required\+Min\+Program\+Version}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Required\+Min\+Program\+Version}{RequiredMinProgramVersion}}
+{\footnotesize\ttfamily quint16 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Required\+Min\+Program\+Version\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 94 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ab1d2f5c41d0b24c592fd2048d73c2171}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ab1d2f5c41d0b24c592fd2048d73c2171}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Salt\+Offset@{Salt\+Offset}}
+\index{Salt\+Offset@{Salt\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Salt\+Offset}{SaltOffset}}
+{\footnotesize\ttfamily const int Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Salt\+Offset = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 80 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a37981e31384a8214ede95ed3d7e2e421}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a37981e31384a8214ede95ed3d7e2e421}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Salt\+Size@{Salt\+Size}}
+\index{Salt\+Size@{Salt\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Salt\+Size}{SaltSize}}
+{\footnotesize\ttfamily const quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Salt\+Size = 64\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 81 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a9d8c166c1362824b6a43f27e6d8b48cf}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a9d8c166c1362824b6a43f27e6d8b48cf}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Sector\+Size@{Sector\+Size}}
+\index{Sector\+Size@{Sector\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Sector\+Size}{SectorSize}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Sector\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 106 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a9edc6a3abf2f3b84ab44867af30be89c}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a9edc6a3abf2f3b84ab44867af30be89c}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Volume\+Creation\+Time@{Volume\+Creation\+Time}}
+\index{Volume\+Creation\+Time@{Volume\+Creation\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Volume\+Creation\+Time}{VolumeCreationTime}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a4aab8aad1263f3abd1e4949b1e428468}{Volume\+Time} Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Volume\+Creation\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 97 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_ae962ed704b59ddf43bfb3f21a9dcb12f}\label{class_gost_crypt_1_1_volume_1_1_volume_header_ae962ed704b59ddf43bfb3f21a9dcb12f}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Volume\+Data\+Size@{Volume\+Data\+Size}}
+\index{Volume\+Data\+Size@{Volume\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Volume\+Data\+Size}{VolumeDataSize}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Volume\+Data\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 102 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a2c7ee26744636f1f262d28dc0f2e13a7}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a2c7ee26744636f1f262d28dc0f2e13a7}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!volume\+Hash@{volume\+Hash}}
+\index{volume\+Hash@{volume\+Hash}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{volume\+Hash}{volumeHash}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+Hash}$>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::volume\+Hash\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 91 of file Volume\+Header.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_header_a32c984961780c9bb1a4bbfa695e46b19}\label{class_gost_crypt_1_1_volume_1_1_volume_header_a32c984961780c9bb1a4bbfa695e46b19}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}!Volume\+Key\+Area\+Crc32@{Volume\+Key\+Area\+Crc32}}
+\index{Volume\+Key\+Area\+Crc32@{Volume\+Key\+Area\+Crc32}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Header@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Header}}
+\subsubsection{\texorpdfstring{Volume\+Key\+Area\+Crc32}{VolumeKeyAreaCrc32}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Header\+::\+Volume\+Key\+Area\+Crc32\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 95 of file Volume\+Header.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_volume_header_8h}{Volume\+Header.\+h}\item 
+Volume/\hyperlink{_volume_header_8cpp}{Volume\+Header.\+cpp}\end{DoxyCompactItemize}

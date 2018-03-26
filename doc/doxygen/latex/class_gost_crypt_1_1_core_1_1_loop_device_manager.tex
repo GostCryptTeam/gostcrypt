@@ -1,0 +1,77 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_loop_device_manager}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Loop\+Device\+Manager Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_loop_device_manager}\index{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager@{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager}}
+
+
+Class containing the methods managing the loop device. The loop device is a block file pointing to a regular file.  
+
+
+
+
+{\ttfamily \#include $<$Loop\+Device\+Manager.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Q\+File\+Info \hyperlink{class_gost_crypt_1_1_core_1_1_loop_device_manager_af706ff8b7420c93dfb7e052453a3b914}{attach\+Loop\+Device} (Q\+File\+Info image\+File, bool readonly)
+\begin{DoxyCompactList}\small\item\em Attach a loop device to the given image\+File. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_loop_device_manager_a262d179a6f1151eb6fb5b6ecdd1086f3}{detach\+Loop\+Device} (Q\+File\+Info loop\+Device)
+\begin{DoxyCompactList}\small\item\em Detach a loop device from its regular file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class containing the methods managing the loop device. The loop device is a block file pointing to a regular file. 
+
+Definition at line 15 of file Loop\+Device\+Manager.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_loop_device_manager_af706ff8b7420c93dfb7e052453a3b914}\label{class_gost_crypt_1_1_core_1_1_loop_device_manager_af706ff8b7420c93dfb7e052453a3b914}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager@{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager}!attach\+Loop\+Device@{attach\+Loop\+Device}}
+\index{attach\+Loop\+Device@{attach\+Loop\+Device}!Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager@{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager}}
+\subsubsection{\texorpdfstring{attach\+Loop\+Device()}{attachLoopDevice()}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager\+::attach\+Loop\+Device (\begin{DoxyParamCaption}\item[{Q\+File\+Info}]{image\+File,  }\item[{bool}]{readonly }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Attach a loop device to the given image\+File. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image\+File} & Path of the image file to which the loop device should be attached \\
+\hline
+{\em readonly} & Boolean true if the loop device should be in read-\/only mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+File\+Info Path to the loop device now attached to the image file given in parameters 
+\end{DoxyReturn}
+
+
+Definition at line 12 of file Loop\+Device\+Manager.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_loop_device_manager_a262d179a6f1151eb6fb5b6ecdd1086f3}\label{class_gost_crypt_1_1_core_1_1_loop_device_manager_a262d179a6f1151eb6fb5b6ecdd1086f3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager@{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager}!detach\+Loop\+Device@{detach\+Loop\+Device}}
+\index{detach\+Loop\+Device@{detach\+Loop\+Device}!Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager@{Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager}}
+\subsubsection{\texorpdfstring{detach\+Loop\+Device()}{detachLoopDevice()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Loop\+Device\+Manager\+::detach\+Loop\+Device (\begin{DoxyParamCaption}\item[{Q\+File\+Info}]{loop\+Device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Detach a loop device from its regular file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em loop\+Device} & Path to the loop device to detach \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 56 of file Loop\+Device\+Manager.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_loop_device_manager_8h}{Loop\+Device\+Manager.\+h}\item 
+Core/\hyperlink{_loop_device_manager_8cpp}{Loop\+Device\+Manager.\+cpp}\end{DoxyCompactItemize}

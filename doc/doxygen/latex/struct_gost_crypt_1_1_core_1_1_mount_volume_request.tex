@@ -1,0 +1,273 @@
+\hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Mount\+Volume\+Request Struct Reference}
+\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request}\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+
+
+Class storing all parameters for the mount volume action.  
+
+
+
+
+{\ttfamily \#include $<$Core\+Request.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Mount\+Volume\+Request\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_gost_crypt_1_1_core_1_1_mount_volume_request}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aeec55651b6e63c80351c2dd406b63b90}{Mount\+Volume\+Request} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor with default parameters. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aadfba3e3bedf76e1bfa45b66b0012536}{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE} (\hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Mount\+Volume\+Request})
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aae99596107c8aec7b44f91f0f7bf4525}{file\+System\+Options}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab35801e361af1509638f47ec6117d5ac}{file\+System\+Type}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a9e33a3e0ce0c4c9df8b4f6feeb63f576}{do\+Mount}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0f08676348d29ec9c93a2303ddbbcdef}{preserve\+Timestamps}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab18918435d55773483cb8ec0be1d7f09}{keyfiles}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ae1920191de61d1f8224793f85b49e05b}{password}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a4ed6d34a588a845b15f11074c5302a76}{mount\+Point}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5591ca5a667d67241c1d696d7fa23b7c}{path}
+\item 
+\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_protection_a8dd7301af256c893dc1e0a08c7530c7f}{Volume\+::\+Volume\+Protection\+::\+Enum} \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ac9110493ad5f1353e46dc59751487d43}{protection}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a038390b2cbc49aecca10eb0b96cb998f}{protection\+Password}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_adba597763cbd436a01a6078cbfa8ac9c}{protection\+Keyfiles}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0b0879ac3e44a8ae73f03f041a278cb5}{use\+Backup\+Headers}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a01b3f0045317668cd4cf66fca458603c}{mounted\+For\+User}
+\item 
+Q\+String \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5180a30572a910adb0750ce7a3ecc016}{mounted\+For\+Group}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ace199165f29bbb7c9eca0abd5ce4e183}{for\+Volume\+Creation}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ad56e4661f589cbe8e9e861fc139787da}{is\+Device}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a592dd05d50e4815aa3556ad9f61197c3}{fuse\+Mount\+Point}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class storing all parameters for the mount volume action. 
+
+Definition at line 158 of file Core\+Request.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aeec55651b6e63c80351c2dd406b63b90}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aeec55651b6e63c80351c2dd406b63b90}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!Mount\+Volume\+Request@{Mount\+Volume\+Request}}
+\index{Mount\+Volume\+Request@{Mount\+Volume\+Request}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{Mount\+Volume\+Request()}{MountVolumeRequest()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::\+Mount\+Volume\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default Constructor with default parameters. 
+
+
+
+Definition at line 330 of file Core\+Request.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aadfba3e3bedf76e1bfa45b66b0012536}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aadfba3e3bedf76e1bfa45b66b0012536}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}}
+\index{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+L\+E()}{DEC\_SERIALIZABLE()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::\+D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE (\begin{DoxyParamCaption}\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Mount\+Volume\+Request}}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a9e33a3e0ce0c4c9df8b4f6feeb63f576}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a9e33a3e0ce0c4c9df8b4f6feeb63f576}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!do\+Mount@{do\+Mount}}
+\index{do\+Mount@{do\+Mount}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{do\+Mount}{doMount}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::do\+Mount}
+
+Boolean true if we want \hyperlink{namespace_gost_crypt}{Gost\+Crypt} to mount the volume instance filesystem at the end of the mount action. If False, \hyperlink{namespace_gost_crypt}{Gost\+Crypt} will only provide the block device 
+
+Definition at line 167 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aae99596107c8aec7b44f91f0f7bf4525}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_aae99596107c8aec7b44f91f0f7bf4525}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!file\+System\+Options@{file\+System\+Options}}
+\index{file\+System\+Options@{file\+System\+Options}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{file\+System\+Options}{fileSystemOptions}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::file\+System\+Options}
+
+Additional options for the file system mount syscall 
+
+Definition at line 165 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab35801e361af1509638f47ec6117d5ac}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab35801e361af1509638f47ec6117d5ac}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!file\+System\+Type@{file\+System\+Type}}
+\index{file\+System\+Type@{file\+System\+Type}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{file\+System\+Type}{fileSystemType}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::file\+System\+Type}
+
+File system type to use for the filesystem mount syscall. If empty \hyperlink{namespace_gost_crypt}{Gost\+Crypt} will try to automatically detect the filesystem type of the volume instance 
+
+Definition at line 166 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ace199165f29bbb7c9eca0abd5ce4e183}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ace199165f29bbb7c9eca0abd5ce4e183}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!for\+Volume\+Creation@{for\+Volume\+Creation}}
+\index{for\+Volume\+Creation@{for\+Volume\+Creation}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{for\+Volume\+Creation}{forVolumeCreation}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::for\+Volume\+Creation}
+
+Boolean true if this action had been requested during the volume creation action. Should always be set to false when the request come from the UI module. This parameter will be used to continue the volume creation after the volume instance has been mounted. For internal use only. 
+
+Definition at line 182 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a592dd05d50e4815aa3556ad9f61197c3}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a592dd05d50e4815aa3556ad9f61197c3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!fuse\+Mount\+Point@{fuse\+Mount\+Point}}
+\index{fuse\+Mount\+Point@{fuse\+Mount\+Point}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{fuse\+Mount\+Point}{fuseMountPoint}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::fuse\+Mount\+Point}
+
+path of the mount directory for the intermediate fuse filesystem. For internal use only, \hyperlink{namespace_gost_crypt}{Gost\+Crypt} will always overwrite this parameter and determine the correct path itself. 
+
+Definition at line 184 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ad56e4661f589cbe8e9e861fc139787da}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ad56e4661f589cbe8e9e861fc139787da}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!is\+Device@{is\+Device}}
+\index{is\+Device@{is\+Device}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{is\+Device}{isDevice}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::is\+Device}
+
+Boolean true if the volume container is a partition, false if it is a file. For internal use only, \hyperlink{namespace_gost_crypt}{Gost\+Crypt} will always overwrite this parameter and derive the volume container type from the volume container path. 
+
+Definition at line 183 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab18918435d55773483cb8ec0be1d7f09}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ab18918435d55773483cb8ec0be1d7f09}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!keyfiles@{keyfiles}}
+\index{keyfiles@{keyfiles}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{keyfiles}{keyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::keyfiles}
+
+keyfiles of the volume instance to mount 
+
+Definition at line 169 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5180a30572a910adb0750ce7a3ecc016}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5180a30572a910adb0750ce7a3ecc016}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!mounted\+For\+Group@{mounted\+For\+Group}}
+\index{mounted\+For\+Group@{mounted\+For\+Group}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{mounted\+For\+Group}{mountedForGroup}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::mounted\+For\+Group}
+
+Name of the group who will own the volume block file once mounted. If empty, it will be the current group. 
+
+Definition at line 181 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a01b3f0045317668cd4cf66fca458603c}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a01b3f0045317668cd4cf66fca458603c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!mounted\+For\+User@{mounted\+For\+User}}
+\index{mounted\+For\+User@{mounted\+For\+User}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{mounted\+For\+User}{mountedForUser}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::mounted\+For\+User}
+
+Name of the user who will own the volume block file once mounted. If empty, it will be the current user. 
+
+Definition at line 180 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a4ed6d34a588a845b15f11074c5302a76}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a4ed6d34a588a845b15f11074c5302a76}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!mount\+Point@{mount\+Point}}
+\index{mount\+Point@{mount\+Point}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{mount\+Point}{mountPoint}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::mount\+Point}
+
+path of the directory where the volume instance should be mounted. If left empty, \hyperlink{namespace_gost_crypt}{Gost\+Crypt} will determined where the system usually mount devices and create a mount directory there. (example\+: /media/\mbox{[}username\mbox{]}). This parameter will not be used if do\+Mount is set to false. 
+
+Definition at line 171 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ae1920191de61d1f8224793f85b49e05b}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ae1920191de61d1f8224793f85b49e05b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!password@{password}}
+\index{password@{password}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::password}
+
+password of the volume instance to mount 
+
+Definition at line 170 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5591ca5a667d67241c1d696d7fa23b7c}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a5591ca5a667d67241c1d696d7fa23b7c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!path@{path}}
+\index{path@{path}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::path}
+
+path of the volume container (file or device) to mount 
+
+Definition at line 172 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0f08676348d29ec9c93a2303ddbbcdef}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0f08676348d29ec9c93a2303ddbbcdef}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!preserve\+Timestamps@{preserve\+Timestamps}}
+\index{preserve\+Timestamps@{preserve\+Timestamps}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{preserve\+Timestamps}{preserveTimestamps}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::preserve\+Timestamps}
+
+Boolean true if \hyperlink{namespace_gost_crypt}{Gost\+Crypt} should not modify the Access and modification time of the file container 
+
+Definition at line 168 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ac9110493ad5f1353e46dc59751487d43}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_ac9110493ad5f1353e46dc59751487d43}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!protection@{protection}}
+\index{protection@{protection}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{protection}{protection}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_protection_a8dd7301af256c893dc1e0a08c7530c7f}{Volume\+::\+Volume\+Protection\+::\+Enum} Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::protection}
+
+Type of protection to use while mounting the volume 
+
+Definition at line 174 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_adba597763cbd436a01a6078cbfa8ac9c}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_adba597763cbd436a01a6078cbfa8ac9c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!protection\+Keyfiles@{protection\+Keyfiles}}
+\index{protection\+Keyfiles@{protection\+Keyfiles}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{protection\+Keyfiles}{protectionKeyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::protection\+Keyfiles}
+
+keyfiles of the hidden inner volume instance used when mounting outer volume instance in protected mode (Hidden\+Volume\+Read\+Only) 
+
+Definition at line 178 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a038390b2cbc49aecca10eb0b96cb998f}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a038390b2cbc49aecca10eb0b96cb998f}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!protection\+Password@{protection\+Password}}
+\index{protection\+Password@{protection\+Password}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{protection\+Password}{protectionPassword}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::protection\+Password}
+
+password of the hidden inner volume instance used when mounting outer volume instance in protected mode (Hidden\+Volume\+Read\+Only) 
+
+Definition at line 176 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0b0879ac3e44a8ae73f03f041a278cb5}\label{struct_gost_crypt_1_1_core_1_1_mount_volume_request_a0b0879ac3e44a8ae73f03f041a278cb5}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}!use\+Backup\+Headers@{use\+Backup\+Headers}}
+\index{use\+Backup\+Headers@{use\+Backup\+Headers}!Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request@{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}}
+\subsubsection{\texorpdfstring{use\+Backup\+Headers}{useBackupHeaders}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request\+::use\+Backup\+Headers}
+
+Boolean true when we want to use the backup header to mount the volume instance. This option can be useful when the main header is corrupted 
+
+Definition at line 179 of file Core\+Request.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_request_8h}{Core\+Request.\+h}\item 
+Core/\hyperlink{_core_request_8cpp}{Core\+Request.\+cpp}\end{DoxyCompactItemize}

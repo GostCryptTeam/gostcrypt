@@ -1,0 +1,90 @@
+\hypertarget{_cmd_line_interface_8h}{}\section{U\+I/\+Cmd\+Line\+Interface.h File Reference}
+\label{_cmd_line_interface_8h}\index{U\+I/\+Cmd\+Line\+Interface.\+h@{U\+I/\+Cmd\+Line\+Interface.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+Core\+Application$>$}\newline
+{\ttfamily \#include $<$Q\+Command\+Line\+Parser$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Parser.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}User\+Interface.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Base.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_my_application}{My\+Application}
+\item 
+class \hyperlink{class_cmd_line_interface}{Cmd\+Line\+Interface}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_cmd_line_interface_8h_ac4ca991a43d327e5ec2060b3d8695b31}{M\+K\+\_\+\+E\+N\+UM}(name)~name
+\item 
+\#define \hyperlink{_cmd_line_interface_8h_a1679a8fefa7858a186ba5e0d38bf434c}{M\+K\+\_\+\+S\+T\+R\+T\+AB}(name)~\#name
+\item 
+\#define \hyperlink{_cmd_line_interface_8h_ad11478bcafd0f3aae7831cf9b0898c1e}{M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}(func)
+\item 
+\#define \hyperlink{_cmd_line_interface_8h_a295ed3681ed1bbfa0baecd3e72c6269c}{C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL}(request\+Name)~app.\+connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)), this, S\+L\+OT(print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)))
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_cmd_line_interface_8h_a295ed3681ed1bbfa0baecd3e72c6269c}\label{_cmd_line_interface_8h_a295ed3681ed1bbfa0baecd3e72c6269c}} 
+\index{Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}!C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL@{C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL@{C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL}!Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}}
+\subsubsection{\texorpdfstring{C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL}{CONNECT\_SIGNAL}}
+{\footnotesize\ttfamily \#define C\+O\+N\+N\+E\+C\+T\+\_\+\+S\+I\+G\+N\+AL(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})~app.\+connect(core.\+data(), S\+I\+G\+N\+AL(send \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)), this, S\+L\+OT(print \#\# request\+Name (Q\+Shared\+Pointer$<$Gost\+Crypt\+::\+Core\+::request\+Name \#\# Response$>$)))}
+
+
+
+Definition at line 32 of file Cmd\+Line\+Interface.\+h.
+
+\mbox{\Hypertarget{_cmd_line_interface_8h_ad11478bcafd0f3aae7831cf9b0898c1e}\label{_cmd_line_interface_8h_ad11478bcafd0f3aae7831cf9b0898c1e}} 
+\index{Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}!M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}}
+\index{M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}!Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}}
+\subsubsection{\texorpdfstring{M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS}{MK\_ALL\_COMMANDS}}
+{\footnotesize\ttfamily \#define M\+K\+\_\+\+A\+L\+L\+\_\+\+C\+O\+M\+M\+A\+N\+DS(\begin{DoxyParamCaption}\item[{}]{func }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+    func(mount), \(\backslash\)
+    func(createvolume), \(\backslash\)
+    func(create), \(\backslash\)
+    func(umount), \(\backslash\)
+    func(unmount), \(\backslash\)
+    func(dismount), \(\backslash\)
+    func(dismountall), \(\backslash\)
+    func(createkeyfiles), \(\backslash\)
+    func(list), \(\backslash\)
+    func(benchmark), \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 19 of file Cmd\+Line\+Interface.\+h.
+
+\mbox{\Hypertarget{_cmd_line_interface_8h_ac4ca991a43d327e5ec2060b3d8695b31}\label{_cmd_line_interface_8h_ac4ca991a43d327e5ec2060b3d8695b31}} 
+\index{Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}!M\+K\+\_\+\+E\+N\+UM@{M\+K\+\_\+\+E\+N\+UM}}
+\index{M\+K\+\_\+\+E\+N\+UM@{M\+K\+\_\+\+E\+N\+UM}!Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}}
+\subsubsection{\texorpdfstring{M\+K\+\_\+\+E\+N\+UM}{MK\_ENUM}}
+{\footnotesize\ttfamily \#define M\+K\+\_\+\+E\+N\+UM(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~name}
+
+
+
+Definition at line 17 of file Cmd\+Line\+Interface.\+h.
+
+\mbox{\Hypertarget{_cmd_line_interface_8h_a1679a8fefa7858a186ba5e0d38bf434c}\label{_cmd_line_interface_8h_a1679a8fefa7858a186ba5e0d38bf434c}} 
+\index{Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}!M\+K\+\_\+\+S\+T\+R\+T\+AB@{M\+K\+\_\+\+S\+T\+R\+T\+AB}}
+\index{M\+K\+\_\+\+S\+T\+R\+T\+AB@{M\+K\+\_\+\+S\+T\+R\+T\+AB}!Cmd\+Line\+Interface.\+h@{Cmd\+Line\+Interface.\+h}}
+\subsubsection{\texorpdfstring{M\+K\+\_\+\+S\+T\+R\+T\+AB}{MK\_STRTAB}}
+{\footnotesize\ttfamily \#define M\+K\+\_\+\+S\+T\+R\+T\+AB(\begin{DoxyParamCaption}\item[{}]{name }\end{DoxyParamCaption})~\#name}
+
+
+
+Definition at line 18 of file Cmd\+Line\+Interface.\+h.
+

@@ -1,0 +1,36 @@
+\hypertarget{_core_base_8cpp}{}\section{Core/\+Core\+Base.cpp File Reference}
+\label{_core_base_8cpp}\index{Core/\+Core\+Base.\+cpp@{Core/\+Core\+Base.\+cpp}}
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$mntent.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+User.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Root.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Encryption\+Thread\+Pool.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Q\+Mutex$>$}\newline
+{\ttfamily \#include $<$Q\+Text\+Stream$>$}\newline
+{\ttfamily \#include $<$Q\+Debug$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include $<$Q\+Standard\+Paths$>$}\newline
+{\ttfamily \#include $<$Q\+Elapsed\+Timer$>$}\newline
+{\ttfamily \#include $<$grp.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$pwd.\+h$>$}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Shared\+Pointer$<$ Core\+Base $>$ \hyperlink{namespace_gost_crypt_1_1_core_aebee4c3e0812331b85f018855887dfde}{Gost\+Crypt\+::\+Core\+::get\+Core} ()
+\begin{DoxyCompactList}\small\item\em Give the core object to use (\hyperlink{class_gost_crypt_1_1_core_1_1_core_root}{Core\+Root} instance if current user is root, \hyperlink{class_gost_crypt_1_1_core_1_1_core_user}{Core\+User} instance otherwise). \end{DoxyCompactList}\item 
+uid\+\_\+t \hyperlink{namespace_gost_crypt_1_1_core_af5a4d81b86fc0ab8033cb685f9cac213}{Gost\+Crypt\+::\+Core\+::get\+User\+Id} (Q\+String username)
+\item 
+gid\+\_\+t \hyperlink{namespace_gost_crypt_1_1_core_a8ed446713a9144223305012b80e4395d}{Gost\+Crypt\+::\+Core\+::get\+Group\+Id} (Q\+String groupname)
+\end{DoxyCompactItemize}

@@ -1,0 +1,175 @@
+\hypertarget{_random_8h}{}\section{Volume/\+Crypto/\+Random.h File Reference}
+\label{_random_8h}\index{Volume/\+Crypto/\+Random.\+h@{Volume/\+Crypto/\+Random.\+h}}
+{\ttfamily \#include \char`\"{}Crypto.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_random_8h_a89e9e5ab91a3105eff445aa734adc207}{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}~320
+\item 
+\#define \hyperlink{_random_8h_a8a0bd7296cf896e51bad001c41f8fc19}{R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE}~\hyperlink{_random_8h_a89e9e5ab91a3105eff445aa734adc207}{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_random_8h_a141109cf7b5404e7d60466a3c7b73eef}{R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~16
+\item 
+\#define \hyperlink{_random_8h_a22c1210575bd5d9079a963dde28d373c}{F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~500
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_random_8h_a986e0406e6679a9dfd267c574aa8ec8d}{Rand\+Add\+Int} (unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} x)
+\item 
+int \hyperlink{_random_8h_ae94ac0ae33b51905709d96cbd968ff51}{Randinit} (void)
+\item 
+void \hyperlink{_random_8h_a009589ab36ed5eba8dfee41cef19792a}{Rand\+Stop} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} free\+Pool)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_adde1d6fdecdc1df8fbadcb16dc445b4c}{Is\+Random\+Number\+Generator\+Started} ()
+\item 
+void \hyperlink{_random_8h_aba80bcfbc12785c63c8bbb16f415c516}{Rand\+Set\+Hash\+Function} (int hash\+\_\+algo\+\_\+id)
+\item 
+int \hyperlink{_random_8h_a2014fa3d97acda067c9618a43e184e2c}{Rand\+Get\+Hash\+Function} (void)
+\item 
+void \hyperlink{_random_8h_a0dbcb0c1d268cb4fb1736a0565781f61}{Set\+Random\+Pool\+Enriched\+By\+User\+Status} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} enriched)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a31f3fbcec0bed8fbb7242084a017fabb}{Is\+Random\+Pool\+Enriched\+By\+User} ()
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a8a5dd2de1210f3765a45f3982bb709f7}{Randmix} (void)
+\item 
+void \hyperlink{_random_8h_afc917d62bccdd2bddc5c345b24d20117}{Randadd\+Buf} (void $\ast$buf, int len)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a59f86574d41b814045c8b68bdf9e4c6e}{Fast\+Poll} (void)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a40afdfbd27ad7326c80e1fce5644783c}{Slow\+Poll} (void)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a39824abaa63b4069cd5e4a50d89f5a31}{Randpeek\+Bytes} (unsigned char $\ast$buf, int len)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_random_8h_a4f9073a1b47a63a40fed7a2b39ea63d2}{Randget\+Bytes} (unsigned char $\ast$buf, int len, \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} force\+Slow\+Poll)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_random_8h_a22c1210575bd5d9079a963dde28d373c}\label{_random_8h_a22c1210575bd5d9079a963dde28d373c}} 
+\index{Random.\+h@{Random.\+h}!F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{FASTPOLL\_INTERVAL}}
+{\footnotesize\ttfamily \#define F\+A\+S\+T\+P\+O\+L\+L\+\_\+\+I\+N\+T\+E\+R\+V\+AL~500}
+
+
+
+Definition at line 39 of file Random.\+h.
+
+\mbox{\Hypertarget{_random_8h_a141109cf7b5404e7d60466a3c7b73eef}\label{_random_8h_a141109cf7b5404e7d60466a3c7b73eef}} 
+\index{Random.\+h@{Random.\+h}!R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{RANDMIX\_BYTE\_INTERVAL}}
+{\footnotesize\ttfamily \#define R\+A\+N\+D\+M\+I\+X\+\_\+\+B\+Y\+T\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL~16}
+
+
+
+Definition at line 36 of file Random.\+h.
+
+\mbox{\Hypertarget{_random_8h_a8a0bd7296cf896e51bad001c41f8fc19}\label{_random_8h_a8a0bd7296cf896e51bad001c41f8fc19}} 
+\index{Random.\+h@{Random.\+h}!R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE@{R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE}}
+\index{R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE@{R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE}{RANDOMPOOL\_ALLOCSIZE}}
+{\footnotesize\ttfamily \#define R\+A\+N\+D\+O\+M\+P\+O\+O\+L\+\_\+\+A\+L\+L\+O\+C\+S\+I\+ZE~\hyperlink{_random_8h_a89e9e5ab91a3105eff445aa734adc207}{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 33 of file Random.\+h.
+
+\mbox{\Hypertarget{_random_8h_a89e9e5ab91a3105eff445aa734adc207}\label{_random_8h_a89e9e5ab91a3105eff445aa734adc207}} 
+\index{Random.\+h@{Random.\+h}!R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}}
+\index{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}{RNG\_POOL\_SIZE}}
+{\footnotesize\ttfamily \#define R\+N\+G\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE~320}
+
+
+
+Definition at line 27 of file Random.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_random_8h_a59f86574d41b814045c8b68bdf9e4c6e}\label{_random_8h_a59f86574d41b814045c8b68bdf9e4c6e}} 
+\index{Random.\+h@{Random.\+h}!Fast\+Poll@{Fast\+Poll}}
+\index{Fast\+Poll@{Fast\+Poll}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Fast\+Poll()}{FastPoll()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Fast\+Poll (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_adde1d6fdecdc1df8fbadcb16dc445b4c}\label{_random_8h_adde1d6fdecdc1df8fbadcb16dc445b4c}} 
+\index{Random.\+h@{Random.\+h}!Is\+Random\+Number\+Generator\+Started@{Is\+Random\+Number\+Generator\+Started}}
+\index{Is\+Random\+Number\+Generator\+Started@{Is\+Random\+Number\+Generator\+Started}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Is\+Random\+Number\+Generator\+Started()}{IsRandomNumberGeneratorStarted()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Is\+Random\+Number\+Generator\+Started (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a31f3fbcec0bed8fbb7242084a017fabb}\label{_random_8h_a31f3fbcec0bed8fbb7242084a017fabb}} 
+\index{Random.\+h@{Random.\+h}!Is\+Random\+Pool\+Enriched\+By\+User@{Is\+Random\+Pool\+Enriched\+By\+User}}
+\index{Is\+Random\+Pool\+Enriched\+By\+User@{Is\+Random\+Pool\+Enriched\+By\+User}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Is\+Random\+Pool\+Enriched\+By\+User()}{IsRandomPoolEnrichedByUser()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Is\+Random\+Pool\+Enriched\+By\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_afc917d62bccdd2bddc5c345b24d20117}\label{_random_8h_afc917d62bccdd2bddc5c345b24d20117}} 
+\index{Random.\+h@{Random.\+h}!Randadd\+Buf@{Randadd\+Buf}}
+\index{Randadd\+Buf@{Randadd\+Buf}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Randadd\+Buf()}{RandaddBuf()}}
+{\footnotesize\ttfamily void Randadd\+Buf (\begin{DoxyParamCaption}\item[{void $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a986e0406e6679a9dfd267c574aa8ec8d}\label{_random_8h_a986e0406e6679a9dfd267c574aa8ec8d}} 
+\index{Random.\+h@{Random.\+h}!Rand\+Add\+Int@{Rand\+Add\+Int}}
+\index{Rand\+Add\+Int@{Rand\+Add\+Int}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Rand\+Add\+Int()}{RandAddInt()}}
+{\footnotesize\ttfamily void Rand\+Add\+Int (\begin{DoxyParamCaption}\item[{unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32}}]{x }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a4f9073a1b47a63a40fed7a2b39ea63d2}\label{_random_8h_a4f9073a1b47a63a40fed7a2b39ea63d2}} 
+\index{Random.\+h@{Random.\+h}!Randget\+Bytes@{Randget\+Bytes}}
+\index{Randget\+Bytes@{Randget\+Bytes}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Randget\+Bytes()}{RandgetBytes()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Randget\+Bytes (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{buf,  }\item[{int}]{len,  }\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{force\+Slow\+Poll }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a2014fa3d97acda067c9618a43e184e2c}\label{_random_8h_a2014fa3d97acda067c9618a43e184e2c}} 
+\index{Random.\+h@{Random.\+h}!Rand\+Get\+Hash\+Function@{Rand\+Get\+Hash\+Function}}
+\index{Rand\+Get\+Hash\+Function@{Rand\+Get\+Hash\+Function}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Rand\+Get\+Hash\+Function()}{RandGetHashFunction()}}
+{\footnotesize\ttfamily int Rand\+Get\+Hash\+Function (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_ae94ac0ae33b51905709d96cbd968ff51}\label{_random_8h_ae94ac0ae33b51905709d96cbd968ff51}} 
+\index{Random.\+h@{Random.\+h}!Randinit@{Randinit}}
+\index{Randinit@{Randinit}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Randinit()}{Randinit()}}
+{\footnotesize\ttfamily int Randinit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a8a5dd2de1210f3765a45f3982bb709f7}\label{_random_8h_a8a5dd2de1210f3765a45f3982bb709f7}} 
+\index{Random.\+h@{Random.\+h}!Randmix@{Randmix}}
+\index{Randmix@{Randmix}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Randmix()}{Randmix()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Randmix (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a39824abaa63b4069cd5e4a50d89f5a31}\label{_random_8h_a39824abaa63b4069cd5e4a50d89f5a31}} 
+\index{Random.\+h@{Random.\+h}!Randpeek\+Bytes@{Randpeek\+Bytes}}
+\index{Randpeek\+Bytes@{Randpeek\+Bytes}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Randpeek\+Bytes()}{RandpeekBytes()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Randpeek\+Bytes (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_aba80bcfbc12785c63c8bbb16f415c516}\label{_random_8h_aba80bcfbc12785c63c8bbb16f415c516}} 
+\index{Random.\+h@{Random.\+h}!Rand\+Set\+Hash\+Function@{Rand\+Set\+Hash\+Function}}
+\index{Rand\+Set\+Hash\+Function@{Rand\+Set\+Hash\+Function}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Rand\+Set\+Hash\+Function()}{RandSetHashFunction()}}
+{\footnotesize\ttfamily void Rand\+Set\+Hash\+Function (\begin{DoxyParamCaption}\item[{int}]{hash\+\_\+algo\+\_\+id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a009589ab36ed5eba8dfee41cef19792a}\label{_random_8h_a009589ab36ed5eba8dfee41cef19792a}} 
+\index{Random.\+h@{Random.\+h}!Rand\+Stop@{Rand\+Stop}}
+\index{Rand\+Stop@{Rand\+Stop}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Rand\+Stop()}{RandStop()}}
+{\footnotesize\ttfamily void Rand\+Stop (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{free\+Pool }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a0dbcb0c1d268cb4fb1736a0565781f61}\label{_random_8h_a0dbcb0c1d268cb4fb1736a0565781f61}} 
+\index{Random.\+h@{Random.\+h}!Set\+Random\+Pool\+Enriched\+By\+User\+Status@{Set\+Random\+Pool\+Enriched\+By\+User\+Status}}
+\index{Set\+Random\+Pool\+Enriched\+By\+User\+Status@{Set\+Random\+Pool\+Enriched\+By\+User\+Status}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Set\+Random\+Pool\+Enriched\+By\+User\+Status()}{SetRandomPoolEnrichedByUserStatus()}}
+{\footnotesize\ttfamily void Set\+Random\+Pool\+Enriched\+By\+User\+Status (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{enriched }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_random_8h_a40afdfbd27ad7326c80e1fce5644783c}\label{_random_8h_a40afdfbd27ad7326c80e1fce5644783c}} 
+\index{Random.\+h@{Random.\+h}!Slow\+Poll@{Slow\+Poll}}
+\index{Slow\+Poll@{Slow\+Poll}!Random.\+h@{Random.\+h}}
+\subsubsection{\texorpdfstring{Slow\+Poll()}{SlowPoll()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Slow\+Poll (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+

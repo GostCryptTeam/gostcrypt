@@ -1,0 +1,285 @@
+\hypertarget{_core_exception_8h}{}\section{Core/\+Core\+Exception.h File Reference}
+\label{_core_exception_8h}\index{Core/\+Core\+Exception.\+h@{Core/\+Core\+Exception.\+h}}
+{\ttfamily \#include $<$Q\+File\+Info$>$}\newline
+{\ttfamily \#include $<$Q\+Exception$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+Debug$>$}\newline
+{\ttfamily \#include \char`\"{}Gost\+Crypt\+Exception.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_core_exception}{Gost\+Crypt\+::\+Core\+::\+Core\+Exception}
+\begin{DoxyCompactList}\small\item\em Parent class of all Exceptions related to \hyperlink{namespace_gost_crypt_1_1_core}{Core} module. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_device_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Device\+Not\+Mounted}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the requested device is not mounted. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_volume_already_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Already\+Mounted}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the requested action can not be performed because the volume is already mounted. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_failed_open_volume}{Gost\+Crypt\+::\+Core\+::\+Failed\+Open\+Volume}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the given volume file cannot be open. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_incorrect_sudo_password}{Gost\+Crypt\+::\+Core\+::\+Incorrect\+Sudo\+Password}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the sudo command does not launch the desired command with root privileges, most likely because the password entered is incorrect. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_service_process_crashed}{Gost\+Crypt\+::\+Core\+::\+Service\+Process\+Crashed}
+\begin{DoxyCompactList}\small\item\em Exception thrown when a service child process launched by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} exit unexpectedly. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_mount_point_used}{Gost\+Crypt\+::\+Core\+::\+Mount\+Point\+Used}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the tested mountpoint is already used. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager_exception}{Gost\+Crypt\+::\+Core\+::\+Mount\+Filesystem\+Manager\+Exception}
+\begin{DoxyCompactList}\small\item\em Base Class for all exceptions related to \hyperlink{class_gost_crypt_1_1_core_1_1_mount_filesystem_manager}{Mount\+Filesystem\+Manager}. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_fail_mount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Mount\+Filesystem}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the loop device corresponding to a \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volume failed to be mounted. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_fail_find_filesystem_type}{Gost\+Crypt\+::\+Core\+::\+Fail\+Find\+Filesystem\+Type}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the filesystemtype of a loop device can not be determined. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_fail_unmount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Unmount\+Filesystem}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the loop device corresponding to a \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volume failed to be unmounted. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_failed_attach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Attach\+Loop\+Device}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the binding of a loop device to the volume image file fail. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_failed_detach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Detach\+Loop\+Device}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the unbinding of the loop device to the volume image file fail. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_volume_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Not\+Mounted}
+\begin{DoxyCompactList}\small\item\em Exception thrown when trying to unmount a volume currently not mounted. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_formatting_sub_exception}{Gost\+Crypt\+::\+Core\+::\+Formatting\+Sub\+Exception}
+\begin{DoxyCompactList}\small\item\em Exception thrown when an exception occur while dismounting the volume after formatting the loop device corresponding to the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volume. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_format_process_failed}{Gost\+Crypt\+::\+Core\+::\+Format\+Process\+Failed}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the process in charge of formatting the newly created volume fail. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_filesystem_not_supported}{Gost\+Crypt\+::\+Core\+::\+Filesystem\+Not\+Supported}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the tool to format the newly created volume with the requested filesystem type in not found. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_algorithm_not_found}{Gost\+Crypt\+::\+Core\+::\+Algorithm\+Not\+Found}
+\begin{DoxyCompactList}\small\item\em Exception thrown when no algorithm corresponding to the requested algorithm name can be found. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_random_number_generator_not_running}{Gost\+Crypt\+::\+Core\+::\+Random\+Number\+Generator\+Not\+Running}
+\begin{DoxyCompactList}\small\item\em Exception thrown when trying to use \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator}{Random\+Generator} before it had been started. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_failed_using_system_random_source}{Gost\+Crypt\+::\+Core\+::\+Failed\+Using\+System\+Random\+Source}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the system call to get random bytes fail. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_core_exception_8h_a3074b99e5e10db3a2eec917594b5836f}{Device\+Not\+Mounted\+Exception}(device\+Path)~\hyperlink{class_gost_crypt_1_1_core_1_1_device_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Device\+Not\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, device\+Path);
+\item 
+\#define \hyperlink{_core_exception_8h_a4f1193954afa179912a35c73bb2ccad2}{Volume\+Already\+Mounted\+Exception}(volume\+Path)~\hyperlink{class_gost_crypt_1_1_core_1_1_volume_already_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Already\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);
+\item 
+\#define \hyperlink{_core_exception_8h_a340bc14021dd4f5c975006cfae215368}{Failed\+Open\+Volume\+Exception}(volume\+Path)~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_open_volume}{Gost\+Crypt\+::\+Core\+::\+Failed\+Open\+Volume}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);
+\item 
+\#define \hyperlink{_core_exception_8h_a7328e7ae2fe9c9b566d82733d2f19acb}{Incorrect\+Sudo\+Password\+Exception}()~\hyperlink{class_gost_crypt_1_1_core_1_1_incorrect_sudo_password}{Gost\+Crypt\+::\+Core\+::\+Incorrect\+Sudo\+Password}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_core_exception_8h_a40e067337d3f0a7a75ff0d94c95f2d9d}{Service\+Process\+Crashed\+Exception}()~\hyperlink{class_gost_crypt_1_1_core_1_1_service_process_crashed}{Gost\+Crypt\+::\+Core\+::\+Service\+Process\+Crashed}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_core_exception_8h_a4532d2552d8aff802621b269810d452f}{Mount\+Point\+Used\+Exception}(mountpoint)~\hyperlink{class_gost_crypt_1_1_core_1_1_mount_point_used}{Gost\+Crypt\+::\+Core\+::\+Mount\+Point\+Used}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, mountpoint);
+\item 
+\#define \hyperlink{_core_exception_8h_a231537e855f02e54ee7ee8df5c18bf4a}{Fail\+Mount\+Filesystem\+Exception}(error\+Number,  mountpoint,  device\+Path,  filesystemtype)~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_mount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Mount\+Filesystem}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number, mountpoint, device\+Path, filesystemtype);
+\item 
+\#define \hyperlink{_core_exception_8h_a2945b604cc1170bacf208090e5b4158e}{Fail\+Find\+Filesystem\+Type\+Exception}(device\+Path)~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_find_filesystem_type}{Gost\+Crypt\+::\+Core\+::\+Fail\+Find\+Filesystem\+Type}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, device\+Path);
+\item 
+\#define \hyperlink{_core_exception_8h_a1ead20f00b7d87326cacd58ff1cb5a3f}{Fail\+Unmount\+Filesystem\+Exception}(error\+Number,  mountpoint)~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_unmount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Unmount\+Filesystem}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number, mountpoint);
+\item 
+\#define \hyperlink{_core_exception_8h_a53cc1a5ad2733b08c0b30a9eb6d5cc4a}{Failed\+Attach\+Loop\+Device\+Exception}(image\+File)~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_attach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Attach\+Loop\+Device}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, image\+File);
+\item 
+\#define \hyperlink{_core_exception_8h_a6f8bb761fb32e4c1b480d934764b7b2d}{Failed\+Detach\+Loop\+Device\+Exception}(loop\+Device)~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_detach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Detach\+Loop\+Device}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, loop\+Device);
+\item 
+\#define \hyperlink{_core_exception_8h_aed7e69560f0062129ccd0978c7be597d}{Volume\+Not\+Mounted\+Exception}(volume\+Path)~\hyperlink{class_gost_crypt_1_1_core_1_1_volume_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Not\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);
+\item 
+\#define \hyperlink{_core_exception_8h_accff75832e18a7cc2b23de502396c7c4}{Formatting\+Sub\+Exception\+Exception}(sub\+Exception\+String)~\hyperlink{class_gost_crypt_1_1_core_1_1_formatting_sub_exception}{Gost\+Crypt\+::\+Core\+::\+Formatting\+Sub\+Exception}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, sub\+Exception\+String);
+\item 
+\#define \hyperlink{_core_exception_8h_a62c762be9b83b2f091a4db4cdc44139d}{Format\+Process\+Failed\+Exception}()~\hyperlink{class_gost_crypt_1_1_core_1_1_format_process_failed}{Gost\+Crypt\+::\+Core\+::\+Format\+Process\+Failed}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_core_exception_8h_af7168a6a18638556ac14e96a63fcf93b}{Filesystem\+Not\+Supported\+Exception}(filesystem)~\hyperlink{class_gost_crypt_1_1_core_1_1_filesystem_not_supported}{Gost\+Crypt\+::\+Core\+::\+Filesystem\+Not\+Supported}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, filesystem);
+\item 
+\#define \hyperlink{_core_exception_8h_a73f0db35e91bcbe59e8b41a4aac606cc}{Algorithm\+Not\+Found\+Exception}(algorithm)~\hyperlink{class_gost_crypt_1_1_core_1_1_algorithm_not_found}{Gost\+Crypt\+::\+Core\+::\+Algorithm\+Not\+Found}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, algorithm);
+\item 
+\#define \hyperlink{_core_exception_8h_a2b061d0044e4393610bbd0d582b00112}{Random\+Number\+Generator\+Not\+Running\+Exception}()~\hyperlink{class_gost_crypt_1_1_core_1_1_random_number_generator_not_running}{Gost\+Crypt\+::\+Core\+::\+Random\+Number\+Generator\+Not\+Running}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_core_exception_8h_a210ebe16c6fe6e5c87db87c85c1cf3b4}{Failed\+Using\+System\+Random\+Source\+Exception}(error\+Number)~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_using_system_random_source}{Gost\+Crypt\+::\+Core\+::\+Failed\+Using\+System\+Random\+Source}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number);
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_gost_crypt_1_1_core_a89e961f21dc6df65d86cec0196e18919}{Gost\+Crypt\+::\+Core\+::init\+Core\+Exception} ()
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{class_gost_crypt_1_1_core_1_1_core_exception}{Core\+Exception} class and subclasses to make them serializable across processes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_core_exception_8h_a73f0db35e91bcbe59e8b41a4aac606cc}\label{_core_exception_8h_a73f0db35e91bcbe59e8b41a4aac606cc}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Algorithm\+Not\+Found\+Exception@{Algorithm\+Not\+Found\+Exception}}
+\index{Algorithm\+Not\+Found\+Exception@{Algorithm\+Not\+Found\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Algorithm\+Not\+Found\+Exception}{AlgorithmNotFoundException}}
+{\footnotesize\ttfamily \#define Algorithm\+Not\+Found\+Exception(\begin{DoxyParamCaption}\item[{}]{algorithm }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_algorithm_not_found}{Gost\+Crypt\+::\+Core\+::\+Algorithm\+Not\+Found}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, algorithm);}
+
+
+
+Definition at line 531 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a3074b99e5e10db3a2eec917594b5836f}\label{_core_exception_8h_a3074b99e5e10db3a2eec917594b5836f}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Device\+Not\+Mounted\+Exception@{Device\+Not\+Mounted\+Exception}}
+\index{Device\+Not\+Mounted\+Exception@{Device\+Not\+Mounted\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Device\+Not\+Mounted\+Exception}{DeviceNotMountedException}}
+{\footnotesize\ttfamily \#define Device\+Not\+Mounted\+Exception(\begin{DoxyParamCaption}\item[{}]{device\+Path }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_device_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Device\+Not\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, device\+Path);}
+
+
+
+Definition at line 44 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a53cc1a5ad2733b08c0b30a9eb6d5cc4a}\label{_core_exception_8h_a53cc1a5ad2733b08c0b30a9eb6d5cc4a}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Failed\+Attach\+Loop\+Device\+Exception@{Failed\+Attach\+Loop\+Device\+Exception}}
+\index{Failed\+Attach\+Loop\+Device\+Exception@{Failed\+Attach\+Loop\+Device\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Failed\+Attach\+Loop\+Device\+Exception}{FailedAttachLoopDeviceException}}
+{\footnotesize\ttfamily \#define Failed\+Attach\+Loop\+Device\+Exception(\begin{DoxyParamCaption}\item[{}]{image\+File }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_attach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Attach\+Loop\+Device}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, image\+File);}
+
+
+
+Definition at line 352 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a6f8bb761fb32e4c1b480d934764b7b2d}\label{_core_exception_8h_a6f8bb761fb32e4c1b480d934764b7b2d}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Failed\+Detach\+Loop\+Device\+Exception@{Failed\+Detach\+Loop\+Device\+Exception}}
+\index{Failed\+Detach\+Loop\+Device\+Exception@{Failed\+Detach\+Loop\+Device\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Failed\+Detach\+Loop\+Device\+Exception}{FailedDetachLoopDeviceException}}
+{\footnotesize\ttfamily \#define Failed\+Detach\+Loop\+Device\+Exception(\begin{DoxyParamCaption}\item[{}]{loop\+Device }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_detach_loop_device}{Gost\+Crypt\+::\+Core\+::\+Failed\+Detach\+Loop\+Device}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, loop\+Device);}
+
+
+
+Definition at line 384 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a340bc14021dd4f5c975006cfae215368}\label{_core_exception_8h_a340bc14021dd4f5c975006cfae215368}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Failed\+Open\+Volume\+Exception@{Failed\+Open\+Volume\+Exception}}
+\index{Failed\+Open\+Volume\+Exception@{Failed\+Open\+Volume\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Failed\+Open\+Volume\+Exception}{FailedOpenVolumeException}}
+{\footnotesize\ttfamily \#define Failed\+Open\+Volume\+Exception(\begin{DoxyParamCaption}\item[{}]{volume\+Path }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_open_volume}{Gost\+Crypt\+::\+Core\+::\+Failed\+Open\+Volume}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);}
+
+
+
+Definition at line 103 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a210ebe16c6fe6e5c87db87c85c1cf3b4}\label{_core_exception_8h_a210ebe16c6fe6e5c87db87c85c1cf3b4}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Failed\+Using\+System\+Random\+Source\+Exception@{Failed\+Using\+System\+Random\+Source\+Exception}}
+\index{Failed\+Using\+System\+Random\+Source\+Exception@{Failed\+Using\+System\+Random\+Source\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Failed\+Using\+System\+Random\+Source\+Exception}{FailedUsingSystemRandomSourceException}}
+{\footnotesize\ttfamily \#define Failed\+Using\+System\+Random\+Source\+Exception(\begin{DoxyParamCaption}\item[{}]{error\+Number }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_failed_using_system_random_source}{Gost\+Crypt\+::\+Core\+::\+Failed\+Using\+System\+Random\+Source}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number);}
+
+
+
+Definition at line 585 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a2945b604cc1170bacf208090e5b4158e}\label{_core_exception_8h_a2945b604cc1170bacf208090e5b4158e}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Fail\+Find\+Filesystem\+Type\+Exception@{Fail\+Find\+Filesystem\+Type\+Exception}}
+\index{Fail\+Find\+Filesystem\+Type\+Exception@{Fail\+Find\+Filesystem\+Type\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fail\+Find\+Filesystem\+Type\+Exception}{FailFindFilesystemTypeException}}
+{\footnotesize\ttfamily \#define Fail\+Find\+Filesystem\+Type\+Exception(\begin{DoxyParamCaption}\item[{}]{device\+Path }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_find_filesystem_type}{Gost\+Crypt\+::\+Core\+::\+Fail\+Find\+Filesystem\+Type}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, device\+Path);}
+
+
+
+Definition at line 291 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a231537e855f02e54ee7ee8df5c18bf4a}\label{_core_exception_8h_a231537e855f02e54ee7ee8df5c18bf4a}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Fail\+Mount\+Filesystem\+Exception@{Fail\+Mount\+Filesystem\+Exception}}
+\index{Fail\+Mount\+Filesystem\+Exception@{Fail\+Mount\+Filesystem\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fail\+Mount\+Filesystem\+Exception}{FailMountFilesystemException}}
+{\footnotesize\ttfamily \#define Fail\+Mount\+Filesystem\+Exception(\begin{DoxyParamCaption}\item[{}]{error\+Number,  }\item[{}]{mountpoint,  }\item[{}]{device\+Path,  }\item[{}]{filesystemtype }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_mount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Mount\+Filesystem}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number, mountpoint, device\+Path, filesystemtype);}
+
+
+
+Definition at line 253 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a1ead20f00b7d87326cacd58ff1cb5a3f}\label{_core_exception_8h_a1ead20f00b7d87326cacd58ff1cb5a3f}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Fail\+Unmount\+Filesystem\+Exception@{Fail\+Unmount\+Filesystem\+Exception}}
+\index{Fail\+Unmount\+Filesystem\+Exception@{Fail\+Unmount\+Filesystem\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fail\+Unmount\+Filesystem\+Exception}{FailUnmountFilesystemException}}
+{\footnotesize\ttfamily \#define Fail\+Unmount\+Filesystem\+Exception(\begin{DoxyParamCaption}\item[{}]{error\+Number,  }\item[{}]{mountpoint }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_fail_unmount_filesystem}{Gost\+Crypt\+::\+Core\+::\+Fail\+Unmount\+Filesystem}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, error\+Number, mountpoint);}
+
+
+
+Definition at line 322 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_af7168a6a18638556ac14e96a63fcf93b}\label{_core_exception_8h_af7168a6a18638556ac14e96a63fcf93b}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Filesystem\+Not\+Supported\+Exception@{Filesystem\+Not\+Supported\+Exception}}
+\index{Filesystem\+Not\+Supported\+Exception@{Filesystem\+Not\+Supported\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Filesystem\+Not\+Supported\+Exception}{FilesystemNotSupportedException}}
+{\footnotesize\ttfamily \#define Filesystem\+Not\+Supported\+Exception(\begin{DoxyParamCaption}\item[{}]{filesystem }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_filesystem_not_supported}{Gost\+Crypt\+::\+Core\+::\+Filesystem\+Not\+Supported}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, filesystem);}
+
+
+
+Definition at line 502 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a62c762be9b83b2f091a4db4cdc44139d}\label{_core_exception_8h_a62c762be9b83b2f091a4db4cdc44139d}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Format\+Process\+Failed\+Exception@{Format\+Process\+Failed\+Exception}}
+\index{Format\+Process\+Failed\+Exception@{Format\+Process\+Failed\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Format\+Process\+Failed\+Exception}{FormatProcessFailedException}}
+{\footnotesize\ttfamily \#define Format\+Process\+Failed\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_format_process_failed}{Gost\+Crypt\+::\+Core\+::\+Format\+Process\+Failed}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 474 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_accff75832e18a7cc2b23de502396c7c4}\label{_core_exception_8h_accff75832e18a7cc2b23de502396c7c4}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Formatting\+Sub\+Exception\+Exception@{Formatting\+Sub\+Exception\+Exception}}
+\index{Formatting\+Sub\+Exception\+Exception@{Formatting\+Sub\+Exception\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Formatting\+Sub\+Exception\+Exception}{FormattingSubExceptionException}}
+{\footnotesize\ttfamily \#define Formatting\+Sub\+Exception\+Exception(\begin{DoxyParamCaption}\item[{}]{sub\+Exception\+String }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_formatting_sub_exception}{Gost\+Crypt\+::\+Core\+::\+Formatting\+Sub\+Exception}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, sub\+Exception\+String);}
+
+
+
+Definition at line 444 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a7328e7ae2fe9c9b566d82733d2f19acb}\label{_core_exception_8h_a7328e7ae2fe9c9b566d82733d2f19acb}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Incorrect\+Sudo\+Password\+Exception@{Incorrect\+Sudo\+Password\+Exception}}
+\index{Incorrect\+Sudo\+Password\+Exception@{Incorrect\+Sudo\+Password\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Incorrect\+Sudo\+Password\+Exception}{IncorrectSudoPasswordException}}
+{\footnotesize\ttfamily \#define Incorrect\+Sudo\+Password\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_incorrect_sudo_password}{Gost\+Crypt\+::\+Core\+::\+Incorrect\+Sudo\+Password}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 132 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a4532d2552d8aff802621b269810d452f}\label{_core_exception_8h_a4532d2552d8aff802621b269810d452f}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Mount\+Point\+Used\+Exception@{Mount\+Point\+Used\+Exception}}
+\index{Mount\+Point\+Used\+Exception@{Mount\+Point\+Used\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Mount\+Point\+Used\+Exception}{MountPointUsedException}}
+{\footnotesize\ttfamily \#define Mount\+Point\+Used\+Exception(\begin{DoxyParamCaption}\item[{}]{mountpoint }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_mount_point_used}{Gost\+Crypt\+::\+Core\+::\+Mount\+Point\+Used}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, mountpoint);}
+
+
+
+Definition at line 186 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a2b061d0044e4393610bbd0d582b00112}\label{_core_exception_8h_a2b061d0044e4393610bbd0d582b00112}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Random\+Number\+Generator\+Not\+Running\+Exception@{Random\+Number\+Generator\+Not\+Running\+Exception}}
+\index{Random\+Number\+Generator\+Not\+Running\+Exception@{Random\+Number\+Generator\+Not\+Running\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Random\+Number\+Generator\+Not\+Running\+Exception}{RandomNumberGeneratorNotRunningException}}
+{\footnotesize\ttfamily \#define Random\+Number\+Generator\+Not\+Running\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_random_number_generator_not_running}{Gost\+Crypt\+::\+Core\+::\+Random\+Number\+Generator\+Not\+Running}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 559 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a40e067337d3f0a7a75ff0d94c95f2d9d}\label{_core_exception_8h_a40e067337d3f0a7a75ff0d94c95f2d9d}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Service\+Process\+Crashed\+Exception@{Service\+Process\+Crashed\+Exception}}
+\index{Service\+Process\+Crashed\+Exception@{Service\+Process\+Crashed\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Service\+Process\+Crashed\+Exception}{ServiceProcessCrashedException}}
+{\footnotesize\ttfamily \#define Service\+Process\+Crashed\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_service_process_crashed}{Gost\+Crypt\+::\+Core\+::\+Service\+Process\+Crashed}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 159 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_a4f1193954afa179912a35c73bb2ccad2}\label{_core_exception_8h_a4f1193954afa179912a35c73bb2ccad2}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Volume\+Already\+Mounted\+Exception@{Volume\+Already\+Mounted\+Exception}}
+\index{Volume\+Already\+Mounted\+Exception@{Volume\+Already\+Mounted\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Volume\+Already\+Mounted\+Exception}{VolumeAlreadyMountedException}}
+{\footnotesize\ttfamily \#define Volume\+Already\+Mounted\+Exception(\begin{DoxyParamCaption}\item[{}]{volume\+Path }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_volume_already_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Already\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);}
+
+
+
+Definition at line 74 of file Core\+Exception.\+h.
+
+\mbox{\Hypertarget{_core_exception_8h_aed7e69560f0062129ccd0978c7be597d}\label{_core_exception_8h_aed7e69560f0062129ccd0978c7be597d}} 
+\index{Core\+Exception.\+h@{Core\+Exception.\+h}!Volume\+Not\+Mounted\+Exception@{Volume\+Not\+Mounted\+Exception}}
+\index{Volume\+Not\+Mounted\+Exception@{Volume\+Not\+Mounted\+Exception}!Core\+Exception.\+h@{Core\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Volume\+Not\+Mounted\+Exception}{VolumeNotMountedException}}
+{\footnotesize\ttfamily \#define Volume\+Not\+Mounted\+Exception(\begin{DoxyParamCaption}\item[{}]{volume\+Path }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_volume_not_mounted}{Gost\+Crypt\+::\+Core\+::\+Volume\+Not\+Mounted}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);}
+
+
+
+Definition at line 415 of file Core\+Exception.\+h.
+

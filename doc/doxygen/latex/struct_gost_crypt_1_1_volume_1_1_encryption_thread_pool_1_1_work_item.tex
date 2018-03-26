@@ -1,0 +1,180 @@
+\hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Encryption\+Thread\+Pool\+:\+:Work\+Item Struct Reference}
+\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item}\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+
+
+{\ttfamily \#include $<$Encryption\+Thread\+Pool.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_1_1_state}{State}
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item}{Work\+Item} $\ast$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_aea06f7794eceff20593cee2510e0d020}{First\+Fragment}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} $>$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a94d9b731b1a1e69cb4648881678cabbf}{Item\+Exception}
+\item 
+Q\+Wait\+Condition \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7bf15ba428c5424e47181fdc244da8c7}{Item\+Completed\+Event}
+\item 
+Q\+Mutex \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a45cfdd5145958656239181f41b7293c5}{Item\+Completed\+Event\+Mutex}
+\item 
+Q\+Atomic\+Integer$<$ size\+\_\+t $>$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_abaeb8a922ca38b00b4eac6c725dcecb3}{Outstanding\+Fragment\+Count}
+\item 
+Q\+Atomic\+Integer$<$ quint8 $>$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af55fbc62dcfb640d8a101c8455c8f802}{State}
+\item 
+\hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_type_ae8c867a2b992c79f01dcc50bab7a448e}{Work\+Type\+::\+Enum} \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7cc7b4ab6c4379994ba0a505fe1b62bf}{Type}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>const \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{EncryptionMode} $\ast$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a9afe7279cd8ae21d6e797071a0dbf9dd}{Mode}\\
+\>quint8 $\ast$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8fb46494d66772ac1e51eb4600001348}{Data}\\
+\>quint64 \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8dee41aadec1bbda7b15e62883c3a6f2}{StartUnitNo}\\
+\>quint64 \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a59eb3725bbe6e646899efca04181c0b3}{UnitCount}\\
+\>size\_t \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a0fc3eb0dbd64849f87db51e76f18a757}{SectorSize}\\
+\} \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af4f6348c474ade704f9f4758793c5783}{Encryption}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 40 of file Encryption\+Thread\+Pool.\+h.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8fb46494d66772ac1e51eb4600001348}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8fb46494d66772ac1e51eb4600001348}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Data@{Data}}
+\index{Data@{Data}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Data}{Data}}
+{\footnotesize\ttfamily quint8$\ast$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Data}
+
+
+
+Definition at line 63 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af4f6348c474ade704f9f4758793c5783}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af4f6348c474ade704f9f4758793c5783}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Encryption@{Encryption}}
+\index{Encryption@{Encryption}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Encryption}{Encryption}}
+{\footnotesize\ttfamily struct \{ ... \}   Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Encryption}
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_aea06f7794eceff20593cee2510e0d020}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_aea06f7794eceff20593cee2510e0d020}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!First\+Fragment@{First\+Fragment}}
+\index{First\+Fragment@{First\+Fragment}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{First\+Fragment}{FirstFragment}}
+{\footnotesize\ttfamily struct \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item}{Work\+Item}$\ast$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+First\+Fragment}
+
+
+
+Definition at line 52 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7bf15ba428c5424e47181fdc244da8c7}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7bf15ba428c5424e47181fdc244da8c7}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Item\+Completed\+Event@{Item\+Completed\+Event}}
+\index{Item\+Completed\+Event@{Item\+Completed\+Event}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Item\+Completed\+Event}{ItemCompletedEvent}}
+{\footnotesize\ttfamily Q\+Wait\+Condition Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Item\+Completed\+Event}
+
+
+
+Definition at line 54 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a45cfdd5145958656239181f41b7293c5}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a45cfdd5145958656239181f41b7293c5}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Item\+Completed\+Event\+Mutex@{Item\+Completed\+Event\+Mutex}}
+\index{Item\+Completed\+Event\+Mutex@{Item\+Completed\+Event\+Mutex}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Item\+Completed\+Event\+Mutex}{ItemCompletedEventMutex}}
+{\footnotesize\ttfamily Q\+Mutex Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Item\+Completed\+Event\+Mutex}
+
+
+
+Definition at line 55 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a94d9b731b1a1e69cb4648881678cabbf}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a94d9b731b1a1e69cb4648881678cabbf}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Item\+Exception@{Item\+Exception}}
+\index{Item\+Exception@{Item\+Exception}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Item\+Exception}{ItemException}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception}$>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Item\+Exception}
+
+
+
+Definition at line 53 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a9afe7279cd8ae21d6e797071a0dbf9dd}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a9afe7279cd8ae21d6e797071a0dbf9dd}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Mode@{Mode}}
+\index{Mode@{Mode}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily const \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode}$\ast$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Mode}
+
+
+
+Definition at line 62 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_abaeb8a922ca38b00b4eac6c725dcecb3}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_abaeb8a922ca38b00b4eac6c725dcecb3}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Outstanding\+Fragment\+Count@{Outstanding\+Fragment\+Count}}
+\index{Outstanding\+Fragment\+Count@{Outstanding\+Fragment\+Count}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Outstanding\+Fragment\+Count}{OutstandingFragmentCount}}
+{\footnotesize\ttfamily Q\+Atomic\+Integer$<$size\+\_\+t$>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Outstanding\+Fragment\+Count}
+
+
+
+Definition at line 56 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a0fc3eb0dbd64849f87db51e76f18a757}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a0fc3eb0dbd64849f87db51e76f18a757}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Sector\+Size@{Sector\+Size}}
+\index{Sector\+Size@{Sector\+Size}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Sector\+Size}{SectorSize}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Sector\+Size}
+
+
+
+Definition at line 66 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8dee41aadec1bbda7b15e62883c3a6f2}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a8dee41aadec1bbda7b15e62883c3a6f2}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Start\+Unit\+No@{Start\+Unit\+No}}
+\index{Start\+Unit\+No@{Start\+Unit\+No}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Start\+Unit\+No}{StartUnitNo}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Start\+Unit\+No}
+
+
+
+Definition at line 64 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af55fbc62dcfb640d8a101c8455c8f802}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_af55fbc62dcfb640d8a101c8455c8f802}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!State@{State}}
+\index{State@{State}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily Q\+Atomic\+Integer$<$quint8$>$ \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_1_1_state}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+State}}
+
+
+
+Definition at line 57 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7cc7b4ab6c4379994ba0a505fe1b62bf}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a7cc7b4ab6c4379994ba0a505fe1b62bf}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Type@{Type}}
+\index{Type@{Type}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_type_ae8c867a2b992c79f01dcc50bab7a448e}{Work\+Type\+::\+Enum} Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Type}
+
+
+
+Definition at line 58 of file Encryption\+Thread\+Pool.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a59eb3725bbe6e646899efca04181c0b3}\label{struct_gost_crypt_1_1_volume_1_1_encryption_thread_pool_1_1_work_item_a59eb3725bbe6e646899efca04181c0b3}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}!Unit\+Count@{Unit\+Count}}
+\index{Unit\+Count@{Unit\+Count}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item}}
+\subsubsection{\texorpdfstring{Unit\+Count}{UnitCount}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Encryption\+Thread\+Pool\+::\+Work\+Item\+::\+Unit\+Count}
+
+
+
+Definition at line 65 of file Encryption\+Thread\+Pool.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_encryption_thread_pool_8h}{Encryption\+Thread\+Pool.\+h}\end{DoxyCompactItemize}

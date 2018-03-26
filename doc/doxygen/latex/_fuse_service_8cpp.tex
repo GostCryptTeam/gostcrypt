@@ -1,0 +1,50 @@
+\hypertarget{_fuse_service_8cpp}{}\section{Fuse\+Service/\+Fuse\+Service.cpp File Reference}
+\label{_fuse_service_8cpp}\index{Fuse\+Service/\+Fuse\+Service.\+cpp@{Fuse\+Service/\+Fuse\+Service.\+cpp}}
+{\ttfamily \#include \char`\"{}Fuse\+Service.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Fuse\+Service\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Q\+Process$>$}\newline
+{\ttfamily \#include $<$Q\+Core\+Application$>$}\newline
+{\ttfamily \#include $<$Q\+Dir$>$}\newline
+{\ttfamily \#include $<$Q\+Thread$>$}\newline
+{\ttfamily \#include $<$fuse.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Encryption\+Thread\+Pool.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Password.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Gost\+Crypt\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Exception.\+h\char`\"{}}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_fuse_driver}{Gost\+Crypt\+::\+Fuse\+Driver}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_fuse_service_8cpp_a0919197af2e154da2c05727b6d87cbda}{F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON}~25
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{namespace_gost_crypt_1_1_fuse_driver_aea46c93ec99374bd8baf2d07ac6b492d}{Gost\+Crypt\+::\+Fuse\+Driver\+::get\+Volume\+Image\+Path} ()
+\begin{DoxyCompactList}\small\item\em Return the filepath of the volume image file relative to a F\+U\+SE mount. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{namespace_gost_crypt_1_1_fuse_driver_aea46579083a08cf177ef77110d5e6d2f}{Gost\+Crypt\+::\+Fuse\+Driver\+::get\+Control\+Path} ()
+\begin{DoxyCompactList}\small\item\em Return the filepath of the control file relative to a F\+U\+SE mount. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_gost_crypt_1_1_fuse_driver_af0bbb5bc0d09fd490f41a93dc588ce1d}{Gost\+Crypt\+::\+Fuse\+Driver\+::send\+Aux\+Device\+Info} (Q\+File\+Info fuse\+Mount\+Point, Q\+File\+Info virtual\+Device)
+\begin{DoxyCompactList}\small\item\em Store the path of the virtual device in the control file inside the given F\+U\+SE mountpoint. The path of the virtual device will be necessary to unmount the volume later. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_fuse_service_8cpp_a0919197af2e154da2c05727b6d87cbda}\label{_fuse_service_8cpp_a0919197af2e154da2c05727b6d87cbda}} 
+\index{Fuse\+Service.\+cpp@{Fuse\+Service.\+cpp}!F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON@{F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON@{F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON}!Fuse\+Service.\+cpp@{Fuse\+Service.\+cpp}}
+\subsubsection{\texorpdfstring{F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON}{FUSE\_USE\_VERSION}}
+{\footnotesize\ttfamily \#define F\+U\+S\+E\+\_\+\+U\+S\+E\+\_\+\+V\+E\+R\+S\+I\+ON~25}
+
+
+
+Definition at line 1 of file Fuse\+Service.\+cpp.
+

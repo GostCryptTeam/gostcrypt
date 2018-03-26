@@ -1,0 +1,57 @@
+\hypertarget{_crc_8h}{}\section{Volume/\+Crypto/\+Crc.h File Reference}
+\label{_crc_8h}\index{Volume/\+Crypto/\+Crc.\+h@{Volume/\+Crypto/\+Crc.\+h}}
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_crc_8h_aa5d4d513dc51c7d80b4a918da8693c9c}{U\+P\+D\+C32}(octet,  crc)~(unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32})((\hyperlink{_crc_8h_a565e9c2a3df1e3b739c0e4d65aecb6b1}{crc\+\_\+32\+\_\+tab}\mbox{[}(((unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32})(crc)) $^\wedge$ ((unsigned char)(octet))) \& 0xff\mbox{]} $^\wedge$ (((unsigned \+\_\+\+\_\+int32)(crc)) $>$$>$ 8)))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} \hyperlink{_crc_8h_a359742950ae18a48e43f92753970c936}{Get\+Crc32} (unsigned char $\ast$data, int length)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} \hyperlink{_crc_8h_a565e9c2a3df1e3b739c0e4d65aecb6b1}{crc\+\_\+32\+\_\+tab} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_crc_8h_aa5d4d513dc51c7d80b4a918da8693c9c}\label{_crc_8h_aa5d4d513dc51c7d80b4a918da8693c9c}} 
+\index{Crc.\+h@{Crc.\+h}!U\+P\+D\+C32@{U\+P\+D\+C32}}
+\index{U\+P\+D\+C32@{U\+P\+D\+C32}!Crc.\+h@{Crc.\+h}}
+\subsubsection{\texorpdfstring{U\+P\+D\+C32}{UPDC32}}
+{\footnotesize\ttfamily \#define U\+P\+D\+C32(\begin{DoxyParamCaption}\item[{}]{octet,  }\item[{}]{crc }\end{DoxyParamCaption})~(unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32})((\hyperlink{_crc_8h_a565e9c2a3df1e3b739c0e4d65aecb6b1}{crc\+\_\+32\+\_\+tab}\mbox{[}(((unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32})(crc)) $^\wedge$ ((unsigned char)(octet))) \& 0xff\mbox{]} $^\wedge$ (((unsigned \+\_\+\+\_\+int32)(crc)) $>$$>$ 8)))}
+
+
+
+Definition at line 29 of file Crc.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_crc_8h_a359742950ae18a48e43f92753970c936}\label{_crc_8h_a359742950ae18a48e43f92753970c936}} 
+\index{Crc.\+h@{Crc.\+h}!Get\+Crc32@{Get\+Crc32}}
+\index{Get\+Crc32@{Get\+Crc32}!Crc.\+h@{Crc.\+h}}
+\subsubsection{\texorpdfstring{Get\+Crc32()}{GetCrc32()}}
+{\footnotesize\ttfamily unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} Get\+Crc32 (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{data,  }\item[{int}]{length }\end{DoxyParamCaption})}
+
+
+
+Definition at line 61 of file Crc.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_crc_8h_a565e9c2a3df1e3b739c0e4d65aecb6b1}\label{_crc_8h_a565e9c2a3df1e3b739c0e4d65aecb6b1}} 
+\index{Crc.\+h@{Crc.\+h}!crc\+\_\+32\+\_\+tab@{crc\+\_\+32\+\_\+tab}}
+\index{crc\+\_\+32\+\_\+tab@{crc\+\_\+32\+\_\+tab}!Crc.\+h@{Crc.\+h}}
+\subsubsection{\texorpdfstring{crc\+\_\+32\+\_\+tab}{crc\_32\_tab}}
+{\footnotesize\ttfamily unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} crc\+\_\+32\+\_\+tab\mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line 25 of file Crc.\+c.
+

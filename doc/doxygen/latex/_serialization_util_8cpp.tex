@@ -1,0 +1,61 @@
+\hypertarget{_serialization_util_8cpp}{}\section{Core/\+Serialization\+Util.cpp File Reference}
+\label{_serialization_util_8cpp}\index{Core/\+Serialization\+Util.\+cpp@{Core/\+Serialization\+Util.\+cpp}}
+{\ttfamily \#include \char`\"{}Serialization\+Util.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Data\+Stream \& \hyperlink{_serialization_util_8cpp_a79c13c1b1fd25abe6e57991e5031c4b5}{operator$<$$<$} (Q\+Data\+Stream \&out, const Q\+File\+Info \&Valeur)
+\begin{DoxyCompactList}\small\item\em Serializing operator for the Q\+File\+Info object used for inter-\/process communication. \end{DoxyCompactList}\item 
+Q\+Data\+Stream \& \hyperlink{_serialization_util_8cpp_a82337c98754cfce04bf8c7a65d642a8b}{operator$>$$>$} (Q\+Data\+Stream \&in, Q\+File\+Info \&Valeur)
+\begin{DoxyCompactList}\small\item\em Deserializing operator for the Q\+File\+Info object used for inter-\/process communication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_serialization_util_8cpp_a79c13c1b1fd25abe6e57991e5031c4b5}\label{_serialization_util_8cpp_a79c13c1b1fd25abe6e57991e5031c4b5}} 
+\index{Serialization\+Util.\+cpp@{Serialization\+Util.\+cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Serialization\+Util.\+cpp@{Serialization\+Util.\+cpp}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{out,  }\item[{const Q\+File\+Info \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Serializing operator for the Q\+File\+Info object used for inter-\/process communication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & Q\+Data\+Stream in which the object is serialized \\
+\hline
+{\em Valeur} & Object to serialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+out 
+\end{DoxyReturn}
+
+
+Definition at line 3 of file Serialization\+Util.\+cpp.
+
+\mbox{\Hypertarget{_serialization_util_8cpp_a82337c98754cfce04bf8c7a65d642a8b}\label{_serialization_util_8cpp_a82337c98754cfce04bf8c7a65d642a8b}} 
+\index{Serialization\+Util.\+cpp@{Serialization\+Util.\+cpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Serialization\+Util.\+cpp@{Serialization\+Util.\+cpp}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily Q\+Data\+Stream\& operator$>$$>$ (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream \&}]{in,  }\item[{Q\+File\+Info \&}]{Valeur }\end{DoxyParamCaption})}
+
+
+
+Deserializing operator for the Q\+File\+Info object used for inter-\/process communication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream from which the object is serialized \\
+\hline
+{\em Valeur} & Object to deserialized \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+in 
+\end{DoxyReturn}
+
+
+Definition at line 13 of file Serialization\+Util.\+cpp.
+

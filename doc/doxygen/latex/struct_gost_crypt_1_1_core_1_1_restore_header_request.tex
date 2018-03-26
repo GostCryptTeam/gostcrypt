@@ -1,0 +1,129 @@
+\hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Restore\+Header\+Request Struct Reference}
+\label{struct_gost_crypt_1_1_core_1_1_restore_header_request}\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+
+
+Class storing all parameters for the volume header restore action This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header T\+O\+DO\+: Implement a way to restore the header when the password have changed.  
+
+
+
+
+{\ttfamily \#include $<$Core\+Request.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Restore\+Header\+Request\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_gost_crypt_1_1_core_1_1_restore_header_request}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_a1a8eac2c7a809e7bfeea266823861c32}{Restore\+Header\+Request} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor with default parameters. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_a345ec17cc4811bb997134f1fb8bb7b4d}{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE} (\hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request}{Restore\+Header\+Request})
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad80334ccac055814a5d53569e21b9bc3}{volume\+Path}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_a292294e077bb9c0b213941345d64c18c}{use\+Internal\+Backup}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_a92f7e41a7b7ecee63bc4909248d89b5a}{backup\+Header\+File}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad2f1078db3b7f0c195a839a082818bd6}{keyfiles}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request_ac65b8435be718da772543eb3b675eb3d}{password}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class storing all parameters for the volume header restore action This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header T\+O\+DO\+: Implement a way to restore the header when the password have changed. 
+
+Definition at line 278 of file Core\+Request.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_a1a8eac2c7a809e7bfeea266823861c32}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_a1a8eac2c7a809e7bfeea266823861c32}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!Restore\+Header\+Request@{Restore\+Header\+Request}}
+\index{Restore\+Header\+Request@{Restore\+Header\+Request}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{Restore\+Header\+Request()}{RestoreHeaderRequest()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::\+Restore\+Header\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default Constructor with default parameters. 
+
+
+
+Definition at line 365 of file Core\+Request.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_a345ec17cc4811bb997134f1fb8bb7b4d}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_a345ec17cc4811bb997134f1fb8bb7b4d}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}}
+\index{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+L\+E()}{DEC\_SERIALIZABLE()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::\+D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE (\begin{DoxyParamCaption}\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request}{Restore\+Header\+Request}}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_a92f7e41a7b7ecee63bc4909248d89b5a}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_a92f7e41a7b7ecee63bc4909248d89b5a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!backup\+Header\+File@{backup\+Header\+File}}
+\index{backup\+Header\+File@{backup\+Header\+File}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{backup\+Header\+File}{backupHeaderFile}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::backup\+Header\+File}
+
+Path of the external backup header file from which to restore the header. Will not be used if use\+Internal\+Backup is set to true. 
+
+Definition at line 287 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad2f1078db3b7f0c195a839a082818bd6}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad2f1078db3b7f0c195a839a082818bd6}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!keyfiles@{keyfiles}}
+\index{keyfiles@{keyfiles}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{keyfiles}{keyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::keyfiles}
+
+keyfiles of the volume instance for which to restore the header. These keyfiles will also be used to decrypt the backup header 
+
+Definition at line 289 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_ac65b8435be718da772543eb3b675eb3d}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_ac65b8435be718da772543eb3b675eb3d}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!password@{password}}
+\index{password@{password}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::password}
+
+password of the volume instance for which to restore the header. This password will also be used to decrypt the backup header 
+
+Definition at line 291 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_a292294e077bb9c0b213941345d64c18c}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_a292294e077bb9c0b213941345d64c18c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!use\+Internal\+Backup@{use\+Internal\+Backup}}
+\index{use\+Internal\+Backup@{use\+Internal\+Backup}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{use\+Internal\+Backup}{useInternalBackup}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::use\+Internal\+Backup}
+
+Boolean true if the internal backup header should be used. If set to false the parameter backup\+Header\+File should be provided. 
+
+Definition at line 286 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad80334ccac055814a5d53569e21b9bc3}\label{struct_gost_crypt_1_1_core_1_1_restore_header_request_ad80334ccac055814a5d53569e21b9bc3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}!volume\+Path@{volume\+Path}}
+\index{volume\+Path@{volume\+Path}!Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}}
+\subsubsection{\texorpdfstring{volume\+Path}{volumePath}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request\+::volume\+Path}
+
+path of the volume container for which to restore the header 
+
+Definition at line 285 of file Core\+Request.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_request_8h}{Core\+Request.\+h}\item 
+Core/\hyperlink{_core_request_8cpp}{Core\+Request.\+cpp}\end{DoxyCompactItemize}

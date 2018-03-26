@@ -1,0 +1,178 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_service}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Service Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_service}\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+
+
+Abstract base class for classes corresponding to \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process. A \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process is a process receiving request (as serialized objects) on its standard input and writing responses to these requests on its standard output.  
+
+
+
+
+{\ttfamily \#include $<$Service.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_core_1_1_service}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_af8bfb8d88823016319cd1943161283d3}{request} (Q\+Variant request)
+\begin{DoxyCompactList}\small\item\em Signal emitted when a request is received. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_acfca1e2dd3f0444b5c1f3a8e22c65db2}{ask\+Exit} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the parent process asked this service process to exit. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_abd102ab9aa1e06bd9059af46996cb513}{exit} ()
+\begin{DoxyCompactList}\small\item\em Signal that should be emitted when this process is ready to exit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_service_ab1c98ecee7d34e60a3bd2518a26f5728}{Service} (Q\+String service\+Name)
+\begin{DoxyCompactList}\small\item\em Constructor setting the Qt application name to service\+Name. \end{DoxyCompactList}\item 
+int \hyperlink{class_gost_crypt_1_1_core_1_1_service_a1941d4736f384edf23dbce3a9ddabf9f}{start} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Start the service. Equivalent to the main function of a program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_aa6449013ac6ea349a3ebc694d227b80c}{send\+Response} (Q\+Variant r)
+\begin{DoxyCompactList}\small\item\em Send the given response to the parent process by serializing it in output\+File. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_service_a9982bf1e986cd98b42920272cd73fb8c}{connect\+Request\+Handling\+Signals} ()=0
+\begin{DoxyCompactList}\small\item\em Connect the necessarry the service signals to the slots in charge The signals request and ask\+Exit need to be connected. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_service_ae5e4ec7384c4af09f1e80aa0af7abde9}{init\+Serializables} ()=0
+\begin{DoxyCompactList}\small\item\em Initialize all the objects that need to be received or transmitted to the parent process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract base class for classes corresponding to \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process. A \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process is a process receiving request (as serialized objects) on its standard input and writing responses to these requests on its standard output. 
+
+Definition at line 26 of file Service.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_ab1c98ecee7d34e60a3bd2518a26f5728}\label{class_gost_crypt_1_1_core_1_1_service_ab1c98ecee7d34e60a3bd2518a26f5728}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!Service@{Service}}
+\index{Service@{Service}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{Service()}{Service()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Service\+::\+Service (\begin{DoxyParamCaption}\item[{Q\+String}]{service\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor setting the Qt application name to service\+Name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em service\+Name} & Name of the Qt application for this process \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Service.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_acfca1e2dd3f0444b5c1f3a8e22c65db2}\label{class_gost_crypt_1_1_core_1_1_service_acfca1e2dd3f0444b5c1f3a8e22c65db2}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!ask\+Exit@{ask\+Exit}}
+\index{ask\+Exit@{ask\+Exit}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{ask\+Exit}{askExit}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+::ask\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the parent process asked this service process to exit. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_a9982bf1e986cd98b42920272cd73fb8c}\label{class_gost_crypt_1_1_core_1_1_service_a9982bf1e986cd98b42920272cd73fb8c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!connect\+Request\+Handling\+Signals@{connect\+Request\+Handling\+Signals}}
+\index{connect\+Request\+Handling\+Signals@{connect\+Request\+Handling\+Signals}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{connect\+Request\+Handling\+Signals()}{connectRequestHandlingSignals()}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Service\+::connect\+Request\+Handling\+Signals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Connect the necessarry the service signals to the slots in charge The signals request and ask\+Exit need to be connected. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_abd102ab9aa1e06bd9059af46996cb513}\label{class_gost_crypt_1_1_core_1_1_service_abd102ab9aa1e06bd9059af46996cb513}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!exit@{exit}}
+\index{exit@{exit}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal that should be emitted when this process is ready to exit. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_ae5e4ec7384c4af09f1e80aa0af7abde9}\label{class_gost_crypt_1_1_core_1_1_service_ae5e4ec7384c4af09f1e80aa0af7abde9}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!init\+Serializables@{init\+Serializables}}
+\index{init\+Serializables@{init\+Serializables}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{init\+Serializables()}{initSerializables()}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Service\+::init\+Serializables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Initialize all the objects that need to be received or transmitted to the parent process. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_af8bfb8d88823016319cd1943161283d3}\label{class_gost_crypt_1_1_core_1_1_service_af8bfb8d88823016319cd1943161283d3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!request@{request}}
+\index{request@{request}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+::request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when a request is received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Q\+Variant containing the request \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_aa6449013ac6ea349a3ebc694d227b80c}\label{class_gost_crypt_1_1_core_1_1_service_aa6449013ac6ea349a3ebc694d227b80c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!send\+Response@{send\+Response}}
+\index{send\+Response@{send\+Response}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{send\+Response()}{sendResponse()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+::send\+Response (\begin{DoxyParamCaption}\item[{Q\+Variant}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Send the given response to the parent process by serializing it in output\+File. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & A Q\+Variant storing the response to send \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 126 of file Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_a1941d4736f384edf23dbce3a9ddabf9f}\label{class_gost_crypt_1_1_core_1_1_service_a1941d4736f384edf23dbce3a9ddabf9f}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}!start@{start}}
+\index{start@{start}!Gost\+Crypt\+::\+Core\+::\+Service@{Gost\+Crypt\+::\+Core\+::\+Service}}
+\subsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Core\+::\+Service\+::start (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Start the service. Equivalent to the main function of a program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of strings in argv \\
+\hline
+{\em argv} & Command line arguments with which the program was launched \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Exit code of the program 
+\end{DoxyReturn}
+
+
+Definition at line 15 of file Service.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_service_8h}{Service.\+h}\item 
+Core/\hyperlink{_service_8cpp}{Service.\+cpp}\end{DoxyCompactItemize}

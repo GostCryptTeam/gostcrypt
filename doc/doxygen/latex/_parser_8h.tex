@@ -1,0 +1,50 @@
+\hypertarget{_parser_8h}{}\section{U\+I/\+Parser.h File Reference}
+\label{_parser_8h}\index{U\+I/\+Parser.\+h@{U\+I/\+Parser.\+h}}
+{\ttfamily \#include \char`\"{}Core/\+Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Password.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}User\+Interface.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$Q\+Command\+Line\+Parser$>$}\newline
+{\ttfamily \#include $<$Q\+Exception$>$}\newline
+{\ttfamily \#include $<$Q\+Translator$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_parser_1_1_parse_exception}{Parser\+::\+Parse\+Exception}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_parser}{Parser}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{Parser\+::\+\_\+\+What\+To\+List} \hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{Parser\+::\+What\+To\+List}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035}{Parser\+::\+\_\+\+What\+To\+List} \{ \hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035af556faea7b038e9e6b527d5b62881e47}{Parser\+::\+Volumes}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a63aaef8b1b40edc5ad483ae0460244e4}{Parser\+::\+Algorithms}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035a273fa94994418bb70148e0f40b36bde1}{Parser\+::\+Hashs}, 
+\hyperlink{namespace_parser_a14d933590cba0d907aaff7ff9ab01035ad4d47d038e677f5cf0551ded706497a6}{Parser\+::\+Devices}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_parser_ad8395bb69888f527eefafe64ee3db50e}{Parser\+::parse\+Mount} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request} $>$ options)
+\item 
+void \hyperlink{namespace_parser_aef069760011ee9f2066a254ab84f9b7c}{Parser\+::parse\+Create} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request} $>$ options)
+\item 
+void \hyperlink{namespace_parser_ae09396fa6fb2bb95523073e4bdfc4969}{Parser\+::parse\+Dismount} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_dismount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Dismount\+Volume\+Request} $>$ volume)
+\item 
+void \hyperlink{namespace_parser_aa78b1b9475d7b6183c16d4abd6a2ab0f}{Parser\+::parse\+List} (Q\+Command\+Line\+Parser \&parser, \hyperlink{namespace_parser_a1f62f98026c9b835ba6b9a3210a25b8b}{Parser\+::\+What\+To\+List} $\ast$item)
+\item 
+void \hyperlink{namespace_parser_a1d19ba15381c47283b17a5ceddf41da5}{Parser\+::parse\+Create\+Key\+Files} (Q\+Command\+Line\+Parser \&parser, Q\+String\+List \&files)
+\item 
+void \hyperlink{namespace_parser_a8aeeeb21b1d6f07cfe0c69c5b3a9e4a1}{Parser\+::parse\+Benchmark} (Q\+Command\+Line\+Parser \&parser, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Gost\+Crypt\+::\+Core\+::\+Benchmark\+Algorithms\+Request} $>$ options)
+\item 
+bool \hyperlink{namespace_parser_adf13e015ae2b7536868c427360401238}{Parser\+::ask\+Password} (std\+::string volume, Q\+String \&p)
+\end{DoxyCompactItemize}

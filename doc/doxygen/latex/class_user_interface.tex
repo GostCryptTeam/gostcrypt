@@ -1,0 +1,194 @@
+\hypertarget{class_user_interface}{}\section{User\+Interface Class Reference}
+\label{class_user_interface}\index{User\+Interface@{User\+Interface}}
+
+
+Abstract class inherited by \hyperlink{class_cmd_line_interface}{Cmd\+Line\+Interface} and \hyperlink{class_graphic_interface}{Graphic\+Interface} Centralizes common functionality.  
+
+
+
+
+{\ttfamily \#include $<$User\+Interface.\+h$>$}
+
+Inheritance diagram for User\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_user_interface}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_user_interface_a99db050a753be9c1fc6071f73edd95f6}{request} (Q\+Variant request)
+\begin{DoxyCompactList}\small\item\em A signal that is sent by \hyperlink{class_graphic_interface}{Graphic\+Interface} or C\+LI to the core. \end{DoxyCompactList}\item 
+void \hyperlink{class_user_interface_a396eb29856a6afc91bc0e0eef1de2df7}{exit} ()
+\begin{DoxyCompactList}\small\item\em End of program request. \end{DoxyCompactList}\item 
+void \hyperlink{class_user_interface_a808baf8281c287a87568f9f3fd586350}{send\+Sudo\+Password} (Q\+String password)
+\begin{DoxyCompactList}\small\item\em Sends sudo password to core. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_user_interface_a3e519cfcb1269400ded0b51fd69e1542}{User\+Interface} (Q\+Object $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+virtual int \hyperlink{class_user_interface_a4f637eb516dc7dc59cbfba43b85a81ff}{start} (int argc, char $\ast$$\ast$argv)=0
+\begin{DoxyCompactList}\small\item\em Creates the graphical interface or commandline interface and sends all the necessary objects to it in context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Q\+String \hyperlink{class_user_interface_a13152dbf2515f9fd06d8657a2df17686}{format\+Size} (quint64 size\+In\+Byte, bool with\+Font\+Color)
+\begin{DoxyCompactList}\small\item\em Converts A size in bytes into a formatted character string (or not formatted) \end{DoxyCompactList}\item 
+static quint64 \hyperlink{class_user_interface_ae9e59c9a5fb9c71ab9897da2027dd3b3}{parse\+Size} (Q\+String s, bool $\ast$ok)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Gost\+Crypt\+::\+Core\+::\+Core\+Base} $>$ \hyperlink{class_user_interface_ae48820f0f4d47821a1c7ed9e070a26a7}{core}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class inherited by \hyperlink{class_cmd_line_interface}{Cmd\+Line\+Interface} and \hyperlink{class_graphic_interface}{Graphic\+Interface} Centralizes common functionality. 
+
+Definition at line 19 of file User\+Interface.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_user_interface_a3e519cfcb1269400ded0b51fd69e1542}\label{class_user_interface_a3e519cfcb1269400ded0b51fd69e1542}} 
+\index{User\+Interface@{User\+Interface}!User\+Interface@{User\+Interface}}
+\index{User\+Interface@{User\+Interface}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{User\+Interface()}{UserInterface()}}
+{\footnotesize\ttfamily User\+Interface\+::\+User\+Interface (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Class constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 28 of file User\+Interface.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_user_interface_a396eb29856a6afc91bc0e0eef1de2df7}\label{class_user_interface_a396eb29856a6afc91bc0e0eef1de2df7}} 
+\index{User\+Interface@{User\+Interface}!exit@{exit}}
+\index{exit@{exit}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily void User\+Interface\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+End of program request. 
+
+\mbox{\Hypertarget{class_user_interface_a13152dbf2515f9fd06d8657a2df17686}\label{class_user_interface_a13152dbf2515f9fd06d8657a2df17686}} 
+\index{User\+Interface@{User\+Interface}!format\+Size@{format\+Size}}
+\index{format\+Size@{format\+Size}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{format\+Size()}{formatSize()}}
+{\footnotesize\ttfamily Q\+String User\+Interface\+::format\+Size (\begin{DoxyParamCaption}\item[{quint64}]{size\+In\+Byte,  }\item[{bool}]{with\+Font\+Color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts A size in bytes into a formatted character string (or not formatted) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size\+In\+Byte} & Size in bytes to convert \\
+\hline
+{\em with\+Font\+Color} & This boolean allows you to specify whether you want an output formatted in H\+T\+ML (true) or not (false) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+String Character string of the size converted to the desired format
+\end{DoxyReturn}
+converts byte to MB, GB, KB 
+
+Definition at line 4 of file User\+Interface.\+cpp.
+
+\mbox{\Hypertarget{class_user_interface_ae9e59c9a5fb9c71ab9897da2027dd3b3}\label{class_user_interface_ae9e59c9a5fb9c71ab9897da2027dd3b3}} 
+\index{User\+Interface@{User\+Interface}!parse\+Size@{parse\+Size}}
+\index{parse\+Size@{parse\+Size}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{parse\+Size()}{parseSize()}}
+{\footnotesize\ttfamily quint64 User\+Interface\+::parse\+Size (\begin{DoxyParamCaption}\item[{Q\+String}]{s,  }\item[{bool $\ast$}]{ok }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 29 of file User\+Interface.\+cpp.
+
+\mbox{\Hypertarget{class_user_interface_a99db050a753be9c1fc6071f73edd95f6}\label{class_user_interface_a99db050a753be9c1fc6071f73edd95f6}} 
+\index{User\+Interface@{User\+Interface}!request@{request}}
+\index{request@{request}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily void User\+Interface\+::request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+A signal that is sent by \hyperlink{class_graphic_interface}{Graphic\+Interface} or C\+LI to the core. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Serializable arguments to send with the request \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_user_interface_a808baf8281c287a87568f9f3fd586350}\label{class_user_interface_a808baf8281c287a87568f9f3fd586350}} 
+\index{User\+Interface@{User\+Interface}!send\+Sudo\+Password@{send\+Sudo\+Password}}
+\index{send\+Sudo\+Password@{send\+Sudo\+Password}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{send\+Sudo\+Password}{sendSudoPassword}}
+{\footnotesize\ttfamily void User\+Interface\+::send\+Sudo\+Password (\begin{DoxyParamCaption}\item[{Q\+String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Sends sudo password to core. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & The password entered by the user \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_user_interface_a4f637eb516dc7dc59cbfba43b85a81ff}\label{class_user_interface_a4f637eb516dc7dc59cbfba43b85a81ff}} 
+\index{User\+Interface@{User\+Interface}!start@{start}}
+\index{start@{start}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily virtual int User\+Interface\+::start (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Creates the graphical interface or commandline interface and sends all the necessary objects to it in context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of arguments in the main program \\
+\hline
+{\em argv} & Arguments of the main program \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Returns what the \char`\"{}exec\char`\"{} method returns at the end of the interface execution 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_graphic_interface_a41d17554d5ec2b24601f34304ce1c3cf}{Graphic\+Interface}, and \hyperlink{class_cmd_line_interface_af3b0b06d68e78c862e352b7f450c891e}{Cmd\+Line\+Interface}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_user_interface_ae48820f0f4d47821a1c7ed9e070a26a7}\label{class_user_interface_ae48820f0f4d47821a1c7ed9e070a26a7}} 
+\index{User\+Interface@{User\+Interface}!core@{core}}
+\index{core@{core}!User\+Interface@{User\+Interface}}
+\subsubsection{\texorpdfstring{core}{core}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Gost\+Crypt\+::\+Core\+::\+Core\+Base}$>$ User\+Interface\+::core\hspace{0.3cm}{\ttfamily [protected]}}
+
+Pointer to the core class 
+
+Definition at line 89 of file User\+Interface.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\hyperlink{_user_interface_8h}{User\+Interface.\+h}\item 
+U\+I/\hyperlink{_user_interface_8cpp}{User\+Interface.\+cpp}\end{DoxyCompactItemize}
