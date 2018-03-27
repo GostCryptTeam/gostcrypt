@@ -578,7 +578,7 @@ Item {
 
             listSubMenuModel.append({message: qsTr("Keyfile Generator"), size: "medium", type: qsTr("keyfiles"), fileName: "KeyfileGenerator", finale:"true", titleDialog: qsTr("Keyfile Generator"), description: qsTr("Keyfile generator"), size_: 200})
 
-            listSubMenuModel.append({message: qsTr("Change Volume Password"), size: "medium", type: qsTr("volumepwd"), fileName: "KeyfileGenerator", finale:"true", titleDialog: qsTr("Change Volume Password"), description: qsTr("Change Volume Password"), size_: 200})
+            listSubMenuModel.append({message: qsTr("Change Volume Password"), size: "medium", type: qsTr("Volume Password"), fileName: "ChangePassword", finale:"true", titleDialog: qsTr("Change Volume Password"), description: qsTr("Change Volume Password"), size_: 429})
 
             listSubMenuModel.append({message: qsTr("Clear Volume History"), size: "big", type: qsTr("other"), finale:"true", action: "clearvolumehistory", size_: 429, name_: "Clearing volume paths...", desc_: "Deleting volume paths saved by gostcrypt"})
             break;

@@ -367,8 +367,7 @@ void Parser::parseCreate(QCommandLineParser& parser,
         }
         else
         {
-            options->innerVolume->filesystem =
-                GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
+            options->innerVolume->filesystem = "fat";
         }
 
         if (parser.isSet("inner-size"))
@@ -421,8 +420,7 @@ void Parser::parseCreate(QCommandLineParser& parser,
     }
     else
     {
-        options->outerVolume->filesystem =
-            GostCrypt::Core::GetFileSystemTypePlatformNative(); // default value
+        options->outerVolume->filesystem = "fat";
     }
 
     if (parser.isSet("outer-size"))
