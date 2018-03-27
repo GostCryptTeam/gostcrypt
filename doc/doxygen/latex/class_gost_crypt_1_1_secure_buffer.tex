@@ -1,0 +1,182 @@
+\hypertarget{class_gost_crypt_1_1_secure_buffer}{}\section{Gost\+Crypt\+:\+:Secure\+Buffer Class Reference}
+\label{class_gost_crypt_1_1_secure_buffer}\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+
+
+Class handling buffer data when data is sensitive. The data will be locked into R\+AM using mlock and erased before beeing freed.  
+
+
+
+
+{\ttfamily \#include $<$Buffer.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Secure\+Buffer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_secure_buffer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_secure_buffer_a46bb20b44902e5722a7175e806e1b237}{Secure\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Default constructor initializing an empty buffer. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_secure_buffer_a5e918227d8d7c3acc9e061da822788c0}{Secure\+Buffer} (size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size})
+\begin{DoxyCompactList}\small\item\em Constructor initializing a buffer with given size. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_secure_buffer_a316949816e1e009ad9a23e48525e74ef}{Secure\+Buffer} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer\+Ptr)
+\begin{DoxyCompactList}\small\item\em Deep copy constructor initializing a new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} with the same data as the given \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_secure_buffer_aad073740f34b317eb77a57c841919a60}{$\sim$\+Secure\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Default Destructor erasing and freeing the buffer data. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_secure_buffer_a6b6ee17fb3f8f617112854f9d24e393a}{erase} ()
+\begin{DoxyCompactList}\small\item\em Will set the all data bytes of this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to zero. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_secure_buffer_a832c1af234c29e1dc1521fed24d3265a}{allocate} (size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size})
+\begin{DoxyCompactList}\small\item\em Allocate new memory for this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} and lock it in R\+AM using mlock. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_secure_buffer_a45e814bc17ed85b86733fffc32c69d28}{free\+Data} ()
+\begin{DoxyCompactList}\small\item\em Free the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} after having erased it and set its size to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class handling buffer data when data is sensitive. The data will be locked into R\+AM using mlock and erased before beeing freed. 
+
+Definition at line 286 of file Buffer.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a46bb20b44902e5722a7175e806e1b237}\label{class_gost_crypt_1_1_secure_buffer_a46bb20b44902e5722a7175e806e1b237}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!Secure\+Buffer@{Secure\+Buffer}}
+\index{Secure\+Buffer@{Secure\+Buffer}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{Secure\+Buffer()}{SecureBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Secure\+Buffer\+::\+Secure\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor initializing an empty buffer. 
+
+
+
+Definition at line 293 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a5e918227d8d7c3acc9e061da822788c0}\label{class_gost_crypt_1_1_secure_buffer_a5e918227d8d7c3acc9e061da822788c0}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!Secure\+Buffer@{Secure\+Buffer}}
+\index{Secure\+Buffer@{Secure\+Buffer}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{Secure\+Buffer()}{SecureBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Secure\+Buffer\+::\+Secure\+Buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor initializing a buffer with given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Size of the new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} in bytes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 299 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a316949816e1e009ad9a23e48525e74ef}\label{class_gost_crypt_1_1_secure_buffer_a316949816e1e009ad9a23e48525e74ef}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!Secure\+Buffer@{Secure\+Buffer}}
+\index{Secure\+Buffer@{Secure\+Buffer}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{Secure\+Buffer()}{SecureBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Secure\+Buffer\+::\+Secure\+Buffer (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deep copy constructor initializing a new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} with the same data as the given \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer\+Ptr} & \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to copy the data from \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 305 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_aad073740f34b317eb77a57c841919a60}\label{class_gost_crypt_1_1_secure_buffer_aad073740f34b317eb77a57c841919a60}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!````~Secure\+Buffer@{$\sim$\+Secure\+Buffer}}
+\index{````~Secure\+Buffer@{$\sim$\+Secure\+Buffer}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{$\sim$\+Secure\+Buffer()}{~SecureBuffer()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Secure\+Buffer\+::$\sim$\+Secure\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Default Destructor erasing and freeing the buffer data. 
+
+
+
+Definition at line 162 of file Buffer.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a832c1af234c29e1dc1521fed24d3265a}\label{class_gost_crypt_1_1_secure_buffer_a832c1af234c29e1dc1521fed24d3265a}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!allocate@{allocate}}
+\index{allocate@{allocate}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{allocate()}{allocate()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Secure\+Buffer\+::allocate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Allocate new memory for this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} and lock it in R\+AM using mlock. 
+
+\begin{DoxyWarning}{Warning}
+The previsous data stored in the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} will not be kept 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em size} & New size of the buffer in bytes \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_gost_crypt_1_1_buffer_ab5176ad1ed87433b479f8ccb96b84855}{Gost\+Crypt\+::\+Buffer}.
+
+
+
+Definition at line 197 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a6b6ee17fb3f8f617112854f9d24e393a}\label{class_gost_crypt_1_1_secure_buffer_a6b6ee17fb3f8f617112854f9d24e393a}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!erase@{erase}}
+\index{erase@{erase}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Secure\+Buffer\+::erase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Will set the all data bytes of this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to zero. 
+
+
+
+Reimplemented from \hyperlink{class_gost_crypt_1_1_buffer_a6c340b4919d3a0476c6076136fe469a0}{Gost\+Crypt\+::\+Buffer}.
+
+
+
+Definition at line 170 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_secure_buffer_a45e814bc17ed85b86733fffc32c69d28}\label{class_gost_crypt_1_1_secure_buffer_a45e814bc17ed85b86733fffc32c69d28}} 
+\index{Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}!free\+Data@{free\+Data}}
+\index{free\+Data@{free\+Data}!Gost\+Crypt\+::\+Secure\+Buffer@{Gost\+Crypt\+::\+Secure\+Buffer}}
+\subsubsection{\texorpdfstring{free\+Data()}{freeData()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Secure\+Buffer\+::free\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Free the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} after having erased it and set its size to 0. 
+
+
+
+Reimplemented from \hyperlink{class_gost_crypt_1_1_buffer_af3b4e8576f58b4eb9bf3b0e819402db9}{Gost\+Crypt\+::\+Buffer}.
+
+
+
+Definition at line 203 of file Buffer.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_buffer_8h}{Buffer.\+h}\item 
+Core/\hyperlink{_buffer_8cpp}{Buffer.\+cpp}\end{DoxyCompactItemize}

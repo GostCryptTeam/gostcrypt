@@ -228,7 +228,6 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
                 {
                     options->outerVolume->encryptionAlgorithm = DEFAULT_ALGORITHM;
                 }
-
                 options->innerVolume->filesystem = "fat";
                 options->innerVolume->size = GI_KEY(aContent,
                                                     "inner-size").toReal(); //Relative size of the inner volume

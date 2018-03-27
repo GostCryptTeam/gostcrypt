@@ -1,0 +1,127 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Keyfile Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_keyfile}\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+
+
+{\ttfamily \#include $<$Keyfile.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_ac06d59d9ea45d099d296732622bcb004}{Keyfile} (const Q\+File\+Info \&path)
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_ae3de2997702e1d6eca91fe2eb08ef14d}{$\sim$\+Keyfile} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_a1493100ce01d801c5f11aa66f324efcf}{Apply\+List\+To\+Password} (Q\+Shared\+Pointer$<$ \hyperlink{namespace_gost_crypt_1_1_volume_af2dce083ae31a8d22257d609e924963d}{Keyfile\+List} $>$ keyfiles, Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} $>$ password)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_af969985bceb0b13080c438e82c76ec08}{Min\+Processed\+Length} = 1
+\item 
+static const size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_a3ba0bae9093d388569e2e6652fdd22fb}{Max\+Processed\+Length} = 1024 $\ast$ 1024
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_a6cb59e7b780543538a8c53f9b00d4434}{Apply} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&pool) const
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+File\+Info \hyperlink{class_gost_crypt_1_1_volume_1_1_keyfile_a361fb705338bf371e4f151d24c2c4d84}{Path}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 30 of file Keyfile.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_ac06d59d9ea45d099d296732622bcb004}\label{class_gost_crypt_1_1_volume_1_1_keyfile_ac06d59d9ea45d099d296732622bcb004}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Keyfile@{Keyfile}}
+\index{Keyfile@{Keyfile}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Keyfile()}{Keyfile()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Keyfile (\begin{DoxyParamCaption}\item[{const Q\+File\+Info \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Definition at line 33 of file Keyfile.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_ae3de2997702e1d6eca91fe2eb08ef14d}\label{class_gost_crypt_1_1_volume_1_1_keyfile_ae3de2997702e1d6eca91fe2eb08ef14d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!````~Keyfile@{$\sim$\+Keyfile}}
+\index{````~Keyfile@{$\sim$\+Keyfile}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{$\sim$\+Keyfile()}{~Keyfile()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::$\sim$\+Keyfile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 34 of file Keyfile.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_a6cb59e7b780543538a8c53f9b00d4434}\label{class_gost_crypt_1_1_volume_1_1_keyfile_a6cb59e7b780543538a8c53f9b00d4434}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Apply@{Apply}}
+\index{Apply@{Apply}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Apply()}{Apply()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Apply (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{pool }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 20 of file Keyfile.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_a1493100ce01d801c5f11aa66f324efcf}\label{class_gost_crypt_1_1_volume_1_1_keyfile_a1493100ce01d801c5f11aa66f324efcf}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Apply\+List\+To\+Password@{Apply\+List\+To\+Password}}
+\index{Apply\+List\+To\+Password@{Apply\+List\+To\+Password}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Apply\+List\+To\+Password()}{ApplyListToPassword()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} $>$ Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Apply\+List\+To\+Password (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{namespace_gost_crypt_1_1_volume_af2dce083ae31a8d22257d609e924963d}{Keyfile\+List} $>$}]{keyfiles,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+Password} $>$}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 61 of file Keyfile.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_a3ba0bae9093d388569e2e6652fdd22fb}\label{class_gost_crypt_1_1_volume_1_1_keyfile_a3ba0bae9093d388569e2e6652fdd22fb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Max\+Processed\+Length@{Max\+Processed\+Length}}
+\index{Max\+Processed\+Length@{Max\+Processed\+Length}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Max\+Processed\+Length}{MaxProcessedLength}}
+{\footnotesize\ttfamily const size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Max\+Processed\+Length = 1024 $\ast$ 1024\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 40 of file Keyfile.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_af969985bceb0b13080c438e82c76ec08}\label{class_gost_crypt_1_1_volume_1_1_keyfile_af969985bceb0b13080c438e82c76ec08}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Min\+Processed\+Length@{Min\+Processed\+Length}}
+\index{Min\+Processed\+Length@{Min\+Processed\+Length}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Min\+Processed\+Length}{MinProcessedLength}}
+{\footnotesize\ttfamily const size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Min\+Processed\+Length = 1\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 39 of file Keyfile.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_keyfile_a361fb705338bf371e4f151d24c2c4d84}\label{class_gost_crypt_1_1_volume_1_1_keyfile_a361fb705338bf371e4f151d24c2c4d84}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}!Path@{Path}}
+\index{Path@{Path}!Gost\+Crypt\+::\+Volume\+::\+Keyfile@{Gost\+Crypt\+::\+Volume\+::\+Keyfile}}
+\subsubsection{\texorpdfstring{Path}{Path}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Volume\+::\+Keyfile\+::\+Path\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 44 of file Keyfile.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_keyfile_8h}{Keyfile.\+h}\item 
+Volume/\hyperlink{_keyfile_8cpp}{Keyfile.\+cpp}\end{DoxyCompactItemize}

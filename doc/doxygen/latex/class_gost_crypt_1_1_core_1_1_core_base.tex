@@ -1,0 +1,791 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_core_base}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Core\+Base Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_core_base}\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+
+
+Abstract class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc)  
+
+
+
+
+{\ttfamily \#include $<$Core\+Base.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Core\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_core_1_1_core_base}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a50e21a6636cfa9fc438eddc63dd9db11}{request} (Q\+Variant request)=0
+\begin{DoxyCompactList}\small\item\em Execute the requested action (mount, dismount, create a volume, etc) \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a240a009c4f481a8d84292caaead91fd5}{exit} ()=0
+\begin{DoxyCompactList}\small\item\em Close child processes used by this object. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_ad0026630165d5b7229e486cca733ad05}{receive\+Sudo\+Password} (Q\+String password)=0
+\begin{DoxyCompactList}\small\item\em Receive password of the current user in order to get root priviliges using sudo utility. The current user must be authorized to use sudo to launch the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} executable as root user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a736471460c0b496c3399140ebbe9b009}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Create\+Volume)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a0492935c124dd71e4d18d3e7626845d1}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Mount\+Volume)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a9d651ef51f082537fc8e67a070a62f4a}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Dismount\+Volume)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a93a687375f754bd009c7f08c980eb3fa}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Change\+Volume\+Password)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a88ea9bf4214ab3966b470781e658315c}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Get\+Encryption\+Algorithms)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_aa203359ccaa75e4017b38fc953e27604}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Get\+Derivation\+Functions)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_aae04e91d01afa32fd727421001f6da1f}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Get\+Host\+Devices)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a5eca68482d0201fe3161b2b6eb967367}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Get\+Mounted\+Volumes)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_adee6427ebd0aa9a947ea34f6aa0878e3}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Create\+Key\+File)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a089f39a7f077a224362509768cf6b1b3}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Backup\+Header)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a93213c56a4a5e3b5042cc9e2a130a62a}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Restore\+Header)
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a152ca4ed1db4b7a0e9319cb94d8ebe6b}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL} (Benchmark\+Algorithms)
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_ad9ad2bcedfbbdaba41aec1767e4bf612}{send\+Progress\+Update} (quint32 request\+Id, qreal progress)
+\begin{DoxyCompactList}\small\item\em Send the current progress in the processing of a request to the UI. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a92f0c8dd264e1fb1e9f638a6c279ce28}{exited} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the program can exit (when the coreservice is closed) \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a695a59ae1ffd1417995061d9c3ec39cd}{ask\+Sudo\+Password} ()
+\begin{DoxyCompactList}\small\item\em Signal emited when the password used to get root priviliges using sudo utility is necessary, that is to say when we need to launch the coreservice through sudo. This event can be emitted several times if the password is wrong. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a288d2d68c5f004ce4d56dbece2bcf2ad}{Core\+Base} (Q\+Object $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a5dd8240d83bc37a01f91a9e9ef0eb005}{$\sim$\+Core\+Base} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_response}{Get\+Encryption\+Algorithms\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a1f0f9505278a7ddde8b4b6d341f0beda}{get\+Encryption\+Algorithms} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_request}{Get\+Encryption\+Algorithms\+Request} $>$ params=Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_request}{Get\+Encryption\+Algorithms\+Request} $>$())
+\begin{DoxyCompactList}\small\item\em Give the supported encryption algorithms names. These names should be used to indicate which algorithm to use for other actions. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_response}{Get\+Derivation\+Functions\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a2b55f015a063b69a371aa0136aa82434}{get\+Derivation\+Functions} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_request}{Get\+Derivation\+Functions\+Request} $>$ params=Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_request}{Get\+Derivation\+Functions\+Request} $>$())
+\begin{DoxyCompactList}\small\item\em Give the supported key derivation functions names. These names should be used to indicate which algorithm to use for other actions. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_response}{Get\+Host\+Devices\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_ab63be029cc98da2fc116c4223908213e}{get\+Host\+Devices} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_request}{Get\+Host\+Devices\+Request} $>$ params=Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_request}{Get\+Host\+Devices\+Request} $>$())
+\begin{DoxyCompactList}\small\item\em Give the availables storage devices on the computer (Disks, U\+SB keys, etc) \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_response}{Get\+Mounted\+Volumes\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a2f6d3f10b68a704690fa1a8843f724dd}{get\+Mounted\+Volumes} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request}{Get\+Mounted\+Volumes\+Request} $>$ params=Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request}{Get\+Mounted\+Volumes\+Request} $>$())
+\begin{DoxyCompactList}\small\item\em Give the list of currently mounted volumes. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_response}{Change\+Volume\+Password\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a8add14f79b2676e0015ee00a7ea4c96a}{change\+Volume\+Password} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_request}{Change\+Volume\+Password\+Request} $>$ params)
+\begin{DoxyCompactList}\small\item\em Change the password of a \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volume. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_response}{Create\+Key\+File\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a6db58096a7fc5ed13c20dc0b7ca4abdb}{create\+Key\+File} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_request}{Create\+Key\+File\+Request} $>$ params=Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_request}{Create\+Key\+File\+Request} $>$())
+\begin{DoxyCompactList}\small\item\em Create a random key file This action will simply create a file of 64 bytes with random bytes. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_response}{Backup\+Header\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_af5193ba2f99911cb8044038576462d3d}{backup\+Header} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request}{Backup\+Header\+Request} $>$ params)
+\begin{DoxyCompactList}\small\item\em Backup the header of the given volume This action will save the headers of the volume instances contained inside the given volume container. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_response}{Restore\+Header\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a206b9b51031f6389b95e568cd4bf9828}{restore\+Header} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request}{Restore\+Header\+Request} $>$ params)
+\begin{DoxyCompactList}\small\item\em Restore the header of the given volume This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_response}{Benchmark\+Algorithms\+Response} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a3591596ab66503c56dde92619938fffc}{benchmark\+Algorithms} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Benchmark\+Algorithms\+Request} $>$ params)
+\begin{DoxyCompactList}\small\item\em Launch a benchmark of Encryption\+Algorthims supported by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} and return encryption speed. \end{DoxyCompactList}\item 
+Q\+List$<$ Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mounted_filesystem}{Mounted\+Filesystem} $>$ $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_ab97891dae6ee36c867e02766a5223063}{get\+Mounted\+Filesystems} (const Q\+File\+Info \&device\+Path=Q\+File\+Info(), const Q\+File\+Info \&mount\+Point=Q\+File\+Info())
+\begin{DoxyCompactList}\small\item\em Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Volume\+::\+Encryption\+Algorithm} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a306718b124fedfb427a840dd6718514e}{get\+Encryption\+Algorithm} (Q\+String algorithm)
+\begin{DoxyCompactList}\small\item\em Return the encryption algorithm object corresponding to the given name. \end{DoxyCompactList}\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_af5bf7852935d5ab56ae8bbdd581f589a}{get\+Derivation\+Key\+Function} (Q\+String function)
+\begin{DoxyCompactList}\small\item\em Return the key derivation function object corresponding to the given name. \end{DoxyCompactList}\item 
+Q\+File\+Info \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a1b3c979c1f14e087d8bce55f70fb5320}{get\+Device\+Mount\+Point} (const Q\+File\+Info device\+Path)
+\begin{DoxyCompactList}\small\item\em Return the directory where the given device is mounted. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a9719fc843a6858f8f4f44f3a9eb60605}{is\+Device} (Q\+String path)
+\begin{DoxyCompactList}\small\item\em Check if the given path correspond to an host device on the computer. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a25b5689e9d93d04e6d1474a4415a92c1}{is\+Volume\+Mounted} (Q\+File\+Info volume\+File)
+\begin{DoxyCompactList}\small\item\em Check if the given volume is currently mounted. \end{DoxyCompactList}\item 
+Q\+File\+Info \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a80db2edf1a03b67ae06f3845156e5b77}{get\+Free\+Fuse\+Mount\+Point} ()
+\begin{DoxyCompactList}\small\item\em Give the next available fuse mountpoint (/tmp/.gostcrypt\+\_\+aux\+\_\+mntN) \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a4dab0d8693abc9f3356b91b0c7943ad2}{create\+Random\+File} (Q\+File\+Info path, quint64 size, \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters} id, Q\+String algorithm=\char`\"{}\char`\"{}, bool random=true)
+\begin{DoxyCompactList}\small\item\em Create a random file. (Used for volume and key file creation) \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a45d7cd1c227100a405f3c655e53aab64}{randomize\+Encryption\+Algorithm\+Key} (Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Volume\+::\+Encryption\+Algorithm} $>$ encryption\+Algorithm) const
+\begin{DoxyCompactList}\small\item\em Set a random key for the given cipher algorithm. This function is used by create\+Random\+File. \end{DoxyCompactList}\item 
+Q\+File\+Info \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_ad45372f3d1ee5084aa25cec4b1753f28}{get\+Free\+Default\+Mount\+Point} (uid\+\_\+t user\+Id)
+\begin{DoxyCompactList}\small\item\em Give the next available default mountpoint for the given user. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a1bbcd36f2a0eeeaf997cce7cd54cf008}{Re\+Encrypt\+Volume\+Header\+With\+New\+Salt} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&new\+Header\+Buffer, Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+::\+Volume\+Header} $>$ header, Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+::\+Volume\+Password} $>$ password, Q\+Shared\+Pointer$<$ \hyperlink{namespace_gost_crypt_1_1_volume_af2dce083ae31a8d22257d609e924963d}{Volume\+::\+Keyfile\+List} $>$ keyfiles) const
+\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_af99f04d68b53946322c568b1ad0a88e6}{process\+Non\+Root\+Request} (Q\+Variant r)
+\begin{DoxyCompactList}\small\item\em Try to process the given request. Only requests which don\textquotesingle{}t need root privilileges will be handled. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a253b279d70554da375f84ed7e2e1a515}{update\+Progress} (qreal sub\+Progress, \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters} id)
+\begin{DoxyCompactList}\small\item\em Send the current progress in the processing of a request to the UI using the progress in the current function and the context stored in the \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc) 
+
+Definition at line 48 of file Core\+Base.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a288d2d68c5f004ce4d56dbece2bcf2ad}\label{class_gost_crypt_1_1_core_1_1_core_base_a288d2d68c5f004ce4d56dbece2bcf2ad}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!Core\+Base@{Core\+Base}}
+\index{Core\+Base@{Core\+Base}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{Core\+Base()}{CoreBase()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+Core\+Base (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Default Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & parent object \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a5dd8240d83bc37a01f91a9e9ef0eb005}\label{class_gost_crypt_1_1_core_1_1_core_base_a5dd8240d83bc37a01f91a9e9ef0eb005}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!````~Core\+Base@{$\sim$\+Core\+Base}}
+\index{````~Core\+Base@{$\sim$\+Core\+Base}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{$\sim$\+Core\+Base()}{~CoreBase()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::$\sim$\+Core\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file Core\+Base.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a695a59ae1ffd1417995061d9c3ec39cd}\label{class_gost_crypt_1_1_core_1_1_core_base_a695a59ae1ffd1417995061d9c3ec39cd}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!ask\+Sudo\+Password@{ask\+Sudo\+Password}}
+\index{ask\+Sudo\+Password@{ask\+Sudo\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{ask\+Sudo\+Password}{askSudoPassword}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::ask\+Sudo\+Password (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emited when the password used to get root priviliges using sudo utility is necessary, that is to say when we need to launch the coreservice through sudo. This event can be emitted several times if the password is wrong. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_af5193ba2f99911cb8044038576462d3d}\label{class_gost_crypt_1_1_core_1_1_core_base_af5193ba2f99911cb8044038576462d3d}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!backup\+Header@{backup\+Header}}
+\index{backup\+Header@{backup\+Header}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{backup\+Header()}{backupHeader()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_response}{Backup\+Header\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::backup\+Header (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request}{Backup\+Header\+Request} $>$}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Backup the header of the given volume This action will save the headers of the volume instances contained inside the given volume container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Backup\+Header\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 759 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a3591596ab66503c56dde92619938fffc}\label{class_gost_crypt_1_1_core_1_1_core_base_a3591596ab66503c56dde92619938fffc}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!benchmark\+Algorithms@{benchmark\+Algorithms}}
+\index{benchmark\+Algorithms@{benchmark\+Algorithms}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{benchmark\+Algorithms()}{benchmarkAlgorithms()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_response}{Benchmark\+Algorithms\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::benchmark\+Algorithms (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Benchmark\+Algorithms\+Request} $>$}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Launch a benchmark of Encryption\+Algorthims supported by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} and return encryption speed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Backup\+Header\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 975 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a8add14f79b2676e0015ee00a7ea4c96a}\label{class_gost_crypt_1_1_core_1_1_core_base_a8add14f79b2676e0015ee00a7ea4c96a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!change\+Volume\+Password@{change\+Volume\+Password}}
+\index{change\+Volume\+Password@{change\+Volume\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{change\+Volume\+Password()}{changeVolumePassword()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_response}{Change\+Volume\+Password\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::change\+Volume\+Password (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_request}{Change\+Volume\+Password\+Request} $>$}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Change the password of a \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volume. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Change\+Volume\+Password\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 494 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a6db58096a7fc5ed13c20dc0b7ca4abdb}\label{class_gost_crypt_1_1_core_1_1_core_base_a6db58096a7fc5ed13c20dc0b7ca4abdb}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!create\+Key\+File@{create\+Key\+File}}
+\index{create\+Key\+File@{create\+Key\+File}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{create\+Key\+File()}{createKeyFile()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_response}{Create\+Key\+File\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::create\+Key\+File (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_request}{Create\+Key\+File\+Request} $>$}]{params = {\ttfamily QSharedPointer$<$\hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_request}{Create\+Key\+File\+Request}$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Create a random key file This action will simply create a file of 64 bytes with random bytes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Create\+Key\+File\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 729 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a4dab0d8693abc9f3356b91b0c7943ad2}\label{class_gost_crypt_1_1_core_1_1_core_base_a4dab0d8693abc9f3356b91b0c7943ad2}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!create\+Random\+File@{create\+Random\+File}}
+\index{create\+Random\+File@{create\+Random\+File}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{create\+Random\+File()}{createRandomFile()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::create\+Random\+File (\begin{DoxyParamCaption}\item[{Q\+File\+Info}]{path,  }\item[{quint64}]{size,  }\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters}}]{id,  }\item[{Q\+String}]{algorithm = {\ttfamily \char`\"{}\char`\"{}},  }\item[{bool}]{random = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Create a random file. (Used for volume and key file creation) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path of the random file to create \\
+\hline
+{\em size} & Size of the random file to create \\
+\hline
+{\em id} & Progress tracking id used notify about random file creation progression \\
+\hline
+{\em algorithm} & Name of the cipher algorithm to use for random generation \\
+\hline
+{\em random} & If False null bytes will be used instead of random data \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 424 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a736471460c0b496c3399140ebbe9b009}\label{class_gost_crypt_1_1_core_1_1_core_base_a736471460c0b496c3399140ebbe9b009}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [1/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Create\+Volume}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a0492935c124dd71e4d18d3e7626845d1}\label{class_gost_crypt_1_1_core_1_1_core_base_a0492935c124dd71e4d18d3e7626845d1}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [2/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Mount\+Volume}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a9d651ef51f082537fc8e67a070a62f4a}\label{class_gost_crypt_1_1_core_1_1_core_base_a9d651ef51f082537fc8e67a070a62f4a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [3/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Dismount\+Volume}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a93a687375f754bd009c7f08c980eb3fa}\label{class_gost_crypt_1_1_core_1_1_core_base_a93a687375f754bd009c7f08c980eb3fa}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [4/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Change\+Volume\+Password}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a88ea9bf4214ab3966b470781e658315c}\label{class_gost_crypt_1_1_core_1_1_core_base_a88ea9bf4214ab3966b470781e658315c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [5/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Get\+Encryption\+Algorithms}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_aa203359ccaa75e4017b38fc953e27604}\label{class_gost_crypt_1_1_core_1_1_core_base_aa203359ccaa75e4017b38fc953e27604}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [6/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Get\+Derivation\+Functions}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_aae04e91d01afa32fd727421001f6da1f}\label{class_gost_crypt_1_1_core_1_1_core_base_aae04e91d01afa32fd727421001f6da1f}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [7/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Get\+Host\+Devices}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a5eca68482d0201fe3161b2b6eb967367}\label{class_gost_crypt_1_1_core_1_1_core_base_a5eca68482d0201fe3161b2b6eb967367}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [8/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Get\+Mounted\+Volumes}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_adee6427ebd0aa9a947ea34f6aa0878e3}\label{class_gost_crypt_1_1_core_1_1_core_base_adee6427ebd0aa9a947ea34f6aa0878e3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [9/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Create\+Key\+File}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a089f39a7f077a224362509768cf6b1b3}\label{class_gost_crypt_1_1_core_1_1_core_base_a089f39a7f077a224362509768cf6b1b3}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [10/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Backup\+Header}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a93213c56a4a5e3b5042cc9e2a130a62a}\label{class_gost_crypt_1_1_core_1_1_core_base_a93213c56a4a5e3b5042cc9e2a130a62a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [11/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Restore\+Header}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a152ca4ed1db4b7a0e9319cb94d8ebe6b}\label{class_gost_crypt_1_1_core_1_1_core_base_a152ca4ed1db4b7a0e9319cb94d8ebe6b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}\hspace{0.1cm}{\footnotesize\ttfamily [12/12]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL (\begin{DoxyParamCaption}\item[{Benchmark\+Algorithms}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a240a009c4f481a8d84292caaead91fd5}\label{class_gost_crypt_1_1_core_1_1_core_base_a240a009c4f481a8d84292caaead91fd5}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!exit@{exit}}
+\index{exit@{exit}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [slot]}}
+
+
+
+Close child processes used by this object. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a92f0c8dd264e1fb1e9f638a6c279ce28}\label{class_gost_crypt_1_1_core_1_1_core_base_a92f0c8dd264e1fb1e9f638a6c279ce28}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!exited@{exited}}
+\index{exited@{exited}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{exited}{exited}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::exited (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the program can exit (when the coreservice is closed) 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a2b55f015a063b69a371aa0136aa82434}\label{class_gost_crypt_1_1_core_1_1_core_base_a2b55f015a063b69a371aa0136aa82434}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Derivation\+Functions@{get\+Derivation\+Functions}}
+\index{get\+Derivation\+Functions@{get\+Derivation\+Functions}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Derivation\+Functions()}{getDerivationFunctions()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_response}{Get\+Derivation\+Functions\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Derivation\+Functions (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_request}{Get\+Derivation\+Functions\+Request} $>$}]{params = {\ttfamily QSharedPointer$<$\hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_request}{Get\+Derivation\+Functions\+Request}$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the supported key derivation functions names. These names should be used to indicate which algorithm to use for other actions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Get\+Derivation\+Functions\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 87 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_af5bf7852935d5ab56ae8bbdd581f589a}\label{class_gost_crypt_1_1_core_1_1_core_base_af5bf7852935d5ab56ae8bbdd581f589a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Derivation\+Key\+Function@{get\+Derivation\+Key\+Function}}
+\index{get\+Derivation\+Key\+Function@{get\+Derivation\+Key\+Function}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Derivation\+Key\+Function()}{getDerivationKeyFunction()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Derivation\+Key\+Function (\begin{DoxyParamCaption}\item[{Q\+String}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Return the key derivation function object corresponding to the given name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em function} & key derivation function name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Volume\+Hash$>$ key derivation function object 
+\end{DoxyReturn}
+
+
+Definition at line 369 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a1b3c979c1f14e087d8bce55f70fb5320}\label{class_gost_crypt_1_1_core_1_1_core_base_a1b3c979c1f14e087d8bce55f70fb5320}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Device\+Mount\+Point@{get\+Device\+Mount\+Point}}
+\index{get\+Device\+Mount\+Point@{get\+Device\+Mount\+Point}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Device\+Mount\+Point()}{getDeviceMountPoint()}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Device\+Mount\+Point (\begin{DoxyParamCaption}\item[{const Q\+File\+Info}]{device\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Return the directory where the given device is mounted. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Path} & Path of the device file (/dev/loopN) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Q\+File\+Info$>$ Path where the given device is mounted 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_gost_crypt_1_1_core_1_1_device_not_mounted}{Device\+Not\+Mounted}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Definition at line 386 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a306718b124fedfb427a840dd6718514e}\label{class_gost_crypt_1_1_core_1_1_core_base_a306718b124fedfb427a840dd6718514e}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Encryption\+Algorithm@{get\+Encryption\+Algorithm}}
+\index{get\+Encryption\+Algorithm@{get\+Encryption\+Algorithm}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Encryption\+Algorithm()}{getEncryptionAlgorithm()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Encryption\+Algorithm (\begin{DoxyParamCaption}\item[{Q\+String}]{algorithm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Return the encryption algorithm object corresponding to the given name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em algorithm} & encryption algorithm name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Encryption\+Algorithm$>$ encryption algorithm object 
+\end{DoxyReturn}
+
+
+Definition at line 351 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a1f0f9505278a7ddde8b4b6d341f0beda}\label{class_gost_crypt_1_1_core_1_1_core_base_a1f0f9505278a7ddde8b4b6d341f0beda}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Encryption\+Algorithms@{get\+Encryption\+Algorithms}}
+\index{get\+Encryption\+Algorithms@{get\+Encryption\+Algorithms}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Encryption\+Algorithms()}{getEncryptionAlgorithms()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_response}{Get\+Encryption\+Algorithms\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Encryption\+Algorithms (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_request}{Get\+Encryption\+Algorithms\+Request} $>$}]{params = {\ttfamily QSharedPointer$<$\hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_request}{Get\+Encryption\+Algorithms\+Request}$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the supported encryption algorithms names. These names should be used to indicate which algorithm to use for other actions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Get\+Encryption\+Algorithms\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 53 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_ad45372f3d1ee5084aa25cec4b1753f28}\label{class_gost_crypt_1_1_core_1_1_core_base_ad45372f3d1ee5084aa25cec4b1753f28}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Free\+Default\+Mount\+Point@{get\+Free\+Default\+Mount\+Point}}
+\index{get\+Free\+Default\+Mount\+Point@{get\+Free\+Default\+Mount\+Point}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Free\+Default\+Mount\+Point()}{getFreeDefaultMountPoint()}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Free\+Default\+Mount\+Point (\begin{DoxyParamCaption}\item[{uid\+\_\+t}]{user\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the next available default mountpoint for the given user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & User\+ID of the user for which we want the next available default mountpoint \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+File\+Info Path of the next available default mountpoint 
+\end{DoxyReturn}
+
+
+Definition at line 648 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a80db2edf1a03b67ae06f3845156e5b77}\label{class_gost_crypt_1_1_core_1_1_core_base_a80db2edf1a03b67ae06f3845156e5b77}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Free\+Fuse\+Mount\+Point@{get\+Free\+Fuse\+Mount\+Point}}
+\index{get\+Free\+Fuse\+Mount\+Point@{get\+Free\+Fuse\+Mount\+Point}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Free\+Fuse\+Mount\+Point()}{getFreeFuseMountPoint()}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Free\+Fuse\+Mount\+Point (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the next available fuse mountpoint (/tmp/.gostcrypt\+\_\+aux\+\_\+mntN) 
+
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Q\+File\+Info$>$ Path of the next available fuse mountpoint 
+\end{DoxyReturn}
+
+
+Definition at line 615 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_ab63be029cc98da2fc116c4223908213e}\label{class_gost_crypt_1_1_core_1_1_core_base_ab63be029cc98da2fc116c4223908213e}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Host\+Devices@{get\+Host\+Devices}}
+\index{get\+Host\+Devices@{get\+Host\+Devices}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Host\+Devices()}{getHostDevices()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_response}{Get\+Host\+Devices\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Host\+Devices (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_request}{Get\+Host\+Devices\+Request} $>$}]{params = {\ttfamily QSharedPointer$<$\hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_request}{Get\+Host\+Devices\+Request}$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the availables storage devices on the computer (Disks, U\+SB keys, etc) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Get\+Host\+Devices\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 121 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_ab97891dae6ee36c867e02766a5223063}\label{class_gost_crypt_1_1_core_1_1_core_base_ab97891dae6ee36c867e02766a5223063}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Mounted\+Filesystems@{get\+Mounted\+Filesystems}}
+\index{get\+Mounted\+Filesystems@{get\+Mounted\+Filesystems}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Mounted\+Filesystems()}{getMountedFilesystems()}}
+{\footnotesize\ttfamily Q\+List$<$ Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_mounted_filesystem}{Mounted\+Filesystem} $>$ $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Mounted\+Filesystems (\begin{DoxyParamCaption}\item[{const Q\+File\+Info \&}]{device\+Path = {\ttfamily QFileInfo()},  }\item[{const Q\+File\+Info \&}]{mount\+Point = {\ttfamily QFileInfo()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the list of mounted filesystems. It can filter only filesystems referring to the given device, or mounted in a specific mountpoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Path} & Path of the device we want to get the list of corresponding mounted filesystems. \\
+\hline
+{\em mount\+Point} & Path of the mountpoint we want to get the list of corresponding mounted filesystems. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+List$<$Q\+Shared\+Pointer$<$\+Mounted\+Filesystem$>$ $>$ the list of mounted filesystems 
+\end{DoxyReturn}
+
+
+Definition at line 295 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a2f6d3f10b68a704690fa1a8843f724dd}\label{class_gost_crypt_1_1_core_1_1_core_base_a2f6d3f10b68a704690fa1a8843f724dd}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!get\+Mounted\+Volumes@{get\+Mounted\+Volumes}}
+\index{get\+Mounted\+Volumes@{get\+Mounted\+Volumes}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{get\+Mounted\+Volumes()}{getMountedVolumes()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_response}{Get\+Mounted\+Volumes\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::get\+Mounted\+Volumes (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request}{Get\+Mounted\+Volumes\+Request} $>$}]{params = {\ttfamily QSharedPointer$<$\hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request}{Get\+Mounted\+Volumes\+Request}$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Give the list of currently mounted volumes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Get\+Mounted\+Volumes\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 205 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a9719fc843a6858f8f4f44f3a9eb60605}\label{class_gost_crypt_1_1_core_1_1_core_base_a9719fc843a6858f8f4f44f3a9eb60605}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!is\+Device@{is\+Device}}
+\index{is\+Device@{is\+Device}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{is\+Device()}{isDevice()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::is\+Device (\begin{DoxyParamCaption}\item[{Q\+String}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Check if the given path correspond to an host device on the computer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Path of the file to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the given path correspond to an host device on the computer. 
+\end{DoxyReturn}
+
+
+Definition at line 396 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a25b5689e9d93d04e6d1474a4415a92c1}\label{class_gost_crypt_1_1_core_1_1_core_base_a25b5689e9d93d04e6d1474a4415a92c1}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!is\+Volume\+Mounted@{is\+Volume\+Mounted}}
+\index{is\+Volume\+Mounted@{is\+Volume\+Mounted}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{is\+Volume\+Mounted()}{isVolumeMounted()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::is\+Volume\+Mounted (\begin{DoxyParamCaption}\item[{Q\+File\+Info}]{volume\+File }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Check if the given volume is currently mounted. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em volume\+File} & Path of the volume file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the given volume is currently mounted 
+\end{DoxyReturn}
+
+
+Definition at line 606 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_af99f04d68b53946322c568b1ad0a88e6}\label{class_gost_crypt_1_1_core_1_1_core_base_af99f04d68b53946322c568b1ad0a88e6}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!process\+Non\+Root\+Request@{process\+Non\+Root\+Request}}
+\index{process\+Non\+Root\+Request@{process\+Non\+Root\+Request}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{process\+Non\+Root\+Request()}{processNonRootRequest()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::process\+Non\+Root\+Request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Try to process the given request. Only requests which don\textquotesingle{}t need root privilileges will be handled. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Q\+Variant containing the request to process (child of \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request}) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool True if the request has been processed, False otherwise. (Can return False if the request need root privileges) 
+\end{DoxyReturn}
+
+
+Definition at line 704 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a45d7cd1c227100a405f3c655e53aab64}\label{class_gost_crypt_1_1_core_1_1_core_base_a45d7cd1c227100a405f3c655e53aab64}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!randomize\+Encryption\+Algorithm\+Key@{randomize\+Encryption\+Algorithm\+Key}}
+\index{randomize\+Encryption\+Algorithm\+Key@{randomize\+Encryption\+Algorithm\+Key}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{randomize\+Encryption\+Algorithm\+Key()}{randomizeEncryptionAlgorithmKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::randomize\+Encryption\+Algorithm\+Key (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Volume\+::\+Encryption\+Algorithm} $>$}]{encryption\+Algorithm }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Set a random key for the given cipher algorithm. This function is used by create\+Random\+File. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em encryption\+Algorithm} & Name of the cipher algorithm for which to change the key \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_base_a4dab0d8693abc9f3356b91b0c7943ad2}{Core\+Base\+::create\+Random\+File} 
+\end{DoxySeeAlso}
+
+
+Definition at line 412 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_ad0026630165d5b7229e486cca733ad05}\label{class_gost_crypt_1_1_core_1_1_core_base_ad0026630165d5b7229e486cca733ad05}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!receive\+Sudo\+Password@{receive\+Sudo\+Password}}
+\index{receive\+Sudo\+Password@{receive\+Sudo\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{receive\+Sudo\+Password}{receiveSudoPassword}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::receive\+Sudo\+Password (\begin{DoxyParamCaption}\item[{Q\+String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [slot]}}
+
+
+
+Receive password of the current user in order to get root priviliges using sudo utility. The current user must be authorized to use sudo to launch the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} executable as root user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & Password of the current user \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a1bbcd36f2a0eeeaf997cce7cd54cf008}\label{class_gost_crypt_1_1_core_1_1_core_base_a1bbcd36f2a0eeeaf997cce7cd54cf008}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!Re\+Encrypt\+Volume\+Header\+With\+New\+Salt@{Re\+Encrypt\+Volume\+Header\+With\+New\+Salt}}
+\index{Re\+Encrypt\+Volume\+Header\+With\+New\+Salt@{Re\+Encrypt\+Volume\+Header\+With\+New\+Salt}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{Re\+Encrypt\+Volume\+Header\+With\+New\+Salt()}{ReEncryptVolumeHeaderWithNewSalt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::\+Re\+Encrypt\+Volume\+Header\+With\+New\+Salt (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{new\+Header\+Buffer,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+::\+Volume\+Header} $>$}]{header,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_password}{Volume\+::\+Volume\+Password} $>$}]{password,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{namespace_gost_crypt_1_1_volume_af2dce083ae31a8d22257d609e924963d}{Volume\+::\+Keyfile\+List} $>$}]{keyfiles }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 684 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a50e21a6636cfa9fc438eddc63dd9db11}\label{class_gost_crypt_1_1_core_1_1_core_base_a50e21a6636cfa9fc438eddc63dd9db11}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!request@{request}}
+\index{request@{request}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [slot]}}
+
+
+
+Execute the requested action (mount, dismount, create a volume, etc) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Q\+Variant containing the request object which is a child of \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a206b9b51031f6389b95e568cd4bf9828}\label{class_gost_crypt_1_1_core_1_1_core_base_a206b9b51031f6389b95e568cd4bf9828}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!restore\+Header@{restore\+Header}}
+\index{restore\+Header@{restore\+Header}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{restore\+Header()}{restoreHeader()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_response}{Restore\+Header\+Response} $>$ Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::restore\+Header (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request}{Restore\+Header\+Request} $>$}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Restore the header of the given volume This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+Shared\+Pointer$<$\+Backup\+Header\+Response$>$, the response of the action 
+\end{DoxyReturn}
+
+
+Definition at line 873 of file Core\+Base.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_ad9ad2bcedfbbdaba41aec1767e4bf612}\label{class_gost_crypt_1_1_core_1_1_core_base_ad9ad2bcedfbbdaba41aec1767e4bf612}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!send\+Progress\+Update@{send\+Progress\+Update}}
+\index{send\+Progress\+Update@{send\+Progress\+Update}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{send\+Progress\+Update}{sendProgressUpdate}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::send\+Progress\+Update (\begin{DoxyParamCaption}\item[{quint32}]{request\+Id,  }\item[{qreal}]{progress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Send the current progress in the processing of a request to the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request\+Id} & Request Identifier given by the User Interface module \\
+\hline
+{\em progress} & Progress of the request processing time between 0 and 1 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_base_a253b279d70554da375f84ed7e2e1a515}\label{class_gost_crypt_1_1_core_1_1_core_base_a253b279d70554da375f84ed7e2e1a515}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}!update\+Progress@{update\+Progress}}
+\index{update\+Progress@{update\+Progress}!Gost\+Crypt\+::\+Core\+::\+Core\+Base@{Gost\+Crypt\+::\+Core\+::\+Core\+Base}}
+\subsubsection{\texorpdfstring{update\+Progress()}{updateProgress()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Base\+::update\+Progress (\begin{DoxyParamCaption}\item[{qreal}]{sub\+Progress,  }\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters}}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Send the current progress in the processing of a request to the UI using the progress in the current function and the context stored in the \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sub\+Progress} & Progress in the current function \\
+\hline
+{\em id} & \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Progress\+Tracking\+Parameters} object containing the request identifier and the information on where this function stand in the processing of the request \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 724 of file Core\+Base.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_base_8h}{Core\+Base.\+h}\item 
+Core/\hyperlink{_core_base_8cpp}{Core\+Base.\+cpp}\end{DoxyCompactItemize}

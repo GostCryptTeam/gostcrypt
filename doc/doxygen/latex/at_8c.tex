@@ -1,0 +1,38 @@
+\hypertarget{at_8c}{}\section{Core/loopdevlib/at.c File Reference}
+\label{at_8c}\index{Core/loopdevlib/at.\+c@{Core/loopdevlib/at.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}at.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}c.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{at_8c_a3fee2a7f2ccadbf87b9d5bc1df957f1d}{fstat\+\_\+at} (int dir, const char $\ast$dirname, const char $\ast$filename, struct stat $\ast$st, int nofollow)
+\item 
+int \hyperlink{at_8c_a0b195351342a95333ac3cc29a42ba063}{open\+\_\+at} (int dir, const char $\ast$dirname, const char $\ast$filename, int flags)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{at_8c_a3fee2a7f2ccadbf87b9d5bc1df957f1d}\label{at_8c_a3fee2a7f2ccadbf87b9d5bc1df957f1d}} 
+\index{at.\+c@{at.\+c}!fstat\+\_\+at@{fstat\+\_\+at}}
+\index{fstat\+\_\+at@{fstat\+\_\+at}!at.\+c@{at.\+c}}
+\subsubsection{\texorpdfstring{fstat\+\_\+at()}{fstat\_at()}}
+{\footnotesize\ttfamily int fstat\+\_\+at (\begin{DoxyParamCaption}\item[{int}]{dir,  }\item[{const char $\ast$}]{dirname,  }\item[{const char $\ast$}]{filename,  }\item[{struct stat $\ast$}]{st,  }\item[{int}]{nofollow }\end{DoxyParamCaption})}
+
+
+
+Definition at line 25 of file at.\+c.
+
+\mbox{\Hypertarget{at_8c_a0b195351342a95333ac3cc29a42ba063}\label{at_8c_a0b195351342a95333ac3cc29a42ba063}} 
+\index{at.\+c@{at.\+c}!open\+\_\+at@{open\+\_\+at}}
+\index{open\+\_\+at@{open\+\_\+at}!at.\+c@{at.\+c}}
+\subsubsection{\texorpdfstring{open\+\_\+at()}{open\_at()}}
+{\footnotesize\ttfamily int open\+\_\+at (\begin{DoxyParamCaption}\item[{int}]{dir,  }\item[{const char $\ast$}]{dirname,  }\item[{const char $\ast$}]{filename,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 54 of file at.\+c.
+

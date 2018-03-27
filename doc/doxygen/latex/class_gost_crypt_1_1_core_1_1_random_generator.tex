@@ -1,0 +1,355 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_random_generator}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Random\+Generator Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_random_generator}\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+
+
+Class in charge of generating random data using the the system random data source T\+O\+DO\+: replace by a singleton and start/stop by constructor destructor.  
+
+
+
+
+{\ttfamily \#include $<$Random\+Generator.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_aedad8e5c5552eb470b55793a94b0a441}{Add\+To\+Pool} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer)
+\begin{DoxyCompactList}\small\item\em Add the data of the given buffer to the data of the pool. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_abbb77e1064c935fc8b86007025afe535}{Get\+Data} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer)
+\begin{DoxyCompactList}\small\item\em Fill the buffer with random data (can take time if the system entropy is low) \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a306aed1c1595e9503bc15bd177d80c54}{Get\+Data\+Fast} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer)
+\begin{DoxyCompactList}\small\item\em Fill the buffer with random data (in fast mode) \end{DoxyCompactList}\item 
+static bool \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_acd2fafb9fdf7cae694f46726f53bb085}{Is\+Running} ()
+\begin{DoxyCompactList}\small\item\em Return true if the \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator}{Random\+Generator} has been initialized and is ready to be used. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a310301edb2ca418f0b8b47ec0b398c3a}{Set\+Hash} (Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$ hashfct)
+\begin{DoxyCompactList}\small\item\em Change the hash algorithm to use by the random generator. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_aab4240cc7c941091e0e02f1e88c6bdcd}{Start} ()
+\begin{DoxyCompactList}\small\item\em Initialize the random generator so it can be used. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_af1884c6e4c31cf12445857ecacad68d5}{Stop} ()
+\begin{DoxyCompactList}\small\item\em Free memory used by the random generator so the program can exit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a3bfda552ccfe4434913035282dab50cc}{Pool\+Size}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a224d4fbb985a936d542592764722336f}{Add\+System\+Data\+To\+Pool} (bool fast)
+\begin{DoxyCompactList}\small\item\em Add random data from the system to the data in the pool. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_aabdea2fe9f1a142868792fc87c578e2a}{Get\+Data} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, bool fast)
+\begin{DoxyCompactList}\small\item\em Fill the buffer with random data. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a37750da5834d98eaed0a4f14a796716a}{Hash\+Mix\+Pool} ()
+\begin{DoxyCompactList}\small\item\em Mix data in the pool using a hash function The hash of the pool will be added to the data in the pool. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a83367f01390fdfcb9d7305b51bd7072e}{Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix}
+\item 
+static Q\+Mutex \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a3b960e276735f7294e5534166ecb9897}{Access\+Mutex}
+\item 
+static size\+\_\+t \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a652145b6af2dbe791de3df91777824e4}{Bytes\+Added\+Since\+Pool\+Hash\+Mix}
+\item 
+static \hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_accde03e05baae45fafe00e4707294e8e}{Pool}
+\item 
+static Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$ \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_ab9eeae07912df145f02a9678365d2675}{Pool\+Hash}
+\item 
+static size\+\_\+t \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_ad5ea3444e1ea8b350e9d344bbdc393bf}{Read\+Offset}
+\item 
+static bool \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_ac4809c78682ef865d9cf9254c46ba916}{Running} = false
+\item 
+static size\+\_\+t \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator_a15b95fab71d2b507bf6d7bd6d09fec8b}{Write\+Offset}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class in charge of generating random data using the the system random data source T\+O\+DO\+: replace by a singleton and start/stop by constructor destructor. 
+
+Definition at line 28 of file Random\+Generator.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a224d4fbb985a936d542592764722336f}\label{class_gost_crypt_1_1_core_1_1_random_generator_a224d4fbb985a936d542592764722336f}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Add\+System\+Data\+To\+Pool@{Add\+System\+Data\+To\+Pool}}
+\index{Add\+System\+Data\+To\+Pool@{Add\+System\+Data\+To\+Pool}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Add\+System\+Data\+To\+Pool()}{AddSystemDataToPool()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Add\+System\+Data\+To\+Pool (\begin{DoxyParamCaption}\item[{bool}]{fast }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Add random data from the system to the data in the pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fast} & Boolean true to use the urandom source (faster) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_aedad8e5c5552eb470b55793a94b0a441}\label{class_gost_crypt_1_1_core_1_1_random_generator_aedad8e5c5552eb470b55793a94b0a441}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Add\+To\+Pool@{Add\+To\+Pool}}
+\index{Add\+To\+Pool@{Add\+To\+Pool}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Add\+To\+Pool()}{AddToPool()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Add\+To\+Pool (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Add the data of the given buffer to the data of the pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} containing the data to add to the data of the pool \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 94 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_abbb77e1064c935fc8b86007025afe535}\label{class_gost_crypt_1_1_core_1_1_random_generator_abbb77e1064c935fc8b86007025afe535}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Get\+Data@{Get\+Data}}
+\index{Get\+Data@{Get\+Data}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Get\+Data()}{GetData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Get\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Fill the buffer with random data (can take time if the system entropy is low) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} to fill with random data \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 42 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_aabdea2fe9f1a142868792fc87c578e2a}\label{class_gost_crypt_1_1_core_1_1_random_generator_aabdea2fe9f1a142868792fc87c578e2a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Get\+Data@{Get\+Data}}
+\index{Get\+Data@{Get\+Data}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Get\+Data()}{GetData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Get\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{bool}]{fast }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Fill the buffer with random data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} to fill with random data \\
+\hline
+{\em fast} & Boolean true to use the urandom source (faster) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 125 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a306aed1c1595e9503bc15bd177d80c54}\label{class_gost_crypt_1_1_core_1_1_random_generator_a306aed1c1595e9503bc15bd177d80c54}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Get\+Data\+Fast@{Get\+Data\+Fast}}
+\index{Get\+Data\+Fast@{Get\+Data\+Fast}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Get\+Data\+Fast()}{GetDataFast()}}
+{\footnotesize\ttfamily static void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Get\+Data\+Fast (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Fill the buffer with random data (in fast mode) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} to fill with random data \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 48 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a37750da5834d98eaed0a4f14a796716a}\label{class_gost_crypt_1_1_core_1_1_random_generator_a37750da5834d98eaed0a4f14a796716a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Hash\+Mix\+Pool@{Hash\+Mix\+Pool}}
+\index{Hash\+Mix\+Pool@{Hash\+Mix\+Pool}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Hash\+Mix\+Pool()}{HashMixPool()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Hash\+Mix\+Pool (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Mix data in the pool using a hash function The hash of the pool will be added to the data in the pool. 
+
+
+
+Definition at line 175 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_acd2fafb9fdf7cae694f46726f53bb085}\label{class_gost_crypt_1_1_core_1_1_random_generator_acd2fafb9fdf7cae694f46726f53bb085}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Is\+Running@{Is\+Running}}
+\index{Is\+Running@{Is\+Running}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Is\+Running()}{IsRunning()}}
+{\footnotesize\ttfamily static bool Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Is\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return true if the \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator}{Random\+Generator} has been initialized and is ready to be used. 
+
+\begin{DoxyReturn}{Returns}
+True if the \hyperlink{class_gost_crypt_1_1_core_1_1_random_generator}{Random\+Generator} has been initialized and is ready to be used 
+\end{DoxyReturn}
+
+
+Definition at line 54 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a310301edb2ca418f0b8b47ec0b398c3a}\label{class_gost_crypt_1_1_core_1_1_random_generator_a310301edb2ca418f0b8b47ec0b398c3a}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Set\+Hash@{Set\+Hash}}
+\index{Set\+Hash@{Set\+Hash}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Set\+Hash()}{SetHash()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Set\+Hash (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$}]{hashfct }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Change the hash algorithm to use by the random generator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hashfct} & New hash algorithm to use \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 119 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_aab4240cc7c941091e0e02f1e88c6bdcd}\label{class_gost_crypt_1_1_core_1_1_random_generator_aab4240cc7c941091e0e02f1e88c6bdcd}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Start@{Start}}
+\index{Start@{Start}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initialize the random generator so it can be used. 
+
+
+
+Definition at line 194 of file Random\+Generator.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_af1884c6e4c31cf12445857ecacad68d5}\label{class_gost_crypt_1_1_core_1_1_random_generator_af1884c6e4c31cf12445857ecacad68d5}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Stop@{Stop}}
+\index{Stop@{Stop}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Free memory used by the random generator so the program can exit. 
+
+
+
+Definition at line 219 of file Random\+Generator.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a3b960e276735f7294e5534166ecb9897}\label{class_gost_crypt_1_1_core_1_1_random_generator_a3b960e276735f7294e5534166ecb9897}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Access\+Mutex@{Access\+Mutex}}
+\index{Access\+Mutex@{Access\+Mutex}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Access\+Mutex}{AccessMutex}}
+{\footnotesize\ttfamily Q\+Mutex Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Access\+Mutex\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Mutex to access the Randomgenerator static variables 
+
+Definition at line 98 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a652145b6af2dbe791de3df91777824e4}\label{class_gost_crypt_1_1_core_1_1_random_generator_a652145b6af2dbe791de3df91777824e4}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Bytes\+Added\+Since\+Pool\+Hash\+Mix@{Bytes\+Added\+Since\+Pool\+Hash\+Mix}}
+\index{Bytes\+Added\+Since\+Pool\+Hash\+Mix@{Bytes\+Added\+Since\+Pool\+Hash\+Mix}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Bytes\+Added\+Since\+Pool\+Hash\+Mix}{BytesAddedSincePoolHashMix}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Bytes\+Added\+Since\+Pool\+Hash\+Mix\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Number of bytes added to the data in the pool 
+
+Definition at line 99 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a83367f01390fdfcb9d7305b51bd7072e}\label{class_gost_crypt_1_1_core_1_1_random_generator_a83367f01390fdfcb9d7305b51bd7072e}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix@{Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix}}
+\index{Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix@{Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix}{MaxBytesAddedBeforePoolHashMix}}
+{\footnotesize\ttfamily const size\+\_\+t Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Max\+Bytes\+Added\+Before\+Pool\+Hash\+Mix\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+        \hyperlink{_random_8h_a141109cf7b5404e7d60466a3c7b73eef}{RANDMIX\_BYTE\_INTERVAL}
+\end{DoxyCode}
+Number of bytes added to the data in the pool between each hash mix 
+
+Definition at line 95 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_accde03e05baae45fafe00e4707294e8e}\label{class_gost_crypt_1_1_core_1_1_random_generator_accde03e05baae45fafe00e4707294e8e}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Pool@{Pool}}
+\index{Pool@{Pool}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Pool}{Pool}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Pool\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Pool buffer storing intermediate random data used by the random generator 
+
+Definition at line 101 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_ab9eeae07912df145f02a9678365d2675}\label{class_gost_crypt_1_1_core_1_1_random_generator_ab9eeae07912df145f02a9678365d2675}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Pool\+Hash@{Pool\+Hash}}
+\index{Pool\+Hash@{Pool\+Hash}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Pool\+Hash}{PoolHash}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_hash}{Volume\+::\+Volume\+Hash} $>$ Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Pool\+Hash\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Hash algorithm used by the random generator for the Hash\+Mix 
+
+Definition at line 103 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a3bfda552ccfe4434913035282dab50cc}\label{class_gost_crypt_1_1_core_1_1_random_generator_a3bfda552ccfe4434913035282dab50cc}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Pool\+Size@{Pool\+Size}}
+\index{Pool\+Size@{Pool\+Size}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Pool\+Size}{PoolSize}}
+{\footnotesize\ttfamily const size\+\_\+t Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Pool\+Size\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+        \hyperlink{_random_8h_a89e9e5ab91a3105eff445aa734adc207}{RNG\_POOL\_SIZE}
+\end{DoxyCode}
+Size of the data pool used by the random generator 
+
+Definition at line 72 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_ad5ea3444e1ea8b350e9d344bbdc393bf}\label{class_gost_crypt_1_1_core_1_1_random_generator_ad5ea3444e1ea8b350e9d344bbdc393bf}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Read\+Offset@{Read\+Offset}}
+\index{Read\+Offset@{Read\+Offset}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Read\+Offset}{ReadOffset}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Read\+Offset\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Offset in the pool where to read next 
+
+Definition at line 104 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_ac4809c78682ef865d9cf9254c46ba916}\label{class_gost_crypt_1_1_core_1_1_random_generator_ac4809c78682ef865d9cf9254c46ba916}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Running@{Running}}
+\index{Running@{Running}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Running}{Running}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Running = false\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Boolean true if the random generate has been initialized 
+
+Definition at line 105 of file Random\+Generator.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_random_generator_a15b95fab71d2b507bf6d7bd6d09fec8b}\label{class_gost_crypt_1_1_core_1_1_random_generator_a15b95fab71d2b507bf6d7bd6d09fec8b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}!Write\+Offset@{Write\+Offset}}
+\index{Write\+Offset@{Write\+Offset}!Gost\+Crypt\+::\+Core\+::\+Random\+Generator@{Gost\+Crypt\+::\+Core\+::\+Random\+Generator}}
+\subsubsection{\texorpdfstring{Write\+Offset}{WriteOffset}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Core\+::\+Random\+Generator\+::\+Write\+Offset\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Offset in the pool where to write next 
+
+Definition at line 106 of file Random\+Generator.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_random_generator_8h}{Random\+Generator.\+h}\item 
+Core/\hyperlink{_random_generator_8cpp}{Random\+Generator.\+cpp}\end{DoxyCompactItemize}

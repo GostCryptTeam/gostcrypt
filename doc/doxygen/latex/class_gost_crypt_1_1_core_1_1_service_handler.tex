@@ -1,0 +1,260 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_service_handler}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Service\+Handler Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_service_handler}\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+
+
+Class managing the service process from the parent process. It launches it, communicates and stops the \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process. This process is in charge of executing the requests sent to it through the standard input.  
+
+
+
+
+{\ttfamily \#include $<$Service\+Handler.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Service\+Handler\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_core_1_1_service_handler}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a12bc3e11887d1d889a097910aa9b83db}{send\+Response} (Q\+Variant \&response)
+\begin{DoxyCompactList}\small\item\em Signal emitted when a reponse from the service process has been deserialized successfully and need to be forwarded to the UI. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_aeda23480583f6dcdb90911a82c303c85}{response\+Read} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when a reponse from the service process has been deserialized successfully. Used to try again to read data on the standard output in case several responses arrived at the same time. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a35d44e8648665d200a9f0cebf3d0deb7}{send\+Progress\+Update} (quint32 request\+Id, qreal progress)
+\begin{DoxyCompactList}\small\item\em Signal emitted when the service process is updating its progress in the processing of a request. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_ac7cbfba2730adcce6f6ba3129b265e73}{exited} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted when the service process exited successfully (after beeing asked to) \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a1ac2289485ca80ad359d199c2529ec31}{started} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted after the service process has started. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a1b4dac1bf837fe46c9c99a7e77ef7990}{initialized} ()
+\begin{DoxyCompactList}\small\item\em Signal emitted after the \hyperlink{struct_gost_crypt_1_1_core_1_1_init_response}{Init\+Response} has been received from the service process, meaning that it is ready to process requests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_af992d088e7f81498f241daddac1975d1}{Service\+Handler} (Q\+String program\+Path, Q\+String\+List args)
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a76aab87469f628b2bd2be52b31604359}{send\+To\+Service} (Q\+Variant request)
+\begin{DoxyCompactList}\small\item\em Send the request contained in the given Q\+Variant to the service process. \end{DoxyCompactList}\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_a769c0bd8e4b9eac2492dda34b446405c}{is\+Running} ()
+\begin{DoxyCompactList}\small\item\em Return true if the service process is currently running. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_ac9113ccad5366959c2ea5cce7762c7cb}{exit} ()
+\begin{DoxyCompactList}\small\item\em Ask the service process to exit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_aaae64d87599cb8ea04563081b9dffe66}{is\+Initialized} ()
+\begin{DoxyCompactList}\small\item\em Return true if the service process is ready to receive requests. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_aa2e50a9702c5d0a01f5d6cda3611d5e8}{process\+Crashed\+Before\+Initialization} ()
+\begin{DoxyCompactList}\small\item\em Method called when the service process crash before we received the \hyperlink{struct_gost_crypt_1_1_core_1_1_init_response}{Init\+Response}. \end{DoxyCompactList}\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_handler_ae2fc74c0f1c61adedf4aa122fe2a4336}{write\+To\+Stdin} (Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ data, bool newline=false)
+\begin{DoxyCompactList}\small\item\em Write the given data bytes to the service process standard input. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class managing the service process from the parent process. It launches it, communicates and stops the \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process. This process is in charge of executing the requests sent to it through the standard input. 
+
+Definition at line 24 of file Service\+Handler.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_af992d088e7f81498f241daddac1975d1}\label{class_gost_crypt_1_1_core_1_1_service_handler_af992d088e7f81498f241daddac1975d1}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!Service\+Handler@{Service\+Handler}}
+\index{Service\+Handler@{Service\+Handler}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{Service\+Handler()}{ServiceHandler()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::\+Service\+Handler (\begin{DoxyParamCaption}\item[{Q\+String}]{program\+Path,  }\item[{Q\+String\+List}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file Service\+Handler.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_ac9113ccad5366959c2ea5cce7762c7cb}\label{class_gost_crypt_1_1_core_1_1_service_handler_ac9113ccad5366959c2ea5cce7762c7cb}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!exit@{exit}}
+\index{exit@{exit}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Ask the service process to exit. 
+
+
+
+Definition at line 47 of file Service\+Handler.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_ac7cbfba2730adcce6f6ba3129b265e73}\label{class_gost_crypt_1_1_core_1_1_service_handler_ac7cbfba2730adcce6f6ba3129b265e73}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!exited@{exited}}
+\index{exited@{exited}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{exited}{exited}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::exited (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the service process exited successfully (after beeing asked to) 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a1b4dac1bf837fe46c9c99a7e77ef7990}\label{class_gost_crypt_1_1_core_1_1_service_handler_a1b4dac1bf837fe46c9c99a7e77ef7990}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!initialized@{initialized}}
+\index{initialized@{initialized}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{initialized}{initialized}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::initialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted after the \hyperlink{struct_gost_crypt_1_1_core_1_1_init_response}{Init\+Response} has been received from the service process, meaning that it is ready to process requests. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_aaae64d87599cb8ea04563081b9dffe66}\label{class_gost_crypt_1_1_core_1_1_service_handler_aaae64d87599cb8ea04563081b9dffe66}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!is\+Initialized@{is\+Initialized}}
+\index{is\+Initialized@{is\+Initialized}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{is\+Initialized()}{isInitialized()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::is\+Initialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Return true if the service process is ready to receive requests. 
+
+\begin{DoxyReturn}{Returns}
+Boolean true if the service process is ready to receive requests. 
+\end{DoxyReturn}
+
+
+Definition at line 177 of file Service\+Handler.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a769c0bd8e4b9eac2492dda34b446405c}\label{class_gost_crypt_1_1_core_1_1_service_handler_a769c0bd8e4b9eac2492dda34b446405c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!is\+Running@{is\+Running}}
+\index{is\+Running@{is\+Running}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{is\+Running()}{isRunning()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::is\+Running (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return true if the service process is currently running. 
+
+\begin{DoxyReturn}{Returns}
+Boolean true if the service process is currently running 
+\end{DoxyReturn}
+
+
+Definition at line 42 of file Service\+Handler.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_aa2e50a9702c5d0a01f5d6cda3611d5e8}\label{class_gost_crypt_1_1_core_1_1_service_handler_aa2e50a9702c5d0a01f5d6cda3611d5e8}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!process\+Crashed\+Before\+Initialization@{process\+Crashed\+Before\+Initialization}}
+\index{process\+Crashed\+Before\+Initialization@{process\+Crashed\+Before\+Initialization}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{process\+Crashed\+Before\+Initialization()}{processCrashedBeforeInitialization()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::process\+Crashed\+Before\+Initialization (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Method called when the service process crash before we received the \hyperlink{struct_gost_crypt_1_1_core_1_1_init_response}{Init\+Response}. 
+
+
+
+Definition at line 182 of file Service\+Handler.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_aeda23480583f6dcdb90911a82c303c85}\label{class_gost_crypt_1_1_core_1_1_service_handler_aeda23480583f6dcdb90911a82c303c85}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!response\+Read@{response\+Read}}
+\index{response\+Read@{response\+Read}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{response\+Read}{responseRead}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::response\+Read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when a reponse from the service process has been deserialized successfully. Used to try again to read data on the standard output in case several responses arrived at the same time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em response} & Q\+Variant containing the response \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a35d44e8648665d200a9f0cebf3d0deb7}\label{class_gost_crypt_1_1_core_1_1_service_handler_a35d44e8648665d200a9f0cebf3d0deb7}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!send\+Progress\+Update@{send\+Progress\+Update}}
+\index{send\+Progress\+Update@{send\+Progress\+Update}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{send\+Progress\+Update}{sendProgressUpdate}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::send\+Progress\+Update (\begin{DoxyParamCaption}\item[{quint32}]{request\+Id,  }\item[{qreal}]{progress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when the service process is updating its progress in the processing of a request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request\+Id} & Request Identifier given by the User Interface module \\
+\hline
+{\em progress} & Progress of the request processing time between 0 and 1 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a12bc3e11887d1d889a097910aa9b83db}\label{class_gost_crypt_1_1_core_1_1_service_handler_a12bc3e11887d1d889a097910aa9b83db}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!send\+Response@{send\+Response}}
+\index{send\+Response@{send\+Response}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{send\+Response}{sendResponse}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::send\+Response (\begin{DoxyParamCaption}\item[{Q\+Variant \&}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when a reponse from the service process has been deserialized successfully and need to be forwarded to the UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em response} & Q\+Variant containing the response \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a76aab87469f628b2bd2be52b31604359}\label{class_gost_crypt_1_1_core_1_1_service_handler_a76aab87469f628b2bd2be52b31604359}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!send\+To\+Service@{send\+To\+Service}}
+\index{send\+To\+Service@{send\+To\+Service}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{send\+To\+Service()}{sendToService()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::send\+To\+Service (\begin{DoxyParamCaption}\item[{Q\+Variant}]{request }\end{DoxyParamCaption})}
+
+
+
+Send the request contained in the given Q\+Variant to the service process. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & Q\+Variant containing the request for the service process \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 36 of file Service\+Handler.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_a1ac2289485ca80ad359d199c2529ec31}\label{class_gost_crypt_1_1_core_1_1_service_handler_a1ac2289485ca80ad359d199c2529ec31}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!started@{started}}
+\index{started@{started}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{started}{started}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::started (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted after the service process has started. 
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_handler_ae2fc74c0f1c61adedf4aa122fe2a4336}\label{class_gost_crypt_1_1_core_1_1_service_handler_ae2fc74c0f1c61adedf4aa122fe2a4336}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}!write\+To\+Stdin@{write\+To\+Stdin}}
+\index{write\+To\+Stdin@{write\+To\+Stdin}!Gost\+Crypt\+::\+Core\+::\+Service\+Handler@{Gost\+Crypt\+::\+Core\+::\+Service\+Handler}}
+\subsubsection{\texorpdfstring{write\+To\+Stdin()}{writeToStdin()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Handler\+::write\+To\+Stdin (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$}]{data,  }\item[{bool}]{newline = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Write the given data bytes to the service process standard input. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data bytes to write to the process standard input \\
+\hline
+{\em newline} & If true a newline character will be added after the data bytes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 61 of file Service\+Handler.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_service_handler_8h}{Service\+Handler.\+h}\item 
+Core/\hyperlink{_service_handler_8cpp}{Service\+Handler.\+cpp}\end{DoxyCompactItemize}

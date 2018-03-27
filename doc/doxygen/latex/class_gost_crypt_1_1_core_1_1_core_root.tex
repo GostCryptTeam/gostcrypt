@@ -1,0 +1,144 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_core_root}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Core\+Root Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_core_root}\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+
+
+Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it has root privileges. Therefore this class directly implement \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are implemented in this class.  
+
+
+
+
+{\ttfamily \#include $<$Core\+Root.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Core\+Root\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_core_1_1_core_root}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_root_a9f12475644030457c3e111b57732ba45}{exit} ()
+\begin{DoxyCompactList}\small\item\em Terminate all processes launched by this object (except background processes) and emit the signal exited when it is done. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_root_a99a63ffb40e076362f1d0aee5df34dbd}{request} (Q\+Variant r)
+\begin{DoxyCompactList}\small\item\em Execute the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action corresponding to the type of the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} sub-\/class given in r. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_root_a74ce55bc5d2cc8c1c13ec48c81aa84ce}{receive\+Sudo\+Password} (Q\+String password)
+\begin{DoxyCompactList}\small\item\em Since object of this class can be instanciated only by processes launched with the root user, this slot is useless in \hyperlink{class_gost_crypt_1_1_core_1_1_core_root}{Core\+Root}. This implementation is only required because this slot is defined in the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_root_a67efc84625566c7bc82313a317b73943}{format\+Volume\+Done} (Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Create\+Volume\+Request} $>$ params, Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_response}{Create\+Volume\+Response} $>$ response)
+\begin{DoxyCompactList}\small\item\em Signal emitted after the current volume instance has been mounted, formatted with the file system and dismounted in order to continue the volume creation action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_root_afe2e1af34029b95e88dd5c00e5d39fe6}{Core\+Root} (Q\+Object $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it has root privileges. Therefore this class directly implement \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are implemented in this class. 
+
+Definition at line 22 of file Core\+Root.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_root_afe2e1af34029b95e88dd5c00e5d39fe6}\label{class_gost_crypt_1_1_core_1_1_core_root_afe2e1af34029b95e88dd5c00e5d39fe6}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}!Core\+Root@{Core\+Root}}
+\index{Core\+Root@{Core\+Root}!Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+\subsubsection{\texorpdfstring{Core\+Root()}{CoreRoot()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+Root\+::\+Core\+Root (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Default Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent object (See Qt documentation) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 17 of file Core\+Root.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_root_a9f12475644030457c3e111b57732ba45}\label{class_gost_crypt_1_1_core_1_1_core_root_a9f12475644030457c3e111b57732ba45}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}!exit@{exit}}
+\index{exit@{exit}!Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+\subsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Root\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Terminate all processes launched by this object (except background processes) and emit the signal exited when it is done. 
+
+
+
+Definition at line 40 of file Core\+Root.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_root_a67efc84625566c7bc82313a317b73943}\label{class_gost_crypt_1_1_core_1_1_core_root_a67efc84625566c7bc82313a317b73943}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}!format\+Volume\+Done@{format\+Volume\+Done}}
+\index{format\+Volume\+Done@{format\+Volume\+Done}!Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+\subsubsection{\texorpdfstring{format\+Volume\+Done}{formatVolumeDone}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Root\+::format\+Volume\+Done (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Create\+Volume\+Request} $>$}]{params,  }\item[{Q\+Shared\+Pointer$<$ \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_response}{Create\+Volume\+Response} $>$}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted after the current volume instance has been mounted, formatted with the file system and dismounted in order to continue the volume creation action. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Parameters of the volume creation action \\
+\hline
+{\em response} & Response of the volume creation action which may contain some results \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_root_a74ce55bc5d2cc8c1c13ec48c81aa84ce}\label{class_gost_crypt_1_1_core_1_1_core_root_a74ce55bc5d2cc8c1c13ec48c81aa84ce}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}!receive\+Sudo\+Password@{receive\+Sudo\+Password}}
+\index{receive\+Sudo\+Password@{receive\+Sudo\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+\subsubsection{\texorpdfstring{receive\+Sudo\+Password}{receiveSudoPassword}}
+{\footnotesize\ttfamily virtual void Gost\+Crypt\+::\+Core\+::\+Core\+Root\+::receive\+Sudo\+Password (\begin{DoxyParamCaption}\item[{Q\+String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Since object of this class can be instanciated only by processes launched with the root user, this slot is useless in \hyperlink{class_gost_crypt_1_1_core_1_1_core_root}{Core\+Root}. This implementation is only required because this slot is defined in the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & Q\+String containning the sudoer\textquotesingle{}s password \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 49 of file Core\+Root.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_root_a99a63ffb40e076362f1d0aee5df34dbd}\label{class_gost_crypt_1_1_core_1_1_core_root_a99a63ffb40e076362f1d0aee5df34dbd}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}!request@{request}}
+\index{request@{request}!Gost\+Crypt\+::\+Core\+::\+Core\+Root@{Gost\+Crypt\+::\+Core\+::\+Core\+Root}}
+\subsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+Root\+::request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Execute the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action corresponding to the type of the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} sub-\/class given in r. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Q\+Variant containing the request object which is a child of \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request}. Its type indicate the action type to execute and its content provide the parameters for this action \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 57 of file Core\+Root.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_root_8h}{Core\+Root.\+h}\item 
+Core/\hyperlink{_core_root_8cpp}{Core\+Root.\+cpp}\end{DoxyCompactItemize}

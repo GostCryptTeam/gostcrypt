@@ -1,0 +1,323 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Encryption\+Mode\+X\+TS Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s}\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+
+
+{\ttfamily \#include $<$Encryption\+Mode\+X\+T\+S.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Volume\+:\+:Encryption\+Mode\+X\+TS\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aec865043f40cb3aff76e0254df5fec93}{Encryption\+Mode\+X\+TS} ()
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aacfd9128c1ac77fb86497c95f435a7a5}{$\sim$\+Encryption\+Mode\+X\+TS} ()
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4557cb0886484ee37783f56561e7edd}{Decrypt} (quint8 $\ast$data, quint64 length) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a391a08eb12f92d855ac49dd3e7fddaf0}{Decrypt\+Sectors\+Current\+Thread} (quint8 $\ast$data, quint64 sector\+Index, quint64 sector\+Count, size\+\_\+t sector\+Size) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a2802c291ee815c9ed2280aa1498d7afb}{Encrypt} (quint8 $\ast$data, quint64 length) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ad51337408f2e52afdd18491429fb6ea6}{Encrypt\+Sectors\+Current\+Thread} (quint8 $\ast$data, quint64 sector\+Index, quint64 sector\+Count, size\+\_\+t sector\+Size) const
+\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a01604711469ba3dc601b0589a4fdee3e}{Get\+Key\+Size} () const
+\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3e4b43e1295accb96021b03deaa5e7b1}{Get\+Name} () const
+\item 
+virtual Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3d9c88420585ed76c1c11f541db973e1}{Get\+New} () const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a053dbb2201d89cc400416b63c57787de}{Set\+Ciphers} (const \hyperlink{namespace_gost_crypt_1_1_volume_ad32c730cdf3a63d2bafbac0f63f0740f}{Cipher\+Algorithm\+List} \&ciphers)
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a730bb23e5adffa958904aa91cacc8b74}{Set\+Key} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&key)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a225c9aba86cc7830171b83781cbcc74d}{Decrypt\+Buffer} (quint8 $\ast$data, quint64 length, quint64 start\+Data\+Unit\+No) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4985126420eaf1dd1c0776b1310b067}{Encrypt\+Buffer} (quint8 $\ast$data, quint64 length, quint64 start\+Data\+Unit\+No) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a13fb5f95f6a628dc888c81a66d12da25}{Set\+Secondary\+Cipher\+Keys} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ac10db863103edaf603386db3f1a93e86}{Decrypt\+Buffer\+X\+TS} (const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&cipher, const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&secondary\+Cipher, quint8 $\ast$buffer, quint64 length, quint64 start\+Data\+Unit\+No, unsigned int start\+Cipher\+Block\+No)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3577c8735d4ef23c1155315a2555d97b}{Decrypt\+Buffer\+X\+T\+S8\+Byte} (const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&cipher, const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&secondary\+Cipher, quint8 $\ast$buffer, quint64 length, quint64 start\+Data\+Unit\+No, unsigned int start\+Cipher\+Block\+No)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a0fba1395ce48875b9243beebf0b44a5b}{Encrypt\+Buffer\+X\+TS} (const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&cipher, const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&secondary\+Cipher, quint8 $\ast$buffer, quint64 length, quint64 start\+Data\+Unit\+No, unsigned int start\+Cipher\+Block\+No)
+\item 
+static void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aa712631e9a2bb83e9322693a49b12183}{Encrypt\+Buffer\+X\+T\+S8\+Byte} (const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&cipher, const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&secondary\+Cipher, quint8 $\ast$buffer, quint64 length, quint64 start\+Data\+Unit\+No, unsigned int start\+Cipher\+Block\+No)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_afcdb3374f093c1bb21f5def339769c5e}{Secondary\+Key}
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_ad32c730cdf3a63d2bafbac0f63f0740f}{Cipher\+Algorithm\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a253c07bdae8f18ea65c7683353c9c34f}{Secondary\+Ciphers}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 20 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aec865043f40cb3aff76e0254df5fec93}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aec865043f40cb3aff76e0254df5fec93}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encryption\+Mode\+X\+TS@{Encryption\+Mode\+X\+TS}}
+\index{Encryption\+Mode\+X\+TS@{Encryption\+Mode\+X\+TS}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encryption\+Mode\+X\+T\+S()}{EncryptionModeXTS()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encryption\+Mode\+X\+TS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 23 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aacfd9128c1ac77fb86497c95f435a7a5}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aacfd9128c1ac77fb86497c95f435a7a5}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!````~Encryption\+Mode\+X\+TS@{$\sim$\+Encryption\+Mode\+X\+TS}}
+\index{````~Encryption\+Mode\+X\+TS@{$\sim$\+Encryption\+Mode\+X\+TS}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{$\sim$\+Encryption\+Mode\+X\+T\+S()}{~EncryptionModeXTS()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::$\sim$\+Encryption\+Mode\+X\+TS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 24 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4557cb0886484ee37783f56561e7edd}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4557cb0886484ee37783f56561e7edd}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Decrypt@{Decrypt}}
+\index{Decrypt@{Decrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Decrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a78203c16b84218aa0e43f7512650cc71}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 330 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a225c9aba86cc7830171b83781cbcc74d}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a225c9aba86cc7830171b83781cbcc74d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Decrypt\+Buffer@{Decrypt\+Buffer}}
+\index{Decrypt\+Buffer@{Decrypt\+Buffer}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Decrypt\+Buffer()}{DecryptBuffer()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Decrypt\+Buffer (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 335 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ac10db863103edaf603386db3f1a93e86}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ac10db863103edaf603386db3f1a93e86}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Decrypt\+Buffer\+X\+TS@{Decrypt\+Buffer\+X\+TS}}
+\index{Decrypt\+Buffer\+X\+TS@{Decrypt\+Buffer\+X\+TS}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Decrypt\+Buffer\+X\+T\+S()}{DecryptBufferXTS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Decrypt\+Buffer\+X\+TS (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{cipher,  }\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{secondary\+Cipher,  }\item[{quint8 $\ast$}]{buffer,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No,  }\item[{unsigned int}]{start\+Cipher\+Block\+No }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 469 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3577c8735d4ef23c1155315a2555d97b}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3577c8735d4ef23c1155315a2555d97b}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Decrypt\+Buffer\+X\+T\+S8\+Byte@{Decrypt\+Buffer\+X\+T\+S8\+Byte}}
+\index{Decrypt\+Buffer\+X\+T\+S8\+Byte@{Decrypt\+Buffer\+X\+T\+S8\+Byte}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Decrypt\+Buffer\+X\+T\+S8\+Byte()}{DecryptBufferXTS8Byte()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Decrypt\+Buffer\+X\+T\+S8\+Byte (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{cipher,  }\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{secondary\+Cipher,  }\item[{quint8 $\ast$}]{buffer,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No,  }\item[{unsigned int}]{start\+Cipher\+Block\+No }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 359 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a391a08eb12f92d855ac49dd3e7fddaf0}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a391a08eb12f92d855ac49dd3e7fddaf0}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Decrypt\+Sectors\+Current\+Thread@{Decrypt\+Sectors\+Current\+Thread}}
+\index{Decrypt\+Sectors\+Current\+Thread@{Decrypt\+Sectors\+Current\+Thread}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Decrypt\+Sectors\+Current\+Thread()}{DecryptSectorsCurrentThread()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Decrypt\+Sectors\+Current\+Thread (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{sector\+Index,  }\item[{quint64}]{sector\+Count,  }\item[{size\+\_\+t}]{sector\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_ac0aff16d606ff0097344d0af157cb8f5}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 611 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a2802c291ee815c9ed2280aa1498d7afb}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a2802c291ee815c9ed2280aa1498d7afb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encrypt@{Encrypt}}
+\index{Encrypt@{Encrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encrypt()}{Encrypt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a1ad315d9067c222eb693e2ea0e06343e}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 20 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4985126420eaf1dd1c0776b1310b067}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ae4985126420eaf1dd1c0776b1310b067}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encrypt\+Buffer@{Encrypt\+Buffer}}
+\index{Encrypt\+Buffer@{Encrypt\+Buffer}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encrypt\+Buffer()}{EncryptBuffer()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encrypt\+Buffer (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 25 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a0fba1395ce48875b9243beebf0b44a5b}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a0fba1395ce48875b9243beebf0b44a5b}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encrypt\+Buffer\+X\+TS@{Encrypt\+Buffer\+X\+TS}}
+\index{Encrypt\+Buffer\+X\+TS@{Encrypt\+Buffer\+X\+TS}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encrypt\+Buffer\+X\+T\+S()}{EncryptBufferXTS()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encrypt\+Buffer\+X\+TS (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{cipher,  }\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{secondary\+Cipher,  }\item[{quint8 $\ast$}]{buffer,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No,  }\item[{unsigned int}]{start\+Cipher\+Block\+No }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 158 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aa712631e9a2bb83e9322693a49b12183}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_aa712631e9a2bb83e9322693a49b12183}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encrypt\+Buffer\+X\+T\+S8\+Byte@{Encrypt\+Buffer\+X\+T\+S8\+Byte}}
+\index{Encrypt\+Buffer\+X\+T\+S8\+Byte@{Encrypt\+Buffer\+X\+T\+S8\+Byte}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encrypt\+Buffer\+X\+T\+S8\+Byte()}{EncryptBufferXTS8Byte()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encrypt\+Buffer\+X\+T\+S8\+Byte (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{cipher,  }\item[{const \hyperlink{class_gost_crypt_1_1_volume_1_1_cipher_algorithm}{Cipher\+Algorithm} \&}]{secondary\+Cipher,  }\item[{quint8 $\ast$}]{buffer,  }\item[{quint64}]{length,  }\item[{quint64}]{start\+Data\+Unit\+No,  }\item[{unsigned int}]{start\+Cipher\+Block\+No }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line 48 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ad51337408f2e52afdd18491429fb6ea6}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_ad51337408f2e52afdd18491429fb6ea6}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Encrypt\+Sectors\+Current\+Thread@{Encrypt\+Sectors\+Current\+Thread}}
+\index{Encrypt\+Sectors\+Current\+Thread@{Encrypt\+Sectors\+Current\+Thread}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Encrypt\+Sectors\+Current\+Thread()}{EncryptSectorsCurrentThread()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Encrypt\+Sectors\+Current\+Thread (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{sector\+Index,  }\item[{quint64}]{sector\+Count,  }\item[{size\+\_\+t}]{sector\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a2b6d85199f01ab2055476d62d49d99e1}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 309 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a01604711469ba3dc601b0589a4fdee3e}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a01604711469ba3dc601b0589a4fdee3e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Get\+Key\+Size@{Get\+Key\+Size}}
+\index{Get\+Key\+Size@{Get\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Get\+Key\+Size()}{GetKeySize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Get\+Key\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a2879197c50f2e834f22d87def6c3ec0f}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 315 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3e4b43e1295accb96021b03deaa5e7b1}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3e4b43e1295accb96021b03deaa5e7b1}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Get\+Name@{Get\+Name}}
+\index{Get\+Name@{Get\+Name}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Get\+Name()}{GetName()}}
+{\footnotesize\ttfamily virtual Q\+String Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a8b82c75eb29a3149b1dd171624c3ede1}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 33 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3d9c88420585ed76c1c11f541db973e1}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a3d9c88420585ed76c1c11f541db973e1}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Get\+New@{Get\+New}}
+\index{Get\+New@{Get\+New}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Get\+New()}{GetNew()}}
+{\footnotesize\ttfamily virtual Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode}$>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Get\+New (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_ae64e9d022e271f747376c9db2aaad1b4}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 34 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a053dbb2201d89cc400416b63c57787de}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a053dbb2201d89cc400416b63c57787de}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Set\+Ciphers@{Set\+Ciphers}}
+\index{Set\+Ciphers@{Set\+Ciphers}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Set\+Ciphers()}{SetCiphers()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Set\+Ciphers (\begin{DoxyParamCaption}\item[{const \hyperlink{namespace_gost_crypt_1_1_volume_ad32c730cdf3a63d2bafbac0f63f0740f}{Cipher\+Algorithm\+List} \&}]{ciphers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a96e5d889932eb1b2a3c657cd409198f6}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 617 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a730bb23e5adffa958904aa91cacc8b74}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a730bb23e5adffa958904aa91cacc8b74}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Set\+Key@{Set\+Key}}
+\index{Set\+Key@{Set\+Key}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Set\+Key()}{SetKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Set\+Key (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implements \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode_a6e612b08918d56e532cca3c5f75ee7d6}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode}.
+
+
+
+Definition at line 634 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a13fb5f95f6a628dc888c81a66d12da25}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a13fb5f95f6a628dc888c81a66d12da25}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Set\+Secondary\+Cipher\+Keys@{Set\+Secondary\+Cipher\+Keys}}
+\index{Set\+Secondary\+Cipher\+Keys@{Set\+Secondary\+Cipher\+Keys}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Set\+Secondary\+Cipher\+Keys()}{SetSecondaryCipherKeys()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Set\+Secondary\+Cipher\+Keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 645 of file Encryption\+Mode\+X\+T\+S.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a253c07bdae8f18ea65c7683353c9c34f}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_a253c07bdae8f18ea65c7683353c9c34f}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Secondary\+Ciphers@{Secondary\+Ciphers}}
+\index{Secondary\+Ciphers@{Secondary\+Ciphers}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Secondary\+Ciphers}{SecondaryCiphers}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_ad32c730cdf3a63d2bafbac0f63f0740f}{Cipher\+Algorithm\+List} Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Secondary\+Ciphers\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 54 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_afcdb3374f093c1bb21f5def339769c5e}\label{class_gost_crypt_1_1_volume_1_1_encryption_mode_x_t_s_afcdb3374f093c1bb21f5def339769c5e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}!Secondary\+Key@{Secondary\+Key}}
+\index{Secondary\+Key@{Secondary\+Key}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+TS}}
+\subsubsection{\texorpdfstring{Secondary\+Key}{SecondaryKey}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_secure_buffer}{Secure\+Buffer} Gost\+Crypt\+::\+Volume\+::\+Encryption\+Mode\+X\+T\+S\+::\+Secondary\+Key\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 53 of file Encryption\+Mode\+X\+T\+S.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_encryption_mode_x_t_s_8h}{Encryption\+Mode\+X\+T\+S.\+h}\item 
+Volume/\hyperlink{_encryption_mode_x_t_s_8cpp}{Encryption\+Mode\+X\+T\+S.\+cpp}\end{DoxyCompactItemize}

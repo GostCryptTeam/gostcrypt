@@ -1,0 +1,270 @@
+\hypertarget{blkdev_8h}{}\section{Core/loopdevlib/blkdev.h File Reference}
+\label{blkdev_8h}\index{Core/loopdevlib/blkdev.\+h@{Core/loopdevlib/blkdev.\+h}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{blkdev_8h_ac3c1692602ecb7b77f997bb772ddf7ae}{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}~512
+\item 
+\#define \hyperlink{blkdev_8h_aa8e47a0b3c8bb16bb7d7dc8825de1d39}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK}~0x00
+\item 
+\#define \hyperlink{blkdev_8h_ae70a90772d7afe395d24bc386cf6bac1}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE}~0x01
+\item 
+\#define \hyperlink{blkdev_8h_a2fc71e48c9eb0dfbfa7122607125235f}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER}~0x02
+\item 
+\#define \hyperlink{blkdev_8h_acb9e731f10c4e9e3b624cb6b1e04f0ed}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}~0x03    /$\ast$ H\+P scanners use this $\ast$/
+\item 
+\#define \hyperlink{blkdev_8h_a1e371d878c21d09c33b949759edb724a}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM}~0x04    /$\ast$ Treated as R\+O\+M by our system $\ast$/
+\item 
+\#define \hyperlink{blkdev_8h_a621d0c38fae299e432406d35fb49fc8a}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM}~0x05
+\item 
+\#define \hyperlink{blkdev_8h_a0304582ecfffe8bc0ed0498a218a53eb}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER}~0x06
+\item 
+\#define \hyperlink{blkdev_8h_affa460fe4221e50e99b84217ae1cd919}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD}~0x07    /$\ast$ Magneto-\/optical disk -\/ treated as S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+S\+K $\ast$/
+\item 
+\#define \hyperlink{blkdev_8h_a3ac45371a89d9a4d917f6e8733e305af}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER}~0x08
+\item 
+\#define \hyperlink{blkdev_8h_a28ddfc3b5baff18687f8746f239695d0}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM}~0x09    /$\ast$ Communications device $\ast$/
+\item 
+\#define \hyperlink{blkdev_8h_a4352780741bce726d485fa49faa4262e}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID}~0x0c
+\item 
+\#define \hyperlink{blkdev_8h_a95c38953e12ff509b39ad2497ae59abb}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE}~0x0d    /$\ast$ Enclosure Services Device $\ast$/
+\item 
+\#define \hyperlink{blkdev_8h_a58805c9bb68c7d3e0b9c05c82d618a83}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC}~0x0e
+\item 
+\#define \hyperlink{blkdev_8h_a2391eda8ae3ddeb5197f88b077bad40e}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD}~0x11
+\item 
+\#define \hyperlink{blkdev_8h_a74d0dbc41683d426c3441633f0957ea8}{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN}~0x7f
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+off\+\_\+t \hyperlink{blkdev_8h_a02ea1a55aaefa337c9e66ab6b4293d7f}{blkdev\+\_\+find\+\_\+size} (int fd)
+\item 
+int \hyperlink{blkdev_8h_a56ab015fcaadb713fa36b45b297cef0a}{blkdev\+\_\+get\+\_\+size} (int fd, unsigned long long $\ast$bytes)
+\item 
+int \hyperlink{blkdev_8h_a4b9d571a3547457ffd4c77ebc97dba52}{blkdev\+\_\+get\+\_\+sectors} (int fd, unsigned long long $\ast$sectors)
+\item 
+int \hyperlink{blkdev_8h_ac61a6fa76685e14ec1107ed05e0bc375}{blkdev\+\_\+get\+\_\+sector\+\_\+size} (int fd, int $\ast$sector\+\_\+size)
+\item 
+int \hyperlink{blkdev_8h_adcf9fd3a7696a325cc44786516ff40ff}{blkdev\+\_\+get\+\_\+physector\+\_\+size} (int fd, int $\ast$sector\+\_\+size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{blkdev_8h_ac3c1692602ecb7b77f997bb772ddf7ae}\label{blkdev_8h_ac3c1692602ecb7b77f997bb772ddf7ae}} 
+\index{blkdev.\+h@{blkdev.\+h}!D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}{DEFAULT\_SECTOR\_SIZE}}
+{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE~512}
+
+
+
+Definition at line 22 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a28ddfc3b5baff18687f8746f239695d0}\label{blkdev_8h_a28ddfc3b5baff18687f8746f239695d0}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM}{SCSI\_TYPE\_COMM}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+MM~0x09    /$\ast$ Communications device $\ast$/}
+
+
+
+Definition at line 117 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_aa8e47a0b3c8bb16bb7d7dc8825de1d39}\label{blkdev_8h_aa8e47a0b3c8bb16bb7d7dc8825de1d39}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK}{SCSI\_TYPE\_DISK}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+SK~0x00}
+
+
+
+Definition at line 108 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a95c38953e12ff509b39ad2497ae59abb}\label{blkdev_8h_a95c38953e12ff509b39ad2497ae59abb}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE}{SCSI\_TYPE\_ENCLOSURE}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+E\+N\+C\+L\+O\+S\+U\+RE~0x0d    /$\ast$ Enclosure Services Device $\ast$/}
+
+
+
+Definition at line 119 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a3ac45371a89d9a4d917f6e8733e305af}\label{blkdev_8h_a3ac45371a89d9a4d917f6e8733e305af}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER}{SCSI\_TYPE\_MEDIUM\_CHANGER}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+D\+I\+U\+M\+\_\+\+C\+H\+A\+N\+G\+ER~0x08}
+
+
+
+Definition at line 116 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_affa460fe4221e50e99b84217ae1cd919}\label{blkdev_8h_affa460fe4221e50e99b84217ae1cd919}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD}{SCSI\_TYPE\_MOD}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+OD~0x07    /$\ast$ Magneto-\/optical disk -\/ treated as S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+D\+I\+S\+K $\ast$/}
+
+
+
+Definition at line 115 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a74d0dbc41683d426c3441633f0957ea8}\label{blkdev_8h_a74d0dbc41683d426c3441633f0957ea8}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN}{SCSI\_TYPE\_NO\_LUN}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+N\+O\+\_\+\+L\+UN~0x7f}
+
+
+
+Definition at line 122 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a2391eda8ae3ddeb5197f88b077bad40e}\label{blkdev_8h_a2391eda8ae3ddeb5197f88b077bad40e}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD}{SCSI\_TYPE\_OSD}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+SD~0x11}
+
+
+
+Definition at line 121 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a2fc71e48c9eb0dfbfa7122607125235f}\label{blkdev_8h_a2fc71e48c9eb0dfbfa7122607125235f}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER}{SCSI\_TYPE\_PRINTER}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+I\+N\+T\+ER~0x02}
+
+
+
+Definition at line 110 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_acb9e731f10c4e9e3b624cb6b1e04f0ed}\label{blkdev_8h_acb9e731f10c4e9e3b624cb6b1e04f0ed}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}{SCSI\_TYPE\_PROCESSOR}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR~0x03    /$\ast$ H\+P scanners use this $\ast$/}
+
+
+
+Definition at line 111 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a4352780741bce726d485fa49faa4262e}\label{blkdev_8h_a4352780741bce726d485fa49faa4262e}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID}{SCSI\_TYPE\_RAID}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+A\+ID~0x0c}
+
+
+
+Definition at line 118 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a58805c9bb68c7d3e0b9c05c82d618a83}\label{blkdev_8h_a58805c9bb68c7d3e0b9c05c82d618a83}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC}{SCSI\_TYPE\_RBC}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+BC~0x0e}
+
+
+
+Definition at line 120 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a621d0c38fae299e432406d35fb49fc8a}\label{blkdev_8h_a621d0c38fae299e432406d35fb49fc8a}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM}{SCSI\_TYPE\_ROM}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+OM~0x05}
+
+
+
+Definition at line 113 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a0304582ecfffe8bc0ed0498a218a53eb}\label{blkdev_8h_a0304582ecfffe8bc0ed0498a218a53eb}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER}{SCSI\_TYPE\_SCANNER}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+C\+A\+N\+N\+ER~0x06}
+
+
+
+Definition at line 114 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_ae70a90772d7afe395d24bc386cf6bac1}\label{blkdev_8h_ae70a90772d7afe395d24bc386cf6bac1}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE}{SCSI\_TYPE\_TAPE}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+A\+PE~0x01}
+
+
+
+Definition at line 109 of file blkdev.\+h.
+
+\mbox{\Hypertarget{blkdev_8h_a1e371d878c21d09c33b949759edb724a}\label{blkdev_8h_a1e371d878c21d09c33b949759edb724a}} 
+\index{blkdev.\+h@{blkdev.\+h}!S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM}}
+\index{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM@{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM}{SCSI\_TYPE\_WORM}}
+{\footnotesize\ttfamily \#define S\+C\+S\+I\+\_\+\+T\+Y\+P\+E\+\_\+\+W\+O\+RM~0x04    /$\ast$ Treated as R\+O\+M by our system $\ast$/}
+
+
+
+Definition at line 112 of file blkdev.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{blkdev_8h_a02ea1a55aaefa337c9e66ab6b4293d7f}\label{blkdev_8h_a02ea1a55aaefa337c9e66ab6b4293d7f}} 
+\index{blkdev.\+h@{blkdev.\+h}!blkdev\+\_\+find\+\_\+size@{blkdev\+\_\+find\+\_\+size}}
+\index{blkdev\+\_\+find\+\_\+size@{blkdev\+\_\+find\+\_\+size}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+find\+\_\+size()}{blkdev\_find\_size()}}
+{\footnotesize\ttfamily off\+\_\+t blkdev\+\_\+find\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 49 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8h_adcf9fd3a7696a325cc44786516ff40ff}\label{blkdev_8h_adcf9fd3a7696a325cc44786516ff40ff}} 
+\index{blkdev.\+h@{blkdev.\+h}!blkdev\+\_\+get\+\_\+physector\+\_\+size@{blkdev\+\_\+get\+\_\+physector\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+physector\+\_\+size@{blkdev\+\_\+get\+\_\+physector\+\_\+size}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+physector\+\_\+size()}{blkdev\_get\_physector\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+physector\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int $\ast$}]{sector\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 252 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8h_ac61a6fa76685e14ec1107ed05e0bc375}\label{blkdev_8h_ac61a6fa76685e14ec1107ed05e0bc375}} 
+\index{blkdev.\+h@{blkdev.\+h}!blkdev\+\_\+get\+\_\+sector\+\_\+size@{blkdev\+\_\+get\+\_\+sector\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+sector\+\_\+size@{blkdev\+\_\+get\+\_\+sector\+\_\+size}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+sector\+\_\+size()}{blkdev\_get\_sector\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+sector\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int $\ast$}]{sector\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 224 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8h_a4b9d571a3547457ffd4c77ebc97dba52}\label{blkdev_8h_a4b9d571a3547457ffd4c77ebc97dba52}} 
+\index{blkdev.\+h@{blkdev.\+h}!blkdev\+\_\+get\+\_\+sectors@{blkdev\+\_\+get\+\_\+sectors}}
+\index{blkdev\+\_\+get\+\_\+sectors@{blkdev\+\_\+get\+\_\+sectors}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+sectors()}{blkdev\_get\_sectors()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+sectors (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{unsigned long long $\ast$}]{sectors }\end{DoxyParamCaption})}
+
+
+
+Definition at line 205 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8h_a56ab015fcaadb713fa36b45b297cef0a}\label{blkdev_8h_a56ab015fcaadb713fa36b45b297cef0a}} 
+\index{blkdev.\+h@{blkdev.\+h}!blkdev\+\_\+get\+\_\+size@{blkdev\+\_\+get\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+size@{blkdev\+\_\+get\+\_\+size}!blkdev.\+h@{blkdev.\+h}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+size()}{blkdev\_get\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{unsigned long long $\ast$}]{bytes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 91 of file blkdev.\+c.
+

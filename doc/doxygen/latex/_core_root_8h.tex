@@ -1,0 +1,23 @@
+\hypertarget{_core_root_8h}{}\section{Core/\+Core\+Root.h File Reference}
+\label{_core_root_8h}\index{Core/\+Core\+Root.\+h@{Core/\+Core\+Root.\+h}}
+{\ttfamily \#include $<$Q\+Shared\+Pointer$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$Q\+Process$>$}\newline
+{\ttfamily \#include $<$Q\+Byte\+Array$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Base.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Fuse\+Service/\+Fuse\+Service\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Random\+Generator.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_core_root}{Gost\+Crypt\+::\+Core\+::\+Core\+Root}
+\begin{DoxyCompactList}\small\item\em Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it has root privileges. Therefore this class directly implement \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are implemented in this class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}

@@ -1,0 +1,124 @@
+\hypertarget{class_my_gui_application}{}\section{My\+Gui\+Application Class Reference}
+\label{class_my_gui_application}\index{My\+Gui\+Application@{My\+Gui\+Application}}
+
+
+This class inherits Q\+Application and allows you to retrieve events such as exceptions in order to manage them graphically.  
+
+
+
+
+{\ttfamily \#include $<$Graphic\+Interface.\+h$>$}
+
+Inheritance diagram for My\+Gui\+Application\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_gui_application}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_my_gui_application_a73b056e2f72052b960e94c4776ceda4a}{ask\+Exit} ()
+\begin{DoxyCompactList}\small\item\em This signal makes it possible to finish the program neatly by allowing the interface to tell the core that it will end. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_my_gui_application_ab4e82f1ef9d56a8ca3d8c8095a21bc73}{My\+Gui\+Application} (int \&argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Initializes the Q\+ML application and class variables. \end{DoxyCompactList}\item 
+bool \hyperlink{class_my_gui_application_a137204a4e17e47ba3d633942f83e7433}{notify} (Q\+Object $\ast$receiver, Q\+Event $\ast$\hyperlink{pkcs11t_8h_afaa077e4b9760c92cbaf0d838e743d8c}{event})
+\begin{DoxyCompactList}\small\item\em Retrieve exceptions and forward them to the interface for display. \end{DoxyCompactList}\item 
+void \hyperlink{class_my_gui_application_ab9de52ff003026a88a3721ae0ad2d63c}{set\+GI} (\hyperlink{class_graphic_interface}{Graphic\+Interface} $\ast$gi)
+\begin{DoxyCompactList}\small\item\em Retrieve a pointer on the graphical interface object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class inherits Q\+Application and allows you to retrieve events such as exceptions in order to manage them graphically. 
+
+Definition at line 63 of file Graphic\+Interface.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_my_gui_application_ab4e82f1ef9d56a8ca3d8c8095a21bc73}\label{class_my_gui_application_ab4e82f1ef9d56a8ca3d8c8095a21bc73}} 
+\index{My\+Gui\+Application@{My\+Gui\+Application}!My\+Gui\+Application@{My\+Gui\+Application}}
+\index{My\+Gui\+Application@{My\+Gui\+Application}!My\+Gui\+Application@{My\+Gui\+Application}}
+\subsubsection{\texorpdfstring{My\+Gui\+Application()}{MyGuiApplication()}}
+{\footnotesize\ttfamily My\+Gui\+Application\+::\+My\+Gui\+Application (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initializes the Q\+ML application and class variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & the number of arguments in the main program \\
+\hline
+{\em argv} & arguments of the main program \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file Graphic\+Interface.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_my_gui_application_a73b056e2f72052b960e94c4776ceda4a}\label{class_my_gui_application_a73b056e2f72052b960e94c4776ceda4a}} 
+\index{My\+Gui\+Application@{My\+Gui\+Application}!ask\+Exit@{ask\+Exit}}
+\index{ask\+Exit@{ask\+Exit}!My\+Gui\+Application@{My\+Gui\+Application}}
+\subsubsection{\texorpdfstring{ask\+Exit}{askExit}}
+{\footnotesize\ttfamily void My\+Gui\+Application\+::ask\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+This signal makes it possible to finish the program neatly by allowing the interface to tell the core that it will end. 
+
+\mbox{\Hypertarget{class_my_gui_application_a137204a4e17e47ba3d633942f83e7433}\label{class_my_gui_application_a137204a4e17e47ba3d633942f83e7433}} 
+\index{My\+Gui\+Application@{My\+Gui\+Application}!notify@{notify}}
+\index{notify@{notify}!My\+Gui\+Application@{My\+Gui\+Application}}
+\subsubsection{\texorpdfstring{notify()}{notify()}}
+{\footnotesize\ttfamily bool My\+Gui\+Application\+::notify (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{receiver,  }\item[{Q\+Event $\ast$}]{event }\end{DoxyParamCaption})}
+
+
+
+Retrieve exceptions and forward them to the interface for display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em receiver} & Object that receives the event \\
+\hline
+{\em event} & Event that has occurred and must be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool Boolean indicating whether the event has been transmitted or not 
+\end{DoxyReturn}
+
+
+Definition at line 510 of file Graphic\+Interface.\+cpp.
+
+\mbox{\Hypertarget{class_my_gui_application_ab9de52ff003026a88a3721ae0ad2d63c}\label{class_my_gui_application_ab9de52ff003026a88a3721ae0ad2d63c}} 
+\index{My\+Gui\+Application@{My\+Gui\+Application}!set\+GI@{set\+GI}}
+\index{set\+GI@{set\+GI}!My\+Gui\+Application@{My\+Gui\+Application}}
+\subsubsection{\texorpdfstring{set\+G\+I()}{setGI()}}
+{\footnotesize\ttfamily void My\+Gui\+Application\+::set\+GI (\begin{DoxyParamCaption}\item[{\hyperlink{class_graphic_interface}{Graphic\+Interface} $\ast$}]{gi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieve a pointer on the graphical interface object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gi} & Pointer to the currently instantiated Q\+ML interface \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 87 of file Graphic\+Interface.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\hyperlink{_graphic_interface_8h}{Graphic\+Interface.\+h}\item 
+U\+I/\hyperlink{_graphic_interface_8cpp}{Graphic\+Interface.\+cpp}\end{DoxyCompactItemize}

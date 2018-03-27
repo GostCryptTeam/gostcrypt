@@ -1,0 +1,122 @@
+\hypertarget{sysfs_8h}{}\section{Core/loopdevlib/sysfs.h File Reference}
+\label{sysfs_8h}\index{Core/loopdevlib/sysfs.\+h@{Core/loopdevlib/sysfs.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/sysmacros.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sysfs_8h_a7a28a8e25b69a86fbda270de8a591df6}{U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY}~\{ 0, -\/1, N\+U\+LL, N\+U\+LL, 0, 0, 0, 0, 0 \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{sysfs_8h_adafc7d53fb348187a88380c7a774cc5c}{sysfs\+\_\+devno\+\_\+attribute\+\_\+path} (dev\+\_\+t devno, char $\ast$buf, size\+\_\+t bufsiz, const char $\ast$attr)
+\item 
+char $\ast$ \hyperlink{sysfs_8h_a576132d6d7a7bc91e94330ba693ae14c}{sysfs\+\_\+devno\+\_\+path} (dev\+\_\+t devno, char $\ast$buf, size\+\_\+t bufsiz)
+\item 
+dev\+\_\+t \hyperlink{sysfs_8h_a8c80ca041f38707baee285af75a9d0bd}{sysfs\+\_\+devname\+\_\+to\+\_\+devno} (const char $\ast$name, const char $\ast$parent)
+\item 
+int \hyperlink{sysfs_8h_a4bbf43194f3cf46d5ae7b307db4a275c}{sysfs\+\_\+init} (struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$cxt, dev\+\_\+t devno, struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$parent) \hyperlink{c_8h_af743bcca7cf241e86b968f9a783f6e8a}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}((warn\+\_\+unused\+\_\+result))
+\item 
+void \hyperlink{sysfs_8h_a3bb4e1d732f38bffaf81b31598b64044}{sysfs\+\_\+deinit} (struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$cxt)
+\item 
+int \hyperlink{sysfs_8h_a82c11d56e1b26c385719023e983945b8}{sysfs\+\_\+scanf} (struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$cxt, const char $\ast$attr, const char $\ast$fmt,...) \hyperlink{c_8h_af743bcca7cf241e86b968f9a783f6e8a}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}((format(scanf
+\item 
+int int \hyperlink{sysfs_8h_aa074412102e7df57c69b45c212ccc906}{sysfs\+\_\+read\+\_\+u64} (struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$cxt, const char $\ast$attr, uint64\+\_\+t $\ast$res)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sysfs_8h_a7a28a8e25b69a86fbda270de8a591df6}\label{sysfs_8h_a7a28a8e25b69a86fbda270de8a591df6}} 
+\index{sysfs.\+h@{sysfs.\+h}!U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY@{U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY}}
+\index{U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY@{U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY}{UL\_SYSFSCXT\_EMPTY}}
+{\footnotesize\ttfamily \#define U\+L\+\_\+\+S\+Y\+S\+F\+S\+C\+X\+T\+\_\+\+E\+M\+P\+TY~\{ 0, -\/1, N\+U\+LL, N\+U\+LL, 0, 0, 0, 0, 0 \}}
+
+
+
+Definition at line 35 of file sysfs.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sysfs_8h_a3bb4e1d732f38bffaf81b31598b64044}\label{sysfs_8h_a3bb4e1d732f38bffaf81b31598b64044}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+deinit@{sysfs\+\_\+deinit}}
+\index{sysfs\+\_\+deinit@{sysfs\+\_\+deinit}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+deinit()}{sysfs\_deinit()}}
+{\footnotesize\ttfamily void sysfs\+\_\+deinit (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$}]{cxt }\end{DoxyParamCaption})}
+
+
+
+Definition at line 140 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_a8c80ca041f38707baee285af75a9d0bd}\label{sysfs_8h_a8c80ca041f38707baee285af75a9d0bd}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+devname\+\_\+to\+\_\+devno@{sysfs\+\_\+devname\+\_\+to\+\_\+devno}}
+\index{sysfs\+\_\+devname\+\_\+to\+\_\+devno@{sysfs\+\_\+devname\+\_\+to\+\_\+devno}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+devname\+\_\+to\+\_\+devno()}{sysfs\_devname\_to\_devno()}}
+{\footnotesize\ttfamily dev\+\_\+t sysfs\+\_\+devname\+\_\+to\+\_\+devno (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{const char $\ast$}]{parent }\end{DoxyParamCaption})}
+
+
+
+Definition at line 33 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_adafc7d53fb348187a88380c7a774cc5c}\label{sysfs_8h_adafc7d53fb348187a88380c7a774cc5c}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+devno\+\_\+attribute\+\_\+path@{sysfs\+\_\+devno\+\_\+attribute\+\_\+path}}
+\index{sysfs\+\_\+devno\+\_\+attribute\+\_\+path@{sysfs\+\_\+devno\+\_\+attribute\+\_\+path}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+devno\+\_\+attribute\+\_\+path()}{sysfs\_devno\_attribute\_path()}}
+{\footnotesize\ttfamily char$\ast$ sysfs\+\_\+devno\+\_\+attribute\+\_\+path (\begin{DoxyParamCaption}\item[{dev\+\_\+t}]{devno,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{bufsiz,  }\item[{const char $\ast$}]{attr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 14 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_a576132d6d7a7bc91e94330ba693ae14c}\label{sysfs_8h_a576132d6d7a7bc91e94330ba693ae14c}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+devno\+\_\+path@{sysfs\+\_\+devno\+\_\+path}}
+\index{sysfs\+\_\+devno\+\_\+path@{sysfs\+\_\+devno\+\_\+path}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+devno\+\_\+path()}{sysfs\_devno\_path()}}
+{\footnotesize\ttfamily char$\ast$ sysfs\+\_\+devno\+\_\+path (\begin{DoxyParamCaption}\item[{dev\+\_\+t}]{devno,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{bufsiz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 28 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_a4bbf43194f3cf46d5ae7b307db4a275c}\label{sysfs_8h_a4bbf43194f3cf46d5ae7b307db4a275c}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+init@{sysfs\+\_\+init}}
+\index{sysfs\+\_\+init@{sysfs\+\_\+init}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+init()}{sysfs\_init()}}
+{\footnotesize\ttfamily int sysfs\+\_\+init (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$}]{cxt,  }\item[{dev\+\_\+t}]{devno,  }\item[{struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_aa074412102e7df57c69b45c212ccc906}\label{sysfs_8h_aa074412102e7df57c69b45c212ccc906}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+read\+\_\+u64@{sysfs\+\_\+read\+\_\+u64}}
+\index{sysfs\+\_\+read\+\_\+u64@{sysfs\+\_\+read\+\_\+u64}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+read\+\_\+u64()}{sysfs\_read\_u64()}}
+{\footnotesize\ttfamily int int sysfs\+\_\+read\+\_\+u64 (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$}]{cxt,  }\item[{const char $\ast$}]{attr,  }\item[{uint64\+\_\+t $\ast$}]{res }\end{DoxyParamCaption})}
+
+
+
+Definition at line 200 of file sysfs.\+c.
+
+\mbox{\Hypertarget{sysfs_8h_a82c11d56e1b26c385719023e983945b8}\label{sysfs_8h_a82c11d56e1b26c385719023e983945b8}} 
+\index{sysfs.\+h@{sysfs.\+h}!sysfs\+\_\+scanf@{sysfs\+\_\+scanf}}
+\index{sysfs\+\_\+scanf@{sysfs\+\_\+scanf}!sysfs.\+h@{sysfs.\+h}}
+\subsubsection{\texorpdfstring{sysfs\+\_\+scanf()}{sysfs\_scanf()}}
+{\footnotesize\ttfamily int sysfs\+\_\+scanf (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsysfs__cxt}{sysfs\+\_\+cxt} $\ast$}]{cxt,  }\item[{const char $\ast$}]{attr,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+

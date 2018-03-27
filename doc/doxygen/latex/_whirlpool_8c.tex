@@ -1,0 +1,123 @@
+\hypertarget{_whirlpool_8c}{}\section{Volume/\+Crypto/\+Whirlpool.c File Reference}
+\label{_whirlpool_8c}\index{Volume/\+Crypto/\+Whirlpool.\+c@{Volume/\+Crypto/\+Whirlpool.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Whirlpool.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_whirlpool_8c_a5c71a5e59a53413cd6c270266d63b031}{R}~10
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_whirlpool_8c_ac2216e8e025d97e032313fbd750854f9}{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init} (struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const structpointer)
+\item 
+void \hyperlink{_whirlpool_8c_af5f77299a4d205dd5b570851b23a2fa7}{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add} (const unsigned char $\ast$const source, unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32} source\+Bits, struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const structpointer)
+\item 
+void \hyperlink{_whirlpool_8c_a46a0f530d6540f7984fa799b0fe75028}{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize} (struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const structpointer, unsigned char $\ast$const result)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_whirlpool_8c_a5c71a5e59a53413cd6c270266d63b031}\label{_whirlpool_8c_a5c71a5e59a53413cd6c270266d63b031}} 
+\index{Whirlpool.\+c@{Whirlpool.\+c}!R@{R}}
+\index{R@{R}!Whirlpool.\+c@{Whirlpool.\+c}}
+\subsubsection{\texorpdfstring{R}{R}}
+{\footnotesize\ttfamily \#define R~10}
+
+The Whirlpool hashing function.
+
+{\bfseries References}
+
+The Whirlpool algorithm was developed by \href{mailto:pbarreto@scopus.com.br}{\tt Paulo S. L. M. Barreto} and \href{mailto:vincent.rijmen@cryptomathic.com}{\tt Vincent Rijmen}.
+
+See P.\+S.\+L.\+M. Barreto, V. Rijmen, ``\+The Whirlpool hashing function,\textquotesingle{}\textquotesingle{} N\+E\+S\+S\+IE submission, 2000 (tweaked version, 2001), \href{https://www.cosic.esat.kuleuven.ac.be/nessie/workshop/submissions/whirlpool.zip}{\tt https\+://www.\+cosic.\+esat.\+kuleuven.\+ac.\+be/nessie/workshop/submissions/whirlpool.\+zip}
+
+\begin{DoxyAuthor}{Author}
+Paulo S.\+L.\+M. Barreto 
+
+Vincent Rijmen. Adapted for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}.
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 (2003.\+03.\+12) 
+
+
+\end{DoxyVersion}
+Differences from version 2.\+1\+:
+
+
+\begin{DoxyItemize}
+\item Suboptimal diffusion matrix replaced by cir(1, 1, 4, 1, 8, 5, 2, 9). 
+
+
+\end{DoxyItemize}
+
+Differences from version 2.\+0\+:
+
+
+\begin{DoxyItemize}
+\item Generation of I\+S\+O/\+I\+EC 10118-\/3 test vectors.
+\item Bug fix\+: nonzero carry was ignored when tallying the data length (this bug apparently only manifested itself when feeding data in pieces rather than in a single chunk at once).
+\item Support for MS Visual C++ 64-\/bit integer arithmetic.
+\end{DoxyItemize}
+
+Differences from version 1.\+0\+:
+
+
+\begin{DoxyItemize}
+\item Original S-\/box replaced by the tweaked, hardware-\/efficient version. 
+
+
+\end{DoxyItemize}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY T\+HE A\+U\+T\+H\+O\+RS \textquotesingle{}\textquotesingle{}AS IS\textquotesingle{}\textquotesingle{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL T\+HE A\+U\+T\+H\+O\+RS OR C\+O\+N\+T\+R\+I\+B\+U\+T\+O\+RS BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 
+
+Definition at line 73 of file Whirlpool.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_whirlpool_8c_af5f77299a4d205dd5b570851b23a2fa7}\label{_whirlpool_8c_af5f77299a4d205dd5b570851b23a2fa7}} 
+\index{Whirlpool.\+c@{Whirlpool.\+c}!W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add}}
+\index{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add}!Whirlpool.\+c@{Whirlpool.\+c}}
+\subsubsection{\texorpdfstring{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add()}{WHIRLPOOL\_add()}}
+{\footnotesize\ttfamily void W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+add (\begin{DoxyParamCaption}\item[{const unsigned char $\ast$const}]{source,  }\item[{unsigned \hyperlink{_gstdefs_8h_ad026b329cbb0aca618160c242b39b2ce}{\+\_\+\+\_\+int32}}]{source\+Bits,  }\item[{struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const}]{structpointer }\end{DoxyParamCaption})}
+
+Delivers input data to the hashing algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & plaintext data to hash. \\
+\hline
+{\em source\+Bits} & how many bits of plaintext to process.\\
+\hline
+\end{DoxyParams}
+This method maintains the invariant\+: buffer\+Bits $<$ D\+I\+G\+E\+S\+T\+B\+I\+TS 
+
+Definition at line 896 of file Whirlpool.\+c.
+
+\mbox{\Hypertarget{_whirlpool_8c_a46a0f530d6540f7984fa799b0fe75028}\label{_whirlpool_8c_a46a0f530d6540f7984fa799b0fe75028}} 
+\index{Whirlpool.\+c@{Whirlpool.\+c}!W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize}}
+\index{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize}!Whirlpool.\+c@{Whirlpool.\+c}}
+\subsubsection{\texorpdfstring{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize()}{WHIRLPOOL\_finalize()}}
+{\footnotesize\ttfamily void W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+finalize (\begin{DoxyParamCaption}\item[{struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const}]{structpointer,  }\item[{unsigned char $\ast$const}]{result }\end{DoxyParamCaption})}
+
+Get the hash value from the hashing state.
+
+This method uses the invariant\+: buffer\+Bits $<$ D\+I\+G\+E\+S\+T\+B\+I\+TS 
+
+Definition at line 1025 of file Whirlpool.\+c.
+
+\mbox{\Hypertarget{_whirlpool_8c_ac2216e8e025d97e032313fbd750854f9}\label{_whirlpool_8c_ac2216e8e025d97e032313fbd750854f9}} 
+\index{Whirlpool.\+c@{Whirlpool.\+c}!W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init}}
+\index{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init@{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init}!Whirlpool.\+c@{Whirlpool.\+c}}
+\subsubsection{\texorpdfstring{W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init()}{WHIRLPOOL\_init()}}
+{\footnotesize\ttfamily void W\+H\+I\+R\+L\+P\+O\+O\+L\+\_\+init (\begin{DoxyParamCaption}\item[{struct \hyperlink{struct_n_e_s_s_i_estruct}{N\+E\+S\+S\+I\+Estruct} $\ast$const}]{structpointer }\end{DoxyParamCaption})}
+
+Initialize the hashing state. 
+
+Definition at line 875 of file Whirlpool.\+c.
+

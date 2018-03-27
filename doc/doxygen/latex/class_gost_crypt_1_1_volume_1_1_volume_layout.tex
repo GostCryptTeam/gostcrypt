@@ -1,0 +1,310 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Volume\+Layout Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_volume_layout}\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+
+
+{\ttfamily \#include $<$Volume\+Layout.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Volume\+:\+:Volume\+Layout\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_volume_1_1_volume_layout}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_ac076a1abab57e2e7571ca06d743a78ea}{$\sim$\+Volume\+Layout} ()
+\item 
+virtual int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a406eb2e1642bfe76ed3a3856e10b3dce}{Get\+Backup\+Header\+Offset} () const
+\item 
+virtual quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a967b9498adca758a2c721bdfb102e9a9}{Get\+Data\+Offset} (quint64 volume\+Host\+Size) const =0
+\item 
+virtual quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_ac0ead260317df3a9fd15518dc56a7d62}{Get\+Data\+Size} (quint64 volume\+Host\+Size) const =0
+\item 
+virtual Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+Header} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a97d7492068bd039d151c0ba2e78c3f2e}{Get\+Header} ()
+\item 
+virtual int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a4ee86fb93d04ee30404d40209f7625de}{Get\+Header\+Offset} () const
+\item 
+virtual quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_ac4c7306881a87c199d6a03edda253325}{Get\+Header\+Size} () const
+\item 
+virtual quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a55eb89c0c90553250e50138c990bbfac}{Get\+Max\+Data\+Size} (quint64 volume\+Size) const =0
+\item 
+virtual \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a54d3253ba1f2ddc2509b5e59e33094fb}{Get\+Supported\+Encryption\+Algorithms} () const
+\item 
+virtual \hyperlink{namespace_gost_crypt_1_1_volume_a513257938e5ea0554ad83d0eb08f8f67}{Volume\+Hash\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a4d61439dda6f363bf2ac1bd8bda7aaf3}{Get\+Supported\+Key\+Derivation\+Functions} () const
+\item 
+virtual \hyperlink{namespace_gost_crypt_1_1_volume_a94b281aaee6b2ca9317cf8bf25605f79}{Encryption\+Mode\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_ada1c5ebe5969b6d8d0b4e5d3207cbfb7}{Get\+Supported\+Encryption\+Modes} () const
+\item 
+virtual \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a86e831db4065d301328351507aca7eb0}{Get\+Type} () const
+\item 
+virtual bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a4f88c450f745ca0da3d74700b89d5756}{Has\+Backup\+Header} () const =0
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{namespace_gost_crypt_1_1_volume_a5b9119eca7c78317a24ab85145fb9ac8}{Volume\+Layout\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a75afc853a72f97ec34cc9c6f056cd548}{Get\+Available\+Layouts} (\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} type=\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717a00b5befddf2b1362a5a66b3a6567ff20}{Volume\+Type\+::\+Unknown})
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a80bcdd093911d6da1e3d145fe4d17028}{Volume\+Layout} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a314519a204b3572ed727071d7939e751}{Supported\+Encryption\+Algorithms}
+\item 
+\hyperlink{namespace_gost_crypt_1_1_volume_a94b281aaee6b2ca9317cf8bf25605f79}{Encryption\+Mode\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a2dcde837e6e78dda547ba17309645297}{Supported\+Encryption\+Modes}
+\item 
+int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a298446dedd1daaca3ce06bbe7edfdd03}{Backup\+Header\+Offset}
+\item 
+int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_ad44f93b295dea671c869cb8adf99eda7}{Header\+Offset}
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a34ad731ec5a80e2bc23c435416bac270}{Header\+Size}
+\item 
+\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_a2746f54b98f99c2f3fec77ef73d24699}{Type}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+Header} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_aae2968088775231e6f37ce2bfbd6d534}{Header}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 25 of file Volume\+Layout.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_ac076a1abab57e2e7571ca06d743a78ea}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_ac076a1abab57e2e7571ca06d743a78ea}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!````~Volume\+Layout@{$\sim$\+Volume\+Layout}}
+\index{````~Volume\+Layout@{$\sim$\+Volume\+Layout}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{$\sim$\+Volume\+Layout()}{~VolumeLayout()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::$\sim$\+Volume\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 29 of file Volume\+Layout.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a80bcdd093911d6da1e3d145fe4d17028}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a80bcdd093911d6da1e3d145fe4d17028}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Volume\+Layout@{Volume\+Layout}}
+\index{Volume\+Layout@{Volume\+Layout}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Volume\+Layout()}{VolumeLayout()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Volume\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 22 of file Volume\+Layout.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a75afc853a72f97ec34cc9c6f056cd548}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a75afc853a72f97ec34cc9c6f056cd548}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Available\+Layouts@{Get\+Available\+Layouts}}
+\index{Get\+Available\+Layouts@{Get\+Available\+Layouts}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Available\+Layouts()}{GetAvailableLayouts()}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a5b9119eca7c78317a24ab85145fb9ac8}{Volume\+Layout\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Available\+Layouts (\begin{DoxyParamCaption}\item[{\hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum}}]{type = {\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717a00b5befddf2b1362a5a66b3a6567ff20}{Volume\+Type\+::\+Unknown}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 33 of file Volume\+Layout.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a406eb2e1642bfe76ed3a3856e10b3dce}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a406eb2e1642bfe76ed3a3856e10b3dce}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Backup\+Header\+Offset@{Get\+Backup\+Header\+Offset}}
+\index{Get\+Backup\+Header\+Offset@{Get\+Backup\+Header\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Backup\+Header\+Offset()}{GetBackupHeaderOffset()}}
+{\footnotesize\ttfamily virtual int Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Backup\+Header\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 31 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a967b9498adca758a2c721bdfb102e9a9}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a967b9498adca758a2c721bdfb102e9a9}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Data\+Offset@{Get\+Data\+Offset}}
+\index{Get\+Data\+Offset@{Get\+Data\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Data\+Offset()}{GetDataOffset()}}
+{\footnotesize\ttfamily virtual quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Data\+Offset (\begin{DoxyParamCaption}\item[{quint64}]{volume\+Host\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_hidden_aa03f496e4a734339f50a804ad7d0d3cf}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Hidden}, and \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_normal_a6529ff8777f6e31f412dee79102d11b5}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Normal}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_ac0ead260317df3a9fd15518dc56a7d62}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_ac0ead260317df3a9fd15518dc56a7d62}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Data\+Size@{Get\+Data\+Size}}
+\index{Get\+Data\+Size@{Get\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Data\+Size()}{GetDataSize()}}
+{\footnotesize\ttfamily virtual quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Data\+Size (\begin{DoxyParamCaption}\item[{quint64}]{volume\+Host\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_hidden_ad38f4c055cdb8000bd193fdaa23a6828}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Hidden}, and \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_normal_a936a198ca9967611d4d40cc97474c310}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Normal}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a97d7492068bd039d151c0ba2e78c3f2e}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a97d7492068bd039d151c0ba2e78c3f2e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Header@{Get\+Header}}
+\index{Get\+Header@{Get\+Header}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Header()}{GetHeader()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+Header} $>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 58 of file Volume\+Layout.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a4ee86fb93d04ee30404d40209f7625de}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a4ee86fb93d04ee30404d40209f7625de}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Header\+Offset@{Get\+Header\+Offset}}
+\index{Get\+Header\+Offset@{Get\+Header\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Header\+Offset()}{GetHeaderOffset()}}
+{\footnotesize\ttfamily virtual int Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Header\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 35 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_ac4c7306881a87c199d6a03edda253325}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_ac4c7306881a87c199d6a03edda253325}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Header\+Size@{Get\+Header\+Size}}
+\index{Get\+Header\+Size@{Get\+Header\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Header\+Size()}{GetHeaderSize()}}
+{\footnotesize\ttfamily virtual quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Header\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 36 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a55eb89c0c90553250e50138c990bbfac}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a55eb89c0c90553250e50138c990bbfac}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Max\+Data\+Size@{Get\+Max\+Data\+Size}}
+\index{Get\+Max\+Data\+Size@{Get\+Max\+Data\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Max\+Data\+Size()}{GetMaxDataSize()}}
+{\footnotesize\ttfamily virtual quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Max\+Data\+Size (\begin{DoxyParamCaption}\item[{quint64}]{volume\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_hidden_a784f7b8296b7b253f8255a124c977de0}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Hidden}, and \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_normal_a6514185db235a650e86fc25ef7daa10c}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Normal}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a54d3253ba1f2ddc2509b5e59e33094fb}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a54d3253ba1f2ddc2509b5e59e33094fb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Supported\+Encryption\+Algorithms@{Get\+Supported\+Encryption\+Algorithms}}
+\index{Get\+Supported\+Encryption\+Algorithms@{Get\+Supported\+Encryption\+Algorithms}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Supported\+Encryption\+Algorithms()}{GetSupportedEncryptionAlgorithms()}}
+{\footnotesize\ttfamily virtual \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Supported\+Encryption\+Algorithms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 38 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_ada1c5ebe5969b6d8d0b4e5d3207cbfb7}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_ada1c5ebe5969b6d8d0b4e5d3207cbfb7}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Supported\+Encryption\+Modes@{Get\+Supported\+Encryption\+Modes}}
+\index{Get\+Supported\+Encryption\+Modes@{Get\+Supported\+Encryption\+Modes}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Supported\+Encryption\+Modes()}{GetSupportedEncryptionModes()}}
+{\footnotesize\ttfamily virtual \hyperlink{namespace_gost_crypt_1_1_volume_a94b281aaee6b2ca9317cf8bf25605f79}{Encryption\+Mode\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Supported\+Encryption\+Modes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 40 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a4d61439dda6f363bf2ac1bd8bda7aaf3}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a4d61439dda6f363bf2ac1bd8bda7aaf3}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Supported\+Key\+Derivation\+Functions@{Get\+Supported\+Key\+Derivation\+Functions}}
+\index{Get\+Supported\+Key\+Derivation\+Functions@{Get\+Supported\+Key\+Derivation\+Functions}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Supported\+Key\+Derivation\+Functions()}{GetSupportedKeyDerivationFunctions()}}
+{\footnotesize\ttfamily virtual \hyperlink{namespace_gost_crypt_1_1_volume_a513257938e5ea0554ad83d0eb08f8f67}{Volume\+Hash\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Supported\+Key\+Derivation\+Functions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 39 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a86e831db4065d301328351507aca7eb0}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a86e831db4065d301328351507aca7eb0}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Get\+Type@{Get\+Type}}
+\index{Get\+Type@{Get\+Type}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Get\+Type()}{GetType()}}
+{\footnotesize\ttfamily virtual \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 41 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a4f88c450f745ca0da3d74700b89d5756}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a4f88c450f745ca0da3d74700b89d5756}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Has\+Backup\+Header@{Has\+Backup\+Header}}
+\index{Has\+Backup\+Header@{Has\+Backup\+Header}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Has\+Backup\+Header()}{HasBackupHeader()}}
+{\footnotesize\ttfamily virtual bool Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Has\+Backup\+Header (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_hidden_a6e62bb62c0d5747e089658516d443706}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Hidden}, and \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_layout_v2_normal_a18a75c3663f6922e890dca6825c0b580}{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+V2\+Normal}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a298446dedd1daaca3ce06bbe7edfdd03}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a298446dedd1daaca3ce06bbe7edfdd03}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Backup\+Header\+Offset@{Backup\+Header\+Offset}}
+\index{Backup\+Header\+Offset@{Backup\+Header\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Backup\+Header\+Offset}{BackupHeaderOffset}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Backup\+Header\+Offset\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 50 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_aae2968088775231e6f37ce2bfbd6d534}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_aae2968088775231e6f37ce2bfbd6d534}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Header@{Header}}
+\index{Header@{Header}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Header}{Header}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_header}{Volume\+Header}$>$ Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Header\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 55 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_ad44f93b295dea671c869cb8adf99eda7}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_ad44f93b295dea671c869cb8adf99eda7}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Header\+Offset@{Header\+Offset}}
+\index{Header\+Offset@{Header\+Offset}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Header\+Offset}{HeaderOffset}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Header\+Offset\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 51 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a34ad731ec5a80e2bc23c435416bac270}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a34ad731ec5a80e2bc23c435416bac270}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Header\+Size@{Header\+Size}}
+\index{Header\+Size@{Header\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Header\+Size}{HeaderSize}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Header\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 52 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a314519a204b3572ed727071d7939e751}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a314519a204b3572ed727071d7939e751}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Supported\+Encryption\+Algorithms@{Supported\+Encryption\+Algorithms}}
+\index{Supported\+Encryption\+Algorithms@{Supported\+Encryption\+Algorithms}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Supported\+Encryption\+Algorithms}{SupportedEncryptionAlgorithms}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Supported\+Encryption\+Algorithms\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 47 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a2dcde837e6e78dda547ba17309645297}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a2dcde837e6e78dda547ba17309645297}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Supported\+Encryption\+Modes@{Supported\+Encryption\+Modes}}
+\index{Supported\+Encryption\+Modes@{Supported\+Encryption\+Modes}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Supported\+Encryption\+Modes}{SupportedEncryptionModes}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_a94b281aaee6b2ca9317cf8bf25605f79}{Encryption\+Mode\+List} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Supported\+Encryption\+Modes\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 48 of file Volume\+Layout.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_layout_a2746f54b98f99c2f3fec77ef73d24699}\label{class_gost_crypt_1_1_volume_1_1_volume_layout_a2746f54b98f99c2f3fec77ef73d24699}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}!Type@{Type}}
+\index{Type@{Type}!Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout@{Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout}}
+\subsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_volume_type_a7fe1979dab76d4534dcb1e26179d4717}{Volume\+Type\+::\+Enum} Gost\+Crypt\+::\+Volume\+::\+Volume\+Layout\+::\+Type\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 53 of file Volume\+Layout.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_volume_layout_8h}{Volume\+Layout.\+h}\item 
+Volume/\hyperlink{_volume_layout_8cpp}{Volume\+Layout.\+cpp}\end{DoxyCompactItemize}

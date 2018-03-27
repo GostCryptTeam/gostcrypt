@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['v0',['v0',['../struct_s_t_r_i_b_o_g___c_t_x.html#a8dff93984b776eec14f39bb71eb00243',1,'STRIBOG_CTX']]],
+  ['v512',['v512',['../struct_s_t_r_i_b_o_g___c_t_x.html#a82aa71d940ffadf7f4f3012295385892',1,'STRIBOG_CTX']]],
+  ['version',['version',['../struct_c_k___f_u_n_c_t_i_o_n___l_i_s_t.html#a2588758f026a49100546d9868754a6c8',1,'CK_FUNCTION_LIST']]],
+  ['virtualdevice',['virtualDevice',['../struct_gost_crypt_1_1_volume_1_1_volume_information.html#a04d575e85da666853af68cf90a47f5d7',1,'GostCrypt::Volume::VolumeInformation']]],
+  ['voldataareaoffset',['volDataAreaOffset',['../struct_c_r_y_p_t_o___i_n_f_o__t.html#a867383eb2a6979f3cc636247da4656ac',1,'CRYPTO_INFO_t']]],
+  ['volume_5fcreation_5ftime',['volume_creation_time',['../struct_c_r_y_p_t_o___i_n_f_o__t.html#a23d5573e344fadcb3c53eb92ffa60aa7',1,'CRYPTO_INFO_t']]],
+  ['volumecreationtime',['VolumeCreationTime',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a9edc6a3abf2f3b84ab44867af30be89c',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['volumedataoffset',['VolumeDataOffset',['../class_gost_crypt_1_1_volume_1_1_volume.html#a9101fb0edf9024a9ee42620ea972148f',1,'GostCrypt::Volume::Volume']]],
+  ['volumedatasize',['VolumeDataSize',['../class_gost_crypt_1_1_volume_1_1_volume.html#a1400299fb764cefa747527af4dbcab79',1,'GostCrypt::Volume::Volume::VolumeDataSize()'],['../struct_gost_crypt_1_1_volume_1_1_volume_header_creation_options.html#a218c585ba501579a88dbefe8126567ca',1,'GostCrypt::Volume::VolumeHeaderCreationOptions::VolumeDataSize()'],['../class_gost_crypt_1_1_volume_1_1_volume_header.html#ae962ed704b59ddf43bfb3f21a9dcb12f',1,'GostCrypt::Volume::VolumeHeader::VolumeDataSize()']]],
+  ['volumedatastart',['VolumeDataStart',['../struct_gost_crypt_1_1_volume_1_1_volume_header_creation_options.html#ae93d657c6382d9fe4a6bbcd44578abe3',1,'GostCrypt::Volume::VolumeHeaderCreationOptions']]],
+  ['volumefile',['volumeFile',['../class_gost_crypt_1_1_volume_1_1_volume.html#a6e7515f849c7299e713b4c0194091d4e',1,'GostCrypt::Volume::Volume']]],
+  ['volumehash',['volumeHash',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a2c7ee26744636f1f262d28dc0f2e13a7',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['volumeheaderkdf',['volumeHeaderKdf',['../struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params.html#ac1333e405430c8c6f73550975b9530ab',1,'GostCrypt::Core::CreateVolumeRequest::VolumeParams']]],
+  ['volumehostsize',['VolumeHostSize',['../class_gost_crypt_1_1_volume_1_1_volume.html#abe2b20305211a8835e276acda77627c9',1,'GostCrypt::Volume::Volume']]],
+  ['volumeinfo',['volumeInfo',['../struct_gost_crypt_1_1_core_1_1_mount_volume_response.html#a10c9eefc55df712ef0aa342016444299',1,'GostCrypt::Core::MountVolumeResponse']]],
+  ['volumeinfolist',['volumeInfoList',['../struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_response.html#a63b5e16814c7a891e0e368c1e442bdf2',1,'GostCrypt::Core::GetMountedVolumesResponse']]],
+  ['volumekeyareacrc32',['VolumeKeyAreaCrc32',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a32c984961780c9bb1a4bbfa695e46b19',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['volumepath',['volumePath',['../struct_gost_crypt_1_1_core_1_1_dismount_volume_request.html#a616771872cfd4b04add726e4e4a5856e',1,'GostCrypt::Core::DismountVolumeRequest::volumePath()'],['../struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request.html#a35dd833582b8801245d0dd61f31907cb',1,'GostCrypt::Core::GetMountedVolumesRequest::volumePath()'],['../struct_gost_crypt_1_1_core_1_1_backup_header_request.html#aa29012df2d35f163a525f2577f30ab49',1,'GostCrypt::Core::BackupHeaderRequest::volumePath()'],['../struct_gost_crypt_1_1_core_1_1_restore_header_request.html#ad80334ccac055814a5d53569e21b9bc3',1,'GostCrypt::Core::RestoreHeaderRequest::volumePath()'],['../struct_gost_crypt_1_1_core_1_1_dismount_volume_response.html#a26d60a0b30bcbbecd23b20722453c2e4',1,'GostCrypt::Core::DismountVolumeResponse::volumePath()'],['../struct_gost_crypt_1_1_volume_1_1_volume_information.html#a7c6d926659681092d8f4b6f8e6898629',1,'GostCrypt::Volume::VolumeInformation::volumePath()']]],
+  ['volumesize',['VolumeSize',['../struct_c_r_y_p_t_o___i_n_f_o__t.html#aa61712c031b298332f74b32a7dd271aa',1,'CRYPTO_INFO_t']]]
+];

@@ -1,0 +1,55 @@
+\hypertarget{_core_response_8h}{}\section{Core/\+Core\+Response.h File Reference}
+\label{_core_response_8h}\index{Core/\+Core\+Response.\+h@{Core/\+Core\+Response.\+h}}
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+List$>$}\newline
+{\ttfamily \#include $<$Q\+Shared\+Pointer$>$}\newline
+{\ttfamily \#include $<$Q\+File\+Info$>$}\newline
+{\ttfamily \#include $<$Qt\+Global$>$}\newline
+{\ttfamily \#include \char`\"{}Serialization\+Util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Exception.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_core_response}{Gost\+Crypt\+::\+Core\+::\+Core\+Response}
+\begin{DoxyCompactList}\small\item\em Parent class of all response objects used to store results of \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions and transmit it back to the UI process. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_response}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the volume creation action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_response}{Gost\+Crypt\+::\+Core\+::\+Change\+Volume\+Password\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the volume instance password changement action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_response}{Gost\+Crypt\+::\+Core\+::\+Create\+Key\+File\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the key file creation action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_response}{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the volume header backup action This action will save the headers of the volume instances contained inside the given volume container. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_response}{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the volume header restore action This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_response}{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the mount volume action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_dismount_volume_response}{Gost\+Crypt\+::\+Core\+::\+Dismount\+Volume\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the dismount volume action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_response}{Gost\+Crypt\+::\+Core\+::\+Get\+Host\+Devices\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the action to get the current host devices on the system. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_response}{Gost\+Crypt\+::\+Core\+::\+Get\+Mounted\+Volumes\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the action to get the current mounted \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volumes on the system and information about them. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_response}{Gost\+Crypt\+::\+Core\+::\+Get\+Encryption\+Algorithms\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the action to get the list of available encryption algorithms. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_response}{Gost\+Crypt\+::\+Core\+::\+Get\+Derivation\+Functions\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the action to get the list of available key derivation functions. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_mounted_filesystem}{Gost\+Crypt\+::\+Core\+::\+Mounted\+Filesystem}
+\begin{DoxyCompactList}\small\item\em Class storing information about a mounted file system (corresponding to \hyperlink{namespace_gost_crypt}{Gost\+Crypt} or not) \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_host_device}{Gost\+Crypt\+::\+Core\+::\+Host\+Device}
+\begin{DoxyCompactList}\small\item\em Class storing information about a host device (corresponding to \hyperlink{namespace_gost_crypt}{Gost\+Crypt} or not) \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_response}{Gost\+Crypt\+::\+Core\+::\+Benchmark\+Algorithms\+Response}
+\begin{DoxyCompactList}\small\item\em Class storing results from the encryption algorithm benchmark action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_gost_crypt_1_1_core_a53ceac5fcd668c0bbf3f58a69f62fef9}{Gost\+Crypt\+::\+Core\+::init\+Core\+Response} ()
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_response}{Core\+Response} class and subclass to make them serializable across processes. \end{DoxyCompactList}\end{DoxyCompactItemize}

@@ -1,0 +1,88 @@
+\hypertarget{_grasshopper_cipher_8h}{}\section{Volume/\+Crypto/\+Grasshopper\+Cipher.h File Reference}
+\label{_grasshopper_cipher_8h}\index{Volume/\+Crypto/\+Grasshopper\+Cipher.\+h@{Volume/\+Crypto/\+Grasshopper\+Cipher.\+h}}
+{\ttfamily \#include $<$Qt\+Global$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} \hyperlink{_grasshopper_cipher_8h_a58418eb9586eb0457c398bfa74736d63}{grasshopper\+\_\+kds}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_grasshopper_cipher_8h_ab14dfbc428aa937a571acbabb2631862}{grasshopper\+\_\+set\+\_\+key} (unsigned long long $\ast$master\+\_\+key, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys)
+\item 
+void \hyperlink{_grasshopper_cipher_8h_a8f1bdfc910f8fcfa621ce3fdd22d0131}{grasshopper\+\_\+encrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long long $\ast$plaintext, unsigned long long $\ast$ciphertext)
+\item 
+void \hyperlink{_grasshopper_cipher_8h_aa2904f974b76ea3e12a2b067ec7a4923}{grasshopper\+\_\+decrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long long $\ast$ciphertext, unsigned long long $\ast$plaintext)
+\item 
+void \hyperlink{_grasshopper_cipher_8h_aa9130f20d174af63e427e6e927c384bb}{grasshopper\+\_\+xor\+\_\+ks} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$ks, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$out\+\_\+ks, unsigned long long $\ast$in, unsigned int len)
+\item 
+void \hyperlink{_grasshopper_cipher_8h_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}{change\+Endian} (unsigned long long $\ast$ret)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8h_a58418eb9586eb0457c398bfa74736d63}\label{_grasshopper_cipher_8h_a58418eb9586eb0457c398bfa74736d63}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!grasshopper\+\_\+kds@{grasshopper\+\_\+kds}}
+\index{grasshopper\+\_\+kds@{grasshopper\+\_\+kds}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+kds}{grasshopper\_kds}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}  \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8h_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}\label{_grasshopper_cipher_8h_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!change\+Endian@{change\+Endian}}
+\index{change\+Endian@{change\+Endian}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{change\+Endian()}{changeEndian()}}
+{\footnotesize\ttfamily void change\+Endian (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{ret }\end{DoxyParamCaption})}
+
+
+
+Definition at line 637 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8h_aa2904f974b76ea3e12a2b067ec7a4923}\label{_grasshopper_cipher_8h_aa2904f974b76ea3e12a2b067ec7a4923}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}}
+\index{grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+decrypt()}{grasshopper\_decrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+decrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long long $\ast$}]{ciphertext,  }\item[{unsigned long long $\ast$}]{plaintext }\end{DoxyParamCaption})}
+
+
+
+Definition at line 514 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8h_a8f1bdfc910f8fcfa621ce3fdd22d0131}\label{_grasshopper_cipher_8h_a8f1bdfc910f8fcfa621ce3fdd22d0131}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}}
+\index{grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+encrypt()}{grasshopper\_encrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+encrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long long $\ast$}]{plaintext,  }\item[{unsigned long long $\ast$}]{ciphertext }\end{DoxyParamCaption})}
+
+
+
+Definition at line 441 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8h_ab14dfbc428aa937a571acbabb2631862}\label{_grasshopper_cipher_8h_ab14dfbc428aa937a571acbabb2631862}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}}
+\index{grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+set\+\_\+key()}{grasshopper\_set\_key()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+set\+\_\+key (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{master\+\_\+key,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 343 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8h_aa9130f20d174af63e427e6e927c384bb}\label{_grasshopper_cipher_8h_aa9130f20d174af63e427e6e927c384bb}} 
+\index{Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}!grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}}
+\index{grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}!Grasshopper\+Cipher.\+h@{Grasshopper\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+xor\+\_\+ks()}{grasshopper\_xor\_ks()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+xor\+\_\+ks (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{ks,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{out\+\_\+ks,  }\item[{unsigned long long $\ast$}]{in,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 583 of file Grasshopper\+Cipher.\+c.
+

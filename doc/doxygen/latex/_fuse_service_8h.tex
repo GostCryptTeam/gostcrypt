@@ -1,0 +1,31 @@
+\hypertarget{_fuse_service_8h}{}\section{Fuse\+Service/\+Fuse\+Service.h File Reference}
+\label{_fuse_service_8h}\index{Fuse\+Service/\+Fuse\+Service.\+h@{Fuse\+Service/\+Fuse\+Service.\+h}}
+{\ttfamily \#include $<$Q\+Mutex$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core/\+Service.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Fuse\+Service/\+Fuse\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Information.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}
+\begin{DoxyCompactList}\small\item\em Class corresponding to \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{Fuse\+Service} process in charge of creating the F\+U\+SE mount using the F\+U\+SE library and maintaining the fuse filesystem. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_fuse_driver}{Gost\+Crypt\+::\+Fuse\+Driver}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{namespace_gost_crypt_1_1_fuse_driver_aea46c93ec99374bd8baf2d07ac6b492d}{Gost\+Crypt\+::\+Fuse\+Driver\+::get\+Volume\+Image\+Path} ()
+\begin{DoxyCompactList}\small\item\em Return the filepath of the volume image file relative to a F\+U\+SE mount. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{namespace_gost_crypt_1_1_fuse_driver_aea46579083a08cf177ef77110d5e6d2f}{Gost\+Crypt\+::\+Fuse\+Driver\+::get\+Control\+Path} ()
+\begin{DoxyCompactList}\small\item\em Return the filepath of the control file relative to a F\+U\+SE mount. \end{DoxyCompactList}\item 
+void \hyperlink{namespace_gost_crypt_1_1_fuse_driver_af0bbb5bc0d09fd490f41a93dc588ce1d}{Gost\+Crypt\+::\+Fuse\+Driver\+::send\+Aux\+Device\+Info} (Q\+File\+Info fuse\+Mount\+Point, Q\+File\+Info virtual\+Device)
+\begin{DoxyCompactList}\small\item\em Store the path of the virtual device in the control file inside the given F\+U\+SE mountpoint. The path of the virtual device will be necessary to unmount the volume later. \end{DoxyCompactList}\end{DoxyCompactItemize}

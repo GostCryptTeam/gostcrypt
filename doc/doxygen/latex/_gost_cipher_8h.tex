@@ -1,0 +1,152 @@
+\hypertarget{_gost_cipher_8h}{}\section{Volume/\+Crypto/\+Gost\+Cipher.h File Reference}
+\label{_gost_cipher_8h}\index{Volume/\+Crypto/\+Gost\+Cipher.\+h@{Volume/\+Crypto/\+Gost\+Cipher.\+h}}
+{\ttfamily \#include $<$Qt\+Global$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgost__s__box}{gost\+\_\+s\+\_\+box}
+\item 
+struct \hyperlink{structgost__kds}{gost\+\_\+kds}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_gost_cipher_8h_a6d541f033e82b0dcc673011bec2706e9}{G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE}~32
+\item 
+\#define \hyperlink{_gost_cipher_8h_a38a707a889de39c9a89f108af7aa088b}{G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE}~8
+\item 
+\#define \hyperlink{_gost_cipher_8h_aa62d143b3b91c5333e7835aaf1c3b2de}{G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE}~16
+\item 
+\#define \hyperlink{_gost_cipher_8h_ac3a5028b263f89894e7551816740f0fe}{G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES}
+\item 
+\#define \hyperlink{_gost_cipher_8h_ac3eeb0100fbaf4b51b3d1d84d471dfd1}{rotl32}(b,  shift)~((b $<$$<$ shift) $\vert$ (b $>$$>$ (32 -\/ shift)))
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structgost__s__box}{gost\+\_\+s\+\_\+box} \hyperlink{_gost_cipher_8h_ae2dee3e4b95f1f1a63a87448314ddba7}{gost\+\_\+s\+\_\+box}
+\item 
+typedef struct \hyperlink{structgost__kds}{gost\+\_\+kds} \hyperlink{_gost_cipher_8h_a6daad0918eb0f7cc62d9339deae812c7}{gost\+\_\+kds}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_gost_cipher_8h_a84c51397ffbedc32a2ecf5ea938f9392}{gost\+\_\+encrypt} (quint8 $\ast$in, quint8 $\ast$out, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\item 
+void \hyperlink{_gost_cipher_8h_a2f09c0b39de74e43c346a79699bfb7aa}{gost\+\_\+decrypt} (quint8 $\ast$in, quint8 $\ast$out, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\item 
+void \hyperlink{_gost_cipher_8h_a2d7a9d7f33f49d70e90c338272a0cc04}{gost\+\_\+set\+\_\+key} (quint8 $\ast$key, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks)
+\item 
+void \hyperlink{_gost_cipher_8h_a4d560d6ece99697f897b78f88fd339cc}{gost\+\_\+xor\+\_\+ks} (\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$ks, \hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$out\+\_\+ks, quint32 $\ast$in, qint32 len)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_gost_cipher_8h_a38a707a889de39c9a89f108af7aa088b}\label{_gost_cipher_8h_a38a707a889de39c9a89f108af7aa088b}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE}}
+\index{G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE}{GOST\_BLOCKSIZE}}
+{\footnotesize\ttfamily \#define G\+O\+S\+T\+\_\+\+B\+L\+O\+C\+K\+S\+I\+ZE~8}
+
+
+
+Definition at line 23 of file Gost\+Cipher.\+h.
+
+\mbox{\Hypertarget{_gost_cipher_8h_ac3a5028b263f89894e7551816740f0fe}\label{_gost_cipher_8h_ac3a5028b263f89894e7551816740f0fe}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES@{G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES}}
+\index{G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES@{G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES}{GOST\_DYNAMIC\_SBOXES}}
+{\footnotesize\ttfamily \#define G\+O\+S\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+S\+B\+O\+X\+ES}
+
+
+
+Definition at line 27 of file Gost\+Cipher.\+h.
+
+\mbox{\Hypertarget{_gost_cipher_8h_a6d541f033e82b0dcc673011bec2706e9}\label{_gost_cipher_8h_a6d541f033e82b0dcc673011bec2706e9}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE}}
+\index{G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE}{GOST\_KEYSIZE}}
+{\footnotesize\ttfamily \#define G\+O\+S\+T\+\_\+\+K\+E\+Y\+S\+I\+ZE~32}
+
+
+
+Definition at line 22 of file Gost\+Cipher.\+h.
+
+\mbox{\Hypertarget{_gost_cipher_8h_aa62d143b3b91c5333e7835aaf1c3b2de}\label{_gost_cipher_8h_aa62d143b3b91c5333e7835aaf1c3b2de}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE}}
+\index{G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE@{G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE}{GOST\_SBOX\_SIZE}}
+{\footnotesize\ttfamily \#define G\+O\+S\+T\+\_\+\+S\+B\+O\+X\+\_\+\+S\+I\+ZE~16}
+
+
+
+Definition at line 24 of file Gost\+Cipher.\+h.
+
+\mbox{\Hypertarget{_gost_cipher_8h_ac3eeb0100fbaf4b51b3d1d84d471dfd1}\label{_gost_cipher_8h_ac3eeb0100fbaf4b51b3d1d84d471dfd1}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!rotl32@{rotl32}}
+\index{rotl32@{rotl32}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{rotl32}{rotl32}}
+{\footnotesize\ttfamily \#define rotl32(\begin{DoxyParamCaption}\item[{}]{b,  }\item[{}]{shift }\end{DoxyParamCaption})~((b $<$$<$ shift) $\vert$ (b $>$$>$ (32 -\/ shift)))}
+
+
+
+Definition at line 29 of file Gost\+Cipher.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{_gost_cipher_8h_a6daad0918eb0f7cc62d9339deae812c7}\label{_gost_cipher_8h_a6daad0918eb0f7cc62d9339deae812c7}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+kds@{gost\+\_\+kds}}
+\index{gost\+\_\+kds@{gost\+\_\+kds}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+kds}{gost\_kds}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structgost__kds}{gost\+\_\+kds}  \hyperlink{structgost__kds}{gost\+\_\+kds}}
+
+\mbox{\Hypertarget{_gost_cipher_8h_ae2dee3e4b95f1f1a63a87448314ddba7}\label{_gost_cipher_8h_ae2dee3e4b95f1f1a63a87448314ddba7}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+s\+\_\+box@{gost\+\_\+s\+\_\+box}}
+\index{gost\+\_\+s\+\_\+box@{gost\+\_\+s\+\_\+box}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+s\+\_\+box}{gost\_s\_box}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structgost__s__box}{gost\+\_\+s\+\_\+box}  \hyperlink{structgost__s__box}{gost\+\_\+s\+\_\+box}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_gost_cipher_8h_a2f09c0b39de74e43c346a79699bfb7aa}\label{_gost_cipher_8h_a2f09c0b39de74e43c346a79699bfb7aa}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+decrypt@{gost\+\_\+decrypt}}
+\index{gost\+\_\+decrypt@{gost\+\_\+decrypt}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+decrypt()}{gost\_decrypt()}}
+{\footnotesize\ttfamily void gost\+\_\+decrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{in,  }\item[{quint8 $\ast$}]{out,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Definition at line 125 of file Gost\+Cipher.\+c.
+
+\mbox{\Hypertarget{_gost_cipher_8h_a84c51397ffbedc32a2ecf5ea938f9392}\label{_gost_cipher_8h_a84c51397ffbedc32a2ecf5ea938f9392}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+encrypt@{gost\+\_\+encrypt}}
+\index{gost\+\_\+encrypt@{gost\+\_\+encrypt}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+encrypt()}{gost\_encrypt()}}
+{\footnotesize\ttfamily void gost\+\_\+encrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{in,  }\item[{quint8 $\ast$}]{out,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Definition at line 64 of file Gost\+Cipher.\+c.
+
+\mbox{\Hypertarget{_gost_cipher_8h_a2d7a9d7f33f49d70e90c338272a0cc04}\label{_gost_cipher_8h_a2d7a9d7f33f49d70e90c338272a0cc04}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+set\+\_\+key@{gost\+\_\+set\+\_\+key}}
+\index{gost\+\_\+set\+\_\+key@{gost\+\_\+set\+\_\+key}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+set\+\_\+key()}{gost\_set\_key()}}
+{\footnotesize\ttfamily void gost\+\_\+set\+\_\+key (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{key,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file Gost\+Cipher.\+c.
+
+\mbox{\Hypertarget{_gost_cipher_8h_a4d560d6ece99697f897b78f88fd339cc}\label{_gost_cipher_8h_a4d560d6ece99697f897b78f88fd339cc}} 
+\index{Gost\+Cipher.\+h@{Gost\+Cipher.\+h}!gost\+\_\+xor\+\_\+ks@{gost\+\_\+xor\+\_\+ks}}
+\index{gost\+\_\+xor\+\_\+ks@{gost\+\_\+xor\+\_\+ks}!Gost\+Cipher.\+h@{Gost\+Cipher.\+h}}
+\subsubsection{\texorpdfstring{gost\+\_\+xor\+\_\+ks()}{gost\_xor\_ks()}}
+{\footnotesize\ttfamily void gost\+\_\+xor\+\_\+ks (\begin{DoxyParamCaption}\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{ks,  }\item[{\hyperlink{structgost__kds}{gost\+\_\+kds} $\ast$}]{out\+\_\+ks,  }\item[{quint32 $\ast$}]{in,  }\item[{qint32}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 245 of file Gost\+Cipher.\+c.
+

@@ -1,0 +1,87 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_service_application}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Service\+Application Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_service_application}\index{Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}}
+
+
+Class used instead of Q\+Core\+Application for this process in order to intercept \hyperlink{namespace_gost_crypt}{Gost\+Crypt} exceptions thrown from slots.  
+
+
+
+
+{\ttfamily \#include $<$Service.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Service\+Application\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_core_1_1_service_application}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_service_application_a4d7ebe6b5b5e79b1474d963ed566350f}{exception\+Caught} (\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} \&e)
+\begin{DoxyCompactList}\small\item\em Signal emitted when an exception is caught. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_service_application_a35376a0f34ccc7629aff5dd896ff47f2}{Service\+Application} (int \&argc, char $\ast$$\ast$argv)
+\item 
+bool \hyperlink{class_gost_crypt_1_1_core_1_1_service_application_ae660ed5233e5f75dd85ced4f59a89359}{notify} (Q\+Object $\ast$receiver, Q\+Event $\ast$\hyperlink{pkcs11t_8h_afaa077e4b9760c92cbaf0d838e743d8c}{event})
+\begin{DoxyCompactList}\small\item\em Wrapper intercepting all exceptions thrown inside Q\+Core\+Application\+::notify. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class used instead of Q\+Core\+Application for this process in order to intercept \hyperlink{namespace_gost_crypt}{Gost\+Crypt} exceptions thrown from slots. 
+
+Definition at line 115 of file Service.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_application_a35376a0f34ccc7629aff5dd896ff47f2}\label{class_gost_crypt_1_1_core_1_1_service_application_a35376a0f34ccc7629aff5dd896ff47f2}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}!Service\+Application@{Service\+Application}}
+\index{Service\+Application@{Service\+Application}!Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}}
+\subsubsection{\texorpdfstring{Service\+Application()}{ServiceApplication()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Service\+Application\+::\+Service\+Application (\begin{DoxyParamCaption}\item[{int \&}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 119 of file Service.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_application_a4d7ebe6b5b5e79b1474d963ed566350f}\label{class_gost_crypt_1_1_core_1_1_service_application_a4d7ebe6b5b5e79b1474d963ed566350f}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}!exception\+Caught@{exception\+Caught}}
+\index{exception\+Caught@{exception\+Caught}!Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}}
+\subsubsection{\texorpdfstring{exception\+Caught}{exceptionCaught}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Service\+Application\+::exception\+Caught (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_gost_crypt_exception}{Gost\+Crypt\+Exception} \&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted when an exception is caught. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \hyperlink{namespace_gost_crypt}{Gost\+Crypt} exception caught \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_service_application_ae660ed5233e5f75dd85ced4f59a89359}\label{class_gost_crypt_1_1_core_1_1_service_application_ae660ed5233e5f75dd85ced4f59a89359}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}!notify@{notify}}
+\index{notify@{notify}!Gost\+Crypt\+::\+Core\+::\+Service\+Application@{Gost\+Crypt\+::\+Core\+::\+Service\+Application}}
+\subsubsection{\texorpdfstring{notify()}{notify()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Service\+Application\+::notify (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{receiver,  }\item[{Q\+Event $\ast$}]{event }\end{DoxyParamCaption})}
+
+
+
+Wrapper intercepting all exceptions thrown inside Q\+Core\+Application\+::notify. 
+
+
+
+Definition at line 148 of file Service.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_service_8h}{Service.\+h}\item 
+Core/\hyperlink{_service_8cpp}{Service.\+cpp}\end{DoxyCompactItemize}

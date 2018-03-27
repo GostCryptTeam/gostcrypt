@@ -1,0 +1,67 @@
+\hypertarget{_service_8h}{}\section{Core/\+Service.h File Reference}
+\label{_service_8h}\index{Core/\+Service.\+h@{Core/\+Service.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Core\+Application$>$}\newline
+{\ttfamily \#include $<$Q\+Data\+Stream$>$}\newline
+{\ttfamily \#include $<$Q\+File$>$}\newline
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+Socket\+Notifier$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Fuse\+Service/\+Fuse\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Gost\+Crypt\+::\+Core\+::\+Service}
+\begin{DoxyCompactList}\small\item\em Abstract base class for classes corresponding to \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process. A \hyperlink{class_gost_crypt_1_1_core_1_1_service}{Service} process is a process receiving request (as serialized objects) on its standard input and writing responses to these requests on its standard output. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_service_application}{Gost\+Crypt\+::\+Core\+::\+Service\+Application}
+\begin{DoxyCompactList}\small\item\em Class used instead of Q\+Core\+Application for this process in order to intercept \hyperlink{namespace_gost_crypt}{Gost\+Crypt} exceptions thrown from slots. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_init_response}{Gost\+Crypt\+::\+Core\+::\+Init\+Response}
+\begin{DoxyCompactList}\small\item\em Empty Response sent to the parent process as soon as the service process is ready to accept requests. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_exception_response}{Gost\+Crypt\+::\+Core\+::\+Exception\+Response}
+\begin{DoxyCompactList}\small\item\em Response sent to the parent process when an exception occur while processing a request in order to inform it about the exception. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_exit_request}{Gost\+Crypt\+::\+Core\+::\+Exit\+Request}
+\begin{DoxyCompactList}\small\item\em Request sent to the service process by the parent to ask the service process to exit. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_unknow_request}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Request}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the request can not be processed because the sevice process can not recognise its type. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_unknow_response}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Response}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the response can not be understood because the parent process can not recognise its type. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_update_response}{Gost\+Crypt\+::\+Core\+::\+Progress\+Update\+Response}
+\begin{DoxyCompactList}\small\item\em Response sent to the parent process to inform it about the progress of a request processing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_service_8h_a044180b926385f861cb16128e768c1d1}{Unknow\+Request\+Exception}(request\+Type\+Name)~\hyperlink{class_gost_crypt_1_1_core_1_1_unknow_request}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Request}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, request\+Type\+Name);
+\item 
+\#define \hyperlink{_service_8h_a505ba1c43aa9a92a4b23f92c5bad99dd}{Unknow\+Response\+Exception}(request\+Type\+Name)~\hyperlink{class_gost_crypt_1_1_core_1_1_unknow_response}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Response}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, request\+Type\+Name);
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_service_8h_a044180b926385f861cb16128e768c1d1}\label{_service_8h_a044180b926385f861cb16128e768c1d1}} 
+\index{Service.\+h@{Service.\+h}!Unknow\+Request\+Exception@{Unknow\+Request\+Exception}}
+\index{Unknow\+Request\+Exception@{Unknow\+Request\+Exception}!Service.\+h@{Service.\+h}}
+\subsubsection{\texorpdfstring{Unknow\+Request\+Exception}{UnknowRequestException}}
+{\footnotesize\ttfamily \#define Unknow\+Request\+Exception(\begin{DoxyParamCaption}\item[{}]{request\+Type\+Name }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_unknow_request}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Request}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, request\+Type\+Name);}
+
+
+
+Definition at line 161 of file Service.\+h.
+
+\mbox{\Hypertarget{_service_8h_a505ba1c43aa9a92a4b23f92c5bad99dd}\label{_service_8h_a505ba1c43aa9a92a4b23f92c5bad99dd}} 
+\index{Service.\+h@{Service.\+h}!Unknow\+Response\+Exception@{Unknow\+Response\+Exception}}
+\index{Unknow\+Response\+Exception@{Unknow\+Response\+Exception}!Service.\+h@{Service.\+h}}
+\subsubsection{\texorpdfstring{Unknow\+Response\+Exception}{UnknowResponseException}}
+{\footnotesize\ttfamily \#define Unknow\+Response\+Exception(\begin{DoxyParamCaption}\item[{}]{request\+Type\+Name }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_core_1_1_unknow_response}{Gost\+Crypt\+::\+Core\+::\+Unknow\+Response}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, request\+Type\+Name);}
+
+
+
+Definition at line 192 of file Service.\+h.
+

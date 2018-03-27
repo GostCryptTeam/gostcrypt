@@ -1,0 +1,28 @@
+var class_gost_crypt_1_1_volume_1_1_volume_file =
+[
+    [ "VolumeFile", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a0860f8aae0794efc7e45e420de19221c", null ],
+    [ "~VolumeFile", "class_gost_crypt_1_1_volume_1_1_volume_file.html#aef83d960b41025f29f31db1743108571", null ],
+    [ "Close", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a3481492a2e0fc6e35c8d0e8c5fd68cc7", null ],
+    [ "Flush", "class_gost_crypt_1_1_volume_1_1_volume_file.html#ad4c5ba907a026250941c2edb8c80055d", null ],
+    [ "GetDeviceSectorSize", "class_gost_crypt_1_1_volume_1_1_volume_file.html#afbb8b01515352d6833230e38fd3d47e8", null ],
+    [ "GetPath", "class_gost_crypt_1_1_volume_1_1_volume_file.html#afa7e6863b060a91e7347a38870e11e5d", null ],
+    [ "GetType", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a58e101a40bfb775b215d40e00f3e51f9", null ],
+    [ "isTypeDevice", "class_gost_crypt_1_1_volume_1_1_volume_file.html#ab6f4d33ae4d5df99743fba37e22f5f14", null ],
+    [ "IsTypeFile", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a994bad691604a84166aff34f82754029", null ],
+    [ "Length", "class_gost_crypt_1_1_volume_1_1_volume_file.html#aadde0ae09820b7315bc2db39bdb6c10a", null ],
+    [ "Open", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a85139895e9f20d58fd3c35086001053f", null ],
+    [ "Read", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a726855fe6fb2618eb61abeaffffca8ec", null ],
+    [ "ReadAt", "class_gost_crypt_1_1_volume_1_1_volume_file.html#afc5d14b4925d83a120a0f184837b6f86", null ],
+    [ "ResetTimestamps", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a471b53a516bcb26419fc84241cc064b2", null ],
+    [ "SeekAt", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a9c54f29956e49f4c1cd72827343baf08", null ],
+    [ "SeekEnd", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a06be8984a77477f80a48cfff993a82d9", null ],
+    [ "Write", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a583e2bc2ca68b887e5c58ce56b237b02", null ],
+    [ "Write", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a149f808af3695cb419dd3a724d197240", null ],
+    [ "WriteAt", "class_gost_crypt_1_1_volume_1_1_volume_file.html#ac8c594f62df6eb92a8a8b37f20540541", null ],
+    [ "AccTime", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a55769a7bd1db1aa3786e4f5faa1ecb47", null ],
+    [ "FileHandle", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a85dd587cf0713856a8efd40f989c815c", null ],
+    [ "FileIsOpen", "class_gost_crypt_1_1_volume_1_1_volume_file.html#afc00f2ab655368fc1e2e90c25560c8f1", null ],
+    [ "ModTime", "class_gost_crypt_1_1_volume_1_1_volume_file.html#af2ded515d54667c3d9852da600341042", null ],
+    [ "Path", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a74be68b4c6a8ddb438acf797f26095a2", null ],
+    [ "preserveTimestamps", "class_gost_crypt_1_1_volume_1_1_volume_file.html#a8c6dc4712abe9ba03348af5938d200cb", null ]
+];

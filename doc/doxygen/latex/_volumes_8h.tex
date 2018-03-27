@@ -1,0 +1,740 @@
+\hypertarget{_volumes_8h}{}\section{Volume/\+Crypto/\+Volumes.h File Reference}
+\label{_volumes_8h}\index{Volume/\+Crypto/\+Volumes.\+h@{Volume/\+Crypto/\+Volumes.\+h}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_volumes_8h_afc0155db6ffb15c5f34f923bf75ab0e8}{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}~0x1300
+\item 
+\#define \hyperlink{_volumes_8h_a23d7abc66b3f5e8bb8e8ac092505f8a5}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}~0x1300
+\item 
+\#define \hyperlink{_volumes_8h_ae7093a9b0bec618d7c86bb3656e5be72}{G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON}~0x1300
+\item 
+\#define \hyperlink{_volumes_8h_a6c09ba7ab79aa899c7ebe465d1c6f534}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON}~13
+\item 
+\#define \hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(64 $\ast$ 1024\+L)
+\item 
+\#define \hyperlink{_volumes_8h_adcf3dab7387f897f66c31413a50591b2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE}~512
+\item 
+\#define \hyperlink{_volumes_8h_ad54c7e106af6d74c84aa902bbd04ff67}{G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~512
+\item 
+\#define \hyperlink{_volumes_8h_aa576a1fd4d5f8731765f312d8bf3f9d0}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}~512
+\item 
+\#define \hyperlink{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}~(2 $\ast$ \hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE}~(4 $\ast$ \hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a03bb99505009cd7854d77e1de5d0f2b1}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}~0
+\item 
+\#define \hyperlink{_volumes_8h_ad4e82aea59bfb04fafb6e68855588e63}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}~\hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_af06ed0a03cfb477c09b8f9ed30fb2df1}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}~512
+\item 
+\#define \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}~4096
+\item 
+\#define \hyperlink{_volumes_8h_a1b1af8a67d6a861c475fe9f325743432}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME}~512
+\item 
+\#define \hyperlink{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}~512
+\item 
+\#define \hyperlink{_volumes_8h_a1f0c8d2f3eb9250e8d40c411dc4eb974}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS}~512
+\item 
+\#define \hyperlink{_volumes_8h_a6e5f6f36857aa1fd3b0ff0e4c4dd9faf}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}~(2 $\ast$ \hyperlink{_gstdefs_8h_abd4a91989811019d99d6e3fe39fe02c5}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB})
+\item 
+\#define \hyperlink{_volumes_8h_a2574fa02d6144c7f21af882acbc70bb6}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE}~\hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_aaec99cc2393614390e5b0913242775bf}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH}~\hyperlink{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_aa7048e8a043f7c28ff7baf2f9825788d}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}~\hyperlink{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_a39cbd5e66e54599634a1286406b561e2}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY}~(\hyperlink{_volumes_8h_aa576a1fd4d5f8731765f312d8bf3f9d0}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY} + \hyperlink{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY} $\ast$ 2)
+\item 
+\#define \hyperlink{_volumes_8h_ac9aeee51fca191228d9660c1546332b9}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~\hyperlink{_gstdefs_8h_a67452f73638e2494f4f205666ed715cb}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}
+\item 
+\#define \hyperlink{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}~(9 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a85c7848f0d81ed7181de004eb5039c81}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT}~0x100000000\+U\+LL
+\item 
+\#define \hyperlink{_volumes_8h_a767c94f69dc945e7f6beb0fc33a9cdaa}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}~(884 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_af36a312ebd22394a50a66f72ae87769d}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}~(128\+L\+L $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+T\+B)
+\item 
+\#define \hyperlink{_volumes_8h_a71865f2810f6f803bb39d8ee5cdc9fbb}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}~(256 $\ast$ \hyperlink{_gstdefs_8h_ab5fde4a4261bca6820d8cd5b0d3a1b8d}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB})
+\item 
+\#define \hyperlink{_volumes_8h_a94796758b4e47388758423ab387a95d9}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~(\hyperlink{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a2f1470103b1c7ceedc142e1bfa91d660}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}~(37 $\ast$ \hyperlink{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY})
+\item 
+\#define \hyperlink{_volumes_8h_a685fc522e49a8e2ff18475fd9337a81b}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL}~0x7fff\+F\+F\+F\+Fffff\+F\+F\+F\+F\+LL
+\item 
+\#define \hyperlink{_volumes_8h_a58e631aeacbd9fd9007a9a8935e294aa}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~\hyperlink{_volumes_8h_ac9aeee51fca191228d9660c1546332b9}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_a7b84de410cf3cf47e2d7bbe81916d3c3}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~(\hyperlink{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a2574fa02d6144c7f21af882acbc70bb6}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a29f6196921b2e5f39cd4474b73996022}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}~(\hyperlink{_volumes_8h_a94796758b4e47388758423ab387a95d9}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a7b84de410cf3cf47e2d7bbe81916d3c3}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE} + 2 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_a8d1cc5404d4a411dcda373b5d48b1839}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}~(\hyperlink{_volumes_8h_af36a312ebd22394a50a66f72ae87769d}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE} -\/ \hyperlink{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{_volumes_8h_ad76ff7923baa2b4a6e668237e217e88d}{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE}~(\hyperlink{_volumes_8h_adcf3dab7387f897f66c31413a50591b2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE} -\/ \hyperlink{_volumes_8h_a0d73ab899739fca43c0c180a23280ca2}{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET})
+\item 
+\#define \hyperlink{_volumes_8h_aee18b5409c08fe3167827a9296cc43f8}{H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET}~0
+\item 
+\#define \hyperlink{_volumes_8h_a0d73ab899739fca43c0c180a23280ca2}{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}~\hyperlink{_crypto_8h_a07a173a6f8a95d52202de9df7c346395}{P\+K\+C\+S5\+\_\+\+S\+A\+L\+T\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{_volumes_8h_a7be5d764901dc6b294bdb928f89d81a5}{H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}~256
+\item 
+\#define \hyperlink{_volumes_8h_ab0b3daa2cdb2e6590595c891fdbb5f0e}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC}~64
+\item 
+\#define \hyperlink{_volumes_8h_aa389c1c66292a66b392e769b9428f22c}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON}~68
+\item 
+\#define \hyperlink{_volumes_8h_aa857cd09a33c083d0acb6e5c166750e3}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON}~70
+\item 
+\#define \hyperlink{_volumes_8h_a707f63196939385e66b871a16f6bed78}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC}~72
+\item 
+\#define \hyperlink{_volumes_8h_a333ea974163ae5705a6a41a82d99066e}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}~76
+\item 
+\#define \hyperlink{_volumes_8h_a655e0f6a03037b579c1b4050f226369e}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}~84
+\item 
+\#define \hyperlink{_volumes_8h_ad7b4c9ba59ca40c4e978a7748f9d5a7a}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~92
+\item 
+\#define \hyperlink{_volumes_8h_abcce491abd568a7d7727af2b8662cc77}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}~100
+\item 
+\#define \hyperlink{_volumes_8h_a3bb78b0049a174b594b75d3350ef151a}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT}~108
+\item 
+\#define \hyperlink{_volumes_8h_a794cfd5f3b4a866d3cf8fab232f88b99}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH}~116
+\item 
+\#define \hyperlink{_volumes_8h_a94f536fe53188267211433b398c9d451}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS}~124
+\item 
+\#define \hyperlink{_volumes_8h_abac04171edd791b8ab7fffc1b8fca8a7}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}~128
+\item 
+\#define \hyperlink{_volumes_8h_a886f31bf4357b7c81194b77e36e32b1d}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC}~252
+\item 
+\#define \hyperlink{_volumes_8h_af4f1b9bb21e86f4cd900f2fb0f14477d}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM}~0x1
+\item 
+\#define \hyperlink{_volumes_8h_a1bb668cb45fc616b035fae389c549467}{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC}~0x2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16 \hyperlink{_volumes_8h_a28fc4bf9ef4c56293aa4b387541cfe5e}{Get\+Header\+Field16} (byte $\ast$header, int offset)
+\item 
+uint32 \hyperlink{_volumes_8h_aeb33f14ce64d22f64717b2b2a92da656}{Get\+Header\+Field32} (byte $\ast$header, int offset)
+\item 
+U\+I\+N\+T64\+\_\+\+S\+T\+R\+U\+CT \hyperlink{_volumes_8h_ab4f7e46232fce9725756858d64edbf1b}{Get\+Header\+Field64} (byte $\ast$header, int offset)
+\item 
+int \hyperlink{_volumes_8h_afa713bf1fa27171e0cc0aa16218fe10e}{Read\+Volume\+Header} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} b\+Boot, char $\ast$encrypted\+Header, Password $\ast$password, \hyperlink{_crypto_8h_ab0330a8fc92059350d9c993c9aebbe59}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Info, \hyperlink{_crypto_8h_a0497f7e6730d4b1014ccd2cb0c4bf1ab}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Header\+Crypto\+Info)
+\item 
+int \hyperlink{_volumes_8h_a1a200b3e5597c9343021d0386415270c}{Create\+Volume\+Header\+In\+Memory} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} b\+Boot, char $\ast$encrypted\+Header, int ea, int mode, Password $\ast$password, int pkcs5\+\_\+prf, char $\ast$master\+Keydata, \hyperlink{_crypto_8h_ab0330a8fc92059350d9c993c9aebbe59}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$ret\+Info, unsigned \+\_\+\+\_\+int64 volume\+Size, unsigned \+\_\+\+\_\+int64 hidden\+Volume\+Size, unsigned \+\_\+\+\_\+int64 encrypted\+Area\+Start, unsigned \+\_\+\+\_\+int64 encrypted\+Area\+Length, uint16 required\+Program\+Version, uint32 header\+Flags, uint32 sector\+Size, \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} b\+Wipe\+Mode)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_volumes_8h_a2b546c4c9777de888c3b561cceb5a575}{Read\+Effective\+Volume\+Header} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} device, H\+A\+N\+D\+LE file\+Handle, byte $\ast$header, D\+W\+O\+RD $\ast$bytes\+Read)
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_volumes_8h_adb5d71c2f16d860d9bd17856804a309e}{Write\+Effective\+Volume\+Header} (\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} device, H\+A\+N\+D\+LE file\+Handle, byte $\ast$header)
+\item 
+int \hyperlink{_volumes_8h_a31bc369dec32aaee5793685da60c640b}{Write\+Random\+Data\+To\+Reserved\+Header\+Areas} (H\+A\+N\+D\+LE dev, \hyperlink{_crypto_8h_a0497f7e6730d4b1014ccd2cb0c4bf1ab}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$crypto\+Info, uint64 data\+Area\+Size, \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} b\+Primary\+Only, \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} b\+Backup\+Only)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} \hyperlink{_volumes_8h_a0e14f347f231fbddd0c003145f9dde6e}{Read\+Volume\+Header\+Recovery\+Mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_volumes_8h_ad54c7e106af6d74c84aa902bbd04ff67}\label{_volumes_8h_ad54c7e106af6d74c84aa902bbd04ff67}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{GST\_BOOT\_ENCRYPTION\_VOLUME\_HEADER\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+B\+O\+O\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+I\+O\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~512}
+
+
+
+Definition at line 43 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_af4f1b9bb21e86f4cd900f2fb0f14477d}\label{_volumes_8h_af4f1b9bb21e86f4cd900f2fb0f14477d}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM}{GST\_HEADER\_FLAG\_ENCRYPTED\_SYSTEM}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+S\+Y\+S\+T\+EM~0x1}
+
+
+
+Definition at line 120 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a1bb668cb45fc616b035fae389c549467}\label{_volumes_8h_a1bb668cb45fc616b035fae389c549467}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC}{GST\_HEADER\_FLAG\_NONSYS\_INPLACE\_ENC}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+N\+S\+Y\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+E\+NC~0x2}
+
+
+
+Definition at line 121 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a794cfd5f3b4a866d3cf8fab232f88b99}\label{_volumes_8h_a794cfd5f3b4a866d3cf8fab232f88b99}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH}{GST\_HEADER\_OFFSET\_ENCRYPTED\_AREA\_LENGTH}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+L\+E\+N\+G\+TH~116}
+
+
+
+Definition at line 114 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a3bb78b0049a174b594b75d3350ef151a}\label{_volumes_8h_a3bb78b0049a174b594b75d3350ef151a}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT}{GST\_HEADER\_OFFSET\_ENCRYPTED\_AREA\_START}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+T\+A\+RT~108}
+
+
+
+Definition at line 113 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a94f536fe53188267211433b398c9d451}\label{_volumes_8h_a94f536fe53188267211433b398c9d451}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS}{GST\_HEADER\_OFFSET\_FLAGS}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+F\+L\+A\+GS~124}
+
+
+
+Definition at line 115 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a886f31bf4357b7c81194b77e36e32b1d}\label{_volumes_8h_a886f31bf4357b7c81194b77e36e32b1d}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC}{GST\_HEADER\_OFFSET\_HEADER\_CRC}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+C\+RC~252}
+
+
+
+Definition at line 117 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ad7b4c9ba59ca40c4e978a7748f9d5a7a}\label{_volumes_8h_ad7b4c9ba59ca40c4e978a7748f9d5a7a}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_HEADER\_OFFSET\_HIDDEN\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~92}
+
+
+
+Definition at line 111 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a707f63196939385e66b871a16f6bed78}\label{_volumes_8h_a707f63196939385e66b871a16f6bed78}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC}{GST\_HEADER\_OFFSET\_KEY\_AREA\_CRC}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+K\+E\+Y\+\_\+\+A\+R\+E\+A\+\_\+\+C\+RC~72}
+
+
+
+Definition at line 108 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ab0b3daa2cdb2e6590595c891fdbb5f0e}\label{_volumes_8h_ab0b3daa2cdb2e6590595c891fdbb5f0e}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC}{GST\_HEADER\_OFFSET\_MAGIC}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+A\+G\+IC~64}
+
+
+
+Definition at line 105 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a655e0f6a03037b579c1b4050f226369e}\label{_volumes_8h_a655e0f6a03037b579c1b4050f226369e}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}{GST\_HEADER\_OFFSET\_MODIFICATION\_TIME}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+M\+O\+D\+I\+F\+I\+C\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME~84}
+
+
+
+Definition at line 110 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aa857cd09a33c083d0acb6e5c166750e3}\label{_volumes_8h_aa857cd09a33c083d0acb6e5c166750e3}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON}{GST\_HEADER\_OFFSET\_REQUIRED\_VERSION}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+V\+E\+R\+S\+I\+ON~70}
+
+
+
+Definition at line 107 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_abac04171edd791b8ab7fffc1b8fca8a7}\label{_volumes_8h_abac04171edd791b8ab7fffc1b8fca8a7}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}{GST\_HEADER\_OFFSET\_SECTOR\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE~128}
+
+
+
+Definition at line 116 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aa389c1c66292a66b392e769b9428f22c}\label{_volumes_8h_aa389c1c66292a66b392e769b9428f22c}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON}{GST\_HEADER\_OFFSET\_VERSION}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+R\+S\+I\+ON~68}
+
+
+
+Definition at line 106 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a333ea974163ae5705a6a41a82d99066e}\label{_volumes_8h_a333ea974163ae5705a6a41a82d99066e}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME}{GST\_HEADER\_OFFSET\_VOLUME\_CREATION\_TIME}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+C\+R\+E\+A\+T\+I\+O\+N\+\_\+\+T\+I\+ME~76}
+
+
+
+Definition at line 109 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_abcce491abd568a7d7727af2b8662cc77}\label{_volumes_8h_abcce491abd568a7d7727af2b8662cc77}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_HEADER\_OFFSET\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~100}
+
+
+
+Definition at line 112 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ad4e82aea59bfb04fafb6e68855588e63}\label{_volumes_8h_ad4e82aea59bfb04fafb6e68855588e63}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}}
+\index{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}{GST\_HIDDEN\_VOLUME\_HEADER\_OFFSET}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET~\hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 51 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a39cbd5e66e54599634a1286406b561e2}\label{_volumes_8h_a39cbd5e66e54599634a1286406b561e2}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY}}
+\index{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY}{GST\_HIDDEN\_VOLUME\_HEADER\_OFFSET\_LEGACY}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+E\+G\+A\+CY~(\hyperlink{_volumes_8h_aa576a1fd4d5f8731765f312d8bf3f9d0}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY} + \hyperlink{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY} $\ast$ 2)}
+
+
+
+Definition at line 70 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a2574fa02d6144c7f21af882acbc70bb6}\label{_volumes_8h_a2574fa02d6144c7f21af882acbc70bb6}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE}{GST\_HIDDEN\_VOLUME\_HOST\_FS\_RESERVED\_END\_AREA\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE~\hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 64 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aaec99cc2393614390e5b0913242775bf}\label{_volumes_8h_aaec99cc2393614390e5b0913242775bf}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH}}
+\index{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH@{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH}{GST\_HIDDEN\_VOLUME\_HOST\_FS\_RESERVED\_END\_AREA\_SIZE\_HIGH}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+Z\+E\+\_\+\+H\+I\+GH~\hyperlink{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 65 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ac9aeee51fca191228d9660c1546332b9}\label{_volumes_8h_ac9aeee51fca191228d9660c1546332b9}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_MAX\_128BIT\_BLOCK\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~\hyperlink{_gstdefs_8h_a67452f73638e2494f4f205666ed715cb}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+PB}}
+
+
+
+Definition at line 72 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a71865f2810f6f803bb39d8ee5cdc9fbb}\label{_volumes_8h_a71865f2810f6f803bb39d8ee5cdc9fbb}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}{GST\_MAX\_FAT\_CLUSTER\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE~(256 $\ast$ \hyperlink{_gstdefs_8h_ab5fde4a4261bca6820d8cd5b0d3a1b8d}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+KB})}
+
+
+
+Definition at line 79 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a85c7848f0d81ed7181de004eb5039c81}\label{_volumes_8h_a85c7848f0d81ed7181de004eb5039c81}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT}{GST\_MAX\_FAT\_SECTOR\_COUNT}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+F\+A\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+C\+O\+U\+NT~0x100000000\+U\+LL}
+
+
+
+Definition at line 76 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a8d1cc5404d4a411dcda373b5d48b1839}\label{_volumes_8h_a8d1cc5404d4a411dcda373b5d48b1839}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}{GST\_MAX\_HIDDEN\_VOLUME\_HOST\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE~(\hyperlink{_volumes_8h_af36a312ebd22394a50a66f72ae87769d}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE} -\/ \hyperlink{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 90 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_af36a312ebd22394a50a66f72ae87769d}\label{_volumes_8h_af36a312ebd22394a50a66f72ae87769d}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}{GST\_MAX\_NTFS\_FS\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE~(128\+L\+L $\ast$ B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+T\+B)}
+
+
+
+Definition at line 78 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}\label{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}{GST\_MAX\_VOLUME\_SECTOR\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE~4096}
+
+
+
+Definition at line 55 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a58e631aeacbd9fd9007a9a8935e294aa}\label{_volumes_8h_a58e631aeacbd9fd9007a9a8935e294aa}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_MAX\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~\hyperlink{_volumes_8h_ac9aeee51fca191228d9660c1546332b9}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+128\+B\+I\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 85 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a685fc522e49a8e2ff18475fd9337a81b}\label{_volumes_8h_a685fc522e49a8e2ff18475fd9337a81b}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL}}
+\index{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL@{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL}{GST\_MAX\_VOLUME\_SIZE\_GENERAL}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+G\+E\+N\+E\+R\+AL~0x7fff\+F\+F\+F\+Fffff\+F\+F\+F\+F\+LL}
+
+
+
+Definition at line 84 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}\label{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}{GST\_MIN\_FAT\_FS\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE~(9 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 75 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a29f6196921b2e5f39cd4474b73996022}\label{_volumes_8h_a29f6196921b2e5f39cd4474b73996022}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE}{GST\_MIN\_HIDDEN\_VOLUME\_HOST\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+S\+I\+ZE~(\hyperlink{_volumes_8h_a94796758b4e47388758423ab387a95d9}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a7b84de410cf3cf47e2d7bbe81916d3c3}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE} + 2 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 89 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a7b84de410cf3cf47e2d7bbe81916d3c3}\label{_volumes_8h_a7b84de410cf3cf47e2d7bbe81916d3c3}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_MIN\_HIDDEN\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~(\hyperlink{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a2574fa02d6144c7f21af882acbc70bb6}{G\+S\+T\+\_\+\+H\+I\+D\+D\+E\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+O\+S\+T\+\_\+\+F\+S\+\_\+\+R\+E\+S\+E\+R\+V\+E\+D\+\_\+\+E\+N\+D\+\_\+\+A\+R\+E\+A\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 87 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a767c94f69dc945e7f6beb0fc33a9cdaa}\label{_volumes_8h_a767c94f69dc945e7f6beb0fc33a9cdaa}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE}{GST\_MIN\_NTFS\_FS\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+N\+T\+F\+S\+\_\+\+F\+S\+\_\+\+S\+I\+ZE~(884 $\ast$ \hyperlink{_volumes_8h_aecf7e3ad083bd1a2bb1782416beab8ed}{G\+S\+T\+\_\+\+M\+A\+X\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 77 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_af06ed0a03cfb477c09b8f9ed30fb2df1}\label{_volumes_8h_af06ed0a03cfb477c09b8f9ed30fb2df1}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE}{GST\_MIN\_VOLUME\_SECTOR\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+ZE~512}
+
+
+
+Definition at line 54 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a94796758b4e47388758423ab387a95d9}\label{_volumes_8h_a94796758b4e47388758423ab387a95d9}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE}{GST\_MIN\_VOLUME\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+ZE~(\hyperlink{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE} + \hyperlink{_volumes_8h_a648d34c11f97ef483dd61e072a79d057}{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+F\+A\+T\+\_\+\+F\+S\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 82 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a2f1470103b1c7ceedc142e1bfa91d660}\label{_volumes_8h_a2f1470103b1c7ceedc142e1bfa91d660}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}}
+\index{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}{GST\_MIN\_VOLUME\_SIZE\_LEGACY}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+M\+I\+N\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY~(37 $\ast$ \hyperlink{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY})}
+
+
+
+Definition at line 83 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a1f0c8d2f3eb9250e8d40c411dc4eb974}\label{_volumes_8h_a1f0c8d2f3eb9250e8d40c411dc4eb974}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS}}
+\index{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS}{GST\_SECTOR\_SIZE\_BIOS}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+B\+I\+OS~512}
+
+
+
+Definition at line 60 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a1b1af8a67d6a861c475fe9f325743432}\label{_volumes_8h_a1b1af8a67d6a861c475fe9f325743432}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME}}
+\index{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME}{GST\_SECTOR\_SIZE\_FILE\_HOSTED\_VOLUME}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+F\+I\+L\+E\+\_\+\+H\+O\+S\+T\+E\+D\+\_\+\+V\+O\+L\+U\+ME~512}
+
+
+
+Definition at line 56 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}\label{_volumes_8h_ae82b3a30eb3dd243bc273e72d3f4e805}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}}
+\index{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}{GST\_SECTOR\_SIZE\_LEGACY}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+E\+C\+T\+O\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY~512}
+
+
+
+Definition at line 57 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ae7093a9b0bec618d7c86bb3656e5be72}\label{_volumes_8h_ae7093a9b0bec618d7c86bb3656e5be72}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON}{GST\_SYSENC\_KEYSCOPE\_MIN\_REQ\_PROG\_VERSION}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+S\+Y\+S\+E\+N\+C\+\_\+\+K\+E\+Y\+S\+C\+O\+P\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+\_\+\+P\+R\+O\+G\+\_\+\+V\+E\+R\+S\+I\+ON~0x1300}
+
+
+
+Definition at line 35 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}\label{_volumes_8h_a1b3118edd59f13d312634a829e9e8377}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE}{GST\_TOTAL\_VOLUME\_HEADERS\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+T\+O\+T\+A\+L\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+S\+\_\+\+S\+I\+ZE~(4 $\ast$ \hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 47 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aa7048e8a043f7c28ff7baf2f9825788d}\label{_volumes_8h_aa7048e8a043f7c28ff7baf2f9825788d}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}{GST\_VOLUME\_DATA\_OFFSET}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET~\hyperlink{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 67 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a6c09ba7ab79aa899c7ebe465d1c6f534}\label{_volumes_8h_a6c09ba7ab79aa899c7ebe465d1c6f534}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON}{GST\_VOLUME\_FORMAT\_VERSION}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+ON~13}
+
+
+
+Definition at line 38 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_adcf3dab7387f897f66c31413a50591b2}\label{_volumes_8h_adcf3dab7387f897f66c31413a50591b2}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE}{GST\_VOLUME\_HEADER\_EFFECTIVE\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE~512}
+
+
+
+Definition at line 42 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}\label{_volumes_8h_a405d2f65dff14a71c82df7ab315dd240}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE}{GST\_VOLUME\_HEADER\_GROUP\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+G\+R\+O\+U\+P\+\_\+\+S\+I\+ZE~(2 $\ast$ \hyperlink{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 46 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a03bb99505009cd7854d77e1de5d0f2b1}\label{_volumes_8h_a03bb99505009cd7854d77e1de5d0f2b1}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET}{GST\_VOLUME\_HEADER\_OFFSET}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+O\+F\+F\+S\+ET~0}
+
+
+
+Definition at line 50 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}\label{_volumes_8h_a4af4162f54a83e93ccffc08d8ce535e2}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{GST\_VOLUME\_HEADER\_SIZE}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~(64 $\ast$ 1024\+L)}
+
+
+
+Definition at line 41 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aa576a1fd4d5f8731765f312d8bf3f9d0}\label{_volumes_8h_aa576a1fd4d5f8731765f312d8bf3f9d0}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY}{GST\_VOLUME\_HEADER\_SIZE\_LEGACY}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+E\+G\+A\+CY~512}
+
+
+
+Definition at line 44 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a23d7abc66b3f5e8bb8e8ac092505f8a5}\label{_volumes_8h_a23d7abc66b3f5e8bb8e8ac092505f8a5}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON}{GST\_VOLUME\_MIN\_REQUIRED\_PROGRAM\_VERSION}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+M\+I\+N\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+D\+\_\+\+P\+R\+O\+G\+R\+A\+M\+\_\+\+V\+E\+R\+S\+I\+ON~0x1300}
+
+
+
+Definition at line 31 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a6e5f6f36857aa1fd3b0ff0e4c4dd9faf}\label{_volumes_8h_a6e5f6f36857aa1fd3b0ff0e4c4dd9faf}} 
+\index{Volumes.\+h@{Volumes.\+h}!G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}
+\index{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}{GST\_VOLUME\_SMALL\_SIZE\_THRESHOLD}}
+{\footnotesize\ttfamily \#define G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+S\+M\+A\+L\+L\+\_\+\+S\+I\+Z\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD~(2 $\ast$ \hyperlink{_gstdefs_8h_abd4a91989811019d99d6e3fe39fe02c5}{B\+Y\+T\+E\+S\+\_\+\+P\+E\+R\+\_\+\+MB})}
+
+
+
+Definition at line 62 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a0d73ab899739fca43c0c180a23280ca2}\label{_volumes_8h_a0d73ab899739fca43c0c180a23280ca2}} 
+\index{Volumes.\+h@{Volumes.\+h}!H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}}
+\index{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}{HEADER\_ENCRYPTED\_DATA\_OFFSET}}
+{\footnotesize\ttfamily \#define H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET~\hyperlink{_crypto_8h_a07a173a6f8a95d52202de9df7c346395}{P\+K\+C\+S5\+\_\+\+S\+A\+L\+T\+\_\+\+S\+I\+ZE}}
+
+
+
+Definition at line 102 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_ad76ff7923baa2b4a6e668237e217e88d}\label{_volumes_8h_ad76ff7923baa2b4a6e668237e217e88d}} 
+\index{Volumes.\+h@{Volumes.\+h}!H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE@{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE}}
+\index{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE@{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE}{HEADER\_ENCRYPTED\_DATA\_SIZE}}
+{\footnotesize\ttfamily \#define H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+S\+I\+ZE~(\hyperlink{_volumes_8h_adcf3dab7387f897f66c31413a50591b2}{G\+S\+T\+\_\+\+V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+E\+F\+F\+E\+C\+T\+I\+V\+E\+\_\+\+S\+I\+ZE} -\/ \hyperlink{_volumes_8h_a0d73ab899739fca43c0c180a23280ca2}{H\+E\+A\+D\+E\+R\+\_\+\+E\+N\+C\+R\+Y\+P\+T\+E\+D\+\_\+\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET})}
+
+
+
+Definition at line 98 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_a7be5d764901dc6b294bdb928f89d81a5}\label{_volumes_8h_a7be5d764901dc6b294bdb928f89d81a5}} 
+\index{Volumes.\+h@{Volumes.\+h}!H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}}
+\index{H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET}{HEADER\_MASTER\_KEYDATA\_OFFSET}}
+{\footnotesize\ttfamily \#define H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+K\+E\+Y\+D\+A\+T\+A\+\_\+\+O\+F\+F\+S\+ET~256}
+
+
+
+Definition at line 103 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_aee18b5409c08fe3167827a9296cc43f8}\label{_volumes_8h_aee18b5409c08fe3167827a9296cc43f8}} 
+\index{Volumes.\+h@{Volumes.\+h}!H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET}}
+\index{H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET@{H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET}{HEADER\_SALT\_OFFSET}}
+{\footnotesize\ttfamily \#define H\+E\+A\+D\+E\+R\+\_\+\+S\+A\+L\+T\+\_\+\+O\+F\+F\+S\+ET~0}
+
+
+
+Definition at line 101 of file Volumes.\+h.
+
+\mbox{\Hypertarget{_volumes_8h_afc0155db6ffb15c5f34f923bf75ab0e8}\label{_volumes_8h_afc0155db6ffb15c5f34f923bf75ab0e8}} 
+\index{Volumes.\+h@{Volumes.\+h}!V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON@{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}}
+\index{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON@{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON}{VOLUME\_HEADER\_VERSION}}
+{\footnotesize\ttfamily \#define V\+O\+L\+U\+M\+E\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+V\+E\+R\+S\+I\+ON~0x1300}
+
+
+
+Definition at line 27 of file Volumes.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_volumes_8h_a1a200b3e5597c9343021d0386415270c}\label{_volumes_8h_a1a200b3e5597c9343021d0386415270c}} 
+\index{Volumes.\+h@{Volumes.\+h}!Create\+Volume\+Header\+In\+Memory@{Create\+Volume\+Header\+In\+Memory}}
+\index{Create\+Volume\+Header\+In\+Memory@{Create\+Volume\+Header\+In\+Memory}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Create\+Volume\+Header\+In\+Memory()}{CreateVolumeHeaderInMemory()}}
+{\footnotesize\ttfamily int Create\+Volume\+Header\+In\+Memory (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{b\+Boot,  }\item[{char $\ast$}]{encrypted\+Header,  }\item[{int}]{ea,  }\item[{int}]{mode,  }\item[{Password $\ast$}]{password,  }\item[{int}]{pkcs5\+\_\+prf,  }\item[{char $\ast$}]{master\+Keydata,  }\item[{\hyperlink{_crypto_8h_ab0330a8fc92059350d9c993c9aebbe59}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Info,  }\item[{unsigned \+\_\+\+\_\+int64}]{volume\+Size,  }\item[{unsigned \+\_\+\+\_\+int64}]{hidden\+Volume\+Size,  }\item[{unsigned \+\_\+\+\_\+int64}]{encrypted\+Area\+Start,  }\item[{unsigned \+\_\+\+\_\+int64}]{encrypted\+Area\+Length,  }\item[{uint16}]{required\+Program\+Version,  }\item[{uint32}]{header\+Flags,  }\item[{uint32}]{sector\+Size,  }\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{b\+Wipe\+Mode }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_a28fc4bf9ef4c56293aa4b387541cfe5e}\label{_volumes_8h_a28fc4bf9ef4c56293aa4b387541cfe5e}} 
+\index{Volumes.\+h@{Volumes.\+h}!Get\+Header\+Field16@{Get\+Header\+Field16}}
+\index{Get\+Header\+Field16@{Get\+Header\+Field16}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field16()}{GetHeaderField16()}}
+{\footnotesize\ttfamily uint16 Get\+Header\+Field16 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_aeb33f14ce64d22f64717b2b2a92da656}\label{_volumes_8h_aeb33f14ce64d22f64717b2b2a92da656}} 
+\index{Volumes.\+h@{Volumes.\+h}!Get\+Header\+Field32@{Get\+Header\+Field32}}
+\index{Get\+Header\+Field32@{Get\+Header\+Field32}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field32()}{GetHeaderField32()}}
+{\footnotesize\ttfamily uint32 Get\+Header\+Field32 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_ab4f7e46232fce9725756858d64edbf1b}\label{_volumes_8h_ab4f7e46232fce9725756858d64edbf1b}} 
+\index{Volumes.\+h@{Volumes.\+h}!Get\+Header\+Field64@{Get\+Header\+Field64}}
+\index{Get\+Header\+Field64@{Get\+Header\+Field64}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Get\+Header\+Field64()}{GetHeaderField64()}}
+{\footnotesize\ttfamily U\+I\+N\+T64\+\_\+\+S\+T\+R\+U\+CT Get\+Header\+Field64 (\begin{DoxyParamCaption}\item[{byte $\ast$}]{header,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_a2b546c4c9777de888c3b561cceb5a575}\label{_volumes_8h_a2b546c4c9777de888c3b561cceb5a575}} 
+\index{Volumes.\+h@{Volumes.\+h}!Read\+Effective\+Volume\+Header@{Read\+Effective\+Volume\+Header}}
+\index{Read\+Effective\+Volume\+Header@{Read\+Effective\+Volume\+Header}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Read\+Effective\+Volume\+Header()}{ReadEffectiveVolumeHeader()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Read\+Effective\+Volume\+Header (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{device,  }\item[{H\+A\+N\+D\+LE}]{file\+Handle,  }\item[{byte $\ast$}]{header,  }\item[{D\+W\+O\+RD $\ast$}]{bytes\+Read }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_afa713bf1fa27171e0cc0aa16218fe10e}\label{_volumes_8h_afa713bf1fa27171e0cc0aa16218fe10e}} 
+\index{Volumes.\+h@{Volumes.\+h}!Read\+Volume\+Header@{Read\+Volume\+Header}}
+\index{Read\+Volume\+Header@{Read\+Volume\+Header}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Read\+Volume\+Header()}{ReadVolumeHeader()}}
+{\footnotesize\ttfamily int Read\+Volume\+Header (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{b\+Boot,  }\item[{char $\ast$}]{encrypted\+Header,  }\item[{Password $\ast$}]{password,  }\item[{\hyperlink{_crypto_8h_ab0330a8fc92059350d9c993c9aebbe59}{P\+C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Info,  }\item[{\hyperlink{_crypto_8h_a0497f7e6730d4b1014ccd2cb0c4bf1ab}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{ret\+Header\+Crypto\+Info }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_adb5d71c2f16d860d9bd17856804a309e}\label{_volumes_8h_adb5d71c2f16d860d9bd17856804a309e}} 
+\index{Volumes.\+h@{Volumes.\+h}!Write\+Effective\+Volume\+Header@{Write\+Effective\+Volume\+Header}}
+\index{Write\+Effective\+Volume\+Header@{Write\+Effective\+Volume\+Header}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Write\+Effective\+Volume\+Header()}{WriteEffectiveVolumeHeader()}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Write\+Effective\+Volume\+Header (\begin{DoxyParamCaption}\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{device,  }\item[{H\+A\+N\+D\+LE}]{file\+Handle,  }\item[{byte $\ast$}]{header }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_volumes_8h_a31bc369dec32aaee5793685da60c640b}\label{_volumes_8h_a31bc369dec32aaee5793685da60c640b}} 
+\index{Volumes.\+h@{Volumes.\+h}!Write\+Random\+Data\+To\+Reserved\+Header\+Areas@{Write\+Random\+Data\+To\+Reserved\+Header\+Areas}}
+\index{Write\+Random\+Data\+To\+Reserved\+Header\+Areas@{Write\+Random\+Data\+To\+Reserved\+Header\+Areas}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Write\+Random\+Data\+To\+Reserved\+Header\+Areas()}{WriteRandomDataToReservedHeaderAreas()}}
+{\footnotesize\ttfamily int Write\+Random\+Data\+To\+Reserved\+Header\+Areas (\begin{DoxyParamCaption}\item[{H\+A\+N\+D\+LE}]{dev,  }\item[{\hyperlink{_crypto_8h_a0497f7e6730d4b1014ccd2cb0c4bf1ab}{C\+R\+Y\+P\+T\+O\+\_\+\+I\+N\+FO} $\ast$}]{crypto\+Info,  }\item[{uint64}]{data\+Area\+Size,  }\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{b\+Primary\+Only,  }\item[{\hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL}}]{b\+Backup\+Only }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_volumes_8h_a0e14f347f231fbddd0c003145f9dde6e}\label{_volumes_8h_a0e14f347f231fbddd0c003145f9dde6e}} 
+\index{Volumes.\+h@{Volumes.\+h}!Read\+Volume\+Header\+Recovery\+Mode@{Read\+Volume\+Header\+Recovery\+Mode}}
+\index{Read\+Volume\+Header\+Recovery\+Mode@{Read\+Volume\+Header\+Recovery\+Mode}!Volumes.\+h@{Volumes.\+h}}
+\subsubsection{\texorpdfstring{Read\+Volume\+Header\+Recovery\+Mode}{ReadVolumeHeaderRecoveryMode}}
+{\footnotesize\ttfamily \hyperlink{_gstdefs_8h_ae4cc35dcc70810fa972cc8a5185a28fa}{B\+O\+OL} Read\+Volume\+Header\+Recovery\+Mode}
+

@@ -1,0 +1,248 @@
+\hypertarget{_grasshopper_cipher_8c}{}\section{Volume/\+Crypto/\+Grasshopper\+Cipher.c File Reference}
+\label{_grasshopper_cipher_8c}\index{Volume/\+Crypto/\+Grasshopper\+Cipher.\+c@{Volume/\+Crypto/\+Grasshopper\+Cipher.\+c}}
+{\ttfamily \#include \char`\"{}Grasshopper\+Cipher.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_grasshopper_cipher_8c_aae9f2072f94a5e68e956af5e1878a17c}{S} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a5b8c9106c3315e529078b3460bcf4354}{S\+\_\+inv} (unsigned long long $\ast$block)
+\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_a68bcca5a2fbd730c9cbc686b10d7bb84}{ll} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_ac7706fb91f6e014154861ff0f2a1ec4c}{R} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a9b3567f7549f3e916370cc5ea7ddb7f1}{R\+\_\+inv} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a826ad0c46a4f26241de2a0ce3fcc2985}{L} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a2d0eb0132a57441b8cdf5a80743a4875}{L\+\_\+inv} (unsigned long long $\ast$block)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a69d1a4b66ce9679052fc055fcd820881}{F} (unsigned long long $\ast$k, unsigned long long $\ast$block1, unsigned long long $\ast$block0)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_ab14dfbc428aa937a571acbabb2631862}{grasshopper\+\_\+set\+\_\+key} (unsigned long long $\ast$master\+\_\+key, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a8f1bdfc910f8fcfa621ce3fdd22d0131}{grasshopper\+\_\+encrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long long $\ast$plaintext, unsigned long long $\ast$ciphertext)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_aa2904f974b76ea3e12a2b067ec7a4923}{grasshopper\+\_\+decrypt} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$subkeys, unsigned long long $\ast$ciphertext, unsigned long long $\ast$plaintext)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_aa9130f20d174af63e427e6e927c384bb}{grasshopper\+\_\+xor\+\_\+ks} (\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$ks, \hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$out\+\_\+ks, unsigned long long $\ast$in, unsigned int len)
+\item 
+void \hyperlink{_grasshopper_cipher_8c_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}{change\+Endian} (unsigned long long $\ast$ret)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}{pi} \mbox{[}256\mbox{]}
+\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_ad2729324856b46f52dfc823a09836076}{pi\+\_\+inv} \mbox{[}256\mbox{]}
+\item 
+unsigned char \hyperlink{_grasshopper_cipher_8c_ae8fbefad811c724c4b3a6128eaca4880}{mult\+\_\+mod\+\_\+poly} \mbox{[}8\mbox{]}\mbox{[}256\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}\label{_grasshopper_cipher_8c_a5ed06c0f5de5be5a7a5ca7dbd158c9a3}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!change\+Endian@{change\+Endian}}
+\index{change\+Endian@{change\+Endian}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{change\+Endian()}{changeEndian()}}
+{\footnotesize\ttfamily void change\+Endian (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{ret }\end{DoxyParamCaption})}
+
+
+
+Definition at line 637 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a69d1a4b66ce9679052fc055fcd820881}\label{_grasshopper_cipher_8c_a69d1a4b66ce9679052fc055fcd820881}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!F@{F}}
+\index{F@{F}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{F()}{F()}}
+{\footnotesize\ttfamily void F (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{k,  }\item[{unsigned long long $\ast$}]{block1,  }\item[{unsigned long long $\ast$}]{block0 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 306 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_aa2904f974b76ea3e12a2b067ec7a4923}\label{_grasshopper_cipher_8c_aa2904f974b76ea3e12a2b067ec7a4923}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}}
+\index{grasshopper\+\_\+decrypt@{grasshopper\+\_\+decrypt}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+decrypt()}{grasshopper\_decrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+decrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long long $\ast$}]{ciphertext,  }\item[{unsigned long long $\ast$}]{plaintext }\end{DoxyParamCaption})}
+
+
+
+Definition at line 514 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a8f1bdfc910f8fcfa621ce3fdd22d0131}\label{_grasshopper_cipher_8c_a8f1bdfc910f8fcfa621ce3fdd22d0131}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}}
+\index{grasshopper\+\_\+encrypt@{grasshopper\+\_\+encrypt}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+encrypt()}{grasshopper\_encrypt()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+encrypt (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys,  }\item[{unsigned long long $\ast$}]{plaintext,  }\item[{unsigned long long $\ast$}]{ciphertext }\end{DoxyParamCaption})}
+
+
+
+Definition at line 441 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ab14dfbc428aa937a571acbabb2631862}\label{_grasshopper_cipher_8c_ab14dfbc428aa937a571acbabb2631862}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}}
+\index{grasshopper\+\_\+set\+\_\+key@{grasshopper\+\_\+set\+\_\+key}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+set\+\_\+key()}{grasshopper\_set\_key()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+set\+\_\+key (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{master\+\_\+key,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{subkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 343 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_aa9130f20d174af63e427e6e927c384bb}\label{_grasshopper_cipher_8c_aa9130f20d174af63e427e6e927c384bb}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}}
+\index{grasshopper\+\_\+xor\+\_\+ks@{grasshopper\+\_\+xor\+\_\+ks}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{grasshopper\+\_\+xor\+\_\+ks()}{grasshopper\_xor\_ks()}}
+{\footnotesize\ttfamily void grasshopper\+\_\+xor\+\_\+ks (\begin{DoxyParamCaption}\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{ks,  }\item[{\hyperlink{structgrasshopper__kds}{grasshopper\+\_\+kds} $\ast$}]{out\+\_\+ks,  }\item[{unsigned long long $\ast$}]{in,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 583 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a826ad0c46a4f26241de2a0ce3fcc2985}\label{_grasshopper_cipher_8c_a826ad0c46a4f26241de2a0ce3fcc2985}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!L@{L}}
+\index{L@{L}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{L()}{L()}}
+{\footnotesize\ttfamily void L (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 262 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a2d0eb0132a57441b8cdf5a80743a4875}\label{_grasshopper_cipher_8c_a2d0eb0132a57441b8cdf5a80743a4875}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!L\+\_\+inv@{L\+\_\+inv}}
+\index{L\+\_\+inv@{L\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{L\+\_\+inv()}{L\_inv()}}
+{\footnotesize\ttfamily void L\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 284 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a68bcca5a2fbd730c9cbc686b10d7bb84}\label{_grasshopper_cipher_8c_a68bcca5a2fbd730c9cbc686b10d7bb84}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!ll@{ll}}
+\index{ll@{ll}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{ll()}{ll()}}
+{\footnotesize\ttfamily unsigned char ll (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 200 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ac7706fb91f6e014154861ff0f2a1ec4c}\label{_grasshopper_cipher_8c_ac7706fb91f6e014154861ff0f2a1ec4c}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!R@{R}}
+\index{R@{R}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{R()}{R()}}
+{\footnotesize\ttfamily void R (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 224 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a9b3567f7549f3e916370cc5ea7ddb7f1}\label{_grasshopper_cipher_8c_a9b3567f7549f3e916370cc5ea7ddb7f1}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!R\+\_\+inv@{R\+\_\+inv}}
+\index{R\+\_\+inv@{R\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+inv()}{R\_inv()}}
+{\footnotesize\ttfamily void R\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 243 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_aae9f2072f94a5e68e956af5e1878a17c}\label{_grasshopper_cipher_8c_aae9f2072f94a5e68e956af5e1878a17c}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!S@{S}}
+\index{S@{S}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{S()}{S()}}
+{\footnotesize\ttfamily void S (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Definition at line 145 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_a5b8c9106c3315e529078b3460bcf4354}\label{_grasshopper_cipher_8c_a5b8c9106c3315e529078b3460bcf4354}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!S\+\_\+inv@{S\+\_\+inv}}
+\index{S\+\_\+inv@{S\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{S\+\_\+inv()}{S\_inv()}}
+{\footnotesize\ttfamily void S\+\_\+inv (\begin{DoxyParamCaption}\item[{unsigned long long $\ast$}]{block }\end{DoxyParamCaption})}
+
+
+
+Definition at line 173 of file Grasshopper\+Cipher.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ae8fbefad811c724c4b3a6128eaca4880}\label{_grasshopper_cipher_8c_ae8fbefad811c724c4b3a6128eaca4880}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!mult\+\_\+mod\+\_\+poly@{mult\+\_\+mod\+\_\+poly}}
+\index{mult\+\_\+mod\+\_\+poly@{mult\+\_\+mod\+\_\+poly}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{mult\+\_\+mod\+\_\+poly}{mult\_mod\_poly}}
+{\footnotesize\ttfamily unsigned char mult\+\_\+mod\+\_\+poly\mbox{[}8\mbox{]}\mbox{[}256\mbox{]}}
+
+
+
+Definition at line 52 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}\label{_grasshopper_cipher_8c_ac00a1ae65bf8ad1752887e0b5135f485}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!pi@{pi}}
+\index{pi@{pi}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{pi}{pi}}
+{\footnotesize\ttfamily unsigned char pi\mbox{[}256\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{252, 238, 221, 17, 207, 110, 49, 22, 251, 196, 250, 218, 35, 197, 4, 77,
+                         233, 119, 240, 219, 147, 46, 153, 186, 23, 54, 241, 187, 20, 205, 95, 193,
+                         249, 24, 101, 90, 226, 92, 239, 33, 129, 28, 60, 66, 139, 1, 142, 79,
+                         5, 132, 2, 174, 227, 106, 143, 160, 6, 11, 237, 152, 127, 212, 211, 31,
+                         235, 52, 44, 81, 234, 200, 72, 171, 242, 42, 104, 162, 253, 58, 206, 204,
+                         181, 112, 14, 86, 8, 12, 118, 18, 191, 114, 19, 71, 156, 183, 93, 135,
+                         21, 161, 150, 41, 16, 123, 154, 199, 243, 145, 120, 111, 157, 158, 178, 177,
+                         50, 117, 25, 61, 255, 53, 138, 126, 109, 84, 198, 128, 195, 189, 13, 87,
+                         223, 245, 36, 169, 62, 168, 67, 201, 215, 121, 214, 246, 124, 34, 185, 3,
+                         224, 15, 236, 222, 122, 148, 176, 188, 220, 232, 40, 80, 78, 51, 10, 74,
+                         167, 151, 96, 115, 30, 0, 98, 68, 26, 184, 56, 130, 100, 159, 38, 65,
+                         173, 69, 70, 146, 39, 94, 85, 47, 140, 163, 165, 125, 105, 213, 149, 59,
+                         7, 88, 179, 64, 134, 172, 29, 247, 48, 55, 107, 228, 136, 217, 231, 137,
+                         225, 27, 131, 73, 76, 63, 248, 254, 141, 83, 170, 144, 202, 216, 133, 97,
+                         32, 113, 103, 164, 45, 43, 9, 91, 203, 155, 37, 208, 190, 229, 108, 82,
+                         89, 166, 116, 210, 230, 244, 180, 192, 209, 102, 175, 194, 57, 75, 99, 182
+                        \}
+\end{DoxyCode}
+
+
+Definition at line 14 of file Grasshopper\+Cipher.\+c.
+
+\mbox{\Hypertarget{_grasshopper_cipher_8c_ad2729324856b46f52dfc823a09836076}\label{_grasshopper_cipher_8c_ad2729324856b46f52dfc823a09836076}} 
+\index{Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}!pi\+\_\+inv@{pi\+\_\+inv}}
+\index{pi\+\_\+inv@{pi\+\_\+inv}!Grasshopper\+Cipher.\+c@{Grasshopper\+Cipher.\+c}}
+\subsubsection{\texorpdfstring{pi\+\_\+inv}{pi\_inv}}
+{\footnotesize\ttfamily unsigned char pi\+\_\+inv\mbox{[}256\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{165, 45, 50, 143, 14, 48, 56, 192, 84, 230, 158, 57, 85, 126, 82, 145,
+                             100, 3, 87, 90, 28, 96, 7, 24, 33, 114, 168, 209, 41, 198, 164, 63,
+                             224, 39, 141, 12, 130, 234, 174, 180, 154, 99, 73, 229, 66, 228, 21, 183,
+                             200, 6, 112, 157, 65, 117, 25, 201, 170, 252, 77, 191, 42, 115, 132, 213,
+                             195, 175, 43, 134, 167, 177, 178, 91, 70, 211, 159, 253, 212, 15, 156, 47,
+                             155, 67, 239, 217, 121, 182, 83, 127, 193, 240, 35, 231, 37, 94, 181, 30,
+                             162, 223, 166, 254, 172, 34, 249, 226, 74, 188, 53, 202, 238, 120, 5, 107,
+                             81, 225, 89, 163, 242, 113, 86, 17, 106, 137, 148, 101, 140, 187, 119, 60,
+                             123, 40, 171, 210, 49, 222, 196, 95, 204, 207, 118, 44, 184, 216, 46, 54,
+                             219, 105, 179, 20, 149, 190, 98, 161, 59, 22, 102, 233, 92, 108, 109, 173,
+                             55, 97, 75, 185, 227, 186, 241, 160, 133, 131, 218, 71, 197, 176, 51, 250,
+                             150, 111, 110, 194, 246, 80, 255, 93, 169, 142, 23, 27, 151, 125, 236, 88,
+                             247, 31, 251, 124, 9, 13, 122, 103, 69, 135, 220, 232, 79, 29, 78, 4,
+                             235, 248, 243, 62, 61, 189, 138, 136, 221, 205, 11, 19, 152, 2, 147, 128,
+                             144, 208, 36, 52, 203, 237, 244, 206, 153, 16, 68, 64, 146, 58, 1, 38,
+                             18, 26, 72, 104, 245, 129, 139, 199, 214, 32, 10, 8, 0, 76, 215, 116
+                            \}
+\end{DoxyCode}
+
+
+Definition at line 32 of file Grasshopper\+Cipher.\+c.
+

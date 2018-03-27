@@ -1,0 +1,334 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Volume\+File Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_volume_file}\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+
+
+{\ttfamily \#include $<$Volume\+File.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a0860f8aae0794efc7e45e420de19221c}{Volume\+File} ()
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_aef83d960b41025f29f31db1743108571}{$\sim$\+Volume\+File} ()
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a3481492a2e0fc6e35c8d0e8c5fd68cc7}{Close} ()
+\item 
+quint32 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_afbb8b01515352d6833230e38fd3d47e8}{Get\+Device\+Sector\+Size} () const
+\item 
+const Q\+File\+Info \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_afa7e6863b060a91e7347a38870e11e5d}{Get\+Path} () const
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_aadde0ae09820b7315bc2db39bdb6c10a}{Length} () const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a85139895e9f20d58fd3c35086001053f}{Open} (const Q\+File\+Info path, bool read\+Only, bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a8c6dc4712abe9ba03348af5938d200cb}{preserve\+Timestamps})
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a726855fe6fb2618eb61abeaffffca8ec}{Read} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer) const
+\item 
+quint64 \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_afc5d14b4925d83a120a0f184837b6f86}{Read\+At} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, quint64 position) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a9c54f29956e49f4c1cd72827343baf08}{Seek\+At} (quint64 position) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a06be8984a77477f80a48cfff993a82d9}{Seek\+End} (int offset) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a583e2bc2ca68b887e5c58ce56b237b02}{Write} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a149f808af3695cb419dd3a724d197240}{Write} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, size\+\_\+t length) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_ac8c594f62df6eb92a8a8b37f20540541}{Write\+At} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, quint64 position) const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_ad4c5ba907a026250941c2edb8c80055d}{Flush} () const
+\item 
+\hyperlink{struct_gost_crypt_1_1_volume_1_1_file_type_a83c327e2ac3e4260e070028644f577f7}{File\+Type\+::\+Enum} \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a58e101a40bfb775b215d40e00f3e51f9}{Get\+Type} () const
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a994bad691604a84166aff34f82754029}{Is\+Type\+File} () const
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_ab6f4d33ae4d5df99743fba37e22f5f14}{is\+Type\+Device} () const
+\item 
+void \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a471b53a516bcb26419fc84241cc064b2}{Reset\+Timestamps} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_afc00f2ab655368fc1e2e90c25560c8f1}{File\+Is\+Open}
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a8c6dc4712abe9ba03348af5938d200cb}{preserve\+Timestamps}
+\item 
+Q\+File\+Info \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a74be68b4c6a8ddb438acf797f26095a2}{Path}
+\item 
+int \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a85dd587cf0713856a8efd40f989c815c}{File\+Handle}
+\item 
+time\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_a55769a7bd1db1aa3786e4f5faa1ecb47}{Acc\+Time}
+\item 
+time\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_volume_file_af2ded515d54667c3d9852da600341042}{Mod\+Time}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 34 of file Volume\+File.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a0860f8aae0794efc7e45e420de19221c}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a0860f8aae0794efc7e45e420de19221c}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Volume\+File@{Volume\+File}}
+\index{Volume\+File@{Volume\+File}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Volume\+File()}{VolumeFile()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Volume\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 38 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_aef83d960b41025f29f31db1743108571}\label{class_gost_crypt_1_1_volume_1_1_volume_file_aef83d960b41025f29f31db1743108571}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!````~Volume\+File@{$\sim$\+Volume\+File}}
+\index{````~Volume\+File@{$\sim$\+Volume\+File}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{$\sim$\+Volume\+File()}{~VolumeFile()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::$\sim$\+Volume\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 239 of file Volume\+File.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a3481492a2e0fc6e35c8d0e8c5fd68cc7}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a3481492a2e0fc6e35c8d0e8c5fd68cc7}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Close@{Close}}
+\index{Close@{Close}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 30 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_ad4c5ba907a026250941c2edb8c80055d}\label{class_gost_crypt_1_1_volume_1_1_volume_file_ad4c5ba907a026250941c2edb8c80055d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Flush@{Flush}}
+\index{Flush@{Flush}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Flush()}{Flush()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 189 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_afbb8b01515352d6833230e38fd3d47e8}\label{class_gost_crypt_1_1_volume_1_1_volume_file_afbb8b01515352d6833230e38fd3d47e8}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Get\+Device\+Sector\+Size@{Get\+Device\+Sector\+Size}}
+\index{Get\+Device\+Sector\+Size@{Get\+Device\+Sector\+Size}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Get\+Device\+Sector\+Size()}{GetDeviceSectorSize()}}
+{\footnotesize\ttfamily quint32 Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Get\+Device\+Sector\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 47 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_afa7e6863b060a91e7347a38870e11e5d}\label{class_gost_crypt_1_1_volume_1_1_volume_file_afa7e6863b060a91e7347a38870e11e5d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Get\+Path@{Get\+Path}}
+\index{Get\+Path@{Get\+Path}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Get\+Path()}{GetPath()}}
+{\footnotesize\ttfamily const Q\+File\+Info Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Get\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 252 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a58e101a40bfb775b215d40e00f3e51f9}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a58e101a40bfb775b215d40e00f3e51f9}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Get\+Type@{Get\+Type}}
+\index{Get\+Type@{Get\+Type}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Get\+Type()}{GetType()}}
+{\footnotesize\ttfamily \hyperlink{struct_gost_crypt_1_1_volume_1_1_file_type_a83c327e2ac3e4260e070028644f577f7}{File\+Type\+::\+Enum} Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 197 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_ab6f4d33ae4d5df99743fba37e22f5f14}\label{class_gost_crypt_1_1_volume_1_1_volume_file_ab6f4d33ae4d5df99743fba37e22f5f14}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!is\+Type\+Device@{is\+Type\+Device}}
+\index{is\+Type\+Device@{is\+Type\+Device}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{is\+Type\+Device()}{isTypeDevice()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::is\+Type\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 57 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a994bad691604a84166aff34f82754029}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a994bad691604a84166aff34f82754029}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Is\+Type\+File@{Is\+Type\+File}}
+\index{Is\+Type\+File@{Is\+Type\+File}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Is\+Type\+File()}{IsTypeFile()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Is\+Type\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 56 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_aadde0ae09820b7315bc2db39bdb6c10a}\label{class_gost_crypt_1_1_volume_1_1_volume_file_aadde0ae09820b7315bc2db39bdb6c10a}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Length@{Length}}
+\index{Length@{Length}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Length()}{Length()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 63 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a85139895e9f20d58fd3c35086001053f}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a85139895e9f20d58fd3c35086001053f}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Open@{Open}}
+\index{Open@{Open}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Open()}{Open()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Open (\begin{DoxyParamCaption}\item[{const Q\+File\+Info}]{path,  }\item[{bool}]{read\+Only,  }\item[{bool}]{preserve\+Timestamps }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a726855fe6fb2618eb61abeaffffca8ec}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a726855fe6fb2618eb61abeaffffca8ec}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Read@{Read}}
+\index{Read@{Read}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Read (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 112 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_afc5d14b4925d83a120a0f184837b6f86}\label{class_gost_crypt_1_1_volume_1_1_volume_file_afc5d14b4925d83a120a0f184837b6f86}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Read\+At@{Read\+At}}
+\index{Read\+At@{Read\+At}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Read\+At()}{ReadAt()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Read\+At (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{quint64}]{position }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 127 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a471b53a516bcb26419fc84241cc064b2}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a471b53a516bcb26419fc84241cc064b2}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Reset\+Timestamps@{Reset\+Timestamps}}
+\index{Reset\+Timestamps@{Reset\+Timestamps}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Reset\+Timestamps()}{ResetTimestamps()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Reset\+Timestamps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 213 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a9c54f29956e49f4c1cd72827343baf08}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a9c54f29956e49f4c1cd72827343baf08}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Seek\+At@{Seek\+At}}
+\index{Seek\+At@{Seek\+At}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Seek\+At()}{SeekAt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Seek\+At (\begin{DoxyParamCaption}\item[{quint64}]{position }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 143 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a06be8984a77477f80a48cfff993a82d9}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a06be8984a77477f80a48cfff993a82d9}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Seek\+End@{Seek\+End}}
+\index{Seek\+End@{Seek\+End}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Seek\+End()}{SeekEnd()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Seek\+End (\begin{DoxyParamCaption}\item[{int}]{offset }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 155 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a583e2bc2ca68b887e5c58ce56b237b02}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a583e2bc2ca68b887e5c58ce56b237b02}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Write@{Write}}
+\index{Write@{Write}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Write()}{Write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Write (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 167 of file Volume\+File.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a149f808af3695cb419dd3a724d197240}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a149f808af3695cb419dd3a724d197240}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Write@{Write}}
+\index{Write@{Write}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Write()}{Write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Write (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_ac8c594f62df6eb92a8a8b37f20540541}\label{class_gost_crypt_1_1_volume_1_1_volume_file_ac8c594f62df6eb92a8a8b37f20540541}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Write\+At@{Write\+At}}
+\index{Write\+At@{Write\+At}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Write\+At()}{WriteAt()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Write\+At (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{quint64}]{position }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 178 of file Volume\+File.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a55769a7bd1db1aa3786e4f5faa1ecb47}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a55769a7bd1db1aa3786e4f5faa1ecb47}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Acc\+Time@{Acc\+Time}}
+\index{Acc\+Time@{Acc\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Acc\+Time}{AccTime}}
+{\footnotesize\ttfamily time\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Acc\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 67 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a85dd587cf0713856a8efd40f989c815c}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a85dd587cf0713856a8efd40f989c815c}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!File\+Handle@{File\+Handle}}
+\index{File\+Handle@{File\+Handle}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{File\+Handle}{FileHandle}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+File\+Handle\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 65 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_afc00f2ab655368fc1e2e90c25560c8f1}\label{class_gost_crypt_1_1_volume_1_1_volume_file_afc00f2ab655368fc1e2e90c25560c8f1}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!File\+Is\+Open@{File\+Is\+Open}}
+\index{File\+Is\+Open@{File\+Is\+Open}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{File\+Is\+Open}{FileIsOpen}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+File\+Is\+Open\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 62 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_af2ded515d54667c3d9852da600341042}\label{class_gost_crypt_1_1_volume_1_1_volume_file_af2ded515d54667c3d9852da600341042}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Mod\+Time@{Mod\+Time}}
+\index{Mod\+Time@{Mod\+Time}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Mod\+Time}{ModTime}}
+{\footnotesize\ttfamily time\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Mod\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 68 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a74be68b4c6a8ddb438acf797f26095a2}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a74be68b4c6a8ddb438acf797f26095a2}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!Path@{Path}}
+\index{Path@{Path}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{Path}{Path}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::\+Path\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 64 of file Volume\+File.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_volume_file_a8c6dc4712abe9ba03348af5938d200cb}\label{class_gost_crypt_1_1_volume_1_1_volume_file_a8c6dc4712abe9ba03348af5938d200cb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}!preserve\+Timestamps@{preserve\+Timestamps}}
+\index{preserve\+Timestamps@{preserve\+Timestamps}!Gost\+Crypt\+::\+Volume\+::\+Volume\+File@{Gost\+Crypt\+::\+Volume\+::\+Volume\+File}}
+\subsubsection{\texorpdfstring{preserve\+Timestamps}{preserveTimestamps}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Volume\+File\+::preserve\+Timestamps\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 63 of file Volume\+File.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_volume_file_8h}{Volume\+File.\+h}\item 
+Volume/\hyperlink{_volume_file_8cpp}{Volume\+File.\+cpp}\end{DoxyCompactItemize}

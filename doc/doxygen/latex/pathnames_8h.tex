@@ -1,0 +1,1064 @@
+\hypertarget{pathnames_8h}{}\section{Core/loopdevlib/pathnames.h File Reference}
+\label{pathnames_8h}\index{Core/loopdevlib/pathnames.\+h@{Core/loopdevlib/pathnames.\+h}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pathnames_8h_ab6011bb7bad0e8c02440dd26d62a3492}{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}~\char`\"{}\textbackslash{}\textbackslash{}040(deleted)\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a828419e5f3b12cbf648e63e44ed0a6a6}{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ}~(sizeof(\hyperlink{pathnames_8h_ab6011bb7bad0e8c02440dd26d62a3492}{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}) -\/ 1)
+\item 
+\#define \hyperlink{pathnames_8h_a0cd6d615b8094e9e1a9546de2a5833a2}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH}~\char`\"{}/usr/local/bin\+:/bin\+:/usr/bin\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a2142c57694f8c57a7f1ae0a62670a208}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT}~\char`\"{}/usr/local/sbin\+:/usr/local/bin\+:/sbin\+:/bin\+:/usr/sbin\+:/usr/bin\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a40c32a0875e0baa6aec2dbdb24e26713}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY}~\char`\"{}/etc/securetty\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a28fbd79a57ee3db63c5e102f8829c530}{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK}~\char`\"{}/etc/wtmplock\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a5da12657c97ffb53edd8b6d70751c105}{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN}~\char`\"{}.hushlogin\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a595a5a766b00d1dd767acf279a9bf090}{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS}~\char`\"{}/etc/hushlogins\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a4c12c20a9056f6cd20a759a2a6118aac}{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT}~\char`\"{}/etc/nologin.\+txt\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a8c8083dcde023a9109d1d45a6e46e7a5}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR}~\char`\"{}/var/spool/mail\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a927529b75d07f3d63fabf8158c24bd4b}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE}~\char`\"{}/etc/motd\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_abb65b6ef8a1946536cd0e8306468d167}{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN}~\char`\"{}/etc/nologin\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a14cb313a32327b950cd0eb776564f308}{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN}~\char`\"{}/bin/login\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a491938a79acf7a03faa044b138ff2e63}{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB}~\char`\"{}/etc/inittab\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae1cbebd9bed7440b52fe947d8a86c95a}{\+\_\+\+P\+A\+T\+H\+\_\+\+RC}~\char`\"{}/etc/rc\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a6574b2d6d0de628e581fe34f8fb0fdba}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT}~\char`\"{}/sbin/reboot\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a49cce024ad11c1825e1e7db53df9f410}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN}~\char`\"{}/sbin/shutdown\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a86a6a581480d231902093d8016713e8b}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE}~\char`\"{}/etc/singleboot\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ac9fcd6d5e37586d083b9a9ec491f325b}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF}~\char`\"{}/etc/shutdown.\+conf\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a2b7debd4e4b38ec251dce942ef27871e}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE}~\char`\"{}/etc/securesingle\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a2d009602d685f50aca749e5ea20929c8}{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY}~\char`\"{}/etc/usertty\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aa7d22656288b11b70621dc082ad27abd}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD}~\char`\"{}/etc/passwd\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a751b065d049a29118b02aef73d68f54f}{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW}~\char`\"{}/etc/gshadow\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aca953b052a1e985e5fb14472138ce28c}{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP}~\char`\"{}/etc/group\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ac3588db7fd4f88c5c4a15942cc1abe0c}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD}~\char`\"{}/etc/shadow\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ab5b85c201bf2601a57ca5acf934780b9}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS}~\char`\"{}/etc/shells\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ab66ab0116956869ffcb639938f69c650}{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE}~\char`\"{}/etc/issue\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a021887a6b25f3166ae47e1990752c494}{\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE}~\char`\"{}/etc/os-\/release\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a2b0250e75fea2d8ef3f11133cdb72910}{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON}~\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+C\+A\+L\+S\+T\+A\+T\+E\+D\+IR \char`\"{}/numlock-\/on\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a40aeb06fdd73fb9049c56fac0db7a855}{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS}~\char`\"{}/etc/login.\+defs\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_afa5370b736a98b43acf00966bf0a6105}{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS}~\char`\"{}/usr/share/dict/words\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ac4ea8730a96c2732cecb8ca7190c0166}{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT}~\char`\"{}/usr/share/dict/web2\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a46baa4cf0440b58182e78717196e16f6}{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT}~\char`\"{}/bin/umount\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a166ee60ce9c548092459f699275698c9}{\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}~\char`\"{}/etc/filesystems\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a0e4785a5ac814597802645a72e245b39}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS}~\char`\"{}/proc/swaps\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a4979b4b9279519f7a5daff05c89e3031}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}~\char`\"{}/proc/filesystems\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ad97a5c5eb4afef24a817e1982711494b}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS}~\char`\"{}/proc/mounts\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a17c5eab474b1e44ead4af90bbe09a998}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS}~\char`\"{}/proc/partitions\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a040c133ddd78a91165853e2163f14954}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES}~\char`\"{}/proc/devices\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae4a9d08e4926d5724e50d21f31429fb4}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO}~\char`\"{}/proc/self/mountinfo\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_acc6a0fbfcc9f3df073e7999a698562ae}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS}~\char`\"{}/proc/locks\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_afba5085a9b6e189c7ab2fd4549dcd13a}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO}~\char`\"{}/proc/sys/dev/cdrom/info\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aaee787ef1e85c1d2010f851d05c9b3b0}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP}~\char`\"{}/proc/self/uid\+\_\+map\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ab3dee973e83292607181ac52dd59d4a9}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP}~\char`\"{}/proc/self/gid\+\_\+map\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a80880e95765fd4e71ac9f8f9fe861b06}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT}~\char`\"{}/proc/self/attr/current\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a746f7fc49ff5499af698be7dd364824b}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC}~\char`\"{}/proc/self/attr/exec\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a6ff7080a961acde61967d696abd2ea72}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP}~\char`\"{}/proc/sys/kernel/cap\+\_\+last\+\_\+cap\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a8aefb1b812174f865fc0ccc8db5f0ab2}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK}~\char`\"{}/sys/block\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ad1be6f13dbf90f43116e60dd82f4a99c}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK}~\char`\"{}/sys/dev/block\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aa8f74b3b02d23e2ac80ab8ae81d6a077}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS}~\char`\"{}/sys/class\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a4895324889013f06c306583c9810a97b}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI}~\char`\"{}/sys/bus/scsi\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a548c2db8f51f86cb9c975e46daeead0f}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX}~\char`\"{}/sys/fs/selinux\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ac57ef9a2ce4a0262cb27c0df2b00e6b7}{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR}~\char`\"{}/sys/kernel/security/apparmor\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED}~\char`\"{}/etc/mtab\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a6abf727e564813859204cbb99e93eb2b}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB}~\char`\"{}/etc/fstab\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a0c86010c6f8876cc4c804f2b3e3d1647}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR}~\hyperlink{pathnames_8h_a6abf727e564813859204cbb99e93eb2b}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB} \char`\"{}.d\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aca27625eef36bc515f4011ae94ee01af}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK}~\hyperlink{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED} \char`\"{}$\sim$\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a8b33c57550afc30e32cecf5a2ec4dceb}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP}~\hyperlink{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED} \char`\"{}.tmp\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a9e429780e6e3bb32284b54630bc60a0d}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV}~\char`\"{}/dev/\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a5f6839968b21c51da7b0f17a06ba4bf1}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM}~\char`\"{}/dev/mem\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ade6817841819be958184ff94c2743b63}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP}~\char`\"{}/dev/loop\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a23c0b0c579b758c9de66240df146e570}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL}~\char`\"{}/dev/loop-\/control\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ab6a0890534248db552f9d047f2488bef}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY}~\char`\"{}/dev/tty\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a0b3cb5c97f2a292ee12198830b228dc4}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL}~\char`\"{}/dev/disk/by-\/label\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ad2ce4dc8dbd4e990fe418fbe6b33f014}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID}~\char`\"{}/dev/disk/by-\/uuid\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a323c01d4f2632c2694259511a1f7c720}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID}~\char`\"{}/dev/disk/by-\/id\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ab2780ccdc97f9da85381823e30efcbf5}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH}~\char`\"{}/dev/disk/by-\/path\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a9d594e335319e80fb539ce6acf2388b3}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL}~\char`\"{}/dev/disk/by-\/partlabel\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae589bedab0428ac056fa8bb3f65875f8}{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID}~\char`\"{}/dev/disk/by-\/partuuid\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae284fced2d47e68ef800acea81b13f2e}{\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME}~\char`\"{}/etc/adjtime\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a354cfa6d37759a151372e8f05ce35ddb}{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE}~\char`\"{}/var/lib/lastdate\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a30a87146e7576ef2813db7327e07b7e6}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV}~\char`\"{}/dev/rtc\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a15696ed8066fddc9d4a1398cc54ce584}{\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP}~\char`\"{}/var/log/btmp\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_afa5c92874b185f609b805b78f1bce24f}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR}~\char`\"{}/dev/raw/\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae3e1bc38e29e8d4186cf4f2f5c373dca}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL}~\hyperlink{pathnames_8h_afa5c92874b185f609b805b78f1bce24f}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR} \char`\"{}rawctl\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a6bbae5e7391d17c158c15186e2ffd12d}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD}~\char`\"{}/dev/rawctl\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_af98e69a9fcbe55e265b0c6ee4134c409}{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV}~\char`\"{}/dev/watchdog\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aac1be7896efa13aa1016d6c55e5dd715}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG}~\char`\"{}/proc/sysvipc/msg\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ad7bd1bae938aa736e056dac7f1bbc8cf}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM}~\char`\"{}/proc/sysvipc/sem\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_afc917c09b728d3b9d29955a0416364a1}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM}~\char`\"{}/proc/sysvipc/shm\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aa35cf1f521b389eb08fc1b99728cfeb4}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX}~\char`\"{}/proc/sys/kernel/msgmax\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a7b3755cc62822f0a3a885ced4076f057}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB}~\char`\"{}/proc/sys/kernel/msgmnb\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a151788ed8c000d06bc979ab27c15b963}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI}~\char`\"{}/proc/sys/kernel/msgmni\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_aefb6c964019935a0fe91cbd7814d874e}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM}~\char`\"{}/proc/sys/kernel/sem\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a200d2458592060c033ea919dde5bfbc3}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL}~\char`\"{}/proc/sys/kernel/shmall\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ae4bde5f3b99baf63c3fbc344ba415abb}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX}~\char`\"{}/proc/sys/kernel/shmmax\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_a681c1cd534dc11c88f48437d9d5beb27}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI}~\char`\"{}/proc/sys/kernel/shmmni\char`\"{}
+\item 
+\#define \hyperlink{pathnames_8h_ade1a907d3b43166a72af55fa224d4893}{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE}~\char`\"{}/proc/cmdline\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{pathnames_8h_ae284fced2d47e68ef800acea81b13f2e}\label{pathnames_8h_ae284fced2d47e68ef800acea81b13f2e}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME@{\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME@{\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME}{\_PATH\_ADJTIME}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+A\+D\+J\+T\+I\+ME~\char`\"{}/etc/adjtime\char`\"{}}
+
+
+
+Definition at line 150 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a15696ed8066fddc9d4a1398cc54ce584}\label{pathnames_8h_a15696ed8066fddc9d4a1398cc54ce584}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP@{\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP@{\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP}{\_PATH\_BTMP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+B\+T\+MP~\char`\"{}/var/log/btmp\char`\"{}}
+
+
+
+Definition at line 160 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a0cd6d615b8094e9e1a9546de2a5833a2}\label{pathnames_8h_a0cd6d615b8094e9e1a9546de2a5833a2}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH}{\_PATH\_DEFPATH}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+TH~\char`\"{}/usr/local/bin\+:/bin\+:/usr/bin\char`\"{}}
+
+
+
+Definition at line 23 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a2142c57694f8c57a7f1ae0a62670a208}\label{pathnames_8h_a2142c57694f8c57a7f1ae0a62670a208}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT}{\_PATH\_DEFPATH\_ROOT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+F\+P\+A\+T\+H\+\_\+\+R\+O\+OT~\char`\"{}/usr/local/sbin\+:/usr/local/bin\+:/sbin\+:/bin\+:/usr/sbin\+:/usr/bin\char`\"{}}
+
+
+
+Definition at line 26 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a9e429780e6e3bb32284b54630bc60a0d}\label{pathnames_8h_a9e429780e6e3bb32284b54630bc60a0d}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV}{\_PATH\_DEV}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+EV~\char`\"{}/dev/\char`\"{}}
+
+
+
+Definition at line 131 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a323c01d4f2632c2694259511a1f7c720}\label{pathnames_8h_a323c01d4f2632c2694259511a1f7c720}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID}{\_PATH\_DEV\_BYID}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+ID~\char`\"{}/dev/disk/by-\/id\char`\"{}}
+
+
+
+Definition at line 144 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a0b3cb5c97f2a292ee12198830b228dc4}\label{pathnames_8h_a0b3cb5c97f2a292ee12198830b228dc4}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL}{\_PATH\_DEV\_BYLABEL}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+L\+A\+B\+EL~\char`\"{}/dev/disk/by-\/label\char`\"{}}
+
+
+
+Definition at line 142 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a9d594e335319e80fb539ce6acf2388b3}\label{pathnames_8h_a9d594e335319e80fb539ce6acf2388b3}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL}{\_PATH\_DEV\_BYPARTLABEL}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+L\+A\+B\+EL~\char`\"{}/dev/disk/by-\/partlabel\char`\"{}}
+
+
+
+Definition at line 146 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ae589bedab0428ac056fa8bb3f65875f8}\label{pathnames_8h_ae589bedab0428ac056fa8bb3f65875f8}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID}{\_PATH\_DEV\_BYPARTUUID}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+R\+T\+U\+U\+ID~\char`\"{}/dev/disk/by-\/partuuid\char`\"{}}
+
+
+
+Definition at line 147 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab2780ccdc97f9da85381823e30efcbf5}\label{pathnames_8h_ab2780ccdc97f9da85381823e30efcbf5}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH}{\_PATH\_DEV\_BYPATH}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+P\+A\+TH~\char`\"{}/dev/disk/by-\/path\char`\"{}}
+
+
+
+Definition at line 145 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ad2ce4dc8dbd4e990fe418fbe6b33f014}\label{pathnames_8h_ad2ce4dc8dbd4e990fe418fbe6b33f014}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID}{\_PATH\_DEV\_BYUUID}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+B\+Y\+U\+U\+ID~\char`\"{}/dev/disk/by-\/uuid\char`\"{}}
+
+
+
+Definition at line 143 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ade6817841819be958184ff94c2743b63}\label{pathnames_8h_ade6817841819be958184ff94c2743b63}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP}{\_PATH\_DEV\_LOOP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+OP~\char`\"{}/dev/loop\char`\"{}}
+
+
+
+Definition at line 136 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a23c0b0c579b758c9de66240df146e570}\label{pathnames_8h_a23c0b0c579b758c9de66240df146e570}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL}{\_PATH\_DEV\_LOOPCTL}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+L\+O\+O\+P\+C\+TL~\char`\"{}/dev/loop-\/control\char`\"{}}
+
+
+
+Definition at line 137 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a5f6839968b21c51da7b0f17a06ba4bf1}\label{pathnames_8h_a5f6839968b21c51da7b0f17a06ba4bf1}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM}{\_PATH\_DEV\_MEM}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+M\+EM~\char`\"{}/dev/mem\char`\"{}}
+
+
+
+Definition at line 134 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab6a0890534248db552f9d047f2488bef}\label{pathnames_8h_ab6a0890534248db552f9d047f2488bef}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY}{\_PATH\_DEV\_TTY}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+D\+E\+V\+\_\+\+T\+TY~\char`\"{}/dev/tty\char`\"{}}
+
+
+
+Definition at line 138 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a166ee60ce9c548092459f699275698c9}\label{pathnames_8h_a166ee60ce9c548092459f699275698c9}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS@{\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS@{\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}{\_PATH\_FILESYSTEMS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS~\char`\"{}/etc/filesystems\char`\"{}}
+
+
+
+Definition at line 80 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aca953b052a1e985e5fb14472138ce28c}\label{pathnames_8h_aca953b052a1e985e5fb14472138ce28c}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP@{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP@{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP}{\_PATH\_GROUP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+G\+R\+O\+UP~\char`\"{}/etc/group\char`\"{}}
+
+
+
+Definition at line 62 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a751b065d049a29118b02aef73d68f54f}\label{pathnames_8h_a751b065d049a29118b02aef73d68f54f}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW@{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW@{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW}{\_PATH\_GSHADOW}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+G\+S\+H\+A\+D\+OW~\char`\"{}/etc/gshadow\char`\"{}}
+
+
+
+Definition at line 59 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a5da12657c97ffb53edd8b6d70751c105}\label{pathnames_8h_a5da12657c97ffb53edd8b6d70751c105}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN}{\_PATH\_HUSHLOGIN}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+IN~\char`\"{}.hushlogin\char`\"{}}
+
+
+
+Definition at line 31 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a595a5a766b00d1dd767acf279a9bf090}\label{pathnames_8h_a595a5a766b00d1dd767acf279a9bf090}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS@{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS@{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS}{\_PATH\_HUSHLOGINS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+H\+U\+S\+H\+L\+O\+G\+I\+NS~\char`\"{}/etc/hushlogins\char`\"{}}
+
+
+
+Definition at line 32 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a491938a79acf7a03faa044b138ff2e63}\label{pathnames_8h_a491938a79acf7a03faa044b138ff2e63}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB@{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB@{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB}{\_PATH\_INITTAB}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+I\+N\+I\+T\+T\+AB~\char`\"{}/etc/inittab\char`\"{}}
+
+
+
+Definition at line 43 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab66ab0116956869ffcb639938f69c650}\label{pathnames_8h_ab66ab0116956869ffcb639938f69c650}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE@{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE@{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE}{\_PATH\_ISSUE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+I\+S\+S\+UE~\char`\"{}/etc/issue\char`\"{}}
+
+
+
+Definition at line 67 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a354cfa6d37759a151372e8f05ce35ddb}\label{pathnames_8h_a354cfa6d37759a151372e8f05ce35ddb}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE}{\_PATH\_LASTDATE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+L\+A\+S\+T\+D\+A\+TE~\char`\"{}/var/lib/lastdate\char`\"{}}
+
+
+
+Definition at line 152 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a14cb313a32327b950cd0eb776564f308}\label{pathnames_8h_a14cb313a32327b950cd0eb776564f308}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN}{\_PATH\_LOGIN}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+IN~\char`\"{}/bin/login\char`\"{}}
+
+
+
+Definition at line 42 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a40aeb06fdd73fb9049c56fac0db7a855}\label{pathnames_8h_a40aeb06fdd73fb9049c56fac0db7a855}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS@{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS}{\_PATH\_LOGINDEFS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+G\+I\+N\+D\+E\+FS~\char`\"{}/etc/login.\+defs\char`\"{}}
+
+
+
+Definition at line 71 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a8c8083dcde023a9109d1d45a6e46e7a5}\label{pathnames_8h_a8c8083dcde023a9109d1d45a6e46e7a5}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR}{\_PATH\_MAILDIR}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+A\+I\+L\+D\+IR~\char`\"{}/var/spool/mail\char`\"{}}
+
+
+
+Definition at line 37 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a6abf727e564813859204cbb99e93eb2b}\label{pathnames_8h_a6abf727e564813859204cbb99e93eb2b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB}{\_PATH\_MNTTAB}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB~\char`\"{}/etc/fstab\char`\"{}}
+
+
+
+Definition at line 118 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a0c86010c6f8876cc4c804f2b3e3d1647}\label{pathnames_8h_a0c86010c6f8876cc4c804f2b3e3d1647}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR}{\_PATH\_MNTTAB\_DIR}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+A\+B\+\_\+\+D\+IR~\hyperlink{pathnames_8h_a6abf727e564813859204cbb99e93eb2b}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+N\+T\+T\+AB} \char`\"{}.d\char`\"{}}
+
+
+
+Definition at line 122 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a927529b75d07f3d63fabf8158c24bd4b}\label{pathnames_8h_a927529b75d07f3d63fabf8158c24bd4b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE}{\_PATH\_MOTDFILE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+T\+D\+F\+I\+LE~\char`\"{}/etc/motd\char`\"{}}
+
+
+
+Definition at line 39 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}\label{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED}{\_PATH\_MOUNTED}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED~\char`\"{}/etc/mtab\char`\"{}}
+
+
+
+Definition at line 110 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aca27625eef36bc515f4011ae94ee01af}\label{pathnames_8h_aca27625eef36bc515f4011ae94ee01af}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK}{\_PATH\_MOUNTED\_LOCK}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+L\+O\+CK~\hyperlink{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED} \char`\"{}$\sim$\char`\"{}}
+
+
+
+Definition at line 124 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a8b33c57550afc30e32cecf5a2ec4dceb}\label{pathnames_8h_a8b33c57550afc30e32cecf5a2ec4dceb}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP@{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP}{\_PATH\_MOUNTED\_TMP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+E\+D\+\_\+\+T\+MP~\hyperlink{pathnames_8h_a5e66efeb32014662f04f5ae6bef4fc05}{\+\_\+\+P\+A\+T\+H\+\_\+\+M\+O\+U\+N\+T\+ED} \char`\"{}.tmp\char`\"{}}
+
+
+
+Definition at line 125 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_abb65b6ef8a1946536cd0e8306468d167}\label{pathnames_8h_abb65b6ef8a1946536cd0e8306468d167}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN}{\_PATH\_NOLOGIN}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+IN~\char`\"{}/etc/nologin\char`\"{}}
+
+
+
+Definition at line 40 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a4c12c20a9056f6cd20a759a2a6118aac}\label{pathnames_8h_a4c12c20a9056f6cd20a759a2a6118aac}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT}{\_PATH\_NOLOGIN\_TXT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+N\+O\+L\+O\+G\+I\+N\+\_\+\+T\+XT~\char`\"{}/etc/nologin.\+txt\char`\"{}}
+
+
+
+Definition at line 34 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a2b0250e75fea2d8ef3f11133cdb72910}\label{pathnames_8h_a2b0250e75fea2d8ef3f11133cdb72910}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON@{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON}{\_PATH\_NUMLOCK\_ON}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+N\+U\+M\+L\+O\+C\+K\+\_\+\+ON~\+\_\+\+P\+A\+T\+H\+\_\+\+L\+O\+C\+A\+L\+S\+T\+A\+T\+E\+D\+IR \char`\"{}/numlock-\/on\char`\"{}}
+
+
+
+Definition at line 69 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a021887a6b25f3166ae47e1990752c494}\label{pathnames_8h_a021887a6b25f3166ae47e1990752c494}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE@{\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE@{\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE}{\_PATH\_OS\_RELEASE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+O\+S\+\_\+\+R\+E\+L\+E\+A\+SE~\char`\"{}/etc/os-\/release\char`\"{}}
+
+
+
+Definition at line 68 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aa7d22656288b11b70621dc082ad27abd}\label{pathnames_8h_aa7d22656288b11b70621dc082ad27abd}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD}{\_PATH\_PASSWD}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+A\+S\+S\+WD~\char`\"{}/etc/passwd\char`\"{}}
+
+
+
+Definition at line 56 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a80880e95765fd4e71ac9f8f9fe861b06}\label{pathnames_8h_a80880e95765fd4e71ac9f8f9fe861b06}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT}{\_PATH\_PROC\_ATTR\_CURRENT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+C\+U\+R\+R\+E\+NT~\char`\"{}/proc/self/attr/current\char`\"{}}
+
+
+
+Definition at line 93 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a746f7fc49ff5499af698be7dd364824b}\label{pathnames_8h_a746f7fc49ff5499af698be7dd364824b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC}{\_PATH\_PROC\_ATTR\_EXEC}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+A\+T\+T\+R\+\_\+\+E\+X\+EC~\char`\"{}/proc/self/attr/exec\char`\"{}}
+
+
+
+Definition at line 94 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a6ff7080a961acde61967d696abd2ea72}\label{pathnames_8h_a6ff7080a961acde61967d696abd2ea72}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP}{\_PATH\_PROC\_CAPLASTCAP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+A\+P\+L\+A\+S\+T\+C\+AP~\char`\"{}/proc/sys/kernel/cap\+\_\+last\+\_\+cap\char`\"{}}
+
+
+
+Definition at line 95 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_afba5085a9b6e189c7ab2fd4549dcd13a}\label{pathnames_8h_afba5085a9b6e189c7ab2fd4549dcd13a}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO}{\_PATH\_PROC\_CDROMINFO}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+D\+R\+O\+M\+I\+N\+FO~\char`\"{}/proc/sys/dev/cdrom/info\char`\"{}}
+
+
+
+Definition at line 88 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ade1a907d3b43166a72af55fa224d4893}\label{pathnames_8h_ade1a907d3b43166a72af55fa224d4893}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE}{\_PATH\_PROC\_CMDLINE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+C\+M\+D\+L\+I\+NE~\char`\"{}/proc/cmdline\char`\"{}}
+
+
+
+Definition at line 185 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a040c133ddd78a91165853e2163f14954}\label{pathnames_8h_a040c133ddd78a91165853e2163f14954}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES}{\_PATH\_PROC\_DEVICES}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+D\+E\+V\+I\+C\+ES~\char`\"{}/proc/devices\char`\"{}}
+
+
+
+Definition at line 85 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a4979b4b9279519f7a5daff05c89e3031}\label{pathnames_8h_a4979b4b9279519f7a5daff05c89e3031}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS}{\_PATH\_PROC\_FILESYSTEMS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+F\+I\+L\+E\+S\+Y\+S\+T\+E\+MS~\char`\"{}/proc/filesystems\char`\"{}}
+
+
+
+Definition at line 82 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab3dee973e83292607181ac52dd59d4a9}\label{pathnames_8h_ab3dee973e83292607181ac52dd59d4a9}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP}{\_PATH\_PROC\_GIDMAP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+G\+I\+D\+M\+AP~\char`\"{}/proc/self/gid\+\_\+map\char`\"{}}
+
+
+
+Definition at line 91 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aa35cf1f521b389eb08fc1b99728cfeb4}\label{pathnames_8h_aa35cf1f521b389eb08fc1b99728cfeb4}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX}{\_PATH\_PROC\_IPC\_MSGMAX}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+AX~\char`\"{}/proc/sys/kernel/msgmax\char`\"{}}
+
+
+
+Definition at line 176 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a7b3755cc62822f0a3a885ced4076f057}\label{pathnames_8h_a7b3755cc62822f0a3a885ced4076f057}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB}{\_PATH\_PROC\_IPC\_MSGMNB}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NB~\char`\"{}/proc/sys/kernel/msgmnb\char`\"{}}
+
+
+
+Definition at line 177 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a151788ed8c000d06bc979ab27c15b963}\label{pathnames_8h_a151788ed8c000d06bc979ab27c15b963}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI}{\_PATH\_PROC\_IPC\_MSGMNI}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+M\+S\+G\+M\+NI~\char`\"{}/proc/sys/kernel/msgmni\char`\"{}}
+
+
+
+Definition at line 178 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aefb6c964019935a0fe91cbd7814d874e}\label{pathnames_8h_aefb6c964019935a0fe91cbd7814d874e}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM}{\_PATH\_PROC\_IPC\_SEM}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+EM~\char`\"{}/proc/sys/kernel/sem\char`\"{}}
+
+
+
+Definition at line 179 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a200d2458592060c033ea919dde5bfbc3}\label{pathnames_8h_a200d2458592060c033ea919dde5bfbc3}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL}{\_PATH\_PROC\_IPC\_SHMALL}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+A\+LL~\char`\"{}/proc/sys/kernel/shmall\char`\"{}}
+
+
+
+Definition at line 180 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ae4bde5f3b99baf63c3fbc344ba415abb}\label{pathnames_8h_ae4bde5f3b99baf63c3fbc344ba415abb}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX}{\_PATH\_PROC\_IPC\_SHMMAX}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+AX~\char`\"{}/proc/sys/kernel/shmmax\char`\"{}}
+
+
+
+Definition at line 181 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a681c1cd534dc11c88f48437d9d5beb27}\label{pathnames_8h_a681c1cd534dc11c88f48437d9d5beb27}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI}{\_PATH\_PROC\_IPC\_SHMMNI}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+I\+P\+C\+\_\+\+S\+H\+M\+M\+NI~\char`\"{}/proc/sys/kernel/shmmni\char`\"{}}
+
+
+
+Definition at line 182 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_acc6a0fbfcc9f3df073e7999a698562ae}\label{pathnames_8h_acc6a0fbfcc9f3df073e7999a698562ae}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS}{\_PATH\_PROC\_LOCKS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+L\+O\+C\+KS~\char`\"{}/proc/locks\char`\"{}}
+
+
+
+Definition at line 87 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ae4a9d08e4926d5724e50d21f31429fb4}\label{pathnames_8h_ae4a9d08e4926d5724e50d21f31429fb4}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO}{\_PATH\_PROC\_MOUNTINFO}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+T\+I\+N\+FO~\char`\"{}/proc/self/mountinfo\char`\"{}}
+
+
+
+Definition at line 86 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ad97a5c5eb4afef24a817e1982711494b}\label{pathnames_8h_ad97a5c5eb4afef24a817e1982711494b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS}{\_PATH\_PROC\_MOUNTS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+M\+O\+U\+N\+TS~\char`\"{}/proc/mounts\char`\"{}}
+
+
+
+Definition at line 83 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a17c5eab474b1e44ead4af90bbe09a998}\label{pathnames_8h_a17c5eab474b1e44ead4af90bbe09a998}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS}{\_PATH\_PROC\_PARTITIONS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+P\+A\+R\+T\+I\+T\+I\+O\+NS~\char`\"{}/proc/partitions\char`\"{}}
+
+
+
+Definition at line 84 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a0e4785a5ac814597802645a72e245b39}\label{pathnames_8h_a0e4785a5ac814597802645a72e245b39}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS}{\_PATH\_PROC\_SWAPS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+W\+A\+PS~\char`\"{}/proc/swaps\char`\"{}}
+
+
+
+Definition at line 81 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aac1be7896efa13aa1016d6c55e5dd715}\label{pathnames_8h_aac1be7896efa13aa1016d6c55e5dd715}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG}{\_PATH\_PROC\_SYSV\_MSG}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+M\+SG~\char`\"{}/proc/sysvipc/msg\char`\"{}}
+
+
+
+Definition at line 173 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ad7bd1bae938aa736e056dac7f1bbc8cf}\label{pathnames_8h_ad7bd1bae938aa736e056dac7f1bbc8cf}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM}{\_PATH\_PROC\_SYSV\_SEM}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+EM~\char`\"{}/proc/sysvipc/sem\char`\"{}}
+
+
+
+Definition at line 174 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_afc917c09b728d3b9d29955a0416364a1}\label{pathnames_8h_afc917c09b728d3b9d29955a0416364a1}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM}{\_PATH\_PROC\_SYSV\_SHM}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+S\+Y\+S\+V\+\_\+\+S\+HM~\char`\"{}/proc/sysvipc/shm\char`\"{}}
+
+
+
+Definition at line 175 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aaee787ef1e85c1d2010f851d05c9b3b0}\label{pathnames_8h_aaee787ef1e85c1d2010f851d05c9b3b0}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP@{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP}{\_PATH\_PROC\_UIDMAP}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+P\+R\+O\+C\+\_\+\+U\+I\+D\+M\+AP~\char`\"{}/proc/self/uid\+\_\+map\char`\"{}}
+
+
+
+Definition at line 90 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ae3e1bc38e29e8d4186cf4f2f5c373dca}\label{pathnames_8h_ae3e1bc38e29e8d4186cf4f2f5c373dca}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL}{\_PATH\_RAWDEVCTL}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+TL~\hyperlink{pathnames_8h_afa5c92874b185f609b805b78f1bce24f}{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR} \char`\"{}rawctl\char`\"{}}
+
+
+
+Definition at line 165 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a6bbae5e7391d17c158c15186e2ffd12d}\label{pathnames_8h_a6bbae5e7391d17c158c15186e2ffd12d}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD}{\_PATH\_RAWDEVCTL\_OLD}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+C\+T\+L\+\_\+\+O\+LD~\char`\"{}/dev/rawctl\char`\"{}}
+
+
+
+Definition at line 167 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_afa5c92874b185f609b805b78f1bce24f}\label{pathnames_8h_afa5c92874b185f609b805b78f1bce24f}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR}{\_PATH\_RAWDEVDIR}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+R\+A\+W\+D\+E\+V\+D\+IR~\char`\"{}/dev/raw/\char`\"{}}
+
+
+
+Definition at line 164 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ae1cbebd9bed7440b52fe947d8a86c95a}\label{pathnames_8h_ae1cbebd9bed7440b52fe947d8a86c95a}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+RC@{\+\_\+\+P\+A\+T\+H\+\_\+\+RC}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+RC@{\+\_\+\+P\+A\+T\+H\+\_\+\+RC}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+RC}{\_PATH\_RC}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+RC~\char`\"{}/etc/rc\char`\"{}}
+
+
+
+Definition at line 44 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a6574b2d6d0de628e581fe34f8fb0fdba}\label{pathnames_8h_a6574b2d6d0de628e581fe34f8fb0fdba}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT}{\_PATH\_REBOOT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+R\+E\+B\+O\+OT~\char`\"{}/sbin/reboot\char`\"{}}
+
+
+
+Definition at line 45 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a30a87146e7576ef2813db7327e07b7e6}\label{pathnames_8h_a30a87146e7576ef2813db7327e07b7e6}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV}{\_PATH\_RTC\_DEV}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+R\+T\+C\+\_\+\+D\+EV~\char`\"{}/dev/rtc\char`\"{}}
+
+
+
+Definition at line 156 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a2b7debd4e4b38ec251dce942ef27871e}\label{pathnames_8h_a2b7debd4e4b38ec251dce942ef27871e}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE}{\_PATH\_SECURE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+RE~\char`\"{}/etc/securesingle\char`\"{}}
+
+
+
+Definition at line 50 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a40c32a0875e0baa6aec2dbdb24e26713}\label{pathnames_8h_a40c32a0875e0baa6aec2dbdb24e26713}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY}{\_PATH\_SECURETTY}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+E\+C\+U\+R\+E\+T\+TY~\char`\"{}/etc/securetty\char`\"{}}
+
+
+
+Definition at line 28 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ac3588db7fd4f88c5c4a15942cc1abe0c}\label{pathnames_8h_ac3588db7fd4f88c5c4a15942cc1abe0c}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD}{\_PATH\_SHADOW\_PASSWD}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+A\+D\+O\+W\+\_\+\+P\+A\+S\+S\+WD~\char`\"{}/etc/shadow\char`\"{}}
+
+
+
+Definition at line 63 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab5b85c201bf2601a57ca5acf934780b9}\label{pathnames_8h_ab5b85c201bf2601a57ca5acf934780b9}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS}{\_PATH\_SHELLS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+E\+L\+LS~\char`\"{}/etc/shells\char`\"{}}
+
+
+
+Definition at line 64 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a49cce024ad11c1825e1e7db53df9f410}\label{pathnames_8h_a49cce024ad11c1825e1e7db53df9f410}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN}{\_PATH\_SHUTDOWN}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+WN~\char`\"{}/sbin/shutdown\char`\"{}}
+
+
+
+Definition at line 46 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ac9fcd6d5e37586d083b9a9ec491f325b}\label{pathnames_8h_ac9fcd6d5e37586d083b9a9ec491f325b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF}{\_PATH\_SHUTDOWN\_CONF}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+H\+U\+T\+D\+O\+W\+N\+\_\+\+C\+O\+NF~\char`\"{}/etc/shutdown.\+conf\char`\"{}}
+
+
+
+Definition at line 48 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a86a6a581480d231902093d8016713e8b}\label{pathnames_8h_a86a6a581480d231902093d8016713e8b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE}{\_PATH\_SINGLE}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+I\+N\+G\+LE~\char`\"{}/etc/singleboot\char`\"{}}
+
+
+
+Definition at line 47 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ac57ef9a2ce4a0262cb27c0df2b00e6b7}\label{pathnames_8h_ac57ef9a2ce4a0262cb27c0df2b00e6b7}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR}{\_PATH\_SYS\_APPARMOR}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+A\+P\+P\+A\+R\+M\+OR~\char`\"{}/sys/kernel/security/apparmor\char`\"{}}
+
+
+
+Definition at line 104 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a8aefb1b812174f865fc0ccc8db5f0ab2}\label{pathnames_8h_a8aefb1b812174f865fc0ccc8db5f0ab2}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK}{\_PATH\_SYS\_BLOCK}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+B\+L\+O\+CK~\char`\"{}/sys/block\char`\"{}}
+
+
+
+Definition at line 98 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_aa8f74b3b02d23e2ac80ab8ae81d6a077}\label{pathnames_8h_aa8f74b3b02d23e2ac80ab8ae81d6a077}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS}{\_PATH\_SYS\_CLASS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+C\+L\+A\+SS~\char`\"{}/sys/class\char`\"{}}
+
+
+
+Definition at line 100 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ad1be6f13dbf90f43116e60dd82f4a99c}\label{pathnames_8h_ad1be6f13dbf90f43116e60dd82f4a99c}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK}{\_PATH\_SYS\_DEVBLOCK}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+D\+E\+V\+B\+L\+O\+CK~\char`\"{}/sys/dev/block\char`\"{}}
+
+
+
+Definition at line 99 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a4895324889013f06c306583c9810a97b}\label{pathnames_8h_a4895324889013f06c306583c9810a97b}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI}{\_PATH\_SYS\_SCSI}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+C\+SI~\char`\"{}/sys/bus/scsi\char`\"{}}
+
+
+
+Definition at line 101 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a548c2db8f51f86cb9c975e46daeead0f}\label{pathnames_8h_a548c2db8f51f86cb9c975e46daeead0f}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX@{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX}{\_PATH\_SYS\_SELINUX}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+S\+Y\+S\+\_\+\+S\+E\+L\+I\+N\+UX~\char`\"{}/sys/fs/selinux\char`\"{}}
+
+
+
+Definition at line 103 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a46baa4cf0440b58182e78717196e16f6}\label{pathnames_8h_a46baa4cf0440b58182e78717196e16f6}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT@{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT@{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT}{\_PATH\_UMOUNT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+U\+M\+O\+U\+NT~\char`\"{}/bin/umount\char`\"{}}
+
+
+
+Definition at line 78 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a2d009602d685f50aca749e5ea20929c8}\label{pathnames_8h_a2d009602d685f50aca749e5ea20929c8}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY@{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY}{\_PATH\_USERTTY}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+U\+S\+E\+R\+T\+TY~\char`\"{}/etc/usertty\char`\"{}}
+
+
+
+Definition at line 51 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_af98e69a9fcbe55e265b0c6ee4134c409}\label{pathnames_8h_af98e69a9fcbe55e265b0c6ee4134c409}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV}{\_PATH\_WATCHDOG\_DEV}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+W\+A\+T\+C\+H\+D\+O\+G\+\_\+\+D\+EV~\char`\"{}/dev/watchdog\char`\"{}}
+
+
+
+Definition at line 170 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_afa5370b736a98b43acf00966bf0a6105}\label{pathnames_8h_afa5370b736a98b43acf00966bf0a6105}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS}{\_PATH\_WORDS}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+DS~\char`\"{}/usr/share/dict/words\char`\"{}}
+
+
+
+Definition at line 74 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ac4ea8730a96c2732cecb8ca7190c0166}\label{pathnames_8h_ac4ea8730a96c2732cecb8ca7190c0166}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT}{\_PATH\_WORDS\_ALT}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+W\+O\+R\+D\+S\+\_\+\+A\+LT~\char`\"{}/usr/share/dict/web2\char`\"{}}
+
+
+
+Definition at line 75 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a28fbd79a57ee3db63c5e102f8829c530}\label{pathnames_8h_a28fbd79a57ee3db63c5e102f8829c530}} 
+\index{pathnames.\+h@{pathnames.\+h}!\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK}}
+\index{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK@{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK}{\_PATH\_WTMPLOCK}}
+{\footnotesize\ttfamily \#define \+\_\+\+P\+A\+T\+H\+\_\+\+W\+T\+M\+P\+L\+O\+CK~\char`\"{}/etc/wtmplock\char`\"{}}
+
+
+
+Definition at line 29 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_ab6011bb7bad0e8c02440dd26d62a3492}\label{pathnames_8h_ab6011bb7bad0e8c02440dd26d62a3492}} 
+\index{pathnames.\+h@{pathnames.\+h}!P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX@{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}}
+\index{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX@{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}{PATH\_DELETED\_SUFFIX}}
+{\footnotesize\ttfamily \#define P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX~\char`\"{}\textbackslash{}\textbackslash{}040(deleted)\char`\"{}}
+
+
+
+Definition at line 18 of file pathnames.\+h.
+
+\mbox{\Hypertarget{pathnames_8h_a828419e5f3b12cbf648e63e44ed0a6a6}\label{pathnames_8h_a828419e5f3b12cbf648e63e44ed0a6a6}} 
+\index{pathnames.\+h@{pathnames.\+h}!P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ@{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ}}
+\index{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ@{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ}!pathnames.\+h@{pathnames.\+h}}
+\subsubsection{\texorpdfstring{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ}{PATH\_DELETED\_SUFFIX\_SZ}}
+{\footnotesize\ttfamily \#define P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+I\+X\+\_\+\+SZ~(sizeof(\hyperlink{pathnames_8h_ab6011bb7bad0e8c02440dd26d62a3492}{P\+A\+T\+H\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+S\+U\+F\+F\+IX}) -\/ 1)}
+
+
+
+Definition at line 19 of file pathnames.\+h.
+

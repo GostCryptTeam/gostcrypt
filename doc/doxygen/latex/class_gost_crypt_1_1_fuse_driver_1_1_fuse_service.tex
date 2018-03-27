@@ -1,0 +1,290 @@
+\hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{}\section{Gost\+Crypt\+:\+:Fuse\+Driver\+:\+:Fuse\+Service Class Reference}
+\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+
+
+Class corresponding to \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{Fuse\+Service} process in charge of creating the F\+U\+SE mount using the F\+U\+SE library and maintaining the fuse filesystem.  
+
+
+
+
+{\ttfamily \#include $<$Fuse\+Service.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Fuse\+Driver\+:\+:Fuse\+Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a66af9d3e0da8336d6ba39f3c37eb8ffe}{Fuse\+Service} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_af6d74b87def44e650978fe446d4d1593}{check\+Access\+Rights} ()
+\begin{DoxyCompactList}\small\item\em Return wether or not the current user can access the files within the F\+U\+SE mount. \end{DoxyCompactList}\item 
+static int \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a028d4692dbaad0660a017b95e95e286e}{handle\+Exceptions} ()
+\begin{DoxyCompactList}\small\item\em Return the error code corresponding to the last thrown Exception. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_ab5026717d04c3ecd8d0e32a8deb81589}{dismount} ()
+\begin{DoxyCompactList}\small\item\em Close the volume and shutdown the encryption thread in order to destroy the F\+U\+SE mount. \end{DoxyCompactList}\item 
+static quint64 \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a7220db84a173f86716e34df4115b85c1}{get\+Volume\+Size} ()
+\begin{DoxyCompactList}\small\item\em Return the size of the volume in byte. \end{DoxyCompactList}\item 
+static quint64 \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a71cd668462d167ba83f04f2218ba7292}{get\+Volume\+Sector\+Size} ()
+\begin{DoxyCompactList}\small\item\em Return the sector size of the volume in byte. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a083ec1d770ff1f0f45e466e9e1e50dbf}{read\+Volume\+Sectors} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, quint64 byte\+Offset)
+\begin{DoxyCompactList}\small\item\em Read sectors in the volume and store their data in the given buffer. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a30816bb05f2a90ccceb72528c83d5758}{write\+Volume\+Sectors} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer, quint64 byte\+Offset)
+\begin{DoxyCompactList}\small\item\em Write sectors in the volume with the data contained in the given buffer. \end{DoxyCompactList}\item 
+static bool \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a070573d2fc37041d2359b24902366a0c}{aux\+Device\+Info\+Received} ()
+\begin{DoxyCompactList}\small\item\em Return whether or not the path of the virtual device (also called loop device) is known, that is to say that it has already been written in the control file. \end{DoxyCompactList}\item 
+static void \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a4fd068071255017dfd44f33a28e358b5}{receive\+Aux\+Device\+Info} (Q\+Byte\+Array \&buffer)
+\begin{DoxyCompactList}\small\item\em Update \hyperlink{structvolume_info}{volume\+Info} with the received information. \end{DoxyCompactList}\item 
+static Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_affb0e817b2cf32cca44e161eadb1f75f}{get\+Volume\+Info} ()
+\begin{DoxyCompactList}\small\item\em Return the serialized Volume\+Info object as a Q\+Byte\+Array. This object contains all the information about the volume mount. \end{DoxyCompactList}\item 
+static uid\+\_\+t \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a77061e84ee50b0d85c18bfe27536480a}{get\+User\+Id} ()
+\begin{DoxyCompactList}\small\item\em Return the ID of the user for which the volume had been mounted. \end{DoxyCompactList}\item 
+static gid\+\_\+t \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a695ae71bede89ec373e3e04bf60e9c8e}{get\+Group\+Id} ()
+\begin{DoxyCompactList}\small\item\em Return the ID of the group for which the volume had been mounted. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class corresponding to \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{Fuse\+Service} process in charge of creating the F\+U\+SE mount using the F\+U\+SE library and maintaining the fuse filesystem. 
+
+Definition at line 43 of file Fuse\+Service.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a66af9d3e0da8336d6ba39f3c37eb8ffe}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a66af9d3e0da8336d6ba39f3c37eb8ffe}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!Fuse\+Service@{Fuse\+Service}}
+\index{Fuse\+Service@{Fuse\+Service}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{Fuse\+Service()}{FuseService()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::\+Fuse\+Service (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file Fuse\+Service.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a070573d2fc37041d2359b24902366a0c}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a070573d2fc37041d2359b24902366a0c}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!aux\+Device\+Info\+Received@{aux\+Device\+Info\+Received}}
+\index{aux\+Device\+Info\+Received@{aux\+Device\+Info\+Received}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{aux\+Device\+Info\+Received()}{auxDeviceInfoReceived()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::aux\+Device\+Info\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return whether or not the path of the virtual device (also called loop device) is known, that is to say that it has already been written in the control file. 
+
+\begin{DoxyReturn}{Returns}
+True if the path of the virtual device is known 
+\end{DoxyReturn}
+
+
+Definition at line 250 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_af6d74b87def44e650978fe446d4d1593}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_af6d74b87def44e650978fe446d4d1593}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!check\+Access\+Rights@{check\+Access\+Rights}}
+\index{check\+Access\+Rights@{check\+Access\+Rights}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{check\+Access\+Rights()}{checkAccessRights()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::check\+Access\+Rights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return wether or not the current user can access the files within the F\+U\+SE mount. 
+
+\begin{DoxyReturn}{Returns}
+Boolean true if the current user can access the files within the F\+U\+SE mount 
+\end{DoxyReturn}
+
+
+Definition at line 205 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_ab5026717d04c3ecd8d0e32a8deb81589}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_ab5026717d04c3ecd8d0e32a8deb81589}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!dismount@{dismount}}
+\index{dismount@{dismount}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{dismount()}{dismount()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::dismount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Close the volume and shutdown the encryption thread in order to destroy the F\+U\+SE mount. 
+
+
+
+Definition at line 330 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a695ae71bede89ec373e3e04bf60e9c8e}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a695ae71bede89ec373e3e04bf60e9c8e}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!get\+Group\+Id@{get\+Group\+Id}}
+\index{get\+Group\+Id@{get\+Group\+Id}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{get\+Group\+Id()}{getGroupId()}}
+{\footnotesize\ttfamily static gid\+\_\+t Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::get\+Group\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return the ID of the group for which the volume had been mounted. 
+
+\begin{DoxyReturn}{Returns}
+ID of the group for which the volume has been mounted 
+\end{DoxyReturn}
+
+
+Definition at line 120 of file Fuse\+Service.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a77061e84ee50b0d85c18bfe27536480a}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a77061e84ee50b0d85c18bfe27536480a}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!get\+User\+Id@{get\+User\+Id}}
+\index{get\+User\+Id@{get\+User\+Id}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{get\+User\+Id()}{getUserId()}}
+{\footnotesize\ttfamily static uid\+\_\+t Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::get\+User\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Return the ID of the user for which the volume had been mounted. 
+
+\begin{DoxyReturn}{Returns}
+ID of the user for which the volume has been mounted 
+\end{DoxyReturn}
+
+
+Definition at line 114 of file Fuse\+Service.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_affb0e817b2cf32cca44e161eadb1f75f}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_affb0e817b2cf32cca44e161eadb1f75f}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!get\+Volume\+Info@{get\+Volume\+Info}}
+\index{get\+Volume\+Info@{get\+Volume\+Info}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{get\+Volume\+Info()}{getVolumeInfo()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::get\+Volume\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return the serialized Volume\+Info object as a Q\+Byte\+Array. This object contains all the information about the volume mount. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to a Q\+Byte\+Array containing the data of the serialized Volume\+Info object 
+\end{DoxyReturn}
+
+
+Definition at line 277 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a71cd668462d167ba83f04f2218ba7292}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a71cd668462d167ba83f04f2218ba7292}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!get\+Volume\+Sector\+Size@{get\+Volume\+Sector\+Size}}
+\index{get\+Volume\+Sector\+Size@{get\+Volume\+Sector\+Size}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{get\+Volume\+Sector\+Size()}{getVolumeSectorSize()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::get\+Volume\+Sector\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return the sector size of the volume in byte. 
+
+\begin{DoxyReturn}{Returns}
+Size of the volume in byte 
+\end{DoxyReturn}
+
+
+Definition at line 220 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a7220db84a173f86716e34df4115b85c1}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a7220db84a173f86716e34df4115b85c1}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!get\+Volume\+Size@{get\+Volume\+Size}}
+\index{get\+Volume\+Size@{get\+Volume\+Size}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{get\+Volume\+Size()}{getVolumeSize()}}
+{\footnotesize\ttfamily quint64 Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::get\+Volume\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return the size of the volume in byte. 
+
+\begin{DoxyReturn}{Returns}
+Size of the volume in byte 
+\end{DoxyReturn}
+
+
+Definition at line 210 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a028d4692dbaad0660a017b95e95e286e}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a028d4692dbaad0660a017b95e95e286e}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!handle\+Exceptions@{handle\+Exceptions}}
+\index{handle\+Exceptions@{handle\+Exceptions}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{handle\+Exceptions()}{handleExceptions()}}
+{\footnotesize\ttfamily int Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::handle\+Exceptions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Return the error code corresponding to the last thrown Exception. 
+
+\begin{DoxyReturn}{Returns}
+Error code corresponding to the last thrown Exception as define in errno-\/base.\+h 
+\end{DoxyReturn}
+
+
+Definition at line 289 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a083ec1d770ff1f0f45e466e9e1e50dbf}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a083ec1d770ff1f0f45e466e9e1e50dbf}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!read\+Volume\+Sectors@{read\+Volume\+Sectors}}
+\index{read\+Volume\+Sectors@{read\+Volume\+Sectors}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{read\+Volume\+Sectors()}{readVolumeSectors()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::read\+Volume\+Sectors (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{quint64}]{byte\+Offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Read sectors in the volume and store their data in the given buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} where to store the read data \\
+\hline
+{\em byte\+Offset} & Offset of the sectors to read (in bytes) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 230 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a4fd068071255017dfd44f33a28e358b5}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a4fd068071255017dfd44f33a28e358b5}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!receive\+Aux\+Device\+Info@{receive\+Aux\+Device\+Info}}
+\index{receive\+Aux\+Device\+Info@{receive\+Aux\+Device\+Info}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{receive\+Aux\+Device\+Info()}{receiveAuxDeviceInfo()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::receive\+Aux\+Device\+Info (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Update \hyperlink{structvolume_info}{volume\+Info} with the received information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} containing the bytes received \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 255 of file Fuse\+Service.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a30816bb05f2a90ccceb72528c83d5758}\label{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service_a30816bb05f2a90ccceb72528c83d5758}} 
+\index{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}!write\+Volume\+Sectors@{write\+Volume\+Sectors}}
+\index{write\+Volume\+Sectors@{write\+Volume\+Sectors}!Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service@{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service}}
+\subsubsection{\texorpdfstring{write\+Volume\+Sectors()}{writeVolumeSectors()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Service\+::write\+Volume\+Sectors (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer,  }\item[{quint64}]{byte\+Offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Write sectors in the volume with the data contained in the given buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} containing the data to write \\
+\hline
+{\em byte\+Offset} & Offset of the sectors where to write the data (in bytes) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 240 of file Fuse\+Service.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Fuse\+Service/\hyperlink{_fuse_service_8h}{Fuse\+Service.\+h}\item 
+Fuse\+Service/\hyperlink{_fuse_service_8cpp}{Fuse\+Service.\+cpp}\end{DoxyCompactItemize}

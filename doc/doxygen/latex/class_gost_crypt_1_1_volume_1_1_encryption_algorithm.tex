@@ -1,0 +1,274 @@
+\hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{}\section{Gost\+Crypt\+:\+:Volume\+:\+:Encryption\+Algorithm Class Reference}
+\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+
+
+{\ttfamily \#include $<$Encryption\+Algorithm.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Volume\+:\+:Encryption\+Algorithm\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.766562cm]{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a09b724f31b4be142ddeb7d91a737dddb}{$\sim$\+Encryption\+Algorithm} ()
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a0e6ae382e87cf1be84f6c191932c0ef0}{Decrypt} (quint8 $\ast$data, quint64 length) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae74ed748b3b3d1413345af12fcda6009}{Decrypt} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&data) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac7c31151530433ddaebaf26b0fc42ded}{Decrypt\+Sectors} (quint8 $\ast$data, quint64 sector\+Index, quint64 sector\+Count, size\+\_\+t sector\+Size) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a82514ac98812a23089feae002179e501}{Encrypt} (quint8 $\ast$data, quint64 length) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac1b39918f32e90bf26f9c68e2f28883e}{Encrypt} (\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&data) const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa4a1c39982265c779a17dad7ad772a71}{Encrypt\+Sectors} (quint8 $\ast$data, quint64 sector\+Index, quint64 sector\+Count, size\+\_\+t sector\+Size) const
+\item 
+virtual Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab77654d47cfabd0937eab82beaaac277}{Get\+New} () const =0
+\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab086256fa51d87e6012c23d9f317964e}{Get\+Key\+Size} () const
+\item 
+virtual Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad0812665fbdfda6920564248558a8dfb}{Get\+Mode} () const
+\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a12f1129d74f1ed33b4ee2e871f30a44a}{Get\+Name} () const
+\item 
+virtual Q\+String \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a4d23c10182107ac8357baf3f9db0d43d}{Get\+Description} () const
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a115757d1b9e3a2aa9b26c4b7c25c56e8}{Is\+Deprecated} () const
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae0fabca2d13ee8bdfad1e27d8babd803}{Set\+Key} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&key)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a3f49b2daf79e824c726ec7b62fa1e926}{Get\+Available\+Algorithms} ()
+\item 
+static size\+\_\+t \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a37bd15a6974f6685c8edb3a07da009dc}{Get\+Largest\+Key\+Size} (const \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \&algorithms)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad56592dedd6694a925c57da3aa96ca40}{Encryption\+Algorithm} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa6a4d985e35af681d88f813f082a0657}{Deprecated}
+\item 
+Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode} $>$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a033ffbc7a4ff80377102654cff207b66}{Mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 26 of file Encryption\+Algorithm.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a09b724f31b4be142ddeb7d91a737dddb}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a09b724f31b4be142ddeb7d91a737dddb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!````~Encryption\+Algorithm@{$\sim$\+Encryption\+Algorithm}}
+\index{````~Encryption\+Algorithm@{$\sim$\+Encryption\+Algorithm}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{$\sim$\+Encryption\+Algorithm()}{~EncryptionAlgorithm()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::$\sim$\+Encryption\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 25 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad56592dedd6694a925c57da3aa96ca40}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad56592dedd6694a925c57da3aa96ca40}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Encryption\+Algorithm@{Encryption\+Algorithm}}
+\index{Encryption\+Algorithm@{Encryption\+Algorithm}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Encryption\+Algorithm()}{EncryptionAlgorithm()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Encryption\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 21 of file Encryption\+Algorithm.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a0e6ae382e87cf1be84f6c191932c0ef0}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a0e6ae382e87cf1be84f6c191932c0ef0}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Decrypt@{Decrypt}}
+\index{Decrypt@{Decrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Decrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 29 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae74ed748b3b3d1413345af12fcda6009}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae74ed748b3b3d1413345af12fcda6009}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Decrypt@{Decrypt}}
+\index{Decrypt@{Decrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Decrypt()}{Decrypt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Decrypt (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{data }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 35 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac7c31151530433ddaebaf26b0fc42ded}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac7c31151530433ddaebaf26b0fc42ded}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Decrypt\+Sectors@{Decrypt\+Sectors}}
+\index{Decrypt\+Sectors@{Decrypt\+Sectors}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Decrypt\+Sectors()}{DecryptSectors()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Decrypt\+Sectors (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{sector\+Index,  }\item[{quint64}]{sector\+Count,  }\item[{size\+\_\+t}]{sector\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 40 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a82514ac98812a23089feae002179e501}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a82514ac98812a23089feae002179e501}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Encrypt@{Encrypt}}
+\index{Encrypt@{Encrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Encrypt()}{Encrypt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Encrypt (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{length }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 47 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac1b39918f32e90bf26f9c68e2f28883e}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ac1b39918f32e90bf26f9c68e2f28883e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Encrypt@{Encrypt}}
+\index{Encrypt@{Encrypt}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Encrypt()}{Encrypt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Encrypt (\begin{DoxyParamCaption}\item[{\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{data }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 53 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa4a1c39982265c779a17dad7ad772a71}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa4a1c39982265c779a17dad7ad772a71}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Encrypt\+Sectors@{Encrypt\+Sectors}}
+\index{Encrypt\+Sectors@{Encrypt\+Sectors}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Encrypt\+Sectors()}{EncryptSectors()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Encrypt\+Sectors (\begin{DoxyParamCaption}\item[{quint8 $\ast$}]{data,  }\item[{quint64}]{sector\+Index,  }\item[{quint64}]{sector\+Count,  }\item[{size\+\_\+t}]{sector\+Size }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 58 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a3f49b2daf79e824c726ec7b62fa1e926}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a3f49b2daf79e824c726ec7b62fa1e926}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Available\+Algorithms@{Get\+Available\+Algorithms}}
+\index{Get\+Available\+Algorithms@{Get\+Available\+Algorithms}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Available\+Algorithms()}{GetAvailableAlgorithms()}}
+{\footnotesize\ttfamily \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Available\+Algorithms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 65 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a4d23c10182107ac8357baf3f9db0d43d}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a4d23c10182107ac8357baf3f9db0d43d}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Description@{Get\+Description}}
+\index{Get\+Description@{Get\+Description}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Description()}{GetDescription()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 131 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab086256fa51d87e6012c23d9f317964e}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab086256fa51d87e6012c23d9f317964e}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Key\+Size@{Get\+Key\+Size}}
+\index{Get\+Key\+Size@{Get\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Key\+Size()}{GetKeySize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Key\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 92 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a37bd15a6974f6685c8edb3a07da009dc}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a37bd15a6974f6685c8edb3a07da009dc}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Largest\+Key\+Size@{Get\+Largest\+Key\+Size}}
+\index{Get\+Largest\+Key\+Size@{Get\+Largest\+Key\+Size}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Largest\+Key\+Size()}{GetLargestKeySize()}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Largest\+Key\+Size (\begin{DoxyParamCaption}\item[{const \hyperlink{namespace_gost_crypt_1_1_volume_ae58c307b345c639d35f6dc68af4017b5}{Encryption\+Algorithm\+List} \&}]{algorithms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 77 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad0812665fbdfda6920564248558a8dfb}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ad0812665fbdfda6920564248558a8dfb}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Mode@{Get\+Mode}}
+\index{Get\+Mode@{Get\+Mode}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Mode()}{GetMode()}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$ \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode} $>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 97 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a12f1129d74f1ed33b4ee2e871f30a44a}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a12f1129d74f1ed33b4ee2e871f30a44a}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+Name@{Get\+Name}}
+\index{Get\+Name@{Get\+Name}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+Name()}{GetName()}}
+{\footnotesize\ttfamily Q\+String Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 107 of file Encryption\+Algorithm.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab77654d47cfabd0937eab82beaaac277}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ab77654d47cfabd0937eab82beaaac277}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Get\+New@{Get\+New}}
+\index{Get\+New@{Get\+New}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Get\+New()}{GetNew()}}
+{\footnotesize\ttfamily virtual Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm}{Encryption\+Algorithm}$>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Get\+New (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_grasshopper_a86dd6ab97c46ad5e2d6291f6df2d2cac}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+Grasshopper}, and \hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_g_o_s_t_a32ea0c511bbc1e8445ff09c300d2f40b}{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+G\+O\+ST}.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a115757d1b9e3a2aa9b26c4b7c25c56e8}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a115757d1b9e3a2aa9b26c4b7c25c56e8}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Is\+Deprecated@{Is\+Deprecated}}
+\index{Is\+Deprecated@{Is\+Deprecated}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Is\+Deprecated()}{IsDeprecated()}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Is\+Deprecated (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 46 of file Encryption\+Algorithm.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae0fabca2d13ee8bdfad1e27d8babd803}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_ae0fabca2d13ee8bdfad1e27d8babd803}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Set\+Key@{Set\+Key}}
+\index{Set\+Key@{Set\+Key}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Set\+Key()}{SetKey()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Set\+Key (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 155 of file Encryption\+Algorithm.\+cpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa6a4d985e35af681d88f813f082a0657}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_aa6a4d985e35af681d88f813f082a0657}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Deprecated@{Deprecated}}
+\index{Deprecated@{Deprecated}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Deprecated}{Deprecated}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Deprecated\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 51 of file Encryption\+Algorithm.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a033ffbc7a4ff80377102654cff207b66}\label{class_gost_crypt_1_1_volume_1_1_encryption_algorithm_a033ffbc7a4ff80377102654cff207b66}} 
+\index{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}!Mode@{Mode}}
+\index{Mode@{Mode}!Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm@{Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm}}
+\subsubsection{\texorpdfstring{Mode}{Mode}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$\hyperlink{class_gost_crypt_1_1_volume_1_1_encryption_mode}{Encryption\+Mode}$>$ Gost\+Crypt\+::\+Volume\+::\+Encryption\+Algorithm\+::\+Mode\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 52 of file Encryption\+Algorithm.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Volume/\hyperlink{_encryption_algorithm_8h}{Encryption\+Algorithm.\+h}\item 
+Volume/\hyperlink{_encryption_algorithm_8cpp}{Encryption\+Algorithm.\+cpp}\end{DoxyCompactItemize}

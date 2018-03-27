@@ -1,0 +1,56 @@
+\hypertarget{_core_request_8h}{}\section{Core/\+Core\+Request.h File Reference}
+\label{_core_request_8h}\index{Core/\+Core\+Request.\+h@{Core/\+Core\+Request.\+h}}
+{\ttfamily \#include $<$Q\+Variant$>$}\newline
+{\ttfamily \#include $<$Q\+Shared\+Pointer$>$}\newline
+{\ttfamily \#include $<$Q\+File\+Info$>$}\newline
+{\ttfamily \#include \char`\"{}Serialization\+Util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Header.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Keyfile.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Password.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Volume\+Type.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_progress_tracking_parameters}{Gost\+Crypt\+::\+Core\+::\+Progress\+Tracking\+Parameters}
+\begin{DoxyCompactList}\small\item\em Class storing all information used to report the request processing progress. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Gost\+Crypt\+::\+Core\+::\+Core\+Request}
+\begin{DoxyCompactList}\small\item\em Parent class of all requests objects used to store parameters for \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions and transmit it to the coreservice. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the volume creation action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_create_volume_request_1_1_volume_params}{Gost\+Crypt\+::\+Core\+::\+Create\+Volume\+Request\+::\+Volume\+Params}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the creation of a volume instance inside the volume container (There can be currently be two volume instance\+: outer and inner (hidden) ones) \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_change_volume_password_request}{Gost\+Crypt\+::\+Core\+::\+Change\+Volume\+Password\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the volume instance password changement action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_create_key_file_request}{Gost\+Crypt\+::\+Core\+::\+Create\+Key\+File\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the key file creation action This action will simply create a file of 64 bytes with random bytes. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_mount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Mount\+Volume\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the mount volume action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_dismount_volume_request}{Gost\+Crypt\+::\+Core\+::\+Dismount\+Volume\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the dismount volume action. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_host_devices_request}{Gost\+Crypt\+::\+Core\+::\+Get\+Host\+Devices\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the action to get the current devices on the system. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_mounted_volumes_request}{Gost\+Crypt\+::\+Core\+::\+Get\+Mounted\+Volumes\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the action to get the current mounted \hyperlink{namespace_gost_crypt}{Gost\+Crypt} volumes on the system and information about them. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_encryption_algorithms_request}{Gost\+Crypt\+::\+Core\+::\+Get\+Encryption\+Algorithms\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the action to get the list of available encryption algorithms. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_get_derivation_functions_request}{Gost\+Crypt\+::\+Core\+::\+Get\+Derivation\+Functions\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the action to get the list of available key derivation functions. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request}{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the volume header backup action This action will save the headers of the volume instances contained inside the given volume container. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_restore_header_request}{Gost\+Crypt\+::\+Core\+::\+Restore\+Header\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the volume header restore action This action will restore the header of the volume instance corresponding to given credentials. It will either use the internal backup or an external header backup file. For this action to succeed the password and keyfiles of the backup header should correspond to the password and keyfiles of the volume instance for which to restore the header T\+O\+DO\+: Implement a way to restore the header when the password have changed. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_gost_crypt_1_1_core_1_1_benchmark_algorithms_request}{Gost\+Crypt\+::\+Core\+::\+Benchmark\+Algorithms\+Request}
+\begin{DoxyCompactList}\small\item\em Class storing all parameters for the encryption algorithm benchmark action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_gost_crypt_1_1_core_a13d7cc8bb97825d89645dbfec1894b0d}{Gost\+Crypt\+::\+Core\+::init\+Core\+Request} ()
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} class and subclass to make them serializable across processes. \end{DoxyCompactList}\end{DoxyCompactItemize}

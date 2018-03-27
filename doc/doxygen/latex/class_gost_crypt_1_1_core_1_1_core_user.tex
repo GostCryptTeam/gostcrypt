@@ -1,0 +1,142 @@
+\hypertarget{class_gost_crypt_1_1_core_1_1_core_user}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Core\+User Class Reference}
+\label{class_gost_crypt_1_1_core_1_1_core_user}\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+
+
+Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it does not have root privileges. Therefore this class does not directly implement all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are forwarded to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process (executed with root privileges) thanks to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service_handler}{Core\+Service\+Handler}.  
+
+
+
+
+{\ttfamily \#include $<$Core\+User.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Core\+User\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_gost_crypt_1_1_core_1_1_core_user}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_user_a4833f12f92b816dfb81c47b40eaf58d0}{exit} ()
+\begin{DoxyCompactList}\small\item\em Terminate all processes launched by this object and emit the signal exited when it is done. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_user_a91a25e3438a7e4d60f35b099a99645a6}{request} (Q\+Variant r)
+\begin{DoxyCompactList}\small\item\em Execute the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action corresponding to the type of the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} sub-\/class given in r. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_core_1_1_core_user_a3c07e2095c168016506b1cfe7b165031}{receive\+Sudo\+Password} (Q\+String password)
+\begin{DoxyCompactList}\small\item\em Slot called when the password of the current user has been gathered by the UI. This password will be used with the sudo utility in order to launch the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} with root privileges. The password will be directly written to the master terminal in which the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process is launched. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_gost_crypt_1_1_core_1_1_core_user_a3932d033fc64fc3e6a70f836e569f111}{send\+Sudo\+Password} (Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ password)
+\begin{DoxyCompactList}\small\item\em Signal emitted to send the user password to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service_handler}{Core\+Service\+Handler} when it is received from the UI T\+O\+DO is it really usefull ? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_core_1_1_core_user_a9c1772217b9cf8c154c1b2dc6d4bb24b}{Core\+User} (Q\+Object $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc). This class is used by the process if it does not have root privileges. Therefore this class does not directly implement all \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions. \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that do not require root privileges are inherited from the parent class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Core\+Base} and the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} actions that require root privileges are forwarded to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process (executed with root privileges) thanks to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service_handler}{Core\+Service\+Handler}. 
+
+Definition at line 25 of file Core\+User.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_user_a9c1772217b9cf8c154c1b2dc6d4bb24b}\label{class_gost_crypt_1_1_core_1_1_core_user_a9c1772217b9cf8c154c1b2dc6d4bb24b}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}!Core\+User@{Core\+User}}
+\index{Core\+User@{Core\+User}!Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+\subsubsection{\texorpdfstring{Core\+User()}{CoreUser()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Core\+User\+::\+Core\+User (\begin{DoxyParamCaption}\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Default constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Parent object (See Qt documentation) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 10 of file Core\+User.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_user_a4833f12f92b816dfb81c47b40eaf58d0}\label{class_gost_crypt_1_1_core_1_1_core_user_a4833f12f92b816dfb81c47b40eaf58d0}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}!exit@{exit}}
+\index{exit@{exit}!Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+\subsubsection{\texorpdfstring{exit}{exit}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+User\+::exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Terminate all processes launched by this object and emit the signal exited when it is done. 
+
+
+
+Definition at line 21 of file Core\+User.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_user_a3c07e2095c168016506b1cfe7b165031}\label{class_gost_crypt_1_1_core_1_1_core_user_a3c07e2095c168016506b1cfe7b165031}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}!receive\+Sudo\+Password@{receive\+Sudo\+Password}}
+\index{receive\+Sudo\+Password@{receive\+Sudo\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+\subsubsection{\texorpdfstring{receive\+Sudo\+Password}{receiveSudoPassword}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+User\+::receive\+Sudo\+Password (\begin{DoxyParamCaption}\item[{Q\+String}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Slot called when the password of the current user has been gathered by the UI. This password will be used with the sudo utility in order to launch the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} with root privileges. The password will be directly written to the master terminal in which the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service}{Core\+Service} process is launched. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & Password of the current user as raw bytes. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 44 of file Core\+User.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_user_a91a25e3438a7e4d60f35b099a99645a6}\label{class_gost_crypt_1_1_core_1_1_core_user_a91a25e3438a7e4d60f35b099a99645a6}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}!request@{request}}
+\index{request@{request}!Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+\subsubsection{\texorpdfstring{request}{request}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+User\+::request (\begin{DoxyParamCaption}\item[{Q\+Variant}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Execute the \hyperlink{namespace_gost_crypt}{Gost\+Crypt} action corresponding to the type of the \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request} sub-\/class given in r. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Q\+Variant containing the request object which is a child of \hyperlink{struct_gost_crypt_1_1_core_1_1_core_request}{Core\+Request}. Its type indicate the action type to execute and its content provide the parameters for this action \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file Core\+User.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_core_1_1_core_user_a3932d033fc64fc3e6a70f836e569f111}\label{class_gost_crypt_1_1_core_1_1_core_user_a3932d033fc64fc3e6a70f836e569f111}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}!send\+Sudo\+Password@{send\+Sudo\+Password}}
+\index{send\+Sudo\+Password@{send\+Sudo\+Password}!Gost\+Crypt\+::\+Core\+::\+Core\+User@{Gost\+Crypt\+::\+Core\+::\+Core\+User}}
+\subsubsection{\texorpdfstring{send\+Sudo\+Password}{sendSudoPassword}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Core\+::\+Core\+User\+::send\+Sudo\+Password (\begin{DoxyParamCaption}\item[{Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$}]{password }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal emitted to send the user password to the \hyperlink{class_gost_crypt_1_1_core_1_1_core_service_handler}{Core\+Service\+Handler} when it is received from the UI T\+O\+DO is it really usefull ? 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & Password of the current user as raw bytes. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_user_8h}{Core\+User.\+h}\item 
+Core/\hyperlink{_core_user_8cpp}{Core\+User.\+cpp}\end{DoxyCompactItemize}

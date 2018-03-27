@@ -1,0 +1,368 @@
+\hypertarget{class_user_settings}{}\section{User\+Settings Class Reference}
+\label{class_user_settings}\index{User\+Settings@{User\+Settings}}
+
+
+The \hyperlink{class_user_settings}{User\+Settings} class All user parameters are stored in a file managed by the OS.  
+
+
+
+
+{\ttfamily \#include $<$User\+Settings.\+h$>$}
+
+Inheritance diagram for User\+Settings\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_user_settings}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_user_settings_addb9748b9f0ee298b8e23dee74edfc91}{User\+Settings} ()
+\item 
+\hyperlink{class_user_settings_abf12285ea58dcf1f4b34f5f68a52b580}{$\sim$\+User\+Settings} ()
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_aef31a9f5222e267a9577660105e6b256}{set\+Setting} (const Q\+String \&a\+Key, const Q\+String \&a\+Value)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_user_settings_aef31a9f5222e267a9577660105e6b256}{User\+Settings\+::set\+Setting}. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+Variant \hyperlink{class_user_settings_a527dda1694c70dc98f06cd5f8a0cd38b}{get\+Setting} (const Q\+String \&a\+Key) const
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_user_settings_a527dda1694c70dc98f06cd5f8a0cd38b}{User\+Settings\+::get\+Setting}. \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+String\+List \hyperlink{class_user_settings_a9d9a36185cb549a4bfd262d489a3d6d6}{get\+Volume\+Paths} (const bool a\+Empty\+Start)
+\begin{DoxyCompactList}\small\item\em get\+Volume\+Paths \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_a69aa858c6028b46a80544712275388bb}{add\+Volume\+Path} (const Q\+Url \&path)
+\begin{DoxyCompactList}\small\item\em add\+Volume\+Paths \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_ab53863f6d8d11cbe8972221237536685}{add\+P\+K\+C\+S\+Path} (const Q\+Url \&path)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_aefa49f195d95789aa6079bd072d0d438}{erase\+Paths} ()
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+Variant\+List \hyperlink{class_user_settings_a06599c66844e76880b3f8f220662ce4c}{get\+Favorites\+Volumes} () const
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_a2041cb2d5b4ec14183f7504a170ee234}{set\+Favorites\+Volumes} (Q\+String)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE bool \hyperlink{class_user_settings_af2853d2437e4bdfc95d7714acf3f4412}{is\+Favorite} (const Q\+String \&) const
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE bool \hyperlink{class_user_settings_a622a1a050f24e29663b8c1c8160f334c}{set\+Favorite\+Volume\+Setting} (Q\+Variant\+Map options)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+Variant\+Map \hyperlink{class_user_settings_ae86ded971587f1e26fe198f0f1b4d176}{get\+Favorite\+Volume\+Setting} (const Q\+String \&)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE qint32 \hyperlink{class_user_settings_a16bb4d9a4366ca2b3196d229147f6c71}{get\+Number\+Of\+Core} () const
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+Variant\+List \hyperlink{class_user_settings_a491eb502b4203b8660c10933edbe8320}{get\+Favorite\+Key\+Files} () const
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_ae4235bad48b9b2f0549b9678cfd74353}{add\+Keyfile} (const Q\+String \&)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_a2778eefdc06a1711398c0d19c9e108e1}{add\+Keyfile\+Path} (const Q\+String \&)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_aca7047180ee2b733fa6ba0578cbb7a1a}{remove\+Keyfile} (const Q\+String \&)
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_user_settings_adb2b7ecfdda9d2ea1c017a0696dcbb16}{remove\+All\+Keyfile} ()
+\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+String \hyperlink{class_user_settings_acf4e409e75947f7002872e296bed933b}{get\+Version} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_user_settings}{User\+Settings} class All user parameters are stored in a file managed by the OS. 
+
+Definition at line 142 of file User\+Settings.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_user_settings_addb9748b9f0ee298b8e23dee74edfc91}\label{class_user_settings_addb9748b9f0ee298b8e23dee74edfc91}} 
+\index{User\+Settings@{User\+Settings}!User\+Settings@{User\+Settings}}
+\index{User\+Settings@{User\+Settings}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{User\+Settings()}{UserSettings()}}
+{\footnotesize\ttfamily User\+Settings\+::\+User\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 7 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_abf12285ea58dcf1f4b34f5f68a52b580}\label{class_user_settings_abf12285ea58dcf1f4b34f5f68a52b580}} 
+\index{User\+Settings@{User\+Settings}!````~User\+Settings@{$\sim$\+User\+Settings}}
+\index{````~User\+Settings@{$\sim$\+User\+Settings}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{$\sim$\+User\+Settings()}{~UserSettings()}}
+{\footnotesize\ttfamily User\+Settings\+::$\sim$\+User\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 66 of file User\+Settings.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_user_settings_ae4235bad48b9b2f0549b9678cfd74353}\label{class_user_settings_ae4235bad48b9b2f0549b9678cfd74353}} 
+\index{User\+Settings@{User\+Settings}!add\+Keyfile@{add\+Keyfile}}
+\index{add\+Keyfile@{add\+Keyfile}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{add\+Keyfile()}{addKeyfile()}}
+{\footnotesize\ttfamily void User\+Settings\+::add\+Keyfile (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 208 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a2778eefdc06a1711398c0d19c9e108e1}\label{class_user_settings_a2778eefdc06a1711398c0d19c9e108e1}} 
+\index{User\+Settings@{User\+Settings}!add\+Keyfile\+Path@{add\+Keyfile\+Path}}
+\index{add\+Keyfile\+Path@{add\+Keyfile\+Path}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{add\+Keyfile\+Path()}{addKeyfilePath()}}
+{\footnotesize\ttfamily void User\+Settings\+::add\+Keyfile\+Path (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 230 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_ab53863f6d8d11cbe8972221237536685}\label{class_user_settings_ab53863f6d8d11cbe8972221237536685}} 
+\index{User\+Settings@{User\+Settings}!add\+P\+K\+C\+S\+Path@{add\+P\+K\+C\+S\+Path}}
+\index{add\+P\+K\+C\+S\+Path@{add\+P\+K\+C\+S\+Path}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{add\+P\+K\+C\+S\+Path()}{addPKCSPath()}}
+{\footnotesize\ttfamily void User\+Settings\+::add\+P\+K\+C\+S\+Path (\begin{DoxyParamCaption}\item[{const Q\+Url \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 122 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a69aa858c6028b46a80544712275388bb}\label{class_user_settings_a69aa858c6028b46a80544712275388bb}} 
+\index{User\+Settings@{User\+Settings}!add\+Volume\+Path@{add\+Volume\+Path}}
+\index{add\+Volume\+Path@{add\+Volume\+Path}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{add\+Volume\+Path()}{addVolumePath()}}
+{\footnotesize\ttfamily void User\+Settings\+::add\+Volume\+Path (\begin{DoxyParamCaption}\item[{const Q\+Url \&}]{path }\end{DoxyParamCaption})}
+
+
+
+add\+Volume\+Paths 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \+: The path just opened \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 101 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_aefa49f195d95789aa6079bd072d0d438}\label{class_user_settings_aefa49f195d95789aa6079bd072d0d438}} 
+\index{User\+Settings@{User\+Settings}!erase\+Paths@{erase\+Paths}}
+\index{erase\+Paths@{erase\+Paths}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{erase\+Paths()}{erasePaths()}}
+{\footnotesize\ttfamily void User\+Settings\+::erase\+Paths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 128 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a491eb502b4203b8660c10933edbe8320}\label{class_user_settings_a491eb502b4203b8660c10933edbe8320}} 
+\index{User\+Settings@{User\+Settings}!get\+Favorite\+Key\+Files@{get\+Favorite\+Key\+Files}}
+\index{get\+Favorite\+Key\+Files@{get\+Favorite\+Key\+Files}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Favorite\+Key\+Files()}{getFavoriteKeyFiles()}}
+{\footnotesize\ttfamily Q\+Variant\+List User\+Settings\+::get\+Favorite\+Key\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Q\+Variant\+List 
+\end{DoxyReturn}
+
+
+Definition at line 196 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a06599c66844e76880b3f8f220662ce4c}\label{class_user_settings_a06599c66844e76880b3f8f220662ce4c}} 
+\index{User\+Settings@{User\+Settings}!get\+Favorites\+Volumes@{get\+Favorites\+Volumes}}
+\index{get\+Favorites\+Volumes@{get\+Favorites\+Volumes}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Favorites\+Volumes()}{getFavoritesVolumes()}}
+{\footnotesize\ttfamily Q\+Variant\+List User\+Settings\+::get\+Favorites\+Volumes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Q\+Variant\+List 
+\end{DoxyReturn}
+
+
+Definition at line 284 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_ae86ded971587f1e26fe198f0f1b4d176}\label{class_user_settings_ae86ded971587f1e26fe198f0f1b4d176}} 
+\index{User\+Settings@{User\+Settings}!get\+Favorite\+Volume\+Setting@{get\+Favorite\+Volume\+Setting}}
+\index{get\+Favorite\+Volume\+Setting@{get\+Favorite\+Volume\+Setting}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Favorite\+Volume\+Setting()}{getFavoriteVolumeSetting()}}
+{\footnotesize\ttfamily Q\+Variant\+Map User\+Settings\+::get\+Favorite\+Volume\+Setting (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 169 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a16bb4d9a4366ca2b3196d229147f6c71}\label{class_user_settings_a16bb4d9a4366ca2b3196d229147f6c71}} 
+\index{User\+Settings@{User\+Settings}!get\+Number\+Of\+Core@{get\+Number\+Of\+Core}}
+\index{get\+Number\+Of\+Core@{get\+Number\+Of\+Core}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Number\+Of\+Core()}{getNumberOfCore()}}
+{\footnotesize\ttfamily qint32 User\+Settings\+::get\+Number\+Of\+Core (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+qint32 
+\end{DoxyReturn}
+
+
+Definition at line 191 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a527dda1694c70dc98f06cd5f8a0cd38b}\label{class_user_settings_a527dda1694c70dc98f06cd5f8a0cd38b}} 
+\index{User\+Settings@{User\+Settings}!get\+Setting@{get\+Setting}}
+\index{get\+Setting@{get\+Setting}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Setting()}{getSetting()}}
+{\footnotesize\ttfamily Q\+Variant User\+Settings\+::get\+Setting (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Key }\end{DoxyParamCaption}) const}
+
+
+
+\hyperlink{class_user_settings_a527dda1694c70dc98f06cd5f8a0cd38b}{User\+Settings\+::get\+Setting}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & \+: The index of the setting to be returned \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the given key setting 
+\end{DoxyReturn}
+
+
+Definition at line 79 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_acf4e409e75947f7002872e296bed933b}\label{class_user_settings_acf4e409e75947f7002872e296bed933b}} 
+\index{User\+Settings@{User\+Settings}!get\+Version@{get\+Version}}
+\index{get\+Version@{get\+Version}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Version()}{getVersion()}}
+{\footnotesize\ttfamily Q\+String User\+Settings\+::get\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Q\+String 
+\end{DoxyReturn}
+
+
+Definition at line 265 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a9d9a36185cb549a4bfd262d489a3d6d6}\label{class_user_settings_a9d9a36185cb549a4bfd262d489a3d6d6}} 
+\index{User\+Settings@{User\+Settings}!get\+Volume\+Paths@{get\+Volume\+Paths}}
+\index{get\+Volume\+Paths@{get\+Volume\+Paths}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{get\+Volume\+Paths()}{getVolumePaths()}}
+{\footnotesize\ttfamily Q\+String\+List User\+Settings\+::get\+Volume\+Paths (\begin{DoxyParamCaption}\item[{const bool}]{a\+Empty\+Start }\end{DoxyParamCaption})}
+
+
+
+get\+Volume\+Paths 
+
+\begin{DoxyReturn}{Returns}
+All the lastest opened volumes 
+\end{DoxyReturn}
+
+
+Definition at line 84 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_af2853d2437e4bdfc95d7714acf3f4412}\label{class_user_settings_af2853d2437e4bdfc95d7714acf3f4412}} 
+\index{User\+Settings@{User\+Settings}!is\+Favorite@{is\+Favorite}}
+\index{is\+Favorite@{is\+Favorite}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{is\+Favorite()}{isFavorite()}}
+{\footnotesize\ttfamily bool User\+Settings\+::is\+Favorite (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Path }\end{DoxyParamCaption}) const}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 136 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_adb2b7ecfdda9d2ea1c017a0696dcbb16}\label{class_user_settings_adb2b7ecfdda9d2ea1c017a0696dcbb16}} 
+\index{User\+Settings@{User\+Settings}!remove\+All\+Keyfile@{remove\+All\+Keyfile}}
+\index{remove\+All\+Keyfile@{remove\+All\+Keyfile}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{remove\+All\+Keyfile()}{removeAllKeyfile()}}
+{\footnotesize\ttfamily void User\+Settings\+::remove\+All\+Keyfile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 259 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_aca7047180ee2b733fa6ba0578cbb7a1a}\label{class_user_settings_aca7047180ee2b733fa6ba0578cbb7a1a}} 
+\index{User\+Settings@{User\+Settings}!remove\+Keyfile@{remove\+Keyfile}}
+\index{remove\+Keyfile@{remove\+Keyfile}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{remove\+Keyfile()}{removeKeyfile()}}
+{\footnotesize\ttfamily void User\+Settings\+::remove\+Keyfile (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 245 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a2041cb2d5b4ec14183f7504a170ee234}\label{class_user_settings_a2041cb2d5b4ec14183f7504a170ee234}} 
+\index{User\+Settings@{User\+Settings}!set\+Favorites\+Volumes@{set\+Favorites\+Volumes}}
+\index{set\+Favorites\+Volumes@{set\+Favorites\+Volumes}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{set\+Favorites\+Volumes()}{setFavoritesVolumes()}}
+{\footnotesize\ttfamily void User\+Settings\+::set\+Favorites\+Volumes (\begin{DoxyParamCaption}\item[{Q\+String}]{a\+Path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Q\+String} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 295 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_a622a1a050f24e29663b8c1c8160f334c}\label{class_user_settings_a622a1a050f24e29663b8c1c8160f334c}} 
+\index{User\+Settings@{User\+Settings}!set\+Favorite\+Volume\+Setting@{set\+Favorite\+Volume\+Setting}}
+\index{set\+Favorite\+Volume\+Setting@{set\+Favorite\+Volume\+Setting}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{set\+Favorite\+Volume\+Setting()}{setFavoriteVolumeSetting()}}
+{\footnotesize\ttfamily bool User\+Settings\+::set\+Favorite\+Volume\+Setting (\begin{DoxyParamCaption}\item[{Q\+Variant\+Map}]{options }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em options} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+
+
+Definition at line 144 of file User\+Settings.\+cpp.
+
+\mbox{\Hypertarget{class_user_settings_aef31a9f5222e267a9577660105e6b256}\label{class_user_settings_aef31a9f5222e267a9577660105e6b256}} 
+\index{User\+Settings@{User\+Settings}!set\+Setting@{set\+Setting}}
+\index{set\+Setting@{set\+Setting}!User\+Settings@{User\+Settings}}
+\subsubsection{\texorpdfstring{set\+Setting()}{setSetting()}}
+{\footnotesize\ttfamily void User\+Settings\+::set\+Setting (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{a\+Key,  }\item[{const Q\+String \&}]{a\+Value }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_user_settings_aef31a9f5222e267a9577660105e6b256}{User\+Settings\+::set\+Setting}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The index of the setting \\
+\hline
+{\em value} & The value linked to the setting \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file User\+Settings.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\hyperlink{_user_settings_8h}{User\+Settings.\+h}\item 
+U\+I/\hyperlink{_user_settings_8cpp}{User\+Settings.\+cpp}\end{DoxyCompactItemize}

@@ -370,6 +370,7 @@ void Parser::parseCreate(QCommandLineParser& parser,
             options->innerVolume->filesystem = "fat";
         }
 
+
         if (parser.isSet("inner-size"))
         {
             const QString number = parser.value("inner-size");

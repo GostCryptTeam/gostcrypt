@@ -1,0 +1,444 @@
+\hypertarget{class_gost_crypt_1_1_buffer}{}\section{Gost\+Crypt\+:\+:Buffer Class Reference}
+\label{class_gost_crypt_1_1_buffer}\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+
+
+Class handling buffer data.  
+
+
+
+
+{\ttfamily \#include $<$Buffer.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Buffer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gost_crypt_1_1_buffer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_buffer_a1cac71b3c018c8f7a3a46be93408fa59}{Buffer} ()
+\begin{DoxyCompactList}\small\item\em Default constructor initializing an empty buffer. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_buffer_a09ac1c3d1436782956d90f98265a3ae3}{Buffer} (size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size})
+\begin{DoxyCompactList}\small\item\em Constructor initializing a buffer with given size. \end{DoxyCompactList}\item 
+\hyperlink{class_gost_crypt_1_1_buffer_a079e8e1baffbf5912dbc161b7b58538c}{Buffer} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer\+Ptr)
+\begin{DoxyCompactList}\small\item\em Deep copy constructor initializing a new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} with the same data as the given \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_acd67d77c45dc6419bc42de6b5ed86fee}{$\sim$\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Default Destructor freeing the buffer data. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_buffer_ab5176ad1ed87433b479f8ccb96b84855}{allocate} (size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size})
+\begin{DoxyCompactList}\small\item\em Allocate new memory for this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_buffer_aebc942f433bb27ef5712a59631ed0137}{copy\+From} (const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&buffer\+Ptr)
+\begin{DoxyCompactList}\small\item\em Copy Data from a \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_buffer_a6c340b4919d3a0476c6076136fe469a0}{erase} ()
+\begin{DoxyCompactList}\small\item\em Will set the all data bytes of this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to zero. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_gost_crypt_1_1_buffer_af3b4e8576f58b4eb9bf3b0e819402db9}{free\+Data} ()
+\begin{DoxyCompactList}\small\item\em Free the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} and set its size to 0. \end{DoxyCompactList}\item 
+virtual size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size} () const
+\begin{DoxyCompactList}\small\item\em Return the size of this buffer in bytes. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{class_gost_crypt_1_1_buffer_ad193e36c7ef06d6e6c31d90c2c5608ed}{is\+Allocated} () const
+\begin{DoxyCompactList}\small\item\em Return true if this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} size is not zero. \end{DoxyCompactList}\item 
+virtual quint8 $\ast$ \hyperlink{class_gost_crypt_1_1_buffer_acdba1753b368a81c686afb8584173e54}{get} ()
+\begin{DoxyCompactList}\small\item\em Return the raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual const quint8 $\ast$ \hyperlink{class_gost_crypt_1_1_buffer_ae29a4a45510cadfdda632770f5b56d86}{get} () const
+\begin{DoxyCompactList}\small\item\em Return the raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \hyperlink{class_gost_crypt_1_1_buffer_acb9b5e46856fd25584e459d5f998adf2}{get\+Range} (size\+\_\+t offset, size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size})
+\begin{DoxyCompactList}\small\item\em Return \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \hyperlink{class_gost_crypt_1_1_buffer_afd2d566e10c24d5fa8f8fc28ea31a189}{get\+Range} (size\+\_\+t offset, size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}{size}) const
+\begin{DoxyCompactList}\small\item\em Return const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the const data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_a3f1a73b8d61efa1469adea03408f837d}{operator quint8 $\ast$} ()
+\begin{DoxyCompactList}\small\item\em Conversion operator to get the raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_a025beb50a8f31598c8139af58911af34}{operator const quint8 $\ast$} () const
+\begin{DoxyCompactList}\small\item\em Conversion operator to get the raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_a440928271a80ac5014ba240e6595ff85}{operator Buffer\+Ptr \&} ()
+\begin{DoxyCompactList}\small\item\em Conversion operator to get the corresponding \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_gost_crypt_1_1_buffer_a493a94d9ba6761d823e6e2f61c052226}{operator const Buffer\+Ptr \&} () const
+\begin{DoxyCompactList}\small\item\em Conversion operator to get the corresponding const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \hyperlink{class_gost_crypt_1_1_buffer_a3754fa74b60e14928bb353c188a2cbbe}{Data}
+\item 
+size\+\_\+t \hyperlink{class_gost_crypt_1_1_buffer_a91c9eb26330c4d2b58309f43575d9bd2}{Usersize}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class handling buffer data. 
+
+Definition at line 142 of file Buffer.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a1cac71b3c018c8f7a3a46be93408fa59}\label{class_gost_crypt_1_1_buffer_a1cac71b3c018c8f7a3a46be93408fa59}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!Buffer@{Buffer}}
+\index{Buffer@{Buffer}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{Buffer()}{Buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Buffer\+::\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor initializing an empty buffer. 
+
+
+
+Definition at line 149 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a09ac1c3d1436782956d90f98265a3ae3}\label{class_gost_crypt_1_1_buffer_a09ac1c3d1436782956d90f98265a3ae3}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!Buffer@{Buffer}}
+\index{Buffer@{Buffer}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{Buffer()}{Buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Buffer\+::\+Buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Constructor initializing a buffer with given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Size of the new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} in bytes \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 62 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a079e8e1baffbf5912dbc161b7b58538c}\label{class_gost_crypt_1_1_buffer_a079e8e1baffbf5912dbc161b7b58538c}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!Buffer@{Buffer}}
+\index{Buffer@{Buffer}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{Buffer()}{Buffer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Buffer\+::\+Buffer (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deep copy constructor initializing a new \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} with the same data as the given \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer\+Ptr} & \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to copy the data from \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 161 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_acd67d77c45dc6419bc42de6b5ed86fee}\label{class_gost_crypt_1_1_buffer_acd67d77c45dc6419bc42de6b5ed86fee}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!````~Buffer@{$\sim$\+Buffer}}
+\index{````~Buffer@{$\sim$\+Buffer}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{$\sim$\+Buffer()}{~Buffer()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Buffer\+::$\sim$\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Default Destructor freeing the buffer data. 
+
+
+
+Definition at line 67 of file Buffer.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_ab5176ad1ed87433b479f8ccb96b84855}\label{class_gost_crypt_1_1_buffer_ab5176ad1ed87433b479f8ccb96b84855}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!allocate@{allocate}}
+\index{allocate@{allocate}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{allocate()}{allocate()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Buffer\+::allocate (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Allocate new memory for this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyWarning}{Warning}
+The previsous data stored in the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} will not be kept 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em size} & New size of the buffer in bytes \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_gost_crypt_1_1_secure_buffer_a832c1af234c29e1dc1521fed24d3265a}{Gost\+Crypt\+::\+Secure\+Buffer}.
+
+
+
+Definition at line 75 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_aebc942f433bb27ef5712a59631ed0137}\label{class_gost_crypt_1_1_buffer_aebc942f433bb27ef5712a59631ed0137}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!copy\+From@{copy\+From}}
+\index{copy\+From@{copy\+From}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{copy\+From()}{copyFrom()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Buffer\+::copy\+From (\begin{DoxyParamCaption}\item[{const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \&}]{buffer\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Copy Data from a \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyWarning}{Warning}
+Will throw a Incorrect\+Parameter\+Exception if this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} does have enough space to store the data of the other \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em buffer\+Ptr} & \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to copy data from \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 112 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a6c340b4919d3a0476c6076136fe469a0}\label{class_gost_crypt_1_1_buffer_a6c340b4919d3a0476c6076136fe469a0}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!erase@{erase}}
+\index{erase@{erase}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Buffer\+::erase (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Will set the all data bytes of this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} to zero. 
+
+
+
+Reimplemented in \hyperlink{class_gost_crypt_1_1_secure_buffer_a6b6ee17fb3f8f617112854f9d24e393a}{Gost\+Crypt\+::\+Secure\+Buffer}.
+
+
+
+Definition at line 125 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_af3b4e8576f58b4eb9bf3b0e819402db9}\label{class_gost_crypt_1_1_buffer_af3b4e8576f58b4eb9bf3b0e819402db9}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!free\+Data@{free\+Data}}
+\index{free\+Data@{free\+Data}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{free\+Data()}{freeData()}}
+{\footnotesize\ttfamily void Gost\+Crypt\+::\+Buffer\+::free\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Free the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} and set its size to 0. 
+
+
+
+Reimplemented in \hyperlink{class_gost_crypt_1_1_secure_buffer_a45e814bc17ed85b86733fffc32c69d28}{Gost\+Crypt\+::\+Secure\+Buffer}.
+
+
+
+Definition at line 133 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_acdba1753b368a81c686afb8584173e54}\label{class_gost_crypt_1_1_buffer_acdba1753b368a81c686afb8584173e54}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!get@{get}}
+\index{get@{get}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual quint8$\ast$ Gost\+Crypt\+::\+Buffer\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return the raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyReturn}{Returns}
+Raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+
+
+Definition at line 209 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_ae29a4a45510cadfdda632770f5b56d86}\label{class_gost_crypt_1_1_buffer_ae29a4a45510cadfdda632770f5b56d86}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!get@{get}}
+\index{get@{get}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual const quint8$\ast$ Gost\+Crypt\+::\+Buffer\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return the raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyReturn}{Returns}
+Raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+
+
+Definition at line 215 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_acb9b5e46856fd25584e459d5f998adf2}\label{class_gost_crypt_1_1_buffer_acb9b5e46856fd25584e459d5f998adf2}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!get\+Range@{get\+Range}}
+\index{get\+Range@{get\+Range}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{get\+Range()}{getRange()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} Gost\+Crypt\+::\+Buffer\+::get\+Range (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{offset,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Return \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & Offset in bytes before the subset of data requested \\
+\hline
+{\em size} & Size of the subset of data requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Will throw a Incorrect\+Parameter\+Exception if request\+Data is out of the data of this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} 
+
+Will throw Data\+Not\+Mutable\+Exception if this \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} point to const data. Should not happened since the const version of this method will be called when using a const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} 
+\end{DoxyWarning}
+
+
+Definition at line 144 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_afd2d566e10c24d5fa8f8fc28ea31a189}\label{class_gost_crypt_1_1_buffer_afd2d566e10c24d5fa8f8fc28ea31a189}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!get\+Range@{get\+Range}}
+\index{get\+Range@{get\+Range}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{get\+Range()}{getRange()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} Gost\+Crypt\+::\+Buffer\+::get\+Range (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{offset,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption}) const}
+
+
+
+Return const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the const data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & Offset in bytes before the subset of data requested \\
+\hline
+{\em size} & Size of the subset of data requested \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} corresponding to a subset of the const data of this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+
+
+Definition at line 153 of file Buffer.\+cpp.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_ad193e36c7ef06d6e6c31d90c2c5608ed}\label{class_gost_crypt_1_1_buffer_ad193e36c7ef06d6e6c31d90c2c5608ed}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!is\+Allocated@{is\+Allocated}}
+\index{is\+Allocated@{is\+Allocated}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{is\+Allocated()}{isAllocated()}}
+{\footnotesize\ttfamily virtual bool Gost\+Crypt\+::\+Buffer\+::is\+Allocated (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return true if this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} size is not zero. 
+
+\begin{DoxyReturn}{Returns}
+True if this \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} size is not zero 
+\end{DoxyReturn}
+
+
+Definition at line 202 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a440928271a80ac5014ba240e6595ff85}\label{class_gost_crypt_1_1_buffer_a440928271a80ac5014ba240e6595ff85}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!operator Buffer\+Ptr \&@{operator Buffer\+Ptr \&}}
+\index{operator Buffer\+Ptr \&@{operator Buffer\+Ptr \&}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{operator Buffer\+Ptr \&()}{operator BufferPtr \&()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Buffer\+::operator \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Conversion operator to get the corresponding \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. 
+
+\begin{DoxyReturn}{Returns}
+corresponding \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} 
+\end{DoxyReturn}
+
+
+Definition at line 256 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a493a94d9ba6761d823e6e2f61c052226}\label{class_gost_crypt_1_1_buffer_a493a94d9ba6761d823e6e2f61c052226}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!operator const Buffer\+Ptr \&@{operator const Buffer\+Ptr \&}}
+\index{operator const Buffer\+Ptr \&@{operator const Buffer\+Ptr \&}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{operator const Buffer\+Ptr \&()}{operator const BufferPtr \&()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Buffer\+::operator const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Conversion operator to get the corresponding const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr}. 
+
+\begin{DoxyReturn}{Returns}
+corresponding const \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} 
+\end{DoxyReturn}
+
+
+Definition at line 262 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a025beb50a8f31598c8139af58911af34}\label{class_gost_crypt_1_1_buffer_a025beb50a8f31598c8139af58911af34}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!operator const quint8 $\ast$@{operator const quint8 $\ast$}}
+\index{operator const quint8 $\ast$@{operator const quint8 $\ast$}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{operator const quint8 $\ast$()}{operator const quint8 *()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Buffer\+::operator const quint8 $\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Conversion operator to get the raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyReturn}{Returns}
+Raw pointer to the const data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+
+
+Definition at line 249 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a3f1a73b8d61efa1469adea03408f837d}\label{class_gost_crypt_1_1_buffer_a3f1a73b8d61efa1469adea03408f837d}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!operator quint8 $\ast$@{operator quint8 $\ast$}}
+\index{operator quint8 $\ast$@{operator quint8 $\ast$}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{operator quint8 $\ast$()}{operator quint8 *()}}
+{\footnotesize\ttfamily virtual Gost\+Crypt\+::\+Buffer\+::operator quint8 $\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Conversion operator to get the raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer}. 
+
+\begin{DoxyReturn}{Returns}
+Raw pointer to the data of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+\end{DoxyReturn}
+
+
+Definition at line 243 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}\label{class_gost_crypt_1_1_buffer_a5324726029e7f906f2f14e54eeb1ab82}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!size@{size}}
+\index{size@{size}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Gost\+Crypt\+::\+Buffer\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Return the size of this buffer in bytes. 
+
+\begin{DoxyReturn}{Returns}
+size\+\_\+t Size of this buffer in bytes 
+\end{DoxyReturn}
+
+
+Definition at line 196 of file Buffer.\+h.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a3754fa74b60e14928bb353c188a2cbbe}\label{class_gost_crypt_1_1_buffer_a3754fa74b60e14928bb353c188a2cbbe}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!Data@{Data}}
+\index{Data@{Data}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{Data}{Data}}
+{\footnotesize\ttfamily \hyperlink{class_gost_crypt_1_1_buffer_ptr}{Buffer\+Ptr} Gost\+Crypt\+::\+Buffer\+::\+Data\hspace{0.3cm}{\ttfamily [protected]}}
+
+Pointer to the buffer data handling allocated memory for the buffer 
+
+Definition at line 265 of file Buffer.\+h.
+
+\mbox{\Hypertarget{class_gost_crypt_1_1_buffer_a91c9eb26330c4d2b58309f43575d9bd2}\label{class_gost_crypt_1_1_buffer_a91c9eb26330c4d2b58309f43575d9bd2}} 
+\index{Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}!Usersize@{Usersize}}
+\index{Usersize@{Usersize}!Gost\+Crypt\+::\+Buffer@{Gost\+Crypt\+::\+Buffer}}
+\subsubsection{\texorpdfstring{Usersize}{Usersize}}
+{\footnotesize\ttfamily size\+\_\+t Gost\+Crypt\+::\+Buffer\+::\+Usersize\hspace{0.3cm}{\ttfamily [protected]}}
+
+Actual used size. Allow not to realloc when reducing the size of the \hyperlink{class_gost_crypt_1_1_buffer}{Buffer} 
+
+Definition at line 266 of file Buffer.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_buffer_8h}{Buffer.\+h}\item 
+Core/\hyperlink{_buffer_8cpp}{Buffer.\+cpp}\end{DoxyCompactItemize}

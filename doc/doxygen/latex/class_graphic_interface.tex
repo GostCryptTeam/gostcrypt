@@ -1,0 +1,161 @@
+\hypertarget{class_graphic_interface}{}\section{Graphic\+Interface Class Reference}
+\label{class_graphic_interface}\index{Graphic\+Interface@{Graphic\+Interface}}
+
+
+This class displays a graphical interface using Q\+ML for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}.  
+
+
+
+
+{\ttfamily \#include $<$Graphic\+Interface.\+h$>$}
+
+Inheritance diagram for Graphic\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_graphic_interface}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_graphic_interface_aeea1ac14cde1f705f60b9a62735f137c}{connect\+Finished} ()
+\begin{DoxyCompactList}\small\item\em Control signal sent to the interface to indicate that the signals are well connected. \end{DoxyCompactList}\item 
+void \hyperlink{class_graphic_interface_a528427458ccde6148b32599b1d02a299}{get\+Sudo\+Password} ()
+\begin{DoxyCompactList}\small\item\em Signal to request the sudo password from the user. \end{DoxyCompactList}\item 
+void \hyperlink{class_graphic_interface_a0fc2d836e15689e5524ed49fdbe93638}{volume\+Password\+Incorrect} ()
+\begin{DoxyCompactList}\small\item\em Signal to indicate to the interface that the entered password is incorrect (volume) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_graphic_interface_a7e6e90bcb56ad51c9b0cfcfb178a0e4e}{Graphic\+Interface} (\hyperlink{class_my_gui_application}{My\+Gui\+Application} $\ast$a\+App, Q\+Object $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Graphical user interface constructor, based on the \hyperlink{class_my_gui_application}{My\+Gui\+Application} class that inherits from Q\+Application. \end{DoxyCompactList}\item 
+int \hyperlink{class_graphic_interface_a41d17554d5ec2b24601f34304ce1c3cf}{start} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Creates the graphical interface and sends all the necessary objects to it in context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Q\+String \hyperlink{class_graphic_interface_a8fb9de69c45da9b0e20c643dc84e15fa}{format\+Size} (quint64 size\+In\+Byte, bool with\+Font\+Color=true)
+\begin{DoxyCompactList}\small\item\em Converts A size in bytes into a formatted character string (or not formatted) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This class displays a graphical interface using Q\+ML for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}. 
+
+Definition at line 104 of file Graphic\+Interface.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_graphic_interface_a7e6e90bcb56ad51c9b0cfcfb178a0e4e}\label{class_graphic_interface_a7e6e90bcb56ad51c9b0cfcfb178a0e4e}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!Graphic\+Interface@{Graphic\+Interface}}
+\index{Graphic\+Interface@{Graphic\+Interface}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{Graphic\+Interface()}{GraphicInterface()}}
+{\footnotesize\ttfamily Graphic\+Interface\+::\+Graphic\+Interface (\begin{DoxyParamCaption}\item[{\hyperlink{class_my_gui_application}{My\+Gui\+Application} $\ast$}]{a\+App,  }\item[{Q\+Object $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Graphical user interface constructor, based on the \hyperlink{class_my_gui_application}{My\+Gui\+Application} class that inherits from Q\+Application. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+App} & Parent object of the G\+UI\+: allows you to retrieve signals and start a Q\+Application \\
+\hline
+{\em parent} & The object from which the class derives, which has useful methods for making certain calculations \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 5 of file Graphic\+Interface.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_graphic_interface_aeea1ac14cde1f705f60b9a62735f137c}\label{class_graphic_interface_aeea1ac14cde1f705f60b9a62735f137c}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!connect\+Finished@{connect\+Finished}}
+\index{connect\+Finished@{connect\+Finished}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{connect\+Finished}{connectFinished}}
+{\footnotesize\ttfamily void Graphic\+Interface\+::connect\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Control signal sent to the interface to indicate that the signals are well connected. 
+
+\mbox{\Hypertarget{class_graphic_interface_a8fb9de69c45da9b0e20c643dc84e15fa}\label{class_graphic_interface_a8fb9de69c45da9b0e20c643dc84e15fa}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!format\+Size@{format\+Size}}
+\index{format\+Size@{format\+Size}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{format\+Size()}{formatSize()}}
+{\footnotesize\ttfamily Q\+String Graphic\+Interface\+::format\+Size (\begin{DoxyParamCaption}\item[{quint64}]{size\+In\+Byte,  }\item[{bool}]{with\+Font\+Color = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts A size in bytes into a formatted character string (or not formatted) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size\+In\+Byte} & Size in bytes to convert \\
+\hline
+{\em with\+Font\+Color} & This boolean allows you to specify whether you want an output formatted in H\+T\+ML (true) or not (false) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Q\+String Character string of the size converted to the desired format 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file Graphic\+Interface.\+cpp.
+
+\mbox{\Hypertarget{class_graphic_interface_a528427458ccde6148b32599b1d02a299}\label{class_graphic_interface_a528427458ccde6148b32599b1d02a299}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!get\+Sudo\+Password@{get\+Sudo\+Password}}
+\index{get\+Sudo\+Password@{get\+Sudo\+Password}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{get\+Sudo\+Password}{getSudoPassword}}
+{\footnotesize\ttfamily void Graphic\+Interface\+::get\+Sudo\+Password (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal to request the sudo password from the user. 
+
+\mbox{\Hypertarget{class_graphic_interface_a41d17554d5ec2b24601f34304ce1c3cf}\label{class_graphic_interface_a41d17554d5ec2b24601f34304ce1c3cf}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!start@{start}}
+\index{start@{start}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily int Graphic\+Interface\+::start (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Creates the graphical interface and sends all the necessary objects to it in context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of arguments in the main program \\
+\hline
+{\em argv} & Arguments of the main program \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Returns what the \char`\"{}exec\char`\"{} method returns at the end of the interface execution 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_user_interface_a4f637eb516dc7dc59cbfba43b85a81ff}{User\+Interface}.
+
+
+
+Definition at line 12 of file Graphic\+Interface.\+cpp.
+
+\mbox{\Hypertarget{class_graphic_interface_a0fc2d836e15689e5524ed49fdbe93638}\label{class_graphic_interface_a0fc2d836e15689e5524ed49fdbe93638}} 
+\index{Graphic\+Interface@{Graphic\+Interface}!volume\+Password\+Incorrect@{volume\+Password\+Incorrect}}
+\index{volume\+Password\+Incorrect@{volume\+Password\+Incorrect}!Graphic\+Interface@{Graphic\+Interface}}
+\subsubsection{\texorpdfstring{volume\+Password\+Incorrect}{volumePasswordIncorrect}}
+{\footnotesize\ttfamily void Graphic\+Interface\+::volume\+Password\+Incorrect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Signal to indicate to the interface that the entered password is incorrect (volume) 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\hyperlink{_graphic_interface_8h}{Graphic\+Interface.\+h}\item 
+U\+I/\hyperlink{_graphic_interface_8cpp}{Graphic\+Interface.\+cpp}\end{DoxyCompactItemize}

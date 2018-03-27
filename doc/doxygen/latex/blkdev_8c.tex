@@ -1,0 +1,76 @@
+\hypertarget{blkdev_8c}{}\section{Core/loopdevlib/blkdev.c File Reference}
+\label{blkdev_8c}\index{Core/loopdevlib/blkdev.\+c@{Core/loopdevlib/blkdev.\+c}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}blkdev.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}c.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}linux\+\_\+version.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+off\+\_\+t \hyperlink{blkdev_8c_a02ea1a55aaefa337c9e66ab6b4293d7f}{blkdev\+\_\+find\+\_\+size} (int fd)
+\item 
+int \hyperlink{blkdev_8c_a56ab015fcaadb713fa36b45b297cef0a}{blkdev\+\_\+get\+\_\+size} (int fd, unsigned long long $\ast$bytes)
+\item 
+int \hyperlink{blkdev_8c_a4b9d571a3547457ffd4c77ebc97dba52}{blkdev\+\_\+get\+\_\+sectors} (int fd, unsigned long long $\ast$sectors)
+\item 
+int \hyperlink{blkdev_8c_ac61a6fa76685e14ec1107ed05e0bc375}{blkdev\+\_\+get\+\_\+sector\+\_\+size} (int fd, int $\ast$sector\+\_\+size)
+\item 
+int \hyperlink{blkdev_8c_adcf9fd3a7696a325cc44786516ff40ff}{blkdev\+\_\+get\+\_\+physector\+\_\+size} (int fd, int $\ast$sector\+\_\+size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{blkdev_8c_a02ea1a55aaefa337c9e66ab6b4293d7f}\label{blkdev_8c_a02ea1a55aaefa337c9e66ab6b4293d7f}} 
+\index{blkdev.\+c@{blkdev.\+c}!blkdev\+\_\+find\+\_\+size@{blkdev\+\_\+find\+\_\+size}}
+\index{blkdev\+\_\+find\+\_\+size@{blkdev\+\_\+find\+\_\+size}!blkdev.\+c@{blkdev.\+c}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+find\+\_\+size()}{blkdev\_find\_size()}}
+{\footnotesize\ttfamily off\+\_\+t blkdev\+\_\+find\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 49 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8c_adcf9fd3a7696a325cc44786516ff40ff}\label{blkdev_8c_adcf9fd3a7696a325cc44786516ff40ff}} 
+\index{blkdev.\+c@{blkdev.\+c}!blkdev\+\_\+get\+\_\+physector\+\_\+size@{blkdev\+\_\+get\+\_\+physector\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+physector\+\_\+size@{blkdev\+\_\+get\+\_\+physector\+\_\+size}!blkdev.\+c@{blkdev.\+c}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+physector\+\_\+size()}{blkdev\_get\_physector\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+physector\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int $\ast$}]{sector\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 252 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8c_ac61a6fa76685e14ec1107ed05e0bc375}\label{blkdev_8c_ac61a6fa76685e14ec1107ed05e0bc375}} 
+\index{blkdev.\+c@{blkdev.\+c}!blkdev\+\_\+get\+\_\+sector\+\_\+size@{blkdev\+\_\+get\+\_\+sector\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+sector\+\_\+size@{blkdev\+\_\+get\+\_\+sector\+\_\+size}!blkdev.\+c@{blkdev.\+c}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+sector\+\_\+size()}{blkdev\_get\_sector\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+sector\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int $\ast$}]{sector\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 224 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8c_a4b9d571a3547457ffd4c77ebc97dba52}\label{blkdev_8c_a4b9d571a3547457ffd4c77ebc97dba52}} 
+\index{blkdev.\+c@{blkdev.\+c}!blkdev\+\_\+get\+\_\+sectors@{blkdev\+\_\+get\+\_\+sectors}}
+\index{blkdev\+\_\+get\+\_\+sectors@{blkdev\+\_\+get\+\_\+sectors}!blkdev.\+c@{blkdev.\+c}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+sectors()}{blkdev\_get\_sectors()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+sectors (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{unsigned long long $\ast$}]{sectors }\end{DoxyParamCaption})}
+
+
+
+Definition at line 205 of file blkdev.\+c.
+
+\mbox{\Hypertarget{blkdev_8c_a56ab015fcaadb713fa36b45b297cef0a}\label{blkdev_8c_a56ab015fcaadb713fa36b45b297cef0a}} 
+\index{blkdev.\+c@{blkdev.\+c}!blkdev\+\_\+get\+\_\+size@{blkdev\+\_\+get\+\_\+size}}
+\index{blkdev\+\_\+get\+\_\+size@{blkdev\+\_\+get\+\_\+size}!blkdev.\+c@{blkdev.\+c}}
+\subsubsection{\texorpdfstring{blkdev\+\_\+get\+\_\+size()}{blkdev\_get\_size()}}
+{\footnotesize\ttfamily int blkdev\+\_\+get\+\_\+size (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{unsigned long long $\ast$}]{bytes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 91 of file blkdev.\+c.
+

@@ -1,0 +1,96 @@
+\hypertarget{_fuse_exception_8h}{}\section{Fuse\+Service/\+Fuse\+Exception.h File Reference}
+\label{_fuse_exception_8h}\index{Fuse\+Service/\+Fuse\+Exception.\+h@{Fuse\+Service/\+Fuse\+Exception.\+h}}
+{\ttfamily \#include \char`\"{}Core/\+Gost\+Crypt\+Exception.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_exception}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Exception}
+\begin{DoxyCompactList}\small\item\em Parent class of all Exceptions related to \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_service}{Fuse\+Service} module. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_timeout}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Timeout}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the Fuse mount is still not ready 10 seconds ater the fuse\+\_\+main function was called. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_control_file_access_failed}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Control\+File\+Access\+Failed}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the Fuse module fail to access the control file within the fuse mount to write additionnal information on it. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_fork_failed}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Fuse\+Fork\+Failed}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the fuse module fail to fork in order to launch the fuse library process. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_volume_not_opened_yet}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Volume\+Not\+Opened\+Yet}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the fuse module try to access a volume file before the volume had been opened. \end{DoxyCompactList}\item 
+class \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_failed_create_fuse_mount_point}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Failed\+Create\+Fuse\+Mount\+Point}
+\begin{DoxyCompactList}\small\item\em Exception thrown when the directory where to mount the fuse file system can not be created. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_fuse_driver}{Gost\+Crypt\+::\+Fuse\+Driver}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_fuse_exception_8h_a69de36cb1a30316c3ab2fe70df80d06e}{Fuse\+Timeout\+Exception}(volume\+Path)~Fuse\+Timeout(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);
+\item 
+\#define \hyperlink{_fuse_exception_8h_a91547bb58563c744061e98031ed53335}{Fuse\+Control\+File\+Access\+Failed\+Exception}(fuse\+Mount\+Point)~Fuse\+Control\+File\+Access\+Failed(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, fuse\+Mount\+Point);
+\item 
+\#define \hyperlink{_fuse_exception_8h_ae83a4816fe908b0f288cd519331704bb}{Fuse\+Fork\+Failed\+Exception}()~Fuse\+Fork\+Failed(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_fuse_exception_8h_aaa0523089d9a736a1cdb0cd816082bc6}{Volume\+Not\+Opened\+Yet\+Exception}()~Volume\+Not\+Opened\+Yet(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);
+\item 
+\#define \hyperlink{_fuse_exception_8h_a9b731a773e1a3195f7f5c01c05acdc0e}{Failed\+Create\+Fuse\+Mount\+Point\+Exception}(mountpoint)~\hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_failed_create_fuse_mount_point}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Failed\+Create\+Fuse\+Mount\+Point}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, mountpoint);
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespace_gost_crypt_1_1_fuse_driver_a10c2b3982f529be695130f2e8277234e}{Gost\+Crypt\+::\+Fuse\+Driver\+::init\+Fuse\+Exception} ()
+\begin{DoxyCompactList}\small\item\em Initialize the \hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_fuse_exception}{Fuse\+Exception} class and subclasses to make them serializable across processes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_fuse_exception_8h_a9b731a773e1a3195f7f5c01c05acdc0e}\label{_fuse_exception_8h_a9b731a773e1a3195f7f5c01c05acdc0e}} 
+\index{Fuse\+Exception.\+h@{Fuse\+Exception.\+h}!Failed\+Create\+Fuse\+Mount\+Point\+Exception@{Failed\+Create\+Fuse\+Mount\+Point\+Exception}}
+\index{Failed\+Create\+Fuse\+Mount\+Point\+Exception@{Failed\+Create\+Fuse\+Mount\+Point\+Exception}!Fuse\+Exception.\+h@{Fuse\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Failed\+Create\+Fuse\+Mount\+Point\+Exception}{FailedCreateFuseMountPointException}}
+{\footnotesize\ttfamily \#define Failed\+Create\+Fuse\+Mount\+Point\+Exception(\begin{DoxyParamCaption}\item[{}]{mountpoint }\end{DoxyParamCaption})~\hyperlink{class_gost_crypt_1_1_fuse_driver_1_1_failed_create_fuse_mount_point}{Gost\+Crypt\+::\+Fuse\+Driver\+::\+Failed\+Create\+Fuse\+Mount\+Point}(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, mountpoint);}
+
+
+
+Definition at line 150 of file Fuse\+Exception.\+h.
+
+\mbox{\Hypertarget{_fuse_exception_8h_a91547bb58563c744061e98031ed53335}\label{_fuse_exception_8h_a91547bb58563c744061e98031ed53335}} 
+\index{Fuse\+Exception.\+h@{Fuse\+Exception.\+h}!Fuse\+Control\+File\+Access\+Failed\+Exception@{Fuse\+Control\+File\+Access\+Failed\+Exception}}
+\index{Fuse\+Control\+File\+Access\+Failed\+Exception@{Fuse\+Control\+File\+Access\+Failed\+Exception}!Fuse\+Exception.\+h@{Fuse\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fuse\+Control\+File\+Access\+Failed\+Exception}{FuseControlFileAccessFailedException}}
+{\footnotesize\ttfamily \#define Fuse\+Control\+File\+Access\+Failed\+Exception(\begin{DoxyParamCaption}\item[{}]{fuse\+Mount\+Point }\end{DoxyParamCaption})~Fuse\+Control\+File\+Access\+Failed(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, fuse\+Mount\+Point);}
+
+
+
+Definition at line 69 of file Fuse\+Exception.\+h.
+
+\mbox{\Hypertarget{_fuse_exception_8h_ae83a4816fe908b0f288cd519331704bb}\label{_fuse_exception_8h_ae83a4816fe908b0f288cd519331704bb}} 
+\index{Fuse\+Exception.\+h@{Fuse\+Exception.\+h}!Fuse\+Fork\+Failed\+Exception@{Fuse\+Fork\+Failed\+Exception}}
+\index{Fuse\+Fork\+Failed\+Exception@{Fuse\+Fork\+Failed\+Exception}!Fuse\+Exception.\+h@{Fuse\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fuse\+Fork\+Failed\+Exception}{FuseForkFailedException}}
+{\footnotesize\ttfamily \#define Fuse\+Fork\+Failed\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~Fuse\+Fork\+Failed(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 99 of file Fuse\+Exception.\+h.
+
+\mbox{\Hypertarget{_fuse_exception_8h_a69de36cb1a30316c3ab2fe70df80d06e}\label{_fuse_exception_8h_a69de36cb1a30316c3ab2fe70df80d06e}} 
+\index{Fuse\+Exception.\+h@{Fuse\+Exception.\+h}!Fuse\+Timeout\+Exception@{Fuse\+Timeout\+Exception}}
+\index{Fuse\+Timeout\+Exception@{Fuse\+Timeout\+Exception}!Fuse\+Exception.\+h@{Fuse\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Fuse\+Timeout\+Exception}{FuseTimeoutException}}
+{\footnotesize\ttfamily \#define Fuse\+Timeout\+Exception(\begin{DoxyParamCaption}\item[{}]{volume\+Path }\end{DoxyParamCaption})~Fuse\+Timeout(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+, volume\+Path);}
+
+
+
+Definition at line 39 of file Fuse\+Exception.\+h.
+
+\mbox{\Hypertarget{_fuse_exception_8h_aaa0523089d9a736a1cdb0cd816082bc6}\label{_fuse_exception_8h_aaa0523089d9a736a1cdb0cd816082bc6}} 
+\index{Fuse\+Exception.\+h@{Fuse\+Exception.\+h}!Volume\+Not\+Opened\+Yet\+Exception@{Volume\+Not\+Opened\+Yet\+Exception}}
+\index{Volume\+Not\+Opened\+Yet\+Exception@{Volume\+Not\+Opened\+Yet\+Exception}!Fuse\+Exception.\+h@{Fuse\+Exception.\+h}}
+\subsubsection{\texorpdfstring{Volume\+Not\+Opened\+Yet\+Exception}{VolumeNotOpenedYetException}}
+{\footnotesize\ttfamily \#define Volume\+Not\+Opened\+Yet\+Exception(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~Volume\+Not\+Opened\+Yet(\+\_\+\+\_\+\+P\+R\+E\+T\+T\+Y\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N\+\_\+\+\_\+, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+);}
+
+
+
+Definition at line 125 of file Fuse\+Exception.\+h.
+

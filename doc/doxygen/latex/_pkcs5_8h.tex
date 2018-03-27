@@ -1,0 +1,117 @@
+\hypertarget{_pkcs5_8h}{}\section{Volume/\+Crypto/\+Pkcs5.h File Reference}
+\label{_pkcs5_8h}\index{Volume/\+Crypto/\+Pkcs5.\+h@{Volume/\+Crypto/\+Pkcs5.\+h}}
+{\ttfamily \#include \char`\"{}Gstdefs.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_pkcs5_8h_a7e5365dc742aa6f9caa5b6bf29ef79e2}{hmac\+\_\+stribog} (char $\ast$k, \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32} lk, char $\ast$d, \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32} ld, char $\ast$out)
+\item 
+void \hyperlink{_pkcs5_8h_a90622127a49bfba5bf967341ed9adb62}{derive\+\_\+u\+\_\+stribog} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\item 
+void \hyperlink{_pkcs5_8h_aac1e0891a72ae792abca9529fbf9ef28}{derive\+\_\+key\+\_\+stribog} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\item 
+void \hyperlink{_pkcs5_8h_a28c13a2daed07c552b96258521cfa359}{hmac\+\_\+gosthash} (char $\ast$k, \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32} lk, char $\ast$d, \hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32} ld, char $\ast$out)
+\item 
+void \hyperlink{_pkcs5_8h_ad1675864fc7b71be8fec5387536737b7}{derive\+\_\+u\+\_\+gosthash} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\item 
+void \hyperlink{_pkcs5_8h_a4fdd0af868701442216b4c99cc127087}{derive\+\_\+key\+\_\+gosthash} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\item 
+void \hyperlink{_pkcs5_8h_a7b91e9a8cdacd74fa540bc2644be7cc7}{hmac\+\_\+whirlpool} (char $\ast$k, int lk, char $\ast$d, int ld, char $\ast$out, int t)
+\item 
+void \hyperlink{_pkcs5_8h_afe6200d8483ab3983a00a960de19db0e}{derive\+\_\+u\+\_\+whirlpool} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$u, int b)
+\item 
+void \hyperlink{_pkcs5_8h_a8ff824bd676357439142d52ce0283c65}{derive\+\_\+key\+\_\+whirlpool} (char $\ast$pwd, int pwd\+\_\+len, char $\ast$salt, int salt\+\_\+len, int iterations, char $\ast$dk, int dklen)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{_pkcs5_8h_a4fdd0af868701442216b4c99cc127087}\label{_pkcs5_8h_a4fdd0af868701442216b4c99cc127087}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+key\+\_\+gosthash@{derive\+\_\+key\+\_\+gosthash}}
+\index{derive\+\_\+key\+\_\+gosthash@{derive\+\_\+key\+\_\+gosthash}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+gosthash()}{derive\_key\_gosthash()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 288 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_aac1e0891a72ae792abca9529fbf9ef28}\label{_pkcs5_8h_aac1e0891a72ae792abca9529fbf9ef28}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+key\+\_\+stribog@{derive\+\_\+key\+\_\+stribog}}
+\index{derive\+\_\+key\+\_\+stribog@{derive\+\_\+key\+\_\+stribog}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+stribog()}{derive\_key\_stribog()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 148 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_a8ff824bd676357439142d52ce0283c65}\label{_pkcs5_8h_a8ff824bd676357439142d52ce0283c65}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+key\+\_\+whirlpool@{derive\+\_\+key\+\_\+whirlpool}}
+\index{derive\+\_\+key\+\_\+whirlpool@{derive\+\_\+key\+\_\+whirlpool}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+key\+\_\+whirlpool()}{derive\_key\_whirlpool()}}
+{\footnotesize\ttfamily void derive\+\_\+key\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{dk,  }\item[{int}]{dklen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 436 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_ad1675864fc7b71be8fec5387536737b7}\label{_pkcs5_8h_ad1675864fc7b71be8fec5387536737b7}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+u\+\_\+gosthash@{derive\+\_\+u\+\_\+gosthash}}
+\index{derive\+\_\+u\+\_\+gosthash@{derive\+\_\+u\+\_\+gosthash}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+gosthash()}{derive\_u\_gosthash()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 256 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_a90622127a49bfba5bf967341ed9adb62}\label{_pkcs5_8h_a90622127a49bfba5bf967341ed9adb62}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+u\+\_\+stribog@{derive\+\_\+u\+\_\+stribog}}
+\index{derive\+\_\+u\+\_\+stribog@{derive\+\_\+u\+\_\+stribog}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+stribog()}{derive\_u\_stribog()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 116 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_afe6200d8483ab3983a00a960de19db0e}\label{_pkcs5_8h_afe6200d8483ab3983a00a960de19db0e}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!derive\+\_\+u\+\_\+whirlpool@{derive\+\_\+u\+\_\+whirlpool}}
+\index{derive\+\_\+u\+\_\+whirlpool@{derive\+\_\+u\+\_\+whirlpool}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{derive\+\_\+u\+\_\+whirlpool()}{derive\_u\_whirlpool()}}
+{\footnotesize\ttfamily void derive\+\_\+u\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{pwd,  }\item[{int}]{pwd\+\_\+len,  }\item[{char $\ast$}]{salt,  }\item[{int}]{salt\+\_\+len,  }\item[{int}]{iterations,  }\item[{char $\ast$}]{u,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 404 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_a28c13a2daed07c552b96258521cfa359}\label{_pkcs5_8h_a28c13a2daed07c552b96258521cfa359}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!hmac\+\_\+gosthash@{hmac\+\_\+gosthash}}
+\index{hmac\+\_\+gosthash@{hmac\+\_\+gosthash}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{hmac\+\_\+gosthash()}{hmac\_gosthash()}}
+{\footnotesize\ttfamily void hmac\+\_\+gosthash (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{\hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}}]{lk,  }\item[{char $\ast$}]{d,  }\item[{\hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}}]{ld,  }\item[{char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Definition at line 183 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_a7e5365dc742aa6f9caa5b6bf29ef79e2}\label{_pkcs5_8h_a7e5365dc742aa6f9caa5b6bf29ef79e2}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!hmac\+\_\+stribog@{hmac\+\_\+stribog}}
+\index{hmac\+\_\+stribog@{hmac\+\_\+stribog}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{hmac\+\_\+stribog()}{hmac\_stribog()}}
+{\footnotesize\ttfamily void hmac\+\_\+stribog (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{\hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}}]{lk,  }\item[{char $\ast$}]{d,  }\item[{\hyperlink{_gstdefs_8h_ab7903878916593daecbeb95b98115ab0}{int32}}]{ld,  }\item[{char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Definition at line 43 of file Pkcs5.\+c.
+
+\mbox{\Hypertarget{_pkcs5_8h_a7b91e9a8cdacd74fa540bc2644be7cc7}\label{_pkcs5_8h_a7b91e9a8cdacd74fa540bc2644be7cc7}} 
+\index{Pkcs5.\+h@{Pkcs5.\+h}!hmac\+\_\+whirlpool@{hmac\+\_\+whirlpool}}
+\index{hmac\+\_\+whirlpool@{hmac\+\_\+whirlpool}!Pkcs5.\+h@{Pkcs5.\+h}}
+\subsubsection{\texorpdfstring{hmac\+\_\+whirlpool()}{hmac\_whirlpool()}}
+{\footnotesize\ttfamily void hmac\+\_\+whirlpool (\begin{DoxyParamCaption}\item[{char $\ast$}]{k,  }\item[{int}]{lk,  }\item[{char $\ast$}]{d,  }\item[{int}]{ld,  }\item[{char $\ast$}]{out,  }\item[{int}]{t }\end{DoxyParamCaption})}
+
+
+
+Definition at line 323 of file Pkcs5.\+c.
+

@@ -1,0 +1,153 @@
+\hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request}{}\section{Gost\+Crypt\+:\+:Core\+:\+:Backup\+Header\+Request Struct Reference}
+\label{struct_gost_crypt_1_1_core_1_1_backup_header_request}\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+
+
+Class storing all parameters for the volume header backup action This action will save the headers of the volume instances contained inside the given volume container.  
+
+
+
+
+{\ttfamily \#include $<$Core\+Request.\+h$>$}
+
+Inheritance diagram for Gost\+Crypt\+:\+:Core\+:\+:Backup\+Header\+Request\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_gost_crypt_1_1_core_1_1_backup_header_request}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_a5af656ceab0d38e0a47d46d0e02de1f7}{Backup\+Header\+Request} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor with default parameters. \end{DoxyCompactList}\item 
+\hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_ad652b564ac9997d43ab65b69ddb66124}{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE} (\hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request}{Backup\+Header\+Request})
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_aa29012df2d35f163a525f2577f30ab49}{volume\+Path}
+\item 
+Q\+File\+Info \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_af4c3d198df0113a58aede9649531bdf2}{backup\+Header\+File}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae4b462b66c72cf07ef34574b6010f7fb}{keyfiles}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae39396d46337be4935700059ed382916}{password}
+\item 
+Q\+List$<$ Q\+File\+Info $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_a775c66c416d8fe75c6c446d3b9fd29ac}{hidden\+Volume\+Keyfiles}
+\item 
+Q\+Shared\+Pointer$<$ Q\+Byte\+Array $>$ \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_aeed0cedac234914000bedb7b3d00425c}{hidden\+Volume\+Password}
+\item 
+bool \hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request_a7a27003d28de62be2a7ff7e032f044e8}{hidden\+Volume}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class storing all parameters for the volume header backup action This action will save the headers of the volume instances contained inside the given volume container. 
+
+Definition at line 253 of file Core\+Request.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_a5af656ceab0d38e0a47d46d0e02de1f7}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_a5af656ceab0d38e0a47d46d0e02de1f7}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!Backup\+Header\+Request@{Backup\+Header\+Request}}
+\index{Backup\+Header\+Request@{Backup\+Header\+Request}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{Backup\+Header\+Request()}{BackupHeaderRequest()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::\+Backup\+Header\+Request (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default Constructor with default parameters. 
+
+
+
+Definition at line 352 of file Core\+Request.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_ad652b564ac9997d43ab65b69ddb66124}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_ad652b564ac9997d43ab65b69ddb66124}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}}
+\index{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE@{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+L\+E()}{DEC\_SERIALIZABLE()}}
+{\footnotesize\ttfamily Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::\+D\+E\+C\+\_\+\+S\+E\+R\+I\+A\+L\+I\+Z\+A\+B\+LE (\begin{DoxyParamCaption}\item[{\hyperlink{struct_gost_crypt_1_1_core_1_1_backup_header_request}{Backup\+Header\+Request}}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_af4c3d198df0113a58aede9649531bdf2}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_af4c3d198df0113a58aede9649531bdf2}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!backup\+Header\+File@{backup\+Header\+File}}
+\index{backup\+Header\+File@{backup\+Header\+File}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{backup\+Header\+File}{backupHeaderFile}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::backup\+Header\+File}
+
+path of the file where to store the backup header 
+
+Definition at line 261 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_a7a27003d28de62be2a7ff7e032f044e8}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_a7a27003d28de62be2a7ff7e032f044e8}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!hidden\+Volume@{hidden\+Volume}}
+\index{hidden\+Volume@{hidden\+Volume}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{hidden\+Volume}{hiddenVolume}}
+{\footnotesize\ttfamily bool Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::hidden\+Volume}
+
+Boolean true if the volume container contain an inner hidden volume instance and be want to backup its header too. If set to true, this parameters hidden\+Volume\+Password and hidden\+Volume\+Keyfiles must be provided 
+
+Definition at line 267 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_a775c66c416d8fe75c6c446d3b9fd29ac}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_a775c66c416d8fe75c6c446d3b9fd29ac}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!hidden\+Volume\+Keyfiles@{hidden\+Volume\+Keyfiles}}
+\index{hidden\+Volume\+Keyfiles@{hidden\+Volume\+Keyfiles}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{hidden\+Volume\+Keyfiles}{hiddenVolumeKeyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::hidden\+Volume\+Keyfiles}
+
+keyfiles of the inner hidden volume instance 
+
+Definition at line 264 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_aeed0cedac234914000bedb7b3d00425c}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_aeed0cedac234914000bedb7b3d00425c}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!hidden\+Volume\+Password@{hidden\+Volume\+Password}}
+\index{hidden\+Volume\+Password@{hidden\+Volume\+Password}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{hidden\+Volume\+Password}{hiddenVolumePassword}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::hidden\+Volume\+Password}
+
+password of the inner hidden volume instance 
+
+Definition at line 266 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae4b462b66c72cf07ef34574b6010f7fb}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae4b462b66c72cf07ef34574b6010f7fb}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!keyfiles@{keyfiles}}
+\index{keyfiles@{keyfiles}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{keyfiles}{keyfiles}}
+{\footnotesize\ttfamily Q\+List$<$Q\+File\+Info$>$ Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::keyfiles}
+
+keyfiles of the outer volume instance 
+
+Definition at line 262 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae39396d46337be4935700059ed382916}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_ae39396d46337be4935700059ed382916}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!password@{password}}
+\index{password@{password}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily Q\+Shared\+Pointer$<$Q\+Byte\+Array$>$ Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::password}
+
+password of the outer volume instance 
+
+Definition at line 263 of file Core\+Request.\+h.
+
+\mbox{\Hypertarget{struct_gost_crypt_1_1_core_1_1_backup_header_request_aa29012df2d35f163a525f2577f30ab49}\label{struct_gost_crypt_1_1_core_1_1_backup_header_request_aa29012df2d35f163a525f2577f30ab49}} 
+\index{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}!volume\+Path@{volume\+Path}}
+\index{volume\+Path@{volume\+Path}!Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request@{Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request}}
+\subsubsection{\texorpdfstring{volume\+Path}{volumePath}}
+{\footnotesize\ttfamily Q\+File\+Info Gost\+Crypt\+::\+Core\+::\+Backup\+Header\+Request\+::volume\+Path}
+
+path of the volume container for which we want to backup the header(s) 
+
+Definition at line 260 of file Core\+Request.\+h.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Core/\hyperlink{_core_request_8h}{Core\+Request.\+h}\item 
+Core/\hyperlink{_core_request_8cpp}{Core\+Request.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['cb',['cb',['../struct_c_k___a_e_s___c_t_r___p_a_r_a_m_s.html#ac56cd88bc06e232dd34f41843c7f8498',1,'CK_AES_CTR_PARAMS::cb()'],['../struct_c_k___c_a_m_e_l_l_i_a___c_t_r___p_a_r_a_m_s.html#a42e929b9a6ba82f36802ce25fbb0063e',1,'CK_CAMELLIA_CTR_PARAMS::cb()']]],
+  ['certificatehandle',['certificateHandle',['../struct_c_k___c_m_s___s_i_g___p_a_r_a_m_s.html#af159e64a054b24fafda6eb8187d5177c',1,'CK_CMS_SIG_PARAMS']]],
+  ['changemasterkey',['changeMasterKey',['../struct_gost_crypt_1_1_core_1_1_change_volume_password_request.html#a4ca255444d570df7e6e57fbe2d0f6ebd',1,'GostCrypt::Core::ChangeVolumePasswordRequest']]],
+  ['ciphers',['Ciphers',['../class_gost_crypt_1_1_volume_1_1_encryption_mode.html#aa1953be4f3d880bc6e2b5d5dc2c5ad97',1,'GostCrypt::Volume::EncryptionMode']]],
+  ['ciphertext',['ciphertext',['../struct_gost_crypt_1_1_volume_1_1_encryption_test_1_1_xts_test_vector.html#af3047f14301f5f8be699f643d03cabd3',1,'GostCrypt::Volume::EncryptionTest::XtsTestVector::ciphertext()'],['../struct_gost_crypt_1_1_volume_1_1_cipher_test_vector.html#a40ecc35226f87fc842cd305d721560ea',1,'GostCrypt::Volume::CipherTestVector::Ciphertext()']]],
+  ['comment',['comment',['../class_gost_crypt_1_1_invalid_parameter.html#a14b79c4ad8724b8df63669bb2c2e7ed0',1,'GostCrypt::InvalidParameter']]],
+  ['context',['Context',['../class_gost_crypt_1_1_volume_1_1_volume_hash.html#af86026af3ee2eb5aaf1feb6fac344446',1,'GostCrypt::Volume::VolumeHash']]],
+  ['control_5fok',['control_ok',['../structloopdev__cxt.html#ae529a309ccc0b8d814f2cee17e55d14f',1,'loopdev_cxt']]],
+  ['core',['core',['../class_user_interface.html#ae48820f0f4d47821a1c7ed9e070a26a7',1,'UserInterface']]],
+  ['crc_5f32_5ftab',['crc_32_tab',['../_crc_8c.html#a565e9c2a3df1e3b739c0e4d65aecb6b1',1,'crc_32_tab():&#160;Crc.c'],['../_crc_8h.html#a565e9c2a3df1e3b739c0e4d65aecb6b1',1,'crc_32_tab():&#160;Crc.c']]],
+  ['crcvalue',['CrcValue',['../class_gost_crypt_1_1_volume_1_1_crc32.html#af33604ae677c98ac06ecb32f9a482305',1,'GostCrypt::Volume::Crc32']]],
+  ['createmutex',['CreateMutex',['../struct_c_k___c___i_n_i_t_i_a_l_i_z_e___a_r_g_s.html#ae4a461121c37163cb153f17f1b4598de',1,'CK_C_INITIALIZE_ARGS']]],
+  ['cryptokiversion',['cryptokiVersion',['../struct_c_k___i_n_f_o.html#a261d5c79ab4a3579b71aa6df7a69cad5',1,'CK_INFO']]],
+  ['ct_5fperm',['ct_perm',['../structloopdev__iter.html#a7b72479f758892e4184b1222b98f5626',1,'loopdev_iter']]],
+  ['ct_5fsucc',['ct_succ',['../structloopdev__iter.html#a53278ff8ff4caf72a03782110ca57c99',1,'loopdev_iter']]],
+  ['currentheaderversion',['CurrentHeaderVersion',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#a89260a77af653fb9b99e0fc31a12da62',1,'GostCrypt::Volume::VolumeHeader']]],
+  ['currentrequiredminprogramversion',['CurrentRequiredMinProgramVersion',['../class_gost_crypt_1_1_volume_1_1_volume_header.html#ab94df3903320257c70fb8e3248bdcd2b',1,'GostCrypt::Volume::VolumeHeader']]]
+];

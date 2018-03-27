@@ -1,0 +1,163 @@
+\hypertarget{class_translation_app}{}\section{Translation\+App Class Reference}
+\label{class_translation_app}\index{Translation\+App@{Translation\+App}}
+
+
+The translation\+App class This class allow the user to dynamically change the application language by choosing from the list.  
+
+
+
+
+{\ttfamily \#include $<$Translation\+App.\+h$>$}
+
+Inheritance diagram for Translation\+App\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_translation_app}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_translation_app_ad4e2b88fd1f024546a80f68c3806b77b}{language\+Changed} ()
+\begin{DoxyCompactList}\small\item\em language\+Changed A signal which notify qml fromthe language change \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_translation_app_af88e0052999d427bfcdaccf28e89ba8a}{Translation\+App} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_translation_app}{Translation\+App}\textquotesingle{}s constructor The constructor retrieves the system language as well as the list of available translations for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}. It then fills in the useful class attributes and translates if possible gostcrypt into the language of the computer from the start. \end{DoxyCompactList}\item 
+\hyperlink{class_translation_app_addb9ee7608e2de19d535a5d2352e1cc4}{$\sim$\+Translation\+App} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_translation_app}{Translation\+App} destructor Freeing memory. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_translation_app_a71ce718c29f15b4819f0954ae491efb7}{tr} ()
+\begin{DoxyCompactList}\small\item\em tr This function is used to dynamically notify qml of language change \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void \hyperlink{class_translation_app_a7d19253f523f92c290b31bf8ba363cad}{set\+Language} (const Q\+String \&language)
+\begin{DoxyCompactList}\small\item\em set\+Language \end{DoxyCompactList}\item 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+Variant\+List \hyperlink{class_translation_app_a4016e918026a89c3b3182d965e2ca12b}{get\+Avaible\+Languages} () const
+\begin{DoxyCompactList}\small\item\em get\+Avaible\+Languages \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{class_translation_app_a3f99c10dae6f19934211e608bb44ab8b}{tr}
+\begin{DoxyCompactList}\small\item\em Notifies Q\+ML of language change. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The translation\+App class This class allow the user to dynamically change the application language by choosing from the list. 
+
+Definition at line 14 of file Translation\+App.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_translation_app_af88e0052999d427bfcdaccf28e89ba8a}\label{class_translation_app_af88e0052999d427bfcdaccf28e89ba8a}} 
+\index{Translation\+App@{Translation\+App}!Translation\+App@{Translation\+App}}
+\index{Translation\+App@{Translation\+App}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{Translation\+App()}{TranslationApp()}}
+{\footnotesize\ttfamily Translation\+App\+::\+Translation\+App (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_translation_app}{Translation\+App}\textquotesingle{}s constructor The constructor retrieves the system language as well as the list of available translations for \hyperlink{namespace_gost_crypt}{Gost\+Crypt}. It then fills in the useful class attributes and translates if possible gostcrypt into the language of the computer from the start. 
+
+
+
+Definition at line 3 of file Translation\+App.\+cpp.
+
+\mbox{\Hypertarget{class_translation_app_addb9ee7608e2de19d535a5d2352e1cc4}\label{class_translation_app_addb9ee7608e2de19d535a5d2352e1cc4}} 
+\index{Translation\+App@{Translation\+App}!````~Translation\+App@{$\sim$\+Translation\+App}}
+\index{````~Translation\+App@{$\sim$\+Translation\+App}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{$\sim$\+Translation\+App()}{~TranslationApp()}}
+{\footnotesize\ttfamily Translation\+App\+::$\sim$\+Translation\+App (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_translation_app}{Translation\+App} destructor Freeing memory. 
+
+
+
+Definition at line 55 of file Translation\+App.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_translation_app_a4016e918026a89c3b3182d965e2ca12b}\label{class_translation_app_a4016e918026a89c3b3182d965e2ca12b}} 
+\index{Translation\+App@{Translation\+App}!get\+Avaible\+Languages@{get\+Avaible\+Languages}}
+\index{get\+Avaible\+Languages@{get\+Avaible\+Languages}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{get\+Avaible\+Languages()}{getAvaibleLanguages()}}
+{\footnotesize\ttfamily Q\+Variant\+List Translation\+App\+::get\+Avaible\+Languages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Avaible\+Languages 
+
+\begin{DoxyReturn}{Returns}
+Q\+Variant\+List A list of all avaible volumes 
+\end{DoxyReturn}
+
+
+Definition at line 89 of file Translation\+App.\+cpp.
+
+\mbox{\Hypertarget{class_translation_app_ad4e2b88fd1f024546a80f68c3806b77b}\label{class_translation_app_ad4e2b88fd1f024546a80f68c3806b77b}} 
+\index{Translation\+App@{Translation\+App}!language\+Changed@{language\+Changed}}
+\index{language\+Changed@{language\+Changed}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{language\+Changed}{languageChanged}}
+{\footnotesize\ttfamily void Translation\+App\+::language\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+language\+Changed A signal which notify qml fromthe language change 
+
+\mbox{\Hypertarget{class_translation_app_a7d19253f523f92c290b31bf8ba363cad}\label{class_translation_app_a7d19253f523f92c290b31bf8ba363cad}} 
+\index{Translation\+App@{Translation\+App}!set\+Language@{set\+Language}}
+\index{set\+Language@{set\+Language}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{set\+Language()}{setLanguage()}}
+{\footnotesize\ttfamily void Translation\+App\+::set\+Language (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{language }\end{DoxyParamCaption})}
+
+
+
+set\+Language 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Language} & The language suffix code associated with the language to be used \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 70 of file Translation\+App.\+cpp.
+
+\mbox{\Hypertarget{class_translation_app_a71ce718c29f15b4819f0954ae491efb7}\label{class_translation_app_a71ce718c29f15b4819f0954ae491efb7}} 
+\index{Translation\+App@{Translation\+App}!tr@{tr}}
+\index{tr@{tr}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{tr()}{tr()}}
+{\footnotesize\ttfamily Q\+String Translation\+App\+::tr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+tr This function is used to dynamically notify qml of language change 
+
+\begin{DoxyReturn}{Returns}
+Q\+String an empty text 
+\end{DoxyReturn}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_translation_app_a3f99c10dae6f19934211e608bb44ab8b}\label{class_translation_app_a3f99c10dae6f19934211e608bb44ab8b}} 
+\index{Translation\+App@{Translation\+App}!tr@{tr}}
+\index{tr@{tr}!Translation\+App@{Translation\+App}}
+\subsubsection{\texorpdfstring{tr}{tr}}
+{\footnotesize\ttfamily Q\+String Translation\+App\+::tr\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+Notifies Q\+ML of language change. 
+
+
+
+Definition at line 20 of file Translation\+App.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\hyperlink{_translation_app_8h}{Translation\+App.\+h}\item 
+U\+I/\hyperlink{_translation_app_8cpp}{Translation\+App.\+cpp}\end{DoxyCompactItemize}

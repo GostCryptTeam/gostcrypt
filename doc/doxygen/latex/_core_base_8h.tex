@@ -1,0 +1,144 @@
+\hypertarget{_core_base_8h}{}\section{Core/\+Core\+Base.h File Reference}
+\label{_core_base_8h}\index{Core/\+Core\+Base.\+h@{Core/\+Core\+Base.\+h}}
+{\ttfamily \#include $<$Q\+Object$>$}\newline
+{\ttfamily \#include $<$Q\+Core\+Application$>$}\newline
+{\ttfamily \#include \char`\"{}Core\+Request.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Response.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Core\+Exception.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Random\+Generator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Encryption\+Mode\+X\+T\+S.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Volume/\+Encryption\+Algorithm.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Service.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_gost_crypt_1_1_core_1_1_core_base}{Gost\+Crypt\+::\+Core\+::\+Core\+Base}
+\begin{DoxyCompactList}\small\item\em Abstract class defining the core object containing methods for each action handled by \hyperlink{namespace_gost_crypt}{Gost\+Crypt} (mount, dismount, create a volume, etc) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_gost_crypt}{Gost\+Crypt}
+\item 
+ \hyperlink{namespace_gost_crypt_1_1_core}{Gost\+Crypt\+::\+Core}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{_core_base_8h_a8e98e1c4746975719bb97542715d109d}{F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE}~256$\ast$1024
+\item 
+\#define \hyperlink{_core_base_8h_a6ecca19186c959703803aa3845ac43e5}{G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX}~\char`\"{}.gostcrypt\+\_\+aux\+\_\+mnt\char`\"{}
+\item 
+\#define \hyperlink{_core_base_8h_a442b8a25c35942b9d5dc7e9b1f7780e9}{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}(request\+Name,  fct)
+\item 
+\#define \hyperlink{_core_base_8h_ac397d797d4169a5832877d05ed482d19}{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}(request\+Name)~void send \#\# request\+Name (Q\+Shared\+Pointer$<$request\+Name \#\# Response$>$ r)
+\item 
+\#define \hyperlink{_core_base_8h_a4dcbde603979a969160d849f8374a7ee}{T\+R\+A\+CK}~track\+\_\+result.\+append(Q\+Pair$<$Q\+String,int$>$(Q\+String(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+) + Q\+String(\char`\"{}\+:\char`\"{}) + Q\+String\+::number(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+), t.\+elapsed()));
+\item 
+\#define \hyperlink{_core_base_8h_a675d23d9fa0ec334d09671f63db5a30a}{S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK}
+\item 
+\#define \hyperlink{_core_base_8h_a78f42ca3dfafbfdfc9a27b6e8d9f829f}{F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uid\+\_\+t \hyperlink{namespace_gost_crypt_1_1_core_af5a4d81b86fc0ab8033cb685f9cac213}{Gost\+Crypt\+::\+Core\+::get\+User\+Id} (Q\+String username)
+\item 
+gid\+\_\+t \hyperlink{namespace_gost_crypt_1_1_core_a8ed446713a9144223305012b80e4395d}{Gost\+Crypt\+::\+Core\+::get\+Group\+Id} (Q\+String groupname)
+\item 
+Q\+Shared\+Pointer$<$ Core\+Base $>$ \hyperlink{namespace_gost_crypt_1_1_core_aebee4c3e0812331b85f018855887dfde}{Gost\+Crypt\+::\+Core\+::get\+Core} ()
+\begin{DoxyCompactList}\small\item\em Give the core object to use (\hyperlink{class_gost_crypt_1_1_core_1_1_core_root}{Core\+Root} instance if current user is root, \hyperlink{class_gost_crypt_1_1_core_1_1_core_user}{Core\+User} instance otherwise). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_core_base_8h_ac397d797d4169a5832877d05ed482d19}\label{_core_base_8h_ac397d797d4169a5832877d05ed482d19}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}}
+\index{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL@{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL}{DEC\_REQUEST\_SIGNAL}}
+{\footnotesize\ttfamily \#define D\+E\+C\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+I\+G\+N\+AL(\begin{DoxyParamCaption}\item[{}]{request\+Name }\end{DoxyParamCaption})~void send \#\# request\+Name (Q\+Shared\+Pointer$<$request\+Name \#\# Response$>$ r)}
+
+
+
+Definition at line 24 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a8e98e1c4746975719bb97542715d109d}\label{_core_base_8h_a8e98e1c4746975719bb97542715d109d}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE@{F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE}}
+\index{F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE@{F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE}{FILE\_OPTIMAL\_WRITE\_SIZE}}
+{\footnotesize\ttfamily \#define F\+I\+L\+E\+\_\+\+O\+P\+T\+I\+M\+A\+L\+\_\+\+W\+R\+I\+T\+E\+\_\+\+S\+I\+ZE~256$\ast$1024}
+
+
+
+Definition at line 15 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a78f42ca3dfafbfdfc9a27b6e8d9f829f}\label{_core_base_8h_a78f42ca3dfafbfdfc9a27b6e8d9f829f}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK@{F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK}}
+\index{F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK@{F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK}{FINISH\_TRACK}}
+{\footnotesize\ttfamily \#define F\+I\+N\+I\+S\+H\+\_\+\+T\+R\+A\+CK}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+TRACK \(\backslash\)
+    for(QPair<QString,int> p : track\_result) \{ \(\backslash\)
+        qDebug().noquote() << p.first << \textcolor{stringliteral}{" "} << (float)p.second/track\_result.last().second; \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 33 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a6ecca19186c959703803aa3845ac43e5}\label{_core_base_8h_a6ecca19186c959703803aa3845ac43e5}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX@{G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX}}
+\index{G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX@{G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX}{GOSTCRYPT\_FUSE\_MOUNT\_DIR\_PREFIX}}
+{\footnotesize\ttfamily \#define G\+O\+S\+T\+C\+R\+Y\+P\+T\+\_\+\+F\+U\+S\+E\+\_\+\+M\+O\+U\+N\+T\+\_\+\+D\+I\+R\+\_\+\+P\+R\+E\+F\+IX~\char`\"{}.gostcrypt\+\_\+aux\+\_\+mnt\char`\"{}}
+
+
+
+Definition at line 17 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a442b8a25c35942b9d5dc7e9b1f7780e9}\label{_core_base_8h_a442b8a25c35942b9d5dc7e9b1f7780e9}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST@{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}}
+\index{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST@{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST}{HANDLE\_REQUEST}}
+{\footnotesize\ttfamily \#define H\+A\+N\+D\+L\+E\+\_\+\+R\+E\+Q\+U\+E\+ST(\begin{DoxyParamCaption}\item[{}]{request\+Name,  }\item[{}]{fct }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if}(r.canConvert<QSharedPointer<requestName ## Request>>()) \{ \(\backslash\)
+        QSharedPointer<requestName ## Request> request; \(\backslash\)
+        request = r.value<QSharedPointer<requestName ## Request>>(); \(\backslash\)
+        fct (request); \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 18 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a675d23d9fa0ec334d09671f63db5a30a}\label{_core_base_8h_a675d23d9fa0ec334d09671f63db5a30a}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK@{S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK}}
+\index{S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK@{S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK}{START\_TRACK}}
+{\footnotesize\ttfamily \#define S\+T\+A\+R\+T\+\_\+\+T\+R\+A\+CK}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+QTime t; \(\backslash\)
+    t.start(); \(\backslash\)
+    QList<QPair<QString,int>> track\_result; \(\backslash\)
+    TRACK
+\end{DoxyCode}
+
+
+Definition at line 28 of file Core\+Base.\+h.
+
+\mbox{\Hypertarget{_core_base_8h_a4dcbde603979a969160d849f8374a7ee}\label{_core_base_8h_a4dcbde603979a969160d849f8374a7ee}} 
+\index{Core\+Base.\+h@{Core\+Base.\+h}!T\+R\+A\+CK@{T\+R\+A\+CK}}
+\index{T\+R\+A\+CK@{T\+R\+A\+CK}!Core\+Base.\+h@{Core\+Base.\+h}}
+\subsubsection{\texorpdfstring{T\+R\+A\+CK}{TRACK}}
+{\footnotesize\ttfamily \#define T\+R\+A\+CK~track\+\_\+result.\+append(Q\+Pair$<$Q\+String,int$>$(Q\+String(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+) + Q\+String(\char`\"{}\+:\char`\"{}) + Q\+String\+::number(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+), t.\+elapsed()));}
+
+
+
+Definition at line 27 of file Core\+Base.\+h.
+
