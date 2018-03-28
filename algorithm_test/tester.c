@@ -3,6 +3,7 @@
 #include <QtGlobal>
 #include <stdlib.h>
 #include <pthread.h>
+#include <string.h>
 #include <sys/time.h>
 
 #include "../gostcrypt2_src/Volume/Crypto/GostCipher.h"
@@ -14,7 +15,7 @@
 #define MB (1024L * KB)
 #define GB (1024L * MB)
 
-#define THREAD_NUMBER 8
+#define THREAD_NUMBER 1
 
 struct parameters {
 	quint64 size;
@@ -77,19 +78,34 @@ void test_algorithm(struct tester *algorithm, quint64 size){
 
 	/* Key Creation */
 	quint8 *key = malloc(algorithm->keysize);
+    if(!key){
+        printf("malloc() error\n");
+    }
 	for(i=0; i<algorithm->keysize; i++) // assigning key
 		key[i] = (quint8)i;
 
 	/* multiple thread vars */
-	pthread_t thread[THREAD_NUMBER] = {0};
-	struct parameters *params[THREAD_NUMBER] = {0};
+    pthread_t *thread = calloc(THREAD_NUMBER, sizeof(pthread_t));
+	struct parameters **params = calloc(THREAD_NUMBER, sizeof(struct parameters *));
+    if(!thread || !params){
+        printf("malloc() error\n");
+    }
 
 	/* Preparing thread parameters */
 	for(i = 0; i < THREAD_NUMBER; i++){
 		params[i] = malloc(sizeof(struct parameters));
+        if(!params[i]){
+            printf("malloc() error\n");
+        }
 		params[i]->size = size / THREAD_NUMBER;
 		params[i]->data = malloc(algorithm->blocksize);
+        if(!params[i]->data){
+            printf("malloc() error\n");
+        }
 		params[i]->ks = calloc(sizeof(algorithm->ks_size), 1);
+        if(!params[i]->ks){
+            printf("malloc() error\n");
+        }
 		params[i]->encrypt_func = algorithm->encrypt_func;
 		algorithm->set_key(key, params[i]->ks); // creating key for gost
 	}
@@ -119,7 +135,7 @@ void test_algorithm(struct tester *algorithm, quint64 size){
 				(double) (tv2.tv_sec - tv1.tv_sec);
 
 	/* Final print */
-	printf("%s : %d MB in %.2lf seconds\n", algorithm->name, size/MB, timediff);
+    printf("%s : %ld MB in %.2lf seconds\n", algorithm->name, size/MB, timediff);
 
 	/* Freeing memory */
 	for(i = 0; i < THREAD_NUMBER; i++){
@@ -128,33 +144,64 @@ void test_algorithm(struct tester *algorithm, quint64 size){
 		free(params[i]);
 	}
 	free(key);
+	free(params);
+	free(thread);
 }
 
+/* Algorithm initilization */
+    struct tester algos[2];
+
 int main(int argc, char **argv){
+    int i;
+    struct tester* grasshopper = &algos[0];
+    /* Algorithm initilization */
+    grasshopper->encrypt_func = grasshopper_encryptfunc;
+    grasshopper->set_key = grasshopper_set_keyfunc;
+    grasshopper->name = "Grasshopper";
+    grasshopper->blocksize = GRASSHOPPER_BLOCK_SIZE;
+    grasshopper->keysize = GRASSHOPPER_KEY_SIZE;
+    grasshopper->ks_size = sizeof(grasshopper_kds);
 
-	/* Algorithm initilization */
-	struct tester gost;
-	gost.encrypt_func = gost_encryptfunc;
-	gost.set_key = gost_set_keyfunc;
-	gost.name = "GOST";
-	gost.blocksize = GOST_BLOCK_SIZE;
-	gost.keysize = GOST_KEY_SIZE;
-	gost.ks_size = sizeof(gost_kds);
-
-	struct tester grasshopper;
-	grasshopper.encrypt_func = grasshopper_encryptfunc;
-	grasshopper.set_key = grasshopper_set_keyfunc;
-	grasshopper.name = "Grasshopper";
-	grasshopper.blocksize = GRASSHOPPER_BLOCK_SIZE;
-	grasshopper.keysize = GRASSHOPPER_KEY_SIZE;
-	grasshopper.ks_size = sizeof(grasshopper_kds);
+    struct tester* gost = &algos[1];
+    gost->encrypt_func = gost_encryptfunc;
+    gost->set_key = gost_set_keyfunc;
+    gost->name = "GOST";
+    gost->blocksize = GOST_BLOCK_SIZE;
+    gost->keysize = GOST_KEY_SIZE;
+    gost->ks_size = sizeof(gost_kds);
 
 	/* Size to encrypt */
-	quint64 size = 1 * GB;
+    quint64 size = 50 * MB;
 	
+
+	if(argc != 3){
+		printf("Usage: %s <nom> <size in MB>\n", argv[0]);
+		return 1;
+	}
+
+	struct tester *chosen = NULL;
+	for(i=0; i < sizeof(algos)/sizeof(struct tester); i++){
+		if(!strcmp(algos[i].name, argv[1])){
+			chosen = &algos[i];
+		}
+	}
+	if(!chosen){
+		printf("Error: Algorithm %s not found.\n", argv[1]);
+		printf("Usage: %s <nom> <size in MB>\n", argv[0]);
+		return 1;
+	}
+
+	if(sscanf(argv[2], "%d", &size) != 1){
+		printf("Error: Size is not a number.\n");
+		printf("Usage: %s <nom> <size in MB>\n", argv[0]);
+		return 1;
+	}
+
+	size *= MB;
+
 	/* Tests */
-	test_algorithm(&grasshopper, size);
-	test_algorithm(&gost, size);
+	test_algorithm(chosen, size);
+	//test_algorithm(&gost, size);
 
 	return 0;
 }
