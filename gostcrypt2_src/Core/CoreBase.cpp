@@ -424,23 +424,18 @@ void CoreBase::randomizeEncryptionAlgorithmKey(QSharedPointer <Volume::Encryptio
 void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingParameters id,
                                 QString algorithm, bool random)
 {
-    std::fstream file;
+    QFile file(path.absoluteFilePath());
 
     updateProgress(0.0, id);
-    file.open(path.absoluteFilePath().toStdString(), std::ios::out | std::ios::binary);
-    if (!file.is_open())
-    {
+    if(!file.open(QIODevice::WriteOnly));
         throw FailedOpenFileException(path);
-    }
 
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea;
     if (!algorithm.isEmpty())
     {
         ea = getEncryptionAlgorithm(algorithm);
         if (!ea)
-        {
-            throw /* TODO */;
-        }
+            throw AlgorithmNotFoundException(algorithm);
 
         // Empty sectors are encrypted with different key to randomize plaintext
         randomizeEncryptionAlgorithmKey(ea);
@@ -480,8 +475,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
                                dataFragmentLength / ENCRYPTION_DATA_UNIT_SIZE,
                                ENCRYPTION_DATA_UNIT_SIZE);    // TODO : check that if dataFragmentLength is set to minimum (RandomGenerator::PoolSize) there no issue
         }
-        file.write((char*)outputBuffer.get(), (size_t) dataFragmentLength);  // writing it
-
+        file.write((char*)outputBuffer.get(), dataFragmentLength);
         offset += dataFragmentLength;
         sizetodo -= dataFragmentLength;
 
