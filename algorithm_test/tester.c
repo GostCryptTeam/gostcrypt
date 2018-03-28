@@ -15,7 +15,7 @@
 #define MB (1024L * KB)
 #define GB (1024L * MB)
 
-#define THREAD_NUMBER 1
+#define THREAD_NUMBER 8
 
 struct parameters {
 	quint64 size;
