@@ -365,6 +365,11 @@ void Parser::parseCreate(QCommandLineParser& parser,
         {
             options->innerVolume->filesystem = parser.value("hfile-system");
         }
+        else
+        {
+            options->innerVolume->filesystem = "fat";
+        }
+
 
         if (parser.isSet("inner-size"))
         {
@@ -413,6 +418,10 @@ void Parser::parseCreate(QCommandLineParser& parser,
     if (parser.isSet("filesystem"))
     {
         options->outerVolume->filesystem = parser.value("filesystem");
+    }
+    else
+    {
+        options->outerVolume->filesystem = "fat";
     }
 
     if (parser.isSet("outer-size"))
