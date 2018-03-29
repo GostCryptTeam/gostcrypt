@@ -427,7 +427,7 @@ void CoreBase::createRandomFile(QFileInfo path, quint64 size, ProgressTrackingPa
     QFile file(path.absoluteFilePath());
 
     updateProgress(0.0, id);
-    if(!file.open(QIODevice::WriteOnly));
+    if(!file.open(QIODevice::WriteOnly))
         throw FailedOpenFileException(path);
 
     QSharedPointer<GostCrypt::Volume::EncryptionAlgorithm> ea;
