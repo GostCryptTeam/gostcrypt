@@ -523,20 +523,14 @@ bool MyGuiApplication::notify(QObject* receiver, QEvent* event)
     catch (GostCrypt::GostCryptException& e)
     {
         response << e.getName() << "An unexpected error occured. \n"
-#ifdef QT_DEBUG
-                 + e.displayedMessage()
-#endif
-                 ;
+                 + e.displayedMessage();
         emit mGI->QML_SIGNAL(printSendError, response)
     }
     catch (QException& e)     // TODO : handle exceptions here
     {
 
         response << "Exception catch" << "An unexpected error occured. \n"
-#ifdef QT_DEBUG
-                 << QString::fromUtf8(e.what())
-#endif
-                 ;
+                 << QString::fromUtf8(e.what());
         emit mGI->QML_SIGNAL(printSendError, response)
     }
     return done;

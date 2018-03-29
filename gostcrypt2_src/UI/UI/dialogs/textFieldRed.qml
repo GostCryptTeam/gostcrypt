@@ -6,7 +6,7 @@ TextFieldStyle {
         id: password_value_style
         radius: 5
         implicitWidth: 100
-        implicitHeight: 24
+        implicitHeight: combo.height
         border.color: "#e84747"
         border.width: 1
         color: '#181818'
