@@ -135,7 +135,7 @@ void test_algorithm(struct tester *algorithm, quint64 size){
 				(double) (tv2.tv_sec - tv1.tv_sec);
 
 	/* Final print */
-    printf("%s : %ld MB in %.2lf seconds\n", algorithm->name, size/MB, timediff);
+    printf("%s : %ld MB in %.2lf seconds. Speed : %.2f MB/s\n", algorithm->name, size/MB, timediff, size/(timediff*MB));
 
 	/* Freeing memory */
 	for(i = 0; i < THREAD_NUMBER; i++){
@@ -201,7 +201,6 @@ int main(int argc, char **argv){
 
 	/* Tests */
 	test_algorithm(chosen, size);
-	//test_algorithm(&gost, size);
 
 	return 0;
 }
