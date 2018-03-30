@@ -3,5 +3,5 @@ echo "Preparation done."
 make clean > /dev/null
 echo "Clean Complete."
 echo "Starting Compilation..."
-make -j 8 | tee make.log
+make -j $(cat /proc/cpuinfo|grep processor | wc -l) | tee make.log
 echo "Compilation done"
