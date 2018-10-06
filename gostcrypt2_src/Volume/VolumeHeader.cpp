@@ -199,13 +199,6 @@ bool VolumeHeader::Deserialize(const BufferPtr& header, QSharedPointer <Encrypti
                                         QString::number(ENCRYPTION_DATA_UNIT_SIZE) + ".");
     }
 
-#if !(defined (GST_WINDOWS) || defined (GST_LINUX))
-    if (SectorSize != GST_SECTOR_SIZE_LEGACY)
-    {
-        throw UnsupportedSectorSize(SRC_POS);
-    }
-#endif
-
     offset = DataAreaKeyOffset;
 
     if (VolumeKeyAreaCrc32 != Crc32::ProcessBuffer(header.getRange(offset, DataKeyAreaMaxSize)))
