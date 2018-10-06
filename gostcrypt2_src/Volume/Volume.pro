@@ -8,7 +8,7 @@ QT       -= gui
 
 TARGET = Volume
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++11
 
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags) -fno-strict-aliasing

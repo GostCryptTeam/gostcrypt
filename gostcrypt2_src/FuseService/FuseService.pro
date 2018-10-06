@@ -8,7 +8,7 @@ QT       -= gui
 
 TARGET = FuseService
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++11
 
 INCLUDEPATH += .. ../Crypto
 QMAKE_CXXFLAGS += $(shell pkg-config fuse --cflags)
