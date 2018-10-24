@@ -60,7 +60,7 @@ class GraphicInterface;
  * retrieve events such as exceptions in order to manage
  * them graphically
  */
-class MyGuiApplication : public QApplication
+class MyGuiApplication : public QGuiApplication
 {
     Q_OBJECT
  public:
@@ -70,7 +70,7 @@ class MyGuiApplication : public QApplication
      * @param argc the number of arguments in the main program
      * @param argv arguments of the main program
      */
-    MyGuiApplication(int& argc, char** argv) : QApplication(argc, argv), mGI(nullptr) {}
+    MyGuiApplication(int& argc, char** argv) : QGuiApplication(argc, argv), mGI(nullptr) {}
     /**
      * @brief Retrieve exceptions and forward them to the interface for display
      *
