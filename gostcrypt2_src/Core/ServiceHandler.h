@@ -9,9 +9,10 @@
 #include <QQueue>
 #include <QFile>
 
-//#define DEBUG_SERVICE_HANDLER
-
+// We display the dump files of the requests only in debug mode
+#ifdef QT_DEBUG
 #define GENERATE_REQUESTS_DUMP
+#endif
 
 namespace GostCrypt
 {
