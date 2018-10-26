@@ -25,6 +25,10 @@ unix {
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
+debug {
+    DEFINES += DEBUG_SERVICE_HANDLER GENERATE_REQUESTS_DUMP
+}
+
 unix {
     target.path = /usr/lib
     INSTALLS += target
