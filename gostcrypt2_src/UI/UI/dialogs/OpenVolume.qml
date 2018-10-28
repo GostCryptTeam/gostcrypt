@@ -76,7 +76,6 @@ Item {
 
                 for(var i in listKeyfiles)
                     request["keyfile"+i] = listKeyfiles[i].path;
-                console.log(request["keyfile0"])
 
                 qmlRequest("mount", request);
 
