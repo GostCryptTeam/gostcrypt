@@ -70,11 +70,17 @@ void FuseService::mountRequestHandler(QVariant r)
                 protectionPassword.reset(new Volume::VolumePassword(params->protectionPassword->constData(),
                                          params->protectionPassword->size()));
             }
+            if (!params->keyfiles.isEmpty()) {
+               keyfiles.reset(new Volume::KeyfileList);
+            }
             for (QFileInfo keyfile : params->keyfiles)
             {
                 keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
             }
 
+            if (!params->protectionKeyfiles.isEmpty()) {
+               protectionKeyfiles.reset(new Volume::KeyfileList);
+            }
             for (QFileInfo keyfile : params->protectionKeyfiles)
             {
                 protectionKeyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));

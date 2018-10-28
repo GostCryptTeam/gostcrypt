@@ -370,7 +370,7 @@ void CoreRoot::writeHeaderToFile(std::fstream& file,
 
     // Header key
     headerkey.allocate(Volume::VolumeHeader::GetLargestSerializedKeySize());
-    QSharedPointer <Volume::KeyfileList> keyfiles;
+    QSharedPointer <Volume::KeyfileList> keyfiles(new Volume::KeyfileList);
     for (QFileInfo keyfile : params->keyfiles)
     {
         keyfiles->append(QSharedPointer<Volume::Keyfile>(new Volume::Keyfile(keyfile)));
