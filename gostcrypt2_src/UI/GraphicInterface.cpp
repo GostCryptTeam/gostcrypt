@@ -130,9 +130,9 @@ void GraphicInterface::receiveSignal(QString command, QVariant aContent)
             }
 
             //Adding Keyfiles
-            for (QString file : keyfilesList)
+            for (QString file : keyfilesList) //Adding the keyfile(s) to the outer volume object
             {
-                options->keyfiles.append(QFileInfo(file));
+                options->keyfiles.append(QFileInfo(QUrl(file).path()));
             }
 
             emit request(QVariant::fromValue(options));
