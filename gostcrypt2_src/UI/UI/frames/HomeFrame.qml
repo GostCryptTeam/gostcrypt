@@ -370,7 +370,7 @@ Item {
                     horizontalAlignment: Text.AlignHLeft
                     text: qsTr("GostCrypt allows you to create encrypted data "+
                                "volume within a file or an external device. It "+
-                               "use GOST Grasshopper & SM-4 Encryption algorithms.<br><br>"+
+                               "use GOST Grasshopper encryption algorithm.<br><br>"+
                                "You can visit our website at <font color=\"#719c24\"><a href=\"http://gostcrypt.org\">GostCrypt</a></font>") + Translation.tr
                     font.pointSize: 9
                     onLinkActivated: Qt.openUrlExternally("http://www.gostcrypt.org/")
