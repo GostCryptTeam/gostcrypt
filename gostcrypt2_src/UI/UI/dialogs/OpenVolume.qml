@@ -75,7 +75,7 @@ Item {
                 }
 
                 for(var i in listKeyfiles)
-                    request["keyfile"+i] = listKeyfiles[i];
+                    request["keyfile"+i] = listKeyfiles[i].path;
 
                 qmlRequest("mount", request);
 
@@ -144,7 +144,7 @@ Item {
                 if(historique.checked == true)
                     UserSettings.setSetting("MountV-SaveHistory", 1)
                 else
-                    UserSettings.setSetting("MountV-SaveHistory", 0)
+                    UserSettings.setSetting("MountV-SaveHistlistKeyfilesory", 0)
                 if(historique.checked === true) {
                     UserSettings.erasePaths()
                     UserSettings.getVolumePaths(1)

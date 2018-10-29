@@ -224,6 +224,7 @@ Commands:\n\
             break;*/
         default:
             qStdOut() << "Not a valid command. Try --help for help." << endl;
+            exit();
     }
 }
 

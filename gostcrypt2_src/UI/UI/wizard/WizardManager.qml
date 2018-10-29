@@ -582,32 +582,12 @@ Item {
         case progress.VOLUME_END:
             break;
         }
-
-        /*console.log("==================================");
-        console.log("CONTAINER_TYPE = " + volumeInfos.CONTAINER_TYPE);
-        console.log("CONTAINER_SIZE = " + volumeInfos.CONTAINER_SIZE);
-        console.log("VOLUME_TYPE = " + volumeInfos.VOLUME_TYPE);
-        console.log("NORMAL_OR_HIDDEN = " + volumeInfos.NORMAL_OR_HIDDEN);
-        console.log("VOLUME_PATH = " + volumeInfos.VOLUME_PATH);
-        console.log("VOLUME_PWD = " + volumeInfos.VOLUME_PWD);
-        console.log("VOLUME_KEYFILES = " + volumeInfos.VOLUME_KEYFILES);
-        console.log("ALGORITHM_HASH_NAMES = " + volumeInfos.ALGORITHM_HASH_NAMES[0] + " / " + volumeInfos.ALGORITHM_HASH_NAMES[1]);
-        console.log("VOLUME_SIZE = " + volumeInfos.VOLUME_SIZE);
-        console.log("VOLUME_NEW_PASSWORD = " + volumeInfos.VOLUME_NEW_PASSWORD);
-        console.log("VOLUME_NEW_KEYFILES = " + volumeInfos.VOLUME_NEW_KEYFILES);
-        console.log("FORMAT_INFOS = " + volumeInfos.FORMAT_INFOS[0] + " / " + volumeInfos.FORMAT_INFOS[1]);
-        console.log("HIDDEN_ALGORITHM_HASH_NAMES = " + volumeInfos.HIDDEN_ALGORITHM_HASH_NAMES);
-        console.log("HIDDEN_VOLUME_SIZE = " + volumeInfos.HIDDEN_VOLUME_SIZE);
-        console.log("HIDDEN_VOLUME_PASSWORD = " + volumeInfos.HIDDEN_VOLUME_PASSWORD);
-        console.log("HIDDEN_VOLUME_KEYFILES = " + volumeInfos.HIDDEN_VOLUME_KEYFILES);
-        console.log("HIDDEN_FORMAT_INFOS = " + volumeInfos.HIDDEN_FORMAT_INFOS);*/
     }
 
     /*!
       * Fn : manages the page loading
       */
     function changePage(title, current) {
-        console.log(path.type[path.position][0])
         content.source = "Page"+path.type[path.position][0]+".qml"
         changeSubWindowTitle(title)
         currentPage = path.type[path.position][0]
