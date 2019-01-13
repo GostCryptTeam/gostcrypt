@@ -79,6 +79,5 @@ void CipherAlgorithm::SetKey(const BufferPtr& key)
     Initialized = true;
 }
 
-bool CipherAlgorithm::HwSupportEnabled = false;
 }
 }
