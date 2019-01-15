@@ -113,6 +113,7 @@ class CipherAlgorithm
      * @param data the data of size getBlockSize() to encrypt
      * @param ks The key to use instead of SheduledKey
      * @note This method is only used in XTS encryption mode (with a XORed key obtained with XorCipherKey)
+     * @warning ks isn't just a random string of size getScheduledKeySize(), but an actual structure depending on the algorithm used
      */
     virtual void EncryptWithKS(quint8* data, quint8* ks) const = 0;
 
@@ -121,6 +122,7 @@ class CipherAlgorithm
      * @param data the data of size getBlockSize() to decrypt
      * @param ks The key to use instead of SheduledKey
      * @note This method is only used in XTS encryption mode (with a XORed key obtained with XorCipherKey)
+     * @warning ks isn't just a random string of size getScheduledKeySize(), but an actual structure depending on the algorithm used
      */
     virtual void DecryptWithKS(quint8* data, quint8* ks) const = 0;
 
@@ -161,7 +163,7 @@ class CipherAlgorithm
 
     /**
      * @brief SetCipherKey sets the Sheduled Key structure from the given Key
-     * @param key
+     * @param key the "normal" key to use (hashed password of size GetKeySize() )
      */
     virtual void SetCipherKey(const quint8* key) = 0;
 
