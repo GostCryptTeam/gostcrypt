@@ -298,7 +298,7 @@ int FuseService::handleExceptions()
     {
         throw; //rethrow
     }
-    catch (std::bad_alloc)
+    catch (std::bad_alloc&)
     {
         return -ENOMEM;
     }
@@ -307,7 +307,7 @@ int FuseService::handleExceptions()
         qWarning() << e.qwhat();
         return -EINVAL;
     }
-    catch (Volume::VolumeProtected)
+    catch (Volume::VolumeProtected&)
     {
         return -EPERM;
     }
@@ -549,7 +549,7 @@ static int fuse_service_read(const char* path, char* buf, size_t size, off_t off
                     FuseService::readVolumeSectors(tmp, offset);
                 }
             }
-            catch (Volume::VolumeCorrupted)
+            catch (Volume::VolumeCorrupted&)
             {
                 return 0;
             }

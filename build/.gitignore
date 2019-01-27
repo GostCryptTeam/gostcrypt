@@ -4,6 +4,10 @@ FuseDriver/
 GostCrypt
 Makefile
 Core/
+CoreTestsAsRoot/
+CoreTestsAsUser/
+FuseServiceTests/
+VolumeTests/
 FuseService/
 Platform/
 UI/

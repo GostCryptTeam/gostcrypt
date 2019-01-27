@@ -11,13 +11,34 @@ SUBDIRS = \
     Core \
     Volume \
     UI \
-    FuseService
+    FuseService \
+    CoreTestsAsRoot \
+    CoreTestsAsUser \
+    VolumeTests \
+    FuseServiceTests
 
 QMAKE_CXX = ccache g++
 QMAKE_CXXFLAGS += -O3
 
 UI.depends = \
     Core \
+    Volume \
+    FuseService
+
+CoreTestsAsUser.depends = \
+    Core \
+    Volume \
+    FuseService
+
+CoreTestsAsRoot.depends = \
+    Core \
+    Volume \
+    FuseService
+    
+VolumeTests.depends = \
+    Volume \
+
+FuseServiceTests.depends = \
     Volume \
     FuseService
 
