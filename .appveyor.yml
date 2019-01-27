@@ -1,0 +1,19 @@
+version: 2.0.{build}
+image: Ubuntu1804
+install:
+  - sudo apt update -qq
+  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 g++ make pkg-config
+  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 qt5-default qtdeclarative5-dev
+  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 libblkid-dev libfuse-dev
+  - qmake -v
+build_script:
+  - cd build
+  - qmake ../src/GostCrypt.pro
+  - make -j $(cat /proc/cpuinfo | grep processor | wc -l)
+# test_script:
+#  - sudo ./runtests.sh
+artifacts:
+  - path: build/GostCrypt
+    name: GostCrypt executable
+    type: file
+  
