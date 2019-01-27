@@ -18,3 +18,4 @@ requestsDump_*
 hashlist.txt
 algolist.txt
 test*
+!testResults
