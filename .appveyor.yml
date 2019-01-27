@@ -10,8 +10,12 @@ build_script:
   - cd build
   - qmake ../src/GostCrypt.pro
   - make -j $(cat /proc/cpuinfo | grep processor | wc -l)
-# test_script:
+test_script:
 #  - sudo ./runtests.sh
+   - ./testCoreAsUser
+   - sudo ./testCoreAsRoot 
+   - sudo ./testFuseService
+   - sudo ./testVolume
 artifacts:
   - path: build/GostCrypt
     name: GostCrypt executable

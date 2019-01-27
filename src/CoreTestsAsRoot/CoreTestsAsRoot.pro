@@ -21,3 +21,5 @@ LIBS += \
         -lfuse \
         -lblkid
 
+TARGET = ../testCoreAsRoot
+

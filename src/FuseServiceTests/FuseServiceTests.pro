@@ -19,3 +19,4 @@ LIBS += \
         -lfuse \
         -lblkid
 
+TARGET = ../testFuseService

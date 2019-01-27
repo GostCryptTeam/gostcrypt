@@ -15,3 +15,5 @@ LIBS += \
         ../Volume/libVolume.a \
         -ldl \
         -pthread
+
+TARGET = ../testVolume

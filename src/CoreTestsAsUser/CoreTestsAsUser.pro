@@ -21,3 +21,4 @@ LIBS += \
         -lfuse \
         -lblkid
 
+TARGET = ../testCoreAsUser
