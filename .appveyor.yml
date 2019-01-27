@@ -1,8 +1,5 @@
 version: 2.0.{build}
 image: Ubuntu1804
-branches:
-  only:
-  - setup-appveyor-18 
 install:
   - sudo apt update -qq
   - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 g++ make pkg-config
