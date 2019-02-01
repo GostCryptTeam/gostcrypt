@@ -270,7 +270,7 @@ QSharedPointer<GetMountedVolumesResponse> CoreBase::getMountedVolumes(
                     mountedVol->mountPoint = getDeviceMountPoint(mountedVol->virtualDevice);
                 }
             }
-            catch (DeviceNotMounted) {}  //There is no mountpoint since the virtual device is not mounted
+            catch (DeviceNotMounted&) {}  //There is no mountpoint since the virtual device is not mounted
 
             response->volumeInfoList.append(mountedVol);
 

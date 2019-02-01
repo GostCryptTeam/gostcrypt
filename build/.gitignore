@@ -4,6 +4,10 @@ FuseDriver/
 GostCrypt
 Makefile
 Core/
+CoreTestsAsRoot/
+CoreTestsAsUser/
+FuseServiceTests/
+VolumeTests/
 FuseService/
 Platform/
 UI/
@@ -13,3 +17,5 @@ preparation.log
 requestsDump_*
 hashlist.txt
 algolist.txt
+test*
+!testResults

@@ -10,10 +10,15 @@ build_script:
   - cd build
   - qmake ../src/GostCrypt.pro
   - make -j $(cat /proc/cpuinfo | grep processor | wc -l)
-# test_script:
-#  - sudo ./runtests.sh
+test_script:
+   - ./testCoreAsUser -r junit -o testResults/CoreAsUser.xml
+   - sudo ./testCoreAsRoot -r junit -o testResults/CoreAsRoot.xml
+   - sudo ./testFuseService -r junit -o testResults/FuseService.xml
+   - sudo ./testVolume -r junit -o testResults/Volume.xml
 artifacts:
   - path: build/GostCrypt
     name: GostCrypt executable
     type: file
+on_finish:
+  - find "$APPVEYOR_BUILD_FOLDER/build/testResults/" -type f -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
   
