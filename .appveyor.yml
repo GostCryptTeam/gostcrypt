@@ -1,11 +1,16 @@
 version: 2.0.{build}
 image: Ubuntu1804
 install:
-  - sudo apt update -qq
-  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 g++ make pkg-config
-  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 qt5-default qtdeclarative5-dev
-  - sudo apt install -yqq -o=Dpkg::Progress-Fancy=0 libblkid-dev libfuse-dev
+  - sudo apt-get update -qq
+  - export DEBIAN_FRONTEND=noninteractive
+  - sudo -E apt-get install -y g++ make pkg-config >> /dev/null
+  - sudo -E apt-get install -y qt5-default qtdeclarative5-dev >> /dev/null
+  - sudo -E apt-get install -y libblkid-dev libfuse-dev >> /dev/null
+  - sudo -E apt-get install -y rpm >> /dev/null
+  - rvm use 2.5.3 >> /dev/null
+  - gem install --silent --no-ri --no-rdoc fpm
   - qmake -v
+  - fpm -v
 build_script:
   - cd build
   - qmake ../src/GostCrypt.pro
@@ -21,4 +26,11 @@ artifacts:
     type: file
 on_finish:
   - find "$APPVEYOR_BUILD_FOLDER/build/testResults/" -type f -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
+on_success:
+  # Create RPM package
+  - ruby $(which fpm) -s dir -t rpm -n gostcrypt --rpm-digest sha256 --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5 -d libblkid -d fuse GostCrypt=/usr/bin/gostcrypt
+  - appveyor PushArtifact $(find . -name "*.rpm") -Type File -DeploymentName "GostCrypt RPM package"
+  # Create deb package 
+  - ruby $(which fpm) -s dir -t deb -n gostcrypt --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5-default -d libqt5qml5 -d libqt5quick5 -d libblkid1 -d libfuse2 --deb-no-default-config-files GostCrypt=/usr/bin/gostcrypt
+  - appveyor PushArtifact $(find . -name "*.deb") -Type File -DeploymentName "GostCrypt deb package"
   
