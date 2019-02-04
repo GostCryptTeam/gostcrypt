@@ -27,8 +27,10 @@ artifacts:
 on_finish:
   - find "$APPVEYOR_BUILD_FOLDER/build/testResults/" -type f -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
 on_success:
-  - mkdir pkgs
   # Create RPM package
-  - ruby $(which fpm) -s dir -t rpm -n gostcrypt --rpm-digest sha256 --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5 -d libblkid -d fuse -p pkgs GostCrypt=/usr/bin/gostcrypt
-  - appveyor PushArtifact $(find ./pkgs -name "*.rpm") -Type File -DeploymentName "GostCrypt RPM package"
+  - ruby $(which fpm) -s dir -t rpm -n gostcrypt --rpm-digest sha256 --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5 -d libblkid -d fuse GostCrypt=/usr/bin/gostcrypt
+  - appveyor PushArtifact $(find . -name "*.rpm") -Type File -DeploymentName "GostCrypt RPM package"
+  # Create deb package 
+  - ruby $(which fpm) -s dir -t deb -n gostcrypt --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5-default -d libqt5qml5 -d libqt5quick5 -d libblkid1 -d libfuse2 --deb-no-default-config-files GostCrypt=/usr/bin/gostcrypt
+  - appveyor PushArtifact $(find . -name "*.deb") -Type File -DeploymentName "GostCrypt deb package"
   
