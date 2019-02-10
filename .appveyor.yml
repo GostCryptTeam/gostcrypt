@@ -32,5 +32,8 @@ on_success:
   - appveyor PushArtifact $(find . -name "*.rpm") -Type File -DeploymentName "GostCrypt RPM package"
   # Create deb package 
   - ruby $(which fpm) -s dir -t deb -n gostcrypt --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5-default -d libqt5qml5 -d libqt5quick5 -d libblkid1 -d libfuse2 --deb-no-default-config-files GostCrypt=/usr/bin/gostcrypt
-  - appveyor PushArtifact $(find . -name "*.deb") -Type File -DeploymentName "GostCrypt deb package"
-  
+  - appveyor PushArtifact $(find . -name "*.deb") -Type File -DeploymentName "GostCrypt Ubuntu deb package"
+  # Create deb package for debian
+  - docker build debian-build-docker -t gostcrypt-debian-build
+  - docker run -e APPVEYOR_BUILD_VERSION=$APPVEYOR_BUILD_VERSION -v $(readlink -f ..):/gostcrypt gostcrypt-debian-build 
+  - appveyor PushArtifact $(find ../build-debian -name "*.deb") -Type File -DeploymentName "GostCrypt Debian deb package"
