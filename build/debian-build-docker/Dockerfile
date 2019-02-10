@@ -1,10 +1,11 @@
 FROM debian
-RUN apt-get update
-RUN apt-get install -y qt5-default qtdeclarative5-dev
-RUN apt-get install -y g++ make pkg-config
-RUN apt-get install -y libblkid-dev libfuse-dev
-RUN apt-get install -y rubygems ruby-dev && \
-    gem install --no-ri --no-rdoc fpm
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	qt5-default qtdeclarative5-dev \
+	g++ make pkg-config \
+	libblkid-dev libfuse-dev \
+	rubygems ruby-dev && \
+    gem install --no-ri --no-rdoc fpm && \
+    rm -rf /var/lib/apt/lists/*
 VOLUME /gostcrypt
 COPY build.sh .
 WORKDIR /gostcrypt
