@@ -20,10 +20,27 @@ namespace Volume
 class EncryptionTest
 {
  public:
+    /**
+     * @brief TestCiphers will test GOST's cipher with standard vectors.
+     * @todo What about Grasshopper ...
+     */
     static void TestCiphers();
+
+    /**
+     * @brief TestPkcs5 will test all derivation functions.
+     */
     static void TestPkcs5();
+
+    /**
+     * @brief TestXts will test all algorihthms with XTS encryption mode.
+     * @todo Not very scalable. Test vectors could be inside the EncryptionAlgorithm object for example.
+     */
     static void TestXts();
  protected:
+
+    /**
+     * @brief The XtsTestVector struct defines a vector that can be used to test a pass of XTS.
+     */
     struct XtsTestVector
     {
         quint8 key1[32];
@@ -34,6 +51,9 @@ class EncryptionTest
         quint8 ciphertext[ENCRYPTION_DATA_UNIT_SIZE];
     };
 
+    /**
+     * @brief XtsTestVectors stores a few IEEE vectors to test XTS
+     */
     static const XtsTestVector XtsTestVectors[];
 
  private:
