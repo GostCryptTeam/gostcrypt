@@ -39,7 +39,7 @@ on_success:
   - if [ -e "debian-build-docker-saved" ] ; then docker load -i debian-build-docker-saved ; fi
   - docker build debian-build-docker -t gostcrypt-debian-build --cache-from gostcrypt-debian-build
   - docker save -o debian-build-docker-saved gostcrypt-debian-build
-  - docker run -e APPVEYOR_BUILD_VERSION=$APPVEYOR_BUILD_VERSION -v $(readlink -f ..):/gostcrypt gostcrypt-debian-build 
+  - docker run --privileged -e APPVEYOR_BUILD_VERSION=$APPVEYOR_BUILD_VERSION -v $(readlink -f ..):/gostcrypt gostcrypt-debian-build 
   - cd ..
   - DEBIAN_DEB_PACKAGE=$(find build-debian -name "*.deb")
   - appveyor PushArtifact $DEBIAN_DEB_PACKAGE -Type File -DeploymentName "GostCrypt Debian deb package" -FileName $DEBIAN_DEB_PACKAGE
