@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:buster
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	qt5-default qtdeclarative5-dev \
 	g++ make pkg-config \
