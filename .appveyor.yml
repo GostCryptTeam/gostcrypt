@@ -22,10 +22,6 @@ test_script:
    - sudo ./testVolume -r junit -o testResults/Volume.xml
 cache:
    - build/debian-build-docker-saved
-artifacts:
-  - path: build/GostCrypt
-    name: GostCrypt executable
-    type: file
 on_finish:
   - find "$APPVEYOR_BUILD_FOLDER/build/testResults/" -type f -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
 on_success:
