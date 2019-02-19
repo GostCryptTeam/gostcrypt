@@ -12,7 +12,8 @@ fpm -s dir -t deb \
 	-d libqt5qml5 \
 	-d qml-module-qtquick-controls \
        	-d qml-module-qtquick-controls2 \
-       	-d qml-module-qtquick-templates \
+	-d qml-module-qt-labs-folderlistmodel \
+	-d qml-module-qt-labs-settings \
 	-d qml-module-qtquick-dialogs \
 	-d libblkid1 \
 	-d libfuse2 \
