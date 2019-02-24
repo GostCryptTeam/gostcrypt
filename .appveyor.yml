@@ -20,17 +20,23 @@ test_script:
    - sudo ./testCoreAsRoot -r junit -o testResults/CoreAsRoot.xml
    - sudo ./testFuseService -r junit -o testResults/FuseService.xml
    - sudo ./testVolume -r junit -o testResults/Volume.xml
-artifacts:
-  - path: build/GostCrypt
-    name: GostCrypt executable
-    type: file
+cache:
+   - build/debian-build-docker-saved
 on_finish:
   - find "$APPVEYOR_BUILD_FOLDER/build/testResults/" -type f -print0 | xargs -0 -I '{}' curl -F 'file=@{}' "https://ci.appveyor.com/api/testresults/junit/$APPVEYOR_JOB_ID"
 on_success:
   # Create RPM package
   - ruby $(which fpm) -s dir -t rpm -n gostcrypt --rpm-digest sha256 --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5 -d libblkid -d fuse GostCrypt=/usr/bin/gostcrypt
-  - appveyor PushArtifact $(find . -name "*.rpm") -Type File -DeploymentName "GostCrypt RPM package"
+  - FEDORA_RPM_PACKAGE_PATH=$(find . -name "*.rpm") FEDORA_RPM_PACKAGE_NAME=$(echo $FEDORA_RPM_PACKAGE_PATH | cut -d '/' -f 2)
+  - appveyor PushArtifact $FEDORA_RPM_PACKAGE_PATH -Type File -DeploymentName "GostCrypt RPM package" -FileName "fedora/$FEDORA_RPM_PACKAGE_NAME"
   # Create deb package 
   - ruby $(which fpm) -s dir -t deb -n gostcrypt --version $APPVEYOR_BUILD_VERSION --license GPLv3 -m hantoine02@gmail.com -d qt5-default -d libqt5qml5 -d libqt5quick5 -d libblkid1 -d libfuse2 --deb-no-default-config-files GostCrypt=/usr/bin/gostcrypt
-  - appveyor PushArtifact $(find . -name "*.deb") -Type File -DeploymentName "GostCrypt deb package"
-  
+  - UBUNTU_DEB_PACKAGE_PATH=$(find . -name "*.deb") UBUNTU_DEB_PACKAGE_NAME=$(echo $UBUNTU_DEB_PACKAGE_PATH | cut -d '/' -f 2)
+  - appveyor PushArtifact $UBUNTU_DEB_PACKAGE_PATH -Type File -DeploymentName "GostCrypt Ubuntu deb package" -FileName "ubuntu/$UBUNTU_DEB_PACKAGE_NAME"
+  # Create deb package for debian
+  - if [ -e "debian-build-docker-saved" ] ; then docker load -i debian-build-docker-saved ; fi
+  - docker build debian-build-docker -t gostcrypt-debian-build --cache-from gostcrypt-debian-build
+  - docker save -o debian-build-docker-saved gostcrypt-debian-build
+  - docker run --privileged -e APPVEYOR_BUILD_VERSION=$APPVEYOR_BUILD_VERSION -v $(readlink -f ..):/gostcrypt gostcrypt-debian-build 
+  - DEBIAN_DEB_PACKAGE_PATH=$(find ../build-debian -name "*.deb") DEBIAN_DEB_PACKAGE_NAME=$(echo $DEBIAN_DEB_PACKAGE_PATH | cut -d '/' -f 3)
+  - appveyor PushArtifact $DEBIAN_DEB_PACKAGE_PATH -Type File -DeploymentName "GostCrypt Debian deb package" -FileName "debian/$DEBIAN_DEB_PACKAGE_NAME"
