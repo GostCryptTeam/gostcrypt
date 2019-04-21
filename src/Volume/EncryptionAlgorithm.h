@@ -19,6 +19,8 @@ namespace GostCrypt
 namespace Volume
 {
 
+// TODO comment this file
+
 class EncryptionAlgorithm;
 
 typedef QList < QSharedPointer <GostCrypt::Volume::EncryptionAlgorithm> > EncryptionAlgorithmList;
