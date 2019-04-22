@@ -76,6 +76,7 @@ QSharedPointer <VolumePassword> Keyfile::ApplyListToPassword(QSharedPointer <Key
     SecureBuffer keyfilePool(VolumePassword::MaxSize);
 
     // Pad password with zeros if shorter than max length
+    // TODO if no key files provided is this safe ?
     keyfilePool.erase();
     keyfilePool.copyFrom(BufferPtr(password->DataPtr(), password->Size()));
 
