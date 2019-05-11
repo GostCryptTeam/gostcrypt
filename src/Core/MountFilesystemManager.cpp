@@ -40,7 +40,7 @@ void MountFilesystemManager::mountFilesystem(const QFileInfo devicePath, const Q
 
     if (mount(devicePath.absoluteFilePath().toLocal8Bit().data(),
               mountPoint.absoluteFilePath().toLocal8Bit().data(), filesystemType.toLocal8Bit().data(), mntflags,
-              mountOptions.toLocal8Bit().data()))
+              mountOptions.toLocal8Bit().data())) // TODO : use the all mighty fuse-ext2 please
     {
         throw FailMountFilesystemException(errno, mountPoint, devicePath, filesystemType);
     }

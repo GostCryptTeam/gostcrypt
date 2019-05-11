@@ -43,11 +43,63 @@ QSharedPointer<CoreBase> getCore()
 CoreBase::CoreBase(QObject* parent) : QObject(parent)
 {
     RandomGenerator::Start();
+    connect(&fuseServiceHandler, SIGNAL(continueMountVolume(QSharedPointer<Core::MountVolumeRequest>,
+                                        QSharedPointer<Core::MountVolumeResponse>)), this,
+            SLOT(continueMountVolume(QSharedPointer<Core::MountVolumeRequest>,
+                                     QSharedPointer<Core::MountVolumeResponse>)));
+}
+
+void CoreBase::exit()
+{
+    if (fuseServiceHandler.isRunning())
+    {
+        connect(&fuseServiceHandler, SIGNAL(exited()), this, SLOT(exit()));
+        fuseServiceHandler.exit();
+    }
+    else
+    {
+        // The main loop was not started, so an imediate call to app.quit() would not be working.
+        QMetaObject::invokeMethod(this, "exited", Qt::QueuedConnection);
+    }
 }
 
 CoreBase::~CoreBase()
 {
     RandomGenerator::Stop();
+}
+
+void CoreBase::mountVolumeCommon(QSharedPointer<MountVolumeRequest> params)
+{
+    try
+    {
+
+        if (!params)
+        {
+            throw InvalidParameterException("params", "params is null.");
+        }
+
+        if (isVolumeMounted(params->path))
+        {
+            throw VolumeAlreadyMountedException(params->path);
+        }
+
+        params->fuseMountPoint = getFreeFuseMountPoint();
+        params->isDevice = isDevice(params->path.canonicalFilePath());
+
+        /* Create FUSE mounting */
+#ifndef FUSE_SERVICE_DEBUG
+        fuseServiceHandler.mount(params);
+#else
+
+        FuseDriver::FuseService tmpnfs;
+        tmpnfs.mountRequestHandler(QVariant::fromValue(params));
+#endif
+
+    }
+    catch (GostCryptException& e)
+    {
+        e.clone(params->id.requestId)->raise();
+    }
 }
 
 QSharedPointer<GetEncryptionAlgorithmsResponse> CoreBase::getEncryptionAlgorithms(
@@ -630,7 +682,7 @@ QFileInfo CoreBase::getFreeFuseMountPoint()
         }
         catch (MountPointUsed& e)
         {
-            if (i < 100)
+            if (i < 100) // TODO magic int
             {
                 continue;
             }
@@ -642,8 +694,7 @@ QFileInfo CoreBase::getFreeFuseMountPoint()
 QFileInfo CoreBase::getFreeDefaultMountPoint(uid_t userId)
 {
     passwd* userinfo = getpwuid(userId);
-    QString mountPointbase = QStringLiteral("/media/") + QString(userinfo->pw_name) +
-                             QStringLiteral("/gostcrypt");
+    QString mountPointbase = QString(userinfo->pw_dir) + QStringLiteral("/gostcrypt");
     QList<QSharedPointer<MountedFilesystem>> mountedFilesystems = getMountedFilesystems();
 
     for (quint32 i = 1; true; i++)
@@ -659,7 +710,7 @@ QFileInfo CoreBase::getFreeDefaultMountPoint(uid_t userId)
                     throw MountPointUsedException(mountedFilesystem->MountPoint);
                 }
             }
-
+            // TODO may want to check ownership of the mountpoint maybe
 
             return QFileInfo(path);
 
@@ -708,10 +759,11 @@ bool CoreBase::processNonRootRequest(QVariant r)
                                 else HANDLE_REQUEST(BackupHeader, backupHeader)
                                     else HANDLE_REQUEST(RestoreHeader, restoreHeader)
                                         else HANDLE_REQUEST(BenchmarkAlgorithms, benchmarkAlgorithms)
-                                            else
-                                            {
-                                                return false;
-                                            }
+                                            else HANDLE_REQUEST(MountVolume, mountVolume)
+                                                else
+                                                {
+                                                    return false;
+                                                }
     return true;
 }
 

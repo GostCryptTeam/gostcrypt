@@ -8,7 +8,6 @@
 #include "CoreBase.h"
 #include "CoreRequest.h"
 #include "CoreResponse.h"
-#include "FuseService/FuseServiceHandler.h"
 #include "RandomGenerator.h"
 
 namespace GostCrypt
@@ -54,7 +53,7 @@ class CoreRoot : public CoreBase
      * @param params Parameters of the mount volume action
      * @param response Response of the mount volume action which may already contain some results
      */
-    void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params,
+    virtual void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params,
                              QSharedPointer<Core::MountVolumeResponse> response);
     /**
      * @brief Mount the inner hidden volume instance so that it can be formatted with a file system. This function is part of the volume creation action.
@@ -90,7 +89,7 @@ class CoreRoot : public CoreBase
      *
      * @param params Parameters of the function
      */
-    void mountVolume(QSharedPointer<MountVolumeRequest> params);
+    virtual void mountVolume(QSharedPointer<MountVolumeRequest> params);
     /**
      * @brief Function in charge of the dismount volume action
      *
@@ -131,9 +130,7 @@ class CoreRoot : public CoreBase
                            QSharedPointer<CreateVolumeResponse> parentResponse, ProgressTrackingParameters id);
     uid_t realUserId; /**< ID of the user who launched GostCrypt */
     gid_t realGroupId; /**< ID of the group who launched GostCrypt */
-    GostCrypt::FuseDriver::FuseServiceHandler
-    fuseServiceHandler; /**< Object managing the Fuse service in charge of the Fuse file system creation when mounting a volume */
- signals:
+     signals:
     /**
      * @brief Signal emitted after the current volume instance has been mounted, formatted with the file system and dismounted in order to continue the volume creation action
      *

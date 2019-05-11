@@ -31,10 +31,6 @@ CoreRoot::CoreRoot(QObject* parent): CoreBase(parent)
     {
         realUserId =  static_cast <gid_t>(QString(envSudoUID).toLong());
     }
-    connect(&fuseServiceHandler, SIGNAL(continueMountVolume(QSharedPointer<Core::MountVolumeRequest>,
-                                        QSharedPointer<Core::MountVolumeResponse>)), this,
-            SLOT(continueMountVolume(QSharedPointer<Core::MountVolumeRequest>,
-                                     QSharedPointer<Core::MountVolumeResponse>)));
 }
 
 void CoreRoot::exit()
@@ -42,16 +38,7 @@ void CoreRoot::exit()
 #ifdef DEBUG_CORESERVICE_HANDLER
     qDebug() << "CoreRoot exiting";
 #endif
-    if (fuseServiceHandler.isRunning())
-    {
-        connect(&fuseServiceHandler, SIGNAL(exited()), this, SIGNAL(exited()));
-        fuseServiceHandler.exit();
-    }
-    else
-    {
-        // The main loop was not started, so an imediate call to app.quit() would not be working.
-        QMetaObject::invokeMethod(this, "exited", Qt::QueuedConnection);
-    }
+    this->CoreBase::exit();
 }
 
 void CoreRoot::request(QVariant r)
@@ -63,6 +50,11 @@ void CoreRoot::request(QVariant r)
             {
                 throw UnknowRequestException(r.typeName());
             }
+}
+
+void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
+{
+    this->mountVolumeCommon(params);
 }
 
 void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
@@ -98,7 +90,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
             QFileInfo virtualDevice;
             QFileInfo imageFile(params->fuseMountPoint.absoluteFilePath() + FuseDriver::getVolumeImagePath());
             virtualDevice = LoopDeviceManager::attachLoopDevice(imageFile,
-                            params->protection == Volume::VolumeProtection::ReadOnly);
+                            params->protection == Volume::VolumeProtection::ReadOnly); // TODO : not needed anymore
             updateProgress(0.76, params->id);
             try
             {
@@ -110,7 +102,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
                 throw; //rethrow
             }
             updateProgress(0.78, params->id);
-            if (params->doMount)
+            if (params->doMount) // TODO : this is the interesting part
             {
                 if (params->mountPoint.filePath().isEmpty())
                 {
@@ -126,11 +118,14 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
                     }
                     mountDirCreated = true;
                 }
+                // TODO don't mount with loop device (it doesnt exist) but with fuse volume file at /home/user/.gostcrypt1/volume maybe ?
                 MountFilesystemManager::mountFilesystem(virtualDevice, params->mountPoint, params->fileSystemType,
                                                         params->protection == Volume::VolumeProtection::ReadOnly, mountedForUserId, mountedForGroupId,
                                                         params->fileSystemOptions);
             }
             updateProgress(0.91, params->id);
+
+            // Checking if volume is listed by core (then it is mounted)
             QSharedPointer<GetMountedVolumesRequest> getMountedVolumesParams(new GetMountedVolumesRequest);
             QSharedPointer<GetMountedVolumesResponse> getMountedVolumesResponse(new GetMountedVolumesResponse);
             getMountedVolumesParams->volumePath = params->path;
@@ -183,39 +178,7 @@ void CoreRoot::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
     }
 }
 
-void CoreRoot::mountVolume(QSharedPointer<MountVolumeRequest> params)
-{
-    try
-    {
 
-        if (!params)
-        {
-            throw InvalidParameterException("params", "params is null.");
-        }
-
-        if (isVolumeMounted(params->path))
-        {
-            throw VolumeAlreadyMountedException(params->path);
-        }
-
-        params->fuseMountPoint = getFreeFuseMountPoint();
-        params->isDevice = isDevice(params->path.canonicalFilePath());
-
-        /* Create FUSE mounting */
-#ifndef FUSE_SERVICE_DEBUG
-        fuseServiceHandler.mount(params);
-#else
-
-        FuseDriver::FuseService tmpnfs;
-        tmpnfs.mountRequestHandler(QVariant::fromValue(params));
-#endif
-
-    }
-    catch (GostCryptException& e)
-    {
-        e.clone(params->id.requestId)->raise();
-    }
-}
 
 QSharedPointer<DismountVolumeResponse> CoreRoot::dismountVolume(
     QSharedPointer<DismountVolumeRequest> params)

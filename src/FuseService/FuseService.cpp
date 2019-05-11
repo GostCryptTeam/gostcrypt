@@ -34,6 +34,7 @@ void FuseService::initSerializables()
 
 void FuseService::mountRequestHandler(QVariant r)
 {
+
     if (!r.canConvert<QSharedPointer<Core::MountVolumeRequest>>())
     {
         throw UnknowRequestException(r.typeName());
@@ -98,15 +99,15 @@ void FuseService::mountRequestHandler(QVariant r)
                 params->useBackupHeaders
             );
         }
-        catch (FailedOpenFile& e)
+        catch (QException &e)
         {
             // In case of permission issue try again in read-only
-            if (params->protection != Volume::VolumeProtection::ReadOnly)
+            /*if (params->protection != Volume::VolumeProtection::ReadOnly)
             {
                 params->protection = Volume::VolumeProtection::ReadOnly;
                 response->readOnlyFailover = true;
                 continue;
-            }
+            }*/
             throw;
         }
 

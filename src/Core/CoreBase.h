@@ -10,8 +10,9 @@
 #include "Volume/EncryptionModeXTS.h"
 #include "Volume/EncryptionAlgorithm.h"
 #include "Service.h"
+#include "FuseService/FuseServiceHandler.h"
 
-//used to generate random files (maybe to remove or at least move)
+//TODO used to generate random files (maybe to remove or at least move)
 #define FILE_OPTIMAL_WRITE_SIZE 256*1024
 
 #define GOSTCRYPT_FUSE_MOUNT_DIR_PREFIX ".gostcrypt_aux_mnt"
@@ -58,6 +59,11 @@ class CoreBase : public QObject
 
     ~CoreBase();
 
+ private:
+ GostCrypt::FuseDriver::FuseServiceHandler
+    fuseServiceHandler; /**< Object managing the Fuse service in charge of the Fuse file system creation when mounting a volume */
+
+
  public slots:  // NOLINT
     /**
      * @brief Execute the requested action (mount, dismount, create a volume, etc)
@@ -70,14 +76,41 @@ class CoreBase : public QObject
      * @brief Close child processes used by this object
      *
      */
-    virtual void exit() = 0;
+    virtual void exit();
     /**
      * @brief Receive password of the current user in order to get root priviliges using sudo utility. The current user must be authorized to use sudo to launch the GostCrypt executable as root user.
      *
      * @param password Password of the current user
      */
     virtual void receiveSudoPassword(QString password) = 0;
+
+protected slots:
+
+    /**
+     * @brief Continue to mount the volume after the Fuse process has been successfully launched
+     *
+     * @param params Parameters of the mount volume action
+     * @param response Response of the mount volume action which may already contain some results
+     */
+    virtual void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params,
+                             QSharedPointer<Core::MountVolumeResponse> response) = 0;
+
  protected:
+
+    /**
+     * @brief Function in charge of the mount volume action
+     *
+     * @param params Parameters of the function
+     */
+    virtual void mountVolume(QSharedPointer<MountVolumeRequest> params) = 0;
+
+     /**
+     * @brief Function in charge of the mount volume action (common code for root and user)
+     *
+     * @param params Parameters of the function
+     */
+    void mountVolumeCommon(QSharedPointer<MountVolumeRequest> params);
+
     /**
      * @brief Give the supported encryption algorithms names. These names should be used to indicate which algorithm to use for other actions
      *

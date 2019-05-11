@@ -61,6 +61,12 @@ class CoreUser : public CoreBase
     CoreServiceHandler
     csh; /**< Oject managing the CoreService process to launch, communicate and stop the CoreService process. This process is in charge of executing the GostCrypt actions that require root privileges.
  */
+  /**
+     * @brief Custom version of mount volume to send to root process or not
+     *
+     * @param params Parameters of the function
+     */
+    virtual void mountVolume(QSharedPointer<MountVolumeRequest> params);
  signals:
     /**
      * @brief Signal emitted to send the user password to the CoreServiceHandler when it is received from the UI
@@ -68,6 +74,11 @@ class CoreUser : public CoreBase
      * @param password Password of the current user as raw bytes.
      */
     void sendSudoPassword(QSharedPointer<QByteArray> password);
+
+
+private slots:
+    virtual void continueMountVolume(QSharedPointer<Core::MountVolumeRequest> params,
+                             QSharedPointer<Core::MountVolumeResponse> response);
 };
 
 }

@@ -206,7 +206,7 @@ void ServiceHandler::startProcess()
     process.setReadChannel(QProcess::StandardOutput);
 #endif
     process.start();
-
+    qDebug() << "Start " << process.pid() << ": " << args[0];
 #ifdef GENERATE_REQUESTS_DUMP
     requestsDumpStream.setDevice(&requestDumpFile);
     requestDumpFile.setFileName("requestsDump_" + args.last());
