@@ -192,19 +192,8 @@ void FuseService::sendResponseWhenReady(QVariant response)
 
 FuseService::FuseService() : Service("FuseService")
 {
-    FuseService::userId = static_cast <gid_t>(0);
-    FuseService::groupId = static_cast <gid_t>(0);
-
-    const char* envSudoGID = getenv("SUDO_GID");
-    if (envSudoGID)
-    {
-        FuseService::groupId =  static_cast <gid_t>(QString(envSudoGID).toLong());
-    }
-    const char* envSudoUID = getenv("SUDO_UID");
-    if (envSudoUID)
-    {
-        FuseService::userId =  static_cast <gid_t>(QString(envSudoUID).toLong());
-    }
+    FuseService::userId = getuid();
+    FuseService::groupId = getgid();
 
     qputenv("QT_LOGGING_TO_CONSOLE", QByteArray("0"));
 }
@@ -682,6 +671,7 @@ void FuseService::launchFuse()
         fuse_service_oper.readdir = fuse_service_readdir;
         fuse_service_oper.write = fuse_service_write;
 
+        // options uid and gid are not useful. All permissions are handled by fuse_service_access at runtime
         QByteArray argsByteArray[5];
         argsByteArray[0] = QByteArray("gostcrypt");
         argsByteArray[1] = fuseMountPoint.absoluteFilePath().toLatin1();

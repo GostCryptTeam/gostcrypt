@@ -76,6 +76,7 @@ void CoreUser::mountVolume(QSharedPointer<MountVolumeRequest> params)
 void CoreUser::continueMountVolume(QSharedPointer<MountVolumeRequest> params,
                                    QSharedPointer<MountVolumeResponse> response)
 {
+    //TODO implementation of this part is next. should be a Global feature in CoreBase like mountVolumeCommon
     this->sendMountVolume(response);
 }
 
